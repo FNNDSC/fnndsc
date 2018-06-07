@@ -2,8 +2,6 @@ language: node_js
 node_js:
   - "6.9"
 sudo: required
-install:
-  - yarn add https://github.com/peterbraden/node-opencv
 script:
   - cd js/cubeStoreAPI/ && yarn install
   - cd js/cubeStoreAPI/ && yarn test
