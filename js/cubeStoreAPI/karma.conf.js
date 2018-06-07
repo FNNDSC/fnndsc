@@ -7,7 +7,6 @@ module.exports = function(config) {
     files: ['src/**/*.test.ts'],
     exclude: [],
     preprocessors: {
-      // 'app.js': ['webpack'],
       'src/**/*.test.ts': ['webpack'],
     },
     webpack: {
