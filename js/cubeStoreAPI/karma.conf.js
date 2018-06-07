@@ -1,28 +1,29 @@
 var webpackConfig = require('./webpack.config');
 
-module.exports = function (config) {
+module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['mocha', 'chai', 'sinon'],
-    files: [
-      'src/**/*.test.ts'
-    ],
-    exclude: [
-    ],
+    files: ['src/**/*.test.ts'],
+    exclude: [],
     preprocessors: {
-      'src/**/*.test.ts': ['webpack']
+      'src/**/*.test.ts': ['webpack'],
     },
     webpack: {
+      resolve: webpackConfig.resolve,
       module: webpackConfig.module,
-      resolve: webpackConfig.resolve
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx'],
     },
     reporters: ['progress'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeHeadless'],
     singleRun: false,
-    concurrency: Infinity
-  })
-}
+    browserDisconnectTimeout: 10000,
+    concurrency: Infinity,
+  });
+};

@@ -1,6 +1,6 @@
 {
     "presets": [
-        "@babel/env",
+        [ "@babel/env", { "targets": { "chrome": "52" } } ],
         "@babel/typescript"
     ],
     "plugins": [
