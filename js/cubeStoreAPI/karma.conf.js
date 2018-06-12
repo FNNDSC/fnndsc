@@ -4,17 +4,14 @@ module.exports = function(config) {
   config.set({
     basePath: '',
     frameworks: ['mocha', 'chai', 'sinon'],
-    files: ['src/**/*.test.ts'],
+    files: ['src/**/*.test.js'],
     exclude: [],
     preprocessors: {
-      'src/**/*.test.ts': ['webpack'],
+      'src/**/*.test.js': ['webpack'],
     },
     webpack: {
       resolve: webpackConfig.resolve,
       module: webpackConfig.module,
-    },
-    mime: {
-      'text/x-typescript': ['ts', 'tsx'],
     },
     reporters: ['progress'],
     port: 9876,
