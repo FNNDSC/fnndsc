@@ -1,6 +1,6 @@
 # Cube Store API
 
-Using `typescript` and `es2017`. Compiled version may have to be transpilled to `es2015` for broader support (including it will allow us to use it in a `create-react-app`).
+Generates `es2015` bundle.
 
 ## Prerequisite
 
