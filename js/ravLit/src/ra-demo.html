@@ -1,0 +1,134 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="ra-demo">
+<script>
+  class RaDemo extends Polymer.Element {
+    static get is() {
+      return 'ra-demo';
+    }
+
+    static get properties() {
+      return {
+        demoId: {
+          type: String,
+          value: '',
+          observer: '_demoIdChanged',
+        },
+        demoLayout: {
+          type: Object,
+          value: {},
+          notify: true,
+        },
+      };
+    }
+
+    _demoIdChanged(demoId) {
+      if (demoId === null || demoId === '') {
+        return;
+      }
+
+      const demoLayout = this[`_${demoId}`]();
+      this.set('demoLayout', demoLayout);
+    }
+
+    _6months1() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT1.6.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '999c04ea.ce41.11e7.83af.7824af84338e', // AXIAL FSE T2 P
+            '1b341bc8.ce51.11e7.83af.7824af84338e', // AXIAL T2 N
+            'a62fd6b4.ce41.11e7.83af.7824af84338e', // AXIAL T2 FLAIR P
+            '1704a90a.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            'de3ef602.ce41.11e7.83af.7824af84338e', // WIP MOCO MPRAGE SAG P
+            // 'b1493540.ce41.11e7.83af.7824af84338e', // COR MPRAGE P
+            '25e15efa.ce51.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            ],
+        },
+      };
+    }
+
+    _6months2() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT2.6.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '7446bd26.ce4f.11e7.83af.7824af84338e', // AXIAL TSE T2 P
+            '1b341bc8.ce51.11e7.83af.7824af84338e', // AXIAL T2 N
+            '774d0e6c.ce4f.11e7.83af.7824af84338e', // AXIAL T1 FLAIR P
+            '1704a90a.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            'fbd673d0.ce4f.11e7.83af.7824af84338e', // WIP MOCO MPRAGE SAG P
+            '25e15efa.ce51.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            ],
+        },
+      };
+    }
+
+    _7months() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT.7.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '8442e38e.ce50.11e7.83af.7824af84338e', // AXIAL FSE T2 P
+            'c8bafbdc.ce50.11e7.83af.7824af84338e', // AXIAL T2 N
+            '873b16e2.ce50.11e7.83af.7824af84338e', // AXIAL T2 FLAIR P
+            'c5599c00.ce50.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            '8bfcc3e2.ce50.11e7.83af.7824af84338e', // SAG T1 P
+            'd4a3fd72.ce50.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            ],
+        },
+      };
+    }
+
+    _25months() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT.25.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '306e7ff2.ce50.11e7.83af.7824af84338e', // AXIAL T2 FLAIR P
+            '3f110e8e.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            '451b7c16.ce50.11e7.83af.7824af84338e', // SAG 3D P
+            '519e7b86.ce51.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            '3eddd510.ce50.11e7.83af.7824af84338e', // CORONAL FSE T2 P
+            '47cf0418.ce51.11e7.83af.7824af84338e', // CORONAL T2 N
+            ],
+        },
+      };
+    }
+
+    _30months() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT.30.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '597c0202.ce50.11e7.83af.7824af84338e', // FLAIR AXIAL P
+            '2f1d2cd8.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            '70527830.ce50.11e7.83af.7824af84338e', // T2 TSE AXIAL P
+            '31567860.ce51.11e7.83af.7824af84338e', // AXIAL T2 N
+            '65755d6a.ce50.11e7.83af.7824af84338e', // MPRAGE COR P
+            '3440bd9c.ce51.11e7.83af.7824af84338e', // CORONAL T2 N
+            ],
+        },
+      };
+    }
+
+  }
+
+  window.customElements.define(RaDemo.is, RaDemo);
+</script>
+</dom-module>

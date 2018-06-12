@@ -1,0 +1,28 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/ravl-app.html",
+  "fragments": [
+    "src/ravl-viewer.html",
+    "src/ravl-view404.html"
+  ],
+  "sources": [
+    "RSNA/**/*",
+    "src/**/*",
+    "images/**/*",
+    "bower.json"
+  ],
+  "extraDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/*.js",
+    "bower_components/web-animations-js/*.js",
+    "404.html"
+  ],
+  "lint": {
+    "rules": ["polymer-2"]
+  },
+  "builds": [
+    {
+      "preset": "es5-bundled"
+    }
+  ]
+}

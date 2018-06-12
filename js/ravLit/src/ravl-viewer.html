@@ -1,0 +1,865 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+
+<!-- App components  -->
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+<!-- Iron components -->
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+
+<!-- Paper components  -->
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+
+<!--Chips components  -->
+<link rel="import" href="../bower_components/chips-api/chips-api.html">
+<link rel="import" href="../bower_components/chips-api/behaviors/chips-plugin-behavior.html">
+
+<link rel="import" href="../bower_components/wc-series-preview/wc-series-preview.html">
+<link rel="import" href="../bower_components/wc-viewer-2d/wc-viewer-2d.html">
+
+<!-- Local components  -->
+<link rel="import" href="elements/rav-panel.html">
+<link rel="import" href="elements/rav-layout-manager.html">
+<link rel="import" href="elements/image-controls.html">
+<link rel="import" href="elements/viewer-global-controls.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="ravl-viewer">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        background-color: var(--dark-primary-color);
+        color: var(--text-primary-color);
+        font-weight: lighter;
+        width: 100%;
+        min-height: 0;
+      }
+
+      .content {
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        background-color: var(--dark-primary-color);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--dark-primary-color);
+        z-index: 2;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        font-size: 24px;
+      }
+
+      .panel {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+
+      .viewersContainer {
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        display:-webkit-box;
+        display:-ms-flexbox;
+        display:flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
+      }
+
+      rav-layout-manager {
+        flex: 1;
+        height: 100%;
+      }
+
+      .viewers {
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        height: 0;
+        width: 100%;
+      }
+
+      .viewerui {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        height: 100%;
+        position: relative;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        width: 0;
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        border: 1px solid #212121;
+        border-bottom: 4px solid #212121;
+      }
+
+      .viewerui.active {
+        border-bottom-color: var(--accent-color);
+      }
+
+      .series{
+        -webkit-box-flex: 1;
+            -ms-flex: 1;
+                flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+
+      .data {
+        font-size: 18px;
+        padding: 2px;
+      }
+
+      .data > div {
+        display: flex;
+        align-items: center;
+      }
+
+      .data > div > iron-icon {
+        margin-right: 4px;
+      }
+
+      .patient.data > div > iron-icon {
+        color: var(--patient-primary-color);
+      }
+
+      .normative.data > div > iron-icon {
+        color: var(--normative-primary-color);
+      }
+
+      .border-bottom {
+        border-bottom: 1px solid var(--divider-color);
+      }
+
+      .border-right {
+        border-right: 1px solid var(--divider-color);
+      }
+
+      .border-left {
+        border-left: 1px solid var(--divider-color);
+      }
+
+      .loader {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: var(--dark-primary-color);
+        z-index: 2;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        color: #ffffff;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+
+      .globalControls {
+        width: 100%;
+        background-color: var(--dark-primary-color);
+      }
+
+      .illustration {
+        width: 128px;
+        height: 128px;
+        margin: auto;
+        margin-bottom: 24px;
+      }
+
+      .search-image {
+        background-image: url("/images/search.svg");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      .left-image {
+        background-image: url("/images/people.svg");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      .retrieving {
+        padding: 10px;
+      }
+
+      series-preview {
+        margin: 4px;
+      }
+
+      app-toolbar.data {
+        height: auto;
+        background: var(--default-primary-color);
+        border: 1px solid var(--divider-color);
+      }
+
+      [hidden] {
+        display: none;
+      }
+    </style>
+
+    <chips-api
+      id="API"></chips-api>
+
+    <rav-panel
+      class="border-right"
+      hidden$=[[!_isReady(dataStatusBch)]]
+      on-is-open-changed="_panelIsOpenChanged">
+        <div slot="title">Data</div>
+        <div slot="content">
+          <app-toolbar class="patient data">
+            <div main-title>
+              <iron-icon icon="social:person"></iron-icon><div>Patient</div>
+            </div>
+          </app-toolbar>
+          <div class="patient series">
+              <!-- Fetching ready -->
+              <template is="dom-if" if="[[_isReady(dataStatusBch)]]">
+                <template is="dom-repeat" items="[[dataBch]]">
+                  <wc-series-preview
+                    active="[[active]]"
+                    layout="[[layout]]"
+                    current-layout="[[currentLayout]]"
+                    draggable="true"
+                    on-dragstart="_onDragStart"
+                    series="[[item]]"
+                    type="patient"><wc-series-preview>
+                </template>
+              </template>
+
+            </div>
+            <app-toolbar class="normative data">
+              <div main-title>
+                <iron-icon icon="social:school"></iron-icon><div>Normatives</div>
+              </div>
+            </app-toolbar>
+            <div class="normative series">
+              <template is="dom-repeat" items="[[dataGe]]">
+                <wc-series-preview
+                  active="[[active]]"
+                  layout="[[layout]]"
+                  current-layout="[[currentLayout]]"
+                  draggable="true"
+                  on-dragstart="_onDragStart"
+                  series="[[item]]"
+                  type="normative"><wc-series-preview>
+              </template>
+            </div>
+        </div>
+    </rav-panel>
+
+    <div class="content">
+      <!-- global controls -->
+      <div class="globalControls border-bottom">
+        <viewer-global-controls
+          layout="{{layout}}"
+          localizer="{{localizerVisible}}"
+          theater-mode="{{theaterMode}}"></viewer-global-controls>
+      </div>
+
+      <!-- viewers container -->
+      <div class="viewersContainer">
+        <rav-layout-manager
+          active="[[active]]"
+          layout="[[layout]]"
+          fullscreen="[[fullscreen]]"
+          on-iron-resize="_layoutSizeChanged">
+            <wc-viewer-2d
+              id="viewer0"
+              data-uid="0"
+              slot="s0"
+              active="[[_isActive(0, active)]]"
+              color-lut="{{colorLut0}}"
+              cursor="{{cursor}}"
+              histogram="{{histogram0}}"
+              offset-sync="{{offsetSync}}"
+              localizer="{{l0}}"
+              localizer0="{{l1}}"
+              localizer1="{{l2}}"
+              localizer2="{{l3}}"
+              localizer-visible="[[localizerVisible]]"
+              min-max="{{minMax0}}"
+              orientation="{{orientation0}}"
+              window-center="{{windowCenter0}}"
+              window-level="{{windowLevel0}}"
+              window-width="{{windowWidth0}}"
+              on-enter-fullscreen="_onEnterFullscreen"
+              on-exit-fullscreen="_onExitFullscreen"
+              on-activate="_onActivateRenderer"
+              on-deactivate="_onDeactivateRenderer"
+              on-drop="_onDrop"
+              on-dragenter="_onDragEnter"
+              on-dragleave="_onDragLeave"
+              on-dragover="_onDragOver"></wc-viewer-2d>
+
+            <wc-viewer-2d
+              id="viewer1"
+              data-uid="1"
+              slot="s1"
+              active="[[_isActive(1, active)]]"
+              color-lut="{{colorLut1}}"
+              cursor="{{cursor}}"
+              histogram="{{histogram1}}"
+              offset-sync="{{offsetSync}}"
+              localizer="{{l1}}"
+              localizer0="{{l0}}"
+              localizer1="{{l2}}"
+              localizer2="{{l3}}"
+              localizer-visible="[[localizerVisible]]"
+              min-max="{{minMax1}}"
+              orientation="{{orientation1}}"
+              window-center="{{windowCenter1}}"
+              window-level="{{windowLevel1}}"
+              window-width="{{windowWidth1}}"
+              on-enter-fullscreen="_onEnterFullscreen"
+              on-exit-fullscreen="_onExitFullscreen"
+              on-activate="_onActivateRenderer"
+              on-deactivate="_onDeactivateRenderer"
+              on-drop="_onDrop"
+              on-dragenter="_onDragEnter"
+              on-dragleave="_onDragLeave"
+              on-dragover="_onDragOver"></wc-viewer-2d>
+
+            <wc-viewer-2d
+              id="viewer2"
+              data-uid="2"
+              slot="s2"
+              active="[[_isActive(2, active)]]"
+              color-lut="{{colorLut2}}"
+              cursor="{{cursor}}"
+              histogram="{{histogram2}}"
+              offset-sync="{{offsetSync}}"
+              localizer="{{l2}}"
+              localizer0="{{l0}}"
+              localizer1="{{l1}}"
+              localizer2="{{l3}}"
+              localizer-visible="[[localizerVisible]]"
+              min-max="{{minMax2}}"
+              orientation="{{orientation2}}"
+              window-center="{{windowCenter2}}"
+              window-level="{{windowLevel2}}"
+              window-width="{{windowWidth2}}"
+              on-enter-fullscreen="_onEnterFullscreen"
+              on-exit-fullscreen="_onExitFullscreen"
+              on-activate="_onActivateRenderer"
+              on-deactivate="_onDeactivateRenderer"
+              on-drop="_onDrop"
+              on-dragenter="_onDragEnter"
+              on-dragleave="_onDragLeave"
+              on-dragover="_onDragOver"></wc-viewer-2d>
+        </rav-layout-manager>
+      </div>
+      </div>
+    </div>
+    <rav-panel
+      class="border-left"
+      size="large"
+      hidden$="[[!_isSomethingActive(active)]]"
+      on-is-open-changed="_panelIsOpenChanged">
+
+      <div slot="title">Active view</div>
+      <div slot="content">
+        <image-controls
+          id="ic0"
+          hidden$="[[!_isActive(0, active)]]"
+          color-lut="{{colorLut0}}"
+          histogram="[[histogram0]]"
+          min-max="[[minMax0]]"
+          orientation="{{orientation0}}"
+          window-center="{{windowCenter0}}"
+          window-level="{{windowLevel0}}"
+          window-width="{{windowWidth0}}"></image-controls>
+
+        <image-controls
+          id="ic1"
+          hidden$="[[!_isActive(1, active)]]"
+          color-lut="{{colorLut1}}"
+          histogram="[[histogram1]]"
+          min-max="[[minMax1]]"
+          orientation="{{orientation1}}"
+          window-center="{{windowCenter1}}"
+          window-level="{{windowLevel1}}"
+          window-width="{{windowWidth1}}"></image-controls>
+
+        <image-controls
+          id="ic2"
+          hidden$="[[!_isActive(2, active)]]"
+          color-lut="{{colorLut2}}"
+          histogram="[[histogram2]]"
+          min-max="[[minMax2]]"
+          orientation="{{orientation2}}"
+          window-center="{{windowCenter2}}"
+          window-level="{{windowLevel2}}"
+          window-width="{{windowWidth2}}"></image-controls>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    class RAVLViewer extends CHIPSPluginBehavior(
+      Polymer.GestureEventListeners(Polymer.Element)) {
+      static get is() {
+        return 'ravl-viewer';
+      }
+
+      static get properties() {
+        return {
+          dataBch: {
+            type: Array,
+            value: [],
+          },
+          dataStatusBch: {
+            type: String,
+            value: '',
+            observer: '_dataStatusBchChanged',
+          },
+          activeBch: {
+            type: Boolean,
+            value: true,
+            observer: '_activeBchChanged',
+          },
+          dataGe: {
+            type: Array,
+            value: [],
+          },
+          dataStatusGe: {
+            type: String,
+            value: '',
+          },
+          activeGe: {
+            type: Boolean,
+            value: false,
+            observer: '_activeGeChanged',
+          },
+          running: {
+            type: Boolean,
+            value: false,
+          },
+          geLink: {
+            type: String,
+            value: '',
+          },
+          previousInstance: {
+            type: Object,
+            value: {},
+          },
+          layout: {
+            type: Number,
+            value: 0,
+            observer: '_layoutSizeChanged',
+          },
+          cacheLayout: {
+            type: Array,
+            value: [-1, -1, -1, -1, -1, -1],
+          },
+          currentLayout: {
+            type: Array,
+            value: [],
+          },
+          active: {
+            type: Number,
+            value: -1,
+            observer: '_activeChanged',
+          },
+          fullscreen: {
+            type: Number,
+            value: -1,
+          },
+          fullscreenViewer: {
+            type: Boolean,
+            value: false,
+          },
+          theaterMode: {
+            type: Boolean,
+            observer: '_theaterModeChanged',
+          },
+          serverIp: {
+            type: String,
+          },
+          serverPort: {
+            type: String,
+          },
+          serverNamespace: {
+            type: String,
+          },
+        };
+      }
+
+      static get observers() {
+        return [
+          '_currentLayoutChanged(currentLayout.*)',
+        ];
+      }
+
+      constructor() {
+        super();
+        this._resizeListenerBound = this._resizeListener.bind(this);
+        this._fullscreenListenerBound = this._fullscreenListener.bind(this);
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        window.addEventListener('resize', this._resizeListenerBound);
+        this.addEventListener(
+          'webkitfullscreenchange', this._fullscreenListenerBound);
+        this.addEventListener(
+          'mozfullscreenchange', this._fullscreenListenerBound);
+        this.addEventListener(
+          'fullscreenchange', this._fullscreenListenerBound);
+        this.addEventListener(
+          'MSfullscreenchange', this._fullscreenListenerBound);
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('resize', this._resizeListenerBound);
+        this.removeEventListener(
+          'webkitfullscreenchange', this._fullscreenListenerBound);
+        this.removeEventListener(
+          'mozfullscreenchange', this._fullscreenListenerBound);
+        this.removeEventListener(
+          'fullscreenchange', this._fullscreenListenerBound);
+        this.addremoveEventListenerEventListener(
+          'MSfullscreenchange', this._fullscreenListenerBound);
+      }
+
+      _dataStatusBchChanged(status) {
+        if (status !== 'ready') {
+          this.set('dataBch', []);
+          this.set('dataSelectedBch', {});
+          this.set('dataGe', []);
+          this.set('dataSelectedGe', {});
+        }
+      }
+
+      _panelIsOpenChanged() {
+        this._layoutSizeChanged();
+        return;
+      }
+
+      _isEmpty(status) {
+        return status === 'empty';
+      }
+
+      _isRunning(status) {
+        return status === 'running';
+      }
+
+      _isFetching(status) {
+        return status === 'fetching';
+      }
+
+      _isReady(status) {
+        if(sessionStorage.getItem('username') === 'demo') {
+          this.dataStatusBch = 'ready';
+          return true;
+        }
+
+        return status === 'ready';
+      }
+
+      _isSelected(data) {
+        return !(data === undefined || !data.data);
+      }
+
+      _activeBchChanged(active) {
+        if (active) {
+          this.activeGe = false;
+        }
+      }
+
+      _activeGeChanged(active) {
+        if (active) {
+          this.activeBch = false;
+        }
+      }
+
+      _isLoading(target, dataSelectedBch, dataSelectedGe, urlsTotal) {
+        // number of files reset to 0 when urls are loaded
+        if (target === 'bch' && dataSelectedBch && dataSelectedBch.data &&
+          (dataSelectedGe === undefined || dataSelectedGe.data ==undefined) &&
+          urlsTotal > 0) {
+          return true;
+        } else if (
+          target === 'ge' &&
+          dataSelectedGe &&
+          dataSelectedGe.data &&
+          urlsTotal > 0) {
+          return true;
+        }
+
+        return false;
+      }
+
+      /**
+       * Start dragging a series preview
+       *
+       * @param {*} event
+       */
+      _onDragStart(event) {
+        const draggingSeries = event.model.__data.item.details.series;
+        event.dataTransfer.setData('uid', draggingSeries.uid);
+      }
+
+      /**
+       * Drop a series preview
+       *
+       * @param {*} event
+       */
+      _onDrop(event) {
+        event.preventDefault();
+        event.target.drag = false;
+
+        const dataTransfer = event.dataTransfer;
+
+        const targetViewer = event.target;
+        this.set(
+          ['currentLayout', targetViewer.dataset.uid], dataTransfer.getData('uid'));
+      }
+
+      _onDragEnter(event) {
+        event.preventDefault();
+        event.target.drag = true;
+      }
+
+      _onDragOver(event) {
+        event.preventDefault();
+      }
+
+      _onDragLeave(event) {
+        event.preventDefault();
+        event.target.drag = false;
+      }
+
+      _onEnterFullscreen(event) {
+        this.fullscreen = event.target.dataset.uid;
+        this.active = this.fullscreen;
+        this._layoutSizeChanged();
+      }
+
+      _onExitFullscreen() {
+        this.fullscreen = -1;
+        this._layoutSizeChanged();
+      }
+
+      _onActivateRenderer(event) {
+        this.active = event.target.dataset.uid;
+      }
+
+      _onDeactivateRenderer(event) {
+        // remove active from layout
+        this.set(['currentLayout', this.active], -1);
+        this.active = -1;
+      }
+
+      _theaterModeChanged() {
+        let currentlyFullscreen = false;
+        if (document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement) {
+          currentlyFullscreen = true;
+        }
+
+        // go fulll screen!
+        if(this.theaterMode && !currentlyFullscreen) {
+          // request fullscreen
+          // https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
+          this.webkitRequestFullScreen();
+        } else if (!this.theaterMode && currentlyFullscreen) {
+          if (document.exitFullscreen)
+            document.exitFullscreen();
+          else if (document.webkitExitFullscreen)
+            document.webkitExitFullscreen();
+          else if (document.mozCancelFullScreen)
+            document.mozCancelFullScreen();
+          else if (document.msExitFullscreen)
+            document.msExitFullscreen();
+        }
+      }
+
+      _fullscreenListener(event) {
+        // if user exit fullscreen with the "esc" key
+        // we notify the toolbar
+        if (!(document.fullscreenElement ||
+          document.webkitFullscreenElement ||
+          document.mozFullScreenElement ||
+          document.msFullscreenElement) && this.theaterMode) {
+          this.theaterMode = false;
+        }
+
+        this._layoutSizeChanged();
+      }
+
+      _isActive(current, target) {
+        if (Number(current) === 0 && Number(target) === -1) {
+          return false;
+        }
+
+        return (Number(current) === Number(target));
+      }
+
+      _resizeListener() {
+        this._layoutSizeChanged();
+      }
+
+      _layoutSizeChanged(layout) {
+        if (Number.isInteger(layout)) {
+          // layout is not the number of available viewers
+          let nbOfViewers = layout;
+          if (layout === 4) {
+            nbOfViewers = 5;
+          } else if (layout === 5) {
+            nbOfViewers = 2;
+          }
+
+          if (this.currentLayout.length > nbOfViewers + 1) {
+            // cache what is being removed
+            for (let i = 0; i < this.currentLayout.length; i++) {
+              this.cacheLayout[i] = this.currentLayout[i];
+            }
+            // removing one element
+            this.currentLayout = this.currentLayout.slice(0, nbOfViewers + 1);
+          } else {
+            //
+            const cache =
+              this.cacheLayout.slice(this.currentLayout.length, nbOfViewers + 1);
+            // adding one element
+            this.currentLayout = [...this.currentLayout, ...cache];
+          }
+        }
+
+        // resize viewers
+        this.$.viewer0.resize();
+        this.$.viewer1.resize();
+        this.$.viewer2.resize();
+      }
+
+      _isSomethingActive(active) {
+        return active > -1;
+      }
+
+      _activeChanged(active) {
+        if (active === undefined || active === -1) {
+          // resize all
+          this._resizeListener();
+          return;
+        }
+
+        this.$[`ic${active}`].reflow();
+        this.$[`viewer${active}`].resize();
+      }
+
+      _currentLayoutChanged(currentLayout) {
+        // layout changed but no data dragged in
+        if (!currentLayout.path.includes('currentLayout.')) {
+          return false;
+        }
+
+        // something was removed
+        if (currentLayout.value === -1) {
+          return false;
+        }
+
+        // new data dragged in:
+        const uid = currentLayout.value;
+        const target = currentLayout.path.split('.')[1];
+
+        let type = '';
+        let images = [];
+        let api = {
+          apiRoot: typeof ChipsConfiguration === 'undefined' ? '' : ChipsConfiguration.apiRoot,
+          api: typeof ChipsConfiguration === 'undefined' ? '' : ChipsConfiguration.api,
+          token: sessionStorage.getItem('token'),
+        };
+
+        // loop through patients
+        for (let i = 0; i < this.dataBch.length; i++) {
+          if (this.dataBch[i].details.series.uid === uid) {
+            images = this.dataBch[i].details.series.data;
+            type = 'patient';
+            if (this.dataBch[i].api) {
+              api = this.dataBch[i].api;
+            }
+          }
+        }
+
+        // loop through normals
+        if (type !== 'patient') {
+          for (let i = 0; i < this.dataGe.length; i++) {
+            if (this.dataGe[i].details.series.uid === uid) {
+              images = this.dataGe[i].details.series.data;
+              type = 'normative';
+              api = {};
+            }
+          }
+        }
+
+        this.$[`viewer${target}`].api = api;
+        this.$[`viewer${target}`].images = images;
+        this.$[`viewer${target}`].type = type;
+      }
+    }
+
+    window.customElements.define(RAVLViewer.is, RAVLViewer);
+  </script>
+</dom-module>

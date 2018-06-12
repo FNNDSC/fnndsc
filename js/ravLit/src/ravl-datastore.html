@@ -1,0 +1,296 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/chips-api/chips-api.html">
+<link rel="import" href="../bower_components/chips-api/behaviors/chips-plugin-behavior.html">
+
+<dom-module id="ravl-datastore">
+  <template>
+    <chips-api
+      id="API"></chips-api>
+  </template>
+
+  <script>
+    class RAVLDataStore extends CHIPSPluginBehavior(Polymer.Element) {
+
+      static get is() {
+        return 'ravl-datastore';
+      }
+
+      static get properties() {
+        return {
+          feed: {
+            type: Object,
+            value: {},
+          },
+          plugin: {
+            type: Object,
+            value: {},
+            observer: '_pluginChanged',
+          },
+          pluginData: {
+            type: Array,
+            value: [],
+            notify: true,
+          },
+          pluginDataMap: {
+            type: Array,
+            value: new Map(),
+          },
+          pluginFiles: {
+            type: Array,
+            value: [],
+            notify: true,
+            observer: '_pluginFilesChanged',
+          },
+          pluginStatus: {
+            type: String,
+            value: '',
+            notify: true,
+          },
+        };
+      }
+      _pluginFilesChanged(pluginFiles) {
+        this._filesChanged();
+      }
+
+      _filesChanged() {
+        // clear the map
+        const map = this.pluginDataMap;
+        map.clear();
+
+        // build data structure
+        const files = this.pluginFiles;
+        for (const file of files) {
+          // handle DCM files
+          if (file.data.fname.endsWith('.dcm')) {
+            this._handleDCM(file, map);
+          } else if (file.data.fname.endsWith('preview.jpg')) {
+            this._handleJPG(file, map);
+          }
+        }
+
+        // convert data map to array for polymer dom-repeat to kick in
+        this._updateDataArray();
+
+        // fetch previews
+        // we need to do it after _updateDataArray
+        // so "path" is set in the series
+        const data = this.pluginData;
+        for(const series of data) {
+          if (series.preview !== null) {
+            this._fetchPreview(series);
+          }
+        }
+
+        let status = 'ready';
+        if (files.length === 0) {
+          status = 'empty';
+        }
+        this.set('pluginStatus', status);
+      }
+
+      _fetchPreview(series) {
+        //
+        const apiData = {};
+        apiData.auth = {
+          type: 'token',
+          token: sessionStorage.getItem('token'),
+        };
+        apiData.params = {};
+        // fetch ressource then update it all...
+        this.$.API.handleAs = 'blob';
+        return this.$.API.request(
+          'GET', series.preview.links.file_resource, apiData)
+        .then((response) => {
+          this.set(['pluginData', ...series.path, 'preview.blob'], response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+
+      _handleDCM(file, map) {
+        const series = this._getSeriesFromFile(file, map);
+        series.data.push(file);
+      }
+
+      _handleJPG(file, map) {
+        const series = this._getSeriesFromFile(file, map);
+        series.preview = file;
+      }
+
+      _getSeriesFromFile(file, map) {
+        // get series directory
+        const relativeFname = file.data.relative_fname;
+        const relativeDirectory =
+          relativeFname.slice(0, relativeFname.lastIndexOf('/'));
+
+        // find series in the map
+        let series = map.get(relativeDirectory);
+        if (series === null || series === undefined) {
+          // add new series  in the map if not present
+          series = this._seriesStructure();
+          map.set(relativeDirectory, series);
+        }
+        return series;
+      }
+
+      _seriesStructure() {
+        return {
+          data: [],
+          preview: null,
+          details: {
+            series: {
+              date: 'no value provided',
+              description: 'no value provided',
+              files: 0,
+            },
+          },
+        };
+      }
+
+      _updateDataArray() {
+        // Map to array
+        const dataArray = [];
+        const map = this.pluginDataMap;
+        map.forEach(this._dataMapToArray.bind(this, dataArray));
+
+        // update data
+        this.set('pluginData', dataArray);
+      }
+
+      _dataMapToArray(referenceArray, value, key) {
+        // set study series description
+        let seriesDate = 'no value provided';
+        let seriesDescription = 'no value provided';
+        const fullName = value.data[0].data.fname;
+        const splitName = fullName.split('/');
+        if (splitName.length >= 2) {
+          const directory = splitName[splitName.length - 2];
+          const splitSeries = directory.split('-');
+          if (splitSeries.length === 3) {
+            seriesDescription = splitSeries[0];
+            seriesDate = splitSeries[1];
+            if (seriesDate.length === 8) {
+              seriesDate = `
+                ${seriesDate.substring(0, 4)}-
+                ${seriesDate.substring(4, 6)}-
+                ${seriesDate.substring(6, 8)}`;
+            }
+          }
+        }
+        value.details.series.date = seriesDate;
+        value.details.series.description = seriesDescription;
+        // set study date
+        // set files
+        value.details.series.files = value.data.length + ' file';
+        if (value.data.length > 1) {
+          value.details.series.files += 's';
+        }
+        //
+        value.selected = false;
+        value.path = [];
+        value.path.push(referenceArray.length);
+        referenceArray.push(value);
+      }
+
+      _pluginChanged(plugin) {
+        if(!plugin || !plugin.data) {
+          return;
+        }
+
+        const pluginStatus = this.plugin.data.status;
+        if (pluginStatus === 'started') {
+          // wait until finished
+          this.pluginStatus = 'running';
+          this._waitForPluginFinished();
+        } else if (pluginStatus === 'finishedSuccessfully') {
+          // fetch files
+          this.pluginStatus = 'fetching';
+          this._fetchFiles();
+        } else {
+          this.pluginStatus = 'error';
+          console.log(`Un-handled plugin instance status: ${pluginStatus}`);
+        }
+      }
+
+      _waitForPluginFinished() {
+        const plugin = this.plugin;
+        const data = {};
+        data.auth = {
+          type: 'token',
+          token: sessionStorage.getItem('token'),
+        };
+
+        this.$.API.handleAs = 'json';
+        this.__waitEndPlugin(this.$.API, data, plugin, true)
+        .then((result) => {
+          console.log(result);
+          this.__formatPlugin(result, this.feed);
+          // compare to know if we are working with latest
+          if (plugin.data.id !== result.data.id) {
+            //
+            console.log(
+              `Discard 'plugin finished' for plugin ${result.data.id}
+              (current plugin: ${plugin.data.id})`);
+            return;
+          }
+
+          this.set('plugin', result);
+        });
+      }
+
+      _fetchFiles() {
+        const plugin = this.plugin;
+        const data = {};
+        data.auth = {
+          type: 'token',
+          token: sessionStorage.getItem('token'),
+        };
+        data.params = {};
+        data.params.limit = 9999;
+        data.params.page_size = 9999;
+        this.$.API.handleAs = 'json';
+        //
+        this.__getFilesPlugin(this.$.API, data, plugin)
+        .then(this._handleFilesResponse.bind(this))
+        .catch(this._handleFilesError.bind(this));
+      }
+
+      _handleFilesResponse(response) {
+        if (response.length <= 0) {
+          this.set('files', []);
+          return;
+        }
+
+        const plugin = this.plugin;
+        const responseTargetID = response[0].data.plugin_inst_id;
+        const currentTargetID = plugin.data.id;
+
+        if (responseTargetID !== currentTargetID) {
+          //
+          console.log(
+            `Discard 'files response' for plugin ${responseTargetID}
+            (current plugin: ${currentTargetID})`);
+          return;
+        }
+
+        this.status = 'processing';
+
+        const files = [];
+        for (const file of response) {
+          this.__formatFile(file);
+          files.push(file);
+        }
+
+        this.set('pluginFiles', files);
+      }
+
+      _handleFilesError(error) {
+        console.log(error);
+      }
+    }
+
+    window.customElements.define(RAVLDataStore.is, RAVLDataStore);
+  </script>
+</dom-module>
