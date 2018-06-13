@@ -10,6 +10,7 @@ module.exports = function(config) {
       'src/**/*.test.js': ['webpack'],
     },
     webpack: {
+      mode: 'development',
       resolve: webpackConfig.resolve,
       module: webpackConfig.module,
     },

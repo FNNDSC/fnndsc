@@ -2,7 +2,7 @@
   "name": "cubestoreapi",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/cubestoreapi.js",
+  "main": "dist/cubeStoreApi.js",
   "scripts": {
     "build": "webpack",
     "precommit": "lint-staged",
