@@ -10,9 +10,10 @@ export default class Request {
   /**
    * Constructor
    */
-  constructor(auth, timeout = 30000) {
+  constructor(auth, contentType = 'application/vnd.collection+json', timeout = 30000) {
     this.auth = auth;
     this.timeout = timeout;
+    this.contentType = contentType;
   }
 
   /**
@@ -25,7 +26,21 @@ export default class Request {
   get(url, params) {
     let self = this;
 
-    axios({
+    if (self.auth) {
+      return axios({
+        method: 'get',
+        headers: {
+          Accept: self.contentType,
+          'content-type': self.contentType,
+        },
+        url: url,
+        params: params,
+        auth: self.auth,
+        timeout: self.timeout,
+      });
+    }
+
+    return axios({
       method: 'get',
       headers: {
         Accept: self.contentType,
@@ -33,15 +48,7 @@ export default class Request {
       },
       url: url,
       params: params,
-      auth: self.auth,
       timeout: self.timeout,
-    })
-      .then(function(response) {
-        const cj = response;
-        window.console.log('cj: ', cj);
-      })
-      .catch(function(error) {
-        window.console.log(error);
-      });
+    });
   }
 }
