@@ -1,4 +1,4 @@
-import { getUser } from './index';
+import { getUser } from './user';
 import { expect } from 'chai';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
