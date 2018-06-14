@@ -13,7 +13,7 @@
   "browser": true,
   "esversion":6,
   "globals": {
-    "beforeEach": true,
-    "afterEach": true, "define": true
+    "beforeEach": true, "afterEach": true, "define": true,
+    "describe": true, "it": true
     }
 }
