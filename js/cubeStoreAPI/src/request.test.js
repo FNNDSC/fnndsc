@@ -24,14 +24,14 @@ describe('Request', () => {
         expect(cj).to.deep.equal(cj);
       })
       .catch(function(error) {
-        window.console.log(error);
+        window.console.log('error: ', error);
       })
       .then(done, done);
   });
 
   it('can make unauthenticated request', done => {
     const req = new Request();
-    const result = req.get(user_url);
+    const result = req.get(store_url);
 
     result
       .then(function(response) {
@@ -41,7 +41,7 @@ describe('Request', () => {
         expect(cj).to.deep.equal(cj);
       })
       .catch(function(error) {
-        window.console.log(error);
+        window.console.log('error: ', error);
       })
       .then(done, done);
   });
