@@ -29,7 +29,24 @@ describe('Request', () => {
       .then(done, done);
   });
 
-  it('can make unauthenticated request', done => {
+  it('can successfully make unauthenticated request', done => {
+    const req = new Request();
+    const result = req.get(user_url);
+
+    result
+      .then(function(response) {
+        const cj = response;
+
+        window.console.log('cj: ', cj);
+        expect(cj).to.deep.equal(cj);
+      })
+      .catch(function(error) {
+        window.console.log('error: ', error);
+      })
+      .then(done, done);
+  });
+
+  it('can report unsuccessfully unauthenticated request', done => {
     const req = new Request();
     const result = req.get(store_url);
 
@@ -41,7 +58,7 @@ describe('Request', () => {
         expect(cj).to.deep.equal(cj);
       })
       .catch(function(error) {
-        window.console.log('error: ', error);
+        window.console.log(error);
       })
       .then(done, done);
   });
