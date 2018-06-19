@@ -1,17 +1,7 @@
 /** * Imports ***/
 import axios from 'axios';
-
-/**
- * Custom exception object.
- *
- * @module request
- */
-export class StoreRequestException extends Error {
-  constructor(...args) {
-    super(...args);
-    this.name = this.constructor.name;
-  }
-}
+import StoreRequestException from './exception';
+import Collection from './cjson';
 
 /**
  * Http request object.
@@ -24,93 +14,67 @@ export default class Request {
    */
   constructor(auth, contentType = 'application/vnd.collection+json', timeout = 30000) {
     this.auth = auth;
-    this.timeout = timeout;
     this.contentType = contentType;
+    this.timeout = timeout;
   }
 
   /**
-   * Internal method to make a GET request to the ChRIS store.
+   * Perform a GET request to the ChRIS store.
    *
    * @param {*} url
    * @param {*} params
    * @return {*}
    */
   get(url, params) {
-    let self = this;
-
-    if (self.auth) {
-      return axios({
-        method: 'get',
-        headers: {
-          Accept: self.contentType,
-          'content-type': self.contentType,
-        },
-        url: url,
-        params: params,
-        auth: self.auth,
-        timeout: self.timeout,
-      })
-        .then(response => {
-          return response.data;
-        })
-        .catch(function(error) {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            //console.log(error.response.data);
-            //console.log(error.response.status);
-            //console.log(error.response.headers);
-            const errMessage = error.response.data.collection.error.message;
-            throw new StoreRequestException(errMessage);
-          } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            // http.ClientRequest in node.js
-            //console.log(error.request);
-            throw new StoreRequestException(error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            //console.log('Error', error.message);
-            throw new StoreRequestException(error.message);
-          }
-          //console.log(error.config);
-        });
-    }
-
-    return axios({
+    const config = {
       method: 'get',
       headers: {
-        Accept: self.contentType,
-        'content-type': self.contentType,
+        Accept: this.contentType,
+        'content-type': this.contentType,
       },
       url: url,
       params: params,
-      timeout: self.timeout,
-    })
+      timeout: this.timeout,
+    };
+
+    if (this.auth) {
+      config.auth = this.auth;
+    }
+
+    return axios(config)
       .then(response => {
-        return response.data;
+        return new Collection(response.data);
       })
-      .catch(function(error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          //console.log(error.response.data);
-          //console.log(error.response.status);
-          //console.log(error.response.headers);
-          const errMessage = error.response.data.collection.error.message;
-          throw new StoreRequestException(errMessage);
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          //console.log(error.request);
-          throw new StoreRequestException(error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          //console.log('Error', error.message);
-          throw new StoreRequestException(error.message);
-        }
-        //console.log(error.config);
+      .catch(error => {
+        Request._handleRequestError(error);
       });
+  }
+
+  /**
+   * Internal method to handle errors produced by HTTP requests to the ChRIS store.
+   *
+   * @param {*} error
+   */
+  static _handleRequestError(error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      //console.log(error.response.data);
+      //console.log(error.response.status);
+      //console.log(error.response.headers);
+      const coll = new Collection(error.response.data);
+      throw new StoreRequestException(coll.getErrorMessage());
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      //console.log(error.request);
+      throw new StoreRequestException(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      //console.log('Error', error.message);
+      throw new StoreRequestException(error.message);
+    }
+    //console.log(error.config);
   }
 }

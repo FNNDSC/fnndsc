@@ -1,4 +1,5 @@
 import Request from './request';
+import Collection from './cjson';
 import { expect } from 'chai';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
@@ -20,7 +21,7 @@ describe('Request', () => {
       .then(function(response) {
         const cj = response;
 
-        window.console.log('cj: ', cj);
+        window.console.log('cj: ', cj.collection);
         expect(cj).to.deep.equal(cj);
       })
       .catch(function(error) {
@@ -37,7 +38,7 @@ describe('Request', () => {
       .then(function(response) {
         const cj = response;
 
-        window.console.log('cj: ', cj);
+        window.console.log('cj: ', cj.collection);
         expect(cj).to.deep.equal(cj);
       })
       .catch(function(error) {
@@ -54,7 +55,7 @@ describe('Request', () => {
       .then(function(response) {
         const cj = response;
 
-        window.console.log('cj: ', cj);
+        window.console.log('cj: ', cj.collection);
         expect(cj).to.deep.equal(cj);
       })
       .catch(function(error) {

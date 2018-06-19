@@ -50,4 +50,35 @@ export default class StoreClient {
     }
     return null;
   }
+
+  /**
+   * Get a list of paginated collections.
+   *
+   * @param {*} coll
+   * @return {*}
+   */
+  getPaginatedCollections(coll) {
+    let collections = [];
+    let next_page_urls;
+    const req = new Request({ username: this.username, password: this.password });
+
+    do {
+      collections = collections.concat(coll);
+      next_page_urls = Collection.get_link_relation_urls(coll, 'next');
+
+      if (next_page_urls.length) {
+        // there is only a single next page
+        const response = req.get(next_page_urls[0]);
+
+        response
+          .then(obj => {
+            coll = obj;
+            window.console.log('cj: ', cj.collection);
+          })
+          .catch(error => {
+            window.console.log('error: ', error);
+          });
+      }
+    } while (next_page_urls.length);
+  }
 }
