@@ -55,30 +55,68 @@ export default class StoreClient {
    * Get a list of paginated collections.
    *
    * @param {*} coll
+   * @param {*} follow_link_relations
+   * @return {*}
+   */
+  get_items_from_paginated_collections(coll, follow_link_relations = []) {}
+
+  /**
+   * Get a list of paginated collections.
+   *
+   * @param {*} coll
    * @return {*}
    */
   getPaginatedCollections(coll) {
-    let collections = [];
-    let next_page_urls;
+    let collections = [coll];
     const req = new Request({ username: this.username, password: this.password });
 
-    do {
-      collections = collections.concat(coll);
-      next_page_urls = Collection.get_link_relation_urls(coll, 'next');
+    return new Promise(function(resolve, reject) {
+      StoreClient._runAsyncTask(function*() {
+        try {
+          let next_page_urls = Collection.get_link_relation_urls(coll, 'next');
 
-      if (next_page_urls.length) {
-        // there is only a single next page
-        const response = req.get(next_page_urls[0]);
+          while (next_page_urls.length) {
+            // there is only a single next page
+            // execution stops here before resp is assigned, and resumed in _runAsyncTask
+            let resp = yield req.get(next_page_urls[0]);
+            collections = collections.concat(resp.collection);
+            next_page_urls = Collection.get_link_relation_urls(resp.collection, 'next');
+          }
+        } catch (ex) {
+          reject(ex);
+        }
 
-        response
-          .then(obj => {
-            coll = obj;
-            window.console.log('cj: ', cj.collection);
+        resolve(collections);
+      });
+    });
+  }
+
+  /**
+   * Run asynchronous task defined by a task generator function.
+   *
+   * @param {*} taskGenerator
+   * @return {*}
+   */
+  static _runAsyncTask(taskGenerator) {
+    // create the iterator
+    let task = taskGenerator();
+    // start the task
+    let result = task.next();
+
+    // recursive function to iterate through
+    (function step() {
+      // if there's more to do (result.value and result.done are iterator's properties)
+      if (!result.done) {
+        result.value
+          .then(resp => {
+            result = task.next(resp); // send this resp value to the yield
+            step();
           })
           .catch(error => {
-            window.console.log('error: ', error);
+            result = task.throw(error); // throws error within taskGenerator generator
+            step();
           });
       }
-    } while (next_page_urls.length);
+    })(); // start the recursive process by calling it immediatly
   }
 }
