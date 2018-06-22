@@ -30,6 +30,7 @@ export default class Collection {
     }
     return '';
   }
+
   /**
    * Get the list of urls for a link relation in a collection or item object.
    *
@@ -38,8 +39,25 @@ export default class Collection {
    * @return {*}
    */
   static get_link_relation_urls(obj, relationName) {
-    return obj.links.filter(link => {
+    const links = obj.links.filter(link => {
       return link.rel === relationName;
     });
+    return links.map(link => link.href);
+  }
+
+  /**
+   * Get an item's data (descriptors) in an object.
+   *
+   * @param {*} item
+   * @return {*}
+   */
+  static get_item_descriptors(item) {
+    const item_obj = {};
+
+    // collect the item's descriptors
+    for (let descriptor of item.data) {
+      item_obj[descriptor.name] = descriptor.value;
+    }
+    return item_obj;
   }
 }
