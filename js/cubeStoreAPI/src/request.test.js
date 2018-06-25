@@ -1,5 +1,5 @@
 import Request from './request';
-import Collection from './cjson';
+//import Collection from './cjson';
 import { expect } from 'chai';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
@@ -13,8 +13,11 @@ describe('Request', () => {
     password: 'cube1234',
   };
 
+  beforeEach(function() {
+    req = new Request(auth);
+  });
+
   it('can make authenticated request', done => {
-    const req = new Request(auth);
     const result = req.get(store_url);
 
     result
@@ -31,7 +34,6 @@ describe('Request', () => {
   });
 
   it('can successfully make unauthenticated request', done => {
-    const req = new Request();
     const result = req.get(user_url);
 
     result
@@ -48,7 +50,6 @@ describe('Request', () => {
   });
 
   it('can report unsuccessfully unauthenticated request', done => {
-    const req = new Request();
     const result = req.get(store_url);
 
     result
