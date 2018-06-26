@@ -58,7 +58,48 @@ export default class StoreClient {
    * @param {*} follow_link_relations
    * @return {*}
    */
-  get_items_from_paginated_collections(coll, follow_link_relations = []) {}
+  get_items_from_paginated_collections(coll, follow_link_relations = []) {
+    let ix = follow_link_relations.indexOf('next');
+
+    if (ix !== -1) {
+      follow_link_relations.splice(ix, 1);
+    }
+
+    function get_items_from_paginated_coll(coll, follow_link_relations) {
+      let item_list = [];
+
+      return new Promise(function(resolve, reject) {
+        // get the collection documents from all pages
+        const collections_promise = this._get_paginated_collections(coll);
+        collections_promise
+          .then(collections => {
+            for (let collection of collections) {
+              let item_dict_list = [];
+              let items = collection.items;
+              // for each item get its data and the data of all related items in a
+              // depth-first search
+              for (let item of items) {
+                let item_dict = Collection.get_item_descriptors(item);
+
+                for (let link_relation of follow_link_relations) {
+                  let related_urls = Collection.get_link_relation_urls(item, link_relation);
+
+                  if (related_urls.length && !(link_relation in item_dict)) {
+                    item_dict[link_relation] = [];
+                  }
+
+                  for (let url of related_urls) {
+                  }
+                }
+              }
+            }
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    }
+  }
 
   /**
    * Get a list of paginated collections.

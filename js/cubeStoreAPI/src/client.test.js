@@ -16,14 +16,12 @@ describe('StoreClient', () => {
     const result = req.get(store_url);
 
     result
-      .then(function(response) {
-        return client.getPaginatedCollections(response.collection);
-      })
-      .then(function(collections) {
+      .then(response => client.getPaginatedCollections(response.collection))
+      .then(collections => {
         window.console.log('collections: ', collections);
         window.console.log('collections length: ', collections.length);
       })
-      .catch(function(error) {
+      .catch(error => {
         window.console.log('Store error: ', error);
       })
       .then(done, done);
