@@ -45,60 +45,99 @@ export default class StoreClient {
    * @return {*}
    */
   getPlugins(searchParams) {
-    if (searchParams) {
-      return searchParams;
-    }
-    return null;
+    const self = this;
+    const req = new Request({ username: this.username, password: this.password });
+
+    return new Promise(function(resolve, reject) {
+      StoreClient._runAsyncTask(function*() {
+        let resp;
+        let pluginList;
+
+        try {
+          if (searchParams) {
+            resp = yield req.get(self.store_url, searchParams);
+          } else {
+            resp = yield req.get(self.store_url);
+            let allPluginsUrl = Collection.get_link_relation_urls(
+              resp.collection,
+              'all_plugins'
+            )[0];
+            resp = yield req.get(allPluginsUrl);
+          }
+          // follow the 'parameters' link relation in each collection document
+          pluginList = yield self._getItemsFromPaginatedCollections(resp.collection, [
+            'parameters',
+          ]);
+        } catch (ex) {
+          reject(ex);
+        }
+
+        resolve(pluginList);
+      });
+    });
   }
 
   /**
-   * Get a list of paginated collections.
+   * Recursively get the data (descriptors and related item's descriptors) of
+   * all the items in a linked list of paginated collections.
    *
    * @param {*} coll
-   * @param {*} follow_link_relations
+   * @param {*} followLinkRelations
    * @return {*}
    */
-  get_items_from_paginated_collections(coll, follow_link_relations = []) {
-    let ix = follow_link_relations.indexOf('next');
+  _getItemsFromPaginatedCollections(coll, followLinkRelations = []) {
+    const self = this;
+    const req = new Request({ username: this.username, password: this.password });
+    const ix = followLinkRelations.indexOf('next');
 
     if (ix !== -1) {
-      follow_link_relations.splice(ix, 1);
+      followLinkRelations.splice(ix, 1);
     }
 
-    function get_items_from_paginated_coll(coll, follow_link_relations) {
-      let item_list = [];
+    function getItemsFromPaginatedColl(collObj) {
+      let itemList = [];
 
-      return new Promise(function(resolve, reject) {
-        // get the collection documents from all pages
-        const collections_promise = this._get_paginated_collections(coll);
-        collections_promise
-          .then(collections => {
+      return new Promise((resolve, reject) => {
+        StoreClient._runAsyncTask(function*() {
+          try {
+            // execution stops here before collections is assigned, and resumed in _runAsyncTask
+            let collections = yield self._getPaginatedCollections(collObj); // wait for resp
+
             for (let collection of collections) {
-              let item_dict_list = [];
+              let itemObjList = [];
               let items = collection.items;
-              // for each item get its data and the data of all related items in a
-              // depth-first search
-              for (let item of items) {
-                let item_dict = Collection.get_item_descriptors(item);
 
-                for (let link_relation of follow_link_relations) {
+              // for each item get its data and the data of all related items in a depth-first search
+              for (let item of items) {
+                let itemObj = Collection.get_item_descriptors(item);
+
+                for (let link_relation of followLinkRelations) {
                   let related_urls = Collection.get_link_relation_urls(item, link_relation);
 
-                  if (related_urls.length && !(link_relation in item_dict)) {
-                    item_dict[link_relation] = [];
+                  if (related_urls.length && !(link_relation in itemObj)) {
+                    // assumes link relations and descriptors in an item never have the same name
+                    itemObj[link_relation] = [];
                   }
-
                   for (let url of related_urls) {
+                    let resp = yield req.get(url); // wait for resp
+                    let newItemList = yield getItemsFromPaginatedColl(resp.collection); // wait for resp
+                    itemObj[link_relation] = itemObj[link_relation].concat(newItemList);
                   }
                 }
+                itemObjList.push(itemObj);
               }
+              itemList = itemList.concat(itemObjList);
             }
-          })
-          .catch(error => {
-            reject(error);
-          });
+          } catch (ex) {
+            reject(ex);
+          }
+          resolve(itemList);
+        });
       });
     }
+
+    // start the recursive process
+    return getItemsFromPaginatedColl(coll);
   }
 
   /**
@@ -107,7 +146,7 @@ export default class StoreClient {
    * @param {*} coll
    * @return {*}
    */
-  getPaginatedCollections(coll) {
+  _getPaginatedCollections(coll) {
     let collections = [coll];
     const req = new Request({ username: this.username, password: this.password });
 
