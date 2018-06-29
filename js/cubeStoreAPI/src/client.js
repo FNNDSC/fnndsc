@@ -1,5 +1,5 @@
 /** * Imports ***/
-import Collection from './cjson';
+import Collection from './cj';
 import Request from './request';
 
 /**
@@ -11,7 +11,7 @@ export default class StoreClient {
   /**
    * Constructor
    */
-  constructor(store_url, username, password, timeout = 30000) {
+  constructor(store_url, username = '', password = '', timeout = 30000) {
     this.store_url = store_url;
     this.store_query_url = store_url + 'search/';
     this.username = username;
@@ -29,11 +29,22 @@ export default class StoreClient {
    */
   getPlugin(pluginName) {
     const searchParams = { name: pluginName };
-    const plugins = this.getPlugins(searchParams);
 
-    if (plugins) {
-      return plugins[0]; /*plugin names are unique*/
-    }
+    return new Promise((resolve, reject) => {
+      let plugin;
+      const resp = this.getPlugins(searchParams);
+
+      resp
+        .then(plugins => {
+          if (plugins.length) {
+            plugin = plugins[0]; /*plugin names are unique*/
+          }
+          resolve(plugin);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
 
   /**
@@ -46,7 +57,8 @@ export default class StoreClient {
    */
   getPlugins(searchParams) {
     const self = this;
-    const req = new Request({ username: this.username, password: this.password });
+    const auth = { username: this.username, password: this.password };
+    const req = new Request(auth, this.contentType, this.timeout);
 
     return new Promise(function(resolve, reject) {
       StoreClient._runAsyncTask(function*() {
@@ -55,13 +67,10 @@ export default class StoreClient {
 
         try {
           if (searchParams) {
-            resp = yield req.get(self.store_url, searchParams);
+            resp = yield req.get(self.store_query_url, searchParams);
           } else {
             resp = yield req.get(self.store_url);
-            let allPluginsUrl = Collection.get_link_relation_urls(
-              resp.collection,
-              'all_plugins'
-            )[0];
+            let allPluginsUrl = Collection.getLinkRelationUrls(resp.collection, 'all_plugins')[0];
             resp = yield req.get(allPluginsUrl);
           }
           // follow the 'parameters' link relation in each collection document
@@ -87,7 +96,8 @@ export default class StoreClient {
    */
   _getItemsFromPaginatedCollections(coll, followLinkRelations = []) {
     const self = this;
-    const req = new Request({ username: this.username, password: this.password });
+    const auth = { username: this.username, password: this.password };
+    const req = new Request(auth, this.contentType, this.timeout);
     const ix = followLinkRelations.indexOf('next');
 
     if (ix !== -1) {
@@ -109,10 +119,10 @@ export default class StoreClient {
 
               // for each item get its data and the data of all related items in a depth-first search
               for (let item of items) {
-                let itemObj = Collection.get_item_descriptors(item);
+                let itemObj = Collection.getItemDescriptors(item);
 
                 for (let link_relation of followLinkRelations) {
-                  let related_urls = Collection.get_link_relation_urls(item, link_relation);
+                  let related_urls = Collection.getLinkRelationUrls(item, link_relation);
 
                   if (related_urls.length && !(link_relation in itemObj)) {
                     // assumes link relations and descriptors in an item never have the same name
@@ -148,19 +158,20 @@ export default class StoreClient {
    */
   _getPaginatedCollections(coll) {
     let collections = [coll];
-    const req = new Request({ username: this.username, password: this.password });
+    const auth = { username: this.username, password: this.password };
+    const req = new Request(auth, this.contentType, this.timeout);
 
     return new Promise(function(resolve, reject) {
       StoreClient._runAsyncTask(function*() {
         try {
-          let next_page_urls = Collection.get_link_relation_urls(coll, 'next');
+          let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');
 
-          while (next_page_urls.length) {
+          while (nextPageUrls.length) {
             // there is only a single next page
             // execution stops here before resp is assigned, and resumed in _runAsyncTask
-            let resp = yield req.get(next_page_urls[0]);
+            let resp = yield req.get(nextPageUrls[0]);
             collections = collections.concat(resp.collection);
-            next_page_urls = Collection.get_link_relation_urls(resp.collection, 'next');
+            nextPageUrls = Collection.getLinkRelationUrls(resp.collection, 'next');
           }
         } catch (ex) {
           reject(ex);
@@ -170,6 +181,31 @@ export default class StoreClient {
       });
     });
   }
+
+  /**
+   * Create a new store user account.
+   *
+   * @param {*} username
+   * @param {*} password
+   * @param {*} email
+   * @return {*}
+   */
+  createUser(username, password, email) {}
+
+  /**
+   * Get a user's information.
+   *
+   * @param {*} username
+   * @return {*}
+   */
+  getUser(username) {}
+
+  /**
+   * Get a user's login authorization token.
+   *
+   * @return {*}
+   */
+  getAuthToken() {}
 
   /**
    * Run asynchronous task defined by a task generator function.
@@ -199,4 +235,10 @@ export default class StoreClient {
       }
     })(); // start the recursive process by calling it immediatly
   }
+
+  /*export const login = credentials => {
+    return axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {
+      // process response somehow
+    });
+  };*/
 }
