@@ -1,0 +1,242 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../bower_components/wc-periodic-logo/wc-periodic-logo.html">
+
+<link rel="lazy-import" href="revl-login.html">
+<link rel="lazy-import" href="revl-view404.html">
+
+<link rel="import" href="global-styles.html">
+
+<dom-module id="revl-app">
+  <template>
+    <style>
+      :host {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      app-header {
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;  
+        color: #fff;
+        background-color: var(--dark-primary-color);
+        font-weight: lighter;
+        border-bottom: 1px solid var(--divider-color);
+      }
+
+      /* hide header if we enter fullscreen mode */
+      app-header-layout:-webkit-full-screen-ancestor:not(iframe) app-header {
+        z-index: -1 !important;
+      }
+
+      iron-pages {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background-color: var(--dark-primary-color);
+        overflow: hidden;
+      }
+
+      app-toolbar {
+        height: 48px;
+        font-size: 18px;
+      }
+
+      app-toolbar paper-button {
+        font-size: 14px;
+      }
+
+      wc-periodic-logo {
+        margin-right: 8px;
+        --accent-color: #2196f3;
+      }
+
+      .titleBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .title {
+        font-size: 16px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        line-height: 12px;
+        color: var(--accent-color);
+      }
+
+      [hidden] {
+        display: none;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPattern]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <!-- Main content -->
+    <app-header-layout has-scrolling-region>
+
+      <app-header slot="header" condenses reveals effects="waterfall">
+        <app-toolbar>
+          <div style="flex: 1;">
+            <div style="display: flex;">
+              <wc-periodic-logo
+                element="[[shortname]]"
+                number="[[version]]"
+                size="small">
+              </wc-periodic-logo>
+              <div class="titleBox">
+                <div class="title">[[fullname]]</div>
+                <div class="subtitle">developed with clinicians and researchers at Boston Children's Hospital</div>
+              </div>
+            </div>
+          </div>
+        </app-toolbar>
+      </app-header>
+
+      <iron-pages
+          selected="[[page]]"
+          attr-for-selected="name"
+          fallback-selection="view404"
+          role="main">
+        <revl-login
+          name="login"
+          on-login="handleLogin"></revl-login>
+      </iron-pages>
+    </app-header-layout>
+
+  </template>
+
+  <script>
+    class RevLoginApp extends Polymer.GestureEventListeners(Polymer.Element) {
+
+      static get is() {
+        return 'revl-app';
+      }
+
+      static get properties() {
+        return {
+          fullname: {
+            type: String,
+            value: 'Re Viewer',
+          },
+          shortname: {
+            type: String,
+            value: 'Rev',
+          },
+          version: {
+            type: String,
+            value: '1',
+          },
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          rootPattern: String,
+          routeData: Object,
+          subroute: String,
+          login: {
+            type: Boolean,
+            observer: '_loginChanged',
+            value: false,
+          },
+        };
+      }
+
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+        ];
+      }
+
+      constructor() {
+        super();
+
+        // Get root pattern for app-route, for more info about `rootPath` see:
+        // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
+        // this.rootPattern = (new URL(this.rootPath)).pathname;
+      }
+
+      _routePageChanged(page) {
+        // Polymer 2.0 will call with `undefined` on initialization.
+        // Ignore until we are properly called with a string.
+        if (page === undefined) {
+          return;
+        }
+
+        // If no page was found in the route data, page will be an empty string.
+        // Deault to 'view1' in that case.
+        this.page = page || 'login';
+      }
+
+      _pageChanged(page) {
+        // Load page import on demand. Show 404 page if fails
+        const resolvedPageUrl = this.resolveUrl('revl-' + page + '.html');
+        Polymer.importHref(
+          resolvedPageUrl,
+          null,
+          this._showPage404.bind(this),
+          true
+        );
+      }
+
+      _showPage404() {
+        this.page = 'view404';
+      }
+
+      handleLogin() {
+        this.login = true;
+        window.console.log('login');
+      }
+
+      handleLogout() {
+        this.login = false;
+        // this.page = 'login';
+      }
+
+      _loginChanged(login) {
+        if (login === undefined) {
+          return;
+        }
+
+        if (login) {
+          window.location.assign("http://fnndsc.childrens.harvard.edu");
+        }
+      }
+    }
+
+    window.customElements.define(RevLoginApp.is, RevLoginApp);
+  </script>
+</dom-module>
