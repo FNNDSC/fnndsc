@@ -1,7 +1,7 @@
 /**
  * Collection+Json object.
  *
- * @module cjson
+ * @module cj
  */
 export default class Collection {
   /**
@@ -38,7 +38,7 @@ export default class Collection {
    * @param {*} relationName
    * @return {*}
    */
-  static get_link_relation_urls(obj, relationName) {
+  static getLinkRelationUrls(obj, relationName) {
     const links = obj.links.filter(link => {
       return link.rel === relationName;
     });
@@ -51,13 +51,13 @@ export default class Collection {
    * @param {*} item
    * @return {*}
    */
-  static get_item_descriptors(item) {
-    const item_obj = {};
+  static getItemDescriptors(item) {
+    const itemObj = {};
 
     // collect the item's descriptors
     for (let descriptor of item.data) {
-      item_obj[descriptor.name] = descriptor.value;
+      itemObj[descriptor.name] = descriptor.value;
     }
-    return item_obj;
+    return itemObj;
   }
 }
