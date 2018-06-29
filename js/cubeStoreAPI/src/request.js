@@ -1,7 +1,7 @@
 /** * Imports ***/
 import axios from 'axios';
 import StoreRequestException from './exception';
-import Collection from './cjson';
+import Collection from './cj';
 
 /**
  * Http request object.
@@ -12,7 +12,7 @@ export default class Request {
   /**
    * Constructor
    */
-  constructor(auth, contentType = 'application/vnd.collection+json', timeout = 30000) {
+  constructor(auth, contentType, timeout = 30000) {
     this.auth = auth;
     this.contentType = contentType;
     this.timeout = timeout;
