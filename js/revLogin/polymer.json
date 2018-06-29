@@ -1,0 +1,27 @@
+{
+  "entrypoint": "index.html",
+  "basePath":"/my/root/",
+  "shell": "src/revl-app.html",
+  "fragments": [
+    "src/revl-login.html",
+    "src/revl-view404.html"
+  ],
+  "sources": [
+    "src/**/*",
+    "bower.json"
+  ],
+  "extraDependencies": [
+    "images/*",
+    "manifest.json",
+    "bower_components/webcomponentsjs/*.js",
+    "bower_components/web-animations-js/*.js"
+  ],
+  "lint": {
+    "rules": ["polymer-2"]
+  },
+  "builds": [
+    {
+      "preset": "es5-bundled"
+    }
+  ]
+}

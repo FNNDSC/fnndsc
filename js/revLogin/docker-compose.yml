@@ -1,0 +1,5 @@
+rav:
+  image: fnndsc/revLogin
+  labels:
+    name: "Rev Login"
+    role: "Rev Login page"
