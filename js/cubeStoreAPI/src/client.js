@@ -11,9 +11,11 @@ export default class StoreClient {
   /**
    * Constructor
    */
-  constructor(store_url, username = '', password = '', timeout = 30000) {
-    this.store_url = store_url;
-    this.store_query_url = store_url + 'search/';
+  constructor(storeUrl, username = '', password = '', timeout = 30000) {
+    this.storeUrl = storeUrl;
+    this.storeQueryUrl = storeUrl + 'search/';
+    this.storeUsersUrl = storeUrl + 'users/';
+    this.storeAuthUrl = storeUrl + 'auth-token/';
     this.username = username;
     this.password = password;
     this.timeout = timeout;
@@ -67,9 +69,9 @@ export default class StoreClient {
 
         try {
           if (searchParams) {
-            resp = yield req.get(self.store_query_url, searchParams);
+            resp = yield req.get(self.storeQueryUrl, searchParams);
           } else {
-            resp = yield req.get(self.store_url);
+            resp = yield req.get(self.storeUrl);
             let allPluginsUrl = Collection.getLinkRelationUrls(resp.collection, 'all_plugins')[0];
             resp = yield req.get(allPluginsUrl);
           }
@@ -190,22 +192,82 @@ export default class StoreClient {
    * @param {*} email
    * @return {*}
    */
-  createUser(username, password, email) {}
+  createUser(username, password, email) {
+    const req = new Request(undefined, this.contentType);
+    const userData = {
+      template: {
+        data: [
+          { name: 'username', value: username },
+          { name: 'password', value: password },
+          { name: 'email', value: email },
+        ],
+      },
+    };
+    const result = req.post(this.storeUsersUrl, userData);
+
+    return new Promise((resolve, reject) => {
+      result
+        .then(response => {
+          resolve(response.collection);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
 
   /**
-   * Get a user's information.
+   * Get currently authenticated user's information.
    *
-   * @param {*} username
    * @return {*}
    */
-  getUser(username) {}
+  getUser() {
+    const storeUrl = this.storeUrl;
+    const auth = { username: this.username, password: this.password };
+    const req = new Request(auth, this.contentType, this.timeout);
+
+    return new Promise((resolve, reject) => {
+      StoreClient._runAsyncTask(function*() {
+        let resp;
+
+        try {
+          resp = yield req.get(storeUrl);
+          let userUrls = Collection.getLinkRelationUrls(resp.collection, 'user');
+          resp = yield req.get(userUrls[0]);
+        } catch (ex) {
+          reject(ex);
+        }
+
+        resolve(resp.collection);
+      });
+    });
+  }
 
   /**
    * Get a user's login authorization token.
+   * @param {*} username
+   * @param {*} password
    *
    * @return {*}
    */
-  getAuthToken() {}
+  static getAuthToken(username, password) {
+    const req = new Request(undefined, 'application/json', this.timeout);
+    const authData = {
+      username: username,
+      password: password,
+    };
+    const result = req.post(this.storeAuthUrl, authData);
+
+    return new Promise((resolve, reject) => {
+      result
+        .then(response => {
+          resolve(response.token);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
 
   /**
    * Run asynchronous task defined by a task generator function.
