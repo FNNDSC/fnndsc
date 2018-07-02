@@ -51,6 +51,42 @@ export default class Request {
   }
 
   /**
+   * Perform a POST request to the ChRIS store.
+   *
+   * @param {*} url
+   * @param {*} data
+   * @return {*}
+   */
+  post(url, data, descriptorFile) {
+    const config = {
+      method: 'post',
+      headers: {
+        Accept: this.contentType,
+        'content-type': this.contentType,
+      },
+      url: url,
+      data: data,
+      timeout: this.timeout,
+    };
+
+    if (this.auth) {
+      config.auth = this.auth;
+    }
+
+    if (descriptorFile) {
+      config['content-type'] = 'application/x-www-form-urlencoded';
+    }
+
+    return axios(config)
+      .then(response => {
+        return new Collection(response.data);
+      })
+      .catch(error => {
+        Request._handleRequestError(error);
+      });
+  }
+
+  /**
    * Internal method to handle errors produced by HTTP requests to the ChRIS store.
    *
    * @param {*} error
