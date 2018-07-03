@@ -1,7 +1,7 @@
 /** * Imports ***/
 import axios from 'axios';
 import StoreRequestException from './exception';
-import Collection from './cjson';
+import Collection from './cj';
 
 /**
  * Http request object.
@@ -12,7 +12,7 @@ export default class Request {
   /**
    * Constructor
    */
-  constructor(auth, contentType = 'application/vnd.collection+json', timeout = 30000) {
+  constructor(auth, contentType, timeout = 30000) {
     this.auth = auth;
     this.contentType = contentType;
     this.timeout = timeout;
@@ -39,6 +39,42 @@ export default class Request {
 
     if (this.auth) {
       config.auth = this.auth;
+    }
+
+    return axios(config)
+      .then(response => {
+        return new Collection(response.data);
+      })
+      .catch(error => {
+        Request._handleRequestError(error);
+      });
+  }
+
+  /**
+   * Perform a POST request to the ChRIS store.
+   *
+   * @param {*} url
+   * @param {*} data
+   * @return {*}
+   */
+  post(url, data, descriptorFile) {
+    const config = {
+      method: 'post',
+      headers: {
+        Accept: this.contentType,
+        'content-type': this.contentType,
+      },
+      url: url,
+      data: data,
+      timeout: this.timeout,
+    };
+
+    if (this.auth) {
+      config.auth = this.auth;
+    }
+
+    if (descriptorFile) {
+      config['content-type'] = 'application/x-www-form-urlencoded';
     }
 
     return axios(config)

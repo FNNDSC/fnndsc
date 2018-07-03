@@ -1,66 +1,53 @@
 import Request from './request';
-//import Collection from './cjson';
+import StoreRequestException from './exception';
 import { expect } from 'chai';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
 describe('Request', () => {
   let req;
-  const store_url = 'http://localhost:8010/api/v1/';
-  const user_url = store_url + 'users/';
+  const storeUrl = 'http://localhost:8010/api/v1/';
+  const usersUrl = storeUrl + 'users/';
   const auth = {
     username: 'cube',
     password: 'cube1234',
   };
+  const contentType = 'application/vnd.collection+json';
 
-  beforeEach(function() {
-    req = new Request(auth);
+  beforeEach(() => {
+    req = new Request(auth, contentType);
   });
 
-  it('can make authenticated request', done => {
-    const result = req.get(store_url);
+  it('can make authenticated GET request', done => {
+    const result = req.get(storeUrl);
 
     result
-      .then(function(response) {
-        const cj = response;
-
-        window.console.log('cj: ', cj.collection);
-        expect(cj).to.deep.equal(cj);
-      })
-      .catch(function(error) {
-        window.console.log('error: ', error);
+      .then(response => {
+        expect(response.collection.items).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
 
-  it('can successfully make unauthenticated request', done => {
-    const result = req.get(user_url);
+  it('can successfully make unauthenticated GET request', done => {
+    const req = new Request(undefined, contentType);
+    const result = req.get(usersUrl);
 
     result
-      .then(function(response) {
-        const cj = response;
-
-        window.console.log('cj: ', cj.collection);
-        expect(cj).to.deep.equal(cj);
-      })
-      .catch(function(error) {
-        window.console.log('error: ', error);
+      .then(response => {
+        expect(response.collection).to.have.property('template');
+        expect(response.collection).to.have.property('href');
+        expect(response.collection).to.have.property('links');
       })
       .then(done, done);
   });
 
-  it('can report unsuccessfully unauthenticated request', done => {
-    const result = req.get(store_url);
+  it('can report unsuccessfull unauthenticated GET request', done => {
+    const req = new Request(undefined, contentType);
+    const result = req.get(storeUrl);
 
     result
-      .then(function(response) {
-        const cj = response;
-
-        window.console.log('cj: ', cj.collection);
-        expect(cj).to.deep.equal(cj);
-      })
-      .catch(function(error) {
-        window.console.log(error);
+      .catch(error => {
+        expect(error).to.be.an.instanceof(StoreRequestException);
       })
       .then(done, done);
   });
