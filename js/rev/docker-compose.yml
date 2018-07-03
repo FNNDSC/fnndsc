@@ -1,0 +1,7 @@
+rav:
+  image: fnndsc/rav
+  ports:
+    - "8001:8001"
+  labels:
+    name: "Radiology Viewer"
+    role: "Radiology Viewer demo for RSNA 2017"

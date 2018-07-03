@@ -1,0 +1,356 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+
+<!-- animation polyfill -->
+<link rel="import" href="../../bower_components/neon-animation/web-animations.html">
+
+<!-- Paper components -->
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+
+<!-- Highcharts components -->
+<link rel="import" href="../import-highcharts.html">
+
+<!-- Range slider will be needed at some point -->
+<!-- https://www.webcomponents.org/element/IftachSadeh/paper-range-slider -->
+<dom-module id="image-controls">
+  <template>
+
+    <style>
+      :host {
+        display: flex;
+        height: 100%;
+      }
+
+      .container {
+        flex-direction: column;
+        flex: 1;
+        display: flex;
+        overflow: hidden;
+      }
+
+      .content {
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .item {
+        padding: 8px;
+        flex: 1;
+        display: flex;
+      }
+
+      .end {
+        justify-content: flex-end;
+      }
+
+      paper-dropdown-menu {
+        flex:1;
+      }
+
+      .spacer {
+        flex: 1;
+      }
+
+      #container, .chart-container {
+        display: block;
+        flex-shrink: 0;
+        position: relative;
+        height: 256px;
+        width: 256px;
+      }
+
+      .chart-container {
+        height: 100%;
+        width: 100%;
+      }
+
+    </style>
+
+    <div class="container">
+      <div id="container">
+        <div id="chart" class="chart-container"></div>
+      </div>
+      <div class="content">
+        <div class="item">
+          <paper-dropdown-menu label="Orientation" selected-item-label="{{orientation}}">
+              <paper-listbox slot="dropdown-content" selected="{{orientationSelected}}">
+                <paper-item label="Default">Default</paper-item>
+                <paper-item label="Axial">Axial</paper-item>
+                <paper-item label="Coronal">Coronal</paper-item>
+                <paper-item label="Sagittal">Sagittal</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+        </div>
+        <!-- <div class="item">
+          <paper-dropdown-menu label="Window Level" selected-item-label="{{windowLevel}}">
+              <paper-listbox slot="dropdown-content" selected="{{windowLevelSelected}}">
+                <paper-item label="Default">Default</paper-item>
+                <paper-item label="Manual">Manual</paper-item>
+                <paper-item label="Brain">Brain</paper-item>
+                <paper-item label="Heart">Heart</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+        </div> -->
+        <div class="item">
+          <paper-dropdown-menu label="Color LUT" selected-item-label="{{colorLut}}">
+              <paper-listbox slot="dropdown-content" selected="{{colorLutSelected}}">
+                <paper-item label="Default">Default</paper-item>
+                <paper-item label="Spectrum">Spectrum</paper-item>
+                <paper-item label="Hot and Cold">Hot and Cold</paper-item>
+                <paper-item label="Gold">Gold</paper-item>
+                <paper-item label="Random">Random</paper-item>
+                <paper-item label="Walking Dead"> Walking Dead</paper-item>
+              </paper-listbox>
+            </paper-dropdown-menu>
+        </div>
+        <div class="item end">
+          <paper-button on-tap="reset">reset</paper-button>
+        </div>
+      </div>
+      <div class="spacer"></div>
+    </div>
+
+  </template>
+
+  <script>
+    class ImageControls extends Polymer.GestureEventListeners(Polymer.Element) {
+      static get is() {
+        return 'image-controls';
+      }
+
+      static get properties() {
+        return {
+          activated: {
+            type: Boolean,
+            value: false,
+          },
+          colorLut: {
+            type: String,
+            notify: true,
+          },
+          colorLutSelected: {
+            type: Number,
+            value: 0,
+          },
+          histogram: {
+            type: Array,
+            observer: '_histogramChanged',
+          },
+          max: {
+            type: Number,
+          },
+          minMax: {
+            type: Array,
+          },
+          orientation: {
+            type: String,
+            notify: true,
+          },
+          orientationSelected: {
+            type: Number,
+            value: 0,
+          },
+          windowLevel: {
+            type: String,
+            notify: true,
+            observer: '_windowLevelChanged',
+          },
+          windowLevelSelected: {
+            type: Number,
+            value: 0,
+          },
+          windowCenter: {
+            type: Number,
+            observer: '_windowChanged',
+          },
+          windowWidth: {
+            type: Number,
+            observer: '_windowChanged',
+          },
+        };
+      }
+
+      ready() {
+        super.ready();
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this.highchart = Highcharts.chart({
+          colors: ['#2b908f', '#90ee7e'],
+          chart: {
+            type: 'line',
+            animation: false,
+            backgroundColor: 'rgba(255, 255, 255, 0.0)',
+            plotBorderColor: '#606063',
+            renderTo: this.$.chart,
+          },
+          title: {
+            text: null,
+            style: {
+              color: '#A0A0A3',
+            },
+          },
+          subtitle: {
+            text: 'Histogram',
+            style: {
+              color: '#A0A0A3',
+            },
+          },
+          plotOptions: {
+            series: {
+              animation: false,
+              marker: {
+                states: {
+                    hover: {
+                        enabled: false,
+                    },
+                },
+              },
+            },
+          },
+          xAxis: {
+            gridLineColor: '#707073',
+            labels: {
+              style: {
+                color: '#E0E0E3',
+              },
+            },
+            lineColor: '#707073',
+            minorGridLineColor: '#505053',
+            tickColor: '#707073',
+            title: {
+              style: {
+                color: '#A0A0A3',
+              },
+            },
+          },
+          yAxis: {
+            gridLineColor: '#707073',
+            labels: {
+               enabled: false,
+            },
+            lineColor: '#707073',
+            minorGridLineColor: '#505053',
+            tickColor: '#707073',
+            title: {
+              text: null,
+            },
+          },
+          tooltip: {
+            enabled: false,
+          },
+          series: [{
+            name: 'Intensity distribution',
+            data: [[0, 0], [1, 0], [2, 1], [3, 1], [4, 0], [5, 0]],
+            }, {
+            name: 'Window Level',
+            data: [[0, 0], [1, 0], [2, 1], [3, 1], [4, 0], [5, 0]],
+            },
+          ],
+          legend: {
+            itemStyle: {
+              fontSize: '10px',
+              color: '#E0E0E3',
+            },
+            itemHoverStyle: {
+              color: '#FFF',
+            },
+            itemHiddenStyle: {
+              color: '#606063',
+            },
+          },
+        });
+      }
+
+      _histogramChanged() {
+        const data = [];
+        if (this.max === undefined) {
+          this.max = Number.NEGATIVE_INFINITY;
+        }
+
+        let index = 0;
+        for (let i = this.minMax[0]; i<this.minMax[1]; i++) {
+          if (this.histogram[index] > this.max) {
+            this.max = this.histogram[index];
+          }
+          data.push([i, this.histogram[index]]);
+          index++;
+        }
+
+        this.highchart.series[0].setData(data);
+        this._windowChanged();
+      }
+
+      _windowChanged() {
+        if (this.windowCenter && this.windowWidth && this.histogram) {
+          // update window level
+          let start = Math.round(this.windowCenter - this.windowWidth / 2);
+          if (start < this.minMax[0]) {
+            start = this.minMax[0];
+          }
+          let end = Math.round(this.windowCenter + this.windowWidth / 2);
+          if (end > this.minMax[1]) {
+            end = this.minMax[1];
+          }
+
+          this.highchart.series[1].data[0].update({
+            x: this.minMax[0],
+            y: 0,
+          });
+          this.highchart.series[1].data[1].update({
+            x: start,
+            y: 0,
+          });
+          this.highchart.series[1].data[2].update({
+            x: start + 1,
+            y: this.max,
+          });
+          this.highchart.series[1].data[3].update({
+            x: end - 1,
+            y: this.max,
+          });
+          this.highchart.series[1].data[4].update({
+            x: end,
+            y: 0,
+          });
+          this.highchart.series[1].data[5].update({
+            x: this.minMax[1],
+            y: 0,
+          });
+        }
+      }
+
+      _windowLevelChanged() {
+        if (this.windowLevel === 'Manual') {
+          this.windowLevelSelected = 1;
+        }
+      }
+
+      resize() {
+        this.$.chart.redraw();
+      }
+
+      reflow() {
+        if (this.highchart) {
+          if (!this.$.container.contains(this.$.chart)) {
+            this.$.container.appendChild(this.$.chart);
+          }
+          this.highchart.reflow();
+        }
+      }
+
+      reset() {
+        this.colorLutSelected = 0;
+        this.orientationSelected = 0;
+        this.windowLevelSelected = 0;
+      }
+    }
+    window.customElements.define(ImageControls.is, ImageControls);
+  </script>
+</dom-module>
