@@ -262,7 +262,7 @@
 
     <rav-panel
       class="border-right"
-      hidden$=[[!_isReady(dataStatusBch)]]
+      hidden$=[[!_isReady(dataStatusGe)]]
       on-is-open-changed="_panelIsOpenChanged">
         <div slot="title">Data</div>
         <div slot="content">
@@ -280,6 +280,7 @@
                   draggable="true"
                   on-dragstart="_onDragStart"
                   on-dragend="_onDragEnd"
+                  on-mouseup="_onMouseUp"
                   series="[[item]]"
                   type="normative"><wc-series-preview>
               </template>
@@ -430,39 +431,6 @@
           window-center="{{windowCenter2}}"
           window-level="{{windowLevel2}}"
           window-width="{{windowWidth2}}"></image-controls>
-
-        <image-controls
-          id="ic3"
-          hidden$="[[!_isActive(3, active)]]"
-          color-lut="{{colorLut3}}"
-          histogram="[[histogram3]]"
-          min-max="[[minMax3]]"
-          orientation="{{orientation3}}"
-          window-center="{{windowCenter3}}"
-          window-level="{{windowLevel3}}"
-          window-width="{{windowWidth3}}"></image-controls>
-
-        <image-controls
-          id="ic4"
-          hidden$="[[!_isActive(4, active)]]"
-          color-lut="{{colorLut4}}"
-          histogram="[[histogram4]]"
-          min-max="[[minMax4]]"
-          orientation="{{orientation4}}"
-          window-center="{{windowCenter4}}"
-          window-level="{{windowLevel4}}"
-          window-width="{{windowWidth4}}"></image-controls>
-
-          <image-controls
-          id="ic5"
-          hidden$="[[!_isActive(5, active)]]"
-          color-lut="{{colorLut5}}"
-          histogram="[[histogram5]]"
-          min-max="[[minMax5]]"
-          orientation="{{orientation5}}"
-          window-center="{{windowCenter5}}"
-          window-level="{{windowLevel5}}"
-          window-width="{{windowWidth5}}"></image-controls>
       </div>
     </div>
   </template>
@@ -476,15 +444,6 @@
 
       static get properties() {
         return {
-          dataBch: {
-            type: Array,
-            value: [],
-          },
-          dataStatusBch: {
-            type: String,
-            value: '',
-            observer: '_dataStatusBchChanged',
-          },
           dataGe: {
             type: Array,
             value: [],
@@ -564,15 +523,6 @@
           'MSfullscreenchange', this._fullscreenListenerBound);
       }
 
-      _dataStatusBchChanged(status) {
-        if (status !== 'ready') {
-          this.set('dataBch', []);
-          this.set('dataSelectedBch', {});
-          this.set('dataGe', []);
-          this.set('dataSelectedGe', {});
-        }
-      }
-
       _panelIsOpenChanged() {
         this._layoutSizeChanged();
         return;
@@ -587,11 +537,6 @@
       }
 
       _isReady(status) {
-        if(sessionStorage.getItem('username') === 'demo') {
-          this.dataStatusBch = 'ready';
-          return true;
-        }
-
         return status === 'ready';
       }
 
@@ -610,6 +555,11 @@
       }
 
       _onDragEnd(event) {
+        event.target.$.image.style.display = 'block';
+        event.target.positionThumbnail(0.5, event.target.$.image);
+      }
+
+      _onMouseUp(event) {
         event.target.$.image.style.display = 'block';
         event.target.positionThumbnail(0.5, event.target.$.image);
       }
