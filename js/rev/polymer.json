@@ -1,11 +1,9 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/ra-app.html",
+  "shell": "src/rev-app.html",
   "fragments": [
-    "src/rav-viewer.html",
-    "src/rav-library.html",
-    "src/rav-login.html",
-    "src/rav-view404.html"
+    "src/rev-viewer.html",
+    "src/rev-view404.html"
   ],
   "sources": [
     "RSNA/**/*",

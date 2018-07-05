@@ -25,15 +25,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/wc-periodic-logo/wc-periodic-logo.html">
 
-<link rel="lazy-import" href="rav-viewer.html">
-<link rel="lazy-import" href="rav-view404.html">
+<link rel="lazy-import" href="rev-viewer.html">
+<link rel="lazy-import" href="rev-view404.html">
 
 <link rel="import" href="global-styles.html">
 
-<link rel="import" href="ra-data.html">
-<link rel="import" href="ra-demo.html">
+<link rel="import" href="rev-data.html">
+<link rel="import" href="rev-demo.html">
 
-<dom-module id="ra-app">
+<dom-module id="rev-app">
   <template>
     <style>
       :host {
@@ -122,12 +122,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{subrouteData}}">
     </app-route>
 
-    <ra-data
+    <rev-data
       patient-data="{{patientData}}"
-      normative-data="{{normativeData}}"></ra-data>
-    <ra-demo
+      normative-data="{{normativeData}}"></rev-data>
+    <rev-demo
       demo-id="[[demoId]]"
-      demo-layout="{{demoLayout}}"></ra-data>
+      demo-layout="{{demoLayout}}"></rev-data>
 
     <!-- Main content -->
     <app-header-layout has-scrolling-region>
@@ -155,7 +155,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           attr-for-selected="name"
           fallback-selection="view404"
           role="main">
-        <rav-viewer
+        <rev-viewer
           id="library"
           name="viewer"
           layout="[[layout]]"
@@ -168,19 +168,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           ge-link="[[geLink]]"
           server-ip="[[serverIp]]"
           server-port="[[serverPort]]"
-          on-open-dialog="handleOpenDialog"></rav-viewer>
-        <rav-view404
-          name="view404"></rav-view404>
+          on-open-dialog="handleOpenDialog"></rev-viewer>
+        <rev-view404
+          name="view404"></rev-view404>
       </iron-pages>
     </app-header-layout>
 
   </template>
 
   <script>
-    class RaApp extends Polymer.GestureEventListeners(Polymer.Element) {
+    class RevApp extends Polymer.GestureEventListeners(Polymer.Element) {
 
       static get is() {
-        return 'ra-app';
+        return 'rev-app';
       }
 
       static get properties() {
@@ -344,7 +344,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _pageChanged(page) {
         // Load page import on demand. Show 404 page if fails
-        const resolvedPageUrl = this.resolveUrl('rav-' + page + '.html');
+        const resolvedPageUrl = this.resolveUrl('rev-' + page + '.html');
         Polymer.importHref(
           resolvedPageUrl,
           null,
@@ -371,6 +371,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
 
-    window.customElements.define(RaApp.is, RaApp);
+    window.customElements.define(RevApp.is, RevApp);
   </script>
 </dom-module>

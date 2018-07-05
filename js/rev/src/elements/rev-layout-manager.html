@@ -24,7 +24,7 @@
   </template>
 </dom-module>
 
-<dom-module id="rav-layout-manager">
+<dom-module id="rev-layout-manager">
   <template>
     <style>
       :host {
@@ -168,9 +168,9 @@
   </template>
 
   <script>
-    class RAVLayoutManager extends Polymer.Element {
+    class RevLayoutManager extends Polymer.Element {
       static get is() {
-        return 'rav-layout-manager';
+        return 'rev-layout-manager';
       }
 
       static get properties() {
@@ -247,6 +247,6 @@
         console.log(this.active);
       }
     }
-    window.customElements.define(RAVLayoutManager.is, RAVLayoutManager);
+    window.customElements.define(RevLayoutManager.is, RevLayoutManager);
   </script>
 </dom-module>

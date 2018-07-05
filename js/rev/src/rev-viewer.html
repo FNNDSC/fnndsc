@@ -22,14 +22,14 @@
 <link rel="import" href="../bower_components/wc-viewer-2d/wc-viewer-2d.html">
 
 <!-- Local components  -->
-<link rel="import" href="elements/rav-panel.html">
-<link rel="import" href="elements/rav-layout-manager.html">
+<link rel="import" href="elements/rev-panel.html">
+<link rel="import" href="elements/rev-layout-manager.html">
 <link rel="import" href="elements/image-controls.html">
 <link rel="import" href="elements/viewer-global-controls.html">
 
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="rav-viewer">
+<dom-module id="rev-viewer">
   <template>
     <style include="shared-styles">
       :host {
@@ -109,7 +109,7 @@
                 flex-direction: row;
       }
 
-      rav-layout-manager {
+      rev-layout-manager {
         flex: 1;
         height: 100%;
       }
@@ -260,7 +260,7 @@
     <chips-api
       id="API"></chips-api>
 
-    <rav-panel
+    <rev-panel
       class="border-right"
       hidden$=[[!_isReady(dataStatusGe)]]
       on-is-open-changed="_panelIsOpenChanged">
@@ -286,7 +286,7 @@
               </template>
             </div>
         </div>
-    </rav-panel>
+    </rev-panel>
 
     <div class="content">
       <!-- global controls -->
@@ -299,7 +299,7 @@
 
       <!-- viewers container -->
       <div class="viewersContainer">
-        <rav-layout-manager
+        <rev-layout-manager
           active="[[active]]"
           layout="[[layout]]"
           fullscreen="[[fullscreen]]"
@@ -387,11 +387,11 @@
               on-dragenter="_onDragEnter"
               on-dragleave="_onDragLeave"
               on-dragover="_onDragOver"></wc-viewer-2d>
-        </rav-layout-manager>
+        </rev-layout-manager>
       </div>
       </div>
     </div>
-    <rav-panel
+    <rev-panel
       class="border-left"
       size="large"
       hidden$="[[!_isSomethingActive(active)]]"
@@ -436,10 +436,10 @@
   </template>
 
   <script>
-    class RAVViewer extends CHIPSPluginBehavior(
+    class RevViewer extends CHIPSPluginBehavior(
       Polymer.GestureEventListeners(Polymer.Element)) {
       static get is() {
-        return 'rav-viewer';
+        return 'rev-viewer';
       }
 
       static get properties() {
@@ -743,6 +743,6 @@
       }
     }
 
-    window.customElements.define(RAVViewer.is, RAVViewer);
+    window.customElements.define(RevViewer.is, RevViewer);
   </script>
 </dom-module>

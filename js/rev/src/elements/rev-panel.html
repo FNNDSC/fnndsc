@@ -7,7 +7,7 @@
 <!-- Paper components  -->
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 
-<dom-module id="rav-panel">
+<dom-module id="rev-panel">
   <template>
     <style>
       :host {
@@ -54,9 +54,9 @@
   </template>
 
   <script>
-    class RAVPanel extends Polymer.Element {
+    class RevPanel extends Polymer.Element {
       static get is() {
-        return 'rav-panel';
+        return 'rev-panel';
       }
 
       static get properties() {
@@ -83,6 +83,6 @@
         this.set('isOpen', !this.isOpen);
       }
     }
-    window.customElements.define(RAVPanel.is, RAVPanel);
+    window.customElements.define(RevPanel.is, RevPanel);
   </script>
 </dom-module>
