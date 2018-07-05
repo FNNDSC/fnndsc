@@ -2,12 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="generator" content="ReV Login">
+    <meta name="generator" content="RaV">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>ReV Login</title>
-    <meta name="description" content="Re Viewer Login">
-<!-- /revLogin/build/es5-bundled/ -->
+    <title>ReV</title>
+    <meta name="description" content="Re Viewer">
+
     <base href="/">
 
     <link rel="icon" href="images/favicon.ico">
@@ -17,12 +17,12 @@
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="ReV">
+    <meta name="application-name" content="RaV">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="MReV">
+    <meta name="apple-mobile-web-app-title" content="My App">
 
     <!-- Homescreen icons -->
     <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
@@ -36,6 +36,18 @@
     <meta name="msapplication-TileColor" content="#3f51b5">
     <meta name="msapplication-tap-highlight" content="no">
 
+    <!-- Handle github pages redirect hack -->
+    <!--  http://www.backalleycoder.com/2016/05/13/sghpa-the-single-page-app-hack-for-github-pages/ -->
+    <script>
+      (function() {
+        const redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
+
     <script>
       // Register the base URL
       const baseUrl = document.querySelector('base').href;
@@ -46,8 +58,14 @@
           navigator.serviceWorker.register(baseUrl + 'service-worker.js');
         });
       }
+    </script>
 
-
+    <script>
+      window.ChipsConfiguration = {
+        'version': 'v1',
+        'api': 'ultron',
+        'apiRoot': 'http://173.48.82.253:8050/api/v1', //'http://localhost:8000/api/v1', // no trailing /
+      };
     </script>
 
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
@@ -55,7 +73,7 @@
 
     <!-- Load your application shell -->
     <link rel="import" href="bower_components/web-animations-js/web-animations-next.min.js">
-    <link rel="import" href="src/revl-app.html">
+    <link rel="import" href="src/rev-app.html">
 
     <!-- Add any global styles for body, document, etc. -->
     <style>
@@ -69,7 +87,7 @@
     </style>
   </head>
   <body>
-    <revl-app></revl-app>
+    <rev-app></rev-app>
     <noscript>
       Please enable JavaScript to view this website.
     </noscript>

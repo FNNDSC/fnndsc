@@ -1,0 +1,376 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
+
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../bower_components/wc-periodic-logo/wc-periodic-logo.html">
+
+<link rel="lazy-import" href="rev-viewer.html">
+<link rel="lazy-import" href="rev-view404.html">
+
+<link rel="import" href="global-styles.html">
+
+<link rel="import" href="rev-data.html">
+<link rel="import" href="rev-demo.html">
+
+<dom-module id="rev-app">
+  <template>
+    <style>
+      :host {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      app-header {
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;  
+        color: #fff;
+        background-color: var(--dark-primary-color);
+        font-weight: lighter;
+        border-bottom: 1px solid var(--divider-color);
+      }
+
+      /* hide header if we enter fullscreen mode */
+      app-header-layout:-webkit-full-screen-ancestor:not(iframe) app-header {
+        z-index: -1 !important;
+      }
+
+      iron-pages {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        background-color: var(--dark-primary-color);
+        overflow: hidden;
+      }
+
+      .toolbar-login-actions {
+        display: flex;
+      }
+
+      app-toolbar {
+        height: 48px;
+        font-size: 18px;
+      }
+
+      app-toolbar paper-button {
+        font-size: 14px;
+      }
+
+      paper-tabs {
+        --paper-tabs-selection-bar-color: var(--accent-color);
+      }
+
+      wc-periodic-logo {
+        margin-right: 8px;
+        --accent-color: #2196f3;
+      }
+
+      .titleBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .title {
+        font-size: 16px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        line-height: 12px;
+        color: var(--accent-color);
+      }
+
+      [hidden] {
+        display: none;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="[[rootPattern]]:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+    <app-route
+        route="{{subroute}}"
+        pattern="/:id"
+        data="{{subrouteData}}">
+    </app-route>
+
+    <rev-data
+      patient-data="{{patientData}}"
+      normative-data="{{normativeData}}"></rev-data>
+    <rev-demo
+      demo-id="[[demoId]]"
+      demo-layout="{{demoLayout}}"></rev-data>
+
+    <!-- Main content -->
+    <app-header-layout has-scrolling-region>
+
+      <app-header slot="header" condenses reveals effects="waterfall">
+        <app-toolbar>
+          <div style="flex: 1;">
+            <div style="display: flex;">
+              <wc-periodic-logo
+                element="[[shortname]]"
+                number="[[version]]"
+                size="small">
+              </wc-periodic-logo>
+              <div class="titleBox">
+                <div class="title">[[fullname]]</div>
+                <div class="subtitle">developed with clinicians and researchers at Boston Children's Hospital</div>
+              </div>
+            </div>
+          </div>
+        </app-toolbar>
+      </app-header>
+
+      <iron-pages
+          selected="[[page]]"
+          attr-for-selected="name"
+          fallback-selection="view404"
+          role="main">
+        <rev-viewer
+          id="library"
+          name="viewer"
+          layout="[[layout]]"
+          current-layout="[[currentLayout]]"
+          previous-instance="[[pluginBch]]"
+          data-bch="[[data]]"
+          data-status-bch="[[dataStatus]]"
+          data-ge="[[dataGE]]"
+          data-status-ge="[[dataGEStatus]]"
+          ge-link="[[geLink]]"
+          server-ip="[[serverIp]]"
+          server-port="[[serverPort]]"
+          on-open-dialog="handleOpenDialog"></rev-viewer>
+        <rev-view404
+          name="view404"></rev-view404>
+      </iron-pages>
+    </app-header-layout>
+
+  </template>
+
+  <script>
+    class RevApp extends Polymer.GestureEventListeners(Polymer.Element) {
+
+      static get is() {
+        return 'rev-app';
+      }
+
+      static get properties() {
+        return {
+          fullname: {
+            type: String,
+            value: 'Re viewer',
+          },
+          shortname: {
+            type: String,
+            value: 'ReV',
+          },
+          version: {
+            type: String,
+            value: '1',
+          },
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          rootPattern: String,
+          routeData: Object,
+          subroute: String,
+          subrouteData: Object,
+          demoPrefix: {
+            type: String,
+            value: '../RSNA',
+          },
+          normativeData: {
+            type: Object,
+            value: {},
+          },
+          demoId: {
+            type: String,
+            value: '',
+          },
+          demoLayout: {
+            type: Object,
+            value: null,
+          },
+          layout: {
+            type: Number,
+            value: 0,
+          },
+          currentLayout: {
+            type: Array,
+            value: [],
+          },
+        };
+      }
+
+      static get observers() {
+        return [
+          '_routePageChanged(routeData.page)',
+          '_subroutePageChanged(subrouteData.id)',
+          '_demoLayoutChanged(demoLayout.*)',
+        ];
+      }
+
+      constructor() {
+        super();
+
+        // Get root pattern for app-route, for more info about `rootPath` see:
+        // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
+        this.rootPattern = (new URL(this.rootPath)).pathname;
+      }
+
+      _routePageChanged(page) {
+        // Polymer 2.0 will call with `undefined` on initialization.
+        // Ignore until we are properly called with a string.
+        if (page === undefined) {
+          return;
+        }
+
+        // If no page was found in the route data, page will be an empty string.
+        this.page = page || 'view404';
+      }
+
+      _subroutePageChanged(id) {
+        if (id === undefined) {
+          return;
+        }
+
+        //
+        if (id !== '') {
+          window.console.log(id);
+          // special id, we want to fetch data from CUBE
+          // this.$.viewer.serverIp = '';
+          // this.$.viewer.serverPort = '';
+          // else fetch from ChipsConfiguration.apiRoot
+          // set tokens
+          // get list of files in datastore
+          // and use it for GE data
+          if (this.page !== 'viewer') {
+            this.set('route.path', `/viewer/${id}`);
+          } else {
+            // auto log in
+            return window.setTimeout(this.loadDemo.bind(this, id), 2000);
+          }
+        }
+      }
+
+      loadDemo(demoId) {
+        // wait for demo data to arrive
+        if (
+          this.patientData === undefined ||
+          this.patientData.length <= 0 ||
+          this.normativeData === undefined ||
+          !this.normativeData['PATIENT^30^MONTHS^ID'] ||
+          this.normativeData['PATIENT^30^MONTHS^ID'].length <= 0) {
+          return window.setTimeout(this.loadDemo.bind(this, demoId), 2000);
+        }
+
+        // update demo id
+        this.demoId = demoId;
+      }
+
+      _demoLayoutChanged(demoLayout) {
+        if (demoLayout === null || demoLayout.base === null) {
+          return;
+        }
+
+        const value = demoLayout.value;
+        const data =
+          this.patientData.filter(
+            (elt) => (elt.PatientID.value === value.patientID));
+
+        // load GE data
+        const event = {
+          detail: {
+            selection: [data[0]],
+          },
+        };
+        this._handleStartGE(event);
+
+        this.layout = value.display.layout;
+        // update layout shape
+        this.set('currentLayout', value.display.structure);
+        window.console.log(value.display.content);
+        this.set(['currentLayout', 0], value.display.content[0]);
+
+        // load content
+        // const content = value.display.content;
+        // for (let i=0; i<content.length; i++) {
+        //   if (content[i] !== '') {
+        //     this.set(['currentLayout', i], content[i]);
+        //   }
+        // }
+      }
+
+      _handleStartGE(event) {
+        const patientID =
+          event.detail.selection[0].PatientID.value.replace(/\./g, '^');
+        this.dataGE = this.normativeData[patientID];
+        // filter by ID
+        // key mapping
+        this.addDemoPrefixTo(this.dataGE);
+        this.dataGEStatus = 'ready';
+      }
+
+      _pageChanged(page) {
+        // Load page import on demand. Show 404 page if fails
+        const resolvedPageUrl = this.resolveUrl('rev-' + page + '.html');
+        Polymer.importHref(
+          resolvedPageUrl,
+          null,
+          this._showPage404.bind(this),
+          true
+        );
+      }
+
+      _showPage404() {
+        this.page = 'view404';
+      }
+
+      addDemoPrefixTo(demoDatasets) {
+        for (let i=0; i<demoDatasets.length; i++) {
+          const demoDataset = demoDatasets[i];
+          demoDataset.details.series.preview.url =
+            this.demoPrefix + '/' + demoDataset.details.series.preview.url;
+          demoDataset.details.series.preview.blob = null;
+          const data = demoDataset.details.series.data.map((v) => {
+            return this.demoPrefix + '/' + v;
+          });
+          demoDataset.details.series.data = data;
+        }
+      }
+    }
+
+    window.customElements.define(RevApp.is, RevApp);
+  </script>
+</dom-module>

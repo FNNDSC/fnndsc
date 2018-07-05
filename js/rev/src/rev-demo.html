@@ -1,0 +1,118 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="rev-demo">
+<script>
+  class RevDemo extends Polymer.Element {
+    static get is() {
+      return 'rev-demo';
+    }
+
+    static get properties() {
+      return {
+        demoId: {
+          type: String,
+          value: '',
+          observer: '_demoIdChanged',
+        },
+        demoLayout: {
+          type: Object,
+          value: {},
+          notify: true,
+        },
+      };
+    }
+
+    _demoIdChanged(demoId) {
+      if (demoId === null || demoId === '') {
+        return;
+      }
+
+      const demoLayout = this[`_${demoId}`]();
+      this.set('demoLayout', demoLayout);
+    }
+
+    _6months1() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT1.6.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '1b341bc8.ce51.11e7.83af.7824af84338e', // AXIAL T2 N
+            '1704a90a.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            '25e15efa.ce51.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            ],
+        },
+      };
+    }
+
+    _6months2() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT2.6.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '1b341bc8.ce51.11e7.83af.7824af84338e', // AXIAL T2 N
+            '1704a90a.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            '25e15efa.ce51.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            ],
+        },
+      };
+    }
+
+    _7months() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT.7.MONTHS.ID',
+        display: {
+          layout: 0,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            'c8bafbdc.ce50.11e7.83af.7824af84338e', // AXIAL T2 N
+            'c5599c00.ce50.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            'd4a3fd72.ce50.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            ],
+        },
+      };
+    }
+
+    _25months() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT.25.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '3f110e8e.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            '519e7b86.ce51.11e7.83af.7824af84338e', // SAGITTAL T1 N
+            '47cf0418.ce51.11e7.83af.7824af84338e', // CORONAL T2 N
+            ],
+        },
+      };
+    }
+
+    _30months() {
+      return {
+        // ids to be loaded
+        patientID: 'PATIENT.30.MONTHS.ID',
+        display: {
+          layout: 4,
+          structure: [-1, -1, -1, -1, -1, -1],
+          content: [
+            '2f1d2cd8.ce51.11e7.83af.7824af84338e', // AXIAL FLAIR N
+            '31567860.ce51.11e7.83af.7824af84338e', // AXIAL T2 N
+            '3440bd9c.ce51.11e7.83af.7824af84338e', // CORONAL T2 N
+            ],
+        },
+      };
+    }
+
+  }
+
+  window.customElements.define(RevDemo.is, RevDemo);
+</script>
+</dom-module>
