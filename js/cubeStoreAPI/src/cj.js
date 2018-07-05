@@ -5,28 +5,13 @@
  */
 export default class Collection {
   /**
-   * Constructor
-   */
-  constructor(data) {
-    this.collectionObj = data.collection;
-  }
-
-  get collection() {
-    return this.collectionObj;
-  }
-
-  set collection(coll) {
-    this.collectionObj = coll;
-  }
-
-  /**
    * Get the error message from the collection object.
    *
    * @return {*}
    */
-  getErrorMessage() {
-    if (this.collectionObj.error) {
-      return this.collectionObj.error.message;
+  static getErrorMessage(collection) {
+    if (collection.error) {
+      return collection.error.message;
     }
     return '';
   }
