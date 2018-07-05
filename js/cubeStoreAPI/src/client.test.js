@@ -6,8 +6,12 @@ import { expect } from 'chai';
 describe('StoreClient', () => {
   const username = 'cube';
   const password = 'cube1234';
-  const store_url = 'http://localhost:8010/api/v1/';
-  const client = new StoreClient(store_url, username, password);
+  const storeUrl = 'http://localhost:8010/api/v1/';
+  const authUrl = storeUrl + 'auth-token/';
+  const usersUrl = storeUrl + 'users/';
+  const auth = { username: username, password: password };
+  //const auth = {token: "aad06988fef07626ed5cc205828cea21f9c501dd"};
+  const client = new StoreClient(storeUrl, auth);
 
   it('can retrieve a plugin given its name', function(done) {
     const resp = client.getPlugin('simplefsapp');
@@ -52,11 +56,11 @@ describe('StoreClient', () => {
   });
 
   it('can create a new user', function(done) {
-    const username = 'jbernal2';
-    const password = 'jbernalpass';
-    const email = 'jbernal2@babymri.org';
+    const username = 'user' + Date.now();
+    const password = username + 'pass';
+    const email = username + '@babymri.org';
 
-    const resp = client.createUser(username, password, email);
+    const resp = StoreClient.createUser(usersUrl, username, password, email);
 
     resp
       .then(user => {
@@ -67,12 +71,11 @@ describe('StoreClient', () => {
   });
 
   it('can retrieve a user auth token', function(done) {
-    const resp = StoreClient.getAuthToken(username, password);
+    const resp = StoreClient.getAuthToken(authUrl, username, password);
 
     resp
       .then(token => {
-        window.console.log('token: ', token);
-        //expect(user.items).to.have.lengthOf(1);
+        expect(token).to.be.a('string');
       })
       .then(done, done);
   });
