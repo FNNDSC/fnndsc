@@ -9,8 +9,8 @@ describe('Request', () => {
   const storeUrl = 'http://localhost:8010/api/v1/';
   const usersUrl = storeUrl + 'users/';
   const auth = {
-    username: 'cube',
-    password: 'cube1234',
+    username: 'cubeadmin',
+    password: 'cubeadmin1234',
   };
   const contentType = 'application/vnd.collection+json';
 

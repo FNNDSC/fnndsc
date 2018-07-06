@@ -1,4 +1,4 @@
-# Cube Store API
+# ChRIS Store API
 
 Generates `es2015` bundle.
 

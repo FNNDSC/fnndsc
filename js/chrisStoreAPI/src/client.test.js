@@ -4,8 +4,8 @@ import { expect } from 'chai';
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
 describe('StoreClient', () => {
-  const username = 'cube';
-  const password = 'cube1234';
+  const username = 'cubeadmin';
+  const password = 'cubeadmin1234';
   const storeUrl = 'http://localhost:8010/api/v1/';
   const authUrl = storeUrl + 'auth-token/';
   const usersUrl = storeUrl + 'users/';

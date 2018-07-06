@@ -1,8 +1,8 @@
 {
-  "name": "cubestoreapi",
+  "name": "@fnndsc/chrisstoreapi",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/cubeStoreApi.js",
+  "main": "dist/chrisStoreApi.js",
   "scripts": {
     "build": "webpack",
     "precommit": "lint-staged",
