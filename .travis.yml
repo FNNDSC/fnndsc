@@ -30,7 +30,7 @@ install:
   - docker-compose -v
 
 before_script:
-  - https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
+  - git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
   - cd ChRIS_ultron_backEnd
   - ./docker-make-chris_dev.sh -U -I -i
 
