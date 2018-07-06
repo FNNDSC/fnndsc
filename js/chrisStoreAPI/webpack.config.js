@@ -5,7 +5,10 @@ module.exports = {
   entry: './src/index',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'chrisStoreAPI.js',
+    filename: 'chrisstoreapi.js',
+    library: 'CSAPI',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
   },
   resolve: {
     extensions: ['.js', '.json'],

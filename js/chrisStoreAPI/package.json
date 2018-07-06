@@ -1,8 +1,8 @@
 {
   "name": "@fnndsc/chrisstoreapi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
-  "main": "dist/chrisStoreApi.js",
+  "main": "dist/chrisstoreapi.js",
   "scripts": {
     "build": "webpack",
     "precommit": "lint-staged",
@@ -57,7 +57,7 @@
     "prettier": "^1.11.1",
     "sinon": "^5.1.0",
     "webpack": "^4.11.1",
-    "webpack-cli": "^3.0.2"
+    "webpack-cli": "^3.0.8"
   },
   "dependencies": {
     "axios": "^0.18.0"
