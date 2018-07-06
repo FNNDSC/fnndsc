@@ -1,6 +1,6 @@
 {
   "name": "@fnndsc/chrisstoreapi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/chrisStoreApi.js",
   "scripts": {
