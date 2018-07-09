@@ -1,7 +1,7 @@
 # ChRIS Store API
 [![Build Status](https://travis-ci.org/FNNDSC/fnndsc.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc)
 
-JavaScript6 client for the ChRIS Store API. Generates `es2015` bundle.
+JavaScript6 client for the ChRIS Store API. 
 
 ## Installation
 
