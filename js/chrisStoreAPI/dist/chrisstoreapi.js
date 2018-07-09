@@ -65,7 +65,7 @@
   })([
     function(e, t, n) {
       'use strict';
-      var r = n(7),
+      var r = n(8),
         o = n(27),
         i = Object.prototype.toString;
       function s(e) {
@@ -165,8 +165,8 @@
         var u,
           a = {
             adapter: ('undefined' != typeof XMLHttpRequest
-              ? (u = n(6))
-              : void 0 !== t && (u = n(6)),
+              ? (u = n(7))
+              : void 0 !== t && (u = n(7)),
             u),
             transformRequest: [
               function(e, t) {
@@ -235,6 +235,15 @@
     },
     function(e, t, n) {
       'use strict';
+      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0);
+      t.default = class extends Error {
+        constructor(...e) {
+          super(...e), (this.name = this.constructor.name);
+        }
+      };
+    },
+    function(e, t, n) {
+      'use strict';
       function r(e) {
         this.message = e;
       }
@@ -265,7 +274,7 @@
         i = n(21),
         s = n(20),
         u = n(19),
-        a = n(5),
+        a = n(6),
         c = ('undefined' != typeof window && window.btoa && window.btoa.bind(window)) || n(18);
       e.exports = function(e) {
         return new Promise(function(t, f) {
@@ -370,7 +379,7 @@
       Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0);
       var r = s(n(29)),
         o = s(n(2)),
-        i = s(n(9));
+        i = s(n(3));
       function s(e) {
         return e && e.__esModule ? e : { default: e };
       }
@@ -431,15 +440,6 @@
     },
     function(e, t, n) {
       'use strict';
-      Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0);
-      t.default = class extends Error {
-        constructor(...e) {
-          super(...e), (this.name = this.constructor.name);
-        }
-      };
-    },
-    function(e, t, n) {
-      'use strict';
       e.exports = function(e) {
         return function(t) {
           return e.apply(null, t);
@@ -448,7 +448,7 @@
     },
     function(e, t, n) {
       'use strict';
-      var r = n(3);
+      var r = n(4);
       function o(e) {
         if ('function' != typeof e) throw new TypeError('executor must be a function.');
         var t;
@@ -502,7 +502,7 @@
       'use strict';
       var r = n(0),
         o = n(14),
-        i = n(4),
+        i = n(5),
         s = n(1),
         u = n(13),
         a = n(12);
@@ -733,7 +733,7 @@
     },
     function(e, t, n) {
       'use strict';
-      var r = n(5);
+      var r = n(6);
       e.exports = function(e, t, n) {
         var o = n.config.validateStatus;
         n.status && o && !o(n.status)
@@ -932,7 +932,7 @@
     function(e, t, n) {
       'use strict';
       var r = n(0),
-        o = n(7),
+        o = n(8),
         i = n(26),
         s = n(1);
       function u(e) {
@@ -945,9 +945,9 @@
         (a.create = function(e) {
           return u(r.merge(s, e));
         }),
-        (a.Cancel = n(3)),
+        (a.Cancel = n(4)),
         (a.CancelToken = n(11)),
-        (a.isCancel = n(4)),
+        (a.isCancel = n(5)),
         (a.all = function(e) {
           return Promise.all(e);
         }),
@@ -962,7 +962,7 @@
       'use strict';
       Object.defineProperty(t, '__esModule', { value: !0 }), (t.default = void 0);
       var r = i(n(2)),
-        o = i(n(8));
+        o = i(n(9));
       function i(e) {
         return e && e.__esModule ? e : { default: e };
       }
@@ -1149,11 +1149,18 @@
           get: function() {
             return i.default;
           },
+        }),
+        Object.defineProperty(t, 'StoreRequestException', {
+          enumerable: !0,
+          get: function() {
+            return s.default;
+          },
         });
-      var r = s(n(30)),
-        o = s(n(8)),
-        i = s(n(2));
-      function s(e) {
+      var r = u(n(30)),
+        o = u(n(9)),
+        i = u(n(2)),
+        s = u(n(3));
+      function u(e) {
         return e && e.__esModule ? e : { default: e };
       }
     },
