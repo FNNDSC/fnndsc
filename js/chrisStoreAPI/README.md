@@ -20,9 +20,10 @@ const storeUrl = 'http://localhost:8010/api/v1/';
 const usersUrl = storeUrl + 'users/';
 const authUrl = storeUrl + 'auth-token/';
 let authToken;
+let resp;
 
 // create a new user
-const resp = StoreClient.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');
+resp = StoreClient.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');
 resp
   .then(user => {
 
@@ -30,7 +31,7 @@ resp
   });
 
 // retrieve a user auth token
-const resp = StoreClient.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
+resp = StoreClient.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
 resp
   .then(token => {
 
@@ -43,7 +44,7 @@ const auth = {token: authToken};
 const client = new StoreClient(storeUrl, auth);
 
 // retrieve a plugin given its name
-const resp = client.getPlugin('simplefsapp');
+resp = client.getPlugin('simplefsapp');
 resp
   .then(plugin => {
 
@@ -52,7 +53,7 @@ resp
 
 // retrieve a list of plugins given search params
 const searchParams = { type: 'fs' };
-const resp = client.getPlugins(searchParams);
+resp = client.getPlugins(searchParams);
 resp
   .then(fsPluginList => {
 
@@ -60,7 +61,7 @@ resp
   });
 
 // retrieve a list of all plugins in the ChRIS store
-const resp = client.getPlugins();
+resp = client.getPlugins();
 resp
   .then(allPluginList => {
 
