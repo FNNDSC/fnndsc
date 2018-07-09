@@ -114,12 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <app-route
         route="{{route}}"
         pattern="[[rootPattern]]:page"
-        data="{{routeData}}"
-        tail="{{subroute}}"></app-route>
-    <app-route
-        route="{{subroute}}"
-        pattern="/:id"
-        data="{{subrouteData}}">
+        data="{{routeData}}"></app-route>
     </app-route>
 
     <rev-data
@@ -204,8 +199,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
           rootPattern: String,
           routeData: Object,
-          subroute: String,
-          subrouteData: Object,
           demoPrefix: {
             type: String,
             value: '../RSNA',
@@ -235,8 +228,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       static get observers() {
         return [
-          '_routePageChanged(routeData.page)',
-          '_subroutePageChanged(subrouteData.id)',
+          '_routePathChanged(route.path)',
           '_demoLayoutChanged(demoLayout.*)',
         ];
       }
@@ -249,42 +241,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.rootPattern = (new URL(this.rootPath)).pathname;
       }
 
-      _routePageChanged(page) {
+      _routePathChanged(path) {
         // Polymer 2.0 will call with `undefined` on initialization.
         // Ignore until we are properly called with a string.
-        if (page === undefined) {
+        if (this.routeData.page === undefined) {
           return;
         }
 
         // If no page was found in the route data, page will be an empty string.
-        this.page = page || 'view404';
-      }
+        this.page = this.routeData.page || 'view404';
 
-      _subroutePageChanged(id) {
-        if (id === undefined) {
-          return;
+        const urlSearchParameters = new URLSearchParams(document.location.search);
+        const age = urlSearchParameters.get('age');
+        const normative = urlSearchParameters.get('normative');
+        if (age) {
+          return window.setTimeout(this.loadDemo.bind(this, 'age', normative), 1000);
+
         }
 
-        //
-        if (id !== '') {
-          window.console.log(id);
-          // special id, we want to fetch data from CUBE
-          // this.$.viewer.serverIp = '';
-          // this.$.viewer.serverPort = '';
-          // else fetch from ChipsConfiguration.apiRoot
-          // set tokens
-          // get list of files in datastore
-          // and use it for GE data
-          if (this.page !== 'viewer') {
-            this.set('route.path', `/viewer/${id}`);
-          } else {
-            // auto log in
-            return window.setTimeout(this.loadDemo.bind(this, id), 2000);
-          }
+        if (normative) {
+          return window.setTimeout(this.loadDemo.bind(this, 'normative', normative), 1000);
         }
       }
 
-      loadDemo(demoId) {
+      loadDemo(demoType, demoId) {
+        window.console.log(demoType, demoId);
         // wait for demo data to arrive
         if (
           this.patientData === undefined ||
@@ -292,7 +273,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.normativeData === undefined ||
           !this.normativeData['PATIENT^30^MONTHS^ID'] ||
           this.normativeData['PATIENT^30^MONTHS^ID'].length <= 0) {
-          return window.setTimeout(this.loadDemo.bind(this, demoId), 2000);
+          return window.setTimeout(this.loadDemo.bind(this, demoType, demoId), 2000);
         }
 
         // update demo id
