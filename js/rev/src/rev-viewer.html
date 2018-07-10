@@ -613,7 +613,6 @@
       }
 
       _onDeactivateRenderer(event) {
-        window.console.log('deactivate');
         // remove active from layout
         this.set(['currentLayout', this.active], -1);
         this.active = -1;
@@ -718,8 +717,6 @@
       }
 
       _currentLayoutChanged(currentLayout) {
-        window.console.log(currentLayout);
-        window.console.log(this.loaded);
         // layout changed but no data dragged in
         if (this.loaded && !currentLayout.path.startsWith('currentLayout.')) {
           return false;
@@ -752,8 +749,6 @@
               images = this.dataGe[i].details.series.data;
             }
           }
-
-          window.console.log(images);
 
           this.$[`viewer${target}`].api = api;
           this.$[`viewer${target}`].images = images;
