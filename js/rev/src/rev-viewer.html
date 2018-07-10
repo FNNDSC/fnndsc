@@ -444,6 +444,9 @@
 
       static get properties() {
         return {
+          loaded: {
+            type: Boolean,
+          },
           dataGe: {
             type: Array,
             value: [],
@@ -463,7 +466,7 @@
           },
           currentLayout: {
             type: Array,
-            value: [],
+            value: [-1, -1, -1, -1, -1, -1],
           },
           active: {
             type: Number,
@@ -715,8 +718,16 @@
 
       _currentLayoutChanged(currentLayout) {
         // layout changed but no data dragged in
-        if (!currentLayout.path.includes('currentLayout.')) {
+        if (this.loaded && !currentLayout.path.startsWith('currentLayout.')) {
           return false;
+        }
+
+        // if not loaded but empty
+        if ((this.loaded === undefined) && currentLayout.path === 'currentLayout') {
+          if (currentLayout.value.length === 0 ||
+              (currentLayout.value.length > 0 && currentLayout.value[0] === -1)) {
+            return false;
+          }
         }
 
         // something was removed
@@ -724,22 +735,45 @@
           return false;
         }
 
-        // new data dragged in:
-        const uid = currentLayout.value;
-        const target = currentLayout.path.split('.')[1];
+        if (currentLayout.path.startsWith('currentLayout.')) {
+          // drag and drop
+          // new data dragged in:
+          const uid = currentLayout.value;
+          const target = currentLayout.path.split('.')[1];
 
-        let images = [];
-        let api = {};
-        // loop through normals
-        for (let i = 0; i < this.dataGe.length; i++) {
-          if (this.dataGe[i].details.series.uid === uid) {
-            images = this.dataGe[i].details.series.data;
+          let images = [];
+          let api = {};
+          // loop through normals
+          for (let i = 0; i < this.dataGe.length; i++) {
+            if (this.dataGe[i].details.series.uid === uid) {
+              images = this.dataGe[i].details.series.data;
+            }
+          }
+
+          this.$[`viewer${target}`].api = api;
+          this.$[`viewer${target}`].images = images;
+          this.$[`viewer${target}`].type = 'normative';
+        } else {
+          for (let i = 0; i < currentLayout.value.length; i++) {
+            const uid = currentLayout.value[i];
+            const target = i;
+
+            let images = [];
+            let api = {};
+            // loop through normals
+            for (let i = 0; i < this.dataGe.length; i++) {
+              if (this.dataGe[i].details.series.uid === uid) {
+                images = this.dataGe[i].details.series.data;
+              }
+            }
+
+            this.$[`viewer${target}`].api = api;
+            this.$[`viewer${target}`].images = images;
+            this.$[`viewer${target}`].type = 'normative';
           }
         }
 
-        this.$[`viewer${target}`].api = api;
-        this.$[`viewer${target}`].images = images;
-        this.$[`viewer${target}`].type = 'normative';
+        this.loaded = true;
       }
     }
 
