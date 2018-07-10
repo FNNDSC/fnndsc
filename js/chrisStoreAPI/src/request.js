@@ -51,7 +51,13 @@ export default class Request {
     config.data = data;
 
     if (descriptorFile) {
-      config['content-type'] = 'application/x-www-form-urlencoded';
+      config['headers']['content-type'] = 'multipart/form-data';
+      const bFormData = new FormData();
+      bFormData.set('name', data.name);
+      bFormData.set('dock_image', data.dock_image);
+      bFormData.set('public_repo', data.public_repo);
+      bFormData.set('descriptor_file', descriptorFile);
+      config.data = bFormData;
     }
 
     return axios(config)

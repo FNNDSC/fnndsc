@@ -51,4 +51,29 @@ describe('Request', () => {
       })
       .then(done, done);
   });
+
+  /*it('can make authenticated POST request', done => {
+    const data = {
+      name: 'simplefsap',
+      dock_image: 'fnndsc/pl-simplefsapp',
+      public_repo: 'http://github.com',
+    };
+
+    const fileData = JSON.stringify({ type: 'fs', parameters: [{ name: 'dir', type: 'path' }] });
+    const dfile = new Blob([fileData], { type: 'application/json' });
+
+    const result = req.post(storeUrl, data, dfile);
+
+    result
+      .then(response => {
+        window.console.log('response: ', response);
+
+        const fr = new FileReader();
+        fr.onload = function() {
+          window.console.log('dfile: ', JSON.parse(this.result));
+        };
+        fr.readAsText(dfile);
+      })
+      .then(done, done);
+  });*/
 });
