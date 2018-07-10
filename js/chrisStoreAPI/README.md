@@ -1,12 +1,72 @@
 # ChRIS Store API
 [![Build Status](https://travis-ci.org/FNNDSC/fnndsc.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc)
 
-JavaScript6 client for the ChRIS Store API. 
+JavaScript6 client for the ChRIS Store API.
 
 ## Installation
 
 ``` bash
 npm i @fnndsc/chrisstoreapi
+```
+
+## Usage
+
+If you have a ChRIS store server up and running (eg. as explained below) then you can use and test the api in your JS code:
+
+``` javascript
+import {StoreClient} from '@fnndsc/chrisstoreapi';
+
+const storeUrl = 'http://localhost:8010/api/v1/';
+const usersUrl = storeUrl + 'users/';
+const authUrl = storeUrl + 'auth-token/';
+let authToken;
+let resp;
+
+// create a new user
+resp = StoreClient.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');
+resp
+  .then(user => {
+
+    window.console.log('New user: ', user);
+  });
+
+// retrieve a user auth token
+resp = StoreClient.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
+resp
+  .then(token => {
+
+    window.console.log('Token: ', token);
+    authToken = token;
+  });
+
+// create a new client instance  
+const auth = {token: authToken};
+const client = new StoreClient(storeUrl, auth);
+
+// retrieve a plugin given its name
+resp = client.getPlugin('simplefsapp');
+resp
+  .then(plugin => {
+
+    window.console.log('plugin: ', plugin);
+  });
+
+// retrieve a list of plugins given search params
+const searchParams = { type: 'fs' };
+resp = client.getPlugins(searchParams);
+resp
+  .then(fsPluginList => {
+
+    window.console.log('"fs" plugins: ', fsPluginList);
+  });
+
+// retrieve a list of all plugins in the ChRIS store
+resp = client.getPlugins();
+resp
+  .then(allPluginList => {
+
+    window.console.log('All plugins: ', allPluginList);
+  });
 ```
 
 ## Development and testing
