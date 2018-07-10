@@ -252,20 +252,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.page = this.routeData.page || 'view404';
 
         const urlSearchParameters = new URLSearchParams(document.location.search);
-        const age = urlSearchParameters.get('age');
-        const normative = urlSearchParameters.get('normative');
-        if (age) {
-          return window.setTimeout(this.loadDemo.bind(this, 'age', normative), 1000);
+        // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
+        const patientBirthDate = urlSearchParameters.get('patientbirthdate');
+        const scanDate = urlSearchParameters.get('scandate');
 
+        // http://fnndsc.childrens.harvard.edu/ReV/viewer?year=01&month=05&example=03
+        const year = urlSearchParameters.get('year');
+        const month = urlSearchParameters.get('month');
+        const example = urlSearchParameters.get('example');
+
+        let target = '';
+        if (patientBirthDate && scanDate) {
+          target = this.pathFromRadstar(patientBirthDate, scanDate);
+        } else if (year && month && example) {
+          target = this.pathFromRadstar(year, month, example);
         }
 
-        if (normative) {
-          return window.setTimeout(this.loadDemo.bind(this, 'normative', normative), 1000);
-        }
+        target += '/description.json';
+
+        // fetch target...
+
+        window.setTimeout(this.loadDemo.bind(this, 'normative', '7months'), 1000);
+      }
+
+      pathFromRadstar(birthDate, scanDate) {
+        return `${birthDate}/${scanDate}/`
+      }
+
+      pathFromHome(year, month, example) {
+        return `${year}/${month}/${example}/`;
       }
 
       loadDemo(demoType, demoId) {
-        window.console.log(demoType, demoId);
         // wait for demo data to arrive
         if (
           this.patientData === undefined ||
@@ -297,20 +315,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
         };
         this._handleStartGE(event);
-
+        this.set('currentLayout', [value.display.content[0], value.display.content[0]]);
+        // this.push('currentLayout', value.display.content[0]);
+        // this.set(['currentLayout', 0], value.display.content[0]);
         this.layout = value.display.layout;
-        // update layout shape
-        this.set('currentLayout', value.display.structure);
-        window.console.log(value.display.content);
-        this.set(['currentLayout', 0], value.display.content[0]);
-
-        // load content
-        // const content = value.display.content;
-        // for (let i=0; i<content.length; i++) {
-        //   if (content[i] !== '') {
-        //     this.set(['currentLayout', i], content[i]);
-        //   }
-        // }
+        this.loaded = true;
       }
 
       _handleStartGE(event) {
