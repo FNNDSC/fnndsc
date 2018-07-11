@@ -7,16 +7,13 @@
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
 <!-- Iron components -->
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 
 <!-- Paper components  -->
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-progress/paper-progress.html">
-
-<!--Chips components  -->
-<link rel="import" href="../bower_components/chips-api/chips-api.html">
-<link rel="import" href="../bower_components/chips-api/behaviors/chips-plugin-behavior.html">
 
 <link rel="import" href="../bower_components/wc-series-preview/wc-series-preview.html">
 <link rel="import" href="../bower_components/wc-viewer-2d/wc-viewer-2d.html">
@@ -257,9 +254,6 @@
       }
     </style>
 
-    <chips-api
-      id="API"></chips-api>
-
     <rev-panel
       class="border-right"
       hidden$=[[!_isReady(dataStatusGe)]]
@@ -436,8 +430,7 @@
   </template>
 
   <script>
-    class RevViewer extends CHIPSPluginBehavior(
-      Polymer.GestureEventListeners(Polymer.Element)) {
+    class RevViewer extends Polymer.GestureEventListeners(Polymer.Element) {
       static get is() {
         return 'rev-viewer';
       }
@@ -717,6 +710,7 @@
       }
 
       _currentLayoutChanged(currentLayout) {
+        window.console.log(currentLayout);
         // layout changed but no data dragged in
         if (this.loaded && !currentLayout.path.startsWith('currentLayout.')) {
           return false;

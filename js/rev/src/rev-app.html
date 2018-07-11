@@ -30,9 +30,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="global-styles.html">
 
-<link rel="import" href="rev-data.html">
-<link rel="import" href="rev-demo.html">
-
 <dom-module id="rev-app">
   <template>
     <style>
@@ -117,13 +114,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"></app-route>
     </app-route>
 
-    <rev-data
-      patient-data="{{patientData}}"
-      normative-data="{{normativeData}}"></rev-data>
-    <rev-demo
-      demo-id="[[demoId]]"
-      demo-layout="{{demoLayout}}"></rev-data>
-
     <!-- Main content -->
     <app-header-layout has-scrolling-region>
 
@@ -201,19 +191,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           routeData: Object,
           demoPrefix: {
             type: String,
-            value: '../RSNA',
-          },
-          normativeData: {
-            type: Object,
-            value: {},
-          },
-          demoId: {
-            type: String,
-            value: '',
-          },
-          demoLayout: {
-            type: Object,
-            value: null,
+            value: '/rev/viewer',
           },
           layout: {
             type: Number,
@@ -229,7 +207,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       static get observers() {
         return [
           '_routePathChanged(route.path)',
-          '_demoLayoutChanged(demoLayout.*)',
         ];
       }
 
@@ -249,7 +226,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         // If no page was found in the route data, page will be an empty string.
-        this.page = this.routeData.page || 'view404';
+        this.page = this.routeData.page || 'viewer';
 
         const urlSearchParameters = new URLSearchParams(document.location.search);
         // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
@@ -268,11 +245,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           target = this.pathFromRadstar(year, month, example);
         }
 
-        target += '/description.json';
+        // hard code for now
+        target = 'patients/PATIENT1^6^MONTHS';
 
         // fetch target...
-
-        window.setTimeout(this.loadDemo.bind(this, 'normative', '7months'), 1000);
+        const testURL = `${this.demoPrefix}/${target}/description.json`
+        fetch(testURL)
+        .then((response) => {
+          return response.json();
+        })
+        .then((myJson) => {
+        const data = myJson.data;
+        this.dataGE = data;
+        this.addDemoPrefixTo(this.dataGE);
+        this.dataGEStatus = 'ready';
+        this.set('currentLayout', [data[0].uid.value]);
+        this.layout = 0;
+        this.loaded = true;
+        });
       }
 
       pathFromRadstar(birthDate, scanDate) {
@@ -281,55 +271,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       pathFromHome(year, month, example) {
         return `${year}/${month}/${example}/`;
-      }
-
-      loadDemo(demoType, demoId) {
-        // wait for demo data to arrive
-        if (
-          this.patientData === undefined ||
-          this.patientData.length <= 0 ||
-          this.normativeData === undefined ||
-          !this.normativeData['PATIENT^30^MONTHS^ID'] ||
-          this.normativeData['PATIENT^30^MONTHS^ID'].length <= 0) {
-          return window.setTimeout(this.loadDemo.bind(this, demoType, demoId), 2000);
-        }
-
-        // update demo id
-        this.demoId = demoId;
-      }
-
-      _demoLayoutChanged(demoLayout) {
-        if (demoLayout === null || demoLayout.base === null) {
-          return;
-        }
-
-        const value = demoLayout.value;
-        const data =
-          this.patientData.filter(
-            (elt) => (elt.PatientID.value === value.patientID));
-
-        // load GE data
-        const event = {
-          detail: {
-            selection: [data[0]],
-          },
-        };
-        this._handleStartGE(event);
-        this.set('currentLayout', [value.display.content[0], value.display.content[0]]);
-        // this.push('currentLayout', value.display.content[0]);
-        // this.set(['currentLayout', 0], value.display.content[0]);
-        this.layout = value.display.layout;
-        this.loaded = true;
-      }
-
-      _handleStartGE(event) {
-        const patientID =
-          event.detail.selection[0].PatientID.value.replace(/\./g, '^');
-        this.dataGE = this.normativeData[patientID];
-        // filter by ID
-        // key mapping
-        this.addDemoPrefixTo(this.dataGE);
-        this.dataGEStatus = 'ready';
       }
 
       _pageChanged(page) {
