@@ -55,6 +55,17 @@ describe('StoreClient', () => {
       .then(done, done);
   });
 
+  it('can update currently authenticated user info (email and or password)', function(done) {
+    const info = { email: 'cubeadmin1@babymri.org', password: password };
+    const resp = client.updateUser(info);
+
+    resp
+      .then(user => {
+        expect(user.items).to.have.lengthOf(1);
+      })
+      .then(done, done);
+  });
+
   it('can create a new user', function(done) {
     const username = 'user' + Date.now();
     const password = username + 'pass';

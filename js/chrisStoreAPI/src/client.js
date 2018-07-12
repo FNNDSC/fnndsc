@@ -194,7 +194,43 @@ export default class StoreClient {
         try {
           resp = yield req.get(storeUrl);
           let userUrls = Collection.getLinkRelationUrls(resp.collection, 'user');
-          resp = yield req.get(userUrls[0]);
+          resp = yield req.get(userUrls[0]); // there is only a single user url
+        } catch (ex) {
+          reject(ex);
+        }
+
+        resolve(resp.collection);
+      });
+    });
+  }
+
+  /**
+   * Update currently authenticated user's information (email and or password).
+   *
+   * @param {*} userInfoObj
+   * @return {*}
+   */
+  updateUser(userInfoObj) {
+    const storeUrl = this.storeUrl;
+    const req = new Request(this.auth, this.contentType, this.timeout);
+
+    const userData = {
+      template: {
+        data: [
+          { name: 'email', value: userInfoObj.email },
+          { name: 'password', value: userInfoObj.password },
+        ],
+      },
+    };
+
+    return new Promise((resolve, reject) => {
+      StoreClient._runAsyncTask(function*() {
+        let resp;
+
+        try {
+          resp = yield req.get(storeUrl);
+          let userUrls = Collection.getLinkRelationUrls(resp.collection, 'user');
+          resp = yield req.put(userUrls[0], userData); // there is only a single user url
         } catch (ex) {
           reject(ex);
         }
