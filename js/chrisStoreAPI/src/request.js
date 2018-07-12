@@ -29,13 +29,7 @@ export default class Request {
     const config = this._getConfig(url, 'get');
     config.params = params;
 
-    return axios(config)
-      .then(response => {
-        return response.data;
-      })
-      .catch(error => {
-        Request._handleRequestError(error);
-      });
+    return Request._callAxios(config);
   }
 
   /**
@@ -47,7 +41,43 @@ export default class Request {
    * @return {*}
    */
   post(url, data, descriptorFile) {
-    const config = this._getConfig(url, 'post');
+    return this._postOrPut('post', url, data, descriptorFile);
+  }
+
+  /**
+   * Perform a PUT request to the ChRIS store.
+   *
+   * @param {*} url
+   * @param {*} data
+   * @param {*} descriptorFile
+   * @return {*}
+   */
+  put(url, data, descriptorFile) {
+    return this._postOrPut('put', url, data, descriptorFile);
+  }
+
+  /**
+   * Perform a DELETE request to the ChRIS store.
+   *
+   * @param {*} url
+   */
+  delete(url) {
+    const config = this._getConfig(url, 'delete');
+
+    return Request._callAxios(config);
+  }
+
+  /**
+   * Internal method to make either a POST or PUT request to the ChRIS store.
+   *
+   * @param {*} requestMethod
+   * @param {*} url
+   * @param {*} data
+   * @param {*} descriptorFile
+   * @return {*}
+   */
+  _postOrPut(requestMethod, url, data, descriptorFile) {
+    const config = this._getConfig(url, requestMethod);
     config.data = data;
 
     if (descriptorFile) {
@@ -60,13 +90,7 @@ export default class Request {
       config.data = bFormData;
     }
 
-    return axios(config)
-      .then(response => {
-        return response.data;
-      })
-      .catch(error => {
-        Request._handleRequestError(error);
-      });
+    return Request._callAxios(config);
   }
 
   /**
@@ -94,6 +118,22 @@ export default class Request {
     }
 
     return config;
+  }
+
+  /**
+   * Internal method to make an axios request.
+   *
+   * @param {*} config
+   * @return {*}
+   */
+  static _callAxios(config) {
+    return axios(config)
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        Request._handleRequestError(error);
+      });
   }
 
   /**
