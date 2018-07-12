@@ -1,12 +1,12 @@
 {
   "entrypoint": "index.html",
+  "basePath":"/my/root/",
   "shell": "src/rev-app.html",
   "fragments": [
     "src/rev-viewer.html",
     "src/rev-view404.html"
   ],
   "sources": [
-    "RSNA/**/*",
     "src/**/*",
     "images/**/*",
     "bower.json"
