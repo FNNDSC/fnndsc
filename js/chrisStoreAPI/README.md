@@ -51,21 +51,36 @@ resp
     window.console.log('plugin: ', plugin);
   });
 
-// retrieve a list of plugins given search params
-const searchParams = { type: 'fs' };
+// retrieve a sublist of plugins given search params
+let searchParams = { limit: 10, offset:10 };
 resp = client.getPlugins(searchParams);
 resp
-  .then(fsPluginList => {
+  .then(smallPluginList => {
 
-    window.console.log('"fs" plugins: ', fsPluginList);
+    window.console.log('small plugin list: ', smallPluginList);
   });
 
-// retrieve a list of all plugins in the ChRIS store
-resp = client.getPlugins();
+// retrieve a paginated list of plugins given search params and call a callback function on every page of the plugin list
+searchParams = { type: 'fs' };
+resp = client.getPlugins(searchParams, onePageFsPluginList => {
+
+  window.console.log('one page of the fs plugin list: ', onePageFsPluginList);
+});
+resp
+  .then(fullFsPluginList => {
+
+    window.console.log('"fs" plugins: ', fullFsPluginList);
+  });
+
+// retrieve a paginated list of all plugins in the ChRIS store and call a callback function on every page of plugin list
+resp = client.getPlugins(null, onePageAllPluginList => {
+
+  window.console.log('one page of the full plugin list: ', onePageAllPluginList);
+});
 resp
   .then(allPluginList => {
 
-    window.console.log('All plugins: ', allPluginList);
+    window.console.log('all plugins in the store: ', allPluginList);
   });
 ```
 
