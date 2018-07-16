@@ -48,6 +48,20 @@ describe('StoreClient', () => {
       .then(done, done);
   });
 
+  it('can retrieve currently authenticated user plugins', function(done) {
+    this.timeout(10000); // mocha test timeout, don't work with arrow functions
+
+    const result = client.getAuthenticatedUserPlugins(onePageResp1 => {
+      expect(onePageResp1).to.have.property('currentLink');
+      expect(onePageResp1).to.have.property('plugins');
+    });
+    result
+      .then(currentUserPlugins => {
+        expect(currentUserPlugins).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
   it('can retrieve currently authenticated user info', function(done) {
     const resp = client.getUser();
 
