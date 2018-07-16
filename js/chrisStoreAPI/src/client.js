@@ -58,9 +58,11 @@ export default class StoreClient {
   /**
    * Get a paginated list of plugin data (descriptors) given query search
    * parameters. If no search parameters is given then get a paginated list
-   * of all plugins in the store. callback function is called for each page
-   * with an object containing the plugin list in that page as an argument.
+   * of all plugins in the store. callback function, if provided, is called for
+   * each page and passed an argument object containing the plugin list in that
+   * page.
    *
+   * @param {*} searchParams
    * @param {*} callback
    * @return {*}
    */
@@ -90,6 +92,79 @@ export default class StoreClient {
         }
 
         resolve(pluginList);
+      });
+    });
+  }
+
+  /**
+   * Get a paginated list of plugin data (descriptors) of all plugins in the
+   * store that are onwed by the currently authenticated user. Callback function,
+   * if provided, is called for each page and passed an argument object
+   * containing the plugin list in that page.
+   *
+   * @param {*} callback
+   * @return {*}
+   */
+  getAuthenticatedUserPlugins(callback = null) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient._runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        let pluginList = [];
+        let resp, username;
+
+        try {
+          if (self.auth.username) {
+            username = self.auth.username;
+          } else {
+            resp = yield req.get(self.storeUrl);
+            const userLink = Collection.getLinkRelationUrls(resp.collection, 'user')[0];
+            resp = yield req.get(userLink);
+            username = resp.collection.items[0].data.filter(descriptor => {
+              return descriptor.name === 'username';
+            }).value;
+          }
+          self.auth.username = username;
+          pluginList = yield self.getPlugins({ owner_username: username }, callback);
+        } catch (ex) {
+          reject(ex);
+        }
+
+        resolve(pluginList);
+      });
+    });
+  }
+
+  /**
+   * Add a new plugin to the ChRIS store.
+   *
+   * @param {*} name
+   * @param {*} dockImage
+   * @param {*} descriptorFile
+   * @param {*} publicRepo
+   * @return {*}
+   */
+  addPlugin(name, dockImage, descriptorFile, publicRepo) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient._runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        const data = {
+          name: name,
+          dock_image: dockImage,
+          public_repo: publicRepo,
+        };
+        let resp;
+
+        try {
+          resp = yield req.post(self.storeUrl, data, descriptorFile);
+        } catch (ex) {
+          reject(ex);
+        }
+
+        resolve(resp.collection);
       });
     });
   }
