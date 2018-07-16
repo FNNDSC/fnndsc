@@ -18,7 +18,6 @@ describe('StoreClient', () => {
 
     resp
       .then(plugin => {
-        //window.console.log('plugin: ', plugin);
         expect(plugin.name).to.equal('simplefsapp');
         expect(plugin.parameters[0].name).to.equal('dir');
       })
@@ -27,17 +26,22 @@ describe('StoreClient', () => {
 
   it('can retrieve plugins given search params', function(done) {
     const searchParams = { type: 'fs' };
-    const resp1 = client.getPlugins(searchParams);
 
     this.timeout(10000); // mocha test timeout, don't work with arrow functions
 
-    resp1
+    const result1 = client.getPlugins(searchParams, onePageResp1 => {
+      expect(onePageResp1).to.have.property('currentLink');
+      expect(onePageResp1).to.have.property('plugins');
+    });
+    result1
       .then(fsPlugins => {
-        const resp2 = client.getPlugins();
-
         expect(fsPlugins).to.have.lengthOf.at.least(1);
 
-        resp2.then(allPlugins => {
+        const result2 = client.getPlugins(null, onePageResp2 => {
+          expect(onePageResp2).to.have.property('currentLink');
+          expect(onePageResp2).to.have.property('plugins');
+        });
+        result2.then(allPlugins => {
           expect(allPlugins).to.have.lengthOf.above(fsPlugins.length);
         });
       })

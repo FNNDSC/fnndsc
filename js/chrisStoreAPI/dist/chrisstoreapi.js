@@ -277,10 +277,10 @@
         a = n(6),
         c = ('undefined' != typeof window && window.btoa && window.btoa.bind(window)) || n(18);
       e.exports = function(e) {
-        return new Promise(function(t, f) {
-          var l = e.data,
+        return new Promise(function(t, l) {
+          var f = e.data,
             p = e.headers;
-          r.isFormData(l) && delete p['Content-Type'];
+          r.isFormData(f) && delete p['Content-Type'];
           var d = new XMLHttpRequest(),
             h = 'onreadystatechange',
             m = !1;
@@ -296,9 +296,9 @@
               (d.ontimeout = function() {})),
             e.auth)
           ) {
-            var y = e.auth.username || '',
-              g = e.auth.password || '';
-            p.Authorization = 'Basic ' + c(y + ':' + g);
+            var g = e.auth.username || '',
+              y = e.auth.password || '';
+            p.Authorization = 'Basic ' + c(g + ':' + y);
           }
           if (
             (d.open(e.method.toUpperCase(), i(e.url, e.params, e.paramsSerializer), !0),
@@ -318,14 +318,14 @@
                     config: e,
                     request: d,
                   };
-                o(t, f, r), (d = null);
+                o(t, l, r), (d = null);
               }
             }),
             (d.onerror = function() {
-              f(a('Network Error', e, null, d)), (d = null);
+              l(a('Network Error', e, null, d)), (d = null);
             }),
             (d.ontimeout = function() {
-              f(a('timeout of ' + e.timeout + 'ms exceeded', e, 'ECONNABORTED', d)), (d = null);
+              l(a('timeout of ' + e.timeout + 'ms exceeded', e, 'ECONNABORTED', d)), (d = null);
             }),
             r.isStandardBrowserEnv())
           ) {
@@ -339,7 +339,7 @@
           if (
             ('setRequestHeader' in d &&
               r.forEach(p, function(e, t) {
-                void 0 === l && 'content-type' === t.toLowerCase()
+                void 0 === f && 'content-type' === t.toLowerCase()
                   ? delete p[t]
                   : d.setRequestHeader(t, e);
               }),
@@ -358,10 +358,10 @@
               d.upload.addEventListener('progress', e.onUploadProgress),
             e.cancelToken &&
               e.cancelToken.promise.then(function(e) {
-                d && (d.abort(), f(e), (d = null));
+                d && (d.abort(), l(e), (d = null));
               }),
-            void 0 === l && (l = null),
-            d.send(l);
+            void 0 === f && (f = null),
+            d.send(f);
         });
       };
     },
@@ -389,26 +389,30 @@
         }
         get(e, t) {
           const n = this._getConfig(e, 'get');
-          return (
-            (n.params = t),
-            (0, r.default)(n)
-              .then(e => e.data)
-              .catch(e => {
-                u._handleRequestError(e);
-              })
-          );
+          return (n.params = t), u._callAxios(n);
         }
         post(e, t, n) {
-          const o = this._getConfig(e, 'post');
-          return (
-            (o.data = t),
-            n && (o['content-type'] = 'application/x-www-form-urlencoded'),
-            (0, r.default)(o)
-              .then(e => e.data)
-              .catch(e => {
-                u._handleRequestError(e);
-              })
-          );
+          return this._postOrPut('post', e, t, n);
+        }
+        put(e, t, n) {
+          return this._postOrPut('put', e, t, n);
+        }
+        delete(e) {
+          const t = this._getConfig(e, 'delete');
+          return u._callAxios(t);
+        }
+        _postOrPut(e, t, n, r) {
+          const o = this._getConfig(t, e);
+          if (((o.data = n), r)) {
+            o.headers['content-type'] = 'multipart/form-data';
+            const e = new FormData();
+            e.set('name', n.name),
+              e.set('dock_image', n.dock_image),
+              e.set('public_repo', n.public_repo),
+              e.set('descriptor_file', r),
+              (o.data = e);
+          }
+          return u._callAxios(o);
         }
         _getConfig(e, t) {
           const n = {
@@ -425,6 +429,13 @@
                 (n.headers.Authorization = 'Token ' + this.auth.token),
             n
           );
+        }
+        static _callAxios(e) {
+          return (0, r.default)(e)
+            .then(e => e.data)
+            .catch(e => {
+              u._handleRequestError(e);
+            });
         }
         static _handleRequestError(e) {
           let t;
@@ -787,21 +798,21 @@
       })();
       var a,
         c = [],
-        f = !1,
-        l = -1;
+        l = !1,
+        f = -1;
       function p() {
-        f && a && ((f = !1), a.length ? (c = a.concat(c)) : (l = -1), c.length && d());
+        l && a && ((l = !1), a.length ? (c = a.concat(c)) : (f = -1), c.length && d());
       }
       function d() {
-        if (!f) {
+        if (!l) {
           var e = u(p);
-          f = !0;
+          l = !0;
           for (var t = c.length; t; ) {
-            for (a = c, c = []; ++l < t; ) a && a[l].run();
-            (l = -1), (t = c.length);
+            for (a = c, c = []; ++f < t; ) a && a[f].run();
+            (f = -1), (t = c.length);
           }
           (a = null),
-            (f = !1),
+            (l = !1),
             (function(e) {
               if (r === clearTimeout) return clearTimeout(e);
               if ((r === s || !r) && clearTimeout) return (r = clearTimeout), clearTimeout(e);
@@ -825,7 +836,7 @@
         var t = new Array(arguments.length - 1);
         if (arguments.length > 1)
           for (var n = 1; n < arguments.length; n++) t[n - 1] = arguments[n];
-        c.push(new h(e, t)), 1 !== c.length || f || u(d);
+        c.push(new h(e, t)), 1 !== c.length || l || u(d);
       }),
         (h.prototype.run = function() {
           this.fun.apply(null, this.array);
@@ -975,37 +986,126 @@
             (this.contentType = 'application/vnd.collection+json');
         }
         getPlugin(e) {
-          const t = { name: e };
-          return new Promise((e, n) => {
-            let r;
-            this.getPlugins(t)
-              .then(t => {
-                t.length && (r = t[0]), e(r);
-              })
-              .catch(e => {
-                n(e);
-              });
-          });
-        }
-        getPlugins(e) {
-          const t = this,
-            n = new o.default(this.auth, this.contentType, this.timeout);
-          return new Promise(function(o, i) {
+          const t = this;
+          return new Promise(function(n, i) {
             s._runAsyncTask(function*() {
-              let s, u;
+              const s = new o.default(t.auth, t.contentType, t.timeout),
+                u = { name: e };
+              let a;
               try {
-                if (e) s = yield n.get(t.storeQueryUrl, e);
-                else {
-                  s = yield n.get(t.storeUrl);
-                  let e = r.default.getLinkRelationUrls(s.collection, 'all_plugins')[0];
-                  s = yield n.get(e);
+                const e = yield s.get(t.storeQueryUrl, u);
+                if (e.collection.items.length) {
+                  const n = e.collection.items[0];
+                  a = r.default.getItemDescriptors(n);
+                  const o = r.default.getLinkRelationUrls(n, 'parameters');
+                  if (o.length) {
+                    const e = yield t._getParameters(o[0]);
+                    a.parameters = e;
+                  }
                 }
-                u = yield t._getItemsFromPaginatedCollections(s.collection, ['parameters']);
               } catch (e) {
                 i(e);
               }
-              o(u);
+              n(a);
             });
+          });
+        }
+        getPlugins(e = null, t = null) {
+          const n = this;
+          return new Promise(function(r, o) {
+            s._runAsyncTask(function*() {
+              let i,
+                s = [];
+              try {
+                for (
+                  i = yield n.getPluginsInitialPage(e), s = s.concat(i.plugins), t && t(i);
+                  i.nextLink;
+
+                )
+                  (i = yield n.getPluginsPage(i.nextLink)), (s = s.concat(i.plugins)), t && t(i);
+              } catch (e) {
+                o(e);
+              }
+              r(s);
+            });
+          });
+        }
+        getPluginsInitialPage(e = null) {
+          return this._getPluginsPage(void 0, e);
+        }
+        getPluginsPage(e) {
+          return this._getPluginsPage(e);
+        }
+        _getPluginsPage(e, t = null) {
+          const n = this;
+          return new Promise(function(i, u) {
+            s._runAsyncTask(function*() {
+              const s = new o.default(n.auth, n.contentType, n.timeout),
+                a = [];
+              let c;
+              try {
+                if (e) c = yield s.get(e);
+                else if (t) c = yield s.get(n.storeQueryUrl, t);
+                else {
+                  c = yield s.get(n.storeUrl);
+                  const e = r.default.getLinkRelationUrls(c.collection, 'all_plugins');
+                  e.length && (c = yield s.get(e[0]));
+                }
+                for (let e of c.collection.items) a.push(r.default.getItemDescriptors(e));
+              } catch (e) {
+                u(e);
+              }
+              let l = '',
+                f = r.default.getLinkRelationUrls(c.collection, 'next');
+              f.length && (l = f[0]);
+              let p = '',
+                d = r.default.getLinkRelationUrls(c.collection, 'previous');
+              d.length && (p = d[0]),
+                i({ plugins: a, nextLink: l, currentLink: c.collection.href, previousLink: p });
+            });
+          });
+        }
+        _getParameters(e) {
+          const t = this;
+          return new Promise(function(n, r) {
+            s._runAsyncTask(function*() {
+              const i = new o.default(t.auth, t.contentType, t.timeout);
+              let s;
+              try {
+                const n = yield i.get(e);
+                s = yield t._getItemsFromPaginatedCollections(n.collection);
+              } catch (e) {
+                r(e);
+              }
+              n(s);
+            });
+          });
+        }
+        _getInitialCollection(e, t = null) {
+          const n = this;
+          return new Promise(function(r, i) {
+            new o.default(n.auth, n.contentType, n.timeout)
+              .get(e, t)
+              .then(e => {
+                r(e.collection);
+              })
+              .catch(e => {
+                i(e);
+              });
+          });
+        }
+        _getNextCollection(e) {
+          const t = this;
+          return new Promise(function(n, i) {
+            const s = new o.default(t.auth, t.contentType, t.timeout);
+            let u = r.default.getLinkRelationUrls(e, 'next');
+            s.get(u[0])
+              .then(e => {
+                n(e.collection);
+              })
+              .catch(e => {
+                i(e);
+              });
           });
         }
         _getItemsFromPaginatedCollections(e, t = []) {
@@ -1079,6 +1179,28 @@
                 o(e);
               }
               n(i.collection);
+            });
+          });
+        }
+        updateUser(e) {
+          const t = this.storeUrl,
+            n = new o.default(this.auth, this.contentType, this.timeout),
+            i = {
+              template: {
+                data: [{ name: 'email', value: e.email }, { name: 'password', value: e.password }],
+              },
+            };
+          return new Promise((e, o) => {
+            s._runAsyncTask(function*() {
+              let s;
+              try {
+                s = yield n.get(t);
+                let e = r.default.getLinkRelationUrls(s.collection, 'user');
+                s = yield n.put(e[0], i);
+              } catch (e) {
+                o(e);
+              }
+              e(s.collection);
             });
           });
         }
