@@ -123,7 +123,7 @@ export default class StoreClient {
             resp = yield req.get(userLink);
             username = resp.collection.items[0].data.filter(descriptor => {
               return descriptor.name === 'username';
-            }).value;
+            })[0].value;
           }
           self.auth.username = username;
           pluginList = yield self.getPlugins({ owner_username: username }, callback);
@@ -165,6 +165,75 @@ export default class StoreClient {
         }
 
         resolve(resp.collection);
+      });
+    });
+  }
+
+  /**
+   * Modify an existing plugin in the ChRIS store.
+   *
+   * @param {*} name
+   * @param {*} dockImage
+   * @param {*} descriptorFile
+   * @param {*} publicRepo
+   * @param {*} newname
+   * @return {*}
+   */
+  modifyPlugin(name, dockImage, descriptorFile, publicRepo, newName = '') {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient._runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        let resp;
+
+        try {
+          const searchParams = { name: name };
+          resp = yield req.get(self.storeQueryUrl, searchParams);
+          const url = resp.collection.items[0].href;
+          if (newName) {
+            name = newName;
+          }
+          const data = {
+            name: name,
+            dock_image: dockImage,
+            public_repo: publicRepo,
+          };
+
+          resp = yield req.put(url, data, descriptorFile);
+        } catch (ex) {
+          reject(ex);
+        }
+
+        resolve(resp.collection);
+      });
+    });
+  }
+
+  /**
+   * Remove an existing plugin from the ChRIS store.
+   *
+   * @param {*} name
+   * @return {*}
+   */
+  removePlugin(name) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient._runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        const searchParams = { name: name };
+        let resp;
+
+        try {
+          resp = yield req.get(self.storeQueryUrl, searchParams);
+          const url = resp.collection.items[0].href;
+          resp = yield req.delete(url);
+        } catch (ex) {
+          reject(ex);
+        }
+
+        resolve();
       });
     });
   }
