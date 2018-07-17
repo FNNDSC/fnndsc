@@ -28,6 +28,10 @@ resp
   .then(user => {
 
     window.console.log('New user: ', user);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
   });
 
 // retrieve a user auth token
@@ -37,7 +41,12 @@ resp
 
     window.console.log('Token: ', token);
     authToken = token;
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
   });
+
 
 // create a new client instance  
 const auth = {token: authToken};
@@ -49,16 +58,26 @@ resp
   .then(plugin => {
 
     window.console.log('plugin: ', plugin);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
   });
 
-// retrieve a sublist of plugins given search params
+
+// retrieve a subset of the plugins in a list given search params
 let searchParams = { limit: 10, offset:10 };
 resp = client.getPlugins(searchParams);
 resp
   .then(smallPluginList => {
 
     window.console.log('small plugin list: ', smallPluginList);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
   });
+
 
 // retrieve a paginated list of plugins given search params and call a callback function on every page of the plugin list
 searchParams = { type: 'fs' };
@@ -70,7 +89,12 @@ resp
   .then(fullFsPluginList => {
 
     window.console.log('"fs" plugins: ', fullFsPluginList);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
   });
+
 
 // retrieve a paginated list of all plugins in the ChRIS store and call a callback function on every page of plugin list
 resp = client.getPlugins(null, onePageAllPluginList => {
@@ -81,6 +105,94 @@ resp
   .then(allPluginList => {
 
     window.console.log('all plugins in the store: ', allPluginList);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
+  });
+
+
+// add a new plugin to the store
+const testPlgName = 'myPlugin';
+const testPlgDockImg = 'fnndsc/pl-myPlugin';
+const testPlgPublicRepo = 'https://github.com/FNNDSC/pl-myPlugin';
+const testPluginRepresentation = {
+  creation_date: '2018-05-22T15:49:52.419437Z',
+  modification_date: '2018-05-22T15:49:52.419481Z',
+  type: 'fs',
+  authors: 'FNNDSC (dev@babyMRI.org)',
+  title: 'Simple chris fs app',
+  category: '',
+  description: 'A simple chris fs app demo',
+  documentation: 'http://wiki',
+  license: 'Opensource (MIT)',
+  version: '0.1',
+  execshell: 'python3',
+  selfpath: '/usr/src/simplefsapp',
+  selfexec: 'simplefsapp.py',
+  min_number_of_workers: 1,
+  max_number_of_workers: 1,
+  min_cpu_limit: 1000,
+  max_cpu_limit: 2147483647,
+  min_memory_limit: 200,
+  max_memory_limit: 2147483647,
+  min_gpu_limit: 0,
+  max_gpu_limit: 0,
+  parameters: [
+    {
+      name: 'dir',
+      type: 'path',
+      optional: true,
+      default: './',
+      flag: '--dir',
+      action: 'store',
+      help: 'look up directory',
+    },
+  ],
+};
+
+const fileData = JSON.stringify(testPluginRepresentation);
+const dfile = new Blob([fileData], { type: 'application/json' });
+resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
+
+result
+  .then(response => {
+
+      window.console.log('new plugin in the store: ', response);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
+  });
+
+
+// modify an existing plugin in the store
+testPluginRepresentation.description = 'A new description';
+let fileData = JSON.stringify(testPluginRepresentation);
+let dfile = new Blob([fileData], { type: 'application/json' });
+
+const result = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
+result
+  .then(response => {
+
+    window.console.log('updated description for plugin: ', testPlgName);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
+  });
+
+
+// remove an existing plugin from the store
+resp = client.removePlugin(testPlgName);
+resp
+  .then(() => {
+
+    window.console.log('removed plugin: ', testPlgName);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
   });
 ```
 
