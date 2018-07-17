@@ -279,53 +279,53 @@
       e.exports = function(e) {
         return new Promise(function(t, l) {
           var f = e.data,
-            p = e.headers;
-          r.isFormData(f) && delete p['Content-Type'];
-          var d = new XMLHttpRequest(),
+            d = e.headers;
+          r.isFormData(f) && delete d['Content-Type'];
+          var p = new XMLHttpRequest(),
             h = 'onreadystatechange',
             m = !1;
           if (
             ('undefined' == typeof window ||
               !window.XDomainRequest ||
-              'withCredentials' in d ||
+              'withCredentials' in p ||
               u(e.url) ||
-              ((d = new window.XDomainRequest()),
+              ((p = new window.XDomainRequest()),
               (h = 'onload'),
               (m = !0),
-              (d.onprogress = function() {}),
-              (d.ontimeout = function() {})),
+              (p.onprogress = function() {}),
+              (p.ontimeout = function() {})),
             e.auth)
           ) {
             var g = e.auth.username || '',
               y = e.auth.password || '';
-            p.Authorization = 'Basic ' + c(g + ':' + y);
+            d.Authorization = 'Basic ' + c(g + ':' + y);
           }
           if (
-            (d.open(e.method.toUpperCase(), i(e.url, e.params, e.paramsSerializer), !0),
-            (d.timeout = e.timeout),
-            (d[h] = function() {
+            (p.open(e.method.toUpperCase(), i(e.url, e.params, e.paramsSerializer), !0),
+            (p.timeout = e.timeout),
+            (p[h] = function() {
               if (
-                d &&
-                (4 === d.readyState || m) &&
-                (0 !== d.status || (d.responseURL && 0 === d.responseURL.indexOf('file:')))
+                p &&
+                (4 === p.readyState || m) &&
+                (0 !== p.status || (p.responseURL && 0 === p.responseURL.indexOf('file:')))
               ) {
-                var n = 'getAllResponseHeaders' in d ? s(d.getAllResponseHeaders()) : null,
+                var n = 'getAllResponseHeaders' in p ? s(p.getAllResponseHeaders()) : null,
                   r = {
-                    data: e.responseType && 'text' !== e.responseType ? d.response : d.responseText,
-                    status: 1223 === d.status ? 204 : d.status,
-                    statusText: 1223 === d.status ? 'No Content' : d.statusText,
+                    data: e.responseType && 'text' !== e.responseType ? p.response : p.responseText,
+                    status: 1223 === p.status ? 204 : p.status,
+                    statusText: 1223 === p.status ? 'No Content' : p.statusText,
                     headers: n,
                     config: e,
-                    request: d,
+                    request: p,
                   };
-                o(t, l, r), (d = null);
+                o(t, l, r), (p = null);
               }
             }),
-            (d.onerror = function() {
-              l(a('Network Error', e, null, d)), (d = null);
+            (p.onerror = function() {
+              l(a('Network Error', e, null, p)), (p = null);
             }),
-            (d.ontimeout = function() {
-              l(a('timeout of ' + e.timeout + 'ms exceeded', e, 'ECONNABORTED', d)), (d = null);
+            (p.ontimeout = function() {
+              l(a('timeout of ' + e.timeout + 'ms exceeded', e, 'ECONNABORTED', p)), (p = null);
             }),
             r.isStandardBrowserEnv())
           ) {
@@ -334,34 +334,34 @@
                 (e.withCredentials || u(e.url)) && e.xsrfCookieName
                   ? w.read(e.xsrfCookieName)
                   : void 0;
-            v && (p[e.xsrfHeaderName] = v);
+            v && (d[e.xsrfHeaderName] = v);
           }
           if (
-            ('setRequestHeader' in d &&
-              r.forEach(p, function(e, t) {
+            ('setRequestHeader' in p &&
+              r.forEach(d, function(e, t) {
                 void 0 === f && 'content-type' === t.toLowerCase()
-                  ? delete p[t]
-                  : d.setRequestHeader(t, e);
+                  ? delete d[t]
+                  : p.setRequestHeader(t, e);
               }),
-            e.withCredentials && (d.withCredentials = !0),
+            e.withCredentials && (p.withCredentials = !0),
             e.responseType)
           )
             try {
-              d.responseType = e.responseType;
+              p.responseType = e.responseType;
             } catch (t) {
               if ('json' !== e.responseType) throw t;
             }
           'function' == typeof e.onDownloadProgress &&
-            d.addEventListener('progress', e.onDownloadProgress),
+            p.addEventListener('progress', e.onDownloadProgress),
             'function' == typeof e.onUploadProgress &&
-              d.upload &&
-              d.upload.addEventListener('progress', e.onUploadProgress),
+              p.upload &&
+              p.upload.addEventListener('progress', e.onUploadProgress),
             e.cancelToken &&
               e.cancelToken.promise.then(function(e) {
-                d && (d.abort(), l(e), (d = null));
+                p && (p.abort(), l(e), (p = null));
               }),
             void 0 === f && (f = null),
-            d.send(f);
+            p.send(f);
         });
       };
     },
@@ -800,12 +800,12 @@
         c = [],
         l = !1,
         f = -1;
-      function p() {
-        l && a && ((l = !1), a.length ? (c = a.concat(c)) : (f = -1), c.length && d());
-      }
       function d() {
+        l && a && ((l = !1), a.length ? (c = a.concat(c)) : (f = -1), c.length && p());
+      }
+      function p() {
         if (!l) {
-          var e = u(p);
+          var e = u(d);
           l = !0;
           for (var t = c.length; t; ) {
             for (a = c, c = []; ++f < t; ) a && a[f].run();
@@ -836,7 +836,7 @@
         var t = new Array(arguments.length - 1);
         if (arguments.length > 1)
           for (var n = 1; n < arguments.length; n++) t[n - 1] = arguments[n];
-        c.push(new h(e, t)), 1 !== c.length || l || u(d);
+        c.push(new h(e, t)), 1 !== c.length || l || u(p);
       }),
         (h.prototype.run = function() {
           this.fun.apply(null, this.array);
@@ -1030,6 +1030,83 @@
             });
           });
         }
+        getAuthenticatedUserPlugins(e = null) {
+          const t = this;
+          return new Promise(function(n, i) {
+            s._runAsyncTask(function*() {
+              const s = new o.default(t.auth, t.contentType, t.timeout);
+              let u,
+                a,
+                c = [];
+              try {
+                if (t.auth.username) a = t.auth.username;
+                else {
+                  u = yield s.get(t.storeUrl);
+                  const e = r.default.getLinkRelationUrls(u.collection, 'user')[0];
+                  a = (u = yield s.get(e)).collection.items[0].data.filter(
+                    e => 'username' === e.name
+                  )[0].value;
+                }
+                (t.auth.username = a), (c = yield t.getPlugins({ owner_username: a }, e));
+              } catch (e) {
+                i(e);
+              }
+              n(c);
+            });
+          });
+        }
+        addPlugin(e, t, n, r) {
+          const i = this;
+          return new Promise(function(u, a) {
+            s._runAsyncTask(function*() {
+              const s = new o.default(i.auth, i.contentType, i.timeout),
+                c = { name: e, dock_image: t, public_repo: r };
+              let l;
+              try {
+                l = yield s.post(i.storeUrl, c, n);
+              } catch (e) {
+                a(e);
+              }
+              u(l.collection);
+            });
+          });
+        }
+        modifyPlugin(e, t, n, r, i = '') {
+          const u = this;
+          return new Promise(function(a, c) {
+            s._runAsyncTask(function*() {
+              const s = new o.default(u.auth, u.contentType, u.timeout);
+              let l;
+              try {
+                const o = { name: e },
+                  a = (l = yield s.get(u.storeQueryUrl, o)).collection.items[0].href;
+                i && (e = i);
+                const f = { name: e, dock_image: t, public_repo: r };
+                l = yield s.put(a, f, n);
+              } catch (e) {
+                c(e);
+              }
+              a(l.collection);
+            });
+          });
+        }
+        removePlugin(e) {
+          const t = this;
+          return new Promise(function(n, r) {
+            s._runAsyncTask(function*() {
+              const i = new o.default(t.auth, t.contentType, t.timeout),
+                s = { name: e };
+              let u;
+              try {
+                const e = (u = yield i.get(t.storeQueryUrl, s)).collection.items[0].href;
+                u = yield i.delete(e);
+              } catch (e) {
+                r(e);
+              }
+              n();
+            });
+          });
+        }
         getPluginsInitialPage(e = null) {
           return this._getPluginsPage(void 0, e);
         }
@@ -1058,10 +1135,10 @@
               let l = '',
                 f = r.default.getLinkRelationUrls(c.collection, 'next');
               f.length && (l = f[0]);
-              let p = '',
-                d = r.default.getLinkRelationUrls(c.collection, 'previous');
-              d.length && (p = d[0]),
-                i({ plugins: a, nextLink: l, currentLink: c.collection.href, previousLink: p });
+              let d = '',
+                p = r.default.getLinkRelationUrls(c.collection, 'previous');
+              p.length && (d = p[0]),
+                i({ plugins: a, nextLink: l, currentLink: c.collection.href, previousLink: d });
             });
           });
         }
