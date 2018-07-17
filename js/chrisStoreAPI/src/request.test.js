@@ -87,7 +87,7 @@ describe('Request', () => {
       .then(done, done);
   });
 
-  it('can make authenticated multipart POST request', done => {
+  it('can make authenticated multipart POST request and DELETE request', done => {
     const data = {
       name: 'simplefsapp' + Date.now(),
       dock_image: 'fnndsc/pl-simplefsapp',
@@ -100,33 +100,21 @@ describe('Request', () => {
 
     result
       .then(response => {
-        expect(response.collection.items).to.have.lengthOf(1);
+        const name = response.collection.items[0].data.filter(descriptor => {
+          return descriptor.name === 'name';
+        })[0].value;
+
+        expect(name).to.equal(data.name);
 
         /*  const fr = new FileReader();
         fr.onload = function() {
           window.console.log('dfile: ', JSON.parse(this.result));
         };
         fr.readAsText(dfile);*/
-      })
-      .then(done, done);
-  });
 
-  it('can make authenticated multipart PUT request', done => {
-    const data = {
-      name: 'simplefsapp',
-      dock_image: 'fnndsc/pl-simplefsapp',
-      public_repo: 'http://github.com',
-    };
-
-    testPluginRepresentation.description = 'A very simple chris fs app demo';
-    const fileData = JSON.stringify(testPluginRepresentation);
-    const dfile = new Blob([fileData], { type: 'application/json' });
-
-    const result = req.put(storeUrl + '1/', data, dfile);
-
-    result
-      .then(response => {
-        expect(response.collection.items).to.have.lengthOf(1);
+        // now delete the plugin
+        const url = response.collection.items[0].href;
+        return req.delete(url); // pass rejection or fulfilment through the promise chain
       })
       .then(done, done);
   });
