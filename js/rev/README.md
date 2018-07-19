@@ -21,6 +21,8 @@ bower update
 
 ## Develop
 
+// update <base href="/rev/"> and {this.demoPrefix}
+
 ``` bash
 
 polymer serve
@@ -36,6 +38,8 @@ es5-bundled preset includes:
 * html-minify
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
+
+// update <base href="/rev/"> and {this.demoPrefix}
 
 ``` bash
 
