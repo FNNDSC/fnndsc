@@ -45,71 +45,34 @@ polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
 
 ```
 
-## Docker container
-
-### Build the app
-
-See above
-
-### Build the docker container
-
-``` bash
-
-docker build -t fnndsc/rav:dev .
-
-```
-
-### Deploy to dockerhub
-
-``` bash
-
-docker push fnndsc/rav:dev
-
-```
-
-### Save docker image to a file
-
-``` bash
-
-docker save fnndsc/rav:dev > rav.tar
-
-```
-
-### Load docker image from a file
-
-``` bash
-
-docker load < rav.tar
-
-```
-
 ## Deploy
 
-## Citations
+Important note, if you intend to serve the application from a directory, i.e. `fnndsc.com/rev`, make sure to adjust the `<base href="/rev/">` line 10 in index.html.
 
-## CUBE Setup
+If you serve it from `fnndsc.com/rev`, the base would be `<base href="/">`.
 
-Start CUBE:
+## Map URL to normative
 
-``` bash
+in `src/rev-app.html`:
 
-docker-compose up
+```javascript
+pathFromRadstar(birthDate, scanDate) {
+return `${birthDate}/${scanDate}/`
+}
 
+pathFromHome(year, month, example) {
+return `${year}/${month}/${example}/`;
+}
 ```
 
-Startpfdcm with right port
+Then we use whatever is return by those function to construct a URL that target the `description.json`:
 
-``` bash
-
-./pfdcm --forever --httpResponse --startlistener --setPACS \
-'{
-    "orthanc" : {
-        "server_ip": "%HOST_IP",
-        "aet": "CHIPS",
-        "aet_listener": "CHIPS",
-        "aec": "ORTHANC",
-        "server_port": "4242"
-    }
-}'
-
+```javascript
+ const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
+
+## Add new data
+
+1- Generate JSON description for the group of series
+2- Add it in the lookup list
+3- Add new directory on the file system
