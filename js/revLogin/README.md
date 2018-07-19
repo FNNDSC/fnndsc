@@ -45,71 +45,8 @@ polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
 
 ```
 
-## Docker container
-
-### Build the app
-
-See above
-
-### Build the docker container
-
-``` bash
-
-docker build -t fnndsc/rav:dev .
-
-```
-
-### Deploy to dockerhub
-
-``` bash
-
-docker push fnndsc/rav:dev
-
-```
-
-### Save docker image to a file
-
-``` bash
-
-docker save fnndsc/rav:dev > rav.tar
-
-```
-
-### Load docker image from a file
-
-``` bash
-
-docker load < rav.tar
-
-```
-
 ## Deploy
 
-## Citations
+Important note, if you intend to serve the application from a directory, i.e. `fnndsc.com/rev`, make sure to adjust the `<base href="/rev/">` line 10 in index.html.
 
-## CUBE Setup
-
-Start CUBE:
-
-``` bash
-
-docker-compose up
-
-```
-
-Startpfdcm with right port
-
-``` bash
-
-./pfdcm --forever --httpResponse --startlistener --setPACS \
-'{
-    "orthanc" : {
-        "server_ip": "%HOST_IP",
-        "aet": "CHIPS",
-        "aet_listener": "CHIPS",
-        "aec": "ORTHANC",
-        "server_port": "4242"
-    }
-}'
-
-```
+If you serve it from `fnndsc.com/rev`, the base would be `<base href="/">`.

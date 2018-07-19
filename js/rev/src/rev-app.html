@@ -259,8 +259,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.dataGE = data;
         this.addDemoPrefixTo(this.dataGE);
         this.dataGEStatus = 'ready';
-        this.set('currentLayout', [data[0].uid.value]);
-        this.layout = 0;
+        this.set('currentLayout', [data[1].uid.value, data[2].uid.value, data[3].uid.value]);
+        this.layout = 5;
         this.loaded = true;
         });
       }
