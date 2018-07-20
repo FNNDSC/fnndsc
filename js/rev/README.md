@@ -21,7 +21,15 @@ bower update
 
 ## Develop
 
-// update <base href="/rev/"> and {this.demoPrefix}
+Make sure `<base href="/">` is set in `index.html`.
+It is use by the app as the base path to fetch files. If base is '/rev/viewer', the application
+tries to get its content from `<hostname>:<port>/rev/viewer/`.
+
+At development time, the application is served from `localhost:8081/` hence `<base href='/'>`.
+
+At production time, the application is served from `<hostname>:<port>/rev/viewer/` hence `<base href='/rev/viewer/'>`
+
+You may also want to update `demoPrefix` in `rev-app.html` depending on where the data is located.
 
 ``` bash
 
@@ -39,7 +47,7 @@ es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-// update <base href="/rev/"> and {this.demoPrefix}
+Same remarks as in previous section apply, regarding to `<base href='/rev/viewer/'>` and `demoPrefix`.
 
 ``` bash
 
@@ -51,9 +59,9 @@ polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
 
 ## Deploy
 
-Important note, if you intend to serve the application from a directory, i.e. `fnndsc.com/rev`, make sure to adjust the `<base href="/rev/">` line 10 in index.html.
+Once build copy content from `build/es5` to where we want to serve the app from. Typically it is `fnndsc.childrens.harvard.edu:/var/www/html/rev/viewer`.
 
-If you serve it from `fnndsc.com/rev`, the base would be `<base href="/">`.
+You may have to add/link the directory containing the normative data there.
 
 ## Map URL to normative
 
@@ -61,11 +69,11 @@ in `src/rev-app.html`:
 
 ```javascript
 pathFromRadstar(birthDate, scanDate) {
-return `${birthDate}/${scanDate}/`
+  return `${birthDate}/${scanDate}/`
 }
 
 pathFromHome(year, month, example) {
-return `${year}/${month}/${example}/`;
+  return `${year}/${month}/${example}/`;
 }
 ```
 
@@ -74,6 +82,10 @@ Then we use whatever is return by those function to construct a URL that target 
 ```javascript
  const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
+
+`demoPrefix` is the location of the directory containing the data, from the perspective of the client.
+
+For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:8000/rev/data` and `rev/data` contains the years/month/patient tree, demoPrefix should be `/rev/data/`.
 
 ## Add new data
 
