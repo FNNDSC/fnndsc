@@ -73,7 +73,7 @@
       'number' == typeof __g && (__g = n);
     },
     function(t, e, n) {
-      var r = n(38)('wks'),
+      var r = n(39)('wks'),
         o = n(21),
         i = n(0).Symbol,
         u = 'function' == typeof i;
@@ -235,7 +235,7 @@
     function(t, e, n) {
       var r = n(5),
         o = n(78),
-        i = n(44),
+        i = n(45),
         u = Object.defineProperty;
       e.f = n(4)
         ? Object.defineProperty
@@ -325,7 +325,7 @@
     },
     function(t, e, n) {
       var r = n(76),
-        o = n(43);
+        o = n(44);
       t.exports = function(t) {
         return r(o(t));
       };
@@ -346,12 +346,12 @@
     function(t, e, n) {
       var r = n(5),
         o = n(129),
-        i = n(34),
-        u = n(35)('IE_PROTO'),
+        i = n(35),
+        u = n(36)('IE_PROTO'),
         a = function() {},
         c = function() {
           var t,
-            e = n(45)('iframe'),
+            e = n(46)('iframe'),
             r = i.length;
           for (
             e.style.display = 'none',
@@ -426,7 +426,7 @@
     },
     function(t, e, n) {
       var r = n(73),
-        o = n(34);
+        o = n(35);
       t.exports =
         Object.keys ||
         function(t) {
@@ -437,6 +437,129 @@
       t.exports = function(t, e) {
         return { enumerable: !(1 & t), configurable: !(2 & t), writable: !(4 & t), value: e };
       };
+    },
+    function(t, e, n) {
+      'use strict';
+      function r(t) {
+        return (r =
+          'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
+            ? function(t) {
+                return typeof t;
+              }
+            : function(t) {
+                return t &&
+                  'function' == typeof Symbol &&
+                  t.constructor === Symbol &&
+                  t !== Symbol.prototype
+                  ? 'symbol'
+                  : typeof t;
+              })(t);
+      }
+      function o(t, e) {
+        return !e || ('object' !== r(e) && 'function' != typeof e)
+          ? (function(t) {
+              if (void 0 === t)
+                throw new ReferenceError(
+                  "this hasn't been initialised - super() hasn't been called"
+                );
+              return t;
+            })(t)
+          : e;
+      }
+      function i(t) {
+        var e = 'function' == typeof Map ? new Map() : void 0;
+        return (i = function(t) {
+          if (null === t) return null;
+          if ('function' != typeof t)
+            throw new TypeError('Super expression must either be null or a function');
+          if (void 0 !== e) {
+            if (e.has(t)) return e.get(t);
+            e.set(t, n);
+          }
+          function n() {
+            return u(t, arguments, c(this).constructor);
+          }
+          return (
+            (n.prototype = Object.create(t.prototype, {
+              constructor: { value: n, enumerable: !1, writable: !0, configurable: !0 },
+            })),
+            a(n, t)
+          );
+        })(t);
+      }
+      function u(t, e, n) {
+        return (u = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })()
+          ? Reflect.construct
+          : function(t, e, n) {
+              var r = [null];
+              r.push.apply(r, e);
+              var o = new (Function.bind.apply(t, r))();
+              return n && a(o, n.prototype), o;
+            }).apply(null, arguments);
+      }
+      function a(t, e) {
+        return (a =
+          Object.setPrototypeOf ||
+          function(t, e) {
+            return (t.__proto__ = e), t;
+          })(t, e);
+      }
+      function c(t) {
+        return (c = Object.setPrototypeOf
+          ? Object.getPrototypeOf
+          : function(t) {
+              return t.__proto__ || Object.getPrototypeOf(t);
+            })(t);
+      }
+      n(22),
+        Object.defineProperty(e, '__esModule', { value: !0 }),
+        (e.default = void 0),
+        n(40),
+        n(38),
+        n(91),
+        n(33),
+        n(67),
+        n(90),
+        n(88),
+        n(84),
+        n(83),
+        n(81),
+        n(80),
+        n(79),
+        n(23);
+      var s = (function(t) {
+        function e() {
+          var t, n;
+          !(function(t, e) {
+            if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
+          })(this, e);
+          for (var r = arguments.length, i = new Array(r), u = 0; u < r; u++) i[u] = arguments[u];
+          return (
+            ((n = o(this, (t = c(e)).call.apply(t, [this].concat(i)))).name = n.constructor.name), n
+          );
+        }
+        return (
+          (function(t, e) {
+            if ('function' != typeof e && null !== e)
+              throw new TypeError('Super expression must either be null or a function');
+            (t.prototype = Object.create(e && e.prototype, {
+              constructor: { value: t, writable: !0, configurable: !0 },
+            })),
+              e && a(t, e);
+          })(e, i(Error)),
+          e
+        );
+      })();
+      e.default = s;
     },
     function(t, e, n) {
       'use strict';
@@ -516,9 +639,9 @@
         (e.default = void 0),
         n(22),
         n(23),
-        n(39),
-        n(37),
-        n(32),
+        n(40),
+        n(38),
+        n(33),
         n(112),
         n(64);
       var o = (function() {
@@ -593,7 +716,7 @@
         o = n(120),
         i = n(119),
         u = n(5),
-        a = n(42),
+        a = n(43),
         c = n(118),
         s = {},
         f = {};
@@ -664,8 +787,8 @@
           P = !1,
           S = t.prototype,
           O = S[l] || S['@@iterator'] || (d && S[d]),
-          j = O || b(d),
-          T = d ? (k ? b('entries') : j) : void 0,
+          T = O || b(d),
+          j = d ? (k ? b('entries') : T) : void 0,
           E = ('Array' == e && S.entries) || O;
         if (
           (E &&
@@ -676,15 +799,15 @@
             O &&
             'values' !== O.name &&
             ((P = !0),
-            (j = function() {
+            (T = function() {
               return O.call(this);
             })),
-          (r && !m) || (!p && !P && S[l]) || u(S, l, j),
-          (a[e] = j),
+          (r && !m) || (!p && !P && S[l]) || u(S, l, T),
+          (a[e] = T),
           (a[_] = h),
           d)
         )
-          if (((g = { values: k ? j : b('values'), keys: y ? j : b('keys'), entries: T }), m))
+          if (((g = { values: k ? T : b('values'), keys: y ? T : b('keys'), entries: j }), m))
             for (x in g) x in S || i(S, x, g[x]);
           else o(o.P + o.F * (p || P), e, g);
         return g;
@@ -758,7 +881,7 @@
       );
     },
     function(t, e, n) {
-      var r = n(38)('keys'),
+      var r = n(39)('keys'),
         o = n(21);
       t.exports = function(t) {
         return r[t] || (r[t] = o(t));
@@ -813,9 +936,9 @@
         i = n(4),
         u = n(6),
         a = n(8),
-        c = n(36).KEY,
+        c = n(37).KEY,
         s = n(9),
-        f = n(38),
+        f = n(39),
         l = n(18),
         p = n(21),
         h = n(1),
@@ -826,27 +949,27 @@
         g = n(5),
         x = n(2),
         w = n(13),
-        b = n(44),
+        b = n(45),
         _ = n(25),
         k = n(17),
         P = n(128),
         S = n(68),
         O = n(7),
-        j = n(24),
-        T = S.f,
+        T = n(24),
+        j = S.f,
         E = O.f,
         L = P.f,
         R = r.Symbol,
         A = r.JSON,
         C = A && A.stringify,
         F = h('_hidden'),
-        U = h('toPrimitive'),
-        M = {}.propertyIsEnumerable,
+        M = h('toPrimitive'),
+        U = {}.propertyIsEnumerable,
         N = f('symbol-registry'),
         I = f('symbols'),
         D = f('op-symbols'),
-        B = Object.prototype,
-        q = 'function' == typeof R,
+        q = Object.prototype,
+        B = 'function' == typeof R,
         G = r.QObject,
         H = !G || !G.prototype || !G.prototype.findChild,
         z =
@@ -864,8 +987,8 @@
             );
           })
             ? function(t, e, n) {
-                var r = T(B, e);
-                r && delete B[e], E(t, e, n), r && t !== B && E(B, e, r);
+                var r = j(q, e);
+                r && delete q[e], E(t, e, n), r && t !== q && E(q, e, r);
               }
             : E,
         V = function(t) {
@@ -873,7 +996,7 @@
           return (e._k = t), e;
         },
         K =
-          q && 'symbol' == typeof R.iterator
+          B && 'symbol' == typeof R.iterator
             ? function(t) {
                 return 'symbol' == typeof t;
               }
@@ -882,7 +1005,7 @@
               },
         W = function(t, e, n) {
           return (
-            t === B && W(D, e, n),
+            t === q && W(D, e, n),
             g(t),
             (e = b(e, !0)),
             g(n),
@@ -900,15 +1023,15 @@
           return t;
         },
         X = function(t) {
-          var e = M.call(this, (t = b(t, !0)));
+          var e = U.call(this, (t = b(t, !0)));
           return (
-            !(this === B && o(I, t) && !o(D, t)) &&
+            !(this === q && o(I, t) && !o(D, t)) &&
             (!(e || !o(this, t) || !o(I, t) || (o(this, F) && this[F][t])) || e)
           );
         },
         Q = function(t, e) {
-          if (((t = w(t)), (e = b(e, !0)), t !== B || !o(I, e) || o(D, e))) {
-            var n = T(t, e);
+          if (((t = w(t)), (e = b(e, !0)), t !== q || !o(I, e) || o(D, e))) {
+            var n = j(t, e);
             return !n || !o(I, e) || (o(t, F) && t[F][e]) || (n.enumerable = !0), n;
           }
         },
@@ -918,21 +1041,21 @@
           return r;
         },
         $ = function(t) {
-          for (var e, n = t === B, r = L(n ? D : w(t)), i = [], u = 0; r.length > u; )
-            !o(I, (e = r[u++])) || (n && !o(B, e)) || i.push(I[e]);
+          for (var e, n = t === q, r = L(n ? D : w(t)), i = [], u = 0; r.length > u; )
+            !o(I, (e = r[u++])) || (n && !o(q, e)) || i.push(I[e]);
           return i;
         };
-      q ||
+      B ||
         (a(
           (R = function() {
             if (this instanceof R) throw TypeError('Symbol is not a constructor!');
             var t = p(arguments.length > 0 ? arguments[0] : void 0),
               e = function(n) {
-                this === B && e.call(D, n),
+                this === q && e.call(D, n),
                   o(this, F) && o(this[F], t) && (this[F][t] = !1),
                   z(this, t, _(1, n));
               };
-            return i && H && z(B, t, { configurable: !0, set: e }), V(t);
+            return i && H && z(q, t, { configurable: !0, set: e }), V(t);
           }).prototype,
           'toString',
           function() {
@@ -942,13 +1065,13 @@
         (S.f = Q),
         (O.f = W),
         (n(69).f = P.f = Y),
-        (n(33).f = X),
+        (n(34).f = X),
         (n(72).f = $),
-        i && !n(19) && a(B, 'propertyIsEnumerable', X, !0),
+        i && !n(19) && a(q, 'propertyIsEnumerable', X, !0),
         (v.f = function(t) {
           return V(h(t));
         })),
-        u(u.G + u.W + u.F * !q, { Symbol: R });
+        u(u.G + u.W + u.F * !B, { Symbol: R });
       for (
         var Z = 'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'.split(
             ','
@@ -958,8 +1081,8 @@
 
       )
         h(Z[tt++]);
-      for (var et = j(h.store), nt = 0; et.length > nt; ) d(et[nt++]);
-      u(u.S + u.F * !q, 'Symbol', {
+      for (var et = T(h.store), nt = 0; et.length > nt; ) d(et[nt++]);
+      u(u.S + u.F * !B, 'Symbol', {
         for: function(t) {
           return o(N, (t += '')) ? N[t] : (N[t] = R(t));
         },
@@ -974,7 +1097,7 @@
           H = !1;
         },
       }),
-        u(u.S + u.F * !q, 'Object', {
+        u(u.S + u.F * !B, 'Object', {
           create: function(t, e) {
             return void 0 === e ? k(t) : J(k(t), e);
           },
@@ -988,7 +1111,7 @@
           u(
             u.S +
               u.F *
-                (!q ||
+                (!B ||
                   s(function() {
                     var t = R();
                     return '[null]' != C([t]) || '{}' != C({ a: t }) || '{}' != C(Object(t));
@@ -1009,7 +1132,7 @@
               },
             }
           ),
-        R.prototype[U] || n(12)(R.prototype, U, R.prototype.valueOf),
+        R.prototype[M] || n(12)(R.prototype, M, R.prototype.valueOf),
         l(R, 'Symbol'),
         l(Math, 'Math', !0),
         l(r.JSON, 'JSON', !0);
@@ -1049,7 +1172,7 @@
       };
     },
     function(t, e, n) {
-      var r = n(41),
+      var r = n(42),
         o = Math.min;
       t.exports = function(t) {
         return t > 0 ? o(r(t), 9007199254740991) : 0;
@@ -1154,129 +1277,6 @@
         if (!r(t) || t._t !== e) throw TypeError('Incompatible receiver, ' + e + ' required!');
         return t;
       };
-    },
-    function(t, e, n) {
-      'use strict';
-      function r(t) {
-        return (r =
-          'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-            ? function(t) {
-                return typeof t;
-              }
-            : function(t) {
-                return t &&
-                  'function' == typeof Symbol &&
-                  t.constructor === Symbol &&
-                  t !== Symbol.prototype
-                  ? 'symbol'
-                  : typeof t;
-              })(t);
-      }
-      function o(t, e) {
-        return !e || ('object' !== r(e) && 'function' != typeof e)
-          ? (function(t) {
-              if (void 0 === t)
-                throw new ReferenceError(
-                  "this hasn't been initialised - super() hasn't been called"
-                );
-              return t;
-            })(t)
-          : e;
-      }
-      function i(t) {
-        var e = 'function' == typeof Map ? new Map() : void 0;
-        return (i = function(t) {
-          if (null === t) return null;
-          if ('function' != typeof t)
-            throw new TypeError('Super expression must either be null or a function');
-          if (void 0 !== e) {
-            if (e.has(t)) return e.get(t);
-            e.set(t, n);
-          }
-          function n() {
-            return u(t, arguments, c(this).constructor);
-          }
-          return (
-            (n.prototype = Object.create(t.prototype, {
-              constructor: { value: n, enumerable: !1, writable: !0, configurable: !0 },
-            })),
-            a(n, t)
-          );
-        })(t);
-      }
-      function u(t, e, n) {
-        return (u = (function() {
-          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-          if (Reflect.construct.sham) return !1;
-          if ('function' == typeof Proxy) return !0;
-          try {
-            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-          } catch (t) {
-            return !1;
-          }
-        })()
-          ? Reflect.construct
-          : function(t, e, n) {
-              var r = [null];
-              r.push.apply(r, e);
-              var o = new (Function.bind.apply(t, r))();
-              return n && a(o, n.prototype), o;
-            }).apply(null, arguments);
-      }
-      function a(t, e) {
-        return (a =
-          Object.setPrototypeOf ||
-          function(t, e) {
-            return (t.__proto__ = e), t;
-          })(t, e);
-      }
-      function c(t) {
-        return (c = Object.setPrototypeOf
-          ? Object.getPrototypeOf
-          : function(t) {
-              return t.__proto__ || Object.getPrototypeOf(t);
-            })(t);
-      }
-      n(22),
-        Object.defineProperty(e, '__esModule', { value: !0 }),
-        (e.default = void 0),
-        n(39),
-        n(37),
-        n(91),
-        n(32),
-        n(67),
-        n(90),
-        n(88),
-        n(84),
-        n(83),
-        n(81),
-        n(80),
-        n(79),
-        n(23);
-      var s = (function(t) {
-        function e() {
-          var t, n;
-          !(function(t, e) {
-            if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
-          })(this, e);
-          for (var r = arguments.length, i = new Array(r), u = 0; u < r; u++) i[u] = arguments[u];
-          return (
-            ((n = o(this, (t = c(e)).call.apply(t, [this].concat(i)))).name = n.constructor.name), n
-          );
-        }
-        return (
-          (function(t, e) {
-            if ('function' != typeof e && null !== e)
-              throw new TypeError('Super expression must either be null or a function');
-            (t.prototype = Object.create(e && e.prototype, {
-              constructor: { value: t, writable: !0, configurable: !0 },
-            })),
-              e && a(t, e);
-          })(e, i(Error)),
-          e
-        );
-      })();
-      e.default = s;
     },
     function(t, e, n) {
       'use strict';
@@ -1414,8 +1414,8 @@
       'use strict';
       Object.defineProperty(e, '__esModule', { value: !0 }), (e.default = void 0), n(22), n(23);
       var r = u(n(111)),
-        o = u(n(27)),
-        i = u(n(50));
+        o = u(n(28)),
+        i = u(n(26));
       function u(t) {
         return t && t.__esModule ? t : { default: t };
       }
@@ -1624,7 +1624,7 @@
         u = n(10),
         a = n(60),
         c = n(70),
-        s = n(45),
+        s = n(46),
         f = n(0),
         l = f.process,
         p = f.setImmediate,
@@ -1718,7 +1718,7 @@
       var r = n(10),
         o = n(76),
         i = n(65),
-        u = n(42),
+        u = n(43),
         a = n(124);
       t.exports = function(t, e) {
         var n = 1 == t,
@@ -1763,14 +1763,14 @@
       'use strict';
       var r = n(6),
         o = n(63)(2);
-      r(r.P + r.F * !n(40)([].filter, !0), 'Array', {
+      r(r.P + r.F * !n(41)([].filter, !0), 'Array', {
         filter: function(t) {
           return o(this, t, arguments[1]);
         },
       });
     },
     function(t, e, n) {
-      var r = n(43);
+      var r = n(44);
       t.exports = function(t) {
         return Object(r(t));
       };
@@ -1786,7 +1786,7 @@
         o = n(66),
         i = n(16),
         u = n(13);
-      (t.exports = n(31)(
+      (t.exports = n(32)(
         Array,
         'Array',
         function(t, e) {
@@ -1808,10 +1808,10 @@
         r('entries');
     },
     function(t, e, n) {
-      var r = n(33),
+      var r = n(34),
         o = n(25),
         i = n(13),
-        u = n(44),
+        u = n(45),
         a = n(11),
         c = n(78),
         s = Object.getOwnPropertyDescriptor;
@@ -1827,7 +1827,7 @@
     },
     function(t, e, n) {
       var r = n(73),
-        o = n(34).concat('length', 'prototype');
+        o = n(35).concat('length', 'prototype');
       e.f =
         Object.getOwnPropertyNames ||
         function(t) {
@@ -1853,7 +1853,7 @@
       var r = n(11),
         o = n(13),
         i = n(77)(!1),
-        u = n(35)('IE_PROTO');
+        u = n(36)('IE_PROTO');
       t.exports = function(t, e) {
         var n,
           a = o(t),
@@ -1888,7 +1888,7 @@
     },
     function(t, e, n) {
       var r = n(13),
-        o = n(42),
+        o = n(43),
         i = n(131);
       t.exports = function(t) {
         return function(e, n, u) {
@@ -1909,7 +1909,7 @@
         !n(9)(function() {
           return (
             7 !=
-            Object.defineProperty(n(45)('div'), 'a', {
+            Object.defineProperty(n(46)('div'), 'a', {
               get: function() {
                 return 7;
               },
@@ -1919,7 +1919,7 @@
     },
     function(t, e, n) {
       var r = n(6);
-      r(r.S, 'Object', { setPrototypeOf: n(48).set });
+      r(r.S, 'Object', { setPrototypeOf: n(49).set });
     },
     function(t, e, n) {
       var r = n(6),
@@ -1928,7 +1928,7 @@
         u = n(5),
         a = n(2),
         c = n(9),
-        s = n(47),
+        s = n(48),
         f = (n(0).Reflect || {}).construct,
         l = c(function() {
           function t() {}
@@ -1978,13 +1978,13 @@
     function(t, e, n) {
       n(4) &&
         'g' != /./g.flags &&
-        n(7).f(RegExp.prototype, 'flags', { configurable: !0, get: n(46) });
+        n(7).f(RegExp.prototype, 'flags', { configurable: !0, get: n(47) });
     },
     function(t, e, n) {
       'use strict';
       n(82);
       var r = n(5),
-        o = n(46),
+        o = n(47),
         i = n(4),
         u = /./.toString,
         a = function(t) {
@@ -2008,11 +2008,11 @@
     },
     function(t, e, n) {
       var r = n(6);
-      r(r.P, 'Function', { bind: n(47) });
+      r(r.P, 'Function', { bind: n(48) });
     },
     function(t, e, n) {
       var r = n(2),
-        o = n(48).set;
+        o = n(49).set;
       t.exports = function(t, e, n) {
         var i,
           u = e.constructor;
@@ -2032,10 +2032,10 @@
       var r = n(0),
         o = n(6),
         i = n(8),
-        u = n(28),
-        a = n(36),
-        c = n(29),
-        s = n(30),
+        u = n(29),
+        a = n(37),
+        c = n(30),
+        s = n(31),
         f = n(2),
         l = n(9),
         p = n(57),
@@ -2086,24 +2086,24 @@
             O = l(function() {
               P.has(1);
             }),
-            j = p(function(t) {
+            T = p(function(t) {
               new x(t);
             }),
-            T =
+            j =
               !m &&
               l(function() {
                 for (var t = new x(), e = 5; e--; ) t[w](e, e);
                 return !t.has(-0);
               });
-          j ||
+          T ||
             (((x = e(function(e, n) {
               s(e, x, t);
               var r = v(new g(), e, x);
               return null != n && c(n, y, r[w], r), r;
             })).prototype = b),
             (b.constructor = x)),
-            (O || T) && (k('delete'), k('has'), y && k('get')),
-            (T || S) && k(w),
+            (O || j) && (k('delete'), k('has'), y && k('get')),
+            (j || S) && k(w),
             m && b.clear && delete b.clear;
         } else (x = d.getConstructor(e, t, y, w)), u(x.prototype, n), (a.NEED = !0);
         return h(x, t), (_[t] = x), o(o.G + o.W + o.F * (x != g), _), m || d.setStrong(x, t, y), x;
@@ -2113,16 +2113,16 @@
       'use strict';
       var r = n(7).f,
         o = n(17),
-        i = n(28),
+        i = n(29),
         u = n(10),
-        a = n(30),
-        c = n(29),
-        s = n(31),
+        a = n(31),
+        c = n(30),
+        s = n(32),
         f = n(66),
         l = n(58),
         p = n(4),
-        h = n(36).fastKey,
-        v = n(49),
+        h = n(37).fastKey,
+        v = n(50),
         d = p ? '_s' : 'size',
         y = function(t, e) {
           var n,
@@ -2226,7 +2226,7 @@
     function(t, e, n) {
       'use strict';
       var r = n(87),
-        o = n(49);
+        o = n(50);
       t.exports = n(86)(
         'Map',
         function(t) {
@@ -2248,8 +2248,8 @@
       );
     },
     function(t, e, n) {
-      var r = n(41),
-        o = n(43);
+      var r = n(42),
+        o = n(44);
       t.exports = function(t) {
         return function(e, n) {
           var i,
@@ -2278,7 +2278,7 @@
     function(t, e, n) {
       'use strict';
       var r = n(89)(!0);
-      n(31)(
+      n(32)(
         String,
         'String',
         function(t) {
@@ -2363,7 +2363,7 @@
       var r = n(3),
         o = n(96),
         i = n(52),
-        u = n(26),
+        u = n(27),
         a = n(95),
         c = n(94);
       function s(t) {
@@ -2723,7 +2723,7 @@
     },
     function(t, e, n) {
       'use strict';
-      var r = n(26),
+      var r = n(27),
         o = n(3),
         i = n(98),
         u = n(97);
@@ -2794,7 +2794,7 @@
       var r = n(3),
         o = n(55),
         i = n(108),
-        u = n(26);
+        u = n(27);
       function a(t) {
         var e = new i(t),
           n = o(i.prototype.request, e);
@@ -2822,7 +2822,7 @@
       'use strict';
       var r = n(6),
         o = n(63)(1);
-      r(r.P + r.F * !n(40)([].map, !0), 'Array', {
+      r(r.P + r.F * !n(41)([].map, !0), 'Array', {
         map: function(t) {
           return o(this, t, arguments[1]);
         },
@@ -2952,8 +2952,8 @@
         l = n(6),
         p = n(2),
         h = n(14),
-        v = n(30),
-        d = n(29),
+        v = n(31),
+        d = n(30),
         y = n(117),
         m = n(61).set,
         g = n(116)(),
@@ -2965,18 +2965,18 @@
         P = c.process,
         S = P && P.versions,
         O = (S && S.v8) || '',
-        j = c.Promise,
-        T = 'process' == f(P),
+        T = c.Promise,
+        j = 'process' == f(P),
         E = function() {},
         L = (o = x.f),
         R = !!(function() {
           try {
-            var t = j.resolve(1),
+            var t = T.resolve(1),
               e = ((t.constructor = {})[n(1)('species')] = function(t) {
                 t(E, E);
               });
             return (
-              (T || 'function' == typeof PromiseRejectionEvent) &&
+              (j || 'function' == typeof PromiseRejectionEvent) &&
               t.then(E) instanceof e &&
               0 !== O.indexOf('6.6') &&
               -1 === b.indexOf('Chrome/66')
@@ -3006,7 +3006,7 @@
                       f = e.domain;
                     try {
                       a
-                        ? (o || (2 == t._h && M(t), (t._h = 1)),
+                        ? (o || (2 == t._h && U(t), (t._h = 1)),
                           !0 === a
                             ? (n = r)
                             : (f && f.enter(), (n = a(r)), f && (f.exit(), (u = !0))),
@@ -3034,30 +3034,30 @@
               n,
               r,
               o = t._v,
-              i = U(t);
+              i = M(t);
             if (
               (i &&
                 ((e = w(function() {
-                  T
+                  j
                     ? P.emit('unhandledRejection', o, t)
                     : (n = c.onunhandledrejection)
                       ? n({ promise: t, reason: o })
                       : (r = c.console) && r.error && r.error('Unhandled promise rejection', o);
                 })),
-                (t._h = T || U(t) ? 2 : 1)),
+                (t._h = j || M(t) ? 2 : 1)),
               (t._a = void 0),
               i && e.e)
             )
               throw e.v;
           });
         },
-        U = function(t) {
+        M = function(t) {
           return 1 !== t._h && 0 === (t._a || t._c).length;
         },
-        M = function(t) {
+        U = function(t) {
           m.call(c, function() {
             var e;
-            T
+            j
               ? P.emit('rejectionHandled', t)
               : (e = c.onrejectionhandled) && e({ promise: t, reason: t._v });
           });
@@ -3094,8 +3094,8 @@
           }
         };
       R ||
-        ((j = function(t) {
-          v(this, j, 'Promise', '_h'), h(t), r.call(this);
+        ((T = function(t) {
+          v(this, T, 'Promise', '_h'), h(t), r.call(this);
           try {
             t(s(I, this, 1), s(N, this, 1));
           } catch (t) {
@@ -3110,13 +3110,13 @@
             (this._v = void 0),
             (this._h = 0),
             (this._n = !1);
-        }).prototype = n(28)(j.prototype, {
+        }).prototype = n(29)(T.prototype, {
           then: function(t, e) {
-            var n = L(y(this, j));
+            var n = L(y(this, T));
             return (
               (n.ok = 'function' != typeof t || t),
               (n.fail = 'function' == typeof e && e),
-              (n.domain = T ? P.domain : void 0),
+              (n.domain = j ? P.domain : void 0),
               this._c.push(n),
               this._a && this._a.push(n),
               this._s && C(this, !1),
@@ -3132,10 +3132,10 @@
           (this.promise = t), (this.resolve = s(I, t, 1)), (this.reject = s(N, t, 1));
         }),
         (x.f = L = function(t) {
-          return t === j || t === u ? new i(t) : o(t);
+          return t === T || t === u ? new i(t) : o(t);
         })),
-        l(l.G + l.W + l.F * !R, { Promise: j }),
-        n(18)(j, 'Promise'),
+        l(l.G + l.W + l.F * !R, { Promise: T }),
+        n(18)(T, 'Promise'),
         n(58)('Promise'),
         (u = n(15).Promise),
         l(l.S + l.F * !R, 'Promise', {
@@ -3146,7 +3146,7 @@
         }),
         l(l.S + l.F * (a || !R), 'Promise', {
           resolve: function(t) {
-            return _(a && this === u ? j : this, t);
+            return _(a && this === u ? T : this, t);
           },
         }),
         l(
@@ -3155,7 +3155,7 @@
               !(
                 R &&
                 n(57)(function(t) {
-                  j.all(t).catch(E);
+                  T.all(t).catch(E);
                 })
               ),
           'Promise',
@@ -3415,7 +3415,7 @@
                 for (n.method = o, n.arg = i; ; ) {
                   var u = n.delegate;
                   if (u) {
-                    var a = j(u, n);
+                    var a = T(u, n);
                     if (a) {
                       if (a === d) continue;
                       return a;
@@ -3486,13 +3486,13 @@
             return (e = e ? e.then(i, i) : i());
           };
         }
-        function j(t, e) {
+        function T(t, e) {
           var r = t.iterator[e.method];
           if (r === n) {
             if (((e.delegate = null), 'throw' === e.method)) {
               if (
                 t.iterator.return &&
-                ((e.method = 'return'), (e.arg = n), j(t, e), 'throw' === e.method)
+                ((e.method = 'return'), (e.arg = n), T(t, e), 'throw' === e.method)
               )
                 return d;
               (e.method = 'throw'),
@@ -3517,7 +3517,7 @@
               (e.delegate = null),
               d);
         }
-        function T(t) {
+        function j(t) {
           var e = { tryLoc: t[0] };
           1 in t && (e.catchLoc = t[1]),
             2 in t && ((e.finallyLoc = t[2]), (e.afterLoc = t[3])),
@@ -3528,7 +3528,7 @@
           (e.type = 'normal'), delete e.arg, (t.completion = e);
         }
         function L(t) {
-          (this.tryEntries = [{ tryLoc: 'root' }]), t.forEach(T, this), this.reset(!0);
+          (this.tryEntries = [{ tryLoc: 'root' }]), t.forEach(j, this), this.reset(!0);
         }
         function R(t) {
           if (t) {
@@ -3581,7 +3581,7 @@
     function(t, e, n) {
       var r = n(11),
         o = n(65),
-        i = n(35)('IE_PROTO'),
+        i = n(36)('IE_PROTO'),
         u = Object.prototype;
       t.exports =
         Object.getPrototypeOf ||
@@ -3654,7 +3654,7 @@
     function(t, e, n) {
       var r = n(24),
         o = n(72),
-        i = n(33);
+        i = n(34);
       t.exports = function(t) {
         var e = r(t),
           n = o.f;
@@ -3665,7 +3665,7 @@
       };
     },
     function(t, e, n) {
-      var r = n(41),
+      var r = n(42),
         o = Math.max,
         i = Math.min;
       t.exports = function(t, e) {
@@ -3678,7 +3678,7 @@
         o = n(77)(!1),
         i = [].indexOf,
         u = !!i && 1 / [1].indexOf(1, -0) < 0;
-      r(r.P + r.F * (u || !n(40)(i)), 'Array', {
+      r(r.P + r.F * (u || !n(41)(i)), 'Array', {
         indexOf: function(t) {
           return u ? i.apply(this, arguments) || 0 : o(this, t, arguments[1]);
         },
@@ -3690,19 +3690,20 @@
         (e.default = void 0),
         n(22),
         n(132),
-        n(39),
-        n(37),
-        n(32),
+        n(40),
+        n(38),
+        n(33),
         n(23),
         n(64),
         n(122),
         n(121);
-      var r = i(n(27)),
-        o = i(n(56));
-      function i(t) {
+      var r = u(n(28)),
+        o = u(n(56)),
+        i = u(n(26));
+      function u(t) {
         return t && t.__esModule ? t : { default: t };
       }
-      function u(t, e) {
+      function a(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -3711,9 +3712,10 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      var a = (function() {
-        function t(e, n) {
-          var r = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 3e4;
+      var c = (function() {
+        function t(e) {
+          var n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : null,
+            r = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 3e4;
           !(function(t, e) {
             if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
           })(this, t),
@@ -3723,10 +3725,10 @@
             (this.timeout = r),
             (this.contentType = 'application/vnd.collection+json');
         }
-        var e, n, i;
+        var e, n, u;
         return (
           (e = t),
-          (i = [
+          (u = [
             {
               key: 'createUser',
               value: function(t, e, n, r) {
@@ -3959,39 +3961,57 @@
             },
             {
               key: 'addPlugin',
-              value: function(e, n, r, i) {
-                var u = this;
-                return new Promise(function(a, c) {
+              value: function(e, n, u, a) {
+                var c = this;
+                return new Promise(function(s, f) {
                   t._runAsyncTask(
                     regeneratorRuntime.mark(function t() {
-                      var s, f, l;
+                      var l, p, h, v;
                       return regeneratorRuntime.wrap(
                         function(t) {
                           for (;;)
                             switch ((t.prev = t.next)) {
                               case 0:
                                 return (
-                                  (s = new o.default(u.auth, u.contentType, u.timeout)),
-                                  (f = { name: e, dock_image: n, public_repo: i }),
+                                  (l = new o.default(c.auth, c.contentType, c.timeout)),
+                                  (p = { name: e, dock_image: n, public_repo: a }),
                                   (t.prev = 2),
                                   (t.next = 5),
-                                  s.post(u.storeUrl, f, r)
+                                  l.get(c.storeUrl)
                                 );
                               case 5:
-                                (l = t.sent), (t.next = 11);
+                                if (
+                                  ((h = t.sent),
+                                  !(v = r.default.getLinkRelationUrls(h.collection, 'user_plugins'))
+                                    .length)
+                                ) {
+                                  t.next = 13;
+                                  break;
+                                }
+                                return (t.next = 10), l.post(v[0], p, u);
+                              case 10:
+                                (h = t.sent), (t.next = 15);
                                 break;
-                              case 8:
-                                (t.prev = 8), (t.t0 = t.catch(2)), c(t.t0);
-                              case 11:
-                                a(l.collection);
-                              case 12:
+                              case 13:
+                                throw ('Could not find url for POST request. Make sure you are authenticated',
+                                new i.default(
+                                  'Could not find url for POST request. Make sure you are authenticated'
+                                ));
+                              case 15:
+                                t.next = 20;
+                                break;
+                              case 17:
+                                (t.prev = 17), (t.t0 = t.catch(2)), f(t.t0);
+                              case 20:
+                                s(h.collection);
+                              case 21:
                               case 'end':
                                 return t.stop();
                             }
                         },
                         t,
                         this,
-                        [[2, 8]]
+                        [[2, 17]]
                       );
                     })
                   );
@@ -4118,7 +4138,7 @@
                 return new Promise(function(u, a) {
                   t._runAsyncTask(
                     regeneratorRuntime.mark(function t() {
-                      var c, s, f, l, p, h, v, d, y, m, g, x, w, b;
+                      var c, s, f, l, p, h, v, d, y, m, g, x, w;
                       return regeneratorRuntime.wrap(
                         function(t) {
                           for (;;)
@@ -4135,7 +4155,7 @@
                                 }
                                 return (t.next = 6), c.get(e);
                               case 6:
-                                (f = t.sent), (t.next = 23);
+                                (f = t.sent), (t.next = 18);
                                 break;
                               case 9:
                                 if (!n) {
@@ -4144,75 +4164,65 @@
                                 }
                                 return (t.next = 12), c.get(i.storeQueryUrl, n);
                               case 12:
-                                (f = t.sent), (t.next = 23);
+                                (f = t.sent), (t.next = 18);
                                 break;
                               case 15:
                                 return (t.next = 17), c.get(i.storeUrl);
                               case 17:
-                                if (
-                                  ((f = t.sent),
-                                  !(l = r.default.getLinkRelationUrls(f.collection, 'all_plugins'))
-                                    .length)
-                                ) {
-                                  t.next = 23;
-                                  break;
-                                }
-                                return (t.next = 22), c.get(l[0]);
-                              case 22:
                                 f = t.sent;
-                              case 23:
+                              case 18:
                                 for (
-                                  p = !0,
-                                    h = !1,
-                                    v = void 0,
-                                    t.prev = 26,
-                                    d = f.collection.items[Symbol.iterator]();
-                                  !(p = (y = d.next()).done);
-                                  p = !0
+                                  l = !0,
+                                    p = !1,
+                                    h = void 0,
+                                    t.prev = 21,
+                                    v = f.collection.items[Symbol.iterator]();
+                                  !(l = (d = v.next()).done);
+                                  l = !0
                                 )
-                                  (m = y.value), s.push(r.default.getItemDescriptors(m));
-                                t.next = 34;
+                                  (y = d.value), s.push(r.default.getItemDescriptors(y));
+                                t.next = 29;
                                 break;
-                              case 30:
-                                (t.prev = 30), (t.t0 = t.catch(26)), (h = !0), (v = t.t0);
-                              case 34:
-                                (t.prev = 34), (t.prev = 35), p || null == d.return || d.return();
-                              case 37:
-                                if (((t.prev = 37), !h)) {
-                                  t.next = 40;
+                              case 25:
+                                (t.prev = 25), (t.t0 = t.catch(21)), (p = !0), (h = t.t0);
+                              case 29:
+                                (t.prev = 29), (t.prev = 30), l || null == v.return || v.return();
+                              case 32:
+                                if (((t.prev = 32), !p)) {
+                                  t.next = 35;
                                   break;
                                 }
-                                throw v;
-                              case 40:
-                                return t.finish(37);
-                              case 41:
-                                return t.finish(34);
-                              case 42:
-                                t.next = 47;
+                                throw h;
+                              case 35:
+                                return t.finish(32);
+                              case 36:
+                                return t.finish(29);
+                              case 37:
+                                t.next = 42;
                                 break;
-                              case 44:
-                                (t.prev = 44), (t.t1 = t.catch(2)), a(t.t1);
-                              case 47:
-                                (g = ''),
-                                  (x = r.default.getLinkRelationUrls(f.collection, 'next'))
-                                    .length && (g = x[0]),
-                                  (w = ''),
-                                  (b = r.default.getLinkRelationUrls(f.collection, 'previous'))
-                                    .length && (w = b[0]),
+                              case 39:
+                                (t.prev = 39), (t.t1 = t.catch(2)), a(t.t1);
+                              case 42:
+                                (m = ''),
+                                  (g = r.default.getLinkRelationUrls(f.collection, 'next'))
+                                    .length && (m = g[0]),
+                                  (x = ''),
+                                  (w = r.default.getLinkRelationUrls(f.collection, 'previous'))
+                                    .length && (x = w[0]),
                                   u({
                                     plugins: s,
-                                    nextLink: g,
+                                    nextLink: m,
                                     currentLink: f.collection.href,
-                                    previousLink: w,
+                                    previousLink: x,
                                   });
-                              case 54:
+                              case 49:
                               case 'end':
                                 return t.stop();
                             }
                         },
                         t,
                         this,
-                        [[2, 44], [26, 30, 34, 42], [35, , 37, 41]]
+                        [[2, 39], [21, 25, 29, 37], [30, , 32, 36]]
                       );
                     })
                   );
@@ -4330,20 +4340,20 @@
                             P,
                             S,
                             O,
-                            j,
                             T,
+                            j,
                             E,
                             L,
                             R,
                             A,
                             C,
                             F,
-                            U,
                             M,
+                            U,
                             N,
                             I,
                             D,
-                            B;
+                            q;
                           return regeneratorRuntime.wrap(
                             function(t) {
                               for (;;)
@@ -4380,8 +4390,8 @@
                                     (P = k.value),
                                       (S = r.default.getItemDescriptors(P)),
                                       (O = !0),
-                                      (j = !1),
-                                      (T = void 0),
+                                      (T = !1),
+                                      (j = void 0),
                                       (t.prev = 24),
                                       (E = n[Symbol.iterator]());
                                   case 26:
@@ -4395,11 +4405,11 @@
                                         (S[R] = []),
                                       (C = !0),
                                       (F = !1),
-                                      (U = void 0),
+                                      (M = void 0),
                                       (t.prev = 33),
-                                      (M = A[Symbol.iterator]());
+                                      (U = A[Symbol.iterator]());
                                   case 35:
-                                    if ((C = (N = M.next()).done)) {
+                                    if ((C = (N = U.next()).done)) {
                                       t.next = 47;
                                       break;
                                     }
@@ -4407,7 +4417,7 @@
                                   case 39:
                                     return (D = t.sent), (t.next = 42), e(D.collection);
                                   case 42:
-                                    (B = t.sent), (S[R] = S[R].concat(B));
+                                    (q = t.sent), (S[R] = S[R].concat(q));
                                   case 44:
                                     (C = !0), (t.next = 35);
                                     break;
@@ -4415,17 +4425,17 @@
                                     t.next = 53;
                                     break;
                                   case 49:
-                                    (t.prev = 49), (t.t0 = t.catch(33)), (F = !0), (U = t.t0);
+                                    (t.prev = 49), (t.t0 = t.catch(33)), (F = !0), (M = t.t0);
                                   case 53:
                                     (t.prev = 53),
                                       (t.prev = 54),
-                                      C || null == M.return || M.return();
+                                      C || null == U.return || U.return();
                                   case 56:
                                     if (((t.prev = 56), !F)) {
                                       t.next = 59;
                                       break;
                                     }
-                                    throw U;
+                                    throw M;
                                   case 59:
                                     return t.finish(56);
                                   case 60:
@@ -4437,17 +4447,17 @@
                                     t.next = 70;
                                     break;
                                   case 66:
-                                    (t.prev = 66), (t.t1 = t.catch(24)), (j = !0), (T = t.t1);
+                                    (t.prev = 66), (t.t1 = t.catch(24)), (T = !0), (j = t.t1);
                                   case 70:
                                     (t.prev = 70),
                                       (t.prev = 71),
                                       O || null == E.return || E.return();
                                   case 73:
-                                    if (((t.prev = 73), !j)) {
+                                    if (((t.prev = 73), !T)) {
                                       t.next = 76;
                                       break;
                                     }
-                                    throw T;
+                                    throw j;
                                   case 76:
                                     return t.finish(73);
                                   case 77:
@@ -4675,12 +4685,12 @@
                 });
               },
             },
-          ]) && u(e.prototype, n),
-          i && u(e, i),
+          ]) && a(e.prototype, n),
+          u && a(e, u),
           t
         );
       })();
-      e.default = a;
+      e.default = c;
     },
     function(t, e, n) {
       'use strict';
@@ -4712,8 +4722,8 @@
         });
       var r = a(n(133)),
         o = a(n(56)),
-        i = a(n(27)),
-        u = a(n(50));
+        i = a(n(28)),
+        u = a(n(26));
       function a(t) {
         return t && t.__esModule ? t : { default: t };
       }

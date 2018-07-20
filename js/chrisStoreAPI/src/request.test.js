@@ -42,7 +42,6 @@ describe('Request', () => {
 
   let req;
   const storeUrl = 'http://localhost:8010/api/v1/';
-  const usersUrl = storeUrl + 'users/';
   const auth = {
     username: 'cubeadmin',
     password: 'cubeadmin1234',
@@ -65,11 +64,11 @@ describe('Request', () => {
 
   it('can successfully make unauthenticated GET request', done => {
     const req = new Request(undefined, contentType);
-    const result = req.get(usersUrl);
+    const result = req.get(storeUrl);
 
     result
       .then(response => {
-        expect(response.collection).to.have.property('template');
+        expect(response.collection).to.have.property('queries');
         expect(response.collection).to.have.property('href');
         expect(response.collection).to.have.property('links');
       })
@@ -78,7 +77,7 @@ describe('Request', () => {
 
   it('can report unsuccessfull unauthenticated GET request', done => {
     const req = new Request(undefined, contentType);
-    const result = req.get(storeUrl);
+    const result = req.get(storeUrl + '1/');
 
     result
       .catch(error => {
@@ -96,7 +95,7 @@ describe('Request', () => {
     const fileData = JSON.stringify(testPluginRepresentation);
     const dfile = new Blob([fileData], { type: 'application/json' });
 
-    const result = req.post(storeUrl, data, dfile);
+    const result = req.post(storeUrl + 'user-plugins/', data, dfile);
 
     result
       .then(response => {

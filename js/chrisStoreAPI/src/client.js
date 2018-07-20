@@ -1,6 +1,7 @@
 /** * Imports ***/
 import Collection from './cj';
 import Request from './request';
+import StoreRequestException from './exception';
 
 /**
  * Chris store object.
@@ -10,8 +11,12 @@ import Request from './request';
 export default class StoreClient {
   /**
    * Constructor
+   *
+   * @param {*} storeUrl
+   * @param {*} auth
+   * @param {*} timeout
    */
-  constructor(storeUrl, auth, timeout = 30000) {
+  constructor(storeUrl, auth = null, timeout = 30000) {
     this.storeUrl = storeUrl;
     this.storeQueryUrl = storeUrl + 'search/';
     this.auth = auth;
@@ -59,7 +64,7 @@ export default class StoreClient {
    * Get a paginated list of plugin data (descriptors) given query search
    * parameters. If no search parameters is given then get a paginated list
    * of all plugins in the store. callback function, if provided, is called for
-   * each page and passed an argument object containing the plugin list in that
+   * each page and passed an argument object containing the plugin list for that
    * page.
    *
    * @param {*} searchParams
@@ -159,7 +164,15 @@ export default class StoreClient {
         let resp;
 
         try {
-          resp = yield req.post(self.storeUrl, data, descriptorFile);
+          resp = yield req.get(self.storeUrl);
+          const userPluginsUrls = Collection.getLinkRelationUrls(resp.collection, 'user_plugins');
+          if (userPluginsUrls.length) {
+            // there can only be a single user_plugins url
+            resp = yield req.post(userPluginsUrls[0], data, descriptorFile);
+          } else {
+            const errMsg = 'Could not find url for POST request. Make sure you are authenticated';
+            throw new StoreRequestException(errMsg);
+          }
         } catch (ex) {
           reject(ex);
         }
@@ -282,18 +295,11 @@ export default class StoreClient {
         try {
           if (url) {
             resp = yield req.get(url);
+          } else if (searchParams) {
+            // then it's a query and should use the query url
+            resp = yield req.get(self.storeQueryUrl, searchParams);
           } else {
-            if (searchParams) {
-              // then it's a query and should use the query url
-              resp = yield req.get(self.storeQueryUrl, searchParams);
-            } else {
-              resp = yield req.get(self.storeUrl);
-              const allUrls = Collection.getLinkRelationUrls(resp.collection, 'all_plugins');
-              if (allUrls.length) {
-                // there can only be a single all_plugins url
-                resp = yield req.get(allUrls[0]);
-              }
-            }
+            resp = yield req.get(self.storeUrl);
           }
           // for each plugin item get its data
           for (let item of resp.collection.items) {
