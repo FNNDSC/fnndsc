@@ -47,10 +47,8 @@ resp
     window.console.log('Error!!!: ', error);
   });
 
-
-// create a new client instance  
-const auth = {token: authToken};
-const client = new StoreClient(storeUrl, auth);
+// create a new client instance  without an auth object to make allowed unauthenticated requests
+let client = new StoreClient(storeUrl);
 
 // retrieve a plugin given its name
 resp = client.getPlugin('simplefsapp');
@@ -65,7 +63,7 @@ resp
   });
 
 
-// retrieve a subset of the plugins in a list given search params
+// retrieve in a list a subset of the plugins in the store given search params
 let searchParams = { limit: 10, offset:10 };
 resp = client.getPlugins(searchParams);
 resp
@@ -78,6 +76,18 @@ resp
     window.console.log('Error!!!: ', error);
   });
 
+// retrieve in a list a subset of the plugins in the store created by a specific user
+let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
+resp = client.getPlugins(searchParams);
+resp
+  .then(userPluginList => {
+
+    window.console.log('a subset of the plugins created by the user: ', userPluginList);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
+  });
 
 // retrieve a paginated list of plugins given search params and call a callback function on every page of the plugin list
 searchParams = { type: 'fs' };
@@ -94,23 +104,11 @@ resp
 
     window.console.log('Error!!!: ', error);
   });
+  
 
-
-// retrieve a paginated list of all plugins in the ChRIS store and call a callback function on every page of plugin list
-resp = client.getPlugins(null, onePageAllPluginList => {
-
-  window.console.log('one page of the full plugin list: ', onePageAllPluginList);
-});
-resp
-  .then(allPluginList => {
-
-    window.console.log('all plugins in the store: ', allPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
+// create a new client instance  with an auth object to be able to make required authenticated requests
+const auth = {token: authToken}; // or alternatively auth = {username: 'cubeadmin', password: 'cubeadmin1234'}
+client = new StoreClient(storeUrl, auth);
 
 // add a new plugin to the store
 const testPlgName = 'myPlugin';
@@ -153,9 +151,9 @@ const testPluginRepresentation = {
 
 const fileData = JSON.stringify(testPluginRepresentation);
 const dfile = new Blob([fileData], { type: 'application/json' });
-resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
 
-result
+resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
+resp
   .then(response => {
 
       window.console.log('new plugin in the store: ', response);
@@ -171,8 +169,8 @@ testPluginRepresentation.description = 'A new description';
 let fileData = JSON.stringify(testPluginRepresentation);
 let dfile = new Blob([fileData], { type: 'application/json' });
 
-const result = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
-result
+resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
+resp
   .then(response => {
 
     window.console.log('updated description for plugin: ', testPlgName);
