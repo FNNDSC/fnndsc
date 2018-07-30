@@ -9,6 +9,49 @@ Radiology Viewer by FNNDSC
 Project was initialized with the <a href="https://github.com/PolymerElements/polymer-starter-kit">Polymer Starter Kit v2</a>
 </p>
 
+# Preconditions
+
+## Get `npm/node`
+
+One mechanism to install the latest `npm/node` on an Ubuntu machine is using `nvm`. See [here](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04).
+
+Note that there seems to be ill-defined behaviour with the standard FNNDSC `.bashrc` env. Please replace the `nvm` supplied changes to `.bashrc` with:
+
+```bash
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]] ; then 
+    cd $NVM_DIR ;  
+    source "./nvm.sh"  # This loads nvm
+    cd ~
+fi
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+```
+### Select a version
+
+Now, log out and login again. Simply run
+
+```bash
+nvm install 10.7.0
+```
+## Setup a LAMP instance
+
+```bash
+sudo apt install tasksel
+```
+Then, run 
+
+```bash
+sudo tasksel
+```
+and select the `LAMP` option.
+
+## Checkout the core source repo
+
+Checkout the repo:
+
+```bash
+```
+
 ## Update
 
 ``` bash
