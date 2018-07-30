@@ -45,24 +45,49 @@ sudo tasksel
 ```
 and select the `LAMP` option.
 
-## Checkout the core source repo
+## Checkout and initialize the core source repo
 
 Checkout the repo:
 
+### Create a dir for the source
+
 ```bash
+sudo bash
+cd /var/www/html
+mkdir rev
+chmod 777 rev
 ```
 
-## Update
+### Checkout the source
+
+```bash
+cd /var/www/html/rev
+mkdir src
+cd src
+git clone https://github.com/FNNDSC/fnndsc.git
+```
+### Update
+
+Install `bower` if necessary
+
+```bash
+npm install -g bower
+```
+
+And now do an update
 
 ``` bash
-
+cd /var/www/html/rev/src/fnndsc/js/rev
 git pull origin master && \
 rm -rf bower_components && \
 bower update
-
 ```
 
 ## Develop
+
+```bash
+mkdir -p /var/www/html/rev/viewer
+```
 
 Make sure `<base href="/">` is set in `index.html`.
 It is use by the app as the base path to fetch files. If base is '/rev/viewer', the application
