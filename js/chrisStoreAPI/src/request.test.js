@@ -88,7 +88,7 @@ describe('Request', () => {
 
   it('can make authenticated multipart POST request and DELETE request', done => {
     const data = {
-      name: 'simplefsapp' + Date.now(),
+      name: auth.username + '/simplefsapp' + Date.now(),
       dock_image: 'fnndsc/pl-simplefsapp',
       public_repo: 'http://github.com',
     };

@@ -48,10 +48,10 @@ describe('StoreClient', () => {
   const client = new StoreClient(storeUrl, auth);
 
   it('can retrieve a plugin given its name', function(done) {
-    const resp = client.getPlugin('simplefsapp');
+    const resp = client.getPlugin(username + '/simplefsapp');
     resp
       .then(plugin => {
-        expect(plugin.name).to.equal('simplefsapp');
+        expect(plugin.name).to.equal('cubeadmin/simplefsapp');
         expect(plugin.parameters[0].name).to.equal('dir');
       })
       .then(done, done);
@@ -96,7 +96,7 @@ describe('StoreClient', () => {
   });
 
   it('can add a new plugin to the store and then delete it', done => {
-    const testPlgName = 'simplefsapp' + Date.now();
+    const testPlgName = username + '/simplefsapp' + Date.now();
     const testPlgDockImg = 'fnndsc/pl-simplefsapp';
     const testPlgPublicRepo = 'http://github.com';
 
@@ -119,8 +119,8 @@ describe('StoreClient', () => {
   });
 
   it('can modify an existing plugin in the store', done => {
-    const testPlgName = 'simplefsapp';
-    const testPlgNewName = 'simplefsapp' + Date.now();
+    const testPlgName = username + '/simplefsapp';
+    const testPlgNewName = username + '/simplefsapp' + Date.now();
     const testPlgDockImg = 'fnndsc/pl-simplefsapp';
     const testPlgPublicRepo = 'http://github.com';
     const testPlgDescription = testPluginRepresentation.description;
