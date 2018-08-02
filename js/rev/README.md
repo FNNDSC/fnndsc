@@ -191,4 +191,8 @@ We want `target` to be `years/month/patient` from the file system.
 
 In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01/02/00`.
 
+We may want to be smarter than that and find the closest match if none is available. For instance, following the previous example, if we only have data for `year 01, month 01 and patient 00` available, we want `pathFromRadstar` to return `01/01/00`.
+
+Logic has to be implemented in `pathFromRadstar` and https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html
+ must keep track of all data available in the file system, possibly in a map.
 ### Add new directory on the file system
