@@ -162,9 +162,14 @@ For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:
 
 ### Generate JSON description for the patient
 
+Script to run: `script/dcmpreview.py`
+
 Requires pypx, pydicom, dcmtk, imagemagick
 
-Run it: 
+Run it (from the patient directory for that to be accurate):
+```
+$ patient > dcmpreview.py ...
+```
 
 ### Add it in the lookup list
 
