@@ -195,4 +195,16 @@ We may want to be smarter than that and find the closest match if none is availa
 
 Logic has to be implemented in `pathFromRadstar` and https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html
  must keep track of all data available in the file system, possibly in a map.
+ 
 ### Add new directory on the file system
+
+We must also provide `rev-app.html` the public location of the data, in order for the front-end to be able to fetch it.
+
+That is the `demoPrefix`.
+```
+${this.demoPrefix}/${target}/description.json`
+```
+
+If the data is available at `fnndsc.childrens.harvard.edu/rev/data/year/...`, then demoPrefix would be `/rev/data`;
+
+
