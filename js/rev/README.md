@@ -162,6 +162,10 @@ For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:
 
 ### Generate JSON description for the patient
 
+Currently the script only generate a JSON description per series.
+
+We must create a new JSON, that contains all descriptions merged into 1 array manually.
+
 Script to run: `script/dcmpreview.py`
 
 Requires pypx, pydicom, dcmtk, imagemagick
