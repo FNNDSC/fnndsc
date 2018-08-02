@@ -157,6 +157,15 @@ For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:
 
 ## Add new data
 
-1- Generate JSON description for the group of series
-2- Add it in the lookup list
-3- Add new directory on the file system
+### Tree structure
+`year > month > patient > series`
+
+### Generate JSON description for the patient
+
+Requires pypx, pydicom, dcmtk, imagemagick
+
+Run it: 
+
+### Add it in the lookup list
+
+### Add new directory on the file system
