@@ -157,6 +157,58 @@ For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:
 
 ## Add new data
 
-1- Generate JSON description for the group of series
-2- Add it in the lookup list
-3- Add new directory on the file system
+### Tree structure
+`year > month > patient > series`
+
+### Generate JSON description for the patient
+
+Currently the script only generate a JSON description per series.
+
+We must create a new JSON, that contains all descriptions merged into 1 array manually.
+
+Script to run: `script/dcmpreview.py`
+
+Requires pypx, pydicom, dcmtk, imagemagick
+
+Run it (from the patient directory for that to be accurate):
+```
+$ patient > dcmpreview.py ...
+```
+
+### Add it in the lookup list
+
+We must allow `ReV` top fetch the JSON description for a given query.
+
+https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html#L245
+
+```
+...
+
+} else if (year && month && example) {
+  target = this.pathFromRadstar(year, month, example);
+}
+
+...
+```
+
+We want `target` to be `years/month/patient` from the file system.
+
+In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01/02/00`.
+
+We may want to be smarter than that and find the closest match if none is available. For instance, following the previous example, if we only have data for `year 01, month 01 and patient 00` available, we want `pathFromRadstar` to return `01/01/00`.
+
+Logic has to be implemented in `pathFromRadstar` and https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html
+ must keep track of all data available in the file system, possibly in a map.
+ 
+### Add new directory on the file system
+
+We must also provide `rev-app.html` the public location of the data, in order for the front-end to be able to fetch it.
+
+That is the `demoPrefix`.
+```
+${this.demoPrefix}/${target}/description.json`
+```
+
+If the data is available at `fnndsc.childrens.harvard.edu/rev/data/year/...`, then demoPrefix would be `/rev/data`;
+
+
