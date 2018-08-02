@@ -173,4 +173,22 @@ $ patient > dcmpreview.py ...
 
 ### Add it in the lookup list
 
+We must allow `ReV` top fetch the JSON description for a given query.
+
+https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html#L245
+
+```
+...
+
+} else if (year && month && example) {
+  target = this.pathFromRadstar(year, month, example);
+}
+
+...
+```
+
+We want `target` to be `years/month/patient` from the file system.
+
+In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01/02/00`.
+
 ### Add new directory on the file system
