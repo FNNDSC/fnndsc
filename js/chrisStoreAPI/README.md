@@ -156,8 +156,8 @@ const testPluginRepresentation = {
   ],
 };
 
-const fileData = JSON.stringify(testPluginRepresentation);
-const dfile = new Blob([fileData], { type: 'application/json' });
+let fileData = JSON.stringify(testPluginRepresentation);
+let dfile = new Blob([fileData], { type: 'application/json' });
 
 resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
 resp
@@ -173,8 +173,8 @@ resp
 
 // modify an existing plugin's representation in the store
 testPluginRepresentation.description = 'A new description';
-let fileData = JSON.stringify(testPluginRepresentation);
-let dfile = new Blob([fileData], { type: 'application/json' });
+fileData = JSON.stringify(testPluginRepresentation);
+dfile = new Blob([fileData], { type: 'application/json' });
 
 resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
 resp
