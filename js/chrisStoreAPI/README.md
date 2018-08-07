@@ -11,7 +11,7 @@ npm i @fnndsc/chrisstoreapi
 
 ## Usage
 
-If you have a ChRIS store server up and running (eg. as explained below) then you can use and test the api in your JS code:
+If you have a ChRIS store server up and running (eg. as explained below) then you can use and test the API in your JS code:
 
 ``` javascript
 import {StoreClient} from '@fnndsc/chrisstoreapi';
@@ -21,6 +21,7 @@ const usersUrl = storeUrl + 'users/';
 const authUrl = storeUrl + 'auth-token/';
 let authToken;
 let resp;
+
 
 // create a new user
 resp = StoreClient.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');
@@ -33,6 +34,7 @@ resp
 
     window.console.log('Error!!!: ', error);
   });
+
 
 // retrieve a user auth token
 resp = StoreClient.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
@@ -47,8 +49,10 @@ resp
     window.console.log('Error!!!: ', error);
   });
 
+
 // create a new client instance  without an auth object to make allowed unauthenticated requests
 let client = new StoreClient(storeUrl);
+
 
 // retrieve a plugin given its name
 resp = client.getPlugin('simplefsapp');
@@ -76,6 +80,7 @@ resp
     window.console.log('Error!!!: ', error);
   });
 
+
 // retrieve in a list a subset of the plugins in the store created by a specific user
 let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
 resp = client.getPlugins(searchParams);
@@ -88,6 +93,7 @@ resp
 
     window.console.log('Error!!!: ', error);
   });
+
 
 // retrieve a paginated list of plugins given search params and call a callback function on every page of the plugin list
 searchParams = { type: 'fs' };
@@ -104,11 +110,12 @@ resp
 
     window.console.log('Error!!!: ', error);
   });
-  
+
 
 // create a new client instance  with an auth object to be able to make required authenticated requests
 const auth = {token: authToken}; // or alternatively auth = {username: 'cubeadmin', password: 'cubeadmin1234'}
 client = new StoreClient(storeUrl, auth);
+
 
 // add a new plugin to the store
 const testPlgName = 'myPlugin';
@@ -164,7 +171,7 @@ resp
   });
 
 
-// modify an existing plugin in the store
+// modify an existing plugin's representation in the store
 testPluginRepresentation.description = 'A new description';
 let fileData = JSON.stringify(testPluginRepresentation);
 let dfile = new Blob([fileData], { type: 'application/json' });
@@ -174,6 +181,32 @@ resp
   .then(response => {
 
     window.console.log('updated description for plugin: ', testPlgName);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
+  });
+
+
+// change an existing plugin's name
+resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, 'newPluginName');
+resp
+  .then(response => {
+
+    window.console.log('plugin name is now newPluginName');
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
+  });
+
+
+// share an existing plugin with another store user (who then becomes an owner of the plugin)
+resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, undefined, 'chris');
+resp
+  .then(response => {
+
+    window.console.log('user chris is now in the list of owners of plugin: ' + testPlgName);
   })
   .catch(error => {
 

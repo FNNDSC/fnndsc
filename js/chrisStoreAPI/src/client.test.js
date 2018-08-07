@@ -121,6 +121,7 @@ describe('StoreClient', () => {
   it('can modify an existing plugin in the store', done => {
     const testPlgName = 'simplefsapp';
     const testPlgNewName = 'simplefsapp' + Date.now();
+    const testPlgNewOwner = 'chris';
     const testPlgDockImg = 'fnndsc/pl-simplefsapp';
     const testPlgPublicRepo = 'http://github.com';
     const testPlgDescription = testPluginRepresentation.description;
@@ -134,7 +135,8 @@ describe('StoreClient', () => {
       testPlgDockImg,
       dfile,
       testPlgPublicRepo,
-      testPlgNewName
+      testPlgNewName,
+      testPlgNewOwner
     );
     result
       .then(response => {
@@ -159,7 +161,8 @@ describe('StoreClient', () => {
           testPlgDockImg,
           dfile,
           testPlgPublicRepo,
-          testPlgName
+          testPlgName,
+          testPlgNewOwner
         );
         res.then(resp => {
           const plgDescription = resp.items[0].data.filter(descriptor => {

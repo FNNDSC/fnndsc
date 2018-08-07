@@ -189,10 +189,11 @@ export default class StoreClient {
    * @param {*} dockImage
    * @param {*} descriptorFile
    * @param {*} publicRepo
-   * @param {*} newname
+   * @param {*} newName
+   * @param {*} newOwner
    * @return {*}
    */
-  modifyPlugin(name, dockImage, descriptorFile, publicRepo, newName = '') {
+  modifyPlugin(name, dockImage, descriptorFile, publicRepo, newName = '', newOwner = '') {
     const self = this;
 
     return new Promise(function(resolve, reject) {
@@ -212,12 +213,13 @@ export default class StoreClient {
             dock_image: dockImage,
             public_repo: publicRepo,
           };
-
+          if (newOwner) {
+            data.owner = newOwner;
+          }
           resp = yield req.put(url, data, descriptorFile);
         } catch (ex) {
           reject(ex);
         }
-
         resolve(resp.collection);
       });
     });
