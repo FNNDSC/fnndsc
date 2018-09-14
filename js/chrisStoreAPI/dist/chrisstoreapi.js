@@ -3820,13 +3820,15 @@
                               case 13:
                                 (h = t.sent), (s.parameters = h);
                               case 15:
-                                t.next = 20;
+                                t.next = 21;
                                 break;
                               case 17:
-                                (t.prev = 17), (t.t0 = t.catch(2)), u(t.t0);
-                              case 20:
-                                i(s);
+                                return (
+                                  (t.prev = 17), (t.t0 = t.catch(2)), u(t.t0), t.abrupt('return')
+                                );
                               case 21:
+                                i(s);
+                              case 22:
                               case 'end':
                                 return t.stop();
                             }
@@ -3870,13 +3872,15 @@
                                 (a = t.sent), (u = u.concat(a.plugins)), n && n(a), (t.next = 7);
                                 break;
                               case 15:
-                                t.next = 20;
+                                t.next = 21;
                                 break;
                               case 17:
-                                (t.prev = 17), (t.t0 = t.catch(1)), i(t.t0);
-                              case 20:
-                                o(u);
+                                return (
+                                  (t.prev = 17), (t.t0 = t.catch(1)), i(t.t0), t.abrupt('return')
+                                );
                               case 21:
+                                o(u);
+                              case 22:
                               case 'end':
                                 return t.stop();
                             }
@@ -3936,13 +3940,15 @@
                                   n.getPlugins({ owner_username: f }, e)
                                 );
                               case 18:
-                                (c = t.sent), (t.next = 24);
+                                (c = t.sent), (t.next = 25);
                                 break;
                               case 21:
-                                (t.prev = 21), (t.t0 = t.catch(2)), u(t.t0);
-                              case 24:
-                                i(c);
+                                return (
+                                  (t.prev = 21), (t.t0 = t.catch(2)), u(t.t0), t.abrupt('return')
+                                );
                               case 25:
+                                i(c);
+                              case 26:
                               case 'end':
                                 return t.stop();
                             }
@@ -3995,13 +4001,15 @@
                                   'Could not find url for POST request. Make sure you are authenticated'
                                 ));
                               case 15:
-                                t.next = 20;
+                                t.next = 21;
                                 break;
                               case 17:
-                                (t.prev = 17), (t.t0 = t.catch(2)), f(t.t0);
-                              case 20:
-                                s(h.collection);
+                                return (
+                                  (t.prev = 17), (t.t0 = t.catch(2)), f(t.t0), t.abrupt('return')
+                                );
                               case 21:
+                                s(h.collection);
+                              case 22:
                               case 'end':
                                 return t.stop();
                             }
@@ -4048,13 +4056,15 @@
                                   l.put(v, d, r)
                                 );
                               case 12:
-                                (p = t.sent), (t.next = 18);
+                                (p = t.sent), (t.next = 19);
                                 break;
                               case 15:
-                                (t.prev = 15), (t.t0 = t.catch(1)), f(t.t0);
-                              case 18:
-                                s(p.collection);
+                                return (
+                                  (t.prev = 15), (t.t0 = t.catch(1)), f(t.t0), t.abrupt('return')
+                                );
                               case 19:
+                                s(p.collection);
+                              case 20:
                               case 'end':
                                 return t.stop();
                             }
@@ -4096,13 +4106,15 @@
                                   u.delete(s)
                                 );
                               case 9:
-                                (c = t.sent), (t.next = 15);
+                                (c = t.sent), (t.next = 16);
                                 break;
                               case 12:
-                                (t.prev = 12), (t.t0 = t.catch(2)), i(t.t0);
-                              case 15:
-                                r();
+                                return (
+                                  (t.prev = 12), (t.t0 = t.catch(2)), i(t.t0), t.abrupt('return')
+                                );
                               case 16:
+                                r();
+                              case 17:
                               case 'end':
                                 return t.stop();
                             }
@@ -4197,11 +4209,13 @@
                               case 36:
                                 return t.finish(29);
                               case 37:
-                                t.next = 42;
+                                t.next = 43;
                                 break;
                               case 39:
-                                (t.prev = 39), (t.t1 = t.catch(2)), a(t.t1);
-                              case 42:
+                                return (
+                                  (t.prev = 39), (t.t1 = t.catch(2)), a(t.t1), t.abrupt('return')
+                                );
+                              case 43:
                                 (m = ''),
                                   (g = r.default.getLinkRelationUrls(f.collection, 'next'))
                                     .length && (m = g[0]),
@@ -4214,7 +4228,7 @@
                                     currentLink: f.collection.href,
                                     previousLink: w,
                                   });
-                              case 49:
+                              case 50:
                               case 'end':
                                 return t.stop();
                             }
@@ -4254,13 +4268,15 @@
                                   n._getItemsFromPaginatedCollections(c.collection)
                                 );
                               case 7:
-                                (a = t.sent), (t.next = 13);
+                                (a = t.sent), (t.next = 14);
                                 break;
                               case 10:
-                                (t.prev = 10), (t.t0 = t.catch(1)), i(t.t0);
-                              case 13:
-                                r(a);
+                                return (
+                                  (t.prev = 10), (t.t0 = t.catch(1)), i(t.t0), t.abrupt('return')
+                                );
                               case 14:
+                                r(a);
+                              case 15:
                               case 'end':
                                 return t.stop();
                             }
@@ -4510,13 +4526,18 @@
                                   case 113:
                                     return t.finish(106);
                                   case 114:
-                                    t.next = 119;
+                                    t.next = 120;
                                     break;
                                   case 116:
-                                    (t.prev = 116), (t.t4 = t.catch(0)), s(t.t4);
-                                  case 119:
-                                    c(a);
+                                    return (
+                                      (t.prev = 116),
+                                      (t.t4 = t.catch(0)),
+                                      s(t.t4),
+                                      t.abrupt('return')
+                                    );
                                   case 120:
+                                    c(a);
+                                  case 121:
                                   case 'end':
                                     return t.stop();
                                 }
@@ -4570,13 +4591,15 @@
                                   (t.next = 2);
                                 break;
                               case 10:
-                                t.next = 15;
+                                t.next = 16;
                                 break;
                               case 12:
-                                (t.prev = 12), (t.t0 = t.catch(0)), u(t.t0);
-                              case 15:
-                                o(n);
+                                return (
+                                  (t.prev = 12), (t.t0 = t.catch(0)), u(t.t0), t.abrupt('return')
+                                );
                               case 16:
+                                o(n);
+                              case 17:
                               case 'end':
                                 return t.stop();
                             }
@@ -4613,13 +4636,15 @@
                                   n.get(a[0])
                                 );
                               case 7:
-                                (u = t.sent), (t.next = 13);
+                                (u = t.sent), (t.next = 14);
                                 break;
                               case 10:
-                                (t.prev = 10), (t.t0 = t.catch(0)), i(t.t0);
-                              case 13:
-                                o(u.collection);
+                                return (
+                                  (t.prev = 10), (t.t0 = t.catch(0)), i(t.t0), t.abrupt('return')
+                                );
                               case 14:
+                                o(u.collection);
+                              case 15:
                               case 'end':
                                 return t.stop();
                             }
@@ -4664,13 +4689,15 @@
                                   i.put(c[0], u)
                                 );
                               case 7:
-                                (a = t.sent), (t.next = 13);
+                                (a = t.sent), (t.next = 14);
                                 break;
                               case 10:
-                                (t.prev = 10), (t.t0 = t.catch(0)), o(t.t0);
-                              case 13:
-                                e(a.collection);
+                                return (
+                                  (t.prev = 10), (t.t0 = t.catch(0)), o(t.t0), t.abrupt('return')
+                                );
                               case 14:
+                                e(a.collection);
+                              case 15:
                               case 'end':
                                 return t.stop();
                             }

@@ -53,6 +53,7 @@ export default class StoreClient {
           }
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(plugin);
@@ -94,6 +95,7 @@ export default class StoreClient {
           }
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(pluginList);
@@ -134,6 +136,7 @@ export default class StoreClient {
           pluginList = yield self.getPlugins({ owner_username: username }, callback);
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(pluginList);
@@ -175,6 +178,7 @@ export default class StoreClient {
           }
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(resp.collection);
@@ -219,7 +223,9 @@ export default class StoreClient {
           resp = yield req.put(url, data, descriptorFile);
         } catch (ex) {
           reject(ex);
+          return;
         }
+
         resolve(resp.collection);
       });
     });
@@ -246,6 +252,7 @@ export default class StoreClient {
           resp = yield req.delete(url);
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve();
@@ -309,6 +316,7 @@ export default class StoreClient {
           }
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         let nextLink = '';
@@ -353,6 +361,7 @@ export default class StoreClient {
           paramList = yield self._getItemsFromPaginatedCollections(resp.collection);
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(paramList);
@@ -464,7 +473,9 @@ export default class StoreClient {
             }
           } catch (ex) {
             reject(ex);
+            return;
           }
+
           resolve(itemList);
         });
       });
@@ -498,6 +509,7 @@ export default class StoreClient {
           }
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(collections);
@@ -524,6 +536,7 @@ export default class StoreClient {
           resp = yield req.get(userUrls[0]); // there is only a single user url
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(resp.collection);
@@ -560,6 +573,7 @@ export default class StoreClient {
           resp = yield req.put(userUrls[0], userData); // there is only a single user url
         } catch (ex) {
           reject(ex);
+          return;
         }
 
         resolve(resp.collection);
