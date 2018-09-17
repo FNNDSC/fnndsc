@@ -1,9 +1,9 @@
-import StoreClient from './client';
-import { expect } from 'chai';
+//import StoreClient from './client';
+//import { expect } from 'chai';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
-describe('StoreClient', () => {
+/*describe('StoreClient', () => {
   const testPluginRepresentation = {
     creation_date: '2018-05-22T15:49:52.419437Z',
     modification_date: '2018-05-22T15:49:52.419481Z',
@@ -192,7 +192,7 @@ describe('StoreClient', () => {
       .then(done, done);
   });*/
 
-  it('can retrieve currently authenticated user info', function(done) {
+/*  it('can retrieve currently authenticated user info', function(done) {
     const resp = client.getUser();
 
     resp
@@ -238,4 +238,4 @@ describe('StoreClient', () => {
       })
       .then(done, done);
   });
-});
+});*/
