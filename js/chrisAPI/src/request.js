@@ -1,7 +1,7 @@
 /** * Imports ***/
 import axios from 'axios';
 import Collection from './cj';
-import StoreRequestException from './exception';
+import RequestException from './exception';
 
 /**
  * Http request object.
@@ -19,7 +19,7 @@ export default class Request {
   }
 
   /**
-   * Perform a GET request to the ChRIS store.
+   * Perform a GET request.
    *
    * @param {*} url
    * @param {*} params
@@ -33,31 +33,31 @@ export default class Request {
   }
 
   /**
-   * Perform a POST request to the ChRIS store.
+   * Perform a POST request.
    *
    * @param {*} url
    * @param {*} data
-   * @param {*} descriptorFile
+   * @param {*} uploadFile
    * @return {*}
    */
-  post(url, data, descriptorFile) {
-    return this._postOrPut('post', url, data, descriptorFile);
+  post(url, data, uploadFile) {
+    return this._postOrPut('post', url, data, uploadFile);
   }
 
   /**
-   * Perform a PUT request to the ChRIS store.
+   * Perform a PUT request.
    *
    * @param {*} url
    * @param {*} data
-   * @param {*} descriptorFile
+   * @param {*} uploadFile
    * @return {*}
    */
-  put(url, data, descriptorFile) {
-    return this._postOrPut('put', url, data, descriptorFile);
+  put(url, data, uploadFile) {
+    return this._postOrPut('put', url, data, uploadFile);
   }
 
   /**
-   * Perform a DELETE request to the ChRIS store.
+   * Perform a DELETE request.
    *
    * @param {*} url
    */
@@ -68,19 +68,19 @@ export default class Request {
   }
 
   /**
-   * Internal method to make either a POST or PUT request to the ChRIS store.
+   * Internal method to make either a POST or PUT request.
    *
    * @param {*} requestMethod
    * @param {*} url
    * @param {*} data
-   * @param {*} descriptorFile
+   * @param {*} uploadFile
    * @return {*}
    */
-  _postOrPut(requestMethod, url, data, descriptorFile) {
+  _postOrPut(requestMethod, url, data, uploadFile) {
     const config = this._getConfig(url, requestMethod);
     config.data = data;
 
-    if (descriptorFile) {
+    if (uploadFile) {
       config['headers']['content-type'] = 'multipart/form-data';
       const bFormData = new FormData();
 
@@ -89,7 +89,7 @@ export default class Request {
           bFormData.set(property, data[property]);
         }
       }
-      bFormData.set('descriptor_file', descriptorFile);
+      bFormData.set('fname', uploadFile);
       config.data = bFormData;
     }
 
@@ -140,7 +140,7 @@ export default class Request {
   }
 
   /**
-   * Internal method to handle errors produced by HTTP requests to the ChRIS store.
+   * Internal method to handle errors produced by HTTP requests.
    *
    * @param {*} error
    */
@@ -169,7 +169,7 @@ export default class Request {
       errMsg = error.message;
     }
 
-    throw new StoreRequestException(errMsg);
+    throw new RequestException(errMsg);
     //console.log(error.config);
   }
 }
