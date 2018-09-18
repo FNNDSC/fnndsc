@@ -1,9 +1,9 @@
-import StoreClient from './client';
+import Client from './client';
 import Request from './request';
 import Collection from './cj';
-import StoreRequestException from './exception';
+import RequestException from './exception';
 
-export { StoreClient };
+export { Client };
 export { Request };
 export { Collection };
-export { StoreRequestException };
+export { RequestException };
