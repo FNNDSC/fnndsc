@@ -176,4 +176,34 @@ export default class Request {
     throw new RequestException(errMsg);
     //console.log(error.config);
   }
+
+  /**
+   * Internal method to run an asynchronous task defined by a task generator function.
+   *
+   * @param {*} taskGenerator
+   * @return {*}
+   */
+  static _runAsyncTask(taskGenerator) {
+    // create the iterator
+    let task = taskGenerator();
+    // start the task
+    let result = task.next();
+
+    // recursive function to iterate through
+    (function step() {
+      // if there's more to do (result.value and result.done are iterator's properties)
+      if (!result.done) {
+        result.value
+          .then(resp => {
+            result = task.next(resp); // send this resp value to the yield
+            step();
+          })
+          .catch(error => {
+            result = task.throw(error); // throws error within taskGenerator generator
+            step();
+          });
+      }
+    })(); // start the recursive process by calling it immediatly
+  }
+
 }
