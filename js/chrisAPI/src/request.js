@@ -37,11 +37,11 @@ export default class Request {
    *
    * @param {*} url
    * @param {*} data
-   * @param {*} uploadFile
+   * @param {*} uploadFileObj
    * @return {*}
    */
-  post(url, data, uploadFile) {
-    return this._postOrPut('post', url, data, uploadFile);
+  post(url, data, uploadFileObj) {
+    return this._postOrPut('post', url, data, uploadFileObj);
   }
 
   /**
@@ -49,11 +49,11 @@ export default class Request {
    *
    * @param {*} url
    * @param {*} data
-   * @param {*} uploadFile
+   * @param {*} uploadFileObj
    * @return {*}
    */
-  put(url, data, uploadFile) {
-    return this._postOrPut('put', url, data, uploadFile);
+  put(url, data, uploadFileObj) {
+    return this._postOrPut('put', url, data, uploadFileObj);
   }
 
   /**
@@ -73,14 +73,14 @@ export default class Request {
    * @param {*} requestMethod
    * @param {*} url
    * @param {*} data
-   * @param {*} uploadFile
+   * @param {*} uploadFileObj
    * @return {*}
    */
-  _postOrPut(requestMethod, url, data, uploadFile) {
+  _postOrPut(requestMethod, url, data, uploadFileObj=null) {
     const config = this._getConfig(url, requestMethod);
     config.data = data;
 
-    if (uploadFile) {
+    if (uploadFileObj) {
       config['headers']['content-type'] = 'multipart/form-data';
       const bFormData = new FormData();
 
@@ -89,7 +89,11 @@ export default class Request {
           bFormData.set(property, data[property]);
         }
       }
-      bFormData.set('fname', uploadFile);
+      for (let property in uploadFileObj) {
+        if (uploadFileObj.hasOwnProperty(property)) {
+          bFormData.set(property, uploadFileObj[property]);
+        }
+      }
       config.data = bFormData;
     }
 

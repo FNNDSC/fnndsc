@@ -29,7 +29,8 @@ describe('Request', () => {
   });
 
   it('can report unsuccessfull authenticated GET request', done => {
-    const result = req.get(chrisUrl + '1test/');
+    const badUrl = chrisUrl + '1test/';
+    const result = req.get(badUrl);
 
     result
       .catch(error => {
@@ -39,14 +40,16 @@ describe('Request', () => {
   });
 
   it('can make authenticated multipart POST request and DELETE request', done => {
+    const url = chrisUrl + 'uploadedfiles/';
     const data = {
       upload_path: "/test.txt",
     };
     const fileContent = "This is a test file";
     const fileData = JSON.stringify(fileContent);
-    const dfile = new Blob([fileData], { type: 'application/json' });
+    const uploadFile = new Blob([fileData], { type: 'application/json' });
+    const uploadFileObj = {fname: uploadFile};
 
-    const result = req.post(chrisUrl + 'uploadedfiles/', data, dfile);
+    const result = req.post(url, data, uploadFileObj);
 
     result
       .then(response => {
