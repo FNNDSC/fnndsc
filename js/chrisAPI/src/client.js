@@ -16,12 +16,36 @@ export default class Client {
    * @param {*} auth
    * @param {*} timeout
    */
-  constructor(chrisUrl, auth = null, timeout = 30000) {
+  constructor(chrisUrl, auth, timeout = 30000) {
     this.chrisUrl = chrisUrl;
     this.chrisQueryUrl = chrisUrl + 'search/';
+    if (!auth) {
+      throw new RequestException('Authentication object is required');
+    }
     this.auth = auth;
     this.timeout = timeout;
     this.contentType = 'application/vnd.collection+json';
+  }
+
+  /**
+   * Get currently authenticated user's feeds.
+   *
+   * @return {*}
+   */
+  getFeeds() {
+    const chrisUrl = this.chrisUrl;
+    const req = new Request(this.auth, this.contentType, this.timeout);
+
+    return new Promise((resolve, reject) => {
+      const result = req.get(chrisUrl);
+      result
+        .then(response => {
+          resolve(response.data.collection);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
 
   /**
@@ -39,7 +63,7 @@ export default class Client {
 
         try {
           resp = yield req.get(chrisUrl);
-          const urls = Collection.getLinkRelationUrls(resp.collection, 'user');
+          const urls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
           if (urls.length) {
             const userUrl = urls[0]; // there is only a single user url
             resp = yield req.get(userUrl);
@@ -50,7 +74,7 @@ export default class Client {
           reject(ex);
           return;
         }
-        resolve(resp.collection);
+        resolve(resp.data.collection);
       });
     });
   }
@@ -80,7 +104,7 @@ export default class Client {
 
         try {
           resp = yield req.get(chrisUrl);
-          const urls = Collection.getLinkRelationUrls(resp.collection, 'user');
+          const urls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
           if (urls.length) {
             const userUrl = urls[0]; // there is only a single user url
             resp = yield req.put(userUrl, userData);
@@ -91,7 +115,7 @@ export default class Client {
           reject(ex);
           return;
         }
-        resolve(resp.collection);
+        resolve(resp.data.collection);
       });
     });
   }
@@ -122,7 +146,7 @@ export default class Client {
     return new Promise((resolve, reject) => {
       result
         .then(response => {
-          resolve(response.collection);
+          resolve(response.data.collection);
         })
         .catch(error => {
           reject(error);
@@ -150,12 +174,11 @@ export default class Client {
     return new Promise((resolve, reject) => {
       result
         .then(response => {
-          resolve(response.token);
+          resolve(response.data.token);
         })
         .catch(error => {
           reject(error);
         });
     });
   }
-
 }

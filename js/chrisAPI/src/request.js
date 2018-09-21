@@ -76,7 +76,7 @@ export default class Request {
    * @param {*} uploadFileObj
    * @return {*}
    */
-  _postOrPut(requestMethod, url, data, uploadFileObj=null) {
+  _postOrPut(requestMethod, url, data, uploadFileObj = null) {
     const config = this._getConfig(url, requestMethod);
     config.data = data;
 
@@ -136,7 +136,7 @@ export default class Request {
   static _callAxios(config) {
     return axios(config)
       .then(response => {
-        return response.data;
+        return response;
       })
       .catch(error => {
         Request._handleRequestError(error);
@@ -205,5 +205,4 @@ export default class Request {
       }
     })(); // start the recursive process by calling it immediatly
   }
-
 }

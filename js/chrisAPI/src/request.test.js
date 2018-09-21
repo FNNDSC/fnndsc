@@ -5,7 +5,6 @@ import { expect } from 'chai';
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
 describe('Request', () => {
-
   let req;
   const chrisUrl = 'http://localhost:8000/api/v1/';
   const auth = {
@@ -23,7 +22,7 @@ describe('Request', () => {
 
     result
       .then(response => {
-        expect(response.collection.links).to.have.lengthOf.at.least(1);
+        expect(response.data.collection.links).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
@@ -42,26 +41,26 @@ describe('Request', () => {
   it('can make authenticated multipart POST request and DELETE request', done => {
     const url = chrisUrl + 'uploadedfiles/';
     const data = {
-      upload_path: "/test.txt",
+      upload_path: '/test' + Date.now() + '.txt',
     };
-    const fileContent = "This is a test file";
+    const fileContent = 'This is a test file';
     const fileData = JSON.stringify(fileContent);
     const uploadFile = new Blob([fileData], { type: 'application/json' });
-    const uploadFileObj = {fname: uploadFile};
+    const uploadFileObj = { fname: uploadFile };
 
     const result = req.post(url, data, uploadFileObj);
 
     result
       .then(response => {
-        const path = response.collection.items[0].data.filter(descriptor => {
+        const path = response.data.collection.items[0].data.filter(descriptor => {
           return descriptor.name === 'upload_path';
         })[0].value;
 
         expect(path).to.equal(data.upload_path);
 
         // now delete the file
-        const url = response.collection.items[0].href;
-        return req.delete(url); // pass rejection or fulfilment down the promise chain
+        const url = response.data.collection.items[0].href;
+        return req.delete(url).then(() => {}); // pass rejection or fulfilment down the promise chain
       })
       .then(done, done);
   });
