@@ -83,6 +83,14 @@ rm -rf bower_components && \
 bower update
 ```
 
+### Install polymer-cli
+
+Install `polymer-cli` 
+
+```bash
+npm install -g polymer-cli
+```
+
 ## Develop
 
 ```bash
