@@ -40,7 +40,7 @@ export default class Request {
    * @param {*} uploadFileObj
    * @return {*}
    */
-  post(url, data, uploadFileObj) {
+  post(url, data, uploadFileObj = null) {
     return this._postOrPut('post', url, data, uploadFileObj);
   }
 
@@ -52,7 +52,7 @@ export default class Request {
    * @param {*} uploadFileObj
    * @return {*}
    */
-  put(url, data, uploadFileObj) {
+  put(url, data, uploadFileObj = null) {
     return this._postOrPut('put', url, data, uploadFileObj);
   }
 
