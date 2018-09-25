@@ -49,6 +49,63 @@ export default class Client {
   }
 
   /**
+   * Create a custom obj representing the resource in the response.
+   * @param {*} response
+   *
+   * @return {*}
+   */
+  static createCustomResponseObj(response) {
+    const config = response.config;
+    const allowVerbs = response.headers.allow.split(',');
+    const collection = response.data.collection;
+    const contentType = response.headers['content-type'] || 'application/vnd.collection+json';
+    const customObj = {};
+
+    const req = new Request(config.auth, contentType, config.timeout);
+
+    if (allowVerbs.indexOf('GET') !== -1) {
+      customObj.get = function() {
+        return req.get(Collection.getUrl(collection));
+      };
+    }
+
+    if (allowVerbs.indexOf('POST') !== -1) {
+      customObj.post = function(data, uploadFileObj = null) {
+        const url = Collection.getUrl(collection);
+
+        return req.post(url, data, uploadFileObj);
+      };
+    }
+
+    if (allowVerbs.indexOf('PUT') !== -1) {
+      customObj.put = function(data, uploadFileObj = null) {
+        const url = Collection.getUrl(collection);
+
+        return req.put(url, data, uploadFileObj);
+      };
+    }
+
+    if (allowVerbs.indexOf('DELETE') !== -1) {
+      customObj.delete = function() {
+        return req.delete(Collection.getUrl(collection));
+      };
+    }
+
+    for (let link of collection.links) {
+      let methodName = 'get_' + link.rel;
+
+      if (customObj.hasOwnProperty(methodName)) {
+        // don't keep a method for a link relation with multiple elements
+        delete customObj[methodName];
+      } else {
+        customObj[methodName] = () => req.get(link.href);
+      }
+    }
+
+    return customObj;
+  }
+
+  /**
    * Get currently authenticated user's information.
    *
    * @return {*}
