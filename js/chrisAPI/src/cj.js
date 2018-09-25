@@ -45,4 +45,23 @@ export default class Collection {
     }
     return itemObj;
   }
+
+  /**
+   * Get the ur of the reprsentation in the collection obj.
+   *
+   * @return {*}
+   */
+  static getUrl(collection) {
+    return collection.href;
+  }
+
+  /**
+   * Get the list of urls for a link relation in a collection or item object.
+   *
+   * @param {*} template
+   * @return {*}
+   */
+  static getTemplateDescriptorNames(template) {
+    return template.data.map(descriptor => descriptor.name);
+  }
 }
