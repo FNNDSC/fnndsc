@@ -1,5 +1,5 @@
 import argparse
-import dicom
+import pydicom
 import datetime
 import json
 import os
@@ -7,6 +7,9 @@ import pypx
 import shutil
 import subprocess
 import uuid
+
+import pudb
+
 
 parser = argparse.ArgumentParser(description='Generate JPG Strips from DICOM directories')
 
@@ -34,13 +37,13 @@ def processDicomField(dcm_info, field):
     return value
 
 def generateJPG(src, dest):
-    executable = '/usr/local/bin/dcmj2pnm' # '/usr/bin/dcmj2pnm'
+    executable = '/usr/bin/dcmj2pnm' # '/usr/local/bin/dcmj2pnm'
     command = executable + ' +oj +Wh 15 +Fa ' + src + ' ' + dest
     response = subprocess.run(
         command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
 
 def resizeJPG(dest):
-    executable = '/opt/ImageMagick/bin/mogrify' # '/usr/bin/mogrify'
+    executable = '/usr/bin/mogrify' # '/opt/ImageMagick/bin/mogrify'
     options = '-resize 96x96 -background none -gravity center -extent 96x96'
     source = os.path.join(dest, '*')
     command = executable + ' ' + options + ' ' + source
@@ -49,7 +52,7 @@ def resizeJPG(dest):
 
 def previewJPG(src, dest):
     # create preview
-    executable = '/opt/ImageMagick/bin/convert' # '/usr/bin/convert'
+    executable = '/usr/bin/convert' # '/opt/ImageMagick/bin/convert'
     options = '-append'
     output = os.path.join(dest, 'preview.jpg')
     command = executable + ' ' + options + ' ' + src + '/* ' + output
@@ -72,8 +75,8 @@ def anonymize(src, uuid):
     institution_address = 'ANONYMIZED'
     physicians_of_record = 'ANONYMIZED'
 
-    # create preview
-    executable = '/usr/local/bin/dcmodify' # '/usr/bin/dcmodify'
+    # create preview / Be aware that some paramerters may not be present in the dcm file
+    executable = '/usr/bin/dcmodify' # '/usr/local/bin/dcmodify'
     options = '-ie -gin -nb \
       -ma "(0010,0010)=' + patient_name + '" -ma "(0010,0020)=' + patient_id + '" \
       -ma "(0020,000E)=' + series_uid + '" -ma "(0020,000D)=' + study_uid + '" \
@@ -93,7 +96,7 @@ def anonymize(src, uuid):
 
 def jsonize(file, location, files, sp):
     
-    data = dicom.read_file(file)
+    data = pydicom.read_file(file)
     # parse file to extract relevant information
     uid = processDicomField(data, 'SeriesInstanceUID')
     description = processDicomField(data, 'SeriesDescription')
@@ -152,6 +155,7 @@ def jsonize(file, location, files, sp):
 
 def processSeries(tar):
     # generate jpgs for all dcm files
+    print("TAR="+tar)
     sorted_images = sorted(os.listdir(tar))
     target_path = tar
     target_path_jpgs = ''
