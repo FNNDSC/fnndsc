@@ -2,6 +2,7 @@
 import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
+import { FeedList } from './feed';
 
 /**
  * Chris object.
@@ -14,17 +15,16 @@ export default class Client {
    *
    * @param {*} chrisUrl
    * @param {*} auth
-   * @param {*} timeout
    */
-  constructor(chrisUrl, auth, timeout = 30000) {
+  constructor(chrisUrl, auth) {
     this.chrisUrl = chrisUrl;
     this.chrisQueryUrl = chrisUrl + 'search/';
     if (!auth) {
       throw new RequestException('Authentication object is required');
     }
     this.auth = auth;
-    this.timeout = timeout;
     this.contentType = 'application/vnd.collection+json';
+    this.feeds = null;
   }
 
   /**
@@ -33,14 +33,16 @@ export default class Client {
    * @return {*}
    */
   getFeeds() {
-    const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
+    const feedList = new FeedList(this.chrisUrl, this.auth);
+    const self = this;
 
     return new Promise((resolve, reject) => {
-      const result = req.get(chrisUrl);
+      const result = feedList.get();
+
       result
-        .then(response => {
-          resolve(response.data.collection);
+        .then(feedsData => {
+          self.feeds = feedList;
+          resolve(feedsData);
         })
         .catch(error => {
           reject(error);
@@ -49,70 +51,14 @@ export default class Client {
   }
 
   /**
-   * Create a custom obj representing the resource in the response.
-   * @param {*} response
-   *
-   * @return {*}
-   */
-  static createCustomResponseObj(response) {
-    const config = response.config;
-    const allowVerbs = response.headers.allow.split(',');
-    const collection = response.data.collection;
-    const contentType = response.headers['content-type'] || 'application/vnd.collection+json';
-    const customObj = {};
-
-    const req = new Request(config.auth, contentType, config.timeout);
-
-    if (allowVerbs.indexOf('GET') !== -1) {
-      customObj.get = function() {
-        return req.get(Collection.getUrl(collection));
-      };
-    }
-
-    if (allowVerbs.indexOf('POST') !== -1) {
-      customObj.post = function(data, uploadFileObj = null) {
-        const url = Collection.getUrl(collection);
-
-        return req.post(url, data, uploadFileObj);
-      };
-    }
-
-    if (allowVerbs.indexOf('PUT') !== -1) {
-      customObj.put = function(data, uploadFileObj = null) {
-        const url = Collection.getUrl(collection);
-
-        return req.put(url, data, uploadFileObj);
-      };
-    }
-
-    if (allowVerbs.indexOf('DELETE') !== -1) {
-      customObj.delete = function() {
-        return req.delete(Collection.getUrl(collection));
-      };
-    }
-
-    for (let link of collection.links) {
-      let methodName = 'get_' + link.rel;
-
-      if (customObj.hasOwnProperty(methodName)) {
-        // don't keep a method for a link relation with multiple elements
-        delete customObj[methodName];
-      } else {
-        customObj[methodName] = () => req.get(link.href);
-      }
-    }
-
-    return customObj;
-  }
-
-  /**
    * Get currently authenticated user's information.
    *
+   * @param {*} timeout
    * @return {*}
    */
-  getUser() {
+  getUser(timeout = 30000) {
     const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
+    const req = new Request(this.auth, this.contentType, timeout);
 
     return new Promise((resolve, reject) => {
       Request._runAsyncTask(function*() {
@@ -140,11 +86,12 @@ export default class Client {
    * Update currently authenticated user's information (email and or password).
    *
    * @param {*} userInfoObj
+   * @param {*} timeout
    * @return {*}
    */
-  updateUser(userInfoObj) {
+  updateUser(userInfoObj, timeout = 30000) {
     const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
+    const req = new Request(this.auth, this.contentType, timeout);
 
     const userData = {
       template: {
