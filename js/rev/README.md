@@ -119,11 +119,10 @@ es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-Same remarks as in previous section apply, regarding to `<base href='/rev/viewer/'>` and `demoPrefix`.
+Same remarks as in previous section, regarding to `<base href='/rev/viewer/'>` and `demoPrefix`.
 
 ``` bash
-cd ~/src/gex && \
-polymer build --verbose --preset es5-bundled && \
+polymer build --verbose --preset es5-bundled
 polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
 ```
 
@@ -161,7 +160,7 @@ Then we use whatever is return by those function to construct a URL that target 
 
 `demoPrefix` is the location of the directory containing the data, from the perspective of the client.
 
-For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:8000/rev/data` and `rev/data` contains the years/month/patient tree, demoPrefix should be `/rev/data/`.
+For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:8000/rev/viewer` and `rev/viewer` contains the years/month/patient tree, demoPrefix should be `/rev/viewer/`.
 
 ## Add new data
 
@@ -202,9 +201,9 @@ https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html#L245
 
 We want `target` to be `years/month/patient` from the file system.
 
-In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01/02/00`.
+In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01-yr/02-mo/ex-00`.
 
-We may want to be smarter than that and find the closest match if none is available. For instance, following the previous example, if we only have data for `year 01, month 01 and patient 00` available, we want `pathFromRadstar` to return `01/01/00`.
+We may want to be smarter than that and find the closest match if none is available. For instance, following the previous example, if we only have data for `year 01, month 01 and patient 00` available, we want `pathFromRadstar` to return `01-yr/01-mo/ex-00`.
 
 Logic has to be implemented in `pathFromRadstar` and https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html
  must keep track of all data available in the file system, possibly in a map.
@@ -218,5 +217,5 @@ That is the `demoPrefix`.
 ${this.demoPrefix}/${target}/description.json`
 ```
 
-If the data is available at `fnndsc.childrens.harvard.edu/rev/data/year/...`, then demoPrefix would be `/rev/data`;
+If the data is available at `fnndsc.childrens.harvard.edu/rev/viewer/yr-xx/...`, then demoPrefix would be `/rev/viewer`;
 
