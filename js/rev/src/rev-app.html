@@ -169,6 +169,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       static get properties() {
+        const urlSearchParameters = new URLSearchParams(document.location.search);
+        const yr=urlSearchParameters.get('yr');
+        console.log("yrrrr = " + yr);
         return {
           fullname: {
             type: String,
@@ -191,7 +194,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           routeData: Object,
           demoPrefix: {
             type: String,
-            value: '/rev/viewer',
+            value: 'library-anon/'+yr+'-yr',
           },
           layout: {
             type: Number,
@@ -233,23 +236,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         const patientBirthDate = urlSearchParameters.get('patientbirthdate');
         const scanDate = urlSearchParameters.get('scandate');
 
-        // http://fnndsc.childrens.harvard.edu/ReV/viewer?year=01&month=05&example=03
-        const year = urlSearchParameters.get('year');
-        const month = urlSearchParameters.get('month');
-        const example = urlSearchParameters.get('example');
+        // http://centurion.tch.harvard.edu:8060/?yr=00&mo=03&ex=02
+        const year = urlSearchParameters.get('yr');
+        const month = urlSearchParameters.get('mo');
+        const example = urlSearchParameters.get('ex');
 
         let target = '';
         if (patientBirthDate && scanDate) {
           target = this.pathFromRadstar(patientBirthDate, scanDate);
         } else if (year && month && example) {
-          target = this.pathFromRadstar(year, month, example);
+          target = this.pathFromHome(year, month, example);
+          console.log("target = " + target);
         }
-
+        
         // hard code for now
-        target = 'normatives/6^MONTHS';
+        //target = 'normatives/6^MONTHS';
 
         // fetch target...
-        const testURL = `${this.demoPrefix}/${target}/description.json`
+        const testURL = `library-anon/${target}/description.json`
+        console.log("testURL = " + testURL);
         fetch(testURL)
         .then((response) => {
           return response.json();
@@ -270,7 +275,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       pathFromHome(year, month, example) {
-        return `${year}/${month}/${example}/`;
+        return `${year}-yr/${month}-mo/ex-${example}`;
       }
 
       _pageChanged(page) {

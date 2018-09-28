@@ -91,26 +91,22 @@ Install `polymer-cli`
 npm install -g polymer-cli
 ```
 
-## Develop
+# Development and Modification
 
-```bash
-mkdir -p /var/www/html/rev/viewer
-```
+## Directory of files
 
 Make sure `<base href="/">` is set in `index.html`.
-It is use by the app as the base path to fetch files. If base is '/rev/viewer', the application
-tries to get its content from `<hostname>:<port>/rev/viewer/`.
+It is use by the app as the base path to fetch files. If base is '/path/test', the application
+tries to get its content from `<hostname>:<port>/path/test/`.
 
 At development time, the application is served from `localhost:8081/` hence `<base href='/'>`.
 
-At production time, the application is served from `<hostname>:<port>/rev/viewer/` hence `<base href='/rev/viewer/'>`
-
 You may also want to update `demoPrefix` in `rev-app.html` depending on where the data is located.
 
+Then to launch the web server :
+
 ``` bash
-
 polymer serve
-
 ```
 
 ## Build
@@ -123,17 +119,21 @@ es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-Same remarks as in previous section apply, regarding to `<base href='/rev/viewer/'>` and `demoPrefix`.
+Same remarks as in previous section, regarding to `<base href='/rev/viewer/'>` and `demoPrefix`.
 
 ``` bash
-
-cd ~/src/gex && \
-polymer build --verbose --preset es5-bundled && \
+polymer build --verbose --preset es5-bundled
 polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
-
 ```
 
-## Deploy
+# Deploy
+
+```bash
+mkdir -p /var/www/html/rev/viewer
+```
+
+Now, make sure `<base href="/rev/viewer/">` is set in `index.html`.
+At production time, the application is served from `<hostname>:<port>/rev/viewer/` hence `<base href='/rev/viewer/'>`
 
 Once build copy content from `build/es5` to where we want to serve the app from. Typically it is `fnndsc.childrens.harvard.edu:/var/www/html/rev/viewer`.
 
@@ -147,7 +147,6 @@ in `src/rev-app.html`:
 pathFromRadstar(birthDate, scanDate) {
   return `${birthDate}/${scanDate}/`
 }
-
 pathFromHome(year, month, example) {
   return `${year}/${month}/${example}/`;
 }
@@ -161,26 +160,29 @@ Then we use whatever is return by those function to construct a URL that target 
 
 `demoPrefix` is the location of the directory containing the data, from the perspective of the client.
 
-For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:8000/rev/data` and `rev/data` contains the years/month/patient tree, demoPrefix should be `/rev/data/`.
+For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:8000/rev/viewer` and `rev/viewer` contains the years/month/patient tree, demoPrefix should be `/rev/viewer/`.
 
 ## Add new data
 
 ### Tree structure
-`year > month > patient > series`
+`year > month > patient / examples > series`
 
 ### Generate JSON description for the patient
 
-Currently the script only generate a JSON description per series.
+To fetch data, a script generate a JSON file that discribe the series. This file is call `demo.json`
 
-We must create a new JSON, that contains all descriptions merged into 1 array manually.
+The script is located in : `js/rev/scripts/dcmpreview.py`
 
-Script to run: `script/dcmpreview.py`
+It requires pypx, pydicom, dcmtk, imagemagick
 
-Requires pypx, pydicom, dcmtk, imagemagick
-
-Run it (from the patient directory for that to be accurate):
+Either you run it for one serie :
 ```
-$ patient > dcmpreview.py ...
+ python3 dcmpreview.py -d year/month/example/series/
+```
+
+or for one study :
+```
+ python3 dcmpreview.py -d year/month/example/ --study
 ```
 
 ### Add it in the lookup list
@@ -191,23 +193,21 @@ https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html#L245
 
 ```
 ...
-
 } else if (year && month && example) {
   target = this.pathFromRadstar(year, month, example);
 }
-
 ...
 ```
 
 We want `target` to be `years/month/patient` from the file system.
 
-In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01/02/00`.
+In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01-yr/02-mo/ex-00`.
 
-We may want to be smarter than that and find the closest match if none is available. For instance, following the previous example, if we only have data for `year 01, month 01 and patient 00` available, we want `pathFromRadstar` to return `01/01/00`.
+We may want to be smarter than that and find the closest match if none is available. For instance, following the previous example, if we only have data for `year 01, month 01 and patient 00` available, we want `pathFromRadstar` to return `01-yr/01-mo/ex-00`.
 
 Logic has to be implemented in `pathFromRadstar` and https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html
  must keep track of all data available in the file system, possibly in a map.
- 
+
 ### Add new directory on the file system
 
 We must also provide `rev-app.html` the public location of the data, in order for the front-end to be able to fetch it.
@@ -217,6 +217,5 @@ That is the `demoPrefix`.
 ${this.demoPrefix}/${target}/description.json`
 ```
 
-If the data is available at `fnndsc.childrens.harvard.edu/rev/data/year/...`, then demoPrefix would be `/rev/data`;
-
+If the data is available at `fnndsc.childrens.harvard.edu/rev/viewer/yr-xx/...`, then demoPrefix would be `/rev/viewer`;
 
