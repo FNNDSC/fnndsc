@@ -25,9 +25,12 @@ export default class Request {
    * @param {*} params
    * @return {*}
    */
-  get(url, params) {
+  get(url, params = null) {
     const config = this._getConfig(url, 'get');
-    config.params = params;
+
+    if (params) {
+      config.params = params;
+    }
 
     return Request._callAxios(config);
   }

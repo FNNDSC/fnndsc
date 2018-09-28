@@ -1,5 +1,4 @@
 /** * Imports ***/
-import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
 import { FeedList } from './feed';
@@ -18,110 +17,24 @@ export default class Client {
    */
   constructor(chrisUrl, auth) {
     this.chrisUrl = chrisUrl;
-    this.chrisQueryUrl = chrisUrl + 'search/';
     if (!auth) {
       throw new RequestException('Authentication object is required');
     }
     this.auth = auth;
     this.contentType = 'application/vnd.collection+json';
-    this.feeds = null;
   }
 
   /**
    * Get currently authenticated user's feeds.
    *
+   * @param {*} params
+   * @param {*} timeout
    * @return {*}
    */
-  getFeeds() {
+  getFeeds(params = null, timeout = 30000) {
     const feedList = new FeedList(this.chrisUrl, this.auth);
-    const self = this;
 
-    return new Promise((resolve, reject) => {
-      const result = feedList.get();
-
-      result
-        .then(feedsData => {
-          self.feeds = feedList;
-          resolve(feedsData);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  }
-
-  /**
-   * Get currently authenticated user's information.
-   *
-   * @param {*} timeout
-   * @return {*}
-   */
-  getUser(timeout = 30000) {
-    const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, timeout);
-
-    return new Promise((resolve, reject) => {
-      Request._runAsyncTask(function*() {
-        let resp;
-
-        try {
-          resp = yield req.get(chrisUrl);
-          const urls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
-          if (urls.length) {
-            const userUrl = urls[0]; // there is only a single user url
-            resp = yield req.get(userUrl);
-          } else {
-            throw new RequestException('Missing user link relation');
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-        resolve(resp.data.collection);
-      });
-    });
-  }
-
-  /**
-   * Update currently authenticated user's information (email and or password).
-   *
-   * @param {*} userInfoObj
-   * @param {*} timeout
-   * @return {*}
-   */
-  updateUser(userInfoObj, timeout = 30000) {
-    const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, timeout);
-
-    const userData = {
-      template: {
-        data: [
-          { name: 'email', value: userInfoObj.email },
-          { name: 'password', value: userInfoObj.password },
-        ],
-      },
-    };
-
-    return new Promise((resolve, reject) => {
-      Request._runAsyncTask(function*() {
-        let resp;
-
-        try {
-          resp = yield req.get(chrisUrl);
-          const urls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
-          if (urls.length) {
-            const userUrl = urls[0]; // there is only a single user url
-            resp = yield req.put(userUrl, userData);
-          } else {
-            throw new RequestException('Missing user link relation');
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-        resolve(resp.data.collection);
-      });
-    });
+    return feedList.get(params, timeout);
   }
 
   /**
