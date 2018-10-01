@@ -4,11 +4,11 @@ import RequestException from './exception';
 import { ItemResource, ListResource } from './resource';
 
 /**
- * API plugin objects.
+ * API feed file objects.
  *
- * @module plugin
+ * @module feedfile
  */
-export class Plugin extends ItemResource {
+export class FeedFile extends ItemResource {
   /**
    * Constructor
    *
@@ -20,7 +20,7 @@ export class Plugin extends ItemResource {
   }
 }
 
-export class PluginList extends ListResource {
+export class FeedFileList extends ListResource {
   /**
    * Constructor
    *
@@ -38,6 +38,6 @@ export class PluginList extends ListResource {
    */
   get items() {
 
-    return this._getItems(Plugin);
+    return this._getItems(FeedFile);
   }
 }

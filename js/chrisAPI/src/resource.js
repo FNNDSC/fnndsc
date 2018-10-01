@@ -36,17 +36,21 @@ class Resource {
     const self = this;
     let url = this.url;
 
-    for (let param in params) {
-      // if there are search params then use the query url for this resource
-      if (params.hasOwnProperty(param) && param !== 'limit' && param !== 'offset') {
-        if (self.queryUrl) {
-          url = self.queryUrl;
-          break;
-        } else {
-          throw new RequestException('A search url has not been setup for this resource!');
+    if (params) {
+      for (let param in params) {
+        // if there are search params then use the query url for this resource
+        if (params.hasOwnProperty(param) && param !== 'limit' && param !== 'offset') {
+          if (self.queryUrl) {
+            url = self.queryUrl;
+            break;
+          } else {
+            const errMsg = 'A search url has not been setup for this resource!';
+            throw new RequestException(errMsg);
+          }
         }
       }
     }
+
     const result = req.get(url, params);
 
     return new Promise((resolve, reject) => {
@@ -62,6 +66,32 @@ class Resource {
           reject(error);
         });
     });
+  }
+
+  /**
+   * Internal method to fetch a related resource referenced by a link relation.
+   *
+   * @param {*} linkRelation
+   * @param {*} ResourceClass
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
+
+      if (urls.length) {
+        const resourceUrl = urls[0];
+        const resourceObj = new ResourceClass(resourceUrl, this.auth);
+
+        return resourceObj.get(params, timeout);
+      } else {
+        const errMsg = 'Missing "' + linkRelation + '" link relation!';
+        throw new RequestException(errMsg);
+      }
+    }
+    return null;
   }
 }
 
@@ -101,13 +131,30 @@ export class ListResource extends Resource {
   }
 
   /**
+   * Internal method to get the list of item objects.
+   *
+   * @param {*} ItemClass
+   * @return {*}
+   */
+  _getItems(ItemClass) {
+    if (this.collection) {
+      const items = this.collection.items;
+
+      return items.map(item => new ItemClass(item.href, this.auth));
+    }
+    return null;
+  }
+
+  /**
    * Get the list of items' data descriptors.
    *
    * @return {*}
    */
   get itemsData() {
     if (this.collection) {
-      return this.collection.items.map(item => Collection.getItemDescriptors(item));
+      const items = this.collection.items;
+
+      return items.map(item => Collection.getItemDescriptors(item));
     }
     return null;
   }

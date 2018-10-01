@@ -4,7 +4,7 @@ import RequestException from './exception';
 import { FeedList } from './feed';
 
 /**
- * Chris object.
+ * Chris client object.
  *
  * @module client
  */
@@ -12,11 +12,11 @@ export default class Client {
   /**
    * Constructor
    *
-   * @param {*} chrisUrl
+   * @param {*} url
    * @param {*} auth
    */
-  constructor(chrisUrl, auth) {
-    this.chrisUrl = chrisUrl;
+  constructor(url, auth) {
+    this.url = url;
     if (!auth) {
       throw new RequestException('Authentication object is required');
     }
@@ -25,20 +25,20 @@ export default class Client {
   }
 
   /**
-   * Get currently authenticated user's feeds.
+   * Fetch a list of currently authenticated user's feeds.
    *
    * @param {*} params
    * @param {*} timeout
    * @return {*}
    */
   getFeeds(params = null, timeout = 30000) {
-    const feedList = new FeedList(this.chrisUrl, this.auth);
+    const feedList = new FeedList(this.url, this.auth);
 
     return feedList.get(params, timeout);
   }
 
   /**
-   * Create a new store user account.
+   * Create a new user account.
    *
    * @param {*} usersUrl
    * @param {*} username
@@ -72,7 +72,7 @@ export default class Client {
   }
 
   /**
-   * Get a user's login authorization token.
+   * Fetch a user's login authorization token.
    * @param {*} authUrl
    * @param {*} username
    * @param {*} password

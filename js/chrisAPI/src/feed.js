@@ -4,9 +4,11 @@ import RequestException from './exception';
 import { ItemResource, ListResource } from './resource';
 import User from './user';
 import { PluginList } from './plugin';
+import { UploadedFileList } from './uploadedfile';
+import { TagList } from './tag';
 
 /**
- * API Feed objects.
+ * API feed objects.
  *
  * @module feed
  */
@@ -34,59 +36,67 @@ export class FeedList extends ListResource {
   }
 
   /**
-   * Get the list of items' data descriptors.
+   * Get the list of item objects.
    *
    * @return {*}
    */
   get items() {
-    if (this.collection) {
-      return this.collection.items.map(item => new Feed(item.href, this.auth));
-    }
-    return null;
+
+    return this._getItems(Feed);
   }
 
   /**
-   * Get currently authenticated user's information.
+   * Fetch currently authenticated user's information.
    *
    * @param {*} timeout
    * @return {*}
    */
   getUser(timeout = 30000) {
-    if (this.collection) {
-      const urls = Collection.getLinkRelationUrls(this.collection, 'user');
+    const linkRelation = 'user';
+    const resourceClass = User;
 
-      if (urls.length) {
-        const userUrl = urls[0]; // there is only a single "user" url
-        const user = new User(userUrl, this.auth);
-
-        return user.get(timeout);
-      } else {
-        throw new RequestException('Missing "user" link relation in feed list');
-      }
-      return null;
-    }
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 
   /**
-   * Get currently authenticated user's feeds.
+   * Fetch a list of plugins.
    *
    * @param {*} params
    * @param {*} timeout
    * @return {*}
    */
   getPlugins(params = null, timeout = 30000) {
-    if (this.collection) {
-      const urls = Collection.getLinkRelationUrls(this.collection, 'plugins');
+    const linkRelation = 'plugins';
+    const resourceClass = PluginList;
 
-      if (urls.length) {
-        const pluginsUrl = urls[0];
-        const pluginList = new PluginList(pluginsUrl, this.auth);
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
 
-        return pluginList.get(params, timeout);
-      } else {
-        throw new RequestException('Missing "plugins" link relation in feed list');
-      }
-      return null;
-    }
+  /**
+   * Fetch a list of tags.
+   *
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  getTags(params = null, timeout = 30000) {
+    const linkRelation = 'tags';
+    const resourceClass = TagList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Fetch a list of uploaded files.
+   *
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  getUploadedFiles(params = null, timeout = 30000) {
+    const linkRelation = 'uploadedfiles';
+    const resourceClass = UploadedFileList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
   }
 }

@@ -3,11 +3,11 @@ import Request from './request';
 import { ItemResource } from './resource';
 
 /**
- * API user objects.
+ * API note objects.
  *
- * @module user
+ * @module note
  */
-export default class User extends ItemResource {
+export default class Note extends ItemResource {
   /**
    * Constructor
    *
@@ -19,7 +19,7 @@ export default class User extends ItemResource {
   }
 
   /**
-   * Update currently authenticated user's information (email and or password).
+   * Update this note.
    *
    * @param {*} userInfoObj
    * @param {*} timeout
