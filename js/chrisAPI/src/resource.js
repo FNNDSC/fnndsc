@@ -25,7 +25,7 @@ class Resource {
   }
 
   /**
-   * Fetch this resource from the API.
+   * Fetch this resource from the REST API.
    *
    * @param {*} params
    * @param {*} timeout
@@ -56,9 +56,11 @@ class Resource {
     return new Promise((resolve, reject) => {
       result
         .then(response => {
+          // change the state of this object on successfull response
+          self.collection = null;
+          self.searchParams = params;
           if (response.data && response.data.collection) {
             self.collection = response.data.collection;
-            self.searchParams = params;
           }
           resolve(self);
         })
@@ -69,7 +71,8 @@ class Resource {
   }
 
   /**
-   * Internal method to fetch a related resource referenced by a link relation.
+   * Internal method to fetch a related resource referenced by a link relation from the
+   * REST API.
    *
    * @param {*} linkRelation
    * @param {*} ResourceClass
@@ -92,6 +95,18 @@ class Resource {
       }
     }
     return null;
+  }
+
+  /**
+   * Return true if the resource object contains any item data.
+   *
+   * @return {*}
+   */
+  get isEmpty() {
+    if (this.collection && this.collection.items.length) {
+      return false;
+    }
+    return true;
   }
 }
 
@@ -157,5 +172,57 @@ export class ListResource extends Resource {
       return items.map(item => Collection.getItemDescriptors(item));
     }
     return null;
+  }
+
+  /**
+   * Fetch the next resource page from the paginated REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getNext(timeout = 30000) {
+    return this._getNextOrPrevious('next', timeout);
+  }
+
+  /**
+   * Fetch the previous resource page from the paginated REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getPrevious(timeout = 30000) {
+    return this._getNextOrPrevious('previous', timeout);
+  }
+
+  /**
+   * Internal method to fetch the next or previous page from the paginated REST API.
+   *
+   * @param {*} linkRelation
+   * @param {*} timeout
+   * @return {*}
+   */
+  _getNextOrPrevious(linkRelation, timeout = 30000) {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
+
+      if (urls.length) {
+        const searchParams = new URL(urls[0]).searchParams;
+        const offset = parseInt(searchParams.get('offset'));
+        const limit = searchParams.get('limit');
+        const params = {};
+
+        if (offset) {
+          params.offset = offset;
+        }
+        if (limit) {
+          params.limit = limit;
+        }
+        return this.get(params, timeout);
+      }
+    }
+
+    this.collection = null;
+    this.searchParams = null;
+    return Promise.resolve(this);
   }
 }

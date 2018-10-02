@@ -21,11 +21,10 @@ export default class Client {
       throw new RequestException('Authentication object is required');
     }
     this.auth = auth;
-    this.contentType = 'application/vnd.collection+json';
   }
 
   /**
-   * Fetch a list of currently authenticated user's feeds.
+   * Fetch a list of currently authenticated user's feeds from the REST API.
    *
    * @param {*} params
    * @param {*} timeout
@@ -72,7 +71,7 @@ export default class Client {
   }
 
   /**
-   * Fetch a user's login authorization token.
+   * Fetch a user's login authorization token from the REST API.
    * @param {*} authUrl
    * @param {*} username
    * @param {*} password
