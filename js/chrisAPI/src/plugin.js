@@ -1,6 +1,4 @@
 /** * Imports ***/
-import Collection from './cj';
-import RequestException from './exception';
 import { ItemResource, ListResource } from './resource';
 import { FeedList } from './feed';
 import { PluginParameterList } from './pluginparameter';
@@ -60,15 +58,7 @@ export class PluginList extends ListResource {
    */
   constructor(url, auth) {
     super(url, auth);
-  }
-
-  /**
-   * Get the list of items' data descriptors.
-   *
-   * @return {*}
-   */
-  get items() {
-    return this._getItems(Plugin);
+    this.itemClass = Plugin;
   }
 
   /**

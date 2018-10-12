@@ -1,5 +1,6 @@
 import Client from './client';
 import { expect } from 'chai';
+import { FeedList } from './feed';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -19,21 +20,30 @@ describe('Client', () => {
     const email = username + '@babymri.org';
 
     const resp = Client.createUser(usersUrl, username, password, email);
-
     resp
       .then(user => {
-        //window.console.log(user.items[0].data);
-        expect(user.items).to.have.lengthOf(1);
+        // window.console.log('data', user.data);
+        expect(user.data.username).to.equal(username);
       })
       .then(done, done);
   });
 
   it('can retrieve a user auth token', function(done) {
     const resp = Client.getAuthToken(authUrl, username, password);
-
     resp
       .then(token => {
         expect(token).to.be.a('string');
+      })
+      .then(done, done);
+  });
+
+  it('can retrieve the list of feeds', function(done) {
+    const resp = client.getFeeds();
+    resp
+      .then(feedsObj => {
+        //window.console.log('items', feedsObj.getItems());
+        expect(feedsObj).to.be.an.instanceof(FeedList);
+        //expect(feedsObj.getItems()).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });

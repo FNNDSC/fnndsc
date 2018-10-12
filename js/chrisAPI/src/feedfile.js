@@ -1,7 +1,9 @@
 /** * Imports ***/
+import Request from './request';
 import Collection from './cj';
-import RequestException from './exception';
 import { ItemResource, ListResource } from './resource';
+import { Feed } from './feed';
+import { PluginInstance } from './plugininstance';
 
 /**
  * API feed file objects.
@@ -18,6 +20,45 @@ export class FeedFile extends ItemResource {
   constructor(url, auth) {
     super(url, auth);
   }
+
+  /**
+   * Fetch the file blob associated to this file item from the REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getFileBlob(timeout = 30000) {
+    const req = new Request(this.auth, 'application/octet-stream', timeout);
+    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];
+
+    return req.get(blobUrl);
+  }
+
+  /**
+   * Fetch the feed associated to this file item from the REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the plugin instance that created this file item from the REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getPluginInstance(timeout = 30000) {
+    const linkRelation = 'plugin_inst';
+    const resourceClass = PluginInstance;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
 }
 
 export class FeedFileList extends ListResource {
@@ -29,15 +70,19 @@ export class FeedFileList extends ListResource {
    */
   constructor(url, auth) {
     super(url, auth);
+    this.itemClass = FeedFile;
   }
 
   /**
-   * Get the list of items' data descriptors.
+   * Fetch the feed associated to this file list from the REST API.
    *
+   * @param {*} timeout
    * @return {*}
    */
-  get items() {
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
 
-    return this._getItems(FeedFile);
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 }

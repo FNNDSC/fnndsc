@@ -7,7 +7,7 @@ import Note from './note';
 import { TagList } from './tag';
 import { CommentList } from './comment';
 import { FileList } from './feedfile';
-import { PluginInstanceList } from './plugininstance';
+import { PluginInstance } from './plugininstance';
 
 /**
  * API feed objects.
@@ -88,7 +88,7 @@ export class Feed extends ItemResource {
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = 'plugin_inst';
-    const resourceClass = PluginInstanceList;
+    const resourceClass = PluginInstance;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
@@ -103,15 +103,7 @@ export class FeedList extends ListResource {
    */
   constructor(url, auth) {
     super(url, auth);
-  }
-
-  /**
-   * Get the list of item objects.
-   *
-   * @return {*}
-   */
-  get items() {
-    return this._getItems(Feed);
+    this.itemClass = Feed;
   }
 
   /**

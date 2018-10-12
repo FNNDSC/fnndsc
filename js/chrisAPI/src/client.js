@@ -1,6 +1,7 @@
 /** * Imports ***/
 import Request from './request';
 import RequestException from './exception';
+import User from './user';
 import { FeedList } from './feed';
 
 /**
@@ -62,7 +63,15 @@ export default class Client {
     return new Promise((resolve, reject) => {
       result
         .then(response => {
-          resolve(response.data.collection);
+          const coll = response.data.collection;
+          const userUrl = coll.items[0].href;
+          const auth = { username: username, password: password };
+
+          const user = new User(userUrl, auth);
+          user.collection = coll;
+          user.item = coll.items[0];
+
+          resolve(user);
         })
         .catch(error => {
           reject(error);

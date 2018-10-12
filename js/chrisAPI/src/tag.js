@@ -1,6 +1,4 @@
 /** * Imports ***/
-import Collection from './cj';
-import RequestException from './exception';
 import { ItemResource, ListResource } from './resource';
 
 /**
@@ -29,15 +27,6 @@ export class TagList extends ListResource {
    */
   constructor(url, auth) {
     super(url, auth);
-  }
-
-  /**
-   * Get the list of items' data descriptors.
-   *
-   * @return {*}
-   */
-  get items() {
-
-    return this._getItems(Tag);
+    this.itemClass = Tag;
   }
 }

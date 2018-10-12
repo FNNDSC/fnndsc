@@ -4,7 +4,7 @@ import Request from './request';
 import RequestException from './exception';
 
 /**
- * API resource objects.
+ * API abstract resource objects.
  *
  * @module resource
  */
@@ -19,7 +19,7 @@ class Resource {
     this.url = resourceUrl;
     this.auth = auth;
     this.contentType = 'application/vnd.collection+json';
-    this.collection = null;
+    this.collection = null; // Collection+JSON collection obj
   }
 }
 
@@ -33,7 +33,7 @@ export class ItemResource extends Resource {
   constructor(itemUrl, auth) {
     super(itemUrl, auth);
 
-    this.item = null;
+    this.item = null; // Collection+JSON item obj
   }
 
   /**
@@ -45,14 +45,12 @@ export class ItemResource extends Resource {
   get(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
     const self = this;
-    let url = this.url;
 
-    const result = req.get(url);
+    const result = req.get(this.url);
 
     return new Promise((resolve, reject) => {
       result
         .then(response => {
-
           // change the state of this object on successfull response
           self.collection = null;
           self.item = null;
@@ -73,7 +71,7 @@ export class ItemResource extends Resource {
    *
    * @return {*}
    */
-  get itemData() {
+  get data() {
     if (this.item) {
       return Collection.getItemDescriptors(this.item);
     }
@@ -93,8 +91,8 @@ export class ItemResource extends Resource {
   }
 
   /**
-  * Internal method to fetch a related resource from the REST API referenced by
-  * a link relation in the item object.
+   * Internal method to fetch a related resource from the REST API referenced by
+   * a link relation in the item object.
    *
    * @param {*} linkRelation
    * @param {*} ResourceClass
@@ -116,7 +114,7 @@ export class ItemResource extends Resource {
         throw new RequestException(errMsg);
       }
     }
-    return Promise.reject("Item object has not been set!");
+    return Promise.reject('Item object has not been set!');
   }
 }
 
@@ -132,10 +130,12 @@ export class ListResource extends Resource {
 
     this.queryUrl = '';
     this.searchParams = null;
+    this.itemClass = ItemResource;
   }
 
   /**
-   * Fetch this list resource from the REST API.
+   * Fetch this list resource from the REST API using limit and offset as optional
+   * parameters.
    *
    * @param {*} params
    * @param {*} timeout
@@ -144,33 +144,33 @@ export class ListResource extends Resource {
   get(params = null, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
     const self = this;
-    let url = this.url;
+    let getParams = null;
 
     if (params) {
       for (let param in params) {
-        // if there are search params then use the query url for this resource
-        if (params.hasOwnProperty(param) && param !== 'limit' && param !== 'offset') {
-          if (self.queryUrl) {
-            url = self.queryUrl;
-            break;
-          } else {
-            const errMsg = 'A search url has not been setup for this resource!';
-            throw new RequestException(errMsg);
+        if (params.hasOwnProperty(param) && (param === 'limit' || param === 'offset')) {
+          if (!getParams) {
+            getParams = {};
           }
+          getParams[param] = params[param];
         }
       }
     }
-
-    const result = req.get(url, params);
+    const result = req.get(this.url, getParams);
 
     return new Promise((resolve, reject) => {
       result
         .then(response => {
           // change the state of this object on successfull response
           self.collection = null;
-          self.searchParams = params;
+          self.searchParams = getParams;
+
           if (response.data && response.data.collection) {
             self.collection = response.data.collection;
+
+            if (self.collection.queries && self.collection.queries.length) {
+              self.queryUrl = self.collection.queries[0].href;
+            }
           }
           resolve(self);
         })
@@ -178,6 +178,39 @@ export class ListResource extends Resource {
           reject(error);
         });
     });
+  }
+
+  /**
+   * Fetch this list resource from the REST API based on search parameters.
+   *
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  getSearch(params, timeout = 30000) {
+    const req = new Request(this.auth, this.contentType, timeout);
+    const self = this;
+
+    if (this.queryUrl) {
+      const result = req.get(this.queryUrl, params);
+
+      return new Promise((resolve, reject) => {
+        result
+          .then(response => {
+            // change the state of this object on successfull response
+            self.collection = null;
+            self.searchParams = params;
+            if (response.data && response.data.collection) {
+              self.collection = response.data.collection;
+            }
+            resolve(self);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    }
+    return Promise.reject('A search url has not been setup for this resource!');
   }
 
   /**
@@ -190,6 +223,27 @@ export class ListResource extends Resource {
       return false;
     }
     return true;
+  }
+
+  /**
+   * Get an array of item resource objects corresponding to the items in this
+   * list resource object.
+   *
+   * @return {*}
+   */
+  getItems() {
+    if (this.collection) {
+      const items = this.collection.items;
+
+      return items.map(item => {
+        const itemResource = new this.itemClass(item.href, this.auth);
+        itemResource.collection = this.collection;
+        itemResource.item = item;
+
+        return itemResource;
+      });
+    }
+    return null;
   }
 
   /**
@@ -245,26 +299,6 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Internal method to get the list of item objects.
-   *
-   * @param {*} ItemClass
-   * @return {*}
-   */
-  _getItems(ItemClass) {
-    if (this.collection) {
-      const items = this.collection.items;
-
-      return items.map(item => {
-        const itemResource = new ItemClass(item.href, this.auth);
-
-        itemResource.collection = this.collection;
-        itemResource.item = item;
-      });
-    }
-    return null;
-  }
-
-  /**
    * Internal method to fetch a related resource from the REST API referenced by
    * a link relation in the collection object.
    *
@@ -288,6 +322,6 @@ export class ListResource extends Resource {
         throw new RequestException(errMsg);
       }
     }
-    return Promise.reject("Collection object has not been set!");
+    return Promise.reject('Collection object has not been set!');
   }
 }

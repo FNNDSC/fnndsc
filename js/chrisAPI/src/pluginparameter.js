@@ -1,7 +1,6 @@
 /** * Imports ***/
-import Collection from './cj';
-import RequestException from './exception';
 import { ItemResource, ListResource } from './resource';
+import { Plugin } from './plugin';
 
 /**
  * API plugin parameter objects.
@@ -18,6 +17,19 @@ export class PluginParameter extends ItemResource {
   constructor(url, auth) {
     super(url, auth);
   }
+
+  /**
+   * Fetch the plugin associated to this parameter item from the REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getPlugin(timeout = 30000) {
+    const linkRelation = 'plugin';
+    const resourceClass = Plugin;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
 }
 
 export class PluginParameterList extends ListResource {
@@ -29,14 +41,19 @@ export class PluginParameterList extends ListResource {
    */
   constructor(url, auth) {
     super(url, auth);
+    this.itemClass = PluginParameter;
   }
 
   /**
-   * Get the list of items' data descriptors.
+   * Fetch the plugin associated to this list of parameters from the REST API.
    *
+   * @param {*} timeout
    * @return {*}
    */
-  get items() {
-    return this._getItems(PluginParameter);
+  getPlugin(timeout = 30000) {
+    const linkRelation = 'plugin';
+    const resourceClass = Plugin;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 }
