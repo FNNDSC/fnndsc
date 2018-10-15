@@ -218,135 +218,159 @@ name="view404"></rev-view404>
         this.rootPattern = (new URL(this.rootPath)).pathname;
       }
 
-      _routePathChanged(path) {
-        // Polymer 2.0 will call with `undefined` on initialization.
-        // Ignore until we are properly called with a string.
-        if (this.routeData.page === undefined) {
-          return;
+    _routePathChanged(path) {
+      // Polymer 2.0 will call with `undefined` on initialization.
+      // Ignore until we are properly called with a string.
+      if (this.routeData.page === undefined) {
+        return;
+      }
+
+      // If no page was found in the route data, page will be an empty string.
+      this.page = this.routeData.page || 'viewer';
+      
+      //Getting parameters in either mode
+      var urlSearchParameters = new URLSearchParams(document.location.search);
+      // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
+      var patientBirthDate = urlSearchParameters.get('patientbirthdate');
+      var scanDate = urlSearchParameters.get('scandate');
+      // http://centurion.tch.harvard.edu:8060/?year=00&month=03&example=02
+      var year = urlSearchParameters.get('year');
+      var month = urlSearchParameters.get('month');
+      var example = urlSearchParameters.get('example');
+      var mode = 0;
+      //Mode definition
+      if (patientBirthDate && scanDate && example)
+        mode = 1;
+      if (year && month && example)
+        mode = 2;
+
+      //Building map URL and getting data
+      const mapURL = `${this.demoPrefix}/map.json`
+      fetch(mapURL)
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        //Handeling data to have YRMOEX in an array
+        var map = myJson.data;
+        map = JSON.stringify(map);
+        map = map.replace(/[\.\-\/]|[a-z]|"/g,"");
+        map = map.split(",");
+        var result;
+        var date;
+        let target = '';
+
+        //Case PatientDate
+        if (mode == 1) {
+          //Using Moment.js to have YRMOEX from patientBirthDate and ScanDate
+          patientBirthDate = moment(patientBirthDate, 'YYYYMMDD');
+          scanDate = moment(scanDate, 'YYYYMMDD');
+          var age = scanDate.diff(patientBirthDate, 'years', true);
+          year = Math.trunc(age);
+          month = Math.round(moment.duration((age - Math.trunc(age)),'years').asMonths());
+          if (year < 10)
+            year = '0' + year.toString();
+          if (month < 10)
+            month = '0' + month.toString();
+        } 
+        
+        //Comparing our date to the map of date to get the closest result
+        date = year + month + example;
+        result = this.mapCheck(map, date);
+        //Run another time to compare if the example we want exist in the closest result
+        date = result[0]+result[1]+result[2]+result[3]+example[0]+example[1];
+        result = this.mapCheck(map, date);
+        year = result[0]+result[1];
+        month = result[2]+result[3];
+
+        //case YRMOEX
+        if (mode == 2) {
+          //in case the input are not in map.json we update the parameters to the closest match 
+          //if not, this does nothing
+          urlSearchParameters.set('year', year);
+          urlSearchParameters.set('month', month);
+          window.history.replaceState({}, '', `${window.location.pathname}?${urlSearchParameters}`);
         }
 
-        // If no page was found in the route data, page will be an empty string.
-        this.page = this.routeData.page || 'viewer';
-        var urlSearchParameters = new URLSearchParams(document.location.search);
-        // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
-        var patientBirthDate = urlSearchParameters.get('patientbirthdate');
-        var scanDate = urlSearchParameters.get('scandate');
+        //If the example does not exist, we redirect to H5AI to get the list of examples
+        if (example != result[4]+result[5]){
+          this.redirectionToH5AI(year, month)
+        }
 
-        // http://centurion.tch.harvard.edu:8060/?year=00&month=03&example=02
-        var year = urlSearchParameters.get('year');
-        var month = urlSearchParameters.get('month');
-        var example = urlSearchParameters.get('example');
-        const mapURL = `${this.demoPrefix}/map.json`
-        fetch(mapURL)
+        //If the example exist we get the target to the right description.json directory
+        target = this.pathFromHome(year, month, example);
+        
+        // fetch target...
+        const testURL = `${this.demoPrefix}/${target}/description.json`
+        fetch(testURL)
         .then((response) => {
           return response.json();
         })
         .then((myJson) => {
-          var map = myJson.data;
-          map = JSON.stringify(map);
-          map = map.replace(/[\.\-\/]|[a-z]|"/g,"");
-          map = map.split(",");
-          var result, i, tmp = 100000000;
-          var date;
-          let target = '';
+          const data = myJson.data;
+          this.dataGE = data;
+          this.addDemoPrefixTo(this.dataGE);
+          this.dataGEStatus = 'ready';
+          this.set('currentLayout', [data[0].uid.value, data[1].uid.value, data[2].uid.value]);
+          this.layout = 5;
+          this.loaded = true;
+        })
+      });
+    }
 
-          if (patientBirthDate && scanDate) {
-            patientBirthDate = moment(patientBirthDate, 'YYYYMMDD');
-            scanDate = moment(scanDate, 'YYYYMMDD');
-            var age = scanDate.diff(patientBirthDate, 'years', true);
-            year = Math.trunc(age);
-            month = Math.round(moment.duration((age - Math.trunc(age)),'years').asMonths());
-            if (year < 10)
-              year = '0' + year.toString();
-            if (month < 10)
-              month = '0' + month.toString();
-            date = year.toString() + month.toString() + example;
-            for(i = 0; i < map.length; i++){
-              if (Math.abs(map[i] - date) < tmp){
-                tmp = Math.abs(map[i] - date);
-                result = map[i];
-              }
-            }
-            year = result[0]+result[1];
-            month = result[2]+result[3];
-            if (example != result[4]+result[5]){
-              target = window.location.href.split(':')[0]+':'+window.location.href.split(':')[1]+'/rev/viewer/'+this.demoPrefix+'/'+year+'-yr/'+month+'-mo/'; 
-              window.location.replace(target);
-            }
-            target = this.pathFromHome(year, month, example);
-          } 
-          else if (year && month && example) {
-            date = year+month+example;
-            for(i = 0; i < map.length; i++){
-              if (Math.abs(map[i] - date) < tmp){
-                tmp = Math.abs(map[i] - date);
-                result = map[i];
-              }
-            }
-            if (year != result[0]+result[1] || month != result[2]+result[3]|| example != result[4]+result[5]){
-              year = result[0]+result[1];
-              month = result[2]+result[3];
-              example = result[4]+result[5];
-              urlSearchParameters.set('year', year);
-              urlSearchParameters.set('month', month);
-              urlSearchParameters.set('example', example);
-              window.history.replaceState({}, '', `${window.location.pathname}?${urlSearchParameters}`);
-            }
-            target = this.pathFromHome(year, month, example);
-          }
+    pathFromHome(year, month, example) {
+      return `${year}-yr/${month}-mo/${example}-ex`;
+    }
 
-
-          // fetch target...
-          const testURL = `${this.demoPrefix}/${target}/description.json`
-          fetch(testURL)
-          .then((response) => {
-            return response.json();
-          })
-          .then((myJson) => {
-            const data = myJson.data;
-            this.dataGE = data;
-            this.addDemoPrefixTo(this.dataGE);
-            this.dataGEStatus = 'ready';
-            this.set('currentLayout', [data[0].uid.value, data[1].uid.value, data[2].uid.value]);
-            this.layout = 5;
-            this.loaded = true;
-          })
-        });
-      }
-
-      pathFromHome(year, month, example) {
-        return `${year}-yr/${month}-mo/${example}-ex`;
-      }
-
-      _pageChanged(page) {
-        // Load page import on demand. Show 404 page if fails
-        const resolvedPageUrl = this.resolveUrl('rev-' + page + '.html');
-        Polymer.importHref(
-          resolvedPageUrl,
-          null,
-          this._showPage404.bind(this),
-          true
-          );
-      }
-
-      _showPage404() {
-        this.page = 'view404';
-      }
-
-      addDemoPrefixTo(demoDatasets) {
-        for (let i=0; i<demoDatasets.length; i++) {
-          const demoDataset = demoDatasets[i];
-          demoDataset.details.series.preview.url =
-          this.demoPrefix + '/' + demoDataset.details.series.preview.url;
-          demoDataset.details.series.preview.blob = null;
-          const data = demoDataset.details.series.data.map((v) => {
-            return this.demoPrefix + '/' + v;
-          });
-
-          demoDataset.details.series.data = data;
+    mapCheck(map, date){
+      //this function run through the list of examples and fine the closest match to date
+      var i;
+      var tmp = 10000000;
+      var result;
+      for(i = 0; i < map.length; i++){
+        if (Math.abs(map[i] - date) < tmp){
+          tmp = Math.abs(map[i] - date);
+          result = map[i];
         }
       }
+      return result;
     }
+
+    redirectionToH5AI(year, month){
+      //this function redirect to the list of example for a given year and month
+      var target = window.location.href.split(':')[0]+':'+window.location.href.split(':')[1]+'/rev/viewer/'+this.demoPrefix+'/'+year+'-yr/'+month+'-mo/'; 
+            window.location.replace(target);
+    }
+
+    _pageChanged(page) {
+      // Load page import on demand. Show 404 page if fails
+      const resolvedPageUrl = this.resolveUrl('rev-' + page + '.html');
+      Polymer.importHref(
+        resolvedPageUrl,
+        null,
+        this._showPage404.bind(this),
+        true
+        );
+    }
+
+    _showPage404() {
+      this.page = 'view404';
+    }
+
+    addDemoPrefixTo(demoDatasets) {
+      for (let i=0; i<demoDatasets.length; i++) {
+        const demoDataset = demoDatasets[i];
+        demoDataset.details.series.preview.url =
+        this.demoPrefix + '/' + demoDataset.details.series.preview.url;
+        demoDataset.details.series.preview.blob = null;
+        const data = demoDataset.details.series.data.map((v) => {
+          return this.demoPrefix + '/' + v;
+        });
+
+        demoDataset.details.series.data = data;
+      }
+    }
+  }
 
     window.customElements.define(RevApp.is, RevApp);
   </script>
