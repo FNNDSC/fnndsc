@@ -123,6 +123,7 @@ When everything is set just do this command in `.../pfdicom_rev/bin`:
 ./pfdicom_rev -I /var/www/html/rev/src/fnndsc/js/rev/library-anon/ -e dcm -O %inputDir -v 3 --printElapsedTime --server http://XXXXXXXX.XXX:XXXX
 ```
 NOTE: As an example a server name would be : http://centurion.tch.harvard.edu:8060
+
 NOTE2: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
 ```bash
 const testURL = `${this.demoPrefix}/${target}/description.json`
