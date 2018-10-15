@@ -5,6 +5,7 @@ import { FeedList } from './feed';
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
 describe('Client', () => {
+  
   const username = 'cube';
   const password = 'cube1234';
   const chrisUrl = 'http://localhost:8000/api/v1/';
@@ -43,7 +44,7 @@ describe('Client', () => {
       .then(feedsObj => {
         //window.console.log('items', feedsObj.getItems());
         expect(feedsObj).to.be.an.instanceof(FeedList);
-        //expect(feedsObj.getItems()).to.have.lengthOf.at.least(1);
+        expect(feedsObj.getItems()).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
