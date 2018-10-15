@@ -83,6 +83,19 @@ rm -rf bower_components && \
 bower update
 ```
 
+### Install moment.js
+
+Install `moment.js`
+
+```bash
+bower install moment --save
+```
+or
+```bash
+npm install moment --save
+```
+
+
 ### Install polymer-cli
 
 Install `polymer-cli` 
@@ -90,6 +103,39 @@ Install `polymer-cli`
 ```bash
 npm install -g polymer-cli
 ```
+
+### Get your datas
+
+Put your data in `/var/www/html/rev/src/fnndsc/js/rev`, the folder of your data should be call `library-anon`. 
+
+NOTE : If you want to have a different name of folder you have to modify the `demoPrefix` in `src/rev-app.html`
+
+Your data should be names as `/var/www/html/rev/src/fnndsc/js/rev/library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
+
+### Process your datas
+
+To work, the viewer need somes JSON files. Thoses will be create by `pfdicom_rev`. 
+Install it with: https://github.com/FNNDSC/pfdicom_rev
+
+When everything is set just do this command in `.../pfdicom_rev/bin`:
+
+```bash
+./pfdicom_rev -I /var/www/html/rev/src/fnndsc/js/rev/library-anon/ -e dcm -O %inputDir -v 3 --printElapsedTime --server http://XXXXXXXX.XXX:XXXX
+```
+NOTE: As an example a server name would be : http://centurion.tch.harvard.edu:8060
+NOTE2: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
+```bash
+const testURL = `${this.demoPrefix}/${target}/description.json`
+```
+
+### Launch the viewer
+
+To launch the viewer go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
+```bash
+polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
+```
+NOTE: Keep in mind the port should be the same as the one you defined in the pfdicom_rev command
+
 
 # Development and Modification
 
@@ -127,6 +173,8 @@ polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
 ```
 
 # Deploy
+
+!!! THIS PART IS OUT OF DATE !!! 
 
 ```bash
 mkdir -p /var/www/html/rev/viewer
