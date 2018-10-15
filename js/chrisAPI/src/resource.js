@@ -21,6 +21,24 @@ class Resource {
     this.contentType = 'application/vnd.collection+json';
     this.collection = null; // Collection+JSON collection obj
   }
+
+  /**
+   * Make a deep copy clone of this object resource.
+   *
+   * @return {*}
+   */
+  clone() {
+    const cloneObj = Object.create(Object.getPrototypeOf(this));
+
+    for(let prop in this) {
+      if (this[prop] !== null && typeof(this[prop]) === 'object')  {
+        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));
+      } else {
+        cloneObj[prop] = this[prop];
+      }
+    }
+    return cloneObj;
+  }
 }
 
 export class ItemResource extends Resource {
@@ -226,6 +244,38 @@ export class ListResource extends Resource {
   }
 
   /**
+   * Return true if the list resource object has a next list page in the
+   * paginated REST API.
+   *
+   * @return {*}
+   */
+  get hasNextPage() {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, 'next');
+      if (urls.length) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+  * Return true if the list resource object has a previous list page in the
+  * paginated REST API.
+   *
+   * @return {*}
+   */
+  get hasPreviousPage() {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');
+      if (urls.length) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Get an array of item resource objects corresponding to the items in this
    * list resource object.
    *
@@ -252,8 +302,8 @@ export class ListResource extends Resource {
    * @param {*} timeout
    * @return {*}
    */
-  getNext(timeout = 30000) {
-    return this._getNextOrPrevious('next', timeout);
+  getNextPage(timeout = 30000) {
+    return this._getNextOrPreviousPage('next', timeout);
   }
 
   /**
@@ -262,8 +312,8 @@ export class ListResource extends Resource {
    * @param {*} timeout
    * @return {*}
    */
-  getPrevious(timeout = 30000) {
-    return this._getNextOrPrevious('previous', timeout);
+  getPreviousPage(timeout = 30000) {
+    return this._getNextOrPreviousPage('previous', timeout);
   }
 
   /**
@@ -273,7 +323,7 @@ export class ListResource extends Resource {
    * @param {*} timeout
    * @return {*}
    */
-  _getNextOrPrevious(linkRelation, timeout = 30000) {
+  _getNextOrPreviousPage(linkRelation, timeout = 30000) {
     if (this.collection) {
       const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
 
