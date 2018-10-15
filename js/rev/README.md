@@ -203,9 +203,6 @@ You may have to add/link the directory containing the normative data there.
 in `src/rev-app.html`:
 
 ```javascript
-pathFromRadstar(birthDate, scanDate) {
-  return `${birthDate}/${scanDate}/`
-}
 pathFromHome(year, month, example) {
   return `${year}/${month}/${example}/`;
 }
@@ -223,26 +220,6 @@ For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:
 
 ## Add new data
 
-### Tree structure
-`year > month > patient / examples > series`
-
-### Generate JSON description for the patient
-
-To fetch data, a script generate a JSON file that discribe the series. This file is call `demo.json`
-
-The script is located in : `js/rev/scripts/dcmpreview.py`
-
-It requires pypx, pydicom, dcmtk, imagemagick
-
-Either you run it for one serie :
-```
- python3 dcmpreview.py -d year/month/example/series/
-```
-
-or for one study :
-```
- python3 dcmpreview.py -d year/month/example/ --study
-```
 
 ### Add it in the lookup list
 
