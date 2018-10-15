@@ -104,13 +104,19 @@ Install `polymer-cli`
 npm install -g polymer-cli
 ```
 
+## Data handling and running the server
+
 ### Get your datas
 
 Put your data in `/var/www/html/rev/src/fnndsc/js/rev`, the folder of your data should be call `library-anon`. 
 
 NOTE : If you want to have a different name of folder you have to modify the `demoPrefix` in `src/rev-app.html`
 
-Your data should be names as `/var/www/html/rev/src/fnndsc/js/rev/library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
+### Tree structure
+
+The tree stucture is `year > month > examples > series`
+
+In consequence, your data should be names as `/var/www/html/rev/src/fnndsc/js/rev/library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
 
 ### Process your datas
 
@@ -136,6 +142,8 @@ To launch the viewer go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
 polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
 ```
 NOTE: Keep in mind the port should be the same as the one you defined in the pfdicom_rev command
+
+Congrat's, you should have a viewer running at the address you defined! 
 
 
 # Development and Modification
