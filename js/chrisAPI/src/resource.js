@@ -30,8 +30,8 @@ class Resource {
   clone() {
     const cloneObj = Object.create(Object.getPrototypeOf(this));
 
-    for(let prop in this) {
-      if (this[prop] !== null && typeof(this[prop]) === 'object')  {
+    for (let prop in this) {
+      if (this[prop] !== null && typeof this[prop] === 'object') {
         cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));
       } else {
         cloneObj[prop] = this[prop];
@@ -62,7 +62,6 @@ export class ItemResource extends Resource {
    */
   get(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
-    const self = this;
 
     const result = req.get(this.url);
 
@@ -70,13 +69,13 @@ export class ItemResource extends Resource {
       result
         .then(response => {
           // change the state of this object on successfull response
-          self.collection = null;
-          self.item = null;
+          this.collection = null;
+          this.item = null;
           if (response.data && response.data.collection) {
-            self.collection = response.data.collection;
-            self.item = self.collection.items[0];
+            this.collection = response.data.collection;
+            this.item = this.collection.items[0];
           }
-          resolve(self);
+          resolve(this);
         })
         .catch(error => {
           reject(error);
@@ -161,7 +160,6 @@ export class ListResource extends Resource {
    */
   get(params = null, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
-    const self = this;
     let getParams = null;
 
     if (params) {
@@ -180,17 +178,17 @@ export class ListResource extends Resource {
       result
         .then(response => {
           // change the state of this object on successfull response
-          self.collection = null;
-          self.searchParams = getParams;
+          this.collection = null;
+          this.searchParams = getParams;
 
           if (response.data && response.data.collection) {
-            self.collection = response.data.collection;
+            this.collection = response.data.collection;
 
-            if (self.collection.queries && self.collection.queries.length) {
-              self.queryUrl = self.collection.queries[0].href;
+            if (this.collection.queries && this.collection.queries.length) {
+              this.queryUrl = this.collection.queries[0].href;
             }
           }
-          resolve(self);
+          resolve(this);
         })
         .catch(error => {
           reject(error);
@@ -207,7 +205,6 @@ export class ListResource extends Resource {
    */
   getSearch(params, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
-    const self = this;
 
     if (this.queryUrl) {
       const result = req.get(this.queryUrl, params);
@@ -216,12 +213,12 @@ export class ListResource extends Resource {
         result
           .then(response => {
             // change the state of this object on successfull response
-            self.collection = null;
-            self.searchParams = params;
+            this.collection = null;
+            this.searchParams = params;
             if (response.data && response.data.collection) {
-              self.collection = response.data.collection;
+              this.collection = response.data.collection;
             }
-            resolve(self);
+            resolve(this);
           })
           .catch(error => {
             reject(error);
@@ -260,8 +257,8 @@ export class ListResource extends Resource {
   }
 
   /**
-  * Return true if the list resource object has a previous list page in the
-  * paginated REST API.
+   * Return true if the list resource object has a previous list page in the
+   * paginated REST API.
    *
    * @return {*}
    */
@@ -331,7 +328,7 @@ export class ListResource extends Resource {
         const searchParams = new URL(urls[0]).searchParams;
         const offset = parseInt(searchParams.get('offset'));
         const limit = searchParams.get('limit');
-        const params = {};
+        let params = {};
 
         if (offset) {
           params.offset = offset;
@@ -339,10 +336,12 @@ export class ListResource extends Resource {
         if (limit) {
           params.limit = limit;
         }
+        if (!offset && !limit) {
+          params = null;
+        }
         return this.get(params, timeout);
       }
     }
-
     this.collection = null;
     this.searchParams = null;
     return Promise.resolve(this);
