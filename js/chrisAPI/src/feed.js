@@ -6,7 +6,7 @@ import { UploadedFileList } from './uploadedfile';
 import Note from './note';
 import { TagList } from './tag';
 import { CommentList } from './comment';
-import { FileList } from './feedfile';
+import { FeedFileList } from './feedfile';
 import { PluginInstance } from './plugininstance';
 
 /**
@@ -75,7 +75,7 @@ export class Feed extends ItemResource {
    */
   getFiles(params = null, timeout = 30000) {
     const linkRelation = 'files';
-    const resourceClass = FileList;
+    const resourceClass = FeedFileList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
