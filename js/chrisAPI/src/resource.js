@@ -131,7 +131,7 @@ export class ItemResource extends Resource {
         throw new RequestException(errMsg);
       }
     }
-    return Promise.reject('Item object has not been set!');
+    throw new RequestException('Item object has not been set!');
   }
 }
 
@@ -371,6 +371,6 @@ export class ListResource extends Resource {
         throw new RequestException(errMsg);
       }
     }
-    return Promise.reject('Collection object has not been set!');
+    throw new RequestException('Collection object has not been set!');
   }
 }
