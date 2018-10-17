@@ -37,7 +37,7 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fecth the list of feeds from the REST API', done => {
+  it('can fetch the list of feeds from the REST API', done => {
     const result = client.getFeeds();
     result
       .then(feedsObj => {
