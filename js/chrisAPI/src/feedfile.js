@@ -31,7 +31,7 @@ export class FeedFile extends ItemResource {
     const req = new Request(this.auth, 'application/octet-stream', timeout);
     const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];
 
-    return req.get(blobUrl);
+    return req.get(blobUrl).then(resp => resp.data);
   }
 
   /**

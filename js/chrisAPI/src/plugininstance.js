@@ -78,7 +78,7 @@ export class PluginInstance extends ItemResource {
   }
 
   /**
-   * Fetch a list of plugin instances that are descendents of this plugin from the
+   * Fetch a list of plugin instances that are descendents of this plugin instance from the
    * REST API.
    *
    * @param {*} params
