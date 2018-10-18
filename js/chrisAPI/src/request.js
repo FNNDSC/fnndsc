@@ -127,6 +127,10 @@ export default class Request {
       config.headers.Authorization = 'Token ' + this.auth.token;
     }
 
+    if (this.contentType === 'application/octet-stream') {
+      config.responseType = 'blob';
+    }
+
     return config;
   }
 
