@@ -106,4 +106,14 @@ export default class Client {
         });
     });
   }
+
+  /**
+   * Helper method to run an asynchronous task defined by a task generator function.
+   *
+   * @param {*} taskGenerator
+   * @return {*}
+   */
+  static runAsyncTask(taskGenerator) {
+    Request.runAsyncTask(taskGenerator);
+  }
 }
