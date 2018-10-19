@@ -145,6 +145,24 @@ describe('Resource', () => {
         .then(done, done);
     });
 
+    it('can update this List Resource by fetching next page from the REST API even with search params', done => {
+      // Real REST API will never return link relation "next" pointing to the
+      // current collection document. Here this is just for testing porposes
+      listRes.collection.links = [
+        { rel: 'next', href: chrisUrl + 'search/?offset=0&limit=1&name=simplefsapp' },
+      ];
+      listRes.queryUrl = chrisUrl + 'search/';
+      let spy = sinon.spy(listRes, 'getSearch');
+      const result = listRes.getNextPage();
+      expect(spy.calledOnce).to.be.true;
+      result
+        .then(listResObj => {
+          expect(listResObj === listRes).to.be.true;
+          expect(listResObj.collection === collection).to.be.false;
+        })
+        .then(done, done);
+    });
+
     it('can update this List Resource by fetching previous page from the REST API', done => {
       // Real REST API will never return link relation "previous" pointing to the
       // current collection document. Here this is just for testing porposes

@@ -326,20 +326,23 @@ export class ListResource extends Resource {
 
       if (urls.length) {
         const searchParams = new URL(urls[0]).searchParams;
-        const offset = parseInt(searchParams.get('offset'));
-        const limit = searchParams.get('limit');
-        let params = {};
+        const params = {};
+        let urlHasSearchParams = false;
 
-        if (offset) {
-          params.offset = offset;
+        for (let pair of searchParams.entries()) {
+          params[pair[0]] = pair[1];
+          if (pair[0] !== 'offset' && pair[0] !== 'limit') {
+            urlHasSearchParams = true;
+          }
         }
-        if (limit) {
-          params.limit = limit;
+
+        if (urlHasSearchParams) {
+          return this.getSearch(params, timeout);
         }
-        if (!offset && !limit) {
-          params = null;
+        if (params.offset || params.limit) {
+          return this.get(params, timeout);
         }
-        return this.get(params, timeout);
+        return this.get(null, timeout);
       }
     }
     this.collection = null;
