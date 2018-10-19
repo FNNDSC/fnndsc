@@ -185,12 +185,12 @@ export default class Request {
   }
 
   /**
-   * Internal method to run an asynchronous task defined by a task generator function.
+   * Helper method to run an asynchronous task defined by a task generator function.
    *
    * @param {*} taskGenerator
    * @return {*}
    */
-  static _runAsyncTask(taskGenerator) {
+  static runAsyncTask(taskGenerator) {
     // create the iterator
     let task = taskGenerator();
     // start the task

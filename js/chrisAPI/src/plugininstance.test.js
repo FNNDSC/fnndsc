@@ -18,7 +18,7 @@ describe('Resource', () => {
 
   before(() => {
     return new Promise(function(resolve, reject) {
-      Request._runAsyncTask(function*() {
+      Request.runAsyncTask(function*() {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
