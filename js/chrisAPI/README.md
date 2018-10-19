@@ -11,10 +11,10 @@ npm i @fnndsc/chrisapi
 
 ## Usage
 
-If you have a ChRIS server up and running (eg. as explained below) then you can use and test the API in your JS code:
+If you have a ChRIS server up and running (eg. as explained below) then you can use and test the API in your Javascript code:
 
 ``` javascript
-import {Client} from '@fnndsc/chrisapi';
+import Client from '@fnndsc/chrisapi';
 
 const chrisUrl = 'http://localhost:8000/api/v1/';
 const usersUrl = chrisUrl + 'users/';
@@ -49,37 +49,97 @@ resp
     window.console.log('Error!!!: ', error);
   });
 
+```
 
-// create a new client instance  without an auth object to make allowed unauthenticated requests
-let client = new Client(storeUrl);
+The ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance
+of a Javascript class that inherits from either of two base classes:
 
+ItemResource (an object containing a reference to an individual item in a collection of resource items)
+ListResource (an object modeling a collection of resource items)
 
-// retrieve a plugin given its name
-resp = client.getPlugin('simplefsapp');
+These model the two general type of REST API resources available from a ChRIS server.
+
+In addition to methods and properties provided by these base classes every resource object returned by
+the client API contains additional methods to fetch its associated resources (either an item or a list resource)
+from the ChRIS REST API. It can also contain ``get``, ``post``, ``put`` and ``delete`` methods as allowed by
+the REST API. In particular every object has a ``get`` method that updates the state of the object
+with the new data fetched from the ChRIS server. A `clone` method is provided to cover the case when a reference
+to the previous object state is desired. This method returns a new instance of the same class as the cloned object.
+
+All methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource
+object as an argument to the fulfillment callback.
+
+All resources can be fetched from the REST API from the initial `FeedList` instance object returned by the client
+as in the following examples:
+
+``` javascript
+
+// create a new client instance with an auth object to be able to make authenticated requests
+const auth = {token: authToken}; // or alternatively auth = {username: 'cube', password: 'cube1234'}
+const client = new Client(chrisUrl, auth);
+
+// fetch a subset of currently authenticated user's feeds from the REST API into an initial Feedlist object
+let params = { limit: 10, offset: 0 };
+let feedListObj;
+let feedListObjClone;
+
+resp = client.getFeeds(params);
 resp
-  .then(plugin => {
+  .then(feedListObj => {
 
-    window.console.log('plugin: ', plugin);
+    window.console.log('Feed list resource object: ', feedListObj);
+
+    // retrieve an array of the Feed item resource objects from feedListObj
+    const feedObjArray = feedListObj.getItems();
+
+    // log the individual Feed items' data
+    for (let feed of feedObjArray) {
+        window.console.log(feed.data);
+    }
+
+    // fetch a list of available ChRIS plugins from the REST API
+    const result1 = feedListObj.getPlugins(params);
+    result1
+      .then(pluginListObj => {
+
+        window.console.log('Plugin list resource object: ', pluginListObj);
+      })
+
+      // fetch the next page of feeds from the REST API
+      feedListObjClone = feedListObj.clone(); // if desired save the object's current state in another object
+      if (feedListObj.hasNextPage) {
+        const result2 = feedListObj.getNextPage();
+        result2
+        .then(feedListObj => {
+
+          window.console.log('Feed list resource object: ', feedListObj);
+        })
+      }
   })
   .catch(error => {
 
     window.console.log('Error!!!: ', error);
   });
 
+// the Client's runAsyncTask static method could alternatively be used to wait for promises in Javascript 6
+// for instance iterate over all pages of the list of 'fs' plugins available
+Client.runAsyncTask(function*() {
 
-// retrieve in a list a subset of the plugins in the store given search params
-let searchParams = { limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
-resp
-  .then(smallPluginList => {
+  feedListObj = yield client.getFeeds(); // wait here
+  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // this is to just fetch an initial PluginList resource obj
 
-    window.console.log('small plugin list: ', smallPluginList);
-  })
-  .catch(error => {
+  const searchParams = { type: 'fs'};
+  // const searchParams = {limit: 10, offset:0, type: 'fs'}; if you want to override default REST API page size
+  pluginListObj = pluginListObj.getSearch(searchParams);
+  window.console.log('Page 1 of Plugin fs list resource object: ', pluginListObj);
 
-    window.console.log('Error!!!: ', error);
-  });
-
+  let i = 2;
+  while (pluginListObj.hasNextPage) {
+    pluginListObj = pluginListObj.getNextPage();
+    window.console.log('Page ' + i + ' of Plugin fs list resource object: ', pluginListObj);
+    i++;
+  }
+});
 
 // retrieve in a list a subset of the plugins in the store created by a specific user
 let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
@@ -94,145 +154,14 @@ resp
     window.console.log('Error!!!: ', error);
   });
 
-
-// retrieve a paginated list of plugins given search params and call a callback function on every page of the plugin list
-searchParams = { type: 'fs' };
-resp = client.getPlugins(searchParams, onePageFsPluginList => {
-
-  window.console.log('one page of the fs plugin list: ', onePageFsPluginList);
-});
-resp
-  .then(fullFsPluginList => {
-
-    window.console.log('"fs" plugins: ', fullFsPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// create a new client instance  with an auth object to be able to make required authenticated requests
-const auth = {token: authToken}; // or alternatively auth = {username: 'cubeadmin', password: 'cubeadmin1234'}
-client = new StoreClient(storeUrl, auth);
-
-
-// add a new plugin to the store
-const testPlgName = 'myPlugin';
-const testPlgDockImg = 'fnndsc/pl-myPlugin';
-const testPlgPublicRepo = 'https://github.com/FNNDSC/pl-myPlugin';
-const testPluginRepresentation = {
-  creation_date: '2018-05-22T15:49:52.419437Z',
-  modification_date: '2018-05-22T15:49:52.419481Z',
-  type: 'fs',
-  authors: 'FNNDSC (dev@babyMRI.org)',
-  title: 'Simple chris fs app',
-  category: '',
-  description: 'A simple chris fs app demo',
-  documentation: 'http://wiki',
-  license: 'Opensource (MIT)',
-  version: '0.1',
-  execshell: 'python3',
-  selfpath: '/usr/src/simplefsapp',
-  selfexec: 'simplefsapp.py',
-  min_number_of_workers: 1,
-  max_number_of_workers: 1,
-  min_cpu_limit: 1000,
-  max_cpu_limit: 2147483647,
-  min_memory_limit: 200,
-  max_memory_limit: 2147483647,
-  min_gpu_limit: 0,
-  max_gpu_limit: 0,
-  parameters: [
-    {
-      name: 'dir',
-      type: 'path',
-      optional: true,
-      default: './',
-      flag: '--dir',
-      action: 'store',
-      help: 'look up directory',
-    },
-  ],
-};
-
-let fileData = JSON.stringify(testPluginRepresentation);
-let dfile = new Blob([fileData], { type: 'application/json' });
-
-resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
-resp
-  .then(response => {
-
-      window.console.log('new plugin in the store: ', response);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// modify an existing plugin's representation in the store
-testPluginRepresentation.description = 'A new description';
-fileData = JSON.stringify(testPluginRepresentation);
-dfile = new Blob([fileData], { type: 'application/json' });
-
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
-resp
-  .then(response => {
-
-    window.console.log('updated description for plugin: ', testPlgName);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// change an existing plugin's name
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, 'newPluginName');
-resp
-  .then(response => {
-
-    window.console.log('plugin name is now newPluginName');
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// share an existing plugin with another store user (who then becomes an owner of the plugin)
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, undefined, 'chris');
-resp
-  .then(response => {
-
-    window.console.log('user chris is now in the list of owners of plugin: ' + testPlgName);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// remove an existing plugin from the store
-resp = client.removePlugin(testPlgName);
-resp
-  .then(() => {
-
-    window.console.log('removed plugin: ', testPlgName);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
 ```
 
 ## Development and testing
 
-### ChRIS Store server preconditions
+### ChRIS server preconditions
 
 These preconditions are only necessary to be able to test the client against an actual
-instance of a ChRIS Store server both during development and for the automated tests.
+instance of a ChRIS server both during development and for the automated tests.
 
 #### Install latest Docker and Docker Compose. Currently tested platforms
 * ``Docker 17.04.0+``
