@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/request.js | @fnndsc/chrisapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="JavaScript6 client for the ChRIS API"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@fnndsc/chrisapi"><meta property="twitter:description" content="JavaScript6 client for the ChRIS API"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameter.html">PluginInstanceParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ItemResource.html">ItemResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ListResource.html">ListResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~Resource.html">Resource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~Tag.html">Tag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagList.html">TagList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFile.html">UploadedFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFileList.html">UploadedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/request.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
+import axios from &apos;axios&apos;;
+import Collection from &apos;./cj&apos;;
+import RequestException from &apos;./exception&apos;;
+
+/**
+ * Http request object.
+ *
+ * @module request
+ */
+export default class Request {
+  /**
+   * Constructor
+   */
+  constructor(auth, contentType, timeout = 30000) {
+    this.auth = auth;
+    this.contentType = contentType;
+    this.timeout = timeout;
+  }
+
+  /**
+   * Perform a GET request.
+   *
+   * @param {*} url
+   * @param {*} params
+   * @return {*}
+   */
+  get(url, params = null) {
+    const config = this._getConfig(url, &apos;get&apos;);
+
+    if (params) {
+      config.params = params;
+    }
+
+    return Request._callAxios(config);
+  }
+
+  /**
+   * Perform a POST request.
+   *
+   * @param {*} url
+   * @param {*} data
+   * @param {*} uploadFileObj
+   * @return {*}
+   */
+  post(url, data, uploadFileObj = null) {
+    return this._postOrPut(&apos;post&apos;, url, data, uploadFileObj);
+  }
+
+  /**
+   * Perform a PUT request.
+   *
+   * @param {*} url
+   * @param {*} data
+   * @param {*} uploadFileObj
+   * @return {*}
+   */
+  put(url, data, uploadFileObj = null) {
+    return this._postOrPut(&apos;put&apos;, url, data, uploadFileObj);
+  }
+
+  /**
+   * Perform a DELETE request.
+   *
+   * @param {*} url
+   */
+  delete(url) {
+    const config = this._getConfig(url, &apos;delete&apos;);
+
+    return Request._callAxios(config);
+  }
+
+  /**
+   * Internal method to make either a POST or PUT request.
+   *
+   * @param {*} requestMethod
+   * @param {*} url
+   * @param {*} data
+   * @param {*} uploadFileObj
+   * @return {*}
+   */
+  _postOrPut(requestMethod, url, data, uploadFileObj = null) {
+    const config = this._getConfig(url, requestMethod);
+    config.data = data;
+
+    if (uploadFileObj) {
+      config[&apos;headers&apos;][&apos;content-type&apos;] = &apos;multipart/form-data&apos;;
+      const bFormData = new FormData();
+
+      for (let property in data) {
+        if (data.hasOwnProperty(property)) {
+          bFormData.set(property, data[property]);
+        }
+      }
+      for (let property in uploadFileObj) {
+        if (uploadFileObj.hasOwnProperty(property)) {
+          bFormData.set(property, uploadFileObj[property]);
+        }
+      }
+      config.data = bFormData;
+    }
+
+    return Request._callAxios(config);
+  }
+
+  /**
+   * Internal method to create a config file for axios.
+   *
+   * @param {*} url
+   * @param {*} method
+   * @return {*}
+   */
+  _getConfig(url, method) {
+    const config = {
+      url: url,
+      method: method,
+      headers: {
+        Accept: this.contentType,
+        &apos;content-type&apos;: this.contentType,
+      },
+      timeout: this.timeout,
+    };
+
+    if (this.auth &amp;&amp; this.auth.username &amp;&amp; this.auth.password) {
+      config.auth = this.auth;
+    } else if (this.auth &amp;&amp; this.auth.token) {
+      config.headers.Authorization = &apos;Token &apos; + this.auth.token;
+    }
+
+    if (this.contentType === &apos;application/octet-stream&apos;) {
+      config.responseType = &apos;blob&apos;;
+    }
+
+    return config;
+  }
+
+  /**
+   * Internal method to make an axios request.
+   *
+   * @param {*} config
+   * @return {*}
+   */
+  static _callAxios(config) {
+    return axios(config)
+      .then(response =&gt; {
+        return response;
+      })
+      .catch(error =&gt; {
+        Request._handleRequestError(error);
+      });
+  }
+
+  /**
+   * Internal method to handle errors produced by HTTP requests.
+   *
+   * @param {*} error
+   */
+  static _handleRequestError(error) {
+    let errMsg;
+
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      //console.log(error.response.data);
+      //console.log(error.response.status);
+      //console.log(error.response.headers);
+      errMsg = error.response;
+      if (error.response.data.collection) {
+        errMsg = Collection.getErrorMessage(error.response.data.collection);
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      //console.log(error.request);
+      errMsg = error.request;
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      //console.log(&apos;Error&apos;, error.message);
+      errMsg = error.message;
+    }
+
+    throw new RequestException(errMsg);
+    //console.log(error.config);
+  }
+
+  /**
+   * Helper method to run an asynchronous task defined by a task generator function.
+   *
+   * @param {*} taskGenerator
+   * @return {*}
+   */
+  static runAsyncTask(taskGenerator) {
+    // create the iterator
+    let task = taskGenerator();
+    // start the task
+    let result = task.next();
+
+    // recursive function to iterate through
+    (function step() {
+      // if there&apos;s more to do (result.value and result.done are iterator&apos;s properties)
+      if (!result.done) {
+        result.value
+          .then(resp =&gt; {
+            result = task.next(resp); // send this resp value to the yield
+            step();
+          })
+          .catch(error =&gt; {
+            result = task.throw(error); // throws error within taskGenerator generator
+            step();
+          });
+      }
+    })(); // start the recursive process by calling it immediatly
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

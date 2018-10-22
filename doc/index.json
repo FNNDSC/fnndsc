@@ -1,0 +1,5107 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/cj.js",
+    "content": "/**\n * Collection+Json object.\n *\n * @module cj\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @return {*}\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation in a collection or item object.\n   *\n   * @param {*} obj\n   * @param {*} relationName\n   * @return {*}\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors) in an object.\n   *\n   * @param {*} item\n   * @return {*}\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the ur of the reprsentation in the collection obj.\n   *\n   * @return {*}\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the list of urls for a link relation in a collection or item object.\n   *\n   * @param {*} template\n   * @return {*}\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/cj.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "name": "Collection",
+    "memberof": "src/cj.js",
+    "static": true,
+    "longname": "src/cj.js~Collection",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/cj.js",
+    "importStyle": "Collection",
+    "description": "Collection+Json object.",
+    "lineNumber": 6,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "cj"
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "name": "getErrorMessage",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getErrorMessage",
+    "access": "public",
+    "description": "Get the error message from the collection object.",
+    "lineNumber": 12,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": [
+      {
+        "name": "collection",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "name": "getLinkRelationUrls",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getLinkRelationUrls",
+    "access": "public",
+    "description": "Get the list of urls for a link relation in a collection or item object.",
+    "lineNumber": 26,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "obj",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "relationName",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "name": "getItemDescriptors",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getItemDescriptors",
+    "access": "public",
+    "description": "Get an item's data (descriptors) in an object.",
+    "lineNumber": 39,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "item",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
+    "name": "getUrl",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getUrl",
+    "access": "public",
+    "description": "Get the ur of the reprsentation in the collection obj.",
+    "lineNumber": 54,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": [
+      {
+        "name": "collection",
+        "types": [
+          "*"
+        ]
+      }
+    ]
+  },
+  {
+    "__docId__": 54,
+    "kind": "method",
+    "name": "getTemplateDescriptorNames",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getTemplateDescriptorNames",
+    "access": "public",
+    "description": "Get the list of urls for a link relation in a collection or item object.",
+    "lineNumber": 64,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "template",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "file",
+    "name": "src/client.js",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport RequestException from './exception';\nimport User from './user';\nimport { FeedList } from './feed';\n\n/**\n * Chris client object.\n *\n * @module client\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    this.url = url;\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    this.auth = auth;\n  }\n\n  /**\n   * Fetch a list of currently authenticated user's feeds from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const feedList = new FeedList(this.url, this.auth);\n\n    return feedList.get(params, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {*} usersUrl\n   * @param {*} username\n   * @param {*} password\n   * @param {*} email\n   * @param {*} timeout\n   * @return {*}\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    const result = req.post(usersUrl, userData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          const coll = response.data.collection;\n          const userUrl = coll.items[0].href;\n          const auth = { username: username, password: password };\n\n          const user = new User(userUrl, auth);\n          user.collection = coll;\n          user.item = coll.items[0];\n\n          resolve(user);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {*} authUrl\n   * @param {*} username\n   * @param {*} password\n   * @param {*} timeout\n   *\n   * @return {*}\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    const result = req.post(authUrl, authData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.token);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {*} taskGenerator\n   * @return {*}\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/client.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 56,
+    "kind": "class",
+    "name": "Client",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~Client",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/client.js",
+    "importStyle": "Client",
+    "description": "Chris client object.",
+    "lineNumber": 12,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "client"
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 57,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/client.js~Client",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~Client#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 19,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 58,
+    "kind": "member",
+    "name": "url",
+    "memberof": "src/client.js~Client",
+    "static": false,
+    "longname": "src/client.js~Client#url",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 59,
+    "kind": "member",
+    "name": "auth",
+    "memberof": "src/client.js~Client",
+    "static": false,
+    "longname": "src/client.js~Client#auth",
+    "access": "public",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "name": "getFeeds",
+    "memberof": "src/client.js~Client",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~Client#getFeeds",
+    "access": "public",
+    "description": "Fetch a list of currently authenticated user's feeds from the REST API.",
+    "lineNumber": 34,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "name": "createUser",
+    "memberof": "src/client.js~Client",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/client.js~Client.createUser",
+    "access": "public",
+    "description": "Create a new user account.",
+    "lineNumber": 50,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "usersUrl",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "username",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "password",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "email",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "method",
+    "name": "getAuthToken",
+    "memberof": "src/client.js~Client",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/client.js~Client.getAuthToken",
+    "access": "public",
+    "description": "Fetch a user's login authorization token from the REST API.",
+    "lineNumber": 91,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authUrl",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "username",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "password",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "name": "runAsyncTask",
+    "memberof": "src/client.js~Client",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/client.js~Client.runAsyncTask",
+    "access": "public",
+    "description": "Helper method to run an asynchronous task defined by a task generator function.",
+    "lineNumber": 116,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "taskGenerator",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "file",
+    "name": "src/comment.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\n\n/**\n * API comment objects.\n *\n * @module comment\n */\nexport class Comment extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed associated to the comment item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\nexport class CommentList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = Comment;\n  }\n\n  /**\n   * Fetch the feed associated to the comment list from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/comment.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 65,
+    "kind": "class",
+    "name": "Comment",
+    "memberof": "src/comment.js",
+    "static": true,
+    "longname": "src/comment.js~Comment",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/comment.js",
+    "importStyle": "{Comment}",
+    "description": "API comment objects.",
+    "lineNumber": 10,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "comment"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 66,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/comment.js~Comment",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/comment.js~Comment#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "name": "getFeed",
+    "memberof": "src/comment.js~Comment",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/comment.js~Comment#getFeed",
+    "access": "public",
+    "description": "Fetch the feed associated to the comment item from the REST API.",
+    "lineNumber": 27,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "class",
+    "name": "CommentList",
+    "memberof": "src/comment.js",
+    "static": true,
+    "longname": "src/comment.js~CommentList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/comment.js",
+    "importStyle": "{CommentList}",
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 69,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/comment.js~CommentList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/comment.js~CommentList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 42,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 70,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/comment.js~CommentList",
+    "static": false,
+    "longname": "src/comment.js~CommentList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "method",
+    "name": "getFeed",
+    "memberof": "src/comment.js~CommentList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/comment.js~CommentList#getFeed",
+    "access": "public",
+    "description": "Fetch the feed associated to the comment list from the REST API.",
+    "lineNumber": 53,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "file",
+    "name": "src/exception.js",
+    "content": "/**\n * Custom exception object.\n *\n * @module exception\n */\nexport default class RequestException extends Error {\n  constructor(...args) {\n    super(...args);\n    this.name = this.constructor.name;\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/exception.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 73,
+    "kind": "class",
+    "name": "RequestException",
+    "memberof": "src/exception.js",
+    "static": true,
+    "longname": "src/exception.js~RequestException",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/exception.js",
+    "importStyle": "RequestException",
+    "description": "Custom exception object.",
+    "lineNumber": 6,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "exception"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "__docId__": 74,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/exception.js~RequestException",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/exception.js~RequestException#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "member",
+    "name": "name",
+    "memberof": "src/exception.js~RequestException",
+    "static": false,
+    "longname": "src/exception.js~RequestException#name",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "file",
+    "name": "src/feed.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport User from './user';\nimport { PluginList } from './plugin';\nimport { UploadedFileList } from './uploadedfile';\nimport Note from './note';\nimport { TagList } from './tag';\nimport { CommentList } from './comment';\nimport { FeedFileList } from './feedfile';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * API feed objects.\n *\n * @module feed\n */\nexport class Feed extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the note associated to this feed from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getNote(timeout = 30000) {\n    const linkRelation = 'note';\n    const resourceClass = Note;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of tags associated to this feed from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of comments associated to this feed from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getComments(params = null, timeout = 30000) {\n    const linkRelation = 'comments';\n    const resourceClass = CommentList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files associated to this feed from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this feed from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\nexport class FeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch currently authenticated user's information from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of tags from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of uploaded files from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getUploadedFiles(params = null, timeout = 30000) {\n    const linkRelation = 'uploadedfiles';\n    const resourceClass = UploadedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/feed.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 77,
+    "kind": "class",
+    "name": "Feed",
+    "memberof": "src/feed.js",
+    "static": true,
+    "longname": "src/feed.js~Feed",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/feed.js",
+    "importStyle": "{Feed}",
+    "description": "API feed objects.",
+    "lineNumber": 17,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "feed"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 78,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/feed.js~Feed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~Feed#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 24,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 79,
+    "kind": "method",
+    "name": "getNote",
+    "memberof": "src/feed.js~Feed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~Feed#getNote",
+    "access": "public",
+    "description": "Fetch the note associated to this feed from the REST API.",
+    "lineNumber": 34,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "name": "getTags",
+    "memberof": "src/feed.js~Feed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~Feed#getTags",
+    "access": "public",
+    "description": "Fetch a list of tags associated to this feed from the REST API.",
+    "lineNumber": 48,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "getComments",
+    "memberof": "src/feed.js~Feed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~Feed#getComments",
+    "access": "public",
+    "description": "Fetch a list of comments associated to this feed from the REST API.",
+    "lineNumber": 62,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "getFiles",
+    "memberof": "src/feed.js~Feed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~Feed#getFiles",
+    "access": "public",
+    "description": "Fetch a list of files associated to this feed from the REST API.",
+    "lineNumber": 76,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "name": "getPluginInstance",
+    "memberof": "src/feed.js~Feed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~Feed#getPluginInstance",
+    "access": "public",
+    "description": "Fetch the plugin instance that created this feed from the REST API.",
+    "lineNumber": 89,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 84,
+    "kind": "class",
+    "name": "FeedList",
+    "memberof": "src/feed.js",
+    "static": true,
+    "longname": "src/feed.js~FeedList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/feed.js",
+    "importStyle": "{FeedList}",
+    "description": null,
+    "lineNumber": 97,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 85,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/feed.js~FeedList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~FeedList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 104,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 86,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/feed.js~FeedList",
+    "static": false,
+    "longname": "src/feed.js~FeedList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 106,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "method",
+    "name": "getUser",
+    "memberof": "src/feed.js~FeedList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~FeedList#getUser",
+    "access": "public",
+    "description": "Fetch currently authenticated user's information from the REST API.",
+    "lineNumber": 115,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 88,
+    "kind": "method",
+    "name": "getPlugins",
+    "memberof": "src/feed.js~FeedList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~FeedList#getPlugins",
+    "access": "public",
+    "description": "Fetch a list of plugins from the REST API.",
+    "lineNumber": 129,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 89,
+    "kind": "method",
+    "name": "getTags",
+    "memberof": "src/feed.js~FeedList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~FeedList#getTags",
+    "access": "public",
+    "description": "Fetch a list of tags from the REST API.",
+    "lineNumber": 143,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "name": "getUploadedFiles",
+    "memberof": "src/feed.js~FeedList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~FeedList#getUploadedFiles",
+    "access": "public",
+    "description": "Fetch a list of uploaded files from the REST API.",
+    "lineNumber": 157,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 91,
+    "kind": "file",
+    "name": "src/feedfile.js",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * API feed file objects.\n *\n * @module feedfile\n */\nexport class FeedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Fetch the feed associated to this file item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this file item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\nexport class FeedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = FeedFile;\n  }\n\n  /**\n   * Fetch the feed associated to this file list from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/feedfile.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 92,
+    "kind": "class",
+    "name": "FeedFile",
+    "memberof": "src/feedfile.js",
+    "static": true,
+    "longname": "src/feedfile.js~FeedFile",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/feedfile.js",
+    "importStyle": "{FeedFile}",
+    "description": "API feed file objects.",
+    "lineNumber": 13,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "feedfile"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 93,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/feedfile.js~FeedFile",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~FeedFile#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "name": "getFileBlob",
+    "memberof": "src/feedfile.js~FeedFile",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~FeedFile#getFileBlob",
+    "access": "public",
+    "description": "Fetch the file blob associated to this file item from the REST API.",
+    "lineNumber": 30,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "method",
+    "name": "getFeed",
+    "memberof": "src/feedfile.js~FeedFile",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~FeedFile#getFeed",
+    "access": "public",
+    "description": "Fetch the feed associated to this file item from the REST API.",
+    "lineNumber": 43,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "method",
+    "name": "getPluginInstance",
+    "memberof": "src/feedfile.js~FeedFile",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~FeedFile#getPluginInstance",
+    "access": "public",
+    "description": "Fetch the plugin instance that created this file item from the REST API.",
+    "lineNumber": 56,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "class",
+    "name": "FeedFileList",
+    "memberof": "src/feedfile.js",
+    "static": true,
+    "longname": "src/feedfile.js~FeedFileList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/feedfile.js",
+    "importStyle": "{FeedFileList}",
+    "description": null,
+    "lineNumber": 64,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 98,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/feedfile.js~FeedFileList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~FeedFileList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 71,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 99,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/feedfile.js~FeedFileList",
+    "static": false,
+    "longname": "src/feedfile.js~FeedFileList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 73,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "method",
+    "name": "getFeed",
+    "memberof": "src/feedfile.js~FeedFileList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~FeedFileList#getFeed",
+    "access": "public",
+    "description": "Fetch the feed associated to this file list from the REST API.",
+    "lineNumber": 82,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "import Client from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport RequestException from './exception';\nimport { ListResource, ItemResource } from './resource';\nimport { FeedList, Feed } from './feed';\nimport { PluginList, Plugin } from './plugin';\nimport { PluginInstanceList, PluginInstance } from './plugininstance';\nimport { PluginInstanceParameter } from './plugininstance';\nimport { TagList, Tag } from './tag';\nimport { Note } from './note';\nimport { User } from './user';\nimport { CommentList, Comment } from './comment';\nimport { FeedFileList, FeedFile } from './feedfile';\nimport { UploadedFileList, UploadedFile } from './uploadedfile';\n\nexport default Client;\nexport { Request };\nexport { Collection };\nexport { RequestException };\nexport { ListResource, ItemResource };\nexport { FeedList, Feed };\nexport { PluginList, Plugin };\nexport { PluginInstanceList, PluginInstance };\nexport { PluginInstanceParameter };\nexport { TagList, Tag };\nexport { Note };\nexport { User };\nexport { CommentList, Comment };\nexport { FeedFileList, FeedFile };\nexport { UploadedFileList, UploadedFile };\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 102,
+    "kind": "file",
+    "name": "src/note.js",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport { ItemResource } from './resource';\n\n/**\n * API note objects.\n *\n * @module note\n */\nexport default class Note extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Update this note.\n   *\n   * @param {*} userInfoObj\n   * @param {*} timeout\n   * @return {*}\n   */\n  update(userInfoObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    const self = this;\n\n    return new Promise((resolve, reject) => {\n      const userData = {\n        template: {\n          data: [\n            { name: 'email', value: userInfoObj.email },\n            { name: 'password', value: userInfoObj.password },\n          ],\n        },\n      };\n\n      const result = req.put(url, userData);\n\n      result\n        .then(response => {\n          if (response.data && response.data.collection) {\n            self.collection = response.data.collection;\n          }\n          resolve(self);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/note.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 103,
+    "kind": "class",
+    "name": "Note",
+    "memberof": "src/note.js",
+    "static": true,
+    "longname": "src/note.js~Note",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/note.js",
+    "importStyle": "Note",
+    "description": "API note objects.",
+    "lineNumber": 10,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "note"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 104,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/note.js~Note",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/note.js~Note#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 105,
+    "kind": "method",
+    "name": "update",
+    "memberof": "src/note.js~Note",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/note.js~Note#update",
+    "access": "public",
+    "description": "Update this note.",
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userInfoObj",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 106,
+    "kind": "file",
+    "name": "src/plugin.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList } from './feed';\nimport { PluginParameterList } from './pluginparameter';\nimport { PluginInstanceList } from './plugininstance';\n\n/**\n * API plugin objects.\n *\n * @module plugin\n */\nexport class Plugin extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugin parameters associated to this plugin from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPluginParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instances associated to this plugin from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'instances';\n    const resourceClass = PluginInstanceList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\nexport class PluginList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = Plugin;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/plugin.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 107,
+    "kind": "class",
+    "name": "Plugin",
+    "memberof": "src/plugin.js",
+    "static": true,
+    "longname": "src/plugin.js~Plugin",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/plugin.js",
+    "importStyle": "{Plugin}",
+    "description": "API plugin objects.",
+    "lineNumber": 12,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "plugin"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 108,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugin.js~Plugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~Plugin#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 19,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 109,
+    "kind": "method",
+    "name": "getPluginParameters",
+    "memberof": "src/plugin.js~Plugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~Plugin#getPluginParameters",
+    "access": "public",
+    "description": "Fetch a list of plugin parameters associated to this plugin from the REST API.",
+    "lineNumber": 30,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 110,
+    "kind": "method",
+    "name": "getPluginInstances",
+    "memberof": "src/plugin.js~Plugin",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~Plugin#getPluginInstances",
+    "access": "public",
+    "description": "Fetch a list of plugin instances associated to this plugin from the REST API.",
+    "lineNumber": 44,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 111,
+    "kind": "class",
+    "name": "PluginList",
+    "memberof": "src/plugin.js",
+    "static": true,
+    "longname": "src/plugin.js~PluginList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/plugin.js",
+    "importStyle": "{PluginList}",
+    "description": null,
+    "lineNumber": 52,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 112,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugin.js~PluginList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~PluginList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 59,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 113,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/plugin.js~PluginList",
+    "static": false,
+    "longname": "src/plugin.js~PluginList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 61,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 114,
+    "kind": "method",
+    "name": "getFeeds",
+    "memberof": "src/plugin.js~PluginList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugin.js~PluginList#getFeeds",
+    "access": "public",
+    "description": "Fetch a list of feeds from the REST API.",
+    "lineNumber": 71,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 115,
+    "kind": "file",
+    "name": "src/plugininstance.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\nimport { Feed } from './feed';\nimport { PluginParameter } from './pluginparameter';\nimport { FeedFileList } from './feedfile';\n\n/**\n * API plugin instance objects.\n *\n * @module plugininstance\n */\nexport class PluginInstance extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed created by this plugin instance from the REST API\n   * (only for fs plugins, 'ds' plugins resolve to null).\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    try {\n      // 'feed' link relation only exists for 'fs' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the parent plugin instance of this plugin instance from the REST API\n   * (only for 'ds' plugins, 'fs' plugins resolve to null).\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPreviousPluginInstance(timeout = 30000) {\n    const linkRelation = 'previous';\n    const resourceClass = PluginInstance;\n\n    try {\n      // 'previous' link relation only exists for 'ds' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch a list of plugin instances that are descendents of this plugin instance from the\n   * REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getDescendantPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'descendants';\n    const resourceClass = PluginInstanceList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instance parameters associated to this plugin instance from\n   * the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginInstanceParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files created by this plugin instance from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n\nexport class PluginInstanceList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = PluginInstance;\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance list from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n\nexport class PluginInstanceParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin instance associated to this parameter item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin parameter definition associated to this plugin instance item\n   * from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPluginParameter(timeout = 30000) {\n    const linkRelation = 'plugin_param';\n    const resourceClass = PluginParameter;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n\nexport class PluginInstanceParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = PluginInstanceParameter;\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/plugininstance.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 116,
+    "kind": "class",
+    "name": "PluginInstance",
+    "memberof": "src/plugininstance.js",
+    "static": true,
+    "longname": "src/plugininstance.js~PluginInstance",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/plugininstance.js",
+    "importStyle": "{PluginInstance}",
+    "description": "API plugin instance objects.",
+    "lineNumber": 13,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "plugininstance"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 117,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugininstance.js~PluginInstance",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstance#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 118,
+    "kind": "method",
+    "name": "getFeed",
+    "memberof": "src/plugininstance.js~PluginInstance",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstance#getFeed",
+    "access": "public",
+    "description": "Fetch the feed created by this plugin instance from the REST API\n(only for fs plugins, 'ds' plugins resolve to null).",
+    "lineNumber": 31,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 119,
+    "kind": "method",
+    "name": "getPlugin",
+    "memberof": "src/plugininstance.js~PluginInstance",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstance#getPlugin",
+    "access": "public",
+    "description": "Fetch the plugin associated to this plugin instance item from the REST API.",
+    "lineNumber": 49,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 120,
+    "kind": "method",
+    "name": "getPreviousPluginInstance",
+    "memberof": "src/plugininstance.js~PluginInstance",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstance#getPreviousPluginInstance",
+    "access": "public",
+    "description": "Fetch the parent plugin instance of this plugin instance from the REST API\n(only for 'ds' plugins, 'fs' plugins resolve to null).",
+    "lineNumber": 63,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 121,
+    "kind": "method",
+    "name": "getDescendantPluginInstances",
+    "memberof": "src/plugininstance.js~PluginInstance",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstance#getDescendantPluginInstances",
+    "access": "public",
+    "description": "Fetch a list of plugin instances that are descendents of this plugin instance from the\nREST API.",
+    "lineNumber": 83,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 122,
+    "kind": "method",
+    "name": "getParameters",
+    "memberof": "src/plugininstance.js~PluginInstance",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstance#getParameters",
+    "access": "public",
+    "description": "Fetch a list of plugin instance parameters associated to this plugin instance from\nthe REST API.",
+    "lineNumber": 98,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 123,
+    "kind": "method",
+    "name": "getFiles",
+    "memberof": "src/plugininstance.js~PluginInstance",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstance#getFiles",
+    "access": "public",
+    "description": "Fetch a list of files created by this plugin instance from the REST API.",
+    "lineNumber": 112,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 124,
+    "kind": "class",
+    "name": "PluginInstanceList",
+    "memberof": "src/plugininstance.js",
+    "static": true,
+    "longname": "src/plugininstance.js~PluginInstanceList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/plugininstance.js",
+    "importStyle": "{PluginInstanceList}",
+    "description": null,
+    "lineNumber": 121,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 125,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugininstance.js~PluginInstanceList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 128,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 126,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/plugininstance.js~PluginInstanceList",
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 130,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 127,
+    "kind": "method",
+    "name": "getPlugin",
+    "memberof": "src/plugininstance.js~PluginInstanceList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceList#getPlugin",
+    "access": "public",
+    "description": "Fetch the plugin associated to this plugin instance list from the REST API.",
+    "lineNumber": 139,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 128,
+    "kind": "class",
+    "name": "PluginInstanceParameter",
+    "memberof": "src/plugininstance.js",
+    "static": true,
+    "longname": "src/plugininstance.js~PluginInstanceParameter",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/plugininstance.js",
+    "importStyle": "{PluginInstanceParameter}",
+    "description": null,
+    "lineNumber": 148,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 129,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugininstance.js~PluginInstanceParameter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceParameter#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 155,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 130,
+    "kind": "method",
+    "name": "getPluginInstance",
+    "memberof": "src/plugininstance.js~PluginInstanceParameter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceParameter#getPluginInstance",
+    "access": "public",
+    "description": "Fetch the plugin instance associated to this parameter item from the REST API.",
+    "lineNumber": 165,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 131,
+    "kind": "method",
+    "name": "getPluginParameter",
+    "memberof": "src/plugininstance.js~PluginInstanceParameter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceParameter#getPluginParameter",
+    "access": "public",
+    "description": "Fetch the plugin parameter definition associated to this plugin instance item\nfrom the REST API.",
+    "lineNumber": 179,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 132,
+    "kind": "class",
+    "name": "PluginInstanceParameterList",
+    "memberof": "src/plugininstance.js",
+    "static": true,
+    "longname": "src/plugininstance.js~PluginInstanceParameterList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/plugininstance.js",
+    "importStyle": "{PluginInstanceParameterList}",
+    "description": null,
+    "lineNumber": 188,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 133,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugininstance.js~PluginInstanceParameterList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceParameterList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 195,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 134,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/plugininstance.js~PluginInstanceParameterList",
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceParameterList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 197,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 135,
+    "kind": "file",
+    "name": "src/pluginparameter.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\n\n/**\n * API plugin parameter objects.\n *\n * @module pluginparameter\n */\nexport class PluginParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin associated to this parameter item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\nexport class PluginParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = PluginParameter;\n  }\n\n  /**\n   * Fetch the plugin associated to this list of parameters from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/pluginparameter.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 136,
+    "kind": "class",
+    "name": "PluginParameter",
+    "memberof": "src/pluginparameter.js",
+    "static": true,
+    "longname": "src/pluginparameter.js~PluginParameter",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/pluginparameter.js",
+    "importStyle": "{PluginParameter}",
+    "description": "API plugin parameter objects.",
+    "lineNumber": 10,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "pluginparameter"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 137,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/pluginparameter.js~PluginParameter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/pluginparameter.js~PluginParameter#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 138,
+    "kind": "method",
+    "name": "getPlugin",
+    "memberof": "src/pluginparameter.js~PluginParameter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/pluginparameter.js~PluginParameter#getPlugin",
+    "access": "public",
+    "description": "Fetch the plugin associated to this parameter item from the REST API.",
+    "lineNumber": 27,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 139,
+    "kind": "class",
+    "name": "PluginParameterList",
+    "memberof": "src/pluginparameter.js",
+    "static": true,
+    "longname": "src/pluginparameter.js~PluginParameterList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/pluginparameter.js",
+    "importStyle": "{PluginParameterList}",
+    "description": null,
+    "lineNumber": 35,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 140,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/pluginparameter.js~PluginParameterList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/pluginparameter.js~PluginParameterList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 42,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 141,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/pluginparameter.js~PluginParameterList",
+    "static": false,
+    "longname": "src/pluginparameter.js~PluginParameterList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 142,
+    "kind": "method",
+    "name": "getPlugin",
+    "memberof": "src/pluginparameter.js~PluginParameterList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/pluginparameter.js~PluginParameterList#getPlugin",
+    "access": "public",
+    "description": "Fetch the plugin associated to this list of parameters from the REST API.",
+    "lineNumber": 53,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 143,
+    "kind": "file",
+    "name": "src/request.js",
+    "content": "/** * Imports ***/\nimport axios from 'axios';\nimport Collection from './cj';\nimport RequestException from './exception';\n\n/**\n * Http request object.\n *\n * @module request\n */\nexport default class Request {\n  /**\n   * Constructor\n   */\n  constructor(auth, contentType, timeout = 30000) {\n    this.auth = auth;\n    this.contentType = contentType;\n    this.timeout = timeout;\n  }\n\n  /**\n   * Perform a GET request.\n   *\n   * @param {*} url\n   * @param {*} params\n   * @return {*}\n   */\n  get(url, params = null) {\n    const config = this._getConfig(url, 'get');\n\n    if (params) {\n      config.params = params;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Perform a POST request.\n   *\n   * @param {*} url\n   * @param {*} data\n   * @param {*} uploadFileObj\n   * @return {*}\n   */\n  post(url, data, uploadFileObj = null) {\n    return this._postOrPut('post', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a PUT request.\n   *\n   * @param {*} url\n   * @param {*} data\n   * @param {*} uploadFileObj\n   * @return {*}\n   */\n  put(url, data, uploadFileObj = null) {\n    return this._postOrPut('put', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a DELETE request.\n   *\n   * @param {*} url\n   */\n  delete(url) {\n    const config = this._getConfig(url, 'delete');\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to make either a POST or PUT request.\n   *\n   * @param {*} requestMethod\n   * @param {*} url\n   * @param {*} data\n   * @param {*} uploadFileObj\n   * @return {*}\n   */\n  _postOrPut(requestMethod, url, data, uploadFileObj = null) {\n    const config = this._getConfig(url, requestMethod);\n    config.data = data;\n\n    if (uploadFileObj) {\n      config['headers']['content-type'] = 'multipart/form-data';\n      const bFormData = new FormData();\n\n      for (let property in data) {\n        if (data.hasOwnProperty(property)) {\n          bFormData.set(property, data[property]);\n        }\n      }\n      for (let property in uploadFileObj) {\n        if (uploadFileObj.hasOwnProperty(property)) {\n          bFormData.set(property, uploadFileObj[property]);\n        }\n      }\n      config.data = bFormData;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to create a config file for axios.\n   *\n   * @param {*} url\n   * @param {*} method\n   * @return {*}\n   */\n  _getConfig(url, method) {\n    const config = {\n      url: url,\n      method: method,\n      headers: {\n        Accept: this.contentType,\n        'content-type': this.contentType,\n      },\n      timeout: this.timeout,\n    };\n\n    if (this.auth && this.auth.username && this.auth.password) {\n      config.auth = this.auth;\n    } else if (this.auth && this.auth.token) {\n      config.headers.Authorization = 'Token ' + this.auth.token;\n    }\n\n    if (this.contentType === 'application/octet-stream') {\n      config.responseType = 'blob';\n    }\n\n    return config;\n  }\n\n  /**\n   * Internal method to make an axios request.\n   *\n   * @param {*} config\n   * @return {*}\n   */\n  static _callAxios(config) {\n    return axios(config)\n      .then(response => {\n        return response;\n      })\n      .catch(error => {\n        Request._handleRequestError(error);\n      });\n  }\n\n  /**\n   * Internal method to handle errors produced by HTTP requests.\n   *\n   * @param {*} error\n   */\n  static _handleRequestError(error) {\n    let errMsg;\n\n    if (error.response) {\n      // The request was made and the server responded with a status code\n      // that falls out of the range of 2xx\n      //console.log(error.response.data);\n      //console.log(error.response.status);\n      //console.log(error.response.headers);\n      errMsg = error.response;\n      if (error.response.data.collection) {\n        errMsg = Collection.getErrorMessage(error.response.data.collection);\n      }\n    } else if (error.request) {\n      // The request was made but no response was received\n      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of\n      // http.ClientRequest in node.js\n      //console.log(error.request);\n      errMsg = error.request;\n    } else {\n      // Something happened in setting up the request that triggered an Error\n      //console.log('Error', error.message);\n      errMsg = error.message;\n    }\n\n    throw new RequestException(errMsg);\n    //console.log(error.config);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {*} taskGenerator\n   * @return {*}\n   */\n  static runAsyncTask(taskGenerator) {\n    // create the iterator\n    let task = taskGenerator();\n    // start the task\n    let result = task.next();\n\n    // recursive function to iterate through\n    (function step() {\n      // if there's more to do (result.value and result.done are iterator's properties)\n      if (!result.done) {\n        result.value\n          .then(resp => {\n            result = task.next(resp); // send this resp value to the yield\n            step();\n          })\n          .catch(error => {\n            result = task.throw(error); // throws error within taskGenerator generator\n            step();\n          });\n      }\n    })(); // start the recursive process by calling it immediatly\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/request.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 144,
+    "kind": "class",
+    "name": "Request",
+    "memberof": "src/request.js",
+    "static": true,
+    "longname": "src/request.js~Request",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/request.js",
+    "importStyle": "Request",
+    "description": "Http request object.",
+    "lineNumber": 11,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "request"
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 145,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 15
+  },
+  {
+    "__docId__": 146,
+    "kind": "member",
+    "name": "auth",
+    "memberof": "src/request.js~Request",
+    "static": false,
+    "longname": "src/request.js~Request#auth",
+    "access": "public",
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 147,
+    "kind": "member",
+    "name": "contentType",
+    "memberof": "src/request.js~Request",
+    "static": false,
+    "longname": "src/request.js~Request#contentType",
+    "access": "public",
+    "description": null,
+    "lineNumber": 17,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 148,
+    "kind": "member",
+    "name": "timeout",
+    "memberof": "src/request.js~Request",
+    "static": false,
+    "longname": "src/request.js~Request#timeout",
+    "access": "public",
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 149,
+    "kind": "method",
+    "name": "get",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#get",
+    "access": "public",
+    "description": "Perform a GET request.",
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 150,
+    "kind": "method",
+    "name": "post",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#post",
+    "access": "public",
+    "description": "Perform a POST request.",
+    "lineNumber": 46,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "uploadFileObj",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 151,
+    "kind": "method",
+    "name": "put",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#put",
+    "access": "public",
+    "description": "Perform a PUT request.",
+    "lineNumber": 58,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "uploadFileObj",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 152,
+    "kind": "method",
+    "name": "delete",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#delete",
+    "access": "public",
+    "description": "Perform a DELETE request.",
+    "lineNumber": 67,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 153,
+    "kind": "method",
+    "name": "_postOrPut",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#_postOrPut",
+    "access": "private",
+    "description": "Internal method to make either a POST or PUT request.",
+    "lineNumber": 82,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "requestMethod",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "uploadFileObj",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 154,
+    "kind": "method",
+    "name": "_getConfig",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#_getConfig",
+    "access": "private",
+    "description": "Internal method to create a config file for axios.",
+    "lineNumber": 113,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "method",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 155,
+    "kind": "method",
+    "name": "_callAxios",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/request.js~Request._callAxios",
+    "access": "private",
+    "description": "Internal method to make an axios request.",
+    "lineNumber": 143,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "config",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 156,
+    "kind": "method",
+    "name": "_handleRequestError",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/request.js~Request._handleRequestError",
+    "access": "private",
+    "description": "Internal method to handle errors produced by HTTP requests.",
+    "lineNumber": 158,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "error",
+        "description": ""
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 157,
+    "kind": "method",
+    "name": "runAsyncTask",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/request.js~Request.runAsyncTask",
+    "access": "public",
+    "description": "Helper method to run an asynchronous task defined by a task generator function.",
+    "lineNumber": 193,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "taskGenerator",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 158,
+    "kind": "file",
+    "name": "src/resource.js",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource objects.\n *\n * @module resource\n */\nclass Resource {\n  /**\n   * Constructor\n   *\n   * @param {*} resourceUrl\n   * @param {*} auth\n   */\n  constructor(resourceUrl, auth) {\n    this.url = resourceUrl;\n    this.auth = auth;\n    this.contentType = 'application/vnd.collection+json';\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {*}\n   */\n  clone() {\n    const cloneObj = Object.create(Object.getPrototypeOf(this));\n\n    for (let prop in this) {\n      if (this[prop] !== null && typeof this[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));\n      } else {\n        cloneObj[prop] = this[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {*} itemUrl\n   * @param {*} auth\n   */\n  constructor(itemUrl, auth) {\n    super(itemUrl, auth);\n\n    this.item = null; // Collection+JSON item obj\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const result = req.get(this.url);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.item = null;\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n            this.item = this.collection.items[0];\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Get the item's data descriptors\n   *\n   * @return {*}\n   */\n  get data() {\n    if (this.item) {\n      return Collection.getItemDescriptors(this.item);\n    }\n    return null;\n  }\n\n  /**\n   * Return true if the item resource object contains any item data.\n   *\n   * @return {*}\n   */\n  get isEmpty() {\n    if (this.item) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API referenced by\n   * a link relation in the item object.\n   *\n   * @param {*} linkRelation\n   * @param {*} ResourceClass\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.item) {\n      const urls = Collection.getLinkRelationUrls(this.item, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Item object has not been set!');\n  }\n}\n\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {*} listUrl\n   * @param {*} auth\n   */\n  constructor(listUrl, auth) {\n    super(listUrl, auth);\n\n    this.queryUrl = '';\n    this.searchParams = null;\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API using limit and offset as optional\n   * parameters.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  get(params = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let getParams = null;\n\n    if (params) {\n      for (let param in params) {\n        if (params.hasOwnProperty(param) && (param === 'limit' || param === 'offset')) {\n          if (!getParams) {\n            getParams = {};\n          }\n          getParams[param] = params[param];\n        }\n      }\n    }\n    const result = req.get(this.url, getParams);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.searchParams = getParams;\n\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n\n            if (this.collection.queries && this.collection.queries.length) {\n              this.queryUrl = this.collection.queries[0].href;\n            }\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getSearch(params, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    if (this.queryUrl) {\n      const result = req.get(this.queryUrl, params);\n\n      return new Promise((resolve, reject) => {\n        result\n          .then(response => {\n            // change the state of this object on successfull response\n            this.collection = null;\n            this.searchParams = params;\n            if (response.data && response.data.collection) {\n              this.collection = response.data.collection;\n            }\n            resolve(this);\n          })\n          .catch(error => {\n            reject(error);\n          });\n      });\n    }\n    return Promise.reject('A search url has not been setup for this resource!');\n  }\n\n  /**\n   * Return true if the list resource object contains any item data.\n   *\n   * @return {*}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @return {*}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @return {*}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {*}\n   */\n  getItems() {\n    if (this.collection) {\n      const items = this.collection.items;\n\n      return items.map(item => {\n        const itemResource = new this.itemClass(item.href, this.auth);\n        itemResource.collection = this.collection;\n        itemResource.item = item;\n\n        return itemResource;\n      });\n    }\n    return null;\n  }\n\n  /**\n   * Fetch the next resource page from the paginated REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getNextPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('next', timeout);\n  }\n\n  /**\n   * Fetch the previous resource page from the paginated REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPreviousPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('previous', timeout);\n  }\n\n  /**\n   * Internal method to fetch the next or previous page from the paginated REST API.\n   *\n   * @param {*} linkRelation\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getNextOrPreviousPage(linkRelation, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const searchParams = new URL(urls[0]).searchParams;\n        const params = {};\n        let urlHasSearchParams = false;\n\n        for (let pair of searchParams.entries()) {\n          params[pair[0]] = pair[1];\n          if (pair[0] !== 'offset' && pair[0] !== 'limit') {\n            urlHasSearchParams = true;\n          }\n        }\n\n        if (urlHasSearchParams) {\n          return this.getSearch(params, timeout);\n        }\n        if (params.offset || params.limit) {\n          return this.get(params, timeout);\n        }\n        return this.get(null, timeout);\n      }\n    }\n    this.collection = null;\n    this.searchParams = null;\n    return Promise.resolve(this);\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API referenced by\n   * a link relation in the collection object.\n   *\n   * @param {*} linkRelation\n   * @param {*} ResourceClass\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Collection object has not been set!');\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/resource.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 159,
+    "kind": "class",
+    "name": "Resource",
+    "memberof": "src/resource.js",
+    "static": true,
+    "longname": "src/resource.js~Resource",
+    "access": "public",
+    "export": false,
+    "importPath": "@fnndsc/chrisapi/src/resource.js",
+    "importStyle": null,
+    "description": "API abstract resource objects.",
+    "lineNumber": 11,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "resource"
+      }
+    ],
+    "interface": false,
+    "ignore": true
+  },
+  {
+    "__docId__": 160,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/resource.js~Resource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~Resource#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "resourceUrl",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 161,
+    "kind": "member",
+    "name": "url",
+    "memberof": "src/resource.js~Resource",
+    "static": false,
+    "longname": "src/resource.js~Resource#url",
+    "access": "public",
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 162,
+    "kind": "member",
+    "name": "auth",
+    "memberof": "src/resource.js~Resource",
+    "static": false,
+    "longname": "src/resource.js~Resource#auth",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 163,
+    "kind": "member",
+    "name": "contentType",
+    "memberof": "src/resource.js~Resource",
+    "static": false,
+    "longname": "src/resource.js~Resource#contentType",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 164,
+    "kind": "member",
+    "name": "collection",
+    "memberof": "src/resource.js~Resource",
+    "static": false,
+    "longname": "src/resource.js~Resource#collection",
+    "access": "public",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 165,
+    "kind": "method",
+    "name": "clone",
+    "memberof": "src/resource.js~Resource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~Resource#clone",
+    "access": "public",
+    "description": "Make a deep copy clone of this object resource.",
+    "lineNumber": 30,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 166,
+    "kind": "class",
+    "name": "ItemResource",
+    "memberof": "src/resource.js",
+    "static": true,
+    "longname": "src/resource.js~ItemResource",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/resource.js",
+    "importStyle": "{ItemResource}",
+    "description": null,
+    "lineNumber": 44,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Resource"
+    ]
+  },
+  {
+    "__docId__": 167,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/resource.js~ItemResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ItemResource#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 51,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "itemUrl",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 168,
+    "kind": "member",
+    "name": "item",
+    "memberof": "src/resource.js~ItemResource",
+    "static": false,
+    "longname": "src/resource.js~ItemResource#item",
+    "access": "public",
+    "description": null,
+    "lineNumber": 54,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 169,
+    "kind": "method",
+    "name": "get",
+    "memberof": "src/resource.js~ItemResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ItemResource#get",
+    "access": "public",
+    "description": "Fetch this item resource from the REST API.",
+    "lineNumber": 63,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 170,
+    "kind": "member",
+    "name": "collection",
+    "memberof": "src/resource.js~ItemResource",
+    "static": false,
+    "longname": "src/resource.js~ItemResource#collection",
+    "access": "public",
+    "description": null,
+    "lineNumber": 72,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 174,
+    "kind": "get",
+    "name": "data",
+    "memberof": "src/resource.js~ItemResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ItemResource#data",
+    "access": "public",
+    "description": "Get the item's data descriptors",
+    "lineNumber": 91,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 175,
+    "kind": "get",
+    "name": "isEmpty",
+    "memberof": "src/resource.js~ItemResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ItemResource#isEmpty",
+    "access": "public",
+    "description": "Return true if the item resource object contains any item data.",
+    "lineNumber": 103,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 176,
+    "kind": "method",
+    "name": "_getResource",
+    "memberof": "src/resource.js~ItemResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ItemResource#_getResource",
+    "access": "private",
+    "description": "Internal method to fetch a related resource from the REST API referenced by\na link relation in the item object.",
+    "lineNumber": 120,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "linkRelation",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ResourceClass",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 177,
+    "kind": "class",
+    "name": "ListResource",
+    "memberof": "src/resource.js",
+    "static": true,
+    "longname": "src/resource.js~ListResource",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/resource.js",
+    "importStyle": "{ListResource}",
+    "description": null,
+    "lineNumber": 138,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "Resource"
+    ]
+  },
+  {
+    "__docId__": 178,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 145,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "listUrl",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 179,
+    "kind": "member",
+    "name": "queryUrl",
+    "memberof": "src/resource.js~ListResource",
+    "static": false,
+    "longname": "src/resource.js~ListResource#queryUrl",
+    "access": "public",
+    "description": null,
+    "lineNumber": 148,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 180,
+    "kind": "member",
+    "name": "searchParams",
+    "memberof": "src/resource.js~ListResource",
+    "static": false,
+    "longname": "src/resource.js~ListResource#searchParams",
+    "access": "public",
+    "description": null,
+    "lineNumber": 149,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 181,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/resource.js~ListResource",
+    "static": false,
+    "longname": "src/resource.js~ListResource#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 150,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 182,
+    "kind": "method",
+    "name": "get",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#get",
+    "access": "public",
+    "description": "Fetch this list resource from the REST API using limit and offset as optional\nparameters.",
+    "lineNumber": 161,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 183,
+    "kind": "member",
+    "name": "collection",
+    "memberof": "src/resource.js~ListResource",
+    "static": false,
+    "longname": "src/resource.js~ListResource#collection",
+    "access": "public",
+    "description": null,
+    "lineNumber": 181,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 187,
+    "kind": "method",
+    "name": "getSearch",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#getSearch",
+    "access": "public",
+    "description": "Fetch this list resource from the REST API based on search parameters.",
+    "lineNumber": 206,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 191,
+    "kind": "get",
+    "name": "isEmpty",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#isEmpty",
+    "access": "public",
+    "description": "Return true if the list resource object contains any item data.",
+    "lineNumber": 236,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 192,
+    "kind": "get",
+    "name": "hasNextPage",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#hasNextPage",
+    "access": "public",
+    "description": "Return true if the list resource object has a next list page in the\npaginated REST API.",
+    "lineNumber": 249,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 193,
+    "kind": "get",
+    "name": "hasPreviousPage",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#hasPreviousPage",
+    "access": "public",
+    "description": "Return true if the list resource object has a previous list page in the\npaginated REST API.",
+    "lineNumber": 265,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "type": {
+      "types": [
+        "boolean"
+      ]
+    }
+  },
+  {
+    "__docId__": 194,
+    "kind": "method",
+    "name": "getItems",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#getItems",
+    "access": "public",
+    "description": "Get an array of item resource objects corresponding to the items in this\nlist resource object.",
+    "lineNumber": 281,
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "params": []
+  },
+  {
+    "__docId__": 195,
+    "kind": "method",
+    "name": "getNextPage",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#getNextPage",
+    "access": "public",
+    "description": "Fetch the next resource page from the paginated REST API.",
+    "lineNumber": 302,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 196,
+    "kind": "method",
+    "name": "getPreviousPage",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#getPreviousPage",
+    "access": "public",
+    "description": "Fetch the previous resource page from the paginated REST API.",
+    "lineNumber": 312,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 197,
+    "kind": "method",
+    "name": "_getNextOrPreviousPage",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#_getNextOrPreviousPage",
+    "access": "private",
+    "description": "Internal method to fetch the next or previous page from the paginated REST API.",
+    "lineNumber": 323,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "linkRelation",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 200,
+    "kind": "method",
+    "name": "_getResource",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#_getResource",
+    "access": "private",
+    "description": "Internal method to fetch a related resource from the REST API referenced by\na link relation in the collection object.",
+    "lineNumber": 363,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "linkRelation",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "ResourceClass",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 201,
+    "kind": "file",
+    "name": "src/tag.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\n\n/**\n * API Tag objects.\n *\n * @module tag\n */\nexport class Tag extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n}\n\nexport class TagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = Tag;\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/tag.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 202,
+    "kind": "class",
+    "name": "Tag",
+    "memberof": "src/tag.js",
+    "static": true,
+    "longname": "src/tag.js~Tag",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/tag.js",
+    "importStyle": "{Tag}",
+    "description": "API Tag objects.",
+    "lineNumber": 9,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "tag"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 203,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/tag.js~Tag",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/tag.js~Tag#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 16,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 204,
+    "kind": "class",
+    "name": "TagList",
+    "memberof": "src/tag.js",
+    "static": true,
+    "longname": "src/tag.js~TagList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/tag.js",
+    "importStyle": "{TagList}",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 205,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/tag.js~TagList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/tag.js~TagList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 206,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/tag.js~TagList",
+    "static": false,
+    "longname": "src/tag.js~TagList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 207,
+    "kind": "file",
+    "name": "src/uploadedfile.js",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\n\n/**\n * API uploaded file objects.\n *\n * @module uploadedfile\n */\nexport class UploadedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n}\n\nexport class UploadedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = UploadedFile;\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/uploadedfile.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 208,
+    "kind": "class",
+    "name": "UploadedFile",
+    "memberof": "src/uploadedfile.js",
+    "static": true,
+    "longname": "src/uploadedfile.js~UploadedFile",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/uploadedfile.js",
+    "importStyle": "{UploadedFile}",
+    "description": "API uploaded file objects.",
+    "lineNumber": 11,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "uploadedfile"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 209,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/uploadedfile.js~UploadedFile",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/uploadedfile.js~UploadedFile#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 210,
+    "kind": "method",
+    "name": "getFileBlob",
+    "memberof": "src/uploadedfile.js~UploadedFile",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/uploadedfile.js~UploadedFile#getFileBlob",
+    "access": "public",
+    "description": "Fetch the file blob associated to this file item from the REST API.",
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 211,
+    "kind": "class",
+    "name": "UploadedFileList",
+    "memberof": "src/uploadedfile.js",
+    "static": true,
+    "longname": "src/uploadedfile.js~UploadedFileList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/uploadedfile.js",
+    "importStyle": "{UploadedFileList}",
+    "description": null,
+    "lineNumber": 36,
+    "undocument": true,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 212,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/uploadedfile.js~UploadedFileList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/uploadedfile.js~UploadedFileList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 43,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 213,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/uploadedfile.js~UploadedFileList",
+    "static": false,
+    "longname": "src/uploadedfile.js~UploadedFileList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 45,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 214,
+    "kind": "file",
+    "name": "src/user.js",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport { ItemResource } from './resource';\n\n/**\n * API user objects.\n *\n * @module user\n */\nexport default class User extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Update currently authenticated user's information (email and or password).\n   *\n   * @param {*} userInfoObj\n   * @param {*} timeout\n   * @return {*}\n   */\n  update(userInfoObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    const self = this;\n\n    return new Promise((resolve, reject) => {\n      const userData = {\n        template: {\n          data: [\n            { name: 'email', value: userInfoObj.email },\n            { name: 'password', value: userInfoObj.password },\n          ],\n        },\n      };\n\n      const result = req.put(url, userData);\n\n      result\n        .then(response => {\n          if (response.data && response.data.collection) {\n            self.collection = response.data.collection;\n          }\n          resolve(self);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/user.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 215,
+    "kind": "class",
+    "name": "User",
+    "memberof": "src/user.js",
+    "static": true,
+    "longname": "src/user.js~User",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi/src/user.js",
+    "importStyle": "User",
+    "description": "API user objects.",
+    "lineNumber": 10,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "user"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 216,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/user.js~User",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/user.js~User#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 17,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 217,
+    "kind": "method",
+    "name": "update",
+    "memberof": "src/user.js~User",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/user.js~User#update",
+    "access": "public",
+    "description": "Update currently authenticated user's information (email and or password).",
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userInfoObj",
+        "description": ""
+      },
+      {
+        "nullable": null,
+        "types": [
+          "*"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "timeout",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "*"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "kind": "index",
+    "content": "# ChRIS API\nJavaScript6 client for the ChRIS API.\n\n## Usage\n\nIf you have a ChRIS server up and running (eg. as explained below) then you can use and test the API in your Javascript code:\n\n``` javascript\nconst chrisUrl = 'http://localhost:8000/api/v1/';\nconst usersUrl = chrisUrl + 'users/';\nconst authUrl = chrisUrl + 'auth-token/';\nlet authToken;\nlet resp;\n\n\n// create a new user\nresp = Client.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');\nresp\n  .then(user => {\n\n    window.console.log('New user: ', user);\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n\n// retrieve a user auth token\nresp = Client.getAuthToken(authUrl, 'cube', 'cube1234');\nresp\n  .then(token => {\n\n    window.console.log('Token: ', token);\n    authToken = token;\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n```\n\nThe ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance\nof a Javascript class that inherits from either of two base classes:\n\n* ``ItemResource`` (an object containing a reference to an individual item in a collection of resource items)\n* ``ListResource`` (an object modeling a collection of resource items)\n\nThese model the two general type of REST API resources available from a ChRIS server.\n\nIn addition to methods and properties provided by these base classes every resource object returned by\nthe client API contains additional methods to fetch its associated resources (item or list resources)\nfrom the ChRIS REST API. It can also contain ``get``, ``post``, ``put`` and ``delete`` methods as allowed by\nthe REST API. In particular every object has a ``get`` method that updates the internal state of the object\nwith the new data fetched from the ChRIS server. A `clone` method is provided to cover the case when a reference\nto the previous object state is desired. This method returns a new instance of the same class as the cloned object.\n\nAll methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource\nobject as an argument to the fulfillment callback.\n\nAll resources can be fetched from the REST API starting the initial `FeedList` instance object returned by the client\nas in the following examples:\n\n``` javascript\n\n// create a new client instance with an auth object to be able to make authenticated requests\nconst auth = {token: authToken}; // or alternatively auth = {username: 'cube', password: 'cube1234'}\nconst client = new Client(chrisUrl, auth);\n\n// fetch a subset of currently authenticated user's feeds from the REST API into an initial Feedlist object\nlet params = { limit: 10, offset: 0 };\nlet feedListObj;\nlet feedListObjClone;\n\nresp = client.getFeeds(params);\nresp\n  .then(feedListObj => {\n\n    window.console.log('Feed list resource object: ', feedListObj);\n\n    // retrieve an array of the Feed item resource objects from feedListObj\n    const feedObjArray = feedListObj.getItems();\n\n    // log the individual Feed items' data\n    for (let feed of feedObjArray) {\n        window.console.log(feed.data);\n    }\n\n    // fetch a list of available ChRIS plugins from the REST API\n    const result1 = feedListObj.getPlugins(params);\n    result1\n      .then(pluginListObj => {\n\n        window.console.log('Plugin list resource object: ', pluginListObj);\n      })\n\n    // fetch the next page of feeds from the REST API\n    feedListObjClone = feedListObj.clone(); // if desired save the object's current state in another object\n    if (feedListObj.hasNextPage) {\n      const result2 = feedListObj.getNextPage();\n      result2\n      .then(feedListObj => {\n\n        window.console.log('Feed list resource object: ', feedListObj);\n      })\n    }\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n// the Client's runAsyncTask static method could alternatively be used to wait for promises in Javascript 6\n// for instance iterate over all pages of the list of available 'fs' plugins\nClient.runAsyncTask(function*() {\n\n  feedListObj = yield client.getFeeds(); // wait here\n  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // this is to just fetch an initial PluginList resource obj\n\n  const searchParams = { type: 'fs'};\n  // const searchParams = {limit: 10, offset:0, type: 'fs'}; if you want to override default REST API page size\n  pluginListObj = pluginListObj.getSearch(searchParams);\n  window.console.log('Page 1 of Plugin fs list resource object: ', pluginListObj);\n\n  let i = 2;\n  while (pluginListObj.hasNextPage) {\n    pluginListObj = pluginListObj.getNextPage();\n    window.console.log('Page ' + i + ' of Plugin fs list resource object: ', pluginListObj);\n    i++;\n  }\n});\n\n```\n",
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/APIReference.md",
+    "name": "./APIReference.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"@fnndsc/chrisapi\",\n  \"version\": \"0.0.1\",\n  \"description\": \"JavaScript6 client for the ChRIS API\",\n  \"main\": \"dist/chrisapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "longname": "/Users/jbernal/work/labsoft/fnndsc/js/chrisAPI/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]

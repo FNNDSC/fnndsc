@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/resource.js | @fnndsc/chrisapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="JavaScript6 client for the ChRIS API"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@fnndsc/chrisapi"><meta property="twitter:description" content="JavaScript6 client for the ChRIS API"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameter.html">PluginInstanceParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ItemResource.html">ItemResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ListResource.html">ListResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~Resource.html">Resource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~Tag.html">Tag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagList.html">TagList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFile.html">UploadedFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFileList.html">UploadedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/resource.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
+import Collection from &apos;./cj&apos;;
+import Request from &apos;./request&apos;;
+import RequestException from &apos;./exception&apos;;
+
+/**
+ * API abstract resource objects.
+ *
+ * @module resource
+ */
+class Resource {
+  /**
+   * Constructor
+   *
+   * @param {*} resourceUrl
+   * @param {*} auth
+   */
+  constructor(resourceUrl, auth) {
+    this.url = resourceUrl;
+    this.auth = auth;
+    this.contentType = &apos;application/vnd.collection+json&apos;;
+    this.collection = null; // Collection+JSON collection obj
+  }
+
+  /**
+   * Make a deep copy clone of this object resource.
+   *
+   * @return {*}
+   */
+  clone() {
+    const cloneObj = Object.create(Object.getPrototypeOf(this));
+
+    for (let prop in this) {
+      if (this[prop] !== null &amp;&amp; typeof this[prop] === &apos;object&apos;) {
+        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));
+      } else {
+        cloneObj[prop] = this[prop];
+      }
+    }
+    return cloneObj;
+  }
+}
+
+export class ItemResource extends Resource {
+  /**
+   * Constructor
+   *
+   * @param {*} itemUrl
+   * @param {*} auth
+   */
+  constructor(itemUrl, auth) {
+    super(itemUrl, auth);
+
+    this.item = null; // Collection+JSON item obj
+  }
+
+  /**
+   * Fetch this item resource from the REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  get(timeout = 30000) {
+    const req = new Request(this.auth, this.contentType, timeout);
+
+    const result = req.get(this.url);
+
+    return new Promise((resolve, reject) =&gt; {
+      result
+        .then(response =&gt; {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.item = null;
+          if (response.data &amp;&amp; response.data.collection) {
+            this.collection = response.data.collection;
+            this.item = this.collection.items[0];
+          }
+          resolve(this);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Get the item&apos;s data descriptors
+   *
+   * @return {*}
+   */
+  get data() {
+    if (this.item) {
+      return Collection.getItemDescriptors(this.item);
+    }
+    return null;
+  }
+
+  /**
+   * Return true if the item resource object contains any item data.
+   *
+   * @return {*}
+   */
+  get isEmpty() {
+    if (this.item) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Internal method to fetch a related resource from the REST API referenced by
+   * a link relation in the item object.
+   *
+   * @param {*} linkRelation
+   * @param {*} ResourceClass
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
+    if (this.item) {
+      const urls = Collection.getLinkRelationUrls(this.item, linkRelation);
+
+      if (urls.length) {
+        const resourceUrl = urls[0];
+        const resourceObj = new ResourceClass(resourceUrl, this.auth);
+
+        return resourceObj.get(params, timeout);
+      } else {
+        const errMsg = &apos;Missing &quot;&apos; + linkRelation + &apos;&quot; link relation!&apos;;
+        throw new RequestException(errMsg);
+      }
+    }
+    throw new RequestException(&apos;Item object has not been set!&apos;);
+  }
+}
+
+export class ListResource extends Resource {
+  /**
+   * Constructor
+   *
+   * @param {*} listUrl
+   * @param {*} auth
+   */
+  constructor(listUrl, auth) {
+    super(listUrl, auth);
+
+    this.queryUrl = &apos;&apos;;
+    this.searchParams = null;
+    this.itemClass = ItemResource;
+  }
+
+  /**
+   * Fetch this list resource from the REST API using limit and offset as optional
+   * parameters.
+   *
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  get(params = null, timeout = 30000) {
+    const req = new Request(this.auth, this.contentType, timeout);
+    let getParams = null;
+
+    if (params) {
+      for (let param in params) {
+        if (params.hasOwnProperty(param) &amp;&amp; (param === &apos;limit&apos; || param === &apos;offset&apos;)) {
+          if (!getParams) {
+            getParams = {};
+          }
+          getParams[param] = params[param];
+        }
+      }
+    }
+    const result = req.get(this.url, getParams);
+
+    return new Promise((resolve, reject) =&gt; {
+      result
+        .then(response =&gt; {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.searchParams = getParams;
+
+          if (response.data &amp;&amp; response.data.collection) {
+            this.collection = response.data.collection;
+
+            if (this.collection.queries &amp;&amp; this.collection.queries.length) {
+              this.queryUrl = this.collection.queries[0].href;
+            }
+          }
+          resolve(this);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Fetch this list resource from the REST API based on search parameters.
+   *
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  getSearch(params, timeout = 30000) {
+    const req = new Request(this.auth, this.contentType, timeout);
+
+    if (this.queryUrl) {
+      const result = req.get(this.queryUrl, params);
+
+      return new Promise((resolve, reject) =&gt; {
+        result
+          .then(response =&gt; {
+            // change the state of this object on successfull response
+            this.collection = null;
+            this.searchParams = params;
+            if (response.data &amp;&amp; response.data.collection) {
+              this.collection = response.data.collection;
+            }
+            resolve(this);
+          })
+          .catch(error =&gt; {
+            reject(error);
+          });
+      });
+    }
+    return Promise.reject(&apos;A search url has not been setup for this resource!&apos;);
+  }
+
+  /**
+   * Return true if the list resource object contains any item data.
+   *
+   * @return {*}
+   */
+  get isEmpty() {
+    if (this.collection &amp;&amp; this.collection.items.length) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Return true if the list resource object has a next list page in the
+   * paginated REST API.
+   *
+   * @return {*}
+   */
+  get hasNextPage() {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, &apos;next&apos;);
+      if (urls.length) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Return true if the list resource object has a previous list page in the
+   * paginated REST API.
+   *
+   * @return {*}
+   */
+  get hasPreviousPage() {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, &apos;previous&apos;);
+      if (urls.length) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Get an array of item resource objects corresponding to the items in this
+   * list resource object.
+   *
+   * @return {*}
+   */
+  getItems() {
+    if (this.collection) {
+      const items = this.collection.items;
+
+      return items.map(item =&gt; {
+        const itemResource = new this.itemClass(item.href, this.auth);
+        itemResource.collection = this.collection;
+        itemResource.item = item;
+
+        return itemResource;
+      });
+    }
+    return null;
+  }
+
+  /**
+   * Fetch the next resource page from the paginated REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getNextPage(timeout = 30000) {
+    return this._getNextOrPreviousPage(&apos;next&apos;, timeout);
+  }
+
+  /**
+   * Fetch the previous resource page from the paginated REST API.
+   *
+   * @param {*} timeout
+   * @return {*}
+   */
+  getPreviousPage(timeout = 30000) {
+    return this._getNextOrPreviousPage(&apos;previous&apos;, timeout);
+  }
+
+  /**
+   * Internal method to fetch the next or previous page from the paginated REST API.
+   *
+   * @param {*} linkRelation
+   * @param {*} timeout
+   * @return {*}
+   */
+  _getNextOrPreviousPage(linkRelation, timeout = 30000) {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
+
+      if (urls.length) {
+        const searchParams = new URL(urls[0]).searchParams;
+        const params = {};
+        let urlHasSearchParams = false;
+
+        for (let pair of searchParams.entries()) {
+          params[pair[0]] = pair[1];
+          if (pair[0] !== &apos;offset&apos; &amp;&amp; pair[0] !== &apos;limit&apos;) {
+            urlHasSearchParams = true;
+          }
+        }
+
+        if (urlHasSearchParams) {
+          return this.getSearch(params, timeout);
+        }
+        if (params.offset || params.limit) {
+          return this.get(params, timeout);
+        }
+        return this.get(null, timeout);
+      }
+    }
+    this.collection = null;
+    this.searchParams = null;
+    return Promise.resolve(this);
+  }
+
+  /**
+   * Internal method to fetch a related resource from the REST API referenced by
+   * a link relation in the collection object.
+   *
+   * @param {*} linkRelation
+   * @param {*} ResourceClass
+   * @param {*} params
+   * @param {*} timeout
+   * @return {*}
+   */
+  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
+    if (this.collection) {
+      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
+
+      if (urls.length) {
+        const resourceUrl = urls[0];
+        const resourceObj = new ResourceClass(resourceUrl, this.auth);
+
+        return resourceObj.get(params, timeout);
+      } else {
+        const errMsg = &apos;Missing &quot;&apos; + linkRelation + &apos;&quot; link relation!&apos;;
+        throw new RequestException(errMsg);
+      }
+    }
+    throw new RequestException(&apos;Collection object has not been set!&apos;);
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
