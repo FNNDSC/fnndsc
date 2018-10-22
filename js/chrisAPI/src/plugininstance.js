@@ -10,11 +10,6 @@ import { FeedFileList } from './feedfile';
  *
  * @module plugininstance
  */
-// solve circular dependency between PluginInstance and PluginInstanceList
-let PluginInstanceList;
-// solve circular dependency between PluginInstance and PluginInstanceParameterList
-let PluginInstanceParameterList;
-
 export class PluginInstance extends ItemResource {
   /**
    * Constructor
@@ -122,7 +117,7 @@ export class PluginInstance extends ItemResource {
   }
 }
 
-PluginInstanceList = class extends ListResource {
+export class PluginInstanceList extends ListResource {
   /**
    * Constructor
    *
@@ -146,9 +141,7 @@ PluginInstanceList = class extends ListResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
-};
-
-export { PluginInstanceList };
+}
 
 export class PluginInstanceParameter extends ItemResource {
   /**
@@ -189,7 +182,7 @@ export class PluginInstanceParameter extends ItemResource {
   }
 }
 
-PluginInstanceParameterList = class extends ListResource {
+export class PluginInstanceParameterList extends ListResource {
   /**
    * Constructor
    *
@@ -200,6 +193,4 @@ PluginInstanceParameterList = class extends ListResource {
     super(url, auth);
     this.itemClass = PluginInstanceParameter;
   }
-};
-
-export { PluginInstanceParameterList };
+}
