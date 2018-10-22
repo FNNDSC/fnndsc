@@ -37,7 +37,7 @@ resp
 
 
 // retrieve a user auth token
-resp = Client.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
+resp = Client.getAuthToken(authUrl, 'cube', 'cube1234');
 resp
   .then(token => {
 
@@ -54,22 +54,22 @@ resp
 The ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance
 of a Javascript class that inherits from either of two base classes:
 
-ItemResource (an object containing a reference to an individual item in a collection of resource items)
-ListResource (an object modeling a collection of resource items)
+* ``ItemResource`` (an object containing a reference to an individual item in a collection of resource items)
+* ``ListResource`` (an object modeling a collection of resource items)
 
 These model the two general type of REST API resources available from a ChRIS server.
 
 In addition to methods and properties provided by these base classes every resource object returned by
-the client API contains additional methods to fetch its associated resources (either an item or a list resource)
+the client API contains additional methods to fetch its associated resources (item or list resources)
 from the ChRIS REST API. It can also contain ``get``, ``post``, ``put`` and ``delete`` methods as allowed by
-the REST API. In particular every object has a ``get`` method that updates the state of the object
+the REST API. In particular every object has a ``get`` method that updates the internal state of the object
 with the new data fetched from the ChRIS server. A `clone` method is provided to cover the case when a reference
 to the previous object state is desired. This method returns a new instance of the same class as the cloned object.
 
 All methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource
 object as an argument to the fulfillment callback.
 
-All resources can be fetched from the REST API from the initial `FeedList` instance object returned by the client
+All resources can be fetched from the REST API starting the initial `FeedList` instance object returned by the client
 as in the following examples:
 
 ``` javascript
@@ -105,16 +105,16 @@ resp
         window.console.log('Plugin list resource object: ', pluginListObj);
       })
 
-      // fetch the next page of feeds from the REST API
-      feedListObjClone = feedListObj.clone(); // if desired save the object's current state in another object
-      if (feedListObj.hasNextPage) {
-        const result2 = feedListObj.getNextPage();
-        result2
-        .then(feedListObj => {
+    // fetch the next page of feeds from the REST API
+    feedListObjClone = feedListObj.clone(); // if desired save the object's current state in another object
+    if (feedListObj.hasNextPage) {
+      const result2 = feedListObj.getNextPage();
+      result2
+      .then(feedListObj => {
 
-          window.console.log('Feed list resource object: ', feedListObj);
-        })
-      }
+        window.console.log('Feed list resource object: ', feedListObj);
+      })
+    }
   })
   .catch(error => {
 
@@ -122,7 +122,7 @@ resp
   });
 
 // the Client's runAsyncTask static method could alternatively be used to wait for promises in Javascript 6
-// for instance iterate over all pages of the list of 'fs' plugins available
+// for instance iterate over all pages of the list of available 'fs' plugins
 Client.runAsyncTask(function*() {
 
   feedListObj = yield client.getFeeds(); // wait here
@@ -140,19 +140,6 @@ Client.runAsyncTask(function*() {
     i++;
   }
 });
-
-// retrieve in a list a subset of the plugins in the store created by a specific user
-let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
-resp
-  .then(userPluginList => {
-
-    window.console.log('a subset of the plugins created by the user: ', userPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
 
 ```
 
@@ -186,6 +173,13 @@ Check that all the services are up:
 $> docker-compose ps
 ```
 
+#### Install [HTTPie](https://httpie.org/) REST API client and create a test feed by making the following POST request:
+
+```bash
+pip install httpie
+http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"./"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
+```
+
 ### JavaScript package manager prerequisite
 
 * yarn
@@ -216,4 +210,10 @@ Compile library to standalone bundle
 
 ``` bash
 $> yarn build
+```
+
+Generate source code documentation
+
+``` bash
+$> yarn docs
 ```
