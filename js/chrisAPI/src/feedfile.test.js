@@ -19,7 +19,11 @@ describe('Resource', () => {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
-          feedFileListRes = yield feedListRes.getItems()[0].getFiles();
+          // get the files for feed with id 1
+          const feed = feedListRes.getItems().filter(item => {
+            return item.data.id === 1;
+          })[0];
+          feedFileListRes = yield feed.getFiles();
         } catch (ex) {
           reject(ex);
           return;
