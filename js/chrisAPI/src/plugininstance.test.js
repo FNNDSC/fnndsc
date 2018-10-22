@@ -41,7 +41,13 @@ describe('Resource', () => {
     let pluginInst;
 
     beforeEach(() => {
-      pluginInst = pluginInstanceListRes.getItems()[0].clone();
+      // get the plugin instance with id 1
+      pluginInst = pluginInstanceListRes
+        .getItems()
+        .filter(item => {
+          return item.data.id === 1;
+        })[0]
+        .clone();
     });
 
     it('can fetch the feed created by this plugin instance from the REST API', done => {
