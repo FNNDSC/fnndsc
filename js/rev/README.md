@@ -83,6 +83,19 @@ rm -rf bower_components && \
 bower update
 ```
 
+### Install moment.js
+
+Install `moment.js`
+
+```bash
+bower install moment --save
+```
+or
+```bash
+npm install moment --save
+```
+
+
 ### Install polymer-cli
 
 Install `polymer-cli` 
@@ -91,7 +104,51 @@ Install `polymer-cli`
 npm install -g polymer-cli
 ```
 
+## Data handling and running the server
+
+### Get your datas
+
+Put your data in `/var/www/html/rev/src/fnndsc/js/rev`, the folder of your data should be call `library-anon`. 
+
+NOTE : If you want to have a different name of folder you have to modify the `demoPrefix` in `src/rev-app.html`
+
+### Tree structure
+
+The tree stucture is `year > month > examples > series`
+
+In consequence, your data should be names as `/var/www/html/rev/src/fnndsc/js/rev/library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
+
+### Process your datas
+
+To work, the viewer need somes JSON files. Thoses will be create by `pfdicom_rev`. 
+Install it with: https://github.com/FNNDSC/pfdicom_rev
+
+When everything is set just do this command in `.../pfdicom_rev/bin`:
+
+```bash
+./pfdicom_rev -I /var/www/html/rev/src/fnndsc/js/rev/library-anon/ -e dcm -O %inputDir -v 3 --printElapsedTime --server http://XXXXXXXX.XXX:XXXX
+```
+NOTE: BE CAREFUL, you need to change the server in the command. As an example a server name would be : http://centurion.tch.harvard.edu:8060
+
+NOTE2: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
+```bash
+const testURL = `${this.demoPrefix}/${target}/description.json`
+```
+
+### Launch the viewer
+
+To launch the viewer go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
+```bash
+polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
+```
+NOTE: Keep in mind the port should be the same as the one you defined in the pfdicom_rev command
+
+Congrat's, you should have a viewer running at the address you defined! 
+
+
 # Development and Modification
+
+!!! THIS PART IS OUT OF DATE !!! 
 
 ## Directory of files
 
@@ -128,6 +185,8 @@ polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
 
 # Deploy
 
+!!! THIS PART IS OUT OF DATE !!! 
+
 ```bash
 mkdir -p /var/www/html/rev/viewer
 ```
@@ -144,9 +203,6 @@ You may have to add/link the directory containing the normative data there.
 in `src/rev-app.html`:
 
 ```javascript
-pathFromRadstar(birthDate, scanDate) {
-  return `${birthDate}/${scanDate}/`
-}
 pathFromHome(year, month, example) {
   return `${year}/${month}/${example}/`;
 }
@@ -164,26 +220,6 @@ For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:
 
 ## Add new data
 
-### Tree structure
-`year > month > patient / examples > series`
-
-### Generate JSON description for the patient
-
-To fetch data, a script generate a JSON file that discribe the series. This file is call `demo.json`
-
-The script is located in : `js/rev/scripts/dcmpreview.py`
-
-It requires pypx, pydicom, dcmtk, imagemagick
-
-Either you run it for one serie :
-```
- python3 dcmpreview.py -d year/month/example/series/
-```
-
-or for one study :
-```
- python3 dcmpreview.py -d year/month/example/ --study
-```
 
 ### Add it in the lookup list
 

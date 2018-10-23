@@ -33,279 +33,344 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="rev-app">
   <template>
     <style>
-      :host {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
+    :host {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
 
-      app-header {
-        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-        box-sizing: border-box;  
-        color: #fff;
-        background-color: var(--dark-primary-color);
-        font-weight: lighter;
-        border-bottom: 1px solid var(--divider-color);
-      }
+    app-header {
+      -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+      box-sizing: border-box;  
+      color: #fff;
+      background-color: var(--dark-primary-color);
+      font-weight: lighter;
+      border-bottom: 1px solid var(--divider-color);
+    }
 
-      /* hide header if we enter fullscreen mode */
-      app-header-layout:-webkit-full-screen-ancestor:not(iframe) app-header {
-        z-index: -1 !important;
-      }
+    /* hide header if we enter fullscreen mode */
+    app-header-layout:-webkit-full-screen-ancestor:not(iframe) app-header {
+      z-index: -1 !important;
+    }
 
-      iron-pages {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        background-color: var(--dark-primary-color);
-        overflow: hidden;
-      }
+    iron-pages {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background-color: var(--dark-primary-color);
+      overflow: hidden;
+    }
 
-      .toolbar-login-actions {
-        display: flex;
-      }
+    .toolbar-login-actions {
+      display: flex;
+    }
 
-      app-toolbar {
-        height: 48px;
-        font-size: 18px;
-      }
+    app-toolbar {
+      height: 48px;
+      font-size: 18px;
+    }
 
-      app-toolbar paper-button {
-        font-size: 14px;
-      }
+    app-toolbar paper-button {
+      font-size: 14px;
+    }
 
-      paper-tabs {
-        --paper-tabs-selection-bar-color: var(--accent-color);
-      }
+    paper-tabs {
+      --paper-tabs-selection-bar-color: var(--accent-color);
+    }
 
-      wc-periodic-logo {
-        margin-right: 8px;
-        --accent-color: #2196f3;
-      }
+    wc-periodic-logo {
+      margin-right: 8px;
+      --accent-color: #2196f3;
+    }
 
-      .titleBox {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
+    .titleBox {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-      .title {
-        font-size: 16px;
-      }
+    .title {
+      font-size: 16px;
+    }
 
-      .subtitle {
-        font-size: 12px;
-        line-height: 12px;
-        color: var(--accent-color);
-      }
+    .subtitle {
+      font-size: 12px;
+      line-height: 12px;
+      color: var(--accent-color);
+    }
 
-      [hidden] {
-        display: none;
-      }
-    </style>
+    [hidden] {
+      display: none;
+    }
+  </style>
 
-    <app-location route="{{route}}"></app-location>
-    <app-route
-        route="{{route}}"
-        pattern="[[rootPattern]]:page"
-        data="{{routeData}}"></app-route>
-    </app-route>
+  <app-location route="{{route}}"></app-location>
+  <app-route
+  route="{{route}}"
+  pattern="[[rootPattern]]:page"
+  data="{{routeData}}"></app-route>
+</app-route>
 
-    <!-- Main content -->
-    <app-header-layout has-scrolling-region>
+<!-- Main content -->
+<app-header-layout has-scrolling-region>
 
-      <app-header slot="header" condenses reveals effects="waterfall">
-        <app-toolbar>
-          <div style="flex: 1;">
-            <div style="display: flex;">
-              <wc-periodic-logo
-                element="[[shortname]]"
-                number="[[version]]"
-                size="small">
-              </wc-periodic-logo>
-              <div class="titleBox">
-                <div class="title">[[fullname]]</div>
-                <div class="subtitle">developed with clinicians and researchers at Boston Children's Hospital</div>
-              </div>
-            </div>
-          </div>
-        </app-toolbar>
-      </app-header>
+  <app-header slot="header" condenses reveals effects="waterfall">
+    <app-toolbar>
+      <div style="flex: 1;">
+        <div style="display: flex;">
+          <wc-periodic-logo
+          element="[[shortname]]"
+          number="[[version]]"
+          size="small">
+        </wc-periodic-logo>
+        <div class="titleBox">
+          <div class="title">[[fullname]]</div>
+          <div class="subtitle">developed with clinicians and researchers at Boston Children's Hospital</div>
+        </div>
+      </div>
+    </div>
+  </app-toolbar>
+</app-header>
 
-      <iron-pages
-          selected="[[page]]"
-          attr-for-selected="name"
-          fallback-selection="view404"
-          role="main">
-        <rev-viewer
-          id="library"
-          name="viewer"
-          layout="[[layout]]"
-          current-layout="[[currentLayout]]"
-          previous-instance="[[pluginBch]]"
-          data-bch="[[data]]"
-          data-status-bch="[[dataStatus]]"
-          data-ge="[[dataGE]]"
-          data-status-ge="[[dataGEStatus]]"
-          ge-link="[[geLink]]"
-          server-ip="[[serverIp]]"
-          server-port="[[serverPort]]"
-          on-open-dialog="handleOpenDialog"></rev-viewer>
-        <rev-view404
-          name="view404"></rev-view404>
-      </iron-pages>
-    </app-header-layout>
+<iron-pages
+selected="[[page]]"
+attr-for-selected="name"
+fallback-selection="view404"
+role="main">
+<rev-viewer
+id="library"
+name="viewer"
+layout="[[layout]]"
+current-layout="[[currentLayout]]"
+previous-instance="[[pluginBch]]"
+data-bch="[[data]]"
+data-status-bch="[[dataStatus]]"
+data-ge="[[dataGE]]"
+data-status-ge="[[dataGEStatus]]"
+ge-link="[[geLink]]"
+server-ip="[[serverIp]]"
+server-port="[[serverPort]]"
+on-open-dialog="handleOpenDialog"></rev-viewer>
+<rev-view404
+name="view404"></rev-view404>
+</iron-pages>
+</app-header-layout>
 
-  </template>
+</template>
+<script src="../bower_components/moment/moment.js"></script>
+<script>
+  class RevApp extends Polymer.GestureEventListeners(Polymer.Element) {
 
-  <script>
-    class RevApp extends Polymer.GestureEventListeners(Polymer.Element) {
+    static get is() {
+      return 'rev-app';
+    }
 
-      static get is() {
-        return 'rev-app';
-      }
+    static get properties() {
+      return {
+        fullname: {
+          type: String,
+          value: 'Re viewer',
+        },
+        shortname: {
+          type: String,
+          value: 'Rv',
+        },
+        version: {
+          type: String,
+          value: '1',
+        },
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged',
+        },
+        rootPattern: String,
+        routeData: Object,
+        demoPrefix: {
+          type: String,
+          value: 'library-anon',
+        },
+        layout: {
+          type: Number,
+          value: 0,
+        },
+        currentLayout: {
+          type: Array,
+          value: [],
+        },
+      };
+    }
 
-      static get properties() {
-        const urlSearchParameters = new URLSearchParams(document.location.search);
-        const yr=urlSearchParameters.get('yr');
-        console.log("yrrrr = " + yr);
-        return {
-          fullname: {
-            type: String,
-            value: 'Re viewer',
-          },
-          shortname: {
-            type: String,
-            value: 'Rv',
-          },
-          version: {
-            type: String,
-            value: '1',
-          },
-          page: {
-            type: String,
-            reflectToAttribute: true,
-            observer: '_pageChanged',
-          },
-          rootPattern: String,
-          routeData: Object,
-          demoPrefix: {
-            type: String,
-            value: 'library-anon/'+yr+'-yr',
-          },
-          layout: {
-            type: Number,
-            value: 0,
-          },
-          currentLayout: {
-            type: Array,
-            value: [],
-          },
-        };
-      }
+    static get observers() {
+      return [
+      '_routePathChanged(route.path)',
+      ];
+    }
 
-      static get observers() {
-        return [
-          '_routePathChanged(route.path)',
-        ];
-      }
-
-      constructor() {
-        super();
+    constructor() {
+      super();
 
         // Get root pattern for app-route, for more info about `rootPath` see:
         // https://www.polymer-project.org/2.0/docs/upgrade#urls-in-templates
         this.rootPattern = (new URL(this.rootPath)).pathname;
       }
 
-      _routePathChanged(path) {
-        // Polymer 2.0 will call with `undefined` on initialization.
-        // Ignore until we are properly called with a string.
-        if (this.routeData.page === undefined) {
-          return;
-        }
+    _routePathChanged(path) {
+      // Polymer 2.0 will call with `undefined` on initialization.
+      // Ignore until we are properly called with a string.
+      if (this.routeData.page === undefined) {
+        return;
+      }
 
-        // If no page was found in the route data, page will be an empty string.
-        this.page = this.routeData.page || 'viewer';
+      // If no page was found in the route data, page will be an empty string.
+      this.page = this.routeData.page || 'viewer';
+      
+      //Getting parameters in either mode
+      var urlSearchParameters = new URLSearchParams(document.location.search);
+      // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
+      var patientBirthDate = urlSearchParameters.get('patientbirthdate');
+      var scanDate = urlSearchParameters.get('scandate');
+      // http://centurion.tch.harvard.edu:8060/?year=00&month=03&example=02
+      var year = urlSearchParameters.get('year');
+      var month = urlSearchParameters.get('month');
+      var example = urlSearchParameters.get('example');
+      var mode = 0;
+      //Mode definition
+      if (patientBirthDate && scanDate && example)
+        mode = 1;
+      if (year && month && example)
+        mode = 2;
 
-        const urlSearchParameters = new URLSearchParams(document.location.search);
-        // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
-        const patientBirthDate = urlSearchParameters.get('patientbirthdate');
-        const scanDate = urlSearchParameters.get('scandate');
-
-        // http://centurion.tch.harvard.edu:8060/?yr=00&mo=03&ex=02
-        const year = urlSearchParameters.get('yr');
-        const month = urlSearchParameters.get('mo');
-        const example = urlSearchParameters.get('ex');
-
+      //Building map URL and getting data
+      const mapURL = `${this.demoPrefix}/map.json`
+      fetch(mapURL)
+      .then((response) => {
+        return response.json();
+      })
+      .then((myJson) => {
+        //Handeling data to have YRMOEX in an array
+        var map = myJson.data;
+        map = JSON.stringify(map);
+        map = map.replace(/[\.\-\/]|[a-z]|"/g,"");
+        map = map.split(",");
+        var result;
+        var date;
         let target = '';
-        if (patientBirthDate && scanDate) {
-          target = this.pathFromRadstar(patientBirthDate, scanDate);
-        } else if (year && month && example) {
-          target = this.pathFromHome(year, month, example);
-          console.log("target = " + target);
-        }
-        
-        // hard code for now
-        //target = 'normatives/6^MONTHS';
 
+        //Case PatientDate
+        if (mode == 1) {
+          //Using Moment.js to have YRMOEX from patientBirthDate and ScanDate
+          patientBirthDate = moment(patientBirthDate, 'YYYYMMDD');
+          scanDate = moment(scanDate, 'YYYYMMDD');
+          var age = scanDate.diff(patientBirthDate, 'years', true);
+          year = Math.trunc(age);
+          month = Math.round(moment.duration((age - Math.trunc(age)),'years').asMonths());
+          if (year < 10)
+            year = '0' + year.toString();
+          if (month < 10)
+            month = '0' + month.toString();
+        } 
+        
+        //Comparing our date to the map of date to get the closest result
+        date = year + month + example;
+        result = this.mapCheck(map, date);
+        //Run another time to compare if the example we want exist in the closest result
+        date = result[0]+result[1]+result[2]+result[3]+example[0]+example[1];
+        result = this.mapCheck(map, date);
+        year = result[0]+result[1];
+        month = result[2]+result[3];
+
+        //case YRMOEX
+        if (mode == 2) {
+          //in case the input are not in map.json we update the parameters to the closest match 
+          //if not, this does nothing
+          urlSearchParameters.set('year', year);
+          urlSearchParameters.set('month', month);
+          window.history.replaceState({}, '', `${window.location.pathname}?${urlSearchParameters}`);
+        }
+
+        //If the example does not exist, we redirect to H5AI to get the list of examples
+        if (example != result[4]+result[5]){
+          this.redirectionToH5AI(year, month)
+        }
+
+        //If the example exist we get the target to the right description.json directory
+        target = this.pathFromHome(year, month, example);
+        
         // fetch target...
-        const testURL = `library-anon/${target}/description.json`
-        console.log("testURL = " + testURL);
+        const testURL = `${this.demoPrefix}/${target}/description.json`
         fetch(testURL)
         .then((response) => {
           return response.json();
         })
         .then((myJson) => {
-        const data = myJson.data;
-        this.dataGE = data;
-        this.addDemoPrefixTo(this.dataGE);
-        this.dataGEStatus = 'ready';
-        this.set('currentLayout', [data[1].uid.value, data[2].uid.value, data[3].uid.value]);
-        this.layout = 5;
-        this.loaded = true;
-        });
-      }
+          const data = myJson.data;
+          this.dataGE = data;
+          this.addDemoPrefixTo(this.dataGE);
+          this.dataGEStatus = 'ready';
+          this.set('currentLayout', [data[0].uid.value, data[1].uid.value, data[2].uid.value]);
+          this.layout = 5;
+          this.loaded = true;
+        })
+      });
+    }
 
-      pathFromRadstar(birthDate, scanDate) {
-        return `${birthDate}/${scanDate}/`
-      }
+    pathFromHome(year, month, example) {
+      return `${year}-yr/${month}-mo/${example}-ex`;
+    }
 
-      pathFromHome(year, month, example) {
-        return `${year}-yr/${month}-mo/ex-${example}`;
-      }
-
-      _pageChanged(page) {
-        // Load page import on demand. Show 404 page if fails
-        const resolvedPageUrl = this.resolveUrl('rev-' + page + '.html');
-        Polymer.importHref(
-          resolvedPageUrl,
-          null,
-          this._showPage404.bind(this),
-          true
-        );
-      }
-
-      _showPage404() {
-        this.page = 'view404';
-      }
-
-      addDemoPrefixTo(demoDatasets) {
-        for (let i=0; i<demoDatasets.length; i++) {
-          const demoDataset = demoDatasets[i];
-          demoDataset.details.series.preview.url =
-            this.demoPrefix + '/' + demoDataset.details.series.preview.url;
-          demoDataset.details.series.preview.blob = null;
-          const data = demoDataset.details.series.data.map((v) => {
-            return this.demoPrefix + '/' + v;
-          });
-          demoDataset.details.series.data = data;
+    mapCheck(map, date){
+      //this function run through the list of examples and fine the closest match to date
+      var i;
+      var tmp = 10000000;
+      var result;
+      for(i = 0; i < map.length; i++){
+        if (Math.abs(map[i] - date) < tmp){
+          tmp = Math.abs(map[i] - date);
+          result = map[i];
         }
       }
+      return result;
     }
+
+    redirectionToH5AI(year, month){
+      //this function redirect to the list of example for a given year and month
+      var target = window.location.href.split(':')[0]+':'+window.location.href.split(':')[1]+'/rev/viewer/'+this.demoPrefix+'/'+year+'-yr/'+month+'-mo/'; 
+            window.location.replace(target);
+    }
+
+    _pageChanged(page) {
+      // Load page import on demand. Show 404 page if fails
+      const resolvedPageUrl = this.resolveUrl('rev-' + page + '.html');
+      Polymer.importHref(
+        resolvedPageUrl,
+        null,
+        this._showPage404.bind(this),
+        true
+        );
+    }
+
+    _showPage404() {
+      this.page = 'view404';
+    }
+
+    addDemoPrefixTo(demoDatasets) {
+      for (let i=0; i<demoDatasets.length; i++) {
+        const demoDataset = demoDatasets[i];
+        demoDataset.details.series.preview.url =
+        this.demoPrefix + '/' + demoDataset.details.series.preview.url;
+        demoDataset.details.series.preview.blob = null;
+        const data = demoDataset.details.series.data.map((v) => {
+          return this.demoPrefix + '/' + v;
+        });
+
+        demoDataset.details.series.data = data;
+      }
+    }
+  }
 
     window.customElements.define(RevApp.is, RevApp);
   </script>
