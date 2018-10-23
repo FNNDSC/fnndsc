@@ -52,14 +52,14 @@ These model the two general type of REST API resources available from a ChRIS se
 In addition to methods and properties provided by these base classes every resource object returned by
 the client API contains additional methods to fetch its associated resources (item or list resources)
 from the ChRIS REST API. It can also contain ``get``, ``post``, ``put`` and ``delete`` methods as allowed by
-the REST API. In particular every object has a ``get`` method that updates the internal state of the object
+the REST API. In particular every object inherits a ``get`` method that updates the internal state of the object
 with the new data fetched from the ChRIS server. A `clone` method is provided to cover the case when a reference
 to the previous object state is desired. This method returns a new instance of the same class as the cloned object.
 
 All methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource
 object as an argument to the fulfillment callback.
 
-All resources can be fetched from the REST API starting the initial `FeedList` instance object returned by the client
+All resources can be fetched from the REST API starting with the initial `FeedList` instance returned by the client
 as in the following examples:
 
 ``` javascript
@@ -75,7 +75,9 @@ let feedListObjClone;
 
 resp = client.getFeeds(params);
 resp
-  .then(feedListObj => {
+  .then(list => {
+
+    feedListObj = list;
 
     window.console.log('Feed list resource object: ', feedListObj);
 
@@ -87,50 +89,63 @@ resp
         window.console.log(feed.data);
     }
 
-    // fetch a list of available ChRIS plugins from the REST API
-    const result1 = feedListObj.getPlugins(params);
-    result1
-      .then(pluginListObj => {
-
-        window.console.log('Plugin list resource object: ', pluginListObj);
-      })
-
     // fetch the next page of feeds from the REST API
-    feedListObjClone = feedListObj.clone(); // if desired save the object's current state in another object
+    feedListObjClone = feedListObj.clone(); // the current object's state can be saved in another copy object if desired
     if (feedListObj.hasNextPage) {
-      const result2 = feedListObj.getNextPage();
-      result2
+      const result1 = feedListObj.getNextPage();
+      result1
       .then(feedListObj => {
 
         window.console.log('Feed list resource object: ', feedListObj);
-      })
+      });
     }
+
+    // fetch a list of available ChRIS plugins from the REST API
+    const result2 = feedListObj.getPlugins(params);
+    result2
+      .then(pluginListObj => {
+
+        window.console.log('Plugin list resource object: ', pluginListObj);
+      });
   })
   .catch(error => {
 
     window.console.log('Error!!!: ', error);
   });
 
-// the Client's runAsyncTask static method could alternatively be used to wait for promises in Javascript 6
+// for convenience the Client class provides a runAsyncTask static method that could alternatively be used to wait for promises in Javascript 6
 // for instance iterate over all pages of the list of available 'fs' plugins
 Client.runAsyncTask(function*() {
 
-  feedListObj = yield client.getFeeds(); // wait here
-  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // this is to just fetch an initial PluginList resource obj
+  feedListObj = yield client.getFeeds({limit: 1}); // wait here (fetch the FeedList resource obj which corresponds to the API home page)
+  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // wait here (fetch an initial PluginList resource obj)
 
   const searchParams = { type: 'fs'};
-  // const searchParams = {limit: 10, offset:0, type: 'fs'}; if you want to override default REST API page size
-  pluginListObj = pluginListObj.getSearch(searchParams);
+  // const searchParams = {limit: 5, offset:0, type: 'fs'}; if you want to override default REST API page size
+  pluginListObj = yield pluginListObj.getSearch(searchParams); // wait here
+
   window.console.log('Page 1 of Plugin fs list resource object: ', pluginListObj);
 
   let i = 2;
   while (pluginListObj.hasNextPage) {
-    pluginListObj = pluginListObj.getNextPage();
+    pluginListObj = yield pluginListObj.getNextPage(); // wait here
+
     window.console.log('Page ' + i + ' of Plugin fs list resource object: ', pluginListObj);
     i++;
   }
 });
 
+// the get method of a list resource obj can be used to fetch any arbitrary page from the paginated REST API
+resp = feedListObj.get({ limit: 10, offset: 10 });
+resp
+  .then(feedListObj => {
+
+    window.console.log('Feed list resource object: ', feedListObj);
+  })
+  .catch(error => {
+
+    window.console.log('Error!!!: ', error);
+  });
 ```
 
 ## API reference

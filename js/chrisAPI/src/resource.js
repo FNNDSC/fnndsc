@@ -4,28 +4,37 @@ import Request from './request';
 import RequestException from './exception';
 
 /**
- * API abstract resource objects.
- *
- * @module resource
+ * API abstract resource class.
  */
 class Resource {
   /**
    * Constructor
    *
-   * @param {*} resourceUrl
-   * @param {*} auth
+   * @param {string} resourceUrl - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(resourceUrl, auth) {
+    /** @type {string} */
     this.url = resourceUrl;
+
+    if (!auth) {
+      throw new RequestException('Authentication object is required');
+    }
+    /** @type {Object} */
     this.auth = auth;
+
+    /** @type {string} */
     this.contentType = 'application/vnd.collection+json';
+
+    /** @type {?Object} */
     this.collection = null; // Collection+JSON collection obj
   }
 
   /**
    * Make a deep copy clone of this object resource.
    *
-   * @return {*}
+   * @return {Object} - clone object
    */
   clone() {
     const cloneObj = Object.create(Object.getPrototypeOf(this));
@@ -41,24 +50,29 @@ class Resource {
   }
 }
 
+/**
+ * API abstract item resource class.
+ */
 export class ItemResource extends Resource {
   /**
    * Constructor
    *
-   * @param {*} itemUrl
-   * @param {*} auth
+   * @param {string} itemUrl - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(itemUrl, auth) {
     super(itemUrl, auth);
 
+    /** @type {?Object} */
     this.item = null; // Collection+JSON item obj
   }
 
   /**
    * Fetch this item resource from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   get(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -86,7 +100,7 @@ export class ItemResource extends Resource {
   /**
    * Get the item's data descriptors
    *
-   * @return {*}
+   * @return {?Object} - data object
    */
   get data() {
     if (this.item) {
@@ -98,7 +112,7 @@ export class ItemResource extends Resource {
   /**
    * Return true if the item resource object contains any item data.
    *
-   * @return {*}
+   * @return {boolean}
    */
   get isEmpty() {
     if (this.item) {
@@ -135,18 +149,27 @@ export class ItemResource extends Resource {
   }
 }
 
+/**
+ * API abstract list resource class.
+ */
 export class ListResource extends Resource {
   /**
    * Constructor
    *
-   * @param {*} listUrl
-   * @param {*} auth
+   * @param {string} listUrl - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(listUrl, auth) {
     super(listUrl, auth);
 
+    /** @type {string} */
     this.queryUrl = '';
+
+    /** @type {?Object} */
     this.searchParams = null;
+
+    /** @type {Object} */
     this.itemClass = ItemResource;
   }
 
@@ -154,9 +177,11 @@ export class ListResource extends Resource {
    * Fetch this list resource from the REST API using limit and offset as optional
    * parameters.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   get(params = null, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -199,9 +224,9 @@ export class ListResource extends Resource {
   /**
    * Fetch this list resource from the REST API based on search parameters.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} params
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getSearch(params, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -231,7 +256,7 @@ export class ListResource extends Resource {
   /**
    * Return true if the list resource object contains any item data.
    *
-   * @return {*}
+   * @return {boolean}
    */
   get isEmpty() {
     if (this.collection && this.collection.items.length) {
@@ -244,7 +269,7 @@ export class ListResource extends Resource {
    * Return true if the list resource object has a next list page in the
    * paginated REST API.
    *
-   * @return {*}
+   * @return {boolean}
    */
   get hasNextPage() {
     if (this.collection) {
@@ -260,7 +285,7 @@ export class ListResource extends Resource {
    * Return true if the list resource object has a previous list page in the
    * paginated REST API.
    *
-   * @return {*}
+   * @return {boolean}
    */
   get hasPreviousPage() {
     if (this.collection) {
@@ -296,8 +321,8 @@ export class ListResource extends Resource {
   /**
    * Fetch the next resource page from the paginated REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getNextPage(timeout = 30000) {
     return this._getNextOrPreviousPage('next', timeout);
@@ -306,8 +331,8 @@ export class ListResource extends Resource {
   /**
    * Fetch the previous resource page from the paginated REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPreviousPage(timeout = 30000) {
     return this._getNextOrPreviousPage('previous', timeout);
@@ -316,9 +341,9 @@ export class ListResource extends Resource {
   /**
    * Internal method to fetch the next or previous page from the paginated REST API.
    *
-   * @param {*} linkRelation
-   * @param {*} timeout
-   * @return {*}
+   * @param {string} linkRelation - either the string 'previous' or 'next'
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   _getNextOrPreviousPage(linkRelation, timeout = 30000) {
     if (this.collection) {

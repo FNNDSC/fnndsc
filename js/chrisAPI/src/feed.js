@@ -10,16 +10,15 @@ import { FeedFileList } from './feedfile';
 import { PluginInstance } from './plugininstance';
 
 /**
- * API feed objects.
- *
- * @module feed
+ * Feed item resource object.
  */
 export class Feed extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -28,8 +27,8 @@ export class Feed extends ItemResource {
   /**
    * Fetch the note associated to this feed from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getNote(timeout = 30000) {
     const linkRelation = 'note';
@@ -41,9 +40,11 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of tags associated to this feed from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getTags(params = null, timeout = 30000) {
     const linkRelation = 'tags';
@@ -55,9 +56,11 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of comments associated to this feed from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getComments(params = null, timeout = 30000) {
     const linkRelation = 'comments';
@@ -69,9 +72,11 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of files associated to this feed from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFiles(params = null, timeout = 30000) {
     const linkRelation = 'files';
@@ -83,8 +88,8 @@ export class Feed extends ItemResource {
   /**
    * Fetch the plugin instance that created this feed from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = 'plugin_inst';
@@ -94,23 +99,28 @@ export class Feed extends ItemResource {
   }
 }
 
+/**
+ * FeedList list resource object.
+ */
 export class FeedList extends ListResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
+    /** @type {Object} */
     this.itemClass = Feed;
   }
 
   /**
    * Fetch currently authenticated user's information from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getUser(timeout = 30000) {
     const linkRelation = 'user';
@@ -122,9 +132,11 @@ export class FeedList extends ListResource {
   /**
    * Fetch a list of plugins from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPlugins(params = null, timeout = 30000) {
     const linkRelation = 'plugins';
@@ -136,9 +148,11 @@ export class FeedList extends ListResource {
   /**
    * Fetch a list of tags from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getTags(params = null, timeout = 30000) {
     const linkRelation = 'tags';
@@ -150,9 +164,11 @@ export class FeedList extends ListResource {
   /**
    * Fetch a list of uploaded files from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getUploadedFiles(params = null, timeout = 30000) {
     const linkRelation = 'uploadedfiles';
