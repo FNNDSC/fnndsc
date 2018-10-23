@@ -254,8 +254,9 @@ name="view404"></rev-view404>
         //Handeling data to have YRMOEX in an array
         var map = myJson.data;
         map = JSON.stringify(map);
-        map = map.replace(/[\.\-\/]|[a-z]|"/g,"");
+        map = map.replace(/[^0-9,]+/g,"");
         map = map.split(",");
+        console.log("MAP =", map);
         var result;
         var date;
         let target = '';
