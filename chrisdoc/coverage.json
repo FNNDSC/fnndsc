@@ -65,11 +65,11 @@
       "expectCount": 19,
       "actualCount": 14,
       "undocumentLines": [
-        121,
-        130,
-        148,
-        188,
-        197
+        120,
+        129,
+        146,
+        185,
+        194
       ]
     },
     "src/pluginparameter.js": {

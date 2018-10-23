@@ -61,8 +61,9 @@
 </nav>
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="chris-api">ChRIS API</h1><p>JavaScript6 client for the ChRIS API.</p>
-<h2 id="usage">Usage</h2><p>If you have a ChRIS server up and running (eg. as explained below) then you can use and test the API in your Javascript code:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">const chrisUrl = &apos;http://localhost:8000/api/v1/&apos;;
+<h2 id="usage">Usage</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">import Client from &apos;@fnndsc/chrisapi&apos;;
+
+const chrisUrl = &apos;http://localhost:8000/api/v1/&apos;;
 const usersUrl = chrisUrl + &apos;users/&apos;;
 const authUrl = chrisUrl + &apos;auth-token/&apos;;
 let authToken;
@@ -182,6 +183,7 @@ Client.runAsyncTask(function*() {
 });
 </code>
 </code></pre>
+<h2 id="api-reference">API reference</h2><p>Please check the API reference links for more information.</p>
 </div>
 </div>
 
