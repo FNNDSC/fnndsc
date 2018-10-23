@@ -3,8 +3,6 @@ JavaScript6 client for the ChRIS API.
 
 ## Usage
 
-If you have a ChRIS server up and running then you can test the API in your Javascript code:
-
 ``` javascript
 import Client from '@fnndsc/chrisapi';
 
