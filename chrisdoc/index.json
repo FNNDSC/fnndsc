@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/cj.js",
-    "content": "/**\n * Collection+Json object.\n *\n * @module cj\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @return {*}\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation in a collection or item object.\n   *\n   * @param {*} obj\n   * @param {*} relationName\n   * @return {*}\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors) in an object.\n   *\n   * @param {*} item\n   * @return {*}\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the ur of the reprsentation in the collection obj.\n   *\n   * @return {*}\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the list of urls for a link relation in a collection or item object.\n   *\n   * @param {*} template\n   * @return {*}\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n}\n",
+    "content": "\n /**\n  * Collection+Json utility object.\n  */\nexport default class Collection {\n\n  /**\n   * Get the error message from the collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - error message\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation in a collection or item object.\n   *\n   * @param {Object} obj - Collection+Json collection or item object\n   * @param {string} relationName - name of the link relation\n   * @return {string[]} - list of urls\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors) in an object.\n   *\n   * @param {Object} item - Collection+Json item object\n   * @return {Object} - object whose properties and values are the item's descriptor names and values respectively\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the url of the representation in the collection obj.\n   *\n   * @param {Object} collection\n   * @return {string} url\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the list of descriptor names within a collection's template object.\n   *\n   * @param {Object} template\n   * @return {string[]} list of descriptor names\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/cj.js",
     "access": "public",
@@ -585,14 +585,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi/src/cj.js",
     "importStyle": "Collection",
-    "description": "Collection+Json object.",
-    "lineNumber": 6,
-    "unknown": [
-      {
-        "tagName": "@module",
-        "tagValue": "cj"
-      }
-    ],
+    "description": "Collection+Json utility object.",
+    "lineNumber": 5,
     "interface": false
   },
   {
@@ -606,23 +600,27 @@
     "longname": "src/cj.js~Collection.getErrorMessage",
     "access": "public",
     "description": "Get the error message from the collection object.",
-    "lineNumber": 12,
+    "lineNumber": 13,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collection",
+        "description": "Collection+Json collection object"
+      }
+    ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "string"
       ],
       "spread": false,
-      "description": ""
-    },
-    "params": [
-      {
-        "name": "collection",
-        "types": [
-          "*"
-        ]
-      }
-    ]
+      "description": "error message"
+    }
   },
   {
     "__docId__": 51,
@@ -635,36 +633,36 @@
     "longname": "src/cj.js~Collection.getLinkRelationUrls",
     "access": "public",
     "description": "Get the list of urls for a link relation in a collection or item object.",
-    "lineNumber": 26,
+    "lineNumber": 27,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "obj",
-        "description": ""
+        "description": "Collection+Json collection or item object"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "relationName",
-        "description": ""
+        "description": "name of the link relation"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "string[]"
       ],
       "spread": false,
-      "description": ""
+      "description": "list of urls"
     }
   },
   {
@@ -678,26 +676,26 @@
     "longname": "src/cj.js~Collection.getItemDescriptors",
     "access": "public",
     "description": "Get an item's data (descriptors) in an object.",
-    "lineNumber": 39,
+    "lineNumber": 40,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "item",
-        "description": ""
+        "description": "Collection+Json item object"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "object whose properties and values are the item's descriptor names and values respectively"
     }
   },
   {
@@ -710,24 +708,28 @@
     "static": true,
     "longname": "src/cj.js~Collection.getUrl",
     "access": "public",
-    "description": "Get the ur of the reprsentation in the collection obj.",
-    "lineNumber": 54,
+    "description": "Get the url of the representation in the collection obj.",
+    "lineNumber": 56,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collection",
+        "description": ""
+      }
+    ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "string"
       ],
       "spread": false,
-      "description": ""
-    },
-    "params": [
-      {
-        "name": "collection",
-        "types": [
-          "*"
-        ]
-      }
-    ]
+      "description": "url"
+    }
   },
   {
     "__docId__": 54,
@@ -739,13 +741,13 @@
     "static": true,
     "longname": "src/cj.js~Collection.getTemplateDescriptorNames",
     "access": "public",
-    "description": "Get the list of urls for a link relation in a collection or item object.",
-    "lineNumber": 64,
+    "description": "Get the list of descriptor names within a collection's template object.",
+    "lineNumber": 66,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
@@ -756,17 +758,17 @@
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "string[]"
       ],
       "spread": false,
-      "description": ""
+      "description": "list of descriptor names"
     }
   },
   {
     "__docId__": 55,
     "kind": "file",
     "name": "src/client.js",
-    "content": "/** * Imports ***/\nimport Request from './request';\nimport RequestException from './exception';\nimport User from './user';\nimport { FeedList } from './feed';\n\n/**\n * Chris client object.\n *\n * @module client\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    this.url = url;\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    this.auth = auth;\n  }\n\n  /**\n   * Fetch a list of currently authenticated user's feeds from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const feedList = new FeedList(this.url, this.auth);\n\n    return feedList.get(params, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {*} usersUrl\n   * @param {*} username\n   * @param {*} password\n   * @param {*} email\n   * @param {*} timeout\n   * @return {*}\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    const result = req.post(usersUrl, userData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          const coll = response.data.collection;\n          const userUrl = coll.items[0].href;\n          const auth = { username: username, password: password };\n\n          const user = new User(userUrl, auth);\n          user.collection = coll;\n          user.item = coll.items[0];\n\n          resolve(user);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {*} authUrl\n   * @param {*} username\n   * @param {*} password\n   * @param {*} timeout\n   *\n   * @return {*}\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    const result = req.post(authUrl, authData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.token);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {*} taskGenerator\n   * @return {*}\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport RequestException from './exception';\nimport User from './user';\nimport { FeedList } from './feed';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS service\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    /** @type {string} */\n    this.url = url;\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n  }\n\n  /**\n   * Fetch a list of currently authenticated user's feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const feedList = new FeedList(this.url, this.auth);\n\n    return feedList.get(params, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    const result = req.post(usersUrl, userData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          const coll = response.data.collection;\n          const userUrl = coll.items[0].href;\n          const auth = { username: username, password: password };\n\n          const user = new User(userUrl, auth);\n          user.collection = coll;\n          user.item = coll.items[0];\n\n          resolve(user);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - Promise object\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    const result = req.post(authUrl, authData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.token);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/client.js",
     "access": "public",
@@ -784,14 +786,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi/src/client.js",
     "importStyle": "Client",
-    "description": "Chris client object.",
-    "lineNumber": 12,
-    "unknown": [
-      {
-        "tagName": "@module",
-        "tagValue": "client"
-      }
-    ],
+    "description": "API client object.",
+    "lineNumber": 10,
     "interface": false
   },
   {
@@ -805,27 +801,37 @@
     "longname": "src/client.js~Client#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 19,
+    "lineNumber": 18,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "url",
-        "description": ""
+        "description": "url of the ChRIS service"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "auth",
-        "description": ""
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
       }
     ]
   },
@@ -839,11 +845,13 @@
     "access": "public",
     "description": null,
     "lineNumber": 20,
-    "undocument": true,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -855,12 +863,14 @@
     "longname": "src/client.js~Client#auth",
     "access": "public",
     "description": null,
-    "lineNumber": 24,
-    "undocument": true,
+    "lineNumber": 25,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -874,36 +884,60 @@
     "longname": "src/client.js~Client#getFeeds",
     "access": "public",
     "description": "Fetch a list of currently authenticated user's feeds from the REST API.",
-    "lineNumber": 34,
+    "lineNumber": 37,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -917,66 +951,68 @@
     "longname": "src/client.js~Client.createUser",
     "access": "public",
     "description": "Create a new user account.",
-    "lineNumber": 50,
+    "lineNumber": 53,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "usersUrl",
-        "description": ""
+        "description": "url of the user accounts service"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "username",
-        "description": ""
+        "description": "username"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "password",
-        "description": ""
+        "description": "password"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "email",
-        "description": ""
+        "description": "user email"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -990,56 +1026,58 @@
     "longname": "src/client.js~Client.getAuthToken",
     "access": "public",
     "description": "Fetch a user's login authorization token from the REST API.",
-    "lineNumber": 91,
+    "lineNumber": 94,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "authUrl",
-        "description": ""
+        "description": "url of the authorization service"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "username",
-        "description": ""
+        "description": "username"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "password",
-        "description": ""
+        "description": "password"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1053,27 +1091,20 @@
     "longname": "src/client.js~Client.runAsyncTask",
     "access": "public",
     "description": "Helper method to run an asynchronous task defined by a task generator function.",
-    "lineNumber": 116,
+    "lineNumber": 118,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "function*()"
         ],
         "spread": false,
         "optional": false,
         "name": "taskGenerator",
-        "description": ""
+        "description": "generator function"
       }
     ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "*"
-      ],
-      "spread": false,
-      "description": ""
-    }
+    "return": null
   },
   {
     "__docId__": 64,
@@ -1352,7 +1383,7 @@
     "__docId__": 76,
     "kind": "file",
     "name": "src/feed.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport User from './user';\nimport { PluginList } from './plugin';\nimport { UploadedFileList } from './uploadedfile';\nimport Note from './note';\nimport { TagList } from './tag';\nimport { CommentList } from './comment';\nimport { FeedFileList } from './feedfile';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * API feed objects.\n *\n * @module feed\n */\nexport class Feed extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the note associated to this feed from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getNote(timeout = 30000) {\n    const linkRelation = 'note';\n    const resourceClass = Note;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of tags associated to this feed from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of comments associated to this feed from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getComments(params = null, timeout = 30000) {\n    const linkRelation = 'comments';\n    const resourceClass = CommentList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files associated to this feed from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this feed from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\nexport class FeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {*} url\n   * @param {*} auth\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch currently authenticated user's information from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of tags from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of uploaded files from the REST API.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getUploadedFiles(params = null, timeout = 30000) {\n    const linkRelation = 'uploadedfiles';\n    const resourceClass = UploadedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport User from './user';\nimport { PluginList } from './plugin';\nimport { UploadedFileList } from './uploadedfile';\nimport Note from './note';\nimport { TagList } from './tag';\nimport { CommentList } from './comment';\nimport { FeedFileList } from './feedfile';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed item resource object.\n */\nexport class Feed extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the note associated to this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getNote(timeout = 30000) {\n    const linkRelation = 'note';\n    const resourceClass = Note;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of tags associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of comments associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getComments(params = null, timeout = 30000) {\n    const linkRelation = 'comments';\n    const resourceClass = CommentList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * FeedList list resource object.\n */\nexport class FeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch currently authenticated user's information from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of tags from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of uploaded files from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getUploadedFiles(params = null, timeout = 30000) {\n    const linkRelation = 'uploadedfiles';\n    const resourceClass = UploadedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/feed.js",
     "access": "public",
@@ -1370,14 +1401,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi/src/feed.js",
     "importStyle": "{Feed}",
-    "description": "API feed objects.",
-    "lineNumber": 17,
-    "unknown": [
-      {
-        "tagName": "@module",
-        "tagValue": "feed"
-      }
-    ],
+    "description": "Feed item resource object.",
+    "lineNumber": 15,
     "interface": false,
     "extends": [
       "src/resource.js~ItemResource"
@@ -1394,27 +1419,37 @@
     "longname": "src/feed.js~Feed#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 24,
+    "lineNumber": 23,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "url",
-        "description": ""
+        "description": "url of the resource"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "auth",
-        "description": ""
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
       }
     ]
   },
@@ -1429,26 +1464,28 @@
     "longname": "src/feed.js~Feed#getNote",
     "access": "public",
     "description": "Fetch the note associated to this feed from the REST API.",
-    "lineNumber": 34,
+    "lineNumber": 33,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1462,36 +1499,60 @@
     "longname": "src/feed.js~Feed#getTags",
     "access": "public",
     "description": "Fetch a list of tags associated to this feed from the REST API.",
-    "lineNumber": 48,
+    "lineNumber": 49,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1505,36 +1566,60 @@
     "longname": "src/feed.js~Feed#getComments",
     "access": "public",
     "description": "Fetch a list of comments associated to this feed from the REST API.",
-    "lineNumber": 62,
+    "lineNumber": 65,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1548,36 +1633,60 @@
     "longname": "src/feed.js~Feed#getFiles",
     "access": "public",
     "description": "Fetch a list of files associated to this feed from the REST API.",
-    "lineNumber": 76,
+    "lineNumber": 81,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1591,26 +1700,28 @@
     "longname": "src/feed.js~Feed#getPluginInstance",
     "access": "public",
     "description": "Fetch the plugin instance that created this feed from the REST API.",
-    "lineNumber": 89,
+    "lineNumber": 94,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1624,9 +1735,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi/src/feed.js",
     "importStyle": "{FeedList}",
-    "description": null,
-    "lineNumber": 97,
-    "undocument": true,
+    "description": "FeedList list resource object.",
+    "lineNumber": 105,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
@@ -1643,27 +1753,37 @@
     "longname": "src/feed.js~FeedList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 104,
+    "lineNumber": 113,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "url",
-        "description": ""
+        "description": "url of the resource"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "auth",
-        "description": ""
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
       }
     ]
   },
@@ -1676,12 +1796,14 @@
     "longname": "src/feed.js~FeedList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 106,
-    "undocument": true,
+    "lineNumber": 116,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1695,26 +1817,28 @@
     "longname": "src/feed.js~FeedList#getUser",
     "access": "public",
     "description": "Fetch currently authenticated user's information from the REST API.",
-    "lineNumber": 115,
+    "lineNumber": 125,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1728,36 +1852,60 @@
     "longname": "src/feed.js~FeedList#getPlugins",
     "access": "public",
     "description": "Fetch a list of plugins from the REST API.",
-    "lineNumber": 129,
+    "lineNumber": 141,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1771,36 +1919,60 @@
     "longname": "src/feed.js~FeedList#getTags",
     "access": "public",
     "description": "Fetch a list of tags from the REST API.",
-    "lineNumber": 143,
+    "lineNumber": 157,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -1814,36 +1986,60 @@
     "longname": "src/feed.js~FeedList#getUploadedFiles",
     "access": "public",
     "description": "Fetch a list of uploaded files from the REST API.",
-    "lineNumber": 157,
+    "lineNumber": 173,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -3790,7 +3986,7 @@
     "__docId__": 158,
     "kind": "file",
     "name": "src/resource.js",
-    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource objects.\n *\n * @module resource\n */\nclass Resource {\n  /**\n   * Constructor\n   *\n   * @param {*} resourceUrl\n   * @param {*} auth\n   */\n  constructor(resourceUrl, auth) {\n    this.url = resourceUrl;\n    this.auth = auth;\n    this.contentType = 'application/vnd.collection+json';\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {*}\n   */\n  clone() {\n    const cloneObj = Object.create(Object.getPrototypeOf(this));\n\n    for (let prop in this) {\n      if (this[prop] !== null && typeof this[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));\n      } else {\n        cloneObj[prop] = this[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {*} itemUrl\n   * @param {*} auth\n   */\n  constructor(itemUrl, auth) {\n    super(itemUrl, auth);\n\n    this.item = null; // Collection+JSON item obj\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const result = req.get(this.url);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.item = null;\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n            this.item = this.collection.items[0];\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Get the item's data descriptors\n   *\n   * @return {*}\n   */\n  get data() {\n    if (this.item) {\n      return Collection.getItemDescriptors(this.item);\n    }\n    return null;\n  }\n\n  /**\n   * Return true if the item resource object contains any item data.\n   *\n   * @return {*}\n   */\n  get isEmpty() {\n    if (this.item) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API referenced by\n   * a link relation in the item object.\n   *\n   * @param {*} linkRelation\n   * @param {*} ResourceClass\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.item) {\n      const urls = Collection.getLinkRelationUrls(this.item, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Item object has not been set!');\n  }\n}\n\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {*} listUrl\n   * @param {*} auth\n   */\n  constructor(listUrl, auth) {\n    super(listUrl, auth);\n\n    this.queryUrl = '';\n    this.searchParams = null;\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API using limit and offset as optional\n   * parameters.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  get(params = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let getParams = null;\n\n    if (params) {\n      for (let param in params) {\n        if (params.hasOwnProperty(param) && (param === 'limit' || param === 'offset')) {\n          if (!getParams) {\n            getParams = {};\n          }\n          getParams[param] = params[param];\n        }\n      }\n    }\n    const result = req.get(this.url, getParams);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.searchParams = getParams;\n\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n\n            if (this.collection.queries && this.collection.queries.length) {\n              this.queryUrl = this.collection.queries[0].href;\n            }\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters.\n   *\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  getSearch(params, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    if (this.queryUrl) {\n      const result = req.get(this.queryUrl, params);\n\n      return new Promise((resolve, reject) => {\n        result\n          .then(response => {\n            // change the state of this object on successfull response\n            this.collection = null;\n            this.searchParams = params;\n            if (response.data && response.data.collection) {\n              this.collection = response.data.collection;\n            }\n            resolve(this);\n          })\n          .catch(error => {\n            reject(error);\n          });\n      });\n    }\n    return Promise.reject('A search url has not been setup for this resource!');\n  }\n\n  /**\n   * Return true if the list resource object contains any item data.\n   *\n   * @return {*}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @return {*}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @return {*}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {*}\n   */\n  getItems() {\n    if (this.collection) {\n      const items = this.collection.items;\n\n      return items.map(item => {\n        const itemResource = new this.itemClass(item.href, this.auth);\n        itemResource.collection = this.collection;\n        itemResource.item = item;\n\n        return itemResource;\n      });\n    }\n    return null;\n  }\n\n  /**\n   * Fetch the next resource page from the paginated REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getNextPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('next', timeout);\n  }\n\n  /**\n   * Fetch the previous resource page from the paginated REST API.\n   *\n   * @param {*} timeout\n   * @return {*}\n   */\n  getPreviousPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('previous', timeout);\n  }\n\n  /**\n   * Internal method to fetch the next or previous page from the paginated REST API.\n   *\n   * @param {*} linkRelation\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getNextOrPreviousPage(linkRelation, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const searchParams = new URL(urls[0]).searchParams;\n        const params = {};\n        let urlHasSearchParams = false;\n\n        for (let pair of searchParams.entries()) {\n          params[pair[0]] = pair[1];\n          if (pair[0] !== 'offset' && pair[0] !== 'limit') {\n            urlHasSearchParams = true;\n          }\n        }\n\n        if (urlHasSearchParams) {\n          return this.getSearch(params, timeout);\n        }\n        if (params.offset || params.limit) {\n          return this.get(params, timeout);\n        }\n        return this.get(null, timeout);\n      }\n    }\n    this.collection = null;\n    this.searchParams = null;\n    return Promise.resolve(this);\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API referenced by\n   * a link relation in the collection object.\n   *\n   * @param {*} linkRelation\n   * @param {*} ResourceClass\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Collection object has not been set!');\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource class.\n */\nclass Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} resourceUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(resourceUrl, auth) {\n    /** @type {string} */\n    this.url = resourceUrl;\n\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = 'application/vnd.collection+json';\n\n    /** @type {?Object} */\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {Object} - clone object\n   */\n  clone() {\n    const cloneObj = Object.create(Object.getPrototypeOf(this));\n\n    for (let prop in this) {\n      if (this[prop] !== null && typeof this[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));\n      } else {\n        cloneObj[prop] = this[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\n/**\n * API abstract item resource class.\n */\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} itemUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(itemUrl, auth) {\n    super(itemUrl, auth);\n\n    /** @type {?Object} */\n    this.item = null; // Collection+JSON item obj\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const result = req.get(this.url);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.item = null;\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n            this.item = this.collection.items[0];\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Get the item's data descriptors\n   *\n * @return {?Object} - data object\n   */\n  get data() {\n    if (this.item) {\n      return Collection.getItemDescriptors(this.item);\n    }\n    return null;\n  }\n\n  /**\n   * Return true if the item resource object contains any item data.\n   *\n   * @return {boolean}\n   */\n  get isEmpty() {\n    if (this.item) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API referenced by\n   * a link relation in the item object.\n   *\n   * @param {*} linkRelation\n   * @param {*} ResourceClass\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.item) {\n      const urls = Collection.getLinkRelationUrls(this.item, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Item object has not been set!');\n  }\n}\n\n/**\n * API abstract list resource class.\n */\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} listUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(listUrl, auth) {\n    super(listUrl, auth);\n\n    /** @type {string} */\n    this.queryUrl = '';\n\n    /** @type {?Object} */\n    this.searchParams = null;\n\n    /** @type {Object} */\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API using limit and offset as optional\n   * parameters.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  get(params = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let getParams = null;\n\n    if (params) {\n      for (let param in params) {\n        if (params.hasOwnProperty(param) && (param === 'limit' || param === 'offset')) {\n          if (!getParams) {\n            getParams = {};\n          }\n          getParams[param] = params[param];\n        }\n      }\n    }\n    const result = req.get(this.url, getParams);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.searchParams = getParams;\n\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n\n            if (this.collection.queries && this.collection.queries.length) {\n              this.queryUrl = this.collection.queries[0].href;\n            }\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters.\n   *\n   * @param {Object} params\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getSearch(params, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    if (this.queryUrl) {\n      const result = req.get(this.queryUrl, params);\n\n      return new Promise((resolve, reject) => {\n        result\n          .then(response => {\n            // change the state of this object on successfull response\n            this.collection = null;\n            this.searchParams = params;\n            if (response.data && response.data.collection) {\n              this.collection = response.data.collection;\n            }\n            resolve(this);\n          })\n          .catch(error => {\n            reject(error);\n          });\n      });\n    }\n    return Promise.reject('A search url has not been setup for this resource!');\n  }\n\n  /**\n   * Return true if the list resource object contains any item data.\n   *\n   * @return {boolean}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @return {boolean}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @return {boolean}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {*}\n   */\n  getItems() {\n    if (this.collection) {\n      const items = this.collection.items;\n\n      return items.map(item => {\n        const itemResource = new this.itemClass(item.href, this.auth);\n        itemResource.collection = this.collection;\n        itemResource.item = item;\n\n        return itemResource;\n      });\n    }\n    return null;\n  }\n\n  /**\n   * Fetch the next resource page from the paginated REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getNextPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('next', timeout);\n  }\n\n  /**\n   * Fetch the previous resource page from the paginated REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  getPreviousPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('previous', timeout);\n  }\n\n  /**\n   * Internal method to fetch the next or previous page from the paginated REST API.\n   *\n   * @param {string} linkRelation - either the string 'previous' or 'next'\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - Promise object\n   */\n  _getNextOrPreviousPage(linkRelation, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const searchParams = new URL(urls[0]).searchParams;\n        const params = {};\n        let urlHasSearchParams = false;\n\n        for (let pair of searchParams.entries()) {\n          params[pair[0]] = pair[1];\n          if (pair[0] !== 'offset' && pair[0] !== 'limit') {\n            urlHasSearchParams = true;\n          }\n        }\n\n        if (urlHasSearchParams) {\n          return this.getSearch(params, timeout);\n        }\n        if (params.offset || params.limit) {\n          return this.get(params, timeout);\n        }\n        return this.get(null, timeout);\n      }\n    }\n    this.collection = null;\n    this.searchParams = null;\n    return Promise.resolve(this);\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API referenced by\n   * a link relation in the collection object.\n   *\n   * @param {*} linkRelation\n   * @param {*} ResourceClass\n   * @param {*} params\n   * @param {*} timeout\n   * @return {*}\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Collection object has not been set!');\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/resource.js",
     "access": "public",
@@ -3808,14 +4004,8 @@
     "export": false,
     "importPath": "@fnndsc/chrisapi/src/resource.js",
     "importStyle": null,
-    "description": "API abstract resource objects.",
-    "lineNumber": 11,
-    "unknown": [
-      {
-        "tagName": "@module",
-        "tagValue": "resource"
-      }
-    ],
+    "description": "API abstract resource class.",
+    "lineNumber": 9,
     "interface": false,
     "ignore": true
   },
@@ -3830,27 +4020,37 @@
     "longname": "src/resource.js~Resource#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 18,
+    "lineNumber": 17,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "resourceUrl",
-        "description": ""
+        "description": "url of the resource"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "auth",
-        "description": ""
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
       }
     ]
   },
@@ -3864,11 +4064,13 @@
     "access": "public",
     "description": null,
     "lineNumber": 19,
-    "undocument": true,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3880,12 +4082,14 @@
     "longname": "src/resource.js~Resource#auth",
     "access": "public",
     "description": null,
-    "lineNumber": 20,
-    "undocument": true,
+    "lineNumber": 25,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3897,12 +4101,14 @@
     "longname": "src/resource.js~Resource#contentType",
     "access": "public",
     "description": null,
-    "lineNumber": 21,
-    "undocument": true,
+    "lineNumber": 28,
     "type": {
+      "nullable": null,
       "types": [
         "string"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3914,12 +4120,14 @@
     "longname": "src/resource.js~Resource#collection",
     "access": "public",
     "description": null,
-    "lineNumber": 22,
-    "undocument": true,
+    "lineNumber": 31,
     "type": {
+      "nullable": true,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -3933,14 +4141,14 @@
     "longname": "src/resource.js~Resource#clone",
     "access": "public",
     "description": "Make a deep copy clone of this object resource.",
-    "lineNumber": 30,
+    "lineNumber": 39,
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "clone object"
     },
     "params": []
   },
@@ -3955,9 +4163,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi/src/resource.js",
     "importStyle": "{ItemResource}",
-    "description": null,
-    "lineNumber": 44,
-    "undocument": true,
+    "description": "API abstract item resource class.",
+    "lineNumber": 56,
     "interface": false,
     "extends": [
       "Resource"
@@ -3974,27 +4181,37 @@
     "longname": "src/resource.js~ItemResource#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 51,
+    "lineNumber": 64,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "itemUrl",
-        "description": ""
+        "description": "url of the resource"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "auth",
-        "description": ""
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
       }
     ]
   },
@@ -4007,12 +4224,14 @@
     "longname": "src/resource.js~ItemResource#item",
     "access": "public",
     "description": null,
-    "lineNumber": 54,
-    "undocument": true,
+    "lineNumber": 68,
     "type": {
+      "nullable": true,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -4026,26 +4245,28 @@
     "longname": "src/resource.js~ItemResource#get",
     "access": "public",
     "description": "Fetch this item resource from the REST API.",
-    "lineNumber": 63,
+    "lineNumber": 77,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -4057,7 +4278,7 @@
     "longname": "src/resource.js~ItemResource#collection",
     "access": "public",
     "description": null,
-    "lineNumber": 72,
+    "lineNumber": 86,
     "undocument": true,
     "type": {
       "types": [
@@ -4076,14 +4297,14 @@
     "longname": "src/resource.js~ItemResource#data",
     "access": "public",
     "description": "Get the item's data descriptors",
-    "lineNumber": 91,
+    "lineNumber": 105,
     "return": {
-      "nullable": null,
+      "nullable": true,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "data object"
     },
     "type": {
       "types": [
@@ -4102,11 +4323,11 @@
     "longname": "src/resource.js~ItemResource#isEmpty",
     "access": "public",
     "description": "Return true if the item resource object contains any item data.",
-    "lineNumber": 103,
+    "lineNumber": 117,
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "boolean"
       ],
       "spread": false,
       "description": ""
@@ -4128,7 +4349,7 @@
     "longname": "src/resource.js~ItemResource#_getResource",
     "access": "private",
     "description": "Internal method to fetch a related resource from the REST API referenced by\na link relation in the item object.",
-    "lineNumber": 120,
+    "lineNumber": 134,
     "params": [
       {
         "nullable": null,
@@ -4191,9 +4412,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi/src/resource.js",
     "importStyle": "{ListResource}",
-    "description": null,
-    "lineNumber": 138,
-    "undocument": true,
+    "description": "API abstract list resource class.",
+    "lineNumber": 155,
     "interface": false,
     "extends": [
       "Resource"
@@ -4210,27 +4430,37 @@
     "longname": "src/resource.js~ListResource#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 145,
+    "lineNumber": 163,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "listUrl",
-        "description": ""
+        "description": "url of the resource"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
         "name": "auth",
-        "description": ""
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
       }
     ]
   },
@@ -4243,12 +4473,14 @@
     "longname": "src/resource.js~ListResource#queryUrl",
     "access": "public",
     "description": null,
-    "lineNumber": 148,
-    "undocument": true,
+    "lineNumber": 167,
     "type": {
+      "nullable": null,
       "types": [
         "string"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -4260,12 +4492,14 @@
     "longname": "src/resource.js~ListResource#searchParams",
     "access": "public",
     "description": null,
-    "lineNumber": 149,
-    "undocument": true,
+    "lineNumber": 170,
     "type": {
+      "nullable": true,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -4277,12 +4511,14 @@
     "longname": "src/resource.js~ListResource#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 150,
-    "undocument": true,
+    "lineNumber": 173,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -4296,36 +4532,60 @@
     "longname": "src/resource.js~ListResource#get",
     "access": "public",
     "description": "Fetch this list resource from the REST API using limit and offset as optional\nparameters.",
-    "lineNumber": 161,
+    "lineNumber": 186,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "params",
-        "description": ""
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -4337,7 +4597,7 @@
     "longname": "src/resource.js~ListResource#collection",
     "access": "public",
     "description": null,
-    "lineNumber": 181,
+    "lineNumber": 206,
     "undocument": true,
     "type": {
       "types": [
@@ -4356,12 +4616,12 @@
     "longname": "src/resource.js~ListResource#getSearch",
     "access": "public",
     "description": "Fetch this list resource from the REST API based on search parameters.",
-    "lineNumber": 206,
+    "lineNumber": 231,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "Object"
         ],
         "spread": false,
         "optional": false,
@@ -4371,21 +4631,23 @@
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -4399,11 +4661,11 @@
     "longname": "src/resource.js~ListResource#isEmpty",
     "access": "public",
     "description": "Return true if the list resource object contains any item data.",
-    "lineNumber": 236,
+    "lineNumber": 261,
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "boolean"
       ],
       "spread": false,
       "description": ""
@@ -4425,11 +4687,11 @@
     "longname": "src/resource.js~ListResource#hasNextPage",
     "access": "public",
     "description": "Return true if the list resource object has a next list page in the\npaginated REST API.",
-    "lineNumber": 249,
+    "lineNumber": 274,
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "boolean"
       ],
       "spread": false,
       "description": ""
@@ -4451,11 +4713,11 @@
     "longname": "src/resource.js~ListResource#hasPreviousPage",
     "access": "public",
     "description": "Return true if the list resource object has a previous list page in the\npaginated REST API.",
-    "lineNumber": 265,
+    "lineNumber": 290,
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "boolean"
       ],
       "spread": false,
       "description": ""
@@ -4477,7 +4739,7 @@
     "longname": "src/resource.js~ListResource#getItems",
     "access": "public",
     "description": "Get an array of item resource objects corresponding to the items in this\nlist resource object.",
-    "lineNumber": 281,
+    "lineNumber": 306,
     "return": {
       "nullable": null,
       "types": [
@@ -4499,26 +4761,28 @@
     "longname": "src/resource.js~ListResource#getNextPage",
     "access": "public",
     "description": "Fetch the next resource page from the paginated REST API.",
-    "lineNumber": 302,
+    "lineNumber": 327,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -4532,26 +4796,28 @@
     "longname": "src/resource.js~ListResource#getPreviousPage",
     "access": "public",
     "description": "Fetch the previous resource page from the paginated REST API.",
-    "lineNumber": 312,
+    "lineNumber": 337,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -4565,36 +4831,38 @@
     "longname": "src/resource.js~ListResource#_getNextOrPreviousPage",
     "access": "private",
     "description": "Internal method to fetch the next or previous page from the paginated REST API.",
-    "lineNumber": 323,
+    "lineNumber": 348,
     "params": [
       {
         "nullable": null,
         "types": [
-          "*"
+          "string"
         ],
         "spread": false,
         "optional": false,
         "name": "linkRelation",
-        "description": ""
+        "description": "either the string 'previous' or 'next'"
       },
       {
         "nullable": null,
         "types": [
-          "*"
+          "number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
         "name": "timeout",
-        "description": ""
+        "description": "request timeout"
       }
     ],
     "return": {
       "nullable": null,
       "types": [
-        "*"
+        "Object"
       ],
       "spread": false,
-      "description": ""
+      "description": "Promise object"
     }
   },
   {
@@ -4608,7 +4876,7 @@
     "longname": "src/resource.js~ListResource#_getResource",
     "access": "private",
     "description": "Internal method to fetch a related resource from the REST API referenced by\na link relation in the collection object.",
-    "lineNumber": 363,
+    "lineNumber": 388,
     "params": [
       {
         "nullable": null,
@@ -5090,7 +5358,7 @@
   },
   {
     "kind": "index",
-    "content": "# ChRIS API\nJavaScript6 client for the ChRIS API.\n\n## Usage\n\n``` javascript\nimport Client from '@fnndsc/chrisapi';\n\nconst chrisUrl = 'http://localhost:8000/api/v1/';\nconst usersUrl = chrisUrl + 'users/';\nconst authUrl = chrisUrl + 'auth-token/';\nlet authToken;\nlet resp;\n\n\n// create a new user\nresp = Client.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');\nresp\n  .then(user => {\n\n    window.console.log('New user: ', user);\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n\n// retrieve a user auth token\nresp = Client.getAuthToken(authUrl, 'cube', 'cube1234');\nresp\n  .then(token => {\n\n    window.console.log('Token: ', token);\n    authToken = token;\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n```\n\nThe ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance\nof a Javascript class that inherits from either of two base classes:\n\n* ``ItemResource`` (an object containing a reference to an individual item in a collection of resource items)\n* ``ListResource`` (an object modeling a collection of resource items)\n\nThese model the two general type of REST API resources available from a ChRIS server.\n\nIn addition to methods and properties provided by these base classes every resource object returned by\nthe client API contains additional methods to fetch its associated resources (item or list resources)\nfrom the ChRIS REST API. It can also contain ``get``, ``post``, ``put`` and ``delete`` methods as allowed by\nthe REST API. In particular every object has a ``get`` method that updates the internal state of the object\nwith the new data fetched from the ChRIS server. A `clone` method is provided to cover the case when a reference\nto the previous object state is desired. This method returns a new instance of the same class as the cloned object.\n\nAll methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource\nobject as an argument to the fulfillment callback.\n\nAll resources can be fetched from the REST API starting the initial `FeedList` instance object returned by the client\nas in the following examples:\n\n``` javascript\n\n// create a new client instance with an auth object to be able to make authenticated requests\nconst auth = {token: authToken}; // or alternatively auth = {username: 'cube', password: 'cube1234'}\nconst client = new Client(chrisUrl, auth);\n\n// fetch a subset of currently authenticated user's feeds from the REST API into an initial Feedlist object\nlet params = { limit: 10, offset: 0 };\nlet feedListObj;\nlet feedListObjClone;\n\nresp = client.getFeeds(params);\nresp\n  .then(feedListObj => {\n\n    window.console.log('Feed list resource object: ', feedListObj);\n\n    // retrieve an array of the Feed item resource objects from feedListObj\n    const feedObjArray = feedListObj.getItems();\n\n    // log the individual Feed items' data\n    for (let feed of feedObjArray) {\n        window.console.log(feed.data);\n    }\n\n    // fetch a list of available ChRIS plugins from the REST API\n    const result1 = feedListObj.getPlugins(params);\n    result1\n      .then(pluginListObj => {\n\n        window.console.log('Plugin list resource object: ', pluginListObj);\n      })\n\n    // fetch the next page of feeds from the REST API\n    feedListObjClone = feedListObj.clone(); // if desired save the object's current state in another object\n    if (feedListObj.hasNextPage) {\n      const result2 = feedListObj.getNextPage();\n      result2\n      .then(feedListObj => {\n\n        window.console.log('Feed list resource object: ', feedListObj);\n      })\n    }\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n// the Client's runAsyncTask static method could alternatively be used to wait for promises in Javascript 6\n// for instance iterate over all pages of the list of available 'fs' plugins\nClient.runAsyncTask(function*() {\n\n  feedListObj = yield client.getFeeds(); // wait here\n  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // this is to just fetch an initial PluginList resource obj\n\n  const searchParams = { type: 'fs'};\n  // const searchParams = {limit: 10, offset:0, type: 'fs'}; if you want to override default REST API page size\n  pluginListObj = pluginListObj.getSearch(searchParams);\n  window.console.log('Page 1 of Plugin fs list resource object: ', pluginListObj);\n\n  let i = 2;\n  while (pluginListObj.hasNextPage) {\n    pluginListObj = pluginListObj.getNextPage();\n    window.console.log('Page ' + i + ' of Plugin fs list resource object: ', pluginListObj);\n    i++;\n  }\n});\n\n```\n\n## API reference\n\nPlease check the API reference links for more information.\n",
+    "content": "# ChRIS API\nJavaScript6 client for the ChRIS API.\n\n## Usage\n\n``` javascript\nimport Client from '@fnndsc/chrisapi';\n\nconst chrisUrl = 'http://localhost:8000/api/v1/';\nconst usersUrl = chrisUrl + 'users/';\nconst authUrl = chrisUrl + 'auth-token/';\nlet authToken;\nlet resp;\n\n\n// create a new user\nresp = Client.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');\nresp\n  .then(user => {\n\n    window.console.log('New user: ', user);\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n\n// retrieve a user auth token\nresp = Client.getAuthToken(authUrl, 'cube', 'cube1234');\nresp\n  .then(token => {\n\n    window.console.log('Token: ', token);\n    authToken = token;\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n```\n\nThe ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance\nof a Javascript class that inherits from either of two base classes:\n\n* ``ItemResource`` (an object containing a reference to an individual item in a collection of resource items)\n* ``ListResource`` (an object modeling a collection of resource items)\n\nThese model the two general type of REST API resources available from a ChRIS server.\n\nIn addition to methods and properties provided by these base classes every resource object returned by\nthe client API contains additional methods to fetch its associated resources (item or list resources)\nfrom the ChRIS REST API. It can also contain ``get``, ``post``, ``put`` and ``delete`` methods as allowed by\nthe REST API. In particular every object inherits a ``get`` method that updates the internal state of the object\nwith the new data fetched from the ChRIS server. A `clone` method is provided to cover the case when a reference\nto the previous object state is desired. This method returns a new instance of the same class as the cloned object.\n\nAll methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource\nobject as an argument to the fulfillment callback.\n\nAll resources can be fetched from the REST API starting with the initial `FeedList` instance returned by the client\nas in the following examples:\n\n``` javascript\n\n// create a new client instance with an auth object to be able to make authenticated requests\nconst auth = {token: authToken}; // or alternatively auth = {username: 'cube', password: 'cube1234'}\nconst client = new Client(chrisUrl, auth);\n\n// fetch a subset of currently authenticated user's feeds from the REST API into an initial Feedlist object\nlet params = { limit: 10, offset: 0 };\nlet feedListObj;\nlet feedListObjClone;\n\nresp = client.getFeeds(params);\nresp\n  .then(list => {\n\n    feedListObj = list;\n\n    window.console.log('Feed list resource object: ', feedListObj);\n\n    // retrieve an array of the Feed item resource objects from feedListObj\n    const feedObjArray = feedListObj.getItems();\n\n    // log the individual Feed items' data\n    for (let feed of feedObjArray) {\n        window.console.log(feed.data);\n    }\n\n    // fetch the next page of feeds from the REST API\n    feedListObjClone = feedListObj.clone(); // the current object's state can be saved in another copy object if desired\n    if (feedListObj.hasNextPage) {\n      const result1 = feedListObj.getNextPage();\n      result1\n      .then(feedListObj => {\n\n        window.console.log('Feed list resource object: ', feedListObj);\n      });\n    }\n\n    // fetch a list of available ChRIS plugins from the REST API\n    const result2 = feedListObj.getPlugins(params);\n    result2\n      .then(pluginListObj => {\n\n        window.console.log('Plugin list resource object: ', pluginListObj);\n      });\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n// for convenience the Client class provides a runAsyncTask static method that could alternatively be used to wait for promises in Javascript 6\n// for instance iterate over all pages of the list of available 'fs' plugins\nClient.runAsyncTask(function*() {\n\n  feedListObj = yield client.getFeeds({limit: 1}); // wait here (fetch the FeedList resource obj which corresponds to the API home page)\n  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // wait here (fetch an initial PluginList resource obj)\n\n  const searchParams = { type: 'fs'};\n  // const searchParams = {limit: 5, offset:0, type: 'fs'}; if you want to override default REST API page size\n  pluginListObj = yield pluginListObj.getSearch(searchParams); // wait here\n\n  window.console.log('Page 1 of Plugin fs list resource object: ', pluginListObj);\n\n  let i = 2;\n  while (pluginListObj.hasNextPage) {\n    pluginListObj = yield pluginListObj.getNextPage(); // wait here\n\n    window.console.log('Page ' + i + ' of Plugin fs list resource object: ', pluginListObj);\n    i++;\n  }\n});\n\n// the get method of a list resource obj can be used to fetch any arbitrary page from the paginated REST API\nresp = feedListObj.get({ limit: 10, offset: 10 });\nresp\n  .then(feedListObj => {\n\n    window.console.log('Feed list resource object: ', feedListObj);\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n```\n\n## API reference\n\nPlease check the API reference links for more information.\n",
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/APIDocumentation.md",
     "name": "./APIDocumentation.md",
     "static": true,

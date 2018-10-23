@@ -68,31 +68,34 @@ import User from &apos;./user&apos;;
 import { FeedList } from &apos;./feed&apos;;
 
 /**
- * Chris client object.
- *
- * @module client
+ * API client object.
  */
 export default class Client {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the ChRIS service
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
+    /** @type {string} */
     this.url = url;
     if (!auth) {
       throw new RequestException(&apos;Authentication object is required&apos;);
     }
+    /** @type {Object} */
     this.auth = auth;
   }
 
   /**
    * Fetch a list of currently authenticated user&apos;s feeds from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFeeds(params = null, timeout = 30000) {
     const feedList = new FeedList(this.url, this.auth);
@@ -103,12 +106,12 @@ export default class Client {
   /**
    * Create a new user account.
    *
-   * @param {*} usersUrl
-   * @param {*} username
-   * @param {*} password
-   * @param {*} email
-   * @param {*} timeout
-   * @return {*}
+   * @param {string} usersUrl - url of the user accounts service
+   * @param {string} username - username
+   * @param {string} password - password
+   * @param {string} email - user email
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   static createUser(usersUrl, username, password, email, timeout = 30000) {
     const req = new Request(undefined, &apos;application/vnd.collection+json&apos;, timeout);
@@ -144,12 +147,12 @@ export default class Client {
 
   /**
    * Fetch a user&apos;s login authorization token from the REST API.
-   * @param {*} authUrl
-   * @param {*} username
-   * @param {*} password
-   * @param {*} timeout
+   * @param {string} authUrl - url of the authorization service
+   * @param {string} username - username
+   * @param {string} password - password
+   * @param {number} [timeout=30000] - request timeout
    *
-   * @return {*}
+   * @return {Object} - Promise object
    */
   static getAuthToken(authUrl, username, password, timeout = 30000) {
     const req = new Request(undefined, &apos;application/json&apos;, timeout);
@@ -173,8 +176,7 @@ export default class Client {
   /**
    * Helper method to run an asynchronous task defined by a task generator function.
    *
-   * @param {*} taskGenerator
-   * @return {*}
+   * @param {function*()} taskGenerator - generator function
    */
   static runAsyncTask(taskGenerator) {
     Request.runAsyncTask(taskGenerator);
