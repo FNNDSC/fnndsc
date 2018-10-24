@@ -11,10 +11,10 @@ npm i @fnndsc/chrisstoreapi
 
 ## Usage
 
-If you have a ChRIS store server up and running (eg. as explained below) then you can use and test the API in your JS code:
+If you have a ChRIS store server up and running (eg. as explained below) then you can test the API in your JS code:
 
 ``` javascript
-import {StoreClient} from '@fnndsc/chrisstoreapi';
+import StoreClient from '@fnndsc/chrisstoreapi';
 
 const storeUrl = 'http://localhost:8010/api/v1/';
 const usersUrl = storeUrl + 'users/';
@@ -36,7 +36,7 @@ resp
   });
 
 
-// retrieve a user auth token
+// fetch a user auth token
 resp = StoreClient.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
 resp
   .then(token => {
@@ -54,7 +54,7 @@ resp
 let client = new StoreClient(storeUrl);
 
 
-// retrieve a plugin given its name
+// fetch a plugin given its name
 resp = client.getPlugin('simplefsapp');
 resp
   .then(plugin => {
@@ -67,7 +67,7 @@ resp
   });
 
 
-// retrieve in a list a subset of the plugins in the store given search params
+// fetch in a list a subset of the plugins in the store given search params
 let searchParams = { limit: 10, offset:10 };
 resp = client.getPlugins(searchParams);
 resp
@@ -81,7 +81,7 @@ resp
   });
 
 
-// retrieve in a list a subset of the plugins in the store created by a specific user
+// fetch in a list a subset of the plugins in the store created by a specific user
 let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
 resp = client.getPlugins(searchParams);
 resp
@@ -95,7 +95,7 @@ resp
   });
 
 
-// retrieve a paginated list of plugins given search params and call a callback function on every page of the plugin list
+// fetch a paginated list of plugins given search params and call a callback function on every page of the plugin list
 searchParams = { type: 'fs' };
 resp = client.getPlugins(searchParams, onePageFsPluginList => {
 
