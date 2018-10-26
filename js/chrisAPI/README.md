@@ -1,7 +1,7 @@
 # ChRIS API
 [![Build Status](https://travis-ci.org/FNNDSC/fnndsc.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc)
 
-JavaScript6 client for the ChRIS API.
+JavaScript 6 client for the ChRIS API.
 
 ## Installation
 

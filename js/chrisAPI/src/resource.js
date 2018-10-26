@@ -98,9 +98,9 @@ export class ItemResource extends Resource {
   }
 
   /**
-   * Get the item's data descriptors
+   * Get the item's data object (REST API descriptors).
    *
-   * @return {?Object} - data object
+   * @type {?Object}
    */
   get data() {
     if (this.item) {
@@ -112,7 +112,7 @@ export class ItemResource extends Resource {
   /**
    * Return true if the item resource object contains any item data.
    *
-   * @return {boolean}
+   * @type {boolean}
    */
   get isEmpty() {
     if (this.item) {
@@ -122,14 +122,18 @@ export class ItemResource extends Resource {
   }
 
   /**
-   * Internal method to fetch a related resource from the REST API referenced by
-   * a link relation in the item object.
+   * Internal method to fetch a related resource from the REST API that is referenced by
+   * a link relation within the item object.
    *
-   * @param {*} linkRelation
-   * @param {*} ResourceClass
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {string} linkRelation
+   * @param {Object} ResourceClass
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
+   * @throws {RequestException} throw error when the link relation is not found
+   * @throws {RequestException} throw error if this item resource has not yet been fetched from the REST API
    */
   _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
     if (this.item) {
@@ -224,7 +228,7 @@ export class ListResource extends Resource {
   /**
    * Fetch this list resource from the REST API based on search parameters.
    *
-   * @param {Object} params
+   * @param {Object} params params - search parameters
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - Promise object
    */
@@ -254,9 +258,9 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Return true if the list resource object contains any item data.
+   * Return true if the list resource object contains any data.
    *
-   * @return {boolean}
+   * @type {boolean}
    */
   get isEmpty() {
     if (this.collection && this.collection.items.length) {
@@ -269,7 +273,7 @@ export class ListResource extends Resource {
    * Return true if the list resource object has a next list page in the
    * paginated REST API.
    *
-   * @return {boolean}
+   * @type {boolean}
    */
   get hasNextPage() {
     if (this.collection) {
@@ -285,7 +289,7 @@ export class ListResource extends Resource {
    * Return true if the list resource object has a previous list page in the
    * paginated REST API.
    *
-   * @return {boolean}
+   * @type {boolean}
    */
   get hasPreviousPage() {
     if (this.collection) {
@@ -301,7 +305,7 @@ export class ListResource extends Resource {
    * Get an array of item resource objects corresponding to the items in this
    * list resource object.
    *
-   * @return {*}
+   * @return {?Object[]}
    */
   getItems() {
     if (this.collection) {
@@ -376,14 +380,18 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Internal method to fetch a related resource from the REST API referenced by
-   * a link relation in the collection object.
+   * Internal method to fetch a related resource from the REST API that is referenced by
+   * a link relation within this list resource's collection object.
    *
-   * @param {*} linkRelation
-   * @param {*} ResourceClass
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {string} linkRelation
+   * @param {Object} ResourceClass
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
+   * @throws {RequestException} throw error when the link relation is not found
+   * @throws {RequestException} throw error if this list resource has not yet been fetched from the REST API
    */
   _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
     if (this.collection) {

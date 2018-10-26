@@ -6,16 +6,15 @@ import { PluginParameter } from './pluginparameter';
 import { FeedFileList } from './feedfile';
 
 /**
- * API plugin instance objects.
- *
- * @module plugininstance
+ * Plugin instance item resource object.
  */
 export class PluginInstance extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -23,10 +22,10 @@ export class PluginInstance extends ItemResource {
 
   /**
    * Fetch the feed created by this plugin instance from the REST API
-   * (only for fs plugins, 'ds' plugins resolve to null).
+   * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -43,8 +42,8 @@ export class PluginInstance extends ItemResource {
   /**
    * Fetch the plugin associated to this plugin instance item from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';
@@ -55,10 +54,10 @@ export class PluginInstance extends ItemResource {
 
   /**
    * Fetch the parent plugin instance of this plugin instance from the REST API
-   * (only for 'ds' plugins, 'fs' plugins resolve to null).
+   * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPreviousPluginInstance(timeout = 30000) {
     const linkRelation = 'previous';
@@ -76,9 +75,11 @@ export class PluginInstance extends ItemResource {
    * Fetch a list of plugin instances that are descendents of this plugin instance from the
    * REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getDescendantPluginInstances(params = null, timeout = 30000) {
     const linkRelation = 'descendants';
@@ -91,9 +92,11 @@ export class PluginInstance extends ItemResource {
    * Fetch a list of plugin instance parameters associated to this plugin instance from
    * the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getParameters(params = null, timeout = 30000) {
     const linkRelation = 'parameters';
@@ -105,9 +108,11 @@ export class PluginInstance extends ItemResource {
   /**
    * Fetch a list of files created by this plugin instance from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFiles(params = null, timeout = 30000) {
     const linkRelation = 'files';
@@ -117,23 +122,29 @@ export class PluginInstance extends ItemResource {
   }
 }
 
+/**
+ * Plugin instance list resource object.
+ */
 export class PluginInstanceList extends ListResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
+
+    /** @type {Object} */
     this.itemClass = PluginInstance;
   }
 
   /**
    * Fetch the plugin associated to this plugin instance list from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';
@@ -143,12 +154,16 @@ export class PluginInstanceList extends ListResource {
   }
 }
 
+/**
+ * Plugin instance parameter item resource object.
+ */
 export class PluginInstanceParameter extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -157,8 +172,8 @@ export class PluginInstanceParameter extends ItemResource {
   /**
    * Fetch the plugin instance associated to this parameter item from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = 'plugin_inst';
@@ -171,8 +186,8 @@ export class PluginInstanceParameter extends ItemResource {
    * Fetch the plugin parameter definition associated to this plugin instance item
    * from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPluginParameter(timeout = 30000) {
     const linkRelation = 'plugin_param';
@@ -182,15 +197,21 @@ export class PluginInstanceParameter extends ItemResource {
   }
 }
 
+/**
+ * Plugin instance parameter list resource object.
+ */
 export class PluginInstanceParameterList extends ListResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
+
+    /** @type {Object} */
     this.itemClass = PluginInstanceParameter;
   }
 }

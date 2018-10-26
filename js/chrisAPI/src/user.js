@@ -3,16 +3,15 @@ import Request from './request';
 import { ItemResource } from './resource';
 
 /**
- * API user objects.
- *
- * @module user
+ * User item resource object.
  */
 export default class User extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -21,11 +20,13 @@ export default class User extends ItemResource {
   /**
    * Update currently authenticated user's information (email and or password).
    *
-   * @param {*} userInfoObj
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} data - user data object
+   * @param {number} data.email - user email
+   * @param {number} data.password - user password
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
-  update(userInfoObj, timeout = 30000) {
+  update(data, timeout = 30000) {
     const url = this.url;
     const req = new Request(this.auth, this.contentType, timeout);
     const self = this;
@@ -33,10 +34,7 @@ export default class User extends ItemResource {
     return new Promise((resolve, reject) => {
       const userData = {
         template: {
-          data: [
-            { name: 'email', value: userInfoObj.email },
-            { name: 'password', value: userInfoObj.password },
-          ],
+          data: [{ name: 'email', value: data.email }, { name: 'password', value: data.password }],
         },
       };
 

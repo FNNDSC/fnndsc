@@ -5,25 +5,33 @@ import RequestException from './exception';
 
 /**
  * Http request object.
- *
- * @module request
  */
 export default class Request {
   /**
    * Constructor
+   *
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   * @param {string} contentType - request content type
+   * @param {number} [timeout=30000] - request timeout
    */
   constructor(auth, contentType, timeout = 30000) {
+    /** @type {Object} */
     this.auth = auth;
+
+    /** @type {string} */
     this.contentType = contentType;
+
+    /** @type {number} */
     this.timeout = timeout;
   }
 
   /**
    * Perform a GET request.
    *
-   * @param {*} url
-   * @param {*} params
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {?Object} params - search parameters
+   * @return {Object} - Promise object
    */
   get(url, params = null) {
     const config = this._getConfig(url, 'get');
@@ -38,10 +46,11 @@ export default class Request {
   /**
    * Perform a POST request.
    *
-   * @param {*} url
-   * @param {*} data
-   * @param {*} uploadFileObj
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @return {Object} - Promise object
    */
   post(url, data, uploadFileObj = null) {
     return this._postOrPut('post', url, data, uploadFileObj);
@@ -50,10 +59,11 @@ export default class Request {
   /**
    * Perform a PUT request.
    *
-   * @param {*} url
-   * @param {*} data
-   * @param {*} uploadFileObj
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @return {Object} - Promise object
    */
   put(url, data, uploadFileObj = null) {
     return this._postOrPut('put', url, data, uploadFileObj);
@@ -62,7 +72,8 @@ export default class Request {
   /**
    * Perform a DELETE request.
    *
-   * @param {*} url
+   * @param {string} url - url of the resource
+   * @return {Object} - Promise object
    */
   delete(url) {
     const config = this._getConfig(url, 'delete');
@@ -73,11 +84,12 @@ export default class Request {
   /**
    * Internal method to make either a POST or PUT request.
    *
-   * @param {*} requestMethod
-   * @param {*} url
-   * @param {*} data
-   * @param {*} uploadFileObj
-   * @return {*}
+   * @param {string} requestMethod - either 'post' or 'put'
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @return {Object} - Promise object
    */
   _postOrPut(requestMethod, url, data, uploadFileObj = null) {
     const config = this._getConfig(url, requestMethod);
@@ -106,9 +118,9 @@ export default class Request {
   /**
    * Internal method to create a config file for axios.
    *
-   * @param {*} url
-   * @param {*} method
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {string} method - request verb
+   * @return {Object} - axios configuration object
    */
   _getConfig(url, method) {
     const config = {
@@ -137,8 +149,8 @@ export default class Request {
   /**
    * Internal method to make an axios request.
    *
-   * @param {*} config
-   * @return {*}
+   * @param {Object} config - axios configuration object
+   * @return {Object} - Promise object
    */
   static _callAxios(config) {
     return axios(config)
@@ -153,7 +165,8 @@ export default class Request {
   /**
    * Internal method to handle errors produced by HTTP requests.
    *
-   * @param {*} error
+   * @param {Object} error - axios error object
+   * @throws {RequestException} throw error
    */
   static _handleRequestError(error) {
     let errMsg;
@@ -187,8 +200,7 @@ export default class Request {
   /**
    * Helper method to run an asynchronous task defined by a task generator function.
    *
-   * @param {*} taskGenerator
-   * @return {*}
+   * @param {function*()} taskGenerator - generator function
    */
   static runAsyncTask(taskGenerator) {
     // create the iterator

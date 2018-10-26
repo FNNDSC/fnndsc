@@ -3,16 +3,15 @@ import { ItemResource, ListResource } from './resource';
 import { Feed } from './feed';
 
 /**
- * API comment objects.
- *
- * @module comment
+ * Comment item resource object.
  */
 export class Comment extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -21,8 +20,8 @@ export class Comment extends ItemResource {
   /**
    * Fetch the feed associated to the comment item from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -32,23 +31,29 @@ export class Comment extends ItemResource {
   }
 }
 
+/**
+ * Comment list resource object.
+ */
 export class CommentList extends ListResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
+
+    /** @type {Object} */
     this.itemClass = Comment;
   }
 
   /**
    * Fetch the feed associated to the comment list from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';

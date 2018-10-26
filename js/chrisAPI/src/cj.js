@@ -16,7 +16,7 @@ export default class Collection {
   }
 
   /**
-   * Get the list of urls for a link relation in a collection or item object.
+   * Get the list of urls for a link relation from a collection or item object.
    *
    * @param {Object} obj - Collection+Json collection or item object
    * @param {string} relationName - name of the link relation
@@ -30,7 +30,7 @@ export default class Collection {
   }
 
   /**
-   * Get an item's data (descriptors) in an object.
+   * Get an item's data (descriptors).
    *
    * @param {Object} item - Collection+Json item object
    * @return {Object} - object whose properties and values are the item's descriptor names and values respectively
@@ -46,7 +46,7 @@ export default class Collection {
   }
 
   /**
-   * Get the url of the representation in the collection obj.
+   * Get the url of the representation given by a collection obj.
    *
    * @param {Object} collection
    * @return {string} url

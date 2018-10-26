@@ -6,16 +6,15 @@ import { Feed } from './feed';
 import { PluginInstance } from './plugininstance';
 
 /**
- * API feed file objects.
- *
- * @module feedfile
+ * Feed file item resource object.
  */
 export class FeedFile extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -24,8 +23,8 @@ export class FeedFile extends ItemResource {
   /**
    * Fetch the file blob associated to this file item from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFileBlob(timeout = 30000) {
     const req = new Request(this.auth, 'application/octet-stream', timeout);
@@ -37,8 +36,8 @@ export class FeedFile extends ItemResource {
   /**
    * Fetch the feed associated to this file item from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -50,8 +49,8 @@ export class FeedFile extends ItemResource {
   /**
    * Fetch the plugin instance that created this file item from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = 'plugin_inst';
@@ -61,23 +60,29 @@ export class FeedFile extends ItemResource {
   }
 }
 
+/**
+ * Feed file list resource object.
+ */
 export class FeedFileList extends ListResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
+
+    /** @type {Object} */
     this.itemClass = FeedFile;
   }
 
   /**
    * Fetch the feed associated to this file list from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';

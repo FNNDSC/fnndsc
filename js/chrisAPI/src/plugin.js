@@ -5,16 +5,15 @@ import { PluginParameterList } from './pluginparameter';
 import { PluginInstanceList } from './plugininstance';
 
 /**
- * API plugin objects.
- *
- * @module plugin
+ * Plugin item resource object.
  */
 export class Plugin extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -23,9 +22,11 @@ export class Plugin extends ItemResource {
   /**
    * Fetch a list of plugin parameters associated to this plugin from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPluginParameters(params = null, timeout = 30000) {
     const linkRelation = 'parameters';
@@ -37,9 +38,11 @@ export class Plugin extends ItemResource {
   /**
    * Fetch a list of plugin instances associated to this plugin from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPluginInstances(params = null, timeout = 30000) {
     const linkRelation = 'instances';
@@ -49,24 +52,32 @@ export class Plugin extends ItemResource {
   }
 }
 
+/**
+ * Plugin list resource object.
+ */
 export class PluginList extends ListResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
+
+    /** @type {Object} */
     this.itemClass = Plugin;
   }
 
   /**
    * Fetch a list of feeds from the REST API.
    *
-   * @param {*} params
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getFeeds(params = null, timeout = 30000) {
     const linkRelation = 'feeds';

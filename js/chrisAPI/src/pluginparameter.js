@@ -3,16 +3,15 @@ import { ItemResource, ListResource } from './resource';
 import { Plugin } from './plugin';
 
 /**
- * API plugin parameter objects.
- *
- * @module pluginparameter
+ * Plugin parameter item resource object.
  */
 export class PluginParameter extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -21,8 +20,8 @@ export class PluginParameter extends ItemResource {
   /**
    * Fetch the plugin associated to this parameter item from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';
@@ -32,23 +31,29 @@ export class PluginParameter extends ItemResource {
   }
 }
 
+/**
+ * Plugin parameter list resource object.
+ */
 export class PluginParameterList extends ListResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
+
+    /** @type {Object} */
     this.itemClass = PluginParameter;
   }
 
   /**
    * Fetch the plugin associated to this list of parameters from the REST API.
    *
-   * @param {*} timeout
-   * @return {*}
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';
