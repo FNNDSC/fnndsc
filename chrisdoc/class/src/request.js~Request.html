@@ -61,13 +61,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Request from &apos;<span><a href="file/src/request.js.html#lineNumber11">@fnndsc/chrisapi/src/request.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Request from &apos;<span><a href="file/src/request.js.html#lineNumber9">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/request.js.html#lineNumber11">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/request.js.html#lineNumber9">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -119,7 +119,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#static-method-runAsyncTask">runAsyncTask</a></span></span><span class="code" data-ice="signature">(taskGenerator: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#static-method-runAsyncTask">runAsyncTask</a></span></span><span class="code" data-ice="signature">(taskGenerator: <span>function*()</span>)</span>
         </p>
       </div>
       <div>
@@ -154,7 +154,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#static-method-_callAxios">_callAxios</a></span></span><span class="code" data-ice="signature">(config: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#static-method-_callAxios">_callAxios</a></span></span><span class="code" data-ice="signature">(config: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -183,7 +183,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#static-method-_handleRequestError">_handleRequestError</a></span></span><span class="code" data-ice="signature">(error: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#static-method-_handleRequestError">_handleRequestError</a></span></span><span class="code" data-ice="signature">(error: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -219,7 +219,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, contentType: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
         </p>
       </div>
       <div>
@@ -255,7 +255,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-member-auth">auth</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-member-auth">auth</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -283,7 +283,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-member-contentType">contentType</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-member-contentType">contentType</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -311,7 +311,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-member-timeout">timeout</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-member-timeout">timeout</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
@@ -346,7 +346,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-delete">delete</a></span></span><span class="code" data-ice="signature">(url: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-delete">delete</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -375,7 +375,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-get">get</a></span></span><span class="code" data-ice="signature">(url: <span>*</span>, params: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-get">get</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -404,7 +404,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-post">post</a></span></span><span class="code" data-ice="signature">(url: <span>*</span>, data: <span>*</span>, uploadFileObj: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-post">post</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -433,7 +433,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-put">put</a></span></span><span class="code" data-ice="signature">(url: <span>*</span>, data: <span>*</span>, uploadFileObj: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-put">put</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -468,7 +468,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-_getConfig">_getConfig</a></span></span><span class="code" data-ice="signature">(url: <span>*</span>, method: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-_getConfig">_getConfig</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, method: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -497,7 +497,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-_postOrPut">_postOrPut</a></span></span><span class="code" data-ice="signature">(requestMethod: <span>*</span>, url: <span>*</span>, data: <span>*</span>, uploadFileObj: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/request.js~Request.html#instance-method-_postOrPut">_postOrPut</a></span></span><span class="code" data-ice="signature">(requestMethod: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -529,11 +529,11 @@
     
     
     
-    <span class="code" data-ice="name">runAsyncTask</span><span class="code" data-ice="signature">(taskGenerator: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">runAsyncTask</span><span class="code" data-ice="signature">(taskGenerator: <span>function*()</span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber193">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber206">source</a></span></span>
     </span>
   </h3>
 
@@ -555,28 +555,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">taskGenerator</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span>function*()</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>generator function</p>
+</td>
     </tr>
 </tbody>
   </table>
 </div>
 </div>
 
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
+  
 
   
 
@@ -603,11 +592,11 @@
     
     
     
-    <span class="code" data-ice="name">_callAxios</span><span class="code" data-ice="signature">(config: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">_callAxios</span><span class="code" data-ice="signature">(config: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber143">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber156">source</a></span></span>
     </span>
   </h3>
 
@@ -629,9 +618,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">config</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>axios configuration object</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -643,8 +633,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -675,11 +666,11 @@
     
     
     
-    <span class="code" data-ice="name">_handleRequestError</span><span class="code" data-ice="signature">(error: <span>*</span>)</span>
+    <span class="code" data-ice="name">_handleRequestError</span><span class="code" data-ice="signature">(error: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber158">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber172">source</a></span></span>
     </span>
   </h3>
 
@@ -701,9 +692,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">error</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>axios error object</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -716,7 +708,19 @@
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></p></td>
+        <td data-ice="throwDesc"><p>throw error</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
@@ -738,11 +742,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, contentType: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber15">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
@@ -754,7 +758,46 @@
 
   
 
-  <div data-ice="properties">
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">auth</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>authentication object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">auth.token</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>authentication token</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">contentType</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>request content type</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
 
   
@@ -785,11 +828,11 @@
     
     
     
-    <span class="code" data-ice="name">auth</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">auth</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber16">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber21">source</a></span></span>
     </span>
   </h3>
 
@@ -828,11 +871,11 @@
     
     
     
-    <span class="code" data-ice="name">contentType</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">contentType</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber24">source</a></span></span>
     </span>
   </h3>
 
@@ -871,11 +914,11 @@
     
     
     
-    <span class="code" data-ice="name">timeout</span><span class="code" data-ice="signature">: <span>*</span></span>
+    <span class="code" data-ice="name">timeout</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber18">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber27">source</a></span></span>
     </span>
   </h3>
 
@@ -917,11 +960,11 @@
     
     
     
-    <span class="code" data-ice="name">delete</span><span class="code" data-ice="signature">(url: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">delete</span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber79">source</a></span></span>
     </span>
   </h3>
 
@@ -943,9 +986,10 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">url</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>url of the resource</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -957,8 +1001,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -989,11 +1034,11 @@
     
     
     
-    <span class="code" data-ice="name">get</span><span class="code" data-ice="signature">(url: <span>*</span>, params: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">get</span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber37">source</a></span></span>
     </span>
   </h3>
 
@@ -1015,15 +1060,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">url</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>url of the resource</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">params</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>search parameters</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1035,8 +1082,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1067,11 +1115,11 @@
     
     
     
-    <span class="code" data-ice="name">post</span><span class="code" data-ice="signature">(url: <span>*</span>, data: <span>*</span>, uploadFileObj: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">post</span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber46">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber56">source</a></span></span>
     </span>
   </h3>
 
@@ -1093,21 +1141,31 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">url</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>url of the resource</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">data</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>JSON data object</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">uploadFileObj</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>custom file object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">uploadFileObj.fname</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>file blob</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1119,8 +1177,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1151,11 +1210,11 @@
     
     
     
-    <span class="code" data-ice="name">put</span><span class="code" data-ice="signature">(url: <span>*</span>, data: <span>*</span>, uploadFileObj: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">put</span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber69">source</a></span></span>
     </span>
   </h3>
 
@@ -1177,21 +1236,31 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">url</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>url of the resource</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">data</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>JSON data object</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">uploadFileObj</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>custom file object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">uploadFileObj.fname</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>file blob</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1203,8 +1272,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1237,11 +1307,11 @@
     
     
     
-    <span class="code" data-ice="name">_getConfig</span><span class="code" data-ice="signature">(url: <span>*</span>, method: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">_getConfig</span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, method: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber113">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber126">source</a></span></span>
     </span>
   </h3>
 
@@ -1263,15 +1333,17 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">url</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>url of the resource</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">method</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>request verb</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1283,8 +1355,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>axios configuration object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1315,11 +1388,11 @@
     
     
     
-    <span class="code" data-ice="name">_postOrPut</span><span class="code" data-ice="signature">(requestMethod: <span>*</span>, url: <span>*</span>, data: <span>*</span>, uploadFileObj: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">_postOrPut</span><span class="code" data-ice="signature">(requestMethod: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber82">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/request.js.html#lineNumber95">source</a></span></span>
     </span>
   </h3>
 
@@ -1341,27 +1414,38 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">requestMethod</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>either &apos;post&apos; or &apos;put&apos;</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">url</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>url of the resource</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">data</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>JSON data object</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">uploadFileObj</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>nullable: true</li></ul></td>
+      <td data-ice="description"><p>custom file object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">uploadFileObj.fname</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>file blob</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1373,8 +1457,9 @@
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>

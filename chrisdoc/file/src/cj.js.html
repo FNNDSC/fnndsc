@@ -61,12 +61,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/cj.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
- /**
-  * Collection+Json utility object.
-  */
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * Collection+Json utility object.
+ */
 export default class Collection {
-
   /**
    * Get the error message from the collection object.
    *
@@ -81,7 +79,7 @@ export default class Collection {
   }
 
   /**
-   * Get the list of urls for a link relation in a collection or item object.
+   * Get the list of urls for a link relation from a collection or item object.
    *
    * @param {Object} obj - Collection+Json collection or item object
    * @param {string} relationName - name of the link relation
@@ -95,7 +93,7 @@ export default class Collection {
   }
 
   /**
-   * Get an item&apos;s data (descriptors) in an object.
+   * Get an item&apos;s data (descriptors).
    *
    * @param {Object} item - Collection+Json item object
    * @return {Object} - object whose properties and values are the item&apos;s descriptor names and values respectively
@@ -111,7 +109,7 @@ export default class Collection {
   }
 
   /**
-   * Get the url of the representation in the collection obj.
+   * Get the url of the representation given by a collection obj.
    *
    * @param {Object} collection
    * @return {string} url

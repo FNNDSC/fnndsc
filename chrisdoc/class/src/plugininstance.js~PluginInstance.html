@@ -61,13 +61,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {PluginInstance} from &apos;<span><a href="file/src/plugininstance.js.html#lineNumber13">@fnndsc/chrisapi/src/plugininstance.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {PluginInstance} from &apos;<span><a href="file/src/plugininstance.js.html#lineNumber11">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/plugininstance.js.html#lineNumber13">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/plugininstance.js.html#lineNumber11">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -87,7 +87,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>API plugin instance objects.</p>
+  <div class="description" data-ice="description"><p>Plugin instance item resource object.</p>
 </div>
   
 
@@ -120,7 +120,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span>*</span>, auth: <span>*</span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -157,7 +157,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getDescendantPluginInstances">getDescendantPluginInstances</a></span></span><span class="code" data-ice="signature">(params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getDescendantPluginInstances">getDescendantPluginInstances</a></span></span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -187,14 +187,14 @@ REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getFeed">getFeed</a></span></span><span class="code" data-ice="signature">(timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getFeed">getFeed</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
         <div data-ice="description"><p>Fetch the feed created by this plugin instance from the REST API
-(only for fs plugins, &apos;ds&apos; plugins resolve to null).</p>
+(only for fs plugins, &apos;ds&apos; plugins pass null to the resultant Promise).</p>
 </div>
       </div>
     </td>
@@ -217,7 +217,7 @@ REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getFiles">getFiles</a></span></span><span class="code" data-ice="signature">(params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getFiles">getFiles</a></span></span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -246,7 +246,7 @@ REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getParameters">getParameters</a></span></span><span class="code" data-ice="signature">(params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getParameters">getParameters</a></span></span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -276,7 +276,7 @@ the REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getPlugin">getPlugin</a></span></span><span class="code" data-ice="signature">(timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getPlugin">getPlugin</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -305,14 +305,14 @@ the REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getPreviousPluginInstance">getPreviousPluginInstance</a></span></span><span class="code" data-ice="signature">(timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html#instance-method-getPreviousPluginInstance">getPreviousPluginInstance</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
         <div data-ice="description"><p>Fetch the parent plugin instance of this plugin instance from the REST API
-(only for &apos;ds&apos; plugins, &apos;fs&apos; plugins resolve to null).</p>
+(only for &apos;ds&apos; plugins, &apos;fs&apos; plugins pass null to the resultant Promise).</p>
 </div>
       </div>
     </td>
@@ -491,13 +491,13 @@ the REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Get the item&apos;s data descriptors</p>
+        <div data-ice="description"><p>Get the item&apos;s data object (REST API descriptors).</p>
 </div>
       </div>
     </td>
@@ -520,7 +520,7 @@ the REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-isEmpty">isEmpty</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-isEmpty">isEmpty</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -634,14 +634,14 @@ the REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-_getResource">_getResource</a></span></span><span class="code" data-ice="signature">(linkRelation: <span>*</span>, ResourceClass: <span>*</span>, params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-_getResource">_getResource</a></span></span><span class="code" data-ice="signature">(linkRelation: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ResourceClass: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Internal method to fetch a related resource from the REST API referenced by
-a link relation in the item object.</p>
+        <div data-ice="description"><p>Internal method to fetch a related resource from the REST API that is referenced by
+a link relation within the item object.</p>
 </div>
       </div>
     </td>
@@ -666,11 +666,11 @@ a link relation in the item object.</p>
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(url: <span>*</span>, auth: <span>*</span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber20">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber19">source</a></span></span>
     </span>
   </h3>
 
@@ -692,15 +692,24 @@ a link relation in the item object.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">url</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>url of the resource</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">auth</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="description"><p>authentication object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">auth.token</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>authentication token</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -736,11 +745,11 @@ a link relation in the item object.</p>
     
     
     
-    <span class="code" data-ice="name">getDescendantPluginInstances</span><span class="code" data-ice="signature">(params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getDescendantPluginInstances</span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber83">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -763,15 +772,33 @@ REST API.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">params</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>page parameters</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -783,8 +810,9 @@ REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -815,11 +843,11 @@ REST API.</p>
     
     
     
-    <span class="code" data-ice="name">getFeed</span><span class="code" data-ice="signature">(timeout: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getFeed</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber30">source</a></span></span>
     </span>
   </h3>
 
@@ -827,7 +855,7 @@ REST API.</p>
   
   
   <div data-ice="description"><p>Fetch the feed created by this plugin instance from the REST API
-(only for fs plugins, &apos;ds&apos; plugins resolve to null).</p>
+(only for fs plugins, &apos;ds&apos; plugins pass null to the resultant Promise).</p>
 </div>
 
   
@@ -842,9 +870,11 @@ REST API.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -856,8 +886,9 @@ REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -888,11 +919,11 @@ REST API.</p>
     
     
     
-    <span class="code" data-ice="name">getFiles</span><span class="code" data-ice="signature">(params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getFiles</span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber112">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber117">source</a></span></span>
     </span>
   </h3>
 
@@ -914,15 +945,33 @@ REST API.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">params</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>page parameters</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -934,8 +983,9 @@ REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -966,11 +1016,11 @@ REST API.</p>
     
     
     
-    <span class="code" data-ice="name">getParameters</span><span class="code" data-ice="signature">(params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getParameters</span><span class="code" data-ice="signature">(params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber101">source</a></span></span>
     </span>
   </h3>
 
@@ -993,15 +1043,33 @@ the REST API.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">params</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>page parameters</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1013,8 +1081,9 @@ the REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1045,11 +1114,11 @@ the REST API.</p>
     
     
     
-    <span class="code" data-ice="name">getPlugin</span><span class="code" data-ice="signature">(timeout: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getPlugin</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber49">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber48">source</a></span></span>
     </span>
   </h3>
 
@@ -1071,9 +1140,11 @@ the REST API.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1085,8 +1156,9 @@ the REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -1117,11 +1189,11 @@ the REST API.</p>
     
     
     
-    <span class="code" data-ice="name">getPreviousPluginInstance</span><span class="code" data-ice="signature">(timeout: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">getPreviousPluginInstance</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/plugininstance.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -1129,7 +1201,7 @@ the REST API.</p>
   
   
   <div data-ice="description"><p>Fetch the parent plugin instance of this plugin instance from the REST API
-(only for &apos;ds&apos; plugins, &apos;fs&apos; plugins resolve to null).</p>
+(only for &apos;ds&apos; plugins, &apos;fs&apos; plugins pass null to the resultant Promise).</p>
 </div>
 
   
@@ -1144,9 +1216,11 @@ the REST API.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -1158,8 +1232,9 @@ the REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>

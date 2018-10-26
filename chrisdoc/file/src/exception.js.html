@@ -63,12 +63,16 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/exception.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
  * Custom exception object.
- *
- * @module exception
  */
 export default class RequestException extends Error {
+  /**
+   * Constructor
+   *
+   * @param {...string} args
+   */
   constructor(...args) {
     super(...args);
+    /** @type {string} */
     this.name = this.constructor.name;
   }
 }

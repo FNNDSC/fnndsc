@@ -163,7 +163,7 @@ export class Feed extends ItemResource {
 }
 
 /**
- * FeedList list resource object.
+ * Feed list resource object.
  */
 export class FeedList extends ListResource {
   /**
@@ -175,6 +175,7 @@ export class FeedList extends ListResource {
    */
   constructor(url, auth) {
     super(url, auth);
+
     /** @type {Object} */
     this.itemClass = Feed;
   }

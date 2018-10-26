@@ -66,16 +66,15 @@ import Request from &apos;./request&apos;;
 import { ItemResource } from &apos;./resource&apos;;
 
 /**
- * API note objects.
- *
- * @module note
+ * Note item resource object.
  */
 export default class Note extends ItemResource {
   /**
    * Constructor
    *
-   * @param {*} url
-   * @param {*} auth
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
   constructor(url, auth) {
     super(url, auth);
@@ -84,11 +83,12 @@ export default class Note extends ItemResource {
   /**
    * Update this note.
    *
-   * @param {*} userInfoObj
-   * @param {*} timeout
-   * @return {*}
+   * @param {Object} data - note data object
+   * @param {number} data.content - note content
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - Promise object
    */
-  update(userInfoObj, timeout = 30000) {
+  update(data, timeout = 30000) {
     const url = this.url;
     const req = new Request(this.auth, this.contentType, timeout);
     const self = this;
@@ -97,8 +97,8 @@ export default class Note extends ItemResource {
       const userData = {
         template: {
           data: [
-            { name: &apos;email&apos;, value: userInfoObj.email },
-            { name: &apos;password&apos;, value: userInfoObj.password },
+            { name: &apos;email&apos;, value: data.email },
+            { name: &apos;password&apos;, value: data.password },
           ],
         },
       };

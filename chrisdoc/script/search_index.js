@@ -1,164 +1,164 @@
 window.esdocSearchIndex = [
   [
-    "@fnndsc/chrisapi/src/client.js~client",
+    "@fnndsc/chrisapi~client",
     "class/src/client.js~Client.html",
-    "<span>Client</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/client.js</span>",
+    "<span>Client</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/cj.js~collection",
+    "@fnndsc/chrisapi~collection",
     "class/src/cj.js~Collection.html",
-    "<span>Collection</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/cj.js</span>",
+    "<span>Collection</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/comment.js~comment",
+    "@fnndsc/chrisapi~comment",
     "class/src/comment.js~Comment.html",
-    "<span>Comment</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/comment.js</span>",
+    "<span>Comment</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/comment.js~commentlist",
+    "@fnndsc/chrisapi~commentlist",
     "class/src/comment.js~CommentList.html",
-    "<span>CommentList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/comment.js</span>",
+    "<span>CommentList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/feed.js~feed",
+    "@fnndsc/chrisapi~feed",
     "class/src/feed.js~Feed.html",
-    "<span>Feed</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/feed.js</span>",
+    "<span>Feed</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/feedfile.js~feedfile",
+    "@fnndsc/chrisapi~feedfile",
     "class/src/feedfile.js~FeedFile.html",
-    "<span>FeedFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/feedfile.js</span>",
+    "<span>FeedFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/feedfile.js~feedfilelist",
+    "@fnndsc/chrisapi~feedfilelist",
     "class/src/feedfile.js~FeedFileList.html",
-    "<span>FeedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/feedfile.js</span>",
+    "<span>FeedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/feed.js~feedlist",
+    "@fnndsc/chrisapi~feedlist",
     "class/src/feed.js~FeedList.html",
-    "<span>FeedList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/feed.js</span>",
+    "<span>FeedList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/resource.js~itemresource",
+    "@fnndsc/chrisapi~itemresource",
     "class/src/resource.js~ItemResource.html",
-    "<span>ItemResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/resource.js</span>",
+    "<span>ItemResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/resource.js~listresource",
+    "@fnndsc/chrisapi~listresource",
     "class/src/resource.js~ListResource.html",
-    "<span>ListResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/resource.js</span>",
+    "<span>ListResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/note.js~note",
+    "@fnndsc/chrisapi~note",
     "class/src/note.js~Note.html",
-    "<span>Note</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/note.js</span>",
+    "<span>Note</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/plugin.js~plugin",
+    "@fnndsc/chrisapi~plugin",
     "class/src/plugin.js~Plugin.html",
-    "<span>Plugin</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/plugin.js</span>",
+    "<span>Plugin</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/plugininstance.js~plugininstance",
+    "@fnndsc/chrisapi~plugininstance",
     "class/src/plugininstance.js~PluginInstance.html",
-    "<span>PluginInstance</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/plugininstance.js</span>",
+    "<span>PluginInstance</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/plugininstance.js~plugininstancelist",
+    "@fnndsc/chrisapi~plugininstancelist",
     "class/src/plugininstance.js~PluginInstanceList.html",
-    "<span>PluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/plugininstance.js</span>",
+    "<span>PluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/plugininstance.js~plugininstanceparameter",
+    "@fnndsc/chrisapi~plugininstanceparameter",
     "class/src/plugininstance.js~PluginInstanceParameter.html",
-    "<span>PluginInstanceParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/plugininstance.js</span>",
+    "<span>PluginInstanceParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/plugininstance.js~plugininstanceparameterlist",
+    "@fnndsc/chrisapi~plugininstanceparameterlist",
     "class/src/plugininstance.js~PluginInstanceParameterList.html",
-    "<span>PluginInstanceParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/plugininstance.js</span>",
+    "<span>PluginInstanceParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/plugin.js~pluginlist",
+    "@fnndsc/chrisapi~pluginlist",
     "class/src/plugin.js~PluginList.html",
-    "<span>PluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/plugin.js</span>",
+    "<span>PluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/pluginparameter.js~pluginparameter",
+    "@fnndsc/chrisapi~pluginparameter",
     "class/src/pluginparameter.js~PluginParameter.html",
-    "<span>PluginParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/pluginparameter.js</span>",
+    "<span>PluginParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/pluginparameter.js~pluginparameterlist",
+    "@fnndsc/chrisapi~pluginparameterlist",
     "class/src/pluginparameter.js~PluginParameterList.html",
-    "<span>PluginParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/pluginparameter.js</span>",
+    "<span>PluginParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/request.js~request",
+    "@fnndsc/chrisapi~request",
     "class/src/request.js~Request.html",
-    "<span>Request</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/request.js</span>",
+    "<span>Request</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/exception.js~requestexception",
+    "@fnndsc/chrisapi~requestexception",
     "class/src/exception.js~RequestException.html",
-    "<span>RequestException</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/exception.js</span>",
+    "<span>RequestException</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/resource.js~resource",
+    "@fnndsc/chrisapi~resource",
     "class/src/resource.js~Resource.html",
-    "<span>Resource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/resource.js</span>",
+    "<span>Resource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/tag.js~tag",
+    "@fnndsc/chrisapi~tag",
     "class/src/tag.js~Tag.html",
-    "<span>Tag</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/tag.js</span>",
+    "<span>Tag</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/tag.js~taglist",
+    "@fnndsc/chrisapi~taglist",
     "class/src/tag.js~TagList.html",
-    "<span>TagList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/tag.js</span>",
+    "<span>TagList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/uploadedfile.js~uploadedfile",
+    "@fnndsc/chrisapi~uploadedfile",
     "class/src/uploadedfile.js~UploadedFile.html",
-    "<span>UploadedFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/uploadedfile.js</span>",
+    "<span>UploadedFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/uploadedfile.js~uploadedfilelist",
+    "@fnndsc/chrisapi~uploadedfilelist",
     "class/src/uploadedfile.js~UploadedFileList.html",
-    "<span>UploadedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/uploadedfile.js</span>",
+    "<span>UploadedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi/src/user.js~user",
+    "@fnndsc/chrisapi~user",
     "class/src/user.js~User.html",
-    "<span>User</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi/src/user.js</span>",
+    "<span>User</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [

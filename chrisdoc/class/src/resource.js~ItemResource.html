@@ -61,7 +61,7 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {ItemResource} from &apos;<span><a href="file/src/resource.js.html#lineNumber56">@fnndsc/chrisapi/src/resource.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {ItemResource} from &apos;<span><a href="file/src/resource.js.html#lineNumber56">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -184,13 +184,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Get the item&apos;s data descriptors</p>
+        <div data-ice="description"><p>Get the item&apos;s data object (REST API descriptors).</p>
 </div>
       </div>
     </td>
@@ -213,7 +213,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-isEmpty">isEmpty</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-isEmpty">isEmpty</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
         </p>
       </div>
       <div>
@@ -312,14 +312,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-_getResource">_getResource</a></span></span><span class="code" data-ice="signature">(linkRelation: <span>*</span>, ResourceClass: <span>*</span>, params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-_getResource">_getResource</a></span></span><span class="code" data-ice="signature">(linkRelation: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ResourceClass: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Internal method to fetch a related resource from the REST API referenced by
-a link relation in the item object.</p>
+        <div data-ice="description"><p>Internal method to fetch a related resource from the REST API that is referenced by
+a link relation within the item object.</p>
 </div>
       </div>
     </td>
@@ -614,7 +614,7 @@ a link relation in the item object.</p>
     
     
     
-    <span class="code" data-ice="name">data</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>: <span>*</span></span>
+    <span class="code" data-ice="name">data</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
@@ -625,7 +625,7 @@ a link relation in the item object.</p>
   
   
   
-  <div data-ice="description"><p>Get the item&apos;s data descriptors</p>
+  <div data-ice="description"><p>Get the item&apos;s data object (REST API descriptors).</p>
 </div>
 
   
@@ -633,20 +633,7 @@ a link relation in the item object.</p>
   <div data-ice="properties">
 </div>
 
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span> (nullable: true)</td>
-          <td class="return-desc" data-ice="returnDescription"><p>data object</p>
-</td>
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
+  
 
   
 
@@ -671,7 +658,7 @@ a link relation in the item object.</p>
     
     
     
-    <span class="code" data-ice="name">isEmpty</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="code" data-ice="name">isEmpty</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
     <span class="right-info">
       
       
@@ -690,19 +677,7 @@ a link relation in the item object.</p>
   <div data-ice="properties">
 </div>
 
-  <div class="return-params" data-ice="returnParams">
-    <h4>Return:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
+  
 
   
 
@@ -850,19 +825,19 @@ a link relation in the item object.</p>
     
     
     
-    <span class="code" data-ice="name">_getResource</span><span class="code" data-ice="signature">(linkRelation: <span>*</span>, ResourceClass: <span>*</span>, params: <span>*</span>, timeout: <span>*</span>): <span>*</span></span>
+    <span class="code" data-ice="name">_getResource</span><span class="code" data-ice="signature">(linkRelation: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ResourceClass: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, params: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/resource.js.html#lineNumber134">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/resource.js.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Internal method to fetch a related resource from the REST API referenced by
-a link relation in the item object.</p>
+  <div data-ice="description"><p>Internal method to fetch a related resource from the REST API that is referenced by
+a link relation within the item object.</p>
 </div>
 
   
@@ -877,27 +852,45 @@ a link relation in the item object.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">linkRelation</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">ResourceClass</td>
-      <td data-ice="type" class="code"><span>*</span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"></td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">params</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>page parameters</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">params.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
-      <td data-ice="type" class="code"><span>*</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
     </tr>
 </tbody>
   </table>
@@ -909,8 +902,9 @@ a link relation in the item object.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>Promise object</p>
+</td>
         </tr>
       </tbody>
     </table>
@@ -922,7 +916,24 @@ a link relation in the item object.</p>
 
   
 
-  
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></p></td>
+        <td data-ice="throwDesc"><p>throw error when the link relation is not found</p>
+</td>
+      </tr>
+<tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></p></td>
+        <td data-ice="throwDesc"><p>throw error if this item resource has not yet been fetched from the REST API</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
 
   
 
