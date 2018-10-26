@@ -2,5 +2,14 @@
   "source": "./src",
   "destination": "./doc",
   "index": "./APIDocumentation.md",
-  "plugins": [{ "name": "esdoc-standard-plugin" }]
+  "plugins": [
+    { "name": "esdoc-standard-plugin" },
+    {
+      "name": "esdoc-importpath-plugin",
+      "option": {
+        "stripPackageName": false,
+        "replaces": [{ "from": ".*", "to": "" }]
+      }
+    }
+  ]
 }
