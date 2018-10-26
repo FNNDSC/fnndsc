@@ -339,7 +339,7 @@ name="view404"></rev-view404>
 
     redirectionToH5AI(year, month){
       //this function redirect to the list of example for a given year and month
-      var target = window.location.href.split(':')[0]+':'+window.location.href.split(':')[1]+'/rev/viewer/'+this.demoPrefix+'/'+year+'-yr/'+month+'-mo/'; 
+      var target = window.location.href.split('?')[0]+this.demoPrefix+'/'+year+'-yr/'+month+'-mo/'; 
             window.location.replace(target);
     }
 
