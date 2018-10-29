@@ -89,7 +89,7 @@ export class Plugin extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object
    */
   getPluginParameters(params = null, timeout = 30000) {
     const linkRelation = &apos;parameters&apos;;
@@ -105,7 +105,7 @@ export class Plugin extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object
    */
   getPluginInstances(params = null, timeout = 30000) {
     const linkRelation = &apos;instances&apos;;
@@ -140,7 +140,7 @@ export class PluginList extends ListResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(params = null, timeout = 30000) {
     const linkRelation = &apos;feeds&apos;;

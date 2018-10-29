@@ -84,7 +84,7 @@ export class Comment extends ItemResource {
    * Fetch the feed associated to the comment item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = &apos;feed&apos;;
@@ -116,7 +116,7 @@ export class CommentList extends ListResource {
    * Fetch the feed associated to the comment list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = &apos;feed&apos;;
