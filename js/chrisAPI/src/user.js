@@ -21,10 +21,10 @@ export default class User extends ItemResource {
    * Update currently authenticated user's information (email and or password).
    *
    * @param {Object} data - user data object
-   * @param {number} data.email - user email
-   * @param {number} data.password - user password
+   * @param {string} data.email - user email
+   * @param {string} data.password - user password
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
   update(data, timeout = 30000) {
     const url = this.url;

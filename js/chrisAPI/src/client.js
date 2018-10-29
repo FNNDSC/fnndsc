@@ -32,7 +32,7 @@ export default class Client {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(params = null, timeout = 30000) {
     const feedList = new FeedList(this.url, this.auth);
@@ -48,7 +48,7 @@ export default class Client {
    * @param {string} password - password
    * @param {string} email - user email
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``User`` object
    */
   static createUser(usersUrl, username, password, email, timeout = 30000) {
     const req = new Request(undefined, 'application/vnd.collection+json', timeout);
@@ -89,7 +89,7 @@ export default class Client {
    * @param {string} password - password
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``string`` value
    */
   static getAuthToken(authUrl, username, password, timeout = 30000) {
     const req = new Request(undefined, 'application/json', timeout);

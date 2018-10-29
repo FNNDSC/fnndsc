@@ -21,9 +21,10 @@ export default class Note extends ItemResource {
    * Update this note.
    *
    * @param {Object} data - note data object
-   * @param {number} data.content - note content
+   * @param {string} data.title - note title
+   * @param {string} data.content - note content
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to this ``Note`` object
    */
   update(data, timeout = 30000) {
     const url = this.url;
@@ -33,7 +34,7 @@ export default class Note extends ItemResource {
     return new Promise((resolve, reject) => {
       const userData = {
         template: {
-          data: [{ name: 'email', value: data.email }, { name: 'password', value: data.password }],
+          data: [{ name: 'title', value: data.title }, { name: 'content', value: data.content }],
         },
       };
 

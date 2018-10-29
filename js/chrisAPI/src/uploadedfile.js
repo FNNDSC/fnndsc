@@ -22,7 +22,7 @@ export class UploadedFile extends ItemResource {
    * Fetch the file blob associated to this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``Blob`` object
    */
   getFileBlob(timeout = 30000) {
     const req = new Request(this.auth, 'application/octet-stream', timeout);

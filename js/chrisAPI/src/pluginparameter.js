@@ -21,7 +21,7 @@ export class PluginParameter extends ItemResource {
    * Fetch the plugin associated to this parameter item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';
@@ -53,7 +53,7 @@ export class PluginParameterList extends ListResource {
    * Fetch the plugin associated to this list of parameters from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';

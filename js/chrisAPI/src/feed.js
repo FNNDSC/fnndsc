@@ -28,7 +28,7 @@ export class Feed extends ItemResource {
    * Fetch the note associated to this feed from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``Note`` object
    */
   getNote(timeout = 30000) {
     const linkRelation = 'note';
@@ -44,7 +44,7 @@ export class Feed extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``TagList`` object
    */
   getTags(params = null, timeout = 30000) {
     const linkRelation = 'tags';
@@ -60,7 +60,7 @@ export class Feed extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``CommentList`` object
    */
   getComments(params = null, timeout = 30000) {
     const linkRelation = 'comments';
@@ -76,7 +76,7 @@ export class Feed extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object
    */
   getFiles(params = null, timeout = 30000) {
     const linkRelation = 'files';
@@ -89,7 +89,7 @@ export class Feed extends ItemResource {
    * Fetch the plugin instance that created this feed from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = 'plugin_inst';
@@ -121,7 +121,7 @@ export class FeedList extends ListResource {
    * Fetch currently authenticated user's information from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``User`` object
    */
   getUser(timeout = 30000) {
     const linkRelation = 'user';
@@ -137,7 +137,7 @@ export class FeedList extends ListResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
    */
   getPlugins(params = null, timeout = 30000) {
     const linkRelation = 'plugins';
@@ -153,7 +153,7 @@ export class FeedList extends ListResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``TagList`` object
    */
   getTags(params = null, timeout = 30000) {
     const linkRelation = 'tags';
@@ -169,7 +169,7 @@ export class FeedList extends ListResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object
    */
   getUploadedFiles(params = null, timeout = 30000) {
     const linkRelation = 'uploadedfiles';

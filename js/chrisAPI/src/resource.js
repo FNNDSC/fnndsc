@@ -72,7 +72,7 @@ export class ItemResource extends Resource {
    * Fetch this item resource from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
   get(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -131,7 +131,7 @@ export class ItemResource extends Resource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error when the link relation is not found
    * @throws {RequestException} throw error if this item resource has not yet been fetched from the REST API
    */
@@ -185,7 +185,7 @@ export class ListResource extends Resource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
   get(params = null, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -230,7 +230,7 @@ export class ListResource extends Resource {
    *
    * @param {Object} params params - search parameters
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
   getSearch(params, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -326,7 +326,7 @@ export class ListResource extends Resource {
    * Fetch the next resource page from the paginated REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
   getNextPage(timeout = 30000) {
     return this._getNextOrPreviousPage('next', timeout);
@@ -336,7 +336,7 @@ export class ListResource extends Resource {
    * Fetch the previous resource page from the paginated REST API.
    *
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
   getPreviousPage(timeout = 30000) {
     return this._getNextOrPreviousPage('previous', timeout);
@@ -347,7 +347,7 @@ export class ListResource extends Resource {
    *
    * @param {string} linkRelation - either the string 'previous' or 'next'
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
   _getNextOrPreviousPage(linkRelation, timeout = 30000) {
     if (this.collection) {
@@ -389,7 +389,7 @@ export class ListResource extends Resource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - Promise object
+   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error when the link relation is not found
    * @throws {RequestException} throw error if this list resource has not yet been fetched from the REST API
    */
