@@ -46,10 +46,17 @@ Check that all the services are up:
 $> docker-compose ps
 ```
 
-#### Install [HTTPie](https://httpie.org/) REST API client and create a test feed by making the following POST request:
+#### Create a test feed by making the following POST request:
+
+Using curl:
 
 ```bash
-pip install httpie
+curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"./"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
+```
+
+Using [HTTPie](https://httpie.org/) REST API client:
+
+```bash
 http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"./"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
 ```
 
