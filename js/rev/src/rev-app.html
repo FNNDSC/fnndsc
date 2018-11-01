@@ -229,7 +229,7 @@ name="view404"></rev-view404>
       this.page = this.routeData.page || 'viewer';
       
       //Getting parameters in either mode
-      var urlSearchParameters = new URLSearchParams(document.location.search);
+      var urlSearchParameters = new URLSearchParams(document.location.search.toLowerCase());
       // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
       var patientBirthDate = urlSearchParameters.get('patientbirthdate');
       var scanDate = urlSearchParameters.get('scandate');
