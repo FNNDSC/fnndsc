@@ -39,7 +39,7 @@ git clone https://github.com/Eogrim/viewer.git
 ```
 To test your install, if you have a LAMP instance running correctly, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
 
-You can directly go to [here](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling).
+You can directly go [here](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) for the next things to do.
 
 ## Development version
 
