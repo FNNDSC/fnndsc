@@ -125,9 +125,9 @@ npm install -g polymer-cli
 
 #### Launch the viewer as a development version
 
-If you want to lauch to test if everything is ok you can follow this part. But to have the viewer fully working you need to do [this part](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) first.
+If you want to launch the viewer to test if everything is ok you can follow this part. But to have the viewer fully working, you need to do [this part](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) first.
 
-To launch the viewer go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
+To launch the viewer, go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
 ```bash
 polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
 ```
@@ -136,27 +136,27 @@ NOTE: Keep in mind the port should be the same as the one you defined in the pfd
 
 ## Data handling
 
-For the two type of install you perform, you have to process your data
+For both types of installations, you must process your data.
 
 ### Get your datas
 
 Put your data in `/var/www/html/rev/src/fnndsc/js/rev`, the folder of your data should be call `library-anon`. 
 
-NOTE: If you want to have a different name of folder you have to modify the `demoPrefix` in `src/rev-app.html`
+NOTE: If you want to have a different name of folder, you have to modify the `demoPrefix` in `src/rev-app.html`
 
 ### Tree structure
 
-The tree stucture is `year > month > examples > series`
+The tree structure is `years > months > examples > series`
 
 In consequence, your data should be names as `library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
 
-If you are running a development version of the viewer the data should be store in: `/var/www/html/rev/src/fnndsc/js/rev/library-anon/...`
+If you are running a development version of the viewer, the data should be store in: `/var/www/html/rev/src/fnndsc/js/rev/library-anon/...`
 
-If you are running a deployment version of the viewer the data should be store in: `/var/www/html/rev/viewer/library-anon/...`
+If you are running a deployment version of the viewer, the data should be store in: `/var/www/html/rev/viewer/library-anon/...`
 
 ### Process your datas
 
-To work, the viewer need somes JSON files. Thoses will be create by `pfdicom_rev`. 
+To work, the viewer need some JSON files. Theses files will be created by `pfdicom_rev`. 
 Install it with: https://github.com/FNNDSC/pfdicom_rev
 
 When everything is set just do this command in `.../pfdicom_rev/bin`:
@@ -166,7 +166,7 @@ When everything is set just do this command in `.../pfdicom_rev/bin`:
 ```
 BE CAREFUL, you need to change the server in the command. 
 
-As an example, for a development version a server name could be: http://centurion.tch.harvard.edu:8060
+As an example, for a development version, a server name could be: http://centurion.tch.harvard.edu:8060
 
 And for a deployment version: http://centurion.tch.harvard.edu/rev/viewer/
 
@@ -177,30 +177,30 @@ const testURL = `${this.demoPrefix}/${target}/description.json`
 
 # Usage
 
-To use the viewer you have to mode avaiable. 
+To use the viewer, you have two modes available. 
 
 ## Mode 1 : Year Month Example
 
-To use this mode, you can define an age telling it in year and month to see the scans corresponding from the database.
+To use this mode, you can define an age telling it in years and months to see the scans corresponding from the database.
 
 Example : http://centurion.tch.harvard.edu/rev/viewer/?year=00&month=00&example=01
 
 ## Mode 2 : PatientBirthDate ScanDate Example
 
-This mode is use to have automatically an example corresponding to a patient birthdate and his scan date. It will display the closest example in term of age from the database. The format is YYYYMMDD.
+This mode is used to have automatically an example corresponding to a patient birthdate and his scan date. It will display the closest example in term of age from the database. The format is YYYYMMDD.
 
 Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=01
 
 ### NOTE 
 
-For each mode you will have multiple example. Do not hesitate to change the example parameter. If you wish to see the list of the example and scan, you can just put 00 to the example parameter. This work in both mode.
+For each mode you will have multiple examples. Do not hesitate to change the example parameter. If you wish to see the list of the example and scan, you can just put 00 to the example parameter. This work in both modes.
 
 Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=00
 
 
 # Modification and building
 
-If you want to upgrade the viewer, it's very likely that you will have to modify the `/src/rev-app.html`. Especially the javascript part. Almost all the change were made in this file. 
+If you want to upgrade the viewer, it's very likely that you will have to modify the `/src/rev-app.html`. Especially the javascript part. Almost all the changes were made in this file. 
 
 ## Build
 
@@ -224,7 +224,7 @@ NODE_OPTIONS="--max-old-space-size=3072" polymer build --verbose --preset es5-bu
 ```
 Then, copy the file in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`
 
-Your viewer should be avaiable on http://yourIPaddress/rev/viewer/
+Your viewer should be available on http://yourIPaddress/rev/viewer/
 
 ## Parameters
 
@@ -232,13 +232,13 @@ Here is the list of all the parameters you might want to use.
 
 In index.html:
 
-- `<base href='/'>` This parameter will be use to define the root of the viewer. 
+- `<base href='/'>` This parameter will be used to define the root of the viewer. 
   Develpoment value: `<base href='/'>`. 
   Deployment value: `<base href='/rev/viewer/'>`
 
 In src/rev-app.html:
 
-- `demoPrefix` This parameter is use to define the name of the file containing all the datas.
+- `demoPrefix` This parameter is used to define the name of the file containing all the data.
   Default : library-anon
 - `description.json` It should follow the --studyJSON parameter of pfdicom-rev. Change the end of this line:
 ```bash
