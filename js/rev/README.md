@@ -36,6 +36,8 @@ git clone build git repo !!!!!
 ```
 To test your install, if you have a LAMP instance running correctly, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
 
+You can directly go to the "Data handling" part.
+
 ## Development version
 
 ### Get `npm/node`
@@ -120,6 +122,8 @@ npm install -g polymer-cli
 
 #### Launch the viewer as a development version
 
+YOU HAVE TO PROCESS YOUR DATAS FIRST
+
 To launch the viewer go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
 ```bash
 polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
@@ -127,7 +131,7 @@ polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
 NOTE: Keep in mind the port should be the same as the one you defined in the pfdicom_rev command
 
 
-## Data handling and running the server
+## Data handling
 
 For the two type of install you perform, you have to process your data
 
@@ -163,7 +167,7 @@ As an example, for a development version a server name could be: http://centurio
 
 And for a deployment version: http://centurion.tch.harvard.edu/rev/viewer/
 
-NOTE2: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
+NOTE: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
 ```bash
 const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
@@ -184,7 +188,7 @@ This mode is use to have automatically an example corresponding to a patient bir
 
 Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=01
 
-## NOTE 
+### NOTE 
 
 For each mode you will have multiple example. Do not hesitate to change the example parameter. If you wish to see the list of the example and scan, you can just put 00 to the example parameter. This work in both mode.
 
@@ -231,5 +235,9 @@ In index.html:
 
 In src/rev-app.html:
 
-- `demoPrefix` This parameter is use to define the name of the file containing all the datas. It should follow the --studyJSON parameter of pfdicom-rev.
+- `demoPrefix` This parameter is use to define the name of the file containing all the datas.
   Default : library-anon
+- `description.json` It should follow the --studyJSON parameter of pfdicom-rev. Change the end of this line:
+```bash
+const testURL = `${this.demoPrefix}/${target}/description.json`
+```
