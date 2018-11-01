@@ -30,9 +30,12 @@ and select the `LAMP` option.
 Install the build source 
 
 ```bash
-cd /var/www/html/
-mkdir -p rev/viewer
-git clone build git repo !!!!!
+sudo bash
+cd /var/www/html
+mkdir rev
+chmod 777 rev
+cd rev
+git clone https://github.com/Eogrim/viewer.git
 ```
 To test your install, if you have a LAMP instance running correctly, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
 
