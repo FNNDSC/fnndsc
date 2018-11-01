@@ -184,7 +184,7 @@ Example : http://centurion.tch.harvard.edu/rev/viewer/?year=00&month=00&example=
 
 ## Mode 2 : PatientBirthDate ScanDate Example
 
-This mode is use to have automatically an example corresponding to a patient birthdate and his scan date. It will display the closest example in term of age from the database. The format if YYYYMMDD.
+This mode is use to have automatically an example corresponding to a patient birthdate and his scan date. It will display the closest example in term of age from the database. The format is YYYYMMDD.
 
 Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=01
 
