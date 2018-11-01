@@ -39,7 +39,7 @@ git clone https://github.com/Eogrim/viewer.git
 ```
 To test your install, if you have a LAMP instance running correctly, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
 
-You can directly go to the "Data handling" part.
+You can directly go to [here](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling).
 
 ## Development version
 
@@ -125,7 +125,7 @@ npm install -g polymer-cli
 
 #### Launch the viewer as a development version
 
-YOU HAVE TO PROCESS YOUR DATAS FIRST
+If you want to lauch to test if everything is ok you can follow this part. But to have the viewer fully working you need to do [this part](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) first.
 
 To launch the viewer go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
 ```bash
