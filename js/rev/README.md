@@ -9,9 +9,41 @@ Radiology Viewer by FNNDSC
 Project was initialized with the <a href="https://github.com/PolymerElements/polymer-starter-kit">Polymer Starter Kit v2</a>
 </p>
 
-# Preconditions
+# Installation
 
-## Get `npm/node`
+## Setup a LAMP instance
+
+For either version of the viewer you want to use, you should have a LAMP instance on your computer
+
+```bash
+sudo apt install tasksel
+```
+Then, run 
+
+```bash
+sudo tasksel
+```
+and select the `LAMP` option.
+
+## Deployment version
+
+Install the build source 
+
+```bash
+sudo bash
+cd /var/www/html
+mkdir rev
+chmod 777 rev
+cd rev
+git clone https://github.com/Eogrim/viewer.git
+```
+To test your install, if you have a LAMP instance running correctly, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
+
+You can directly go [here](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) for the next things to do.
+
+## Development version
+
+### Get `npm/node`
 
 One mechanism to install the latest `npm/node` on an Ubuntu machine is using `nvm`. See [here](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04).
 
@@ -26,30 +58,19 @@ if [[ -s "$NVM_DIR/nvm.sh" ]] ; then
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 ```
-### Select a version
+#### Select a version
 
 Now, log out and login again. Simply run
 
 ```bash
 nvm install 10.7.0
 ```
-## Setup a LAMP instance
 
-```bash
-sudo apt install tasksel
-```
-Then, run 
-
-```bash
-sudo tasksel
-```
-and select the `LAMP` option.
-
-## Checkout and initialize the core source repo
+### Checkout and initialize the core source repo
 
 Checkout the repo:
 
-### Create a dir for the source
+#### Create a dir for the source
 
 ```bash
 sudo bash
@@ -58,7 +79,7 @@ mkdir rev
 chmod 777 rev
 ```
 
-### Checkout the source
+#### Checkout the source
 
 ```bash
 cd /var/www/html/rev
@@ -66,7 +87,7 @@ mkdir src
 cd src
 git clone https://github.com/FNNDSC/fnndsc.git
 ```
-### Update
+#### Update
 
 Install `bower` if necessary
 
@@ -76,14 +97,13 @@ npm install -g bower
 
 And now do an update
 
-``` bash
+```bash
 cd /var/www/html/rev/src/fnndsc/js/rev
-git pull origin master && \
 rm -rf bower_components && \
 bower update
 ```
 
-### Install moment.js
+#### Install moment.js
 
 Install `moment.js`
 
@@ -95,8 +115,7 @@ or
 npm install moment --save
 ```
 
-
-### Install polymer-cli
+#### Install polymer-cli
 
 Install `polymer-cli` 
 
@@ -104,23 +123,40 @@ Install `polymer-cli`
 npm install -g polymer-cli
 ```
 
-## Data handling and running the server
+#### Launch the viewer as a development version
+
+If you want to launch the viewer to test if everything is ok you can follow this part. But to have the viewer fully working, you need to do [this part](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) first.
+
+To launch the viewer, go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
+```bash
+polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
+```
+NOTE: Keep in mind the port should be the same as the one you defined in the pfdicom_rev command
+
+
+## Data handling
+
+For both types of installations, you must process your data.
 
 ### Get your datas
 
 Put your data in `/var/www/html/rev/src/fnndsc/js/rev`, the folder of your data should be call `library-anon`. 
 
-NOTE : If you want to have a different name of folder you have to modify the `demoPrefix` in `src/rev-app.html`
+NOTE: If you want to have a different name of folder, you have to modify the `demoPrefix` in `src/rev-app.html`
 
 ### Tree structure
 
-The tree stucture is `year > month > examples > series`
+The tree structure is `years > months > examples > series`
 
-In consequence, your data should be names as `/var/www/html/rev/src/fnndsc/js/rev/library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
+In consequence, your data should be names as `library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
+
+If you are running a development version of the viewer, the data should be store in: `/var/www/html/rev/src/fnndsc/js/rev/library-anon/...`
+
+If you are running a deployment version of the viewer, the data should be store in: `/var/www/html/rev/viewer/library-anon/...`
 
 ### Process your datas
 
-To work, the viewer need somes JSON files. Thoses will be create by `pfdicom_rev`. 
+To work, the viewer need some JSON files. Theses files will be created by `pfdicom_rev`. 
 Install it with: https://github.com/FNNDSC/pfdicom_rev
 
 When everything is set just do this command in `.../pfdicom_rev/bin`:
@@ -128,45 +164,51 @@ When everything is set just do this command in `.../pfdicom_rev/bin`:
 ```bash
 ./pfdicom_rev -I /var/www/html/rev/src/fnndsc/js/rev/library-anon/ -e dcm -O %inputDir -v 3 --printElapsedTime --server http://XXXXXXXX.XXX:XXXX
 ```
-NOTE: BE CAREFUL, you need to change the server in the command. As an example a server name would be : http://centurion.tch.harvard.edu:8060
+BE CAREFUL, you need to change the server in the command. 
 
-NOTE2: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
+As an example, for a development version, a server name could be: http://centurion.tch.harvard.edu:8060
+
+And for a deployment version: http://centurion.tch.harvard.edu/rev/viewer/
+
+NOTE: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
 ```bash
 const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
 
-### Launch the viewer
+# Usage
 
-To launch the viewer go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
-```bash
-polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
-```
-NOTE: Keep in mind the port should be the same as the one you defined in the pfdicom_rev command
+To use the viewer, you have two modes available. 
 
-Congrat's, you should have a viewer running at the address you defined! 
+## Mode 1 : Year Month Example
+
+To use this mode, you can define an age telling it in years and months to see the scans corresponding from the database.
+
+Example : http://centurion.tch.harvard.edu/rev/viewer/?year=00&month=00&example=01
+
+## Mode 2 : PatientBirthDate ScanDate Example
+
+This mode is used to have automatically an example corresponding to a patient birthdate and his scan date. It will display the closest example in term of age from the database. The format is YYYYMMDD.
+
+Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=01
+
+### NOTE 
+
+For each mode you will have multiple examples. Do not hesitate to change the example parameter. If you wish to see the list of the example and scan, you can just put 00 to the example parameter. This work in both modes.
+
+Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=00
 
 
-# Development and Modification
+# Modification and building
 
-!!! THIS PART IS OUT OF DATE !!! 
-
-## Directory of files
-
-Make sure `<base href="/">` is set in `index.html`.
-It is use by the app as the base path to fetch files. If base is '/path/test', the application
-tries to get its content from `<hostname>:<port>/path/test/`.
-
-At development time, the application is served from `localhost:8081/` hence `<base href='/'>`.
-
-You may also want to update `demoPrefix` in `rev-app.html` depending on where the data is located.
-
-Then to launch the web server :
-
-``` bash
-polymer serve
-```
+If you want to upgrade the viewer, it's very likely that you will have to modify the `/src/rev-app.html`. Especially the javascript part. Almost all the changes were made in this file. 
 
 ## Build
+
+To build a development version to a deployment version: 
+
+Change the `<base href='/'>` to `<base href='/rev/viewer/'>` in index.html. 
+
+Then perform the build with es5-bundled preset.
 
 es5-bundled preset includes:
 
@@ -176,82 +218,29 @@ es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-Same remarks as in previous section, regarding to `<base href='/rev/viewer/'>` and `demoPrefix`.
-
-``` bash
-polymer build --verbose --preset es5-bundled
-polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
-```
-
-# Deploy
-
-!!! THIS PART IS OUT OF DATE !!! 
-
 ```bash
-mkdir -p /var/www/html/rev/viewer
+cd /var/www/html/rev/src/fnndsc/js/rev
+NODE_OPTIONS="--max-old-space-size=3072" polymer build --verbose --preset es5-bundled
 ```
+Then, copy the file in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`
 
-Now, make sure `<base href="/rev/viewer/">` is set in `index.html`.
-At production time, the application is served from `<hostname>:<port>/rev/viewer/` hence `<base href='/rev/viewer/'>`
+Your viewer should be available on http://yourIPaddress/rev/viewer/
 
-Once build copy content from `build/es5` to where we want to serve the app from. Typically it is `fnndsc.childrens.harvard.edu:/var/www/html/rev/viewer`.
+## Parameters
 
-You may have to add/link the directory containing the normative data there.
+Here is the list of all the parameters you might want to use.
 
-## Map URL to normative
+In index.html:
 
-in `src/rev-app.html`:
+- `<base href='/'>` This parameter will be used to define the root of the viewer. 
+  Develpoment value: `<base href='/'>`. 
+  Deployment value: `<base href='/rev/viewer/'>`
 
-```javascript
-pathFromHome(year, month, example) {
-  return `${year}/${month}/${example}/`;
-}
+In src/rev-app.html:
+
+- `demoPrefix` This parameter is used to define the name of the file containing all the data.
+  Default : library-anon
+- `description.json` It should follow the --studyJSON parameter of pfdicom-rev. Change the end of this line:
+```bash
+const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
-
-Then we use whatever is return by those function to construct a URL that target the `description.json`:
-
-```javascript
- const testURL = `${this.demoPrefix}/${target}/description.json`
-```
-
-`demoPrefix` is the location of the directory containing the data, from the perspective of the client.
-
-For instance, if the normative data is located at `fnndsc.childrens.harvard.edu:8000/rev/viewer` and `rev/viewer` contains the years/month/patient tree, demoPrefix should be `/rev/viewer/`.
-
-## Add new data
-
-
-### Add it in the lookup list
-
-We must allow `ReV` top fetch the JSON description for a given query.
-
-https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html#L245
-
-```
-...
-} else if (year && month && example) {
-  target = this.pathFromRadstar(year, month, example);
-}
-...
-```
-
-We want `target` to be `years/month/patient` from the file system.
-
-In the simplest case, we can just concatenate the properties, year 01, month 02 and patient 00 would give target === `01-yr/02-mo/ex-00`.
-
-We may want to be smarter than that and find the closest match if none is available. For instance, following the previous example, if we only have data for `year 01, month 01 and patient 00` available, we want `pathFromRadstar` to return `01-yr/01-mo/ex-00`.
-
-Logic has to be implemented in `pathFromRadstar` and https://github.com/FNNDSC/fnndsc/blob/master/js/rev/src/rev-app.html
- must keep track of all data available in the file system, possibly in a map.
-
-### Add new directory on the file system
-
-We must also provide `rev-app.html` the public location of the data, in order for the front-end to be able to fetch it.
-
-That is the `demoPrefix`.
-```
-${this.demoPrefix}/${target}/description.json`
-```
-
-If the data is available at `fnndsc.childrens.harvard.edu/rev/viewer/yr-xx/...`, then demoPrefix would be `/rev/viewer`;
-
