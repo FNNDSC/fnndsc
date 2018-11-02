@@ -3,7 +3,7 @@ import Request from './request';
 import Collection from './cj';
 import StoreRequestException from './exception';
 
-export { StoreClient };
+export default StoreClient;
 export { Request };
 export { Collection };
 export { StoreRequestException };
