@@ -1,191 +1,54 @@
 /** * Imports ***/
-import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
+import User from './user';
+import { FeedList } from './feed';
 
 /**
- * Chris object.
- *
- * @module client
+ * API client object.
  */
 export default class Client {
   /**
    * Constructor
    *
-   * @param {*} chrisUrl
-   * @param {*} auth
-   * @param {*} timeout
+   * @param {string} url - url of the ChRIS service
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
-  constructor(chrisUrl, auth, timeout = 30000) {
-    this.chrisUrl = chrisUrl;
-    this.chrisQueryUrl = chrisUrl + 'search/';
+  constructor(url, auth) {
+    /** @type {string} */
+    this.url = url;
     if (!auth) {
       throw new RequestException('Authentication object is required');
     }
+    /** @type {Object} */
     this.auth = auth;
-    this.timeout = timeout;
-    this.contentType = 'application/vnd.collection+json';
   }
 
   /**
-   * Get currently authenticated user's feeds.
+   * Fetch a list of currently authenticated user's feeds from the REST API.
    *
-   * @return {*}
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
-  getFeeds() {
-    const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
+  getFeeds(params = null, timeout = 30000) {
+    const feedList = new FeedList(this.url, this.auth);
 
-    return new Promise((resolve, reject) => {
-      const result = req.get(chrisUrl);
-      result
-        .then(response => {
-          resolve(response.data.collection);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+    return feedList.get(params, timeout);
   }
 
   /**
-   * Create a custom obj representing the resource in the response.
-   * @param {*} response
+   * Create a new user account.
    *
-   * @return {*}
-   */
-  static createCustomResponseObj(response) {
-    const config = response.config;
-    const allowVerbs = response.headers.allow.split(',');
-    const collection = response.data.collection;
-    const contentType = response.headers['content-type'] || 'application/vnd.collection+json';
-    const customObj = {};
-
-    const req = new Request(config.auth, contentType, config.timeout);
-
-    if (allowVerbs.indexOf('GET') !== -1) {
-      customObj.get = function() {
-        return req.get(Collection.getUrl(collection));
-      };
-    }
-
-    if (allowVerbs.indexOf('POST') !== -1) {
-      customObj.post = function(data, uploadFileObj = null) {
-        const url = Collection.getUrl(collection);
-
-        return req.post(url, data, uploadFileObj);
-      };
-    }
-
-    if (allowVerbs.indexOf('PUT') !== -1) {
-      customObj.put = function(data, uploadFileObj = null) {
-        const url = Collection.getUrl(collection);
-
-        return req.put(url, data, uploadFileObj);
-      };
-    }
-
-    if (allowVerbs.indexOf('DELETE') !== -1) {
-      customObj.delete = function() {
-        return req.delete(Collection.getUrl(collection));
-      };
-    }
-
-    for (let link of collection.links) {
-      let methodName = 'get_' + link.rel;
-
-      if (customObj.hasOwnProperty(methodName)) {
-        // don't keep a method for a link relation with multiple elements
-        delete customObj[methodName];
-      } else {
-        customObj[methodName] = () => req.get(link.href);
-      }
-    }
-
-    return customObj;
-  }
-
-  /**
-   * Get currently authenticated user's information.
-   *
-   * @return {*}
-   */
-  getUser() {
-    const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
-
-    return new Promise((resolve, reject) => {
-      Request._runAsyncTask(function*() {
-        let resp;
-
-        try {
-          resp = yield req.get(chrisUrl);
-          const urls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
-          if (urls.length) {
-            const userUrl = urls[0]; // there is only a single user url
-            resp = yield req.get(userUrl);
-          } else {
-            throw new RequestException('Missing user link relation');
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-        resolve(resp.data.collection);
-      });
-    });
-  }
-
-  /**
-   * Update currently authenticated user's information (email and or password).
-   *
-   * @param {*} userInfoObj
-   * @return {*}
-   */
-  updateUser(userInfoObj) {
-    const chrisUrl = this.chrisUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
-
-    const userData = {
-      template: {
-        data: [
-          { name: 'email', value: userInfoObj.email },
-          { name: 'password', value: userInfoObj.password },
-        ],
-      },
-    };
-
-    return new Promise((resolve, reject) => {
-      Request._runAsyncTask(function*() {
-        let resp;
-
-        try {
-          resp = yield req.get(chrisUrl);
-          const urls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
-          if (urls.length) {
-            const userUrl = urls[0]; // there is only a single user url
-            resp = yield req.put(userUrl, userData);
-          } else {
-            throw new RequestException('Missing user link relation');
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-        resolve(resp.data.collection);
-      });
-    });
-  }
-
-  /**
-   * Create a new store user account.
-   *
-   * @param {*} usersUrl
-   * @param {*} username
-   * @param {*} password
-   * @param {*} email
-   * @param {*} timeout
-   * @return {*}
+   * @param {string} usersUrl - url of the user accounts service
+   * @param {string} username - username
+   * @param {string} password - password
+   * @param {string} email - user email
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``User`` object
    */
   static createUser(usersUrl, username, password, email, timeout = 30000) {
     const req = new Request(undefined, 'application/vnd.collection+json', timeout);
@@ -203,7 +66,15 @@ export default class Client {
     return new Promise((resolve, reject) => {
       result
         .then(response => {
-          resolve(response.data.collection);
+          const coll = response.data.collection;
+          const userUrl = coll.items[0].href;
+          const auth = { username: username, password: password };
+
+          const user = new User(userUrl, auth);
+          user.collection = coll;
+          user.item = coll.items[0];
+
+          resolve(user);
         })
         .catch(error => {
           reject(error);
@@ -212,13 +83,13 @@ export default class Client {
   }
 
   /**
-   * Get a user's login authorization token.
-   * @param {*} authUrl
-   * @param {*} username
-   * @param {*} password
-   * @param {*} timeout
+   * Fetch a user's login authorization token from the REST API.
+   * @param {string} authUrl - url of the authorization service
+   * @param {string} username - username
+   * @param {string} password - password
+   * @param {number} [timeout=30000] - request timeout
    *
-   * @return {*}
+   * @return {Object} - JS Promise, resolves to a ``string`` value
    */
   static getAuthToken(authUrl, username, password, timeout = 30000) {
     const req = new Request(undefined, 'application/json', timeout);
@@ -237,5 +108,14 @@ export default class Client {
           reject(error);
         });
     });
+  }
+
+  /**
+   * Helper method to run an asynchronous task defined by a task generator function.
+   *
+   * @param {function*()} taskGenerator - generator function
+   */
+  static runAsyncTask(taskGenerator) {
+    Request.runAsyncTask(taskGenerator);
   }
 }

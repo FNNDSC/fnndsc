@@ -1,7 +1,7 @@
 # ChRIS API
 [![Build Status](https://travis-ci.org/FNNDSC/fnndsc.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc)
 
-JavaScript6 client for the ChRIS API.
+JavaScript 6 client for the ChRIS API.
 
 ## Installation
 
@@ -9,230 +9,19 @@ JavaScript6 client for the ChRIS API.
 npm i @fnndsc/chrisapi
 ```
 
-## Usage
+## API Documentation
 
-If you have a ChRIS server up and running (eg. as explained below) then you can use and test the API in your JS code:
+If you have a ChRIS server up and running (eg. as explained below) then you can test the API in your Javascript code.
 
-``` javascript
-import {Client} from '@fnndsc/chrisapi';
+For more information visit the [API documentation](https://fnndsc.github.io/fnndsc/chrisdoc/index.html)
 
-const chrisUrl = 'http://localhost:8000/api/v1/';
-const usersUrl = chrisUrl + 'users/';
-const authUrl = chrisUrl + 'auth-token/';
-let authToken;
-let resp;
-
-
-// create a new user
-resp = Client.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');
-resp
-  .then(user => {
-
-    window.console.log('New user: ', user);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// retrieve a user auth token
-resp = Client.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
-resp
-  .then(token => {
-
-    window.console.log('Token: ', token);
-    authToken = token;
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// create a new client instance  without an auth object to make allowed unauthenticated requests
-let client = new Client(storeUrl);
-
-
-// retrieve a plugin given its name
-resp = client.getPlugin('simplefsapp');
-resp
-  .then(plugin => {
-
-    window.console.log('plugin: ', plugin);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// retrieve in a list a subset of the plugins in the store given search params
-let searchParams = { limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
-resp
-  .then(smallPluginList => {
-
-    window.console.log('small plugin list: ', smallPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// retrieve in a list a subset of the plugins in the store created by a specific user
-let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
-resp
-  .then(userPluginList => {
-
-    window.console.log('a subset of the plugins created by the user: ', userPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// retrieve a paginated list of plugins given search params and call a callback function on every page of the plugin list
-searchParams = { type: 'fs' };
-resp = client.getPlugins(searchParams, onePageFsPluginList => {
-
-  window.console.log('one page of the fs plugin list: ', onePageFsPluginList);
-});
-resp
-  .then(fullFsPluginList => {
-
-    window.console.log('"fs" plugins: ', fullFsPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// create a new client instance  with an auth object to be able to make required authenticated requests
-const auth = {token: authToken}; // or alternatively auth = {username: 'cubeadmin', password: 'cubeadmin1234'}
-client = new StoreClient(storeUrl, auth);
-
-
-// add a new plugin to the store
-const testPlgName = 'myPlugin';
-const testPlgDockImg = 'fnndsc/pl-myPlugin';
-const testPlgPublicRepo = 'https://github.com/FNNDSC/pl-myPlugin';
-const testPluginRepresentation = {
-  creation_date: '2018-05-22T15:49:52.419437Z',
-  modification_date: '2018-05-22T15:49:52.419481Z',
-  type: 'fs',
-  authors: 'FNNDSC (dev@babyMRI.org)',
-  title: 'Simple chris fs app',
-  category: '',
-  description: 'A simple chris fs app demo',
-  documentation: 'http://wiki',
-  license: 'Opensource (MIT)',
-  version: '0.1',
-  execshell: 'python3',
-  selfpath: '/usr/src/simplefsapp',
-  selfexec: 'simplefsapp.py',
-  min_number_of_workers: 1,
-  max_number_of_workers: 1,
-  min_cpu_limit: 1000,
-  max_cpu_limit: 2147483647,
-  min_memory_limit: 200,
-  max_memory_limit: 2147483647,
-  min_gpu_limit: 0,
-  max_gpu_limit: 0,
-  parameters: [
-    {
-      name: 'dir',
-      type: 'path',
-      optional: true,
-      default: './',
-      flag: '--dir',
-      action: 'store',
-      help: 'look up directory',
-    },
-  ],
-};
-
-let fileData = JSON.stringify(testPluginRepresentation);
-let dfile = new Blob([fileData], { type: 'application/json' });
-
-resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
-resp
-  .then(response => {
-
-      window.console.log('new plugin in the store: ', response);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// modify an existing plugin's representation in the store
-testPluginRepresentation.description = 'A new description';
-fileData = JSON.stringify(testPluginRepresentation);
-dfile = new Blob([fileData], { type: 'application/json' });
-
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
-resp
-  .then(response => {
-
-    window.console.log('updated description for plugin: ', testPlgName);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// change an existing plugin's name
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, 'newPluginName');
-resp
-  .then(response => {
-
-    window.console.log('plugin name is now newPluginName');
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// share an existing plugin with another store user (who then becomes an owner of the plugin)
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, undefined, 'chris');
-resp
-  .then(response => {
-
-    window.console.log('user chris is now in the list of owners of plugin: ' + testPlgName);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-
-
-// remove an existing plugin from the store
-resp = client.removePlugin(testPlgName);
-resp
-  .then(() => {
-
-    window.console.log('removed plugin: ', testPlgName);
-  })
-  .catch(error => {
-
-    window.console.log('Error!!!: ', error);
-  });
-```
 
 ## Development and testing
 
-### ChRIS Store server preconditions
+### ChRIS server preconditions
 
 These preconditions are only necessary to be able to test the client against an actual
-instance of a ChRIS Store server both during development and for the automated tests.
+instance of a ChRIS server both during development and for the automated tests.
 
 #### Install latest Docker and Docker Compose. Currently tested platforms
 * ``Docker 17.04.0+``
@@ -255,6 +44,20 @@ Check that all the services are up:
 
 ``` bash
 $> docker-compose ps
+```
+
+#### Create a test feed by making the following POST request:
+
+Using curl:
+
+```bash
+curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"./"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
+```
+
+Using [HTTPie](https://httpie.org/) REST API client:
+
+```bash
+http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"./"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
 ```
 
 ### JavaScript package manager prerequisite
@@ -287,4 +90,10 @@ Compile library to standalone bundle
 
 ``` bash
 $> yarn build
+```
+
+Generate source code documentation
+
+``` bash
+$> yarn docs
 ```

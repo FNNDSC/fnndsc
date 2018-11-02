@@ -14,6 +14,7 @@
   "esversion":6,
   "globals": {
     "beforeEach": true, "afterEach": true, "define": true, "require": true,
-    "module": true, "describe": true, "it": true, "__dirname": true
+    "module": true, "describe": true, "it": true, "__dirname": true,
+    "before": true
     }
 }
