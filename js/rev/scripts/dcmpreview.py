@@ -166,6 +166,7 @@ def processSeries(tar):
     files = []
     source = ''
     print('--- FILES')
+    #pudb.set_trace()
     for filename in sorted_images:
         name, extension = os.path.splitext(filename)
 
