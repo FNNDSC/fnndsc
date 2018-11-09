@@ -58,10 +58,40 @@ export default class Collection {
   /**
    * Get the list of descriptor names within a collection's template object.
    *
-   * @param {Object} template
+   * @param {Object} Collection+Json template object
    * @return {string[]} list of descriptor names
    */
   static getTemplateDescriptorNames(template) {
     return template.data.map(descriptor => descriptor.name);
+  }
+
+  /**
+   * Get the list of descriptor names within a Collection+Json query array.
+   *
+   * @param {Object[]} Collection+Json query array
+   * @return {string[]} list of query parameter names
+   */
+  static getQueryParameters(queryObj) {
+    return queryObj[0].data.map(descriptor => descriptor.name);
+  }
+
+  /**
+   * Make a Collection+Json template object from a regular object whose properties are
+   * the item descriptors.
+   *
+   * @param {Object} descriptorsObj
+   * @return {Object} template object
+   */
+  static makeTemplate(descriptorsObj) {
+    const template = { data: [] };
+
+    let i = 0;
+    for (let property in descriptorsObj) {
+      if (descriptorsObj.hasOwnProperty(property)) {
+        template.data[i] = { name: property, value: descriptorsObj[property] };
+      }
+      i++;
+    }
+    return template;
   }
 }
