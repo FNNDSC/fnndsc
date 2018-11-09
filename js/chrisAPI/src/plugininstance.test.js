@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import Request from './request';
 import { FeedList, Feed } from './feed';
 import { Plugin } from './plugin';
-import { PluginInstanceList, PluginInstance } from './plugininstance';
+import { PluginInstanceList, PluginInstanceDescendantList, PluginInstance } from './plugininstance';
 import { PluginInstanceParameterList } from './plugininstance';
 import { FeedFileList } from './feedfile';
 
@@ -94,7 +94,7 @@ describe('Resource', () => {
       const result = pluginInst.getDescendantPluginInstances();
       result
         .then(plgInstList => {
-          expect(plgInstList).to.be.an.instanceof(PluginInstanceList);
+          expect(plgInstList).to.be.an.instanceof(PluginInstanceDescendantList);
         })
         .then(done, done);
     });

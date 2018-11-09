@@ -79,11 +79,11 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object
+   * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object
    */
   getDescendantPluginInstances(params = null, timeout = 30000) {
     const linkRelation = 'descendants';
-    const resourceClass = PluginInstanceList;
+    const resourceClass = PluginInstanceDescendantList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
@@ -151,6 +151,26 @@ export class PluginInstanceList extends ListResource {
     const resourceClass = Plugin;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Plugin instance descendant list resource object. This is a list of all plugin
+ * instances that have this plugin instance as an ancestor in a pipeline tree.
+ */
+export class PluginInstanceDescendantList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstance;
   }
 }
 
