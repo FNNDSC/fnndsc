@@ -228,7 +228,7 @@ export class ListResource extends Resource {
   /**
    * Fetch this list resource from the REST API based on search parameters.
    *
-   * @param {Object} params params - search parameters
+   * @param {Object} params - search parameters
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
