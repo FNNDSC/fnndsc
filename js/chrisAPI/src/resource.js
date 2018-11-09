@@ -122,6 +122,20 @@ export class ItemResource extends Resource {
   }
 
   /**
+   * Get an array of parameter names that can be used as properties of the data object in
+   * PUT requests.
+   *
+   * @return {?string[]} - array of acceptable PUT data properties or null if the list
+   * resource data has not been fetched from the API yet or it doesn't support PUT requests.
+   */
+  getAcceptablePUTDataProperties() {
+    if (this.collection && this.collection.template) {
+      return Collection.getTemplateDescriptorNames(this.collection.template);
+    }
+    return null;
+  }
+
+  /**
    * Internal method to fetch a related resource from the REST API that is referenced by
    * a link relation within the item object.
    *
@@ -150,6 +164,71 @@ export class ItemResource extends Resource {
       }
     }
     throw new RequestException('Item object has not been set!');
+  }
+
+  /**
+   * Internal helper method to make a PUT request to this item resource through the
+   * REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  _put(data, uploadFileObj, timeout = 30000) {
+    const url = this.url;
+    const req = new Request(this.auth, this.contentType, timeout);
+    let putData = data;
+
+    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {
+      putData = { template: Collection.makeTemplate(data) };
+    }
+
+    return new Promise((resolve, reject) => {
+      const result = req.put(url, putData, uploadFileObj);
+
+      result
+        .then(response => {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.item = null;
+          if (response.data && response.data.collection) {
+            this.collection = response.data.collection;
+            this.item = this.collection.items[0];
+          }
+          resolve(this);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Internal helper method to make a DELETE request to this item resource through the
+   * REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``null``
+   */
+  _delete(timeout = 30000) {
+    const req = new Request(this.auth, this.contentType, timeout);
+
+    return new Promise((resolve, reject) => {
+      const result = req.delete(this.url);
+
+      result
+        .then(() => {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.item = null;
+          resolve(null);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
 }
 
@@ -226,9 +305,28 @@ export class ListResource extends Resource {
   }
 
   /**
+   * Get an array of search parameter names that can be used as properties of the
+   * ``params`` argument to the getSearch method.
+   *
+   * @return {?string[]} - array of search parameter names or null if the list resource
+   * data has not been fetched from the API yet.
+   */
+  getAcceptableSearchParams() {
+    if (this.collection) {
+      if (this.collection.queries) {
+        const params = Collection.getQueryParameters(this.collection.queries);
+        return params.push('limit', 'offset');
+      }
+      return ['limit', 'offset'];
+    }
+    return null;
+  }
+
+  /**
    * Fetch this list resource from the REST API based on search parameters.
    *
-   * @param {Object} params - search parameters
+   * @param {Object} params - search parameters, the ``getAcceptableSearchParams`` method
+   * can be used to get a list of possible search parameters
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
@@ -323,6 +421,20 @@ export class ListResource extends Resource {
   }
 
   /**
+   * Get an array of parameter names that can be used as properties of the data object in
+   * POST requests.
+   *
+   * @return {?string[]} - array of acceptable POST data properties or null if the list
+   * resource data has not been fetched from the API yet or it doesn't support POST requests.
+   */
+  getAcceptablePOSTDataProperties() {
+    if (this.collection && this.collection.template) {
+      return Collection.getTemplateDescriptorNames(this.collection.template);
+    }
+    return null;
+  }
+
+  /**
    * Fetch the next resource page from the paginated REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -408,5 +520,43 @@ export class ListResource extends Resource {
       }
     }
     throw new RequestException('Collection object has not been set!');
+  }
+
+  /**
+   * Internal helper method to make a POST request to this list resource through the
+   * REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  _post(data, uploadFileObj, timeout = 30000) {
+    const url = this.url;
+    const req = new Request(this.auth, this.contentType, timeout);
+    let postData = data;
+
+    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {
+      postData = { template: Collection.makeTemplate(data) };
+    }
+
+    return new Promise((resolve, reject) => {
+      const result = req.post(url, postData, uploadFileObj);
+
+      result
+        .then(response => {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.searchParams = null;
+          if (response.data && response.data.collection) {
+            this.collection = response.data.collection;
+          }
+          resolve(this);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
   }
 }
