@@ -122,13 +122,14 @@ export class ItemResource extends Resource {
   }
 
   /**
-   * Get an array of parameter names that can be used as properties of the data object in
-   * PUT requests.
+   * Get an array of parameter names that can be used as properties of the data
+   * object in PUT requests.
    *
-   * @return {?string[]} - array of acceptable PUT data properties or null if the list
-   * resource data has not been fetched from the API yet or it doesn't support PUT requests.
+   * @return {?string[]} - array of PUT data property name or null if this list
+   * resource's data has not been fetched from the API yet or it doesn't support
+   * PUT requests.
    */
-  getAcceptablePUTDataProperties() {
+  getPUTDataParameters() {
     if (this.collection && this.collection.template) {
       return Collection.getTemplateDescriptorNames(this.collection.template);
     }
@@ -136,8 +137,8 @@ export class ItemResource extends Resource {
   }
 
   /**
-   * Internal method to fetch a related resource from the REST API that is referenced by
-   * a link relation within the item object.
+   * Internal method to fetch a related resource from the REST API that is referenced
+   * by a link relation within the item object.
    *
    * @param {string} linkRelation
    * @param {Object} ResourceClass
@@ -147,7 +148,8 @@ export class ItemResource extends Resource {
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error when the link relation is not found
-   * @throws {RequestException} throw error if this item resource has not yet been fetched from the REST API
+   * @throws {RequestException} throw error if this item resource has not yet been
+   * fetched from the REST API
    */
   _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
     if (this.item) {
@@ -167,8 +169,8 @@ export class ItemResource extends Resource {
   }
 
   /**
-   * Internal helper method to make a PUT request to this item resource through the
-   * REST API.
+   * Internal helper method to make a PUT request to this item resource through
+   * the REST API.
    *
    * @param {Object} data - request JSON data object
    * @param {?Object} uploadFileObj - custom file object
@@ -206,8 +208,8 @@ export class ItemResource extends Resource {
   }
 
   /**
-   * Internal helper method to make a DELETE request to this item resource through the
-   * REST API.
+   * Internal helper method to make a DELETE request to this item resource through
+   * the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``null``
@@ -308,10 +310,10 @@ export class ListResource extends Resource {
    * Get an array of search parameter names that can be used as properties of the
    * ``params`` argument to the getSearch method.
    *
-   * @return {?string[]} - array of search parameter names or null if the list resource
-   * data has not been fetched from the API yet.
+   * @return {?string[]} - array of search parameter names or null if this list
+   * resource's data has not been fetched from the API yet.
    */
-  getAcceptableSearchParams() {
+  getSearchParameters() {
     if (this.collection) {
       if (this.collection.queries) {
         const params = Collection.getQueryParameters(this.collection.queries);
@@ -325,8 +327,8 @@ export class ListResource extends Resource {
   /**
    * Fetch this list resource from the REST API based on search parameters.
    *
-   * @param {Object} params - search parameters, the ``getAcceptableSearchParams`` method
-   * can be used to get a list of possible search parameters
+   * @param {Object} params - search parameters, the ``getSearchParameters``
+   * method can be used to get a list of possible search parameters
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
@@ -421,13 +423,14 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Get an array of parameter names that can be used as properties of the data object in
-   * POST requests.
+   * Get an array of parameter names that can be used as properties of the data
+   * object in POST requests.
    *
-   * @return {?string[]} - array of acceptable POST data properties or null if the list
-   * resource data has not been fetched from the API yet or it doesn't support POST requests.
+   * @return {?string[]} - array of POST data properties or null if this list
+   * resource's data has not been fetched from the API yet or it doesn't support
+   * POST requests.
    */
-  getAcceptablePOSTDataProperties() {
+  getPOSTDataParameters() {
     if (this.collection && this.collection.template) {
       return Collection.getTemplateDescriptorNames(this.collection.template);
     }
@@ -523,8 +526,8 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Internal helper method to make a POST request to this list resource through the
-   * REST API.
+   * Internal helper method to make a POST request to this list resource through
+   * the REST API.
    *
    * @param {Object} data - request JSON data object
    * @param {?Object} uploadFileObj - custom file object
