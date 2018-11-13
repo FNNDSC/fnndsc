@@ -308,7 +308,7 @@ export class ListResource extends Resource {
 
   /**
    * Get an array of search parameter names that can be used as properties of the
-   * ``params`` argument to the getSearch method.
+   * ``params`` argument to the ``getSearch`` method.
    *
    * @return {?string[]} - array of search parameter names or null if this list
    * resource's data has not been fetched from the API yet.
@@ -317,7 +317,8 @@ export class ListResource extends Resource {
     if (this.collection) {
       if (this.collection.queries) {
         const params = Collection.getQueryParameters(this.collection.queries);
-        return params.push('limit', 'offset');
+        params.push('limit', 'offset');
+        return params;
       }
       return ['limit', 'offset'];
     }

@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { ItemResource, ListResource } from './resource';
+import Collection from './cj';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -10,16 +11,17 @@ describe('Resource', () => {
   const chrisUrl = 'http://localhost:8000/api/v1/';
   const auth = { username: username, password: password };
   //const auth = {token: "d757da9c364fdc92368b90392559e0de78f54f02"};
-  const collection = {
-    href: chrisUrl,
-    items: [{ data: [{ name: 'id', value: 1 }] }],
-    links: [],
-  };
+  let collection;
 
   describe('ItemResource', () => {
     let itemRes;
 
     beforeEach(() => {
+      collection = {
+        href: chrisUrl,
+        items: [{ data: [{ name: 'id', value: 1 }] }],
+        links: [],
+      };
       itemRes = new ItemResource(chrisUrl, auth);
       itemRes.collection = collection;
     });
@@ -42,6 +44,12 @@ describe('Resource', () => {
       expect(itemRes.data).to.deep.equal({ id: 1 });
     });
 
+    it('can retrieve the array of supported PUT data parameters or null', () => {
+      expect(itemRes.getPUTDataParameters()).to.be.a('null');
+      itemRes.collection.template = Collection.makeTemplate({ descriptor1: '', descriptor2: '' });
+      expect(itemRes.getPUTDataParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
+    });
+
     it('can fetch an Item Resource from the REST API', done => {
       const result = itemRes.get();
       result
@@ -57,6 +65,11 @@ describe('Resource', () => {
     let listRes;
 
     beforeEach(() => {
+      collection = {
+        href: chrisUrl,
+        items: [{ data: [{ name: 'id', value: 1 }] }],
+        links: [],
+      };
       listRes = new ListResource(chrisUrl, auth);
       listRes.collection = collection;
     });
@@ -80,10 +93,25 @@ describe('Resource', () => {
       expect(listRes.isEmpty).to.be.false;
     });
 
-    it('can retrieve an array of of item resource objects', () => {
+    it('can retrieve an array of item resource objects', () => {
       const itemResArray = listRes.getItems();
       expect(itemResArray[0]).to.be.an.instanceof(ItemResource);
       expect(itemResArray[0].data).to.deep.equal({ id: 1 });
+    });
+
+    it('can retrieve an array of search parameters or null', () => {
+      listRes.collection = null;
+      expect(listRes.getSearchParameters()).to.be.a('null');
+      listRes.collection = collection;
+      expect(listRes.getSearchParameters()).to.deep.equal(['limit', 'offset']);
+      listRes.collection.queries = [{ data: [{ name: 'id', value: '' }] }];
+      expect(listRes.getSearchParameters()).to.deep.equal(['id', 'limit', 'offset']);
+    });
+
+    it('can retrieve the array of supported POST data parameters or null', () => {
+      expect(listRes.getPOSTDataParameters()).to.be.a('null');
+      listRes.collection.template = Collection.makeTemplate({ descriptor1: '', descriptor2: '' });
+      expect(listRes.getPOSTDataParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
     });
 
     it('can fetch a List Resource from the REST API', done => {
@@ -145,7 +173,7 @@ describe('Resource', () => {
         .then(done, done);
     });
 
-    it('can update this List Resource by fetching next page from the REST API even with search params', done => {
+    it('can update this List Resource by fetching next page from the REST API even when there are search params', done => {
       // Real REST API will never return link relation "next" pointing to the
       // current collection document. Here this is just for testing porposes
       listRes.collection.links = [
