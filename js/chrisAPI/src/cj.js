@@ -71,8 +71,8 @@ export default class Collection {
    * @param {Object[]} Collection+Json query array
    * @return {string[]} list of query parameter names
    */
-  static getQueryParameters(queryObj) {
-    return queryObj[0].data.map(descriptor => descriptor.name);
+  static getQueryParameters(queryArr) {
+    return queryArr[0].data.map(descriptor => descriptor.name);
   }
 
   /**
