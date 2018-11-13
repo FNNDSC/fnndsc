@@ -40,7 +40,8 @@
     "vaadin-material-theme": "vaadin/vaadin-material-theme#^0.3.0",
     "wc-series-preview": "FNNDSC/wc-series-preview#master",
     "wc-periodic-logo": "FNNDSC/wc-periodic-logo#master",
-    "wc-viewer-2d": "fnndsc/wc-viewer-2d#master"
+    "wc-viewer-2d": "fnndsc/wc-viewer-2d#master",
+    "moment": "^2.22.2"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0-prerelease.7"
