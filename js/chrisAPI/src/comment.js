@@ -29,6 +29,29 @@ export class Comment extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Make a PUT request to this comment item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.title - title of the comment
+   * @param {string} data.content - content of the comment
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to this comment item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``null``
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**
@@ -60,5 +83,18 @@ export class CommentList extends ListResource {
     const resourceClass = Feed;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Make a POST request to this comment list resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.title - title of the comment
+   * @param {string} data.content - content of the comment
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
   }
 }
