@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import Request from './request';
 import { FeedList } from './feed';
-import { Comment, CommentList } from './comment';
-import { FeedFileList } from './feedfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -20,7 +18,10 @@ describe('Resource', () => {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
-          commentListRes = yield feedListRes.getComments();
+          const feedItem = feedListRes.getItems().filter(item => {
+            return item.data.id === 1;
+          })[0];
+          commentListRes = yield feedItem.getComments();
           commentListRes = yield commentListRes.post({
             title: 'Test comment',
             content: 'Test comment content',
@@ -40,13 +41,35 @@ describe('Resource', () => {
 
     beforeEach(() => {
       // get the plugin instance with id 1
-      commentItem = commentListRes
-        .getItems()
-        .filter(item => {
-          return item.data.id === 1;
-        })[0]
-        .clone();
+      commentItem = commentListRes.getItems()[0].clone();
     });
+
+    it('can modify this comment item resource through a REST API PUT request', done => {
+      const data = {
+        title: 'PUT test comment',
+        content: 'PUT test comment content',
+      };
+
+      const result = commentItem.put(data);
+
+      result
+        .then(commentItem => {
+          expect(commentItem.data.title).to.equal(data.title);
+          expect(commentItem.data.content).to.equal(data.content);
+        })
+        .then(done, done);
+    });
+
+    /*it('can delete this comment item resource through a REST API PUT request', done => {
+
+      const result = commentItem.delete();
+
+      result
+        .then(commentItem => {
+          expect(commentItem).to.be.a('null');
+        })
+        .then(done, done);
+    });*/
   });
 
   describe('CommentList', () => {
@@ -54,6 +77,23 @@ describe('Resource', () => {
 
     beforeEach(() => {
       commentList = commentListRes.clone();
+    });
+
+    it('can create a new comment item resource through a REST API POST request', done => {
+      const data = {
+        title: 'POST test comment',
+        content: 'POST test comment content',
+      };
+
+      const result = commentList.post(data);
+
+      result
+        .then(commentList => {
+          const createdCommentItem = commentList.getItems()[0];
+          expect(createdCommentItem.data.title).to.equal(data.title);
+          expect(createdCommentItem.data.content).to.equal(data.content);
+        })
+        .then(done, done);
     });
   });
 });

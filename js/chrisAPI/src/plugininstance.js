@@ -152,6 +152,20 @@ export class PluginInstanceList extends ListResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Make a POST request to this plugin instance list resource to create a new plugin
+   * instance item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object which is plugin-specific and it's
+   * properties can be determined by calling the ``getPOSTDataParameters`` method on this
+   * resource object
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
+  }
 }
 
 /**

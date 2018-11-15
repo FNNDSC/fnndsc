@@ -30,6 +30,29 @@ export class UploadedFile extends ItemResource {
 
     return req.get(blobUrl).then(resp => resp.data);
   }
+
+  /**
+   * Make a PUT request to modify this uploaded file item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.upload_path - absolute path including file name where the file
+   * will be uploaded on the storage service
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to delete this uploaded file item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``null``
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**
@@ -48,5 +71,21 @@ export class UploadedFileList extends ListResource {
 
     /** @type {Object} */
     this.itemClass = UploadedFile;
+  }
+
+  /**
+   * Make a POST request to this uploaded file list resource to create a new uploaded file
+   * item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.upload_path - absolute path including file name where the file
+   * will be uploaded on the storage service
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, uploadFileObj, timeout = 30000) {
+    return this._post(data, uploadFileObj, timeout);
   }
 }

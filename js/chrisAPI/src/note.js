@@ -1,5 +1,4 @@
 /** * Imports ***/
-import Request from './request';
 import { ItemResource } from './resource';
 
 /**
@@ -18,38 +17,15 @@ export default class Note extends ItemResource {
   }
 
   /**
-   * Update this note.
+   * Make a PUT request to modify this note item resource through the REST API.
    *
-   * @param {Object} data - note data object
-   * @param {string} data.title - note title
-   * @param {string} data.content - note content
+   * @param {Object} data - request JSON data object
+   * @param {string} data.title - title of the comment
+   * @param {string} data.content - content of the comment
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to this ``Note`` object
+   * @return {Object} - JS Promise, resolves to ``this`` object
    */
-  update(data, timeout = 30000) {
-    const url = this.url;
-    const req = new Request(this.auth, this.contentType, timeout);
-    const self = this;
-
-    return new Promise((resolve, reject) => {
-      const userData = {
-        template: {
-          data: [{ name: 'title', value: data.title }, { name: 'content', value: data.content }],
-        },
-      };
-
-      const result = req.put(url, userData);
-
-      result
-        .then(response => {
-          if (response.data && response.data.collection) {
-            self.collection = response.data.collection;
-          }
-          resolve(self);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
   }
 }

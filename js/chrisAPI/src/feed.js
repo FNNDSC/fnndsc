@@ -97,6 +97,29 @@ export class Feed extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Make a PUT request to modify this feed item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.name - name of the feed
+   * @param {string} data.owner - username to be added to the list of this feed's owners
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to delete this feed item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``null``
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**

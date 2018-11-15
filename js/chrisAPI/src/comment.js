@@ -31,7 +31,7 @@ export class Comment extends ItemResource {
   }
 
   /**
-   * Make a PUT request to this comment item resource through the REST API.
+   * Make a PUT request to modify this comment item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
    * @param {string} data.title - title of the comment
@@ -44,7 +44,7 @@ export class Comment extends ItemResource {
   }
 
   /**
-   * Make a DELETE request to this comment item resource through the REST API.
+   * Make a DELETE request to delete this comment item resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``null``
@@ -86,7 +86,8 @@ export class CommentList extends ListResource {
   }
 
   /**
-   * Make a POST request to this comment list resource through the REST API.
+   * Make a POST request to this comment list resource to create a new comment item
+   * resource through the REST API.
    *
    * @param {Object} data - request JSON data object
    * @param {string} data.title - title of the comment

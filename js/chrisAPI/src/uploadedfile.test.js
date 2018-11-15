@@ -14,11 +14,21 @@ describe('Resource', () => {
 
   before(() => {
     return new Promise(function(resolve, reject) {
-      Request._runAsyncTask(function*() {
+      Request.runAsyncTask(function*() {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
           uploadedFileListRes = yield feedListRes.getUploadedFiles();
+
+          // create one uploaded file item resource
+          const data = {
+            upload_path: '/test' + Date.now() + '.txt',
+          };
+          const fileContent = 'This is an uploaded test file';
+          const fileData = JSON.stringify(fileContent);
+          const uploadFile = new Blob([fileData], { type: 'application/json' });
+          const uploadFileObj = { fname: uploadFile };
+          uploadedFileListRes = yield uploadedFileListRes.post(data, uploadFileObj);
         } catch (ex) {
           reject(ex);
           return;
@@ -35,13 +45,12 @@ describe('Resource', () => {
       uploadedFile = uploadedFileListRes.getItems()[0].clone();
     });
 
-    /*it('can fetch the associated file blob from the REST API', done => {
-
+    it('can fetch the associated file blob from the REST API', done => {
       const result = uploadedFile.getFileBlob();
       result
         .then(fileBlob => {
           return new Promise(function(resolve, reject) {
-            const reader  = new FileReader();
+            const reader = new FileReader();
 
             // fires after the blob has been read/loaded
             reader.addEventListener('loadend', ev => {
@@ -51,23 +60,41 @@ describe('Resource', () => {
                 resolve(event.target.result);
               }
             });
-           // start reading the file blob as text
-           reader.readAsText(fileBlob);
+            // start reading the file blob as text
+            reader.readAsText(fileBlob);
           });
         })
-        .then((text)=>{
-          expect(text).to.be.a('string');
-          expect(text).to.have.lengthOf.at.least(1);
+        .then(text => {
+          expect(text).to.equal('"This is an uploaded test file"');
         })
         .then(done, done);
-    });*/
+    });
   });
 
-  describe('ploadedFileList', () => {
+  describe('UploadedFileList', () => {
     let uploadedFileList;
 
     beforeEach(() => {
       uploadedFileList = uploadedFileListRes.clone();
+    });
+
+    it('can create a new uploaded file item resource through a REST API POST request', done => {
+      const data = {
+        upload_path: '/test' + Date.now() + '.txt',
+      };
+      const fileContent = 'This is a test file';
+      const fileData = JSON.stringify(fileContent);
+      const uploadFile = new Blob([fileData], { type: 'application/json' });
+      const uploadFileObj = { fname: uploadFile };
+
+      const result = uploadedFileList.post(data, uploadFileObj);
+
+      result
+        .then(uploadedFileList => {
+          const createdUploadedFileItem = uploadedFileList.getItems()[0];
+          expect(createdUploadedFileItem.data.upload_path).to.equal(data.upload_path);
+        })
+        .then(done, done);
     });
   });
 });

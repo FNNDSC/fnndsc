@@ -48,6 +48,29 @@ export class Tag extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
+
+  /**
+   * Make a PUT request to modify this tag item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.name - tag name
+   * @param {string} data.color - tag color
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to delete this tag item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``null``
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**
@@ -82,6 +105,20 @@ export class TagList extends ListResource {
     const resourceClass = FeedList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Make a POST request to this tag list resource to create a new tag item resource
+   * through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.name - tag name
+   * @param {string} data.color - tag color
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
   }
 }
 
@@ -125,6 +162,16 @@ export class Tagging extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Make a DELETE request to delete this tagging item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``null``
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**
@@ -158,6 +205,19 @@ export class TagTaggingList extends ListResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Make a POST request to this tag-specific tagging list resource to create a new
+   * tagging item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.feed_id - id of the feed to be tagged
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
+  }
 }
 
 /**
@@ -190,6 +250,19 @@ export class FeedTaggingList extends ListResource {
     const resourceClass = Feed;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Make a POST request to this feed-specific tagging list resource to create a new
+   * tagging item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.tag_id - id of the tag to be used to tag the feed
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
   }
 }
 
