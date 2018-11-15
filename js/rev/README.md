@@ -35,7 +35,7 @@ cd /var/www/html
 mkdir rev
 chmod 777 rev
 cd rev
-git clone https://github.com/Eogrim/viewer.git
+git clone https://github.com/FNNDSC/rev.git
 ```
 To test your install, if you have a LAMP instance running correctly, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
 

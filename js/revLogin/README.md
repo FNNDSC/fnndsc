@@ -9,44 +9,21 @@ Radiology Viewer by FNNDSC
 Project was initialized with the <a href="https://github.com/PolymerElements/polymer-starter-kit">Polymer Starter Kit v2</a>
 </p>
 
-## Update
+# Rev Login
 
-``` bash
+## Introduction
 
-git pull origin master && \
-rm -rf bower_components && \
-bower update
+Like the viewer you can install the login page with two different choice. 
+The first one is follow the [development installation](https://github.com/Eogrim/fnndsc/tree/master/js/rev#development-version). Then, you can build the files of `revLogin` as explained [here](https://github.com/Eogrim/fnndsc/tree/master/js/rev#build). The only thing you have left to do is copy the files in `/var/www/html/rev/login/` of your install. 
 
+The second maners is directly get the built files from [this repo](https://github.com/Eogrim/viewer). Then you just have to copy them in `/var/www/html/rev/login/`.
+
+## Parameters
+
+The login page redirect you from http://XXXXXX.XX/rev/login/ to http://XXXXXX.XX/rev/viewer/library-anon/
+If for some reason you want to change it. Go to `revLogin/src/revl-app.html` and change this line:
+
+```bash
+var URL = window.location.href.split('/login')[0]+"/viewer/library-anon";
 ```
-
-## Develop
-
-``` bash
-
-polymer serve
-
-```
-
-## Build
-
-es5-bundled preset includes:
-
-* js-compile: es6 -> es5 (for older browser support)
-* js-minify
-* html-minify
-* css-minify
-* [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
-
-``` bash
-
-cd ~/src/gex && \
-polymer build --verbose --preset es5-bundled && \
-polymer serve --port 8060 --hostname 0.0.0.0 build/es5-bundled
-
-```
-
-## Deploy
-
-Important note, if you intend to serve the application from a directory, i.e. `fnndsc.com/rev`, make sure to adjust the `<base href="/rev/">` line 10 in index.html.
-
-If you serve it from `fnndsc.com/rev`, the base would be `<base href="/">`.
+If you want to see how it work, you can check `revLogin/src/revl-login.html` 

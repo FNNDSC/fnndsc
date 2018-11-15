@@ -232,7 +232,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         if (login) {
-          window.location.assign("http://fnndsc.childrens.harvard.edu/rev/library/");
+          var URL = window.location.href.split('/login')[0]+"/viewer/library-anon";
+          window.location.assign(URL);
         }
       }
     }
