@@ -1176,7 +1176,7 @@
     "__docId__": 66,
     "kind": "file",
     "name": "src/comment.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\n\n/**\n * Comment item resource object.\n */\nexport class Comment extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed associated to the comment item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this comment item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this comment item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Comment list resource object.\n */\nexport class CommentList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Comment;\n  }\n\n  /**\n   * Fetch the feed associated to the comment list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this comment list resource to create a new comment item\n   * resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\n\n/**\n * Comment item resource object representing a feed comment.\n */\nexport class Comment extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed associated to the comment item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this comment item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this comment item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Comment list resource object representing a list of feed comments.\n */\nexport class CommentList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Comment;\n  }\n\n  /**\n   * Fetch the feed associated to the comment list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this comment list resource to create a new comment item\n   * resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/comment.js",
     "access": "public",
@@ -1194,7 +1194,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{Comment}",
-    "description": "Comment item resource object.",
+    "description": "Comment item resource object representing a feed comment.",
     "lineNumber": 8,
     "interface": false,
     "extends": [
@@ -1392,7 +1392,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{CommentList}",
-    "description": "Comment list resource object.",
+    "description": "Comment list resource object representing a list of feed comments.",
     "lineNumber": 60,
     "interface": false,
     "extends": [
@@ -1640,7 +1640,7 @@
     "__docId__": 81,
     "kind": "file",
     "name": "src/feed.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport User from './user';\nimport { PluginList } from './plugin';\nimport { UploadedFileList } from './uploadedfile';\nimport Note from './note';\nimport { TagList } from './tag';\nimport { CommentList } from './comment';\nimport { FeedFileList } from './feedfile';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed item resource object.\n */\nexport class Feed extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the note associated to this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Note`` object\n   */\n  getNote(timeout = 30000) {\n    const linkRelation = 'note';\n    const resourceClass = Note;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of tags associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of comments associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``CommentList`` object\n   */\n  getComments(params = null, timeout = 30000) {\n    const linkRelation = 'comments';\n    const resourceClass = CommentList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this feed item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - name of the feed\n   * @param {string} data.owner - username to be added to the list of this feed's owners\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this feed item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Feed list resource object.\n */\nexport class FeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch currently authenticated user's information from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of tags from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of uploaded files from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object\n   */\n  getUploadedFiles(params = null, timeout = 30000) {\n    const linkRelation = 'uploadedfiles';\n    const resourceClass = UploadedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport User from './user';\nimport { PluginList } from './plugin';\nimport { UploadedFileList } from './uploadedfile';\nimport Note from './note';\nimport { TagList } from './tag';\nimport { CommentList } from './comment';\nimport { FeedFileList } from './feedfile';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed item resource object representing a feed.\n */\nexport class Feed extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the note associated to this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Note`` object\n   */\n  getNote(timeout = 30000) {\n    const linkRelation = 'note';\n    const resourceClass = Note;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of tags associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of comments associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``CommentList`` object\n   */\n  getComments(params = null, timeout = 30000) {\n    const linkRelation = 'comments';\n    const resourceClass = CommentList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this feed item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - name of the feed\n   * @param {string} data.owner - username to be added to the list of this feed's owners\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this feed item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Feed list resource object representing a list of user's feeds.\n */\nexport class FeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch currently authenticated user's information from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of tags from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of uploaded files from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object\n   */\n  getUploadedFiles(params = null, timeout = 30000) {\n    const linkRelation = 'uploadedfiles';\n    const resourceClass = UploadedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/feed.js",
     "access": "public",
@@ -1658,7 +1658,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{Feed}",
-    "description": "Feed item resource object.",
+    "description": "Feed item resource object representing a feed.",
     "lineNumber": 15,
     "interface": false,
     "extends": [
@@ -2092,7 +2092,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{FeedList}",
-    "description": "Feed list resource object.",
+    "description": "Feed list resource object representing a list of user's feeds.",
     "lineNumber": 128,
     "interface": false,
     "extends": [
@@ -2403,7 +2403,7 @@
     "__docId__": 98,
     "kind": "file",
     "name": "src/feedfile.js",
-    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed file item resource object.\n */\nexport class FeedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Fetch the feed associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed file list resource object.\n */\nexport class FeedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = FeedFile;\n  }\n\n  /**\n   * Fetch the feed associated to this file list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed file item resource object representing a file written to a feed.\n */\nexport class FeedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Fetch the feed associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed file list resource object representing a list of files written to a feed.\n */\nexport class FeedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = FeedFile;\n  }\n\n  /**\n   * Fetch the feed associated to this file list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/feedfile.js",
     "access": "public",
@@ -2421,7 +2421,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{FeedFile}",
-    "description": "Feed file item resource object.",
+    "description": "Feed file item resource object representing a file written to a feed.",
     "lineNumber": 11,
     "interface": false,
     "extends": [
@@ -2589,7 +2589,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{FeedFileList}",
-    "description": "Feed file list resource object.",
+    "description": "Feed file list resource object representing a list of files written to a feed.",
     "lineNumber": 66,
     "interface": false,
     "extends": [
@@ -2710,7 +2710,7 @@
     "__docId__": 109,
     "kind": "file",
     "name": "src/note.js",
-    "content": "/** * Imports ***/\nimport { ItemResource } from './resource';\n\n/**\n * Note item resource object.\n */\nexport default class Note extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this note item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource } from './resource';\n\n/**\n * Note item resource object representing a feed's note.\n */\nexport default class Note extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this note item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/note.js",
     "access": "public",
@@ -2728,7 +2728,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "Note",
-    "description": "Note item resource object.",
+    "description": "Note item resource object representing a feed's note.",
     "lineNumber": 7,
     "interface": false,
     "extends": [
@@ -2849,7 +2849,7 @@
     "__docId__": 113,
     "kind": "file",
     "name": "src/plugin.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList } from './feed';\nimport { PluginParameterList } from './pluginparameter';\nimport { PluginInstanceList } from './plugininstance';\n\n/**\n * Plugin item resource object.\n */\nexport class Plugin extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugin parameters associated to this plugin from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object\n   */\n  getPluginParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instances associated to this plugin from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object\n   */\n  getPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'instances';\n    const resourceClass = PluginInstanceList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n/**\n * Plugin list resource object.\n */\nexport class PluginList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Plugin;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList } from './feed';\nimport { PluginParameterList } from './pluginparameter';\nimport { PluginInstanceList } from './plugininstance';\n\n/**\n * Plugin item resource object representing a plugin.\n */\nexport class Plugin extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugin parameters associated to this plugin from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object\n   */\n  getPluginParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instances associated to this plugin from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object\n   */\n  getPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'instances';\n    const resourceClass = PluginInstanceList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n/**\n * Plugin list resource object representing a list of plugins.\n */\nexport class PluginList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Plugin;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/plugin.js",
     "access": "public",
@@ -2867,7 +2867,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{Plugin}",
-    "description": "Plugin item resource object.",
+    "description": "Plugin item resource object representing a plugin.",
     "lineNumber": 10,
     "interface": false,
     "extends": [
@@ -3064,7 +3064,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginList}",
-    "description": "Plugin list resource object.",
+    "description": "Plugin list resource object representing a list of plugins.",
     "lineNumber": 58,
     "interface": false,
     "extends": [
@@ -3206,7 +3206,7 @@
     "__docId__": 122,
     "kind": "file",
     "name": "src/plugininstance.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\nimport { Feed } from './feed';\nimport { PluginParameter } from './pluginparameter';\nimport { FeedFileList } from './feedfile';\n\n/**\n * Plugin instance item resource object.\n */\nexport class PluginInstance extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed created by this plugin instance from the REST API\n   * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object or ``null``\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    try {\n      // 'feed' link relation only exists for 'fs' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the parent plugin instance of this plugin instance from the REST API\n   * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object or ``null``\n   */\n  getPreviousPluginInstance(timeout = 30000) {\n    const linkRelation = 'previous';\n    const resourceClass = PluginInstance;\n\n    try {\n      // 'previous' link relation only exists for 'ds' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch a list of plugin instances that are descendents of this plugin instance from the\n   * REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object\n   */\n  getDescendantPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'descendants';\n    const resourceClass = PluginInstanceDescendantList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instance parameters associated to this plugin instance from\n   * the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceParameterList`` object\n   */\n  getParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginInstanceParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files created by this plugin instance from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n/**\n * Plugin instance list resource object.\n */\nexport class PluginInstanceList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin instance list resource to create a new plugin\n   * instance item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object which is plugin-specific and it's\n   * properties can be determined by calling the ``getPOSTDataParameters`` method on this\n   * resource object\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Plugin instance descendant list resource object. This is a list of all plugin\n * instances that have this plugin instance as an ancestor in a pipeline tree.\n */\nexport class PluginInstanceDescendantList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n}\n\n/**\n * Plugin instance parameter item resource object.\n */\nexport class PluginInstanceParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin instance associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin parameter definition associated to this plugin instance item\n   * from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object\n   */\n  getPluginParameter(timeout = 30000) {\n    const linkRelation = 'plugin_param';\n    const resourceClass = PluginParameter;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin instance parameter list resource object.\n */\nexport class PluginInstanceParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstanceParameter;\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\nimport { Feed } from './feed';\nimport { PluginParameter } from './pluginparameter';\nimport { FeedFileList } from './feedfile';\n\n/**\n * Plugin instance item resource object representing a plugin instance.\n */\nexport class PluginInstance extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed created by this plugin instance from the REST API\n   * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object or ``null``\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    try {\n      // 'feed' link relation only exists for 'fs' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the parent plugin instance of this plugin instance from the REST API\n   * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object or ``null``\n   */\n  getPreviousPluginInstance(timeout = 30000) {\n    const linkRelation = 'previous';\n    const resourceClass = PluginInstance;\n\n    try {\n      // 'previous' link relation only exists for 'ds' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch a list of plugin instances that are descendents of this plugin instance from the\n   * REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object\n   */\n  getDescendantPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'descendants';\n    const resourceClass = PluginInstanceDescendantList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instance parameters associated to this plugin instance from\n   * the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceParameterList`` object\n   */\n  getParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginInstanceParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files created by this plugin instance from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n/**\n * Plugin instance list resource object representing a list of plugin instances.\n */\nexport class PluginInstanceList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin instance list resource to create a new plugin\n   * instance item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object which is plugin-specific and it's\n   * properties can be determined by calling the ``getPOSTDataParameters`` method on this\n   * resource object\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Plugin instance descendant list resource object. This is a list of all plugin\n * instances that have this plugin instance as an ancestor in a pipeline tree.\n */\nexport class PluginInstanceDescendantList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n}\n\n/**\n * Plugin instance parameter item resource object representing a parameter that the\n * plugin instance was run with.\n */\nexport class PluginInstanceParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin instance associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin parameter definition associated to this plugin instance item\n   * from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object\n   */\n  getPluginParameter(timeout = 30000) {\n    const linkRelation = 'plugin_param';\n    const resourceClass = PluginParameter;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin instance parameter list resource object representing a list of parameters that  \n * the plugin instance was run with.\n */\nexport class PluginInstanceParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstanceParameter;\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/plugininstance.js",
     "access": "public",
@@ -3224,7 +3224,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginInstance}",
-    "description": "Plugin instance item resource object.",
+    "description": "Plugin instance item resource object representing a plugin instance.",
     "lineNumber": 11,
     "interface": false,
     "extends": [
@@ -3593,7 +3593,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginInstanceList}",
-    "description": "Plugin instance list resource object.",
+    "description": "Plugin instance list resource object representing a list of plugin instances.",
     "lineNumber": 128,
     "interface": false,
     "extends": [
@@ -3837,8 +3837,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginInstanceParameter}",
-    "description": "Plugin instance parameter item resource object.",
-    "lineNumber": 194,
+    "description": "Plugin instance parameter item resource object representing a parameter that the\nplugin instance was run with.",
+    "lineNumber": 195,
     "interface": false,
     "extends": [
       "src/resource.js~ItemResource"
@@ -3855,7 +3855,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameter#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 202,
+    "lineNumber": 203,
     "params": [
       {
         "nullable": null,
@@ -3900,7 +3900,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameter#getPluginInstance",
     "access": "public",
     "description": "Fetch the plugin instance associated to this parameter item from the REST API.",
-    "lineNumber": 212,
+    "lineNumber": 213,
     "params": [
       {
         "nullable": null,
@@ -3935,7 +3935,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameter#getPluginParameter",
     "access": "public",
     "description": "Fetch the plugin parameter definition associated to this plugin instance item\nfrom the REST API.",
-    "lineNumber": 226,
+    "lineNumber": 227,
     "params": [
       {
         "nullable": null,
@@ -3970,8 +3970,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginInstanceParameterList}",
-    "description": "Plugin instance parameter list resource object.",
-    "lineNumber": 237,
+    "description": "Plugin instance parameter list resource object representing a list of parameters that  \nthe plugin instance was run with.",
+    "lineNumber": 239,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
@@ -3988,7 +3988,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameterList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 245,
+    "lineNumber": 247,
     "params": [
       {
         "nullable": null,
@@ -4031,7 +4031,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameterList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 249,
+    "lineNumber": 251,
     "type": {
       "nullable": null,
       "types": [
@@ -4045,7 +4045,7 @@
     "__docId__": 146,
     "kind": "file",
     "name": "src/pluginparameter.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\n\n/**\n * Plugin parameter item resource object.\n */\nexport class PluginParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin parameter list resource object.\n */\nexport class PluginParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginParameter;\n  }\n\n  /**\n   * Fetch the plugin associated to this list of parameters from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\n\n/**\n * Plugin parameter item resource object representing a plugin parameter.\n */\nexport class PluginParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin parameter list resource object representing a list of plugin parameters.\n */\nexport class PluginParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginParameter;\n  }\n\n  /**\n   * Fetch the plugin associated to this list of parameters from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/pluginparameter.js",
     "access": "public",
@@ -4063,7 +4063,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginParameter}",
-    "description": "Plugin parameter item resource object.",
+    "description": "Plugin parameter item resource object representing a plugin parameter.",
     "lineNumber": 8,
     "interface": false,
     "extends": [
@@ -4161,7 +4161,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginParameterList}",
-    "description": "Plugin parameter list resource object.",
+    "description": "Plugin parameter list resource object representing a list of plugin parameters.",
     "lineNumber": 37,
     "interface": false,
     "extends": [
@@ -6050,7 +6050,7 @@
     "__docId__": 227,
     "kind": "file",
     "name": "src/tag.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList, Feed } from './feed';\n\n/**\n * Tag item resource object.\n */\nexport class Tag extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of feeds that are tagged with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagFeedList`` object\n   */\n  getTaggedFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = TagFeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of taggings made with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TaggingList`` object\n   */\n  getTaggings(params = null, timeout = 30000) {\n    const linkRelation = 'taggings';\n    const resourceClass = TagTaggingList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this tag item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - tag name\n   * @param {string} data.color - tag color\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tag item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag list resource object.\n */\nexport class TagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag list resource to create a new tag item resource\n   * through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - tag name\n   * @param {string} data.color - tag color\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tagging item resource object. A tagging of an specific feed with an specific tag.\n */\nexport class Tagging extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the tag associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the feed associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tagging item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag-specific tagging list resource object. A list of taggings made with an specific\n * tag.\n */\nexport class TagTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.feed_id - id of the feed to be tagged\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tagging list resource object. A list of taggings applied to an specific\n * feed.\n */\nexport class FeedTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this feed-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.tag_id - id of the tag to be used to tag the feed\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tag-specific feed list resource object. A list of feeds that are tagged with an\n * specific tag.\n */\nexport class TagFeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of feeds from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tag list resource object. A list of tags that an specific feed is tagged\n * with.\n */\nexport class FeedTagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of tags from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList, Feed } from './feed';\n\n/**\n * Tag item resource object representing a feed tag.\n */\nexport class Tag extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of feeds that are tagged with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagFeedList`` object\n   */\n  getTaggedFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = TagFeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of taggings made with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TaggingList`` object\n   */\n  getTaggings(params = null, timeout = 30000) {\n    const linkRelation = 'taggings';\n    const resourceClass = TagTaggingList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this tag item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - tag name\n   * @param {string} data.color - tag color\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tag item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag list resource object representing a list of a feed's tags.\n */\nexport class TagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag list resource to create a new tag item resource\n   * through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - tag name\n   * @param {string} data.color - tag color\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tagging item resource object representing a tagging of an specific feed with an\n * specific tag.\n */\nexport class Tagging extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the tag associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the feed associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tagging item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag-specific tagging list resource object representing a list of taggings made with an\n * specific tag.\n */\nexport class TagTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.feed_id - id of the feed to be tagged\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tagging list resource object representing a list of taggings applied to\n * an specific feed.\n */\nexport class FeedTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this feed-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.tag_id - id of the tag to be used to tag the feed\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tag-specific feed list resource object representing a list of feeds that are tagged\n * with an specific tag.\n */\nexport class TagFeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of feeds from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tag list resource object representing a list of tags that an specific\n * feed is tagged with.\n */\nexport class FeedTagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of tags from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/tag.js",
     "access": "public",
@@ -6068,7 +6068,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{Tag}",
-    "description": "Tag item resource object.",
+    "description": "Tag item resource object representing a feed tag.",
     "lineNumber": 8,
     "interface": false,
     "extends": [
@@ -6365,7 +6365,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{TagList}",
-    "description": "Tag list resource object.",
+    "description": "Tag list resource object representing a list of a feed's tags.",
     "lineNumber": 79,
     "interface": false,
     "extends": [
@@ -6579,8 +6579,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{Tagging}",
-    "description": "Tagging item resource object. A tagging of an specific feed with an specific tag.",
-    "lineNumber": 128,
+    "description": "Tagging item resource object representing a tagging of an specific feed with an\nspecific tag.",
+    "lineNumber": 129,
     "interface": false,
     "extends": [
       "src/resource.js~ItemResource"
@@ -6597,7 +6597,7 @@
     "longname": "src/tag.js~Tagging#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 136,
+    "lineNumber": 137,
     "params": [
       {
         "nullable": null,
@@ -6642,7 +6642,7 @@
     "longname": "src/tag.js~Tagging#getTag",
     "access": "public",
     "description": "Fetch the tag associated to this tagging from the REST API.",
-    "lineNumber": 146,
+    "lineNumber": 147,
     "params": [
       {
         "nullable": null,
@@ -6677,7 +6677,7 @@
     "longname": "src/tag.js~Tagging#getFeed",
     "access": "public",
     "description": "Fetch the feed associated to this tagging from the REST API.",
-    "lineNumber": 159,
+    "lineNumber": 160,
     "params": [
       {
         "nullable": null,
@@ -6712,7 +6712,7 @@
     "longname": "src/tag.js~Tagging#delete",
     "access": "public",
     "description": "Make a DELETE request to delete this tagging item resource through the REST API.",
-    "lineNumber": 172,
+    "lineNumber": 173,
     "params": [
       {
         "nullable": null,
@@ -6747,8 +6747,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{TagTaggingList}",
-    "description": "Tag-specific tagging list resource object. A list of taggings made with an specific\ntag.",
-    "lineNumber": 181,
+    "description": "Tag-specific tagging list resource object representing a list of taggings made with an\nspecific tag.",
+    "lineNumber": 182,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
@@ -6765,7 +6765,7 @@
     "longname": "src/tag.js~TagTaggingList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 189,
+    "lineNumber": 190,
     "params": [
       {
         "nullable": null,
@@ -6808,7 +6808,7 @@
     "longname": "src/tag.js~TagTaggingList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 193,
+    "lineNumber": 194,
     "type": {
       "nullable": null,
       "types": [
@@ -6829,7 +6829,7 @@
     "longname": "src/tag.js~TagTaggingList#getTag",
     "access": "public",
     "description": "Fetch the tag associated to this tag-specific list of taggings from the REST API.",
-    "lineNumber": 202,
+    "lineNumber": 203,
     "params": [
       {
         "nullable": null,
@@ -6864,7 +6864,7 @@
     "longname": "src/tag.js~TagTaggingList#post",
     "access": "public",
     "description": "Make a POST request to this tag-specific tagging list resource to create a new\ntagging item resource through the REST API.",
-    "lineNumber": 218,
+    "lineNumber": 219,
     "params": [
       {
         "nullable": null,
@@ -6919,8 +6919,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{FeedTaggingList}",
-    "description": "Feed-specific tagging list resource object. A list of taggings applied to an specific\nfeed.",
-    "lineNumber": 227,
+    "description": "Feed-specific tagging list resource object representing a list of taggings applied to\nan specific feed.",
+    "lineNumber": 228,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
@@ -6937,7 +6937,7 @@
     "longname": "src/tag.js~FeedTaggingList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 235,
+    "lineNumber": 236,
     "params": [
       {
         "nullable": null,
@@ -6980,7 +6980,7 @@
     "longname": "src/tag.js~FeedTaggingList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 239,
+    "lineNumber": 240,
     "type": {
       "nullable": null,
       "types": [
@@ -7001,7 +7001,7 @@
     "longname": "src/tag.js~FeedTaggingList#getFeed",
     "access": "public",
     "description": "Fetch the feed associated to this feed-specific list of taggings from the REST API.",
-    "lineNumber": 248,
+    "lineNumber": 249,
     "params": [
       {
         "nullable": null,
@@ -7036,7 +7036,7 @@
     "longname": "src/tag.js~FeedTaggingList#post",
     "access": "public",
     "description": "Make a POST request to this feed-specific tagging list resource to create a new\ntagging item resource through the REST API.",
-    "lineNumber": 264,
+    "lineNumber": 265,
     "params": [
       {
         "nullable": null,
@@ -7091,8 +7091,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{TagFeedList}",
-    "description": "Tag-specific feed list resource object. A list of feeds that are tagged with an\nspecific tag.",
-    "lineNumber": 273,
+    "description": "Tag-specific feed list resource object representing a list of feeds that are tagged\nwith an specific tag.",
+    "lineNumber": 274,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
@@ -7109,7 +7109,7 @@
     "longname": "src/tag.js~TagFeedList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 281,
+    "lineNumber": 282,
     "params": [
       {
         "nullable": null,
@@ -7152,7 +7152,7 @@
     "longname": "src/tag.js~TagFeedList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 285,
+    "lineNumber": 286,
     "type": {
       "nullable": null,
       "types": [
@@ -7173,7 +7173,7 @@
     "longname": "src/tag.js~TagFeedList#getTag",
     "access": "public",
     "description": "Fetch the tag associated to this tag-specific list of feeds from the REST API.",
-    "lineNumber": 294,
+    "lineNumber": 295,
     "params": [
       {
         "nullable": null,
@@ -7208,8 +7208,8 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{FeedTagList}",
-    "description": "Feed-specific tag list resource object. A list of tags that an specific feed is tagged\nwith.",
-    "lineNumber": 306,
+    "description": "Feed-specific tag list resource object representing a list of tags that an specific\nfeed is tagged with.",
+    "lineNumber": 307,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
@@ -7226,7 +7226,7 @@
     "longname": "src/tag.js~FeedTagList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 314,
+    "lineNumber": 315,
     "params": [
       {
         "nullable": null,
@@ -7269,7 +7269,7 @@
     "longname": "src/tag.js~FeedTagList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 318,
+    "lineNumber": 319,
     "type": {
       "nullable": null,
       "types": [
@@ -7290,7 +7290,7 @@
     "longname": "src/tag.js~FeedTagList#getFeed",
     "access": "public",
     "description": "Fetch the feed associated to this feed-specific list of tags from the REST API.",
-    "lineNumber": 327,
+    "lineNumber": 328,
     "params": [
       {
         "nullable": null,
@@ -7318,7 +7318,7 @@
     "__docId__": 262,
     "kind": "file",
     "name": "src/uploadedfile.js",
-    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\n\n/**\n * Uploaded file item resource object.\n */\nexport class UploadedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Make a PUT request to modify this uploaded file item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this uploaded file item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Uploaded file list resource object.\n */\nexport class UploadedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = UploadedFile;\n  }\n\n  /**\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, uploadFileObj, timeout = 30000) {\n    return this._post(data, uploadFileObj, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\n\n/**\n * Uploaded file item resource object representing a user's uploaded file.\n */\nexport class UploadedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Make a PUT request to modify this uploaded file item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this uploaded file item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Uploaded file list resource object representing a list of a user's uploaded files.\n */\nexport class UploadedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = UploadedFile;\n  }\n\n  /**\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, uploadFileObj, timeout = 30000) {\n    return this._post(data, uploadFileObj, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/uploadedfile.js",
     "access": "public",
@@ -7336,7 +7336,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{UploadedFile}",
-    "description": "Uploaded file item resource object.",
+    "description": "Uploaded file item resource object representing a user's uploaded file.",
     "lineNumber": 9,
     "interface": false,
     "extends": [
@@ -7524,7 +7524,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{UploadedFileList}",
-    "description": "Uploaded file list resource object.",
+    "description": "Uploaded file list resource object representing a list of a user's uploaded files.",
     "lineNumber": 61,
     "interface": false,
     "extends": [
@@ -7674,7 +7674,7 @@
     "__docId__": 272,
     "kind": "file",
     "name": "src/user.js",
-    "content": "/** * Imports ***/\nimport Request from './request';\nimport { ItemResource } from './resource';\n\n/**\n * User item resource object.\n */\nexport default class User extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this user item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.password - user password\n   * @param {string} data.email - user email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport { ItemResource } from './resource';\n\n/**\n * User item resource object representing a user of the system.\n */\nexport default class User extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this user item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.password - user password\n   * @param {string} data.email - user email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/user.js",
     "access": "public",
@@ -7692,7 +7692,7 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "User",
-    "description": "User item resource object.",
+    "description": "User item resource object representing a user of the system.",
     "lineNumber": 8,
     "interface": false,
     "extends": [
@@ -7819,7 +7819,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fnndsc/chrisapi\",\n  \"version\": \"0.0.1\",\n  \"description\": \"JavaScript6 client for the ChRIS API\",\n  \"main\": \"dist/chrisapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@fnndsc/chrisapi\",\n  \"version\": \"0.0.2\",\n  \"description\": \"JavaScript6 client for the ChRIS API\",\n  \"main\": \"dist/chrisapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
     "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/package.json",
     "name": "package.json",
     "static": true,
