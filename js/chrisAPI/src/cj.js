@@ -48,8 +48,8 @@ export default class Collection {
   /**
    * Get the url of the representation given by a collection obj.
    *
-   * @param {Object} collection
-   * @return {string} url
+   * @param {Object} collection - Collection+Json collection object
+   * @return {string} - url of the resource representation
    */
   static getUrl(collection) {
     return collection.href;
@@ -58,8 +58,8 @@ export default class Collection {
   /**
    * Get the list of descriptor names within a collection's template object.
    *
-   * @param {Object} Collection+Json template object
-   * @return {string[]} list of descriptor names
+   * @param {Object} template - Collection+Json template object
+   * @return {string[]} - list of descriptor names
    */
   static getTemplateDescriptorNames(template) {
     return template.data.map(descriptor => descriptor.name);
@@ -68,8 +68,8 @@ export default class Collection {
   /**
    * Get the list of descriptor names within a Collection+Json query array.
    *
-   * @param {Object[]} Collection+Json query array
-   * @return {string[]} list of query parameter names
+   * @param {Object[]} queryArr - Collection+Json query array
+   * @return {string[]} - list of query parameter names
    */
   static getQueryParameters(queryArr) {
     return queryArr[0].data.map(descriptor => descriptor.name);
@@ -79,8 +79,8 @@ export default class Collection {
    * Make a Collection+Json template object from a regular object whose properties are
    * the item descriptors.
    *
-   * @param {Object} descriptorsObj
-   * @return {Object} template object
+   * @param {Object} descriptorsObj - item descriptors object
+   * @return {Object} - template object
    */
   static makeTemplate(descriptorsObj) {
     const template = { data: [] };
