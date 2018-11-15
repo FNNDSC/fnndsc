@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameter.html">PluginInstanceParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
@@ -51,8 +52,13 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ItemResource.html">ItemResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ListResource.html">ListResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~Resource.html">Resource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~FeedTagList.html">FeedTagList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~FeedTaggingList.html">FeedTaggingList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~Tag.html">Tag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagFeedList.html">TagFeedList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagList.html">TagList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagTaggingList.html">TagTaggingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~Tagging.html">Tagging</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFile.html">UploadedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFileList.html">UploadedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
@@ -185,8 +191,23 @@ export class ItemResource extends Resource {
   }
 
   /**
-   * Internal method to fetch a related resource from the REST API that is referenced by
-   * a link relation within the item object.
+   * Get an array of parameter names that can be used as properties of the data
+   * object in PUT requests.
+   *
+   * @return {?string[]} - array of PUT data property name or null if this list
+   * resource&apos;s data has not been fetched from the API yet or it doesn&apos;t support
+   * PUT requests.
+   */
+  getPUTDataParameters() {
+    if (this.collection &amp;&amp; this.collection.template) {
+      return Collection.getTemplateDescriptorNames(this.collection.template);
+    }
+    return null;
+  }
+
+  /**
+   * Internal method to fetch a related resource from the REST API that is referenced
+   * by a link relation within the item object.
    *
    * @param {string} linkRelation
    * @param {Object} ResourceClass
@@ -196,7 +217,8 @@ export class ItemResource extends Resource {
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error when the link relation is not found
-   * @throws {RequestException} throw error if this item resource has not yet been fetched from the REST API
+   * @throws {RequestException} throw error if this item resource has not yet been
+   * fetched from the REST API
    */
   _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
     if (this.item) {
@@ -213,6 +235,71 @@ export class ItemResource extends Resource {
       }
     }
     throw new RequestException(&apos;Item object has not been set!&apos;);
+  }
+
+  /**
+   * Internal helper method to make a PUT request to this item resource through
+   * the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  _put(data, uploadFileObj, timeout = 30000) {
+    const url = this.url;
+    const req = new Request(this.auth, this.contentType, timeout);
+    let putData = data;
+
+    if (!uploadFileObj &amp;&amp; this.contentType === &apos;application/vnd.collection+json&apos;) {
+      putData = { template: Collection.makeTemplate(data) };
+    }
+
+    return new Promise((resolve, reject) =&gt; {
+      const result = req.put(url, putData, uploadFileObj);
+
+      result
+        .then(response =&gt; {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.item = null;
+          if (response.data &amp;&amp; response.data.collection) {
+            this.collection = response.data.collection;
+            this.item = this.collection.items[0];
+          }
+          resolve(this);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Internal helper method to make a DELETE request to this item resource through
+   * the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``null``
+   */
+  _delete(timeout = 30000) {
+    const req = new Request(this.auth, this.contentType, timeout);
+
+    return new Promise((resolve, reject) =&gt; {
+      const result = req.delete(this.url);
+
+      result
+        .then(() =&gt; {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.item = null;
+          resolve(null);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
   }
 }
 
@@ -289,9 +376,29 @@ export class ListResource extends Resource {
   }
 
   /**
+   * Get an array of search parameter names that can be used as properties of the
+   * ``params`` argument to the ``getSearch`` method.
+   *
+   * @return {?string[]} - array of search parameter names or null if this list
+   * resource&apos;s data has not been fetched from the API yet.
+   */
+  getSearchParameters() {
+    if (this.collection) {
+      if (this.collection.queries) {
+        const params = Collection.getQueryParameters(this.collection.queries);
+        params.push(&apos;limit&apos;, &apos;offset&apos;);
+        return params;
+      }
+      return [&apos;limit&apos;, &apos;offset&apos;];
+    }
+    return null;
+  }
+
+  /**
    * Fetch this list resource from the REST API based on search parameters.
    *
-   * @param {Object} params params - search parameters
+   * @param {Object} params - search parameters, the ``getSearchParameters``
+   * method can be used to get a list of possible search parameters
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
@@ -386,6 +493,21 @@ export class ListResource extends Resource {
   }
 
   /**
+   * Get an array of parameter names that can be used as properties of the data
+   * object in POST requests.
+   *
+   * @return {?string[]} - array of POST data properties or null if this list
+   * resource&apos;s data has not been fetched from the API yet or it doesn&apos;t support
+   * POST requests.
+   */
+  getPOSTDataParameters() {
+    if (this.collection &amp;&amp; this.collection.template) {
+      return Collection.getTemplateDescriptorNames(this.collection.template);
+    }
+    return null;
+  }
+
+  /**
    * Fetch the next resource page from the paginated REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -471,6 +593,44 @@ export class ListResource extends Resource {
       }
     }
     throw new RequestException(&apos;Collection object has not been set!&apos;);
+  }
+
+  /**
+   * Internal helper method to make a POST request to this list resource through
+   * the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  _post(data, uploadFileObj, timeout = 30000) {
+    const url = this.url;
+    const req = new Request(this.auth, this.contentType, timeout);
+    let postData = data;
+
+    if (!uploadFileObj &amp;&amp; this.contentType === &apos;application/vnd.collection+json&apos;) {
+      postData = { template: Collection.makeTemplate(data) };
+    }
+
+    return new Promise((resolve, reject) =&gt; {
+      const result = req.post(url, postData, uploadFileObj);
+
+      result
+        .then(response =&gt; {
+          // change the state of this object on successfull response
+          this.collection = null;
+          this.searchParams = null;
+          if (response.data &amp;&amp; response.data.collection) {
+            this.collection = response.data.collection;
+          }
+          resolve(this);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
   }
 }
 </code></pre>

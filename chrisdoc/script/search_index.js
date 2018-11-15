@@ -48,6 +48,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~feedtaglist",
+    "class/src/tag.js~FeedTagList.html",
+    "<span>FeedTagList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~feedtagginglist",
+    "class/src/tag.js~FeedTaggingList.html",
+    "<span>FeedTaggingList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~itemresource",
     "class/src/resource.js~ItemResource.html",
     "<span>ItemResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -75,6 +87,12 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~plugininstance",
     "class/src/plugininstance.js~PluginInstance.html",
     "<span>PluginInstance</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~plugininstancedescendantlist",
+    "class/src/plugininstance.js~PluginInstanceDescendantList.html",
+    "<span>PluginInstanceDescendantList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -138,9 +156,27 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~tagfeedlist",
+    "class/src/tag.js~TagFeedList.html",
+    "<span>TagFeedList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~taglist",
     "class/src/tag.js~TagList.html",
     "<span>TagList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~tagtagginglist",
+    "class/src/tag.js~TagTaggingList.html",
+    "<span>TagTaggingList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~tagging",
+    "class/src/tag.js~Tagging.html",
+    "<span>Tagging</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -468,6 +504,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/cj.js~collection.getqueryparameters",
+    "class/src/cj.js~Collection.html#static-method-getQueryParameters",
+    "src/cj.js~Collection.getQueryParameters",
+    "method"
+  ],
+  [
     "src/cj.js~collection.gettemplatedescriptornames",
     "class/src/cj.js~Collection.html#static-method-getTemplateDescriptorNames",
     "src/cj.js~Collection.getTemplateDescriptorNames",
@@ -477,6 +519,12 @@ window.esdocSearchIndex = [
     "src/cj.js~collection.geturl",
     "class/src/cj.js~Collection.html#static-method-getUrl",
     "src/cj.js~Collection.getUrl",
+    "method"
+  ],
+  [
+    "src/cj.js~collection.maketemplate",
+    "class/src/cj.js~Collection.html#static-method-makeTemplate",
+    "src/cj.js~Collection.makeTemplate",
     "method"
   ],
   [
@@ -540,9 +588,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/comment.js~comment#delete",
+    "class/src/comment.js~Comment.html#instance-method-delete",
+    "src/comment.js~Comment#delete",
+    "method"
+  ],
+  [
     "src/comment.js~comment#getfeed",
     "class/src/comment.js~Comment.html#instance-method-getFeed",
     "src/comment.js~Comment#getFeed",
+    "method"
+  ],
+  [
+    "src/comment.js~comment#put",
+    "class/src/comment.js~Comment.html#instance-method-put",
+    "src/comment.js~Comment#put",
     "method"
   ],
   [
@@ -562,6 +622,12 @@ window.esdocSearchIndex = [
     "class/src/comment.js~CommentList.html#instance-member-itemClass",
     "src/comment.js~CommentList#itemClass",
     "member"
+  ],
+  [
+    "src/comment.js~commentlist#post",
+    "class/src/comment.js~CommentList.html#instance-method-post",
+    "src/comment.js~CommentList#post",
+    "method"
   ],
   [
     "src/exception.js",
@@ -594,6 +660,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/feed.js~feed#delete",
+    "class/src/feed.js~Feed.html#instance-method-delete",
+    "src/feed.js~Feed#delete",
+    "method"
+  ],
+  [
     "src/feed.js~feed#getcomments",
     "class/src/feed.js~Feed.html#instance-method-getComments",
     "src/feed.js~Feed#getComments",
@@ -621,6 +693,12 @@ window.esdocSearchIndex = [
     "src/feed.js~feed#gettags",
     "class/src/feed.js~Feed.html#instance-method-getTags",
     "src/feed.js~Feed#getTags",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#put",
+    "class/src/feed.js~Feed.html#instance-method-put",
+    "src/feed.js~Feed#put",
     "method"
   ],
   [
@@ -726,9 +804,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/note.js~note#update",
-    "class/src/note.js~Note.html#instance-method-update",
-    "src/note.js~Note#update",
+    "src/note.js~note#put",
+    "class/src/note.js~Note.html#instance-method-put",
+    "src/note.js~Note#put",
     "method"
   ],
   [
@@ -822,6 +900,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/plugininstance.js~plugininstancedescendantlist#constructor",
+    "class/src/plugininstance.js~PluginInstanceDescendantList.html#instance-constructor-constructor",
+    "src/plugininstance.js~PluginInstanceDescendantList#constructor",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstancedescendantlist#itemclass",
+    "class/src/plugininstance.js~PluginInstanceDescendantList.html#instance-member-itemClass",
+    "src/plugininstance.js~PluginInstanceDescendantList#itemClass",
+    "member"
+  ],
+  [
     "src/plugininstance.js~plugininstancelist#constructor",
     "class/src/plugininstance.js~PluginInstanceList.html#instance-constructor-constructor",
     "src/plugininstance.js~PluginInstanceList#constructor",
@@ -838,6 +928,12 @@ window.esdocSearchIndex = [
     "class/src/plugininstance.js~PluginInstanceList.html#instance-member-itemClass",
     "src/plugininstance.js~PluginInstanceList#itemClass",
     "member"
+  ],
+  [
+    "src/plugininstance.js~plugininstancelist#post",
+    "class/src/plugininstance.js~PluginInstanceList.html#instance-method-post",
+    "src/plugininstance.js~PluginInstanceList#post",
+    "method"
   ],
   [
     "src/plugininstance.js~plugininstanceparameter#constructor",
@@ -996,9 +1092,21 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/resource.js~itemresource#_delete",
+    "class/src/resource.js~ItemResource.html#instance-method-_delete",
+    "src/resource.js~ItemResource#_delete",
+    "method"
+  ],
+  [
     "src/resource.js~itemresource#_getresource",
     "class/src/resource.js~ItemResource.html#instance-method-_getResource",
     "src/resource.js~ItemResource#_getResource",
+    "method"
+  ],
+  [
+    "src/resource.js~itemresource#_put",
+    "class/src/resource.js~ItemResource.html#instance-method-_put",
+    "src/resource.js~ItemResource#_put",
     "method"
   ],
   [
@@ -1026,6 +1134,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/resource.js~itemresource#getputdataparameters",
+    "class/src/resource.js~ItemResource.html#instance-method-getPUTDataParameters",
+    "src/resource.js~ItemResource#getPUTDataParameters",
+    "method"
+  ],
+  [
     "src/resource.js~itemresource#isempty",
     "class/src/resource.js~ItemResource.html#instance-get-isEmpty",
     "src/resource.js~ItemResource#isEmpty",
@@ -1047,6 +1161,12 @@ window.esdocSearchIndex = [
     "src/resource.js~listresource#_getresource",
     "class/src/resource.js~ListResource.html#instance-method-_getResource",
     "src/resource.js~ListResource#_getResource",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#_post",
+    "class/src/resource.js~ListResource.html#instance-method-_post",
+    "src/resource.js~ListResource#_post",
     "method"
   ],
   [
@@ -1080,6 +1200,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/resource.js~listresource#getpostdataparameters",
+    "class/src/resource.js~ListResource.html#instance-method-getPOSTDataParameters",
+    "src/resource.js~ListResource#getPOSTDataParameters",
+    "method"
+  ],
+  [
     "src/resource.js~listresource#getpreviouspage",
     "class/src/resource.js~ListResource.html#instance-method-getPreviousPage",
     "src/resource.js~ListResource#getPreviousPage",
@@ -1089,6 +1215,12 @@ window.esdocSearchIndex = [
     "src/resource.js~listresource#getsearch",
     "class/src/resource.js~ListResource.html#instance-method-getSearch",
     "src/resource.js~ListResource#getSearch",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#getsearchparameters",
+    "class/src/resource.js~ListResource.html#instance-method-getSearchParameters",
+    "src/resource.js~ListResource#getSearchParameters",
     "method"
   ],
   [
@@ -1170,10 +1302,94 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/tag.js~feedtaglist#constructor",
+    "class/src/tag.js~FeedTagList.html#instance-constructor-constructor",
+    "src/tag.js~FeedTagList#constructor",
+    "method"
+  ],
+  [
+    "src/tag.js~feedtaglist#getfeed",
+    "class/src/tag.js~FeedTagList.html#instance-method-getFeed",
+    "src/tag.js~FeedTagList#getFeed",
+    "method"
+  ],
+  [
+    "src/tag.js~feedtaglist#itemclass",
+    "class/src/tag.js~FeedTagList.html#instance-member-itemClass",
+    "src/tag.js~FeedTagList#itemClass",
+    "member"
+  ],
+  [
+    "src/tag.js~feedtagginglist#constructor",
+    "class/src/tag.js~FeedTaggingList.html#instance-constructor-constructor",
+    "src/tag.js~FeedTaggingList#constructor",
+    "method"
+  ],
+  [
+    "src/tag.js~feedtagginglist#getfeed",
+    "class/src/tag.js~FeedTaggingList.html#instance-method-getFeed",
+    "src/tag.js~FeedTaggingList#getFeed",
+    "method"
+  ],
+  [
+    "src/tag.js~feedtagginglist#itemclass",
+    "class/src/tag.js~FeedTaggingList.html#instance-member-itemClass",
+    "src/tag.js~FeedTaggingList#itemClass",
+    "member"
+  ],
+  [
+    "src/tag.js~feedtagginglist#post",
+    "class/src/tag.js~FeedTaggingList.html#instance-method-post",
+    "src/tag.js~FeedTaggingList#post",
+    "method"
+  ],
+  [
     "src/tag.js~tag#constructor",
     "class/src/tag.js~Tag.html#instance-constructor-constructor",
     "src/tag.js~Tag#constructor",
     "method"
+  ],
+  [
+    "src/tag.js~tag#delete",
+    "class/src/tag.js~Tag.html#instance-method-delete",
+    "src/tag.js~Tag#delete",
+    "method"
+  ],
+  [
+    "src/tag.js~tag#gettaggedfeeds",
+    "class/src/tag.js~Tag.html#instance-method-getTaggedFeeds",
+    "src/tag.js~Tag#getTaggedFeeds",
+    "method"
+  ],
+  [
+    "src/tag.js~tag#gettaggings",
+    "class/src/tag.js~Tag.html#instance-method-getTaggings",
+    "src/tag.js~Tag#getTaggings",
+    "method"
+  ],
+  [
+    "src/tag.js~tag#put",
+    "class/src/tag.js~Tag.html#instance-method-put",
+    "src/tag.js~Tag#put",
+    "method"
+  ],
+  [
+    "src/tag.js~tagfeedlist#constructor",
+    "class/src/tag.js~TagFeedList.html#instance-constructor-constructor",
+    "src/tag.js~TagFeedList#constructor",
+    "method"
+  ],
+  [
+    "src/tag.js~tagfeedlist#gettag",
+    "class/src/tag.js~TagFeedList.html#instance-method-getTag",
+    "src/tag.js~TagFeedList#getTag",
+    "method"
+  ],
+  [
+    "src/tag.js~tagfeedlist#itemclass",
+    "class/src/tag.js~TagFeedList.html#instance-member-itemClass",
+    "src/tag.js~TagFeedList#itemClass",
+    "member"
   ],
   [
     "src/tag.js~taglist#constructor",
@@ -1182,10 +1398,70 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/tag.js~taglist#getfeeds",
+    "class/src/tag.js~TagList.html#instance-method-getFeeds",
+    "src/tag.js~TagList#getFeeds",
+    "method"
+  ],
+  [
     "src/tag.js~taglist#itemclass",
     "class/src/tag.js~TagList.html#instance-member-itemClass",
     "src/tag.js~TagList#itemClass",
     "member"
+  ],
+  [
+    "src/tag.js~taglist#post",
+    "class/src/tag.js~TagList.html#instance-method-post",
+    "src/tag.js~TagList#post",
+    "method"
+  ],
+  [
+    "src/tag.js~tagtagginglist#constructor",
+    "class/src/tag.js~TagTaggingList.html#instance-constructor-constructor",
+    "src/tag.js~TagTaggingList#constructor",
+    "method"
+  ],
+  [
+    "src/tag.js~tagtagginglist#gettag",
+    "class/src/tag.js~TagTaggingList.html#instance-method-getTag",
+    "src/tag.js~TagTaggingList#getTag",
+    "method"
+  ],
+  [
+    "src/tag.js~tagtagginglist#itemclass",
+    "class/src/tag.js~TagTaggingList.html#instance-member-itemClass",
+    "src/tag.js~TagTaggingList#itemClass",
+    "member"
+  ],
+  [
+    "src/tag.js~tagtagginglist#post",
+    "class/src/tag.js~TagTaggingList.html#instance-method-post",
+    "src/tag.js~TagTaggingList#post",
+    "method"
+  ],
+  [
+    "src/tag.js~tagging#constructor",
+    "class/src/tag.js~Tagging.html#instance-constructor-constructor",
+    "src/tag.js~Tagging#constructor",
+    "method"
+  ],
+  [
+    "src/tag.js~tagging#delete",
+    "class/src/tag.js~Tagging.html#instance-method-delete",
+    "src/tag.js~Tagging#delete",
+    "method"
+  ],
+  [
+    "src/tag.js~tagging#getfeed",
+    "class/src/tag.js~Tagging.html#instance-method-getFeed",
+    "src/tag.js~Tagging#getFeed",
+    "method"
+  ],
+  [
+    "src/tag.js~tagging#gettag",
+    "class/src/tag.js~Tagging.html#instance-method-getTag",
+    "src/tag.js~Tagging#getTag",
+    "method"
   ],
   [
     "src/uploadedfile.js",
@@ -1200,9 +1476,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/uploadedfile.js~uploadedfile#delete",
+    "class/src/uploadedfile.js~UploadedFile.html#instance-method-delete",
+    "src/uploadedfile.js~UploadedFile#delete",
+    "method"
+  ],
+  [
     "src/uploadedfile.js~uploadedfile#getfileblob",
     "class/src/uploadedfile.js~UploadedFile.html#instance-method-getFileBlob",
     "src/uploadedfile.js~UploadedFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/uploadedfile.js~uploadedfile#put",
+    "class/src/uploadedfile.js~UploadedFile.html#instance-method-put",
+    "src/uploadedfile.js~UploadedFile#put",
     "method"
   ],
   [
@@ -1218,6 +1506,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/uploadedfile.js~uploadedfilelist#post",
+    "class/src/uploadedfile.js~UploadedFileList.html#instance-method-post",
+    "src/uploadedfile.js~UploadedFileList#post",
+    "method"
+  ],
+  [
     "src/user.js",
     "file/src/user.js.html",
     "src/user.js",
@@ -1230,9 +1524,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/user.js~user#update",
-    "class/src/user.js~User.html#instance-method-update",
-    "src/user.js~User#update",
+    "src/user.js~user#put",
+    "class/src/user.js~User.html#instance-method-put",
+    "src/user.js~User#put",
     "method"
   ]
 ]
