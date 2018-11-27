@@ -3,7 +3,7 @@ import { ItemResource, ListResource } from './resource';
 import { Feed } from './feed';
 
 /**
- * Comment item resource object.
+ * Comment item resource object representing a feed comment.
  */
 export class Comment extends ItemResource {
   /**
@@ -55,7 +55,7 @@ export class Comment extends ItemResource {
 }
 
 /**
- * Comment list resource object.
+ * Comment list resource object representing a list of feed comments.
  */
 export class CommentList extends ListResource {
   /**

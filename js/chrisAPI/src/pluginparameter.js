@@ -3,7 +3,7 @@ import { ItemResource, ListResource } from './resource';
 import { Plugin } from './plugin';
 
 /**
- * Plugin parameter item resource object.
+ * Plugin parameter item resource object representing a plugin parameter.
  */
 export class PluginParameter extends ItemResource {
   /**
@@ -32,7 +32,7 @@ export class PluginParameter extends ItemResource {
 }
 
 /**
- * Plugin parameter list resource object.
+ * Plugin parameter list resource object representing a list of plugin parameters.
  */
 export class PluginParameterList extends ListResource {
   /**

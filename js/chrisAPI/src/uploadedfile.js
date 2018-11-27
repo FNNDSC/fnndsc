@@ -4,7 +4,7 @@ import Collection from './cj';
 import { ItemResource, ListResource } from './resource';
 
 /**
- * Uploaded file item resource object.
+ * Uploaded file item resource object representing a user's uploaded file.
  */
 export class UploadedFile extends ItemResource {
   /**
@@ -56,7 +56,7 @@ export class UploadedFile extends ItemResource {
 }
 
 /**
- * Uploaded file list resource object.
+ * Uploaded file list resource object representing a list of a user's uploaded files.
  */
 export class UploadedFileList extends ListResource {
   /**

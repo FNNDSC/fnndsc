@@ -5,7 +5,7 @@ import { PluginParameterList } from './pluginparameter';
 import { PluginInstanceList } from './plugininstance';
 
 /**
- * Plugin item resource object.
+ * Plugin item resource object representing a plugin.
  */
 export class Plugin extends ItemResource {
   /**
@@ -53,7 +53,7 @@ export class Plugin extends ItemResource {
 }
 
 /**
- * Plugin list resource object.
+ * Plugin list resource object representing a list of plugins.
  */
 export class PluginList extends ListResource {
   /**

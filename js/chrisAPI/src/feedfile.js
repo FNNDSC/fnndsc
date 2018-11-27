@@ -6,7 +6,7 @@ import { Feed } from './feed';
 import { PluginInstance } from './plugininstance';
 
 /**
- * Feed file item resource object.
+ * Feed file item resource object representing a file written to a feed.
  */
 export class FeedFile extends ItemResource {
   /**
@@ -61,7 +61,7 @@ export class FeedFile extends ItemResource {
 }
 
 /**
- * Feed file list resource object.
+ * Feed file list resource object representing a list of files written to a feed.
  */
 export class FeedFileList extends ListResource {
   /**

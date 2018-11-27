@@ -3,7 +3,7 @@ import Request from './request';
 import { ItemResource } from './resource';
 
 /**
- * User item resource object.
+ * User item resource object representing a user of the system.
  */
 export default class User extends ItemResource {
   /**

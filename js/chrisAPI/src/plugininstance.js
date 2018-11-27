@@ -6,7 +6,7 @@ import { PluginParameter } from './pluginparameter';
 import { FeedFileList } from './feedfile';
 
 /**
- * Plugin instance item resource object.
+ * Plugin instance item resource object representing a plugin instance.
  */
 export class PluginInstance extends ItemResource {
   /**
@@ -123,7 +123,7 @@ export class PluginInstance extends ItemResource {
 }
 
 /**
- * Plugin instance list resource object.
+ * Plugin instance list resource object representing a list of plugin instances.
  */
 export class PluginInstanceList extends ListResource {
   /**
@@ -189,7 +189,8 @@ export class PluginInstanceDescendantList extends ListResource {
 }
 
 /**
- * Plugin instance parameter item resource object.
+ * Plugin instance parameter item resource object representing a parameter that the
+ * plugin instance was run with.
  */
 export class PluginInstanceParameter extends ItemResource {
   /**
@@ -232,7 +233,8 @@ export class PluginInstanceParameter extends ItemResource {
 }
 
 /**
- * Plugin instance parameter list resource object.
+ * Plugin instance parameter list resource object representing a list of parameters that
+ * the plugin instance was run with.
  */
 export class PluginInstanceParameterList extends ListResource {
   /**

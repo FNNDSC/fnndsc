@@ -2,7 +2,7 @@
 import { ItemResource } from './resource';
 
 /**
- * Note item resource object.
+ * Note item resource object representing a feed's note.
  */
 export default class Note extends ItemResource {
   /**

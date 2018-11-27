@@ -10,7 +10,7 @@ import { FeedFileList } from './feedfile';
 import { PluginInstance } from './plugininstance';
 
 /**
- * Feed item resource object.
+ * Feed item resource object representing a feed.
  */
 export class Feed extends ItemResource {
   /**
@@ -123,7 +123,7 @@ export class Feed extends ItemResource {
 }
 
 /**
- * Feed list resource object.
+ * Feed list resource object representing a list of user's feeds.
  */
 export class FeedList extends ListResource {
   /**

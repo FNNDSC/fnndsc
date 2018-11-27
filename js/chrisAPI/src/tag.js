@@ -3,7 +3,7 @@ import { ItemResource, ListResource } from './resource';
 import { FeedList, Feed } from './feed';
 
 /**
- * Tag item resource object.
+ * Tag item resource object representing a feed tag.
  */
 export class Tag extends ItemResource {
   /**
@@ -74,7 +74,7 @@ export class Tag extends ItemResource {
 }
 
 /**
- * Tag list resource object.
+ * Tag list resource object representing a list of a feed's tags.
  */
 export class TagList extends ListResource {
   /**
@@ -123,7 +123,8 @@ export class TagList extends ListResource {
 }
 
 /**
- * Tagging item resource object. A tagging of an specific feed with an specific tag.
+ * Tagging item resource object representing a tagging of an specific feed with an
+ * specific tag.
  */
 export class Tagging extends ItemResource {
   /**
@@ -175,8 +176,8 @@ export class Tagging extends ItemResource {
 }
 
 /**
- * Tag-specific tagging list resource object. A list of taggings made with an specific
- * tag.
+ * Tag-specific tagging list resource object representing a list of taggings made with an
+ * specific tag.
  */
 export class TagTaggingList extends ListResource {
   /**
@@ -221,8 +222,8 @@ export class TagTaggingList extends ListResource {
 }
 
 /**
- * Feed-specific tagging list resource object. A list of taggings applied to an specific
- * feed.
+ * Feed-specific tagging list resource object representing a list of taggings applied to
+ * an specific feed.
  */
 export class FeedTaggingList extends ListResource {
   /**
@@ -267,8 +268,8 @@ export class FeedTaggingList extends ListResource {
 }
 
 /**
- * Tag-specific feed list resource object. A list of feeds that are tagged with an
- * specific tag.
+ * Tag-specific feed list resource object representing a list of feeds that are tagged
+ * with an specific tag.
  */
 export class TagFeedList extends ListResource {
   /**
@@ -300,8 +301,8 @@ export class TagFeedList extends ListResource {
 }
 
 /**
- * Feed-specific tag list resource object. A list of tags that an specific feed is tagged
- * with.
+ * Feed-specific tag list resource object representing a list of tags that an specific
+ * feed is tagged with.
  */
 export class FeedTagList extends ListResource {
   /**
