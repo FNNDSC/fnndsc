@@ -132,7 +132,7 @@ export default class Request {
   static _callAxios(config) {
     return axios(config)
       .then(response => {
-        return response.data;
+        return response;
       })
       .catch(error => {
         Request._handleRequestError(error);

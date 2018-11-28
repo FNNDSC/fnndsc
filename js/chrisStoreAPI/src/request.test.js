@@ -57,7 +57,7 @@ describe('Request', () => {
 
     result
       .then(response => {
-        expect(response.collection.items).to.have.lengthOf.at.least(1);
+        expect(response.data.collection.items).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
@@ -68,9 +68,9 @@ describe('Request', () => {
 
     result
       .then(response => {
-        expect(response.collection).to.have.property('queries');
-        expect(response.collection).to.have.property('href');
-        expect(response.collection).to.have.property('links');
+        expect(response.data.collection).to.have.property('queries');
+        expect(response.data.collection).to.have.property('href');
+        expect(response.data.collection).to.have.property('links');
       })
       .then(done, done);
   });
@@ -99,7 +99,7 @@ describe('Request', () => {
 
     result
       .then(response => {
-        const name = response.collection.items[0].data.filter(descriptor => {
+        const name = response.data.collection.items[0].data.filter(descriptor => {
           return descriptor.name === 'name';
         })[0].value;
 
@@ -112,8 +112,8 @@ describe('Request', () => {
         fr.readAsText(dfile);*/
 
         // now delete the plugin
-        const url = response.collection.items[0].href;
-        return req.delete(url); // pass rejection or fulfilment through the promise chain
+        const url = response.data.collection.items[0].href;
+        return req.delete(url).then(() => {}); // pass rejection or fulfilment through the promise chain
       })
       .then(done, done);
   });
