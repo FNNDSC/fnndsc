@@ -47,12 +47,12 @@ describe('StoreClient', () => {
   //const auth = {token: "aad06988fef07626ed5cc205828cea21f9c501dd"};
   const client = new StoreClient(storeUrl, auth);
 
-  it('can retrieve a plugin given its name', function(done) {
-    const resp = client.getPlugin('simplefsapp');
+  it('can retrieve a plugin given its id', function(done) {
+    const resp = client.getPlugin(1);
     resp
       .then(plugin => {
-        expect(plugin.name).to.equal('simplefsapp');
-        expect(plugin.parameters[0].name).to.equal('dir');
+        expect(plugin.id).to.equal(1);
+        expect(plugin.parameters).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
@@ -81,20 +81,6 @@ describe('StoreClient', () => {
       .then(done, done);
   });
 
-  it('can retrieve currently authenticated user plugins', function(done) {
-    this.timeout(10000); // mocha test timeout, don't work with arrow functions
-
-    const result = client.getAuthenticatedUserPlugins(onePageResp1 => {
-      expect(onePageResp1).to.have.property('currentLink');
-      expect(onePageResp1).to.have.property('plugins');
-    });
-    result
-      .then(currentUserPlugins => {
-        expect(currentUserPlugins).to.have.lengthOf.at.least(1);
-      })
-      .then(done, done);
-  });
-
   it('can add a new plugin to the store and then delete it', done => {
     const testPlgName = 'simplefsapp' + Date.now();
     const testPlgDockImg = 'fnndsc/pl-simplefsapp';
@@ -113,17 +99,22 @@ describe('StoreClient', () => {
 
         expect(plgName).to.equal(testPlgName);
 
-        return client.removePlugin(testPlgName); // pass rejection or fulfilment through the promise chain
+        const plgId = response.items[0].data.filter(descriptor => {
+          return descriptor.name === 'id';
+        })[0].value;
+
+        return client.removePlugin(plgId); // pass rejection or fulfilment through the promise chain
       })
       .then(done, done);
   });
 
   it('can modify an existing plugin in the store', done => {
+    const testPlgId = 1;
     const testPlgName = 'simplefsapp';
     const testPlgNewName = 'simplefsapp' + Date.now();
     const testPlgNewOwner = 'chris';
     const testPlgDockImg = 'fnndsc/pl-simplefsapp';
-    const testPlgPublicRepo = 'http://github.com';
+    const testPlgPublicRepo = 'https://github.com/FNNDSC';
     const testPlgDescription = testPluginRepresentation.description;
 
     testPluginRepresentation.description = 'A quite simple chris fs app demo';
@@ -131,11 +122,11 @@ describe('StoreClient', () => {
     let dfile = new Blob([fileData], { type: 'application/json' });
 
     const result = client.modifyPlugin(
-      testPlgName,
-      testPlgDockImg,
+      testPlgId,
       dfile,
-      testPlgPublicRepo,
       testPlgNewName,
+      testPlgDockImg,
+      testPlgPublicRepo,
       testPlgNewOwner
     );
     result
@@ -157,11 +148,11 @@ describe('StoreClient', () => {
         dfile = new Blob([fileData], { type: 'application/json' });
 
         const res = client.modifyPlugin(
-          testPlgNewName,
-          testPlgDockImg,
+          testPlgId,
           dfile,
-          testPlgPublicRepo,
           testPlgName,
+          testPlgDockImg,
+          testPlgPublicRepo,
           testPlgNewOwner
         );
         res.then(resp => {
@@ -180,14 +171,16 @@ describe('StoreClient', () => {
       .then(done, done);
   });
 
-  /*it('can delete plugin to the store', done => {
-    const testPlgName = 'pacsquery';
+/* it('can delete plugin to the store', done => {
+    const testPlgId = 28;
 
-    const result = client.removePlugin(testPlgName);
+    const result = client.removePlugin(testPlgId);
 
     result
-      .then(response => {
-        //expect(response.items).to.have.lengthOf(1);
+      .then(() => {
+        window.console.log("Removed plugin with id: ", testPlgId);
+
+        return client.getPlugin(testPlgId);
       })
       .then(done, done);
   });*/

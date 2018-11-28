@@ -26,30 +26,36 @@ export default class StoreClient {
 
   /**
    * Get a plugin's information (descriptors and parameters) given its ChRIS
-   * store name.
+   * store id.
    *
-   * @param {*} pluginName
+   * @param {*} id
    * @return {*}
    */
-  getPlugin(pluginName) {
+  getPlugin(id) {
     const self = this;
 
     return new Promise(function(resolve, reject) {
       StoreClient._runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
-        const searchParams = { name: pluginName };
+        const searchParams = { id: id };
         let plugin;
 
         try {
           const resp = yield req.get(self.storeQueryUrl, searchParams);
-          if (resp.collection.items.length) {
-            const item = resp.collection.items[0];
-            plugin = Collection.getItemDescriptors(item); // plugin names are unique
+          const coll = resp.data.collection;
+
+          if (coll.items.length) {
+            const item = coll.items[0];
+            plugin = Collection.getItemDescriptors(item);
             const parametersLinks = Collection.getLinkRelationUrls(item, 'parameters');
+
             if (parametersLinks.length) {
               const paramList = yield self._getParameters(parametersLinks[0]); // there can only be a single parameters link
               plugin.parameters = paramList;
             }
+          } else {
+            const errMsg = 'Could not find plugin with id: ' + id;
+            throw new StoreRequestException(errMsg);
           }
         } catch (ex) {
           reject(ex);
@@ -104,47 +110,6 @@ export default class StoreClient {
   }
 
   /**
-   * Get a paginated list of plugin data (descriptors) of all plugins in the
-   * store that are onwed by the currently authenticated user. Callback function,
-   * if provided, is called for each page and passed an argument object
-   * containing the plugin list in that page.
-   *
-   * @param {*} callback
-   * @return {*}
-   */
-  getAuthenticatedUserPlugins(callback = null) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        let pluginList = [];
-        let resp, username;
-
-        try {
-          if (self.auth.username) {
-            username = self.auth.username;
-          } else {
-            resp = yield req.get(self.storeUrl);
-            const userLink = Collection.getLinkRelationUrls(resp.collection, 'user')[0];
-            resp = yield req.get(userLink);
-            username = resp.collection.items[0].data.filter(descriptor => {
-              return descriptor.name === 'username';
-            })[0].value;
-          }
-          self.auth.username = username;
-          pluginList = yield self.getPlugins({ owner_username: username }, callback);
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(pluginList);
-      });
-    });
-  }
-
-  /**
    * Add a new plugin to the ChRIS store.
    *
    * @param {*} name
@@ -168,7 +133,9 @@ export default class StoreClient {
 
         try {
           resp = yield req.get(self.storeUrl);
-          const userPluginsUrls = Collection.getLinkRelationUrls(resp.collection, 'user_plugins');
+          const coll = resp.data.collection;
+          const userPluginsUrls = Collection.getLinkRelationUrls(coll, 'user_plugins');
+
           if (userPluginsUrls.length) {
             // there can only be a single user_plugins url
             resp = yield req.post(userPluginsUrls[0], data, descriptorFile);
@@ -181,7 +148,7 @@ export default class StoreClient {
           return;
         }
 
-        resolve(resp.collection);
+        resolve(resp.data.collection);
       });
     });
   }
@@ -189,15 +156,15 @@ export default class StoreClient {
   /**
    * Modify an existing plugin in the ChRIS store.
    *
+   * @param {*} id
+   * @param {*} descriptorFile
    * @param {*} name
    * @param {*} dockImage
-   * @param {*} descriptorFile
    * @param {*} publicRepo
-   * @param {*} newName
    * @param {*} newOwner
    * @return {*}
    */
-  modifyPlugin(name, dockImage, descriptorFile, publicRepo, newName = '', newOwner = '') {
+  modifyPlugin(id, descriptorFile, name= '', dockImage= '', publicRepo= '', newOwner = '') {
     const self = this;
 
     return new Promise(function(resolve, reject) {
@@ -206,27 +173,51 @@ export default class StoreClient {
         let resp;
 
         try {
-          const searchParams = { name: name };
+          const searchParams = { id: id };
           resp = yield req.get(self.storeQueryUrl, searchParams);
-          const url = resp.collection.items[0].href;
-          if (newName) {
-            name = newName;
+          const coll = resp.data.collection;
+
+          if (coll.items.length) {
+            const url = coll.items[0].href;
+            const data = {};
+
+            if (name) {
+              data.name = name;
+            } else {
+              data.name = coll.items[0].data.filter(descriptor => {
+                return descriptor.name === 'name';
+              })[0].value;
+            }
+            if (dockImage) {
+              data.dock_image = dockImage;
+            } else {
+              data.dock_image = coll.items[0].data.filter(descriptor => {
+                return descriptor.name === 'dock_image';
+              })[0].value;
+            }
+            if (publicRepo) {
+              data.public_repo = publicRepo;
+            } else {
+              data.public_repo = coll.items[0].data.filter(descriptor => {
+                return descriptor.name === 'public_repo';
+              })[0].value;
+            }
+            if (newOwner) {
+              data.owner = newOwner;
+            }
+
+            resp = yield req.put(url, data, descriptorFile);
+
+          } else {
+            const errMsg = 'Could not find plugin with id: ' + id;
+            throw new StoreRequestException(errMsg);
           }
-          const data = {
-            name: name,
-            dock_image: dockImage,
-            public_repo: publicRepo,
-          };
-          if (newOwner) {
-            data.owner = newOwner;
-          }
-          resp = yield req.put(url, data, descriptorFile);
         } catch (ex) {
           reject(ex);
           return;
         }
 
-        resolve(resp.collection);
+        resolve(resp.data.collection);
       });
     });
   }
@@ -234,22 +225,29 @@ export default class StoreClient {
   /**
    * Remove an existing plugin from the ChRIS store.
    *
-   * @param {*} name
+   * @param {*} id
    * @return {*}
    */
-  removePlugin(name) {
+  removePlugin(id) {
     const self = this;
 
     return new Promise(function(resolve, reject) {
       StoreClient._runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
-        const searchParams = { name: name };
+        const searchParams = { id: id };
         let resp;
 
         try {
           resp = yield req.get(self.storeQueryUrl, searchParams);
-          const url = resp.collection.items[0].href;
-          resp = yield req.delete(url);
+          const coll = resp.data.collection;
+
+          if (coll.items.length) {
+            const url = coll.items[0].href;
+            resp = yield req.delete(url);
+          } else {
+            const errMsg = 'Could not find plugin with id: ' + id;
+            throw new StoreRequestException(errMsg);
+          }
         } catch (ex) {
           reject(ex);
           return;
@@ -300,6 +298,7 @@ export default class StoreClient {
         const req = new Request(self.auth, self.contentType, self.timeout);
         const pluginList = [];
         let resp;
+        let coll;
 
         try {
           if (url) {
@@ -310,8 +309,9 @@ export default class StoreClient {
           } else {
             resp = yield req.get(self.storeUrl);
           }
+          coll = resp.data.collection;
           // for each plugin item get its data
-          for (let item of resp.collection.items) {
+          for (let item of coll.items) {
             pluginList.push(Collection.getItemDescriptors(item));
           }
         } catch (ex) {
@@ -320,13 +320,13 @@ export default class StoreClient {
         }
 
         let nextLink = '';
-        let next = Collection.getLinkRelationUrls(resp.collection, 'next');
+        let next = Collection.getLinkRelationUrls(coll, 'next');
         if (next.length) {
           nextLink = next[0];
         }
 
         let previousLink = '';
-        let previous = Collection.getLinkRelationUrls(resp.collection, 'previous');
+        let previous = Collection.getLinkRelationUrls(coll, 'previous');
         if (previous.length) {
           previousLink = previous[0];
         }
@@ -334,7 +334,7 @@ export default class StoreClient {
         resolve({
           plugins: pluginList,
           nextLink: nextLink,
-          currentLink: resp.collection.href,
+          currentLink: coll.href,
           previousLink: previousLink,
         });
       });
@@ -358,7 +358,8 @@ export default class StoreClient {
 
         try {
           const resp = yield req.get(url); // there can only be a single parameters link
-          paramList = yield self._getItemsFromPaginatedCollections(resp.collection);
+
+          paramList = yield self._getItemsFromPaginatedCollections(resp.data.collection);
         } catch (ex) {
           reject(ex);
           return;
@@ -386,7 +387,7 @@ export default class StoreClient {
 
       result
         .then(resp => {
-          resolve(resp.collection);
+          resolve(resp.data.collection);
         })
         .catch(error => {
           reject(error);
@@ -412,7 +413,7 @@ export default class StoreClient {
 
       result
         .then(resp => {
-          resolve(resp.collection);
+          resolve(resp.data.collection);
         })
         .catch(error => {
           reject(error);
@@ -463,7 +464,7 @@ export default class StoreClient {
                   }
                   for (let url of related_urls) {
                     let resp = yield req.get(url); // wait for resp
-                    let newItemList = yield getItemsFromPaginatedColl(resp.collection); // wait for resp
+                    let newItemList = yield getItemsFromPaginatedColl(resp.data.collection); // wait for resp
                     itemObj[link_relation] = itemObj[link_relation].concat(newItemList);
                   }
                 }
@@ -504,8 +505,8 @@ export default class StoreClient {
             // there is only a single next page
             // execution stops here before resp is assigned, and resumed in _runAsyncTask
             let resp = yield req.get(nextPageUrls[0]);
-            collections = collections.concat(resp.collection);
-            nextPageUrls = Collection.getLinkRelationUrls(resp.collection, 'next');
+            collections = collections.concat(resp.data.collection);
+            nextPageUrls = Collection.getLinkRelationUrls(resp.data.collection, 'next');
           }
         } catch (ex) {
           reject(ex);
@@ -532,14 +533,14 @@ export default class StoreClient {
 
         try {
           resp = yield req.get(storeUrl);
-          let userUrls = Collection.getLinkRelationUrls(resp.collection, 'user');
+          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
           resp = yield req.get(userUrls[0]); // there is only a single user url
         } catch (ex) {
           reject(ex);
           return;
         }
 
-        resolve(resp.collection);
+        resolve(resp.data.collection);
       });
     });
   }
@@ -569,14 +570,14 @@ export default class StoreClient {
 
         try {
           resp = yield req.get(storeUrl);
-          let userUrls = Collection.getLinkRelationUrls(resp.collection, 'user');
+          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
           resp = yield req.put(userUrls[0], userData); // there is only a single user url
         } catch (ex) {
           reject(ex);
           return;
         }
 
-        resolve(resp.collection);
+        resolve(resp.data.collection);
       });
     });
   }
@@ -607,7 +608,7 @@ export default class StoreClient {
     return new Promise((resolve, reject) => {
       result
         .then(response => {
-          resolve(response.collection);
+          resolve(response.data.collection);
         })
         .catch(error => {
           reject(error);
@@ -635,7 +636,7 @@ export default class StoreClient {
     return new Promise((resolve, reject) => {
       result
         .then(response => {
-          resolve(response.token);
+          resolve(response.data.token);
         })
         .catch(error => {
           reject(error);
