@@ -32,7 +32,7 @@ resp
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
@@ -46,7 +46,7 @@ resp
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
@@ -54,16 +54,16 @@ resp
 let client = new StoreClient(storeUrl);
 
 
-// fetch a plugin given its name
-resp = client.getPlugin('simplefsapp');
+// fetch a plugin given its id
+resp = client.getPlugin(1);
 resp
   .then(plugin => {
 
-    window.console.log('plugin: ', plugin);
+    window.console.log('Plugin: ', plugin);
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
@@ -73,11 +73,11 @@ resp = client.getPlugins(searchParams);
 resp
   .then(smallPluginList => {
 
-    window.console.log('small plugin list: ', smallPluginList);
+    window.console.log('Small plugin list: ', smallPluginList);
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
@@ -87,11 +87,11 @@ resp = client.getPlugins(searchParams);
 resp
   .then(userPluginList => {
 
-    window.console.log('a subset of the plugins created by the user: ', userPluginList);
+    window.console.log('A subset of the plugins created by the user: ', userPluginList);
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
@@ -99,7 +99,7 @@ resp
 searchParams = { type: 'fs' };
 resp = client.getPlugins(searchParams, onePageFsPluginList => {
 
-  window.console.log('one page of the fs plugin list: ', onePageFsPluginList);
+  window.console.log('One page of the fs plugin list: ', onePageFsPluginList);
 });
 resp
   .then(fullFsPluginList => {
@@ -108,7 +108,7 @@ resp
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
@@ -163,11 +163,11 @@ resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
 resp
   .then(response => {
 
-      window.console.log('new plugin in the store: ', response);
+      window.console.log('New plugin in the store: ', response);
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
@@ -180,50 +180,51 @@ resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo
 resp
   .then(response => {
 
-    window.console.log('updated description for plugin: ', testPlgName);
+    window.console.log('Updated description for plugin: ', testPlgName);
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
-// change an existing plugin's name
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, 'newPluginName');
+// change an existing plugin's name (the descriptor file is always required)
+const testPlgId = 1;
+resp = client.modifyPlugin(testPlgId, dfile, 'newPluginName');
 resp
   .then(response => {
 
-    window.console.log('plugin name is now newPluginName');
+    window.console.log('Plugin name is now newPluginName');
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
 // share an existing plugin with another store user (who then becomes an owner of the plugin)
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo, undefined, 'chris');
+resp = client.modifyPlugin(testPlgId, dfile, undefined, undefined, undefined, 'chris');
 resp
   .then(response => {
 
-    window.console.log('user chris is now in the list of owners of plugin: ' + testPlgName);
+    window.console.log('User chris is now in the list of owners of plugin with id : ' + testPlgId);
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
 
 // remove an existing plugin from the store
-resp = client.removePlugin(testPlgName);
+resp = client.removePlugin(testPlgId);
 resp
   .then(() => {
 
-    window.console.log('removed plugin: ', testPlgName);
+    window.console.log('Removed plugin with id: ', testPlgId);
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 ```
 
