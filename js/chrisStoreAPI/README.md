@@ -172,11 +172,12 @@ resp
 
 
 // modify an existing plugin's representation in the store
+const testPlgId = 1;
 testPluginRepresentation.description = 'A new description';
 fileData = JSON.stringify(testPluginRepresentation);
 dfile = new Blob([fileData], { type: 'application/json' });
 
-resp = client.modifyPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
+resp = client.modifyPlugin(testPlgId, dfile);
 resp
   .then(response => {
 
@@ -189,7 +190,6 @@ resp
 
 
 // change an existing plugin's name (the descriptor file is always required)
-const testPlgId = 1;
 resp = client.modifyPlugin(testPlgId, dfile, 'newPluginName');
 resp
   .then(response => {
