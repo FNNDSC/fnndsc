@@ -48,8 +48,8 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   post(url, data, uploadFileObj = null) {
@@ -61,8 +61,8 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   put(url, data, uploadFileObj = null) {
@@ -87,8 +87,8 @@ export default class Request {
    * @param {string} requestMethod - either 'post' or 'put'
    * @param {string} url - url of the resource
    * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   _postOrPut(requestMethod, url, data, uploadFileObj = null) {
