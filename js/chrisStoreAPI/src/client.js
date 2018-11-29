@@ -137,8 +137,8 @@ export default class StoreClient {
           const userPluginsUrls = Collection.getLinkRelationUrls(coll, 'user_plugins');
 
           if (userPluginsUrls.length) {
-            // there can only be a single user_plugins url
-            resp = yield req.post(userPluginsUrls[0], data, descriptorFile);
+            // use userPluginsUrls[0] bc there can only be a single user_plugins url
+            resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });
           } else {
             const errMsg = 'Could not find url for POST request. Make sure you are authenticated';
             throw new StoreRequestException(errMsg);
@@ -206,7 +206,7 @@ export default class StoreClient {
               data.owner = newOwner;
             }
 
-            resp = yield req.put(url, data, descriptorFile);
+            resp = yield req.put(url, data, { descriptor_file: descriptorFile });
 
           } else {
             const errMsg = 'Could not find plugin with id: ' + id;
