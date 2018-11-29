@@ -1,65 +1,79 @@
 /** * Imports ***/
 import axios from 'axios';
 import Collection from './cj';
-import StoreRequestException from './exception';
+import RequestException from './exception';
 
 /**
  * Http request object.
- *
- * @module request
  */
 export default class Request {
   /**
    * Constructor
+   *
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   * @param {string} contentType - request content type
+   * @param {number} [timeout=30000] - request timeout
    */
   constructor(auth, contentType, timeout = 30000) {
+    /** @type {Object} */
     this.auth = auth;
+
+    /** @type {string} */
     this.contentType = contentType;
+
+    /** @type {number} */
     this.timeout = timeout;
   }
 
   /**
-   * Perform a GET request to the ChRIS store.
+   * Perform a GET request.
    *
-   * @param {*} url
-   * @param {*} params
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {?Object} params - search parameters
+   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
-  get(url, params) {
+  get(url, params = null) {
     const config = this._getConfig(url, 'get');
-    config.params = params;
+
+    if (params) {
+      config.params = params;
+    }
 
     return Request._callAxios(config);
   }
 
   /**
-   * Perform a POST request to the ChRIS store.
+   * Perform a POST request.
    *
-   * @param {*} url
-   * @param {*} data
-   * @param {*} descriptorFile
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
+   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
-  post(url, data, descriptorFile) {
-    return this._postOrPut('post', url, data, descriptorFile);
+  post(url, data, uploadFileObj = null) {
+    return this._postOrPut('post', url, data, uploadFileObj);
   }
 
   /**
-   * Perform a PUT request to the ChRIS store.
+   * Perform a PUT request.
    *
-   * @param {*} url
-   * @param {*} data
-   * @param {*} descriptorFile
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
+   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
-  put(url, data, descriptorFile) {
-    return this._postOrPut('put', url, data, descriptorFile);
+  put(url, data, uploadFileObj = null) {
+    return this._postOrPut('put', url, data, uploadFileObj);
   }
 
   /**
-   * Perform a DELETE request to the ChRIS store.
+   * Perform a DELETE request.
    *
-   * @param {*} url
+   * @param {string} url - url of the resource
+   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   delete(url) {
     const config = this._getConfig(url, 'delete');
@@ -68,19 +82,20 @@ export default class Request {
   }
 
   /**
-   * Internal method to make either a POST or PUT request to the ChRIS store.
+   * Internal method to make either a POST or PUT request.
    *
-   * @param {*} requestMethod
-   * @param {*} url
-   * @param {*} data
-   * @param {*} descriptorFile
-   * @return {*}
+   * @param {string} requestMethod - either 'post' or 'put'
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
+   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
-  _postOrPut(requestMethod, url, data, descriptorFile) {
+  _postOrPut(requestMethod, url, data, uploadFileObj = null) {
     const config = this._getConfig(url, requestMethod);
     config.data = data;
 
-    if (descriptorFile) {
+    if (uploadFileObj) {
       config['headers']['content-type'] = 'multipart/form-data';
       const bFormData = new FormData();
 
@@ -89,7 +104,11 @@ export default class Request {
           bFormData.set(property, data[property]);
         }
       }
-      bFormData.set('descriptor_file', descriptorFile);
+      for (let property in uploadFileObj) {
+        if (uploadFileObj.hasOwnProperty(property)) {
+          bFormData.set(property, uploadFileObj[property]);
+        }
+      }
       config.data = bFormData;
     }
 
@@ -99,9 +118,9 @@ export default class Request {
   /**
    * Internal method to create a config file for axios.
    *
-   * @param {*} url
-   * @param {*} method
-   * @return {*}
+   * @param {string} url - url of the resource
+   * @param {string} method - request verb
+   * @return {Object} - axios configuration object
    */
   _getConfig(url, method) {
     const config = {
@@ -120,14 +139,18 @@ export default class Request {
       config.headers.Authorization = 'Token ' + this.auth.token;
     }
 
+    if (this.contentType === 'application/octet-stream') {
+      config.responseType = 'blob';
+    }
+
     return config;
   }
 
   /**
    * Internal method to make an axios request.
    *
-   * @param {*} config
-   * @return {*}
+   * @param {Object} config - axios configuration object
+   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   static _callAxios(config) {
     return axios(config)
@@ -140,9 +163,10 @@ export default class Request {
   }
 
   /**
-   * Internal method to handle errors produced by HTTP requests to the ChRIS store.
+   * Internal method to handle errors produced by HTTP requests.
    *
-   * @param {*} error
+   * @param {Object} error - axios error object
+   * @throws {RequestException} throw error
    */
   static _handleRequestError(error) {
     let errMsg;
@@ -169,7 +193,35 @@ export default class Request {
       errMsg = error.message;
     }
 
-    throw new StoreRequestException(errMsg);
+    throw new RequestException(errMsg);
     //console.log(error.config);
+  }
+
+  /**
+   * Helper method to run an asynchronous task defined by a task generator function.
+   *
+   * @param {function*()} taskGenerator - generator function
+   */
+  static runAsyncTask(taskGenerator) {
+    // create the iterator
+    let task = taskGenerator();
+    // start the task
+    let result = task.next();
+
+    // recursive function to iterate through
+    (function step() {
+      // if there's more to do (result.value and result.done are iterator's properties)
+      if (!result.done) {
+        result.value
+          .then(resp => {
+            result = task.next(resp); // send this resp value to the yield
+            step();
+          })
+          .catch(error => {
+            result = task.throw(error); // throws error within taskGenerator generator
+            step();
+          });
+      }
+    })(); // start the recursive process by calling it immediatly
   }
 }

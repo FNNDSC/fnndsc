@@ -94,8 +94,9 @@ describe('Request', () => {
     };
     const fileData = JSON.stringify(testPluginRepresentation);
     const dfile = new Blob([fileData], { type: 'application/json' });
+    const dfileObj = { descriptor_file: dfile };
 
-    const result = req.post(storeUrl + 'user-plugins/', data, dfile);
+    const result = req.post(storeUrl + 'user-plugins/', data, dfileObj);
 
     result
       .then(response => {
