@@ -136,7 +136,7 @@ npm install -g polymer-cli
 For a quick test of the viewer, simply go to `/var/www/html/rev/src/fnndsc/js/rev` and fire up the `polymer` server:
 
 ```bash
-polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
+polymer serve --port <port> --hostname <serverNameOrIP>
 ```
 
 NOTE:
@@ -173,7 +173,8 @@ The tree structure is
    |      |     |
    |      |     +-- 01-ex
    |      |     +-- 02-ex
-   +      ... 
+   |      ...
+   |
    +-- 01-yr
    |      |
    |      +-- 01-mo
@@ -184,12 +185,13 @@ The tree structure is
    |      |     |
    |      |     +-- 01-ex
    |      |     +-- 02-ex
+   |
   ...
 ````
 
 In other words, `<YR>-yr/<MO>-mo/<EX>-ex` where `<YR>` and `<MO>` are integers (with leading zeroes where necessary) denoting patient age in year and month, and the `<EX>` trees are number examples of that give age specifier. Each example has a tree structure of 
 
-```
+```bash
 <EX>-ex
     |
     +-- <SeriesName1>
@@ -199,6 +201,7 @@ In other words, `<YR>-yr/<MO>-mo/<EX>-ex` where `<YR>` and `<MO>` are integers (
     |         +
     |        ...
     |         +-- <DCMFILE_n>.dcm
+    |
     +-- <SeriesName2>
     |         |
     |         +-- <DCMFILE_1>.dcm
@@ -206,6 +209,7 @@ In other words, `<YR>-yr/<MO>-mo/<EX>-ex` where `<YR>` and `<MO>` are integers (
     |         +
     |        ...
     |         +-- <DCMFILE_n>.dcm
+    |
    ...
 ```
    
@@ -246,7 +250,7 @@ NB: depending on context the `<serverSpec>` can be:
 
 NB implicit hard coded dependency:
 
-* If in running the backend script, an explicit `--studyJSON` is passed, make sure to reflect this in in `src/rev-app.html` 
+* If, in running the backend script, an explicit `--studyJSON` is passed, make sure to reflect this in in `src/rev-app.html` 
 
 ```bash
 const testURL = `${this.demoPrefix}/${target}/description.json`
@@ -256,40 +260,51 @@ const testURL = `${this.demoPrefix}/${target}/description.json`
 
 The viewer can be used in three distinct modes:
 
-## 
+## Mode 1: File tree browser
 
-## Mode 1 : Year Month Example
+Navigating to the URL:
 
-To use this mode, you can define an age telling it in years and months to see the scans corresponding from the database.
+    http://fnndsc.childrens.harvard.edu/rev/viewer/library-anon
 
-Example : http://centurion.tch.harvard.edu/rev/viewer/?year=00&month=00&example=01
+will resolve to a familiar file browser experience. A user can then simply click through the year and month choices to see a thumbnail view of the examples available for a given year/month combination. Double clicking on a thumbnail will open a new view to the right with the image series and DICOM tags. Single clicking a thumbnail view will open a new browser tab with the full viewer experience on that series.
 
-## Mode 2 : PatientBirthDate ScanDate Example
+## Mode 2 : Explicit Year/Month/Example Specification 
 
-This mode is used to have automatically an example corresponding to a patient birthdate and his scan date. It will display the closest example in term of age from the database. The format is YYYYMMDD.
+In this mode, a specific year, month, and example are provided explicitly in the URL:
 
-Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=01
+    http://fnndsc.childrens.harvard.edu/rev/viewer/?year=00&month=00&example=01
 
-### NOTE 
+Note that passing `example=00` will direct the browser to the thumbnail overview of all examples for a given year / month combination.
 
-For each mode you will have multiple examples. Do not hesitate to change the example parameter. If you wish to see the list of the example and scan, you can just put 00 to the example parameter. This work in both modes.
+## Mode 3 : PatientBirthDate and ScanDate Specification
 
-Example : http://centurion.tch.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=00
+In this mode, an arbitrary `PatientBirthDate` and `ScanDate` are passed in the URL, and the viewer calculates the closest corresponding internal libary year/month set. As before, a specific example index can be passed, or the viewer can be directed to show the overview example thumbnail page.
+
+Please note that currently specifying a non-existent example index is not fully supported.
 
 
-# Modification and building
+    http://fnndsc.childrens.harvard.edu/rev/viewer/?patientbirthdate=20160608&scandate=20180207&example=01
 
-If you want to upgrade the viewer, it's very likely that you will have to modify the `/src/rev-app.html`. Especially the javascript part. Almost all the changes were made in this file. 
+# Development mode
 
-## Build
+## Source files
 
-To build a development version to a deployment version: 
+If developing, most of the javascript controlling the overall viewer logic is located in `/src/rev-app.html`. 
 
-Change the `<base href='/'>` to `<base href='/rev/viewer/'>` in index.html. 
+## Building
 
-Then perform the build with es5-bundled preset.
+To compile a *_development_* version to a *_deployment_* version:
 
-es5-bundled preset includes:
+* Change the `<base href='/'>` to `<base href='/rev/viewer/'>` in index.html. 
+
+* Compile the build with es5-bundled preset.
+
+```bash
+cd /var/www/html/rev/src/fnndsc/js/rev
+NODE_OPTIONS="--max-old-space-size=3072" polymer build --verbose --preset es5-bundled
+```
+
+Note that the es5-bundled preset includes:
 
 * js-compile: es6 -> es5 (for older browser support)
 * js-minify
@@ -297,17 +312,14 @@ es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-```bash
-cd /var/www/html/rev/src/fnndsc/js/rev
-NODE_OPTIONS="--max-old-space-size=3072" polymer build --verbose --preset es5-bundled
-```
-Then, copy the file in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`
 
-Your viewer should be available on http://yourIPaddress/rev/viewer/
+Finally, copy the file in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`. Using the system apache2 server, the newly built viewer should be accessible from:
 
-## Parameters
+    http://yourIPaddress/rev/viewer/
 
-Here is the list of all the parameters you might want to use.
+## Quick summary of most likely touched files duing development:
+
+Development will be most likely limited to the following files and variables:
 
 In index.html:
 
