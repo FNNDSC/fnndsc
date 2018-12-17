@@ -29,7 +29,7 @@ and select the `LAMP` option.
 
 ## Type of installation
 
-In most cases, the already compiled _Deployment version_ is what you are looking for. If you want to do development, then follow the instructions for the _Development version_.
+In most cases, the already compiled _Deployment version_ is sufficient. For development, however,  follow the instructions for the _Development version_.
 
 ## Deployment version
 
@@ -70,7 +70,7 @@ fi
 Now, log out and login again. Simply run
 
 ```bash
-nvm install 10.7.0
+nvm install 11.4.0 # Or whatever version of node you want
 ```
 
 ### Checkout and initialize the core source repo
@@ -110,14 +110,17 @@ rm -rf bower_components && \
 bower update
 ```
 
+This might ask for user choice with regards to `moment.js`.
+
 #### Install moment.js
 
-Install `moment.js`
+Either stay with the choice above, or manually install `moment.js`
 
 ```bash
 bower install moment --save
 ```
 or
+
 ```bash
 npm install moment --save
 ```
@@ -130,36 +133,90 @@ Install `polymer-cli`
 npm install -g polymer-cli
 ```
 
-#### Launch the viewer as a development version
+#### Quick test of the viewer
 
-If you want to launch the viewer to test if everything is ok you can follow this part. But to have the viewer fully working, you need to do [this part](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) first.
+For a quick test of the viewer, simply go to `/var/www/html/rev/src/fnndsc/js/rev`:
 
-To launch the viewer, go in `/var/www/html/rev/src/fnndsc/js/rev` and perform:
 ```bash
 polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
 ```
-NOTE: Keep in mind the port should be the same as the one you defined in the pfdicom_rev command
 
+NOTE:
+* In BCH deployments, in some Linux environments running Chrome, `localhost` and `127.0.0.1` may have proxy lookup issues. In those cases, use the actual machine IP.
+
+* If you are planning on running a full viewer experience from a dev build, remember to specify the same IP/port in the call to `pfdicom_rev` while building the full backend.
 
 ## Data handling
 
-For both types of installations, you must process your data.
+Whether using a _Development_ or _Deployment_ build, the viewer needs a data tree containing both DICOMs (and optionally pre-processed JPG for the full viewer experience).
 
-### Get your datas
+### Data location
 
-Put your data in `/var/www/html/rev/src/fnndsc/js/rev`, the folder of your data should be call `library-anon`. 
+Since there are some implicit assumptions in the actual code base of data folder locations and tree structure, adhere closely to the following.
 
-NOTE: If you want to have a different name of folder, you have to modify the `demoPrefix` in `src/rev-app.html`
+First, the data tree should be located in `/var/www/html/rev/src/fnndsc/js/rev/library-anon`
+
+NOTE: this location is hardcoded in the `demoPrefix` variable found in `src/rev-app.html`
 
 ### Tree structure
 
-The tree structure is `years > months > examples > series`
+The tree structure is
 
-In consequence, your data should be names as `library-anon/XX-yr/XX-mo/XX-ex/SERIESNAME/XXXXXXXXXXXX.dcm`
+```bash
+<root>
+   |
+   +-- 00-yr
+   |      |
+   |      +-- 01-mo
+   |      |     |
+   |      |     +-- 01-ex
+   |      |     +-- 02-ex
+   |      +-- 02-mo
+   |      |     |
+   |      |     +-- 01-ex
+   |      |     +-- 02-ex
+   +      ... 
+   +-- 01-yr
+   |      |
+   |      +-- 01-mo
+   |      |     |
+   |      |     +-- 01-ex
+   |      |     +-- 02-ex
+   |      +-- 02-mo
+   |      |     |
+   |      |     +-- 01-ex
+   |      |     +-- 02-ex
+  ...
+````
 
-If you are running a development version of the viewer, the data should be store in: `/var/www/html/rev/src/fnndsc/js/rev/library-anon/...`
+In other words, `<YR>-yr/<MO>-mo/<EX>-ex` where `<YR>` and `<MO>` are integers (with leading zeroes where necessary) denoting patient age in year and month, and the `<EX>` trees are number examples of that give age specifier. Each example has a tree structure of 
 
-If you are running a deployment version of the viewer, the data should be store in: `/var/www/html/rev/viewer/library-anon/...`
+```
+<EX>-ex
+    |
+    +-- <SeriesName1>
+    |         |
+    |         +-- <DCMFILE_1>.dcm
+    |         +-- <DCMFILE_2>.dcm
+    |         +
+    |        ...
+    |         +-- <DCMFILE_n>.dcm
+    +-- <SeriesName2>
+    |         |
+    |         +-- <DCMFILE_1>.dcm
+    |         +-- <DCMFILE_2>.dcm
+    |         +
+    |        ...
+    |         +-- <DCMFILE_n>.dcm
+   ...
+```
+   
+Note again the tree locations in the case of _Development_ vs _Deployment_:
+
+Locations
+* _Development_: `/var/www/html/rev/src/fnndsc/js/rev/library-anon`
+* _Deployment_: `/var/www/html/rev/viewer/library-anon`
+
 
 ### Process your datas
 
