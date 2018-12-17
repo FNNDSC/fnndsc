@@ -10,7 +10,7 @@ Project was initialized with the <a href="https://github.com/PolymerElements/pol
 </p>
 
 # Installation
-YRMOEX
+
 ## Pre-requisites:
 
 ### Setup a LAMP instance
@@ -47,7 +47,7 @@ git clone https://github.com/FNNDSC/rev.git
 To test, and assuming an already running LAMP instance, you should be able to access the viewer without data on 
 
 ```bash
-    http://yourIPaddress/rev/viewer/
+http://yourIPaddress/rev/viewer/
 ```
 
 Skip ahead to [_Data Handling_](https://github.com/FNNDSC/fnndsc/tree/master/js/rev#data-handling).
