@@ -150,7 +150,7 @@ NOTE:
 
 ## Data handling
 
-Whether using a _Development_ or _Production_ build, the viewer needs a data tree containing both DICOMs (and optionally pre-processed JPG for the full viewer experience).
+Whether using a _Development_ or _Production_ build, the viewer needs a data tree containing DICOMs (and optionally pre-processed JPG, JSON, and various index.html files for the full viewer experience).
 
 ### Data location
 
