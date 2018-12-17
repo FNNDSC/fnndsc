@@ -29,7 +29,7 @@ and select the `LAMP` option.
 
 ## Type of installation
 
-In most cases, the already compiled _Production version_ is sufficient. For development, however, a few extra steps are required (see [_Development_](https://github.com/FNNDSC/fnndsc/tree/master/js/rev#development-version):
+In most cases, the already compiled _Production version_ is sufficient. For development, however, a few extra steps are required (see [_Development_](https://github.com/FNNDSC/fnndsc/tree/master/js/rev#development)):
 
 ## Production
 
