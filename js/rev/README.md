@@ -11,7 +11,7 @@ Project was initialized with the <a href="https://github.com/PolymerElements/pol
 
 # Installation
 
-## Preequisites:
+## Pre-requisites:
 
 ### Setup a LAMP instance
 
