@@ -125,9 +125,7 @@ or
 npm install moment --save
 ```
 
-#### Install polymer-cli
-
-Install `polymer-cli` 
+#### Install `polymer-cli`
 
 ```bash
 npm install -g polymer-cli
@@ -135,7 +133,7 @@ npm install -g polymer-cli
 
 #### Quick test of the viewer
 
-For a quick test of the viewer, simply go to `/var/www/html/rev/src/fnndsc/js/rev`:
+For a quick test of the viewer, simply go to `/var/www/html/rev/src/fnndsc/js/rev` and fire up the `polymer` server:
 
 ```bash
 polymer serve --port XXXX --hostname YOUR.IP.ADDRESS.XXX
@@ -218,30 +216,47 @@ Locations
 * _Deployment_: `/var/www/html/rev/viewer/library-anon`
 
 
-### Process your datas
+### Backend processing
 
-To work, the viewer need some JSON files. Theses files will be created by `pfdicom_rev`. 
-Install it with: https://github.com/FNNDSC/pfdicom_rev
+Given a library tree structure of DICOM files organzied appropriately, the backend script `pfdicom_rev` is used to process this tree to create various JPG conversions, JPG preview strips, DICOM tag data, an assortment of JSON formatted files, as well as multiple `index.html` that together create the complete user experience (in conjunction with `_h5ai` to browse the file tree).
 
-When everything is set just do this command in `.../pfdicom_rev/bin`:
+`pdicom_rev` is available here: https://github.com/FNNDSC/pfdicom_rev or from `PyPI` with
+
+```
+pip install pfdicom_rev
+```
+
+(it is highly recommended to install within a python virutal environment).
+
+Once installed, 
 
 ```bash
-./pfdicom_rev -I /var/www/html/rev/src/fnndsc/js/rev/library-anon/ -e dcm -O %inputDir -v 3 --printElapsedTime --server http://XXXXXXXX.XXX:XXXX
+pfdicom_rev                                             \
+    -I /var/www/html/rev/src/fnndsc/js/rev/library-anon \ 
+    -O %inputDir                                        \
+    -v 3                                                \
+    --printElapsedTime                                  \
+    --server <serverSpec>
 ```
-BE CAREFUL, you need to change the server in the command. 
 
-As an example, for a development version, a server name could be: http://centurion.tch.harvard.edu:8060
+NB: depending on context the `<serverSpec>` can be:
 
-And for a deployment version: http://centurion.tch.harvard.edu/rev/viewer/
+* _Development version_: `http://centurion.tch.harvard.edu:8060`
+* _Deployment version_: `http://centurion.tch.harvard.edu/rev/viewer`
 
-NOTE: If you want to use the --studyJSON parameters of pfdicom_rev, you should change this line in `src/rev-app.html` 
+NB implicit hard coded dependency:
+
+* If in running the backend script, an explicit `--studyJSON` is passed, make sure to reflect this in in `src/rev-app.html` 
+
 ```bash
 const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
 
 # Usage
 
-To use the viewer, you have two modes available. 
+The viewer can be used in three distinct modes:
+
+## 
 
 ## Mode 1 : Year Month Example
 
