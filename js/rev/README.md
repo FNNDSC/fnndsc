@@ -29,11 +29,11 @@ and select the `LAMP` option.
 
 ## Type of installation
 
-In most cases, the already compiled _Deployment version_ is sufficient. For development, however,  follow the instructions for the _Development version_.
+In most cases, the already compiled _Production version_ is sufficient. For development, however,  follow the instructions for the _Development version_.
 
-## Deployment version
+## Production version
 
-To install the _Deployment version_ use the already compiled source build available in the `rev` repo:
+To install the _Production version_ use the already compiled source build available in the `rev` repo:
 
 ```bash
 sudo bash
@@ -146,7 +146,7 @@ NOTE:
 
 ## Data handling
 
-Whether using a _Development_ or _Deployment_ build, the viewer needs a data tree containing both DICOMs (and optionally pre-processed JPG for the full viewer experience).
+Whether using a _Development_ or _Production_ build, the viewer needs a data tree containing both DICOMs (and optionally pre-processed JPG for the full viewer experience).
 
 ### Data location
 
@@ -213,11 +213,11 @@ In other words, `<YR>-yr/<MO>-mo/<EX>-ex` where `<YR>` and `<MO>` are integers (
    ...
 ```
    
-Note again the tree locations in the case of _Development_ vs _Deployment_:
+Note again the tree locations in the case of _Development_ vs _Production_:
 
 Locations
 * _Development_: `/var/www/html/rev/src/fnndsc/js/rev/library-anon`
-* _Deployment_: `/var/www/html/rev/viewer/library-anon`
+* _Production_: `/var/www/html/rev/viewer/library-anon`
 
 
 ### Backend processing
@@ -246,7 +246,7 @@ pfdicom_rev                                             \
 NB: depending on context the `<serverSpec>` can be:
 
 * _Development version_: `http://centurion.tch.harvard.edu:8060`
-* _Deployment version_: `http://centurion.tch.harvard.edu/rev/viewer`
+* _Production version_: `http://centurion.tch.harvard.edu/rev/viewer`
 
 NB implicit hard coded dependency:
 
