@@ -29,9 +29,9 @@ and select the `LAMP` option.
 
 ## Type of installation
 
-In most cases, the already compiled _Production version_ is sufficient. For development, however, a few extra steps are required (see the appropriate section below):
+In most cases, the already compiled _Production version_ is sufficient. For development, however, a few extra steps are required (see [_Development_](https://github.com/FNNDSC/fnndsc/tree/master/js/rev#development-version):
 
-## Production version
+## Production
 
 To install the _Production version_ use the already compiled source build available in the `rev` repo:
 
@@ -44,11 +44,15 @@ cd rev
 git clone https://github.com/FNNDSC/rev.git
 ```
 
-To test, and assuming an already running LAMP instance, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
+To test, and assuming an already running LAMP instance, you should be able to access the viewer without data on 
+
+```bash
+    http://yourIPaddress/rev/viewer/
+```
 
 Skip ahead to [_Data Handling_](https://github.com/FNNDSC/fnndsc/tree/master/js/rev#data-handling).
 
-## Development version
+## Development
 
 ### Get `npm/node`
 
