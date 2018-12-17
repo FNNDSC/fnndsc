@@ -11,9 +11,11 @@ Project was initialized with the <a href="https://github.com/PolymerElements/pol
 
 # Installation
 
-## Setup a LAMP instance
+## Preequisites:
 
-For either version of the viewer you want to use, you should have a LAMP instance on your computer
+### Setup a LAMP instance
+
+For either version of the viewer you want to use, you should have a LAMP instance installed. In Ubuntu,
 
 ```bash
 sudo apt install tasksel
@@ -25,9 +27,13 @@ sudo tasksel
 ```
 and select the `LAMP` option.
 
+## Type of installation
+
+In most cases, the already compiled _Deployment version_ is what you are looking for. If you want to do development, then follow the instructions for the _Development version_.
+
 ## Deployment version
 
-Install the build source 
+To install the _Deployment version_ use the already compiled source build available in the `rev` repo:
 
 ```bash
 sudo bash
@@ -37,9 +43,10 @@ chmod 777 rev
 cd rev
 git clone https://github.com/FNNDSC/rev.git
 ```
-To test your install, if you have a LAMP instance running correctly, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
 
-You can directly go [here](https://github.com/Eogrim/fnndsc/tree/master/js/rev#data-handling) for the next things to do.
+To test, and assuming an already running LAMP instance, you should be able to access the viewer without data on http://yourIPaddress/rev/viewer/
+
+Skip ahead to [_Data Handling_](https://github.com/FNNDSC/fnndsc/tree/master/js/rev#data-handling).
 
 ## Development version
 
