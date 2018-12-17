@@ -327,7 +327,8 @@ Development will be most likely limited to the following files and variables:
 
 In `index.html`:
 
-- `<base href='/'>` This parameter will be used to define the root of the viewer. 
+- `<base href='/'>` This parameter will be used to define the root of the viewer, see  (here)[https://github.com/FNNDSC/fnndsc/blob/master/js/rev/index.html#L20]
+
 * *_Development_* value: `<base href='/'>`. 
 * *_Production_* value: `<base href='/rev/viewer/'>`
 
