@@ -15,7 +15,7 @@ Project was initialized with the <a href="https://github.com/PolymerElements/pol
 
 ### Setup a LAMP instance
 
-For either version of the viewer you want to use, you should have a LAMP instance installed. In Ubuntu,
+On a local (Ubuntu) machine, the quickest and easiest way to get up and running is to simply install a LAMP instance using `tasksel`. In Ubuntu,
 
 ```bash
 sudo apt install tasksel
@@ -29,7 +29,7 @@ and select the `LAMP` option.
 
 ## Type of installation
 
-In most cases, the already compiled _Production version_ is sufficient. For development, however,  follow the instructions for the _Development version_.
+In most cases, the already compiled _Production version_ is sufficient. For development, however, a few extra steps are required (see the appropriate section below):
 
 ## Production version
 
