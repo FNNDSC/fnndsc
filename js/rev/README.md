@@ -324,8 +324,8 @@ Development will be most likely limited to the following files and variables:
 In index.html:
 
 - `<base href='/'>` This parameter will be used to define the root of the viewer. 
-  Develpoment value: `<base href='/'>`. 
-  Deployment value: `<base href='/rev/viewer/'>`
+-- *_Development_* value: `<base href='/'>`. 
+-- *_Production_* value: `<base href='/rev/viewer/'>`
 
 In src/rev-app.html:
 
