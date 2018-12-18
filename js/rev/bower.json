@@ -1,7 +1,7 @@
 {
   "name": "re-viewer",
   "authors": [
-    "FNNDSC Developpers"
+    "FNNDSC Developers"
   ],
   "license": "https://polymer.github.io/LICENSE.txt",
   "dependencies": {
@@ -24,7 +24,7 @@
     "vaadin-grid": "v4.0.0-alpha5",
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
     "three.js": "mrdoob/three.js#dev",
-    "ami": "fnndsc/ami#dev",
+    "ami": "fnndsc/ami#master",
     "paper-slider": "PolymerElements/paper-slider#^2.0.0",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^2.0.0",
@@ -50,6 +50,7 @@
   "resolutions": {
     "paper-icon-button": "^2.2.0",
     "chips-api": "master",
-    "moment": "^2.23.0"
+    "moment": "^2.23.0",
+    "ami": "master"
   }
 }
