@@ -228,78 +228,118 @@ name="view404"></rev-view404>
       // If no page was found in the route data, page will be an empty string.
       this.page = this.routeData.page || 'viewer';
       
-      //Getting parameters in either mode
+      // Parse search parameter string for client arguments
       var urlSearchParameters = new URLSearchParams(document.location.search.toLowerCase());
-      // http://fnndsc.childrens.harvard.edu/ReV/viewer?patientbirthdate=XXXXXX&scandate=YYYYY
-      var patientBirthDate = urlSearchParameters.get('patientbirthdate');
-      var scanDate = urlSearchParameters.get('scandate');
-      // http://centurion.tch.harvard.edu:8060/?year=00&month=03&example=02
-      var year = urlSearchParameters.get('year');
-      var month = urlSearchParameters.get('month');
-      var example = urlSearchParameters.get('example');
-      var mode = 0;
-      //Mode definition
-      if (patientBirthDate && scanDate && example)
-        mode = 1;
-      if (year && month && example)
-        mode = 2;
 
-      //Building map URL and getting data
-      const mapURL = `${this.demoPrefix}/map.json`
+      //
+      // A variable to track what "mode" we are in
+      //  0: default
+      //  1: PatientBirthdate / ScanDate mode
+      //  2: explicit year/month/example mode
+      //
+      var mode                = 0;
+
+      // mode 0 (and common) vars:
+      var str_urlExample      = urlSearchParameters.get('example');
+      // if an example is not explicitly set, set to '00'
+      if(str_urlExample == null) str_urlExample = '00';
+      if(str_urlExample == '0')  str_urlExample = '00';
+
+      // mode 1 vars:
+      // http://<someIPandPort>?patientbirthdate=YYYYMMDD&scandate=yyyymmdd&example=00
+      var str_urlPatientBirthDate = urlSearchParameters.get('patientbirthdate');
+      var str_urlScanDate         = urlSearchParameters.get('scandate');
+
+      // mode 2 vars:
+      // http://<someIPandPort>?year=<YR>&month=<MO>&example=<EX>
+      var str_urlYear             = urlSearchParameters.get('year');
+      var str_urlMonth            = urlSearchParameters.get('month');
+
+      // what mode are we in?
+      // might need to consider exceptions to this?
+      if (str_urlPatientBirthDate && str_urlScanDate && str_urlExample) mode = 1;
+      if (str_urlYear             && str_urlMonth    && str_urlExample) mode = 2;
+
+      // read representation of FS in 'map.json'
+      const mapURL = `${this.demoPrefix}/map.json`;
       fetch(mapURL)
       .then((response) => {
-        return response.json();
+          return response.json();
       })
-      .then((myJson) => {
-        //Handeling data to have YRMOEX in an array
-        var map = myJson.data;
-        map = JSON.stringify(map);
-        map = map.replace(/[^0-9,]+/g,"");
-        map = map.split(",");
-        console.log("MAP =", map);
-        var result;
-        var date;
-        let target = '';
+      .then((jsonMap) => {
 
-        //Case PatientDate
-        if (mode == 1) {
-          //Using Moment.js to have YRMOEX from patientBirthDate and ScanDate
-          patientBirthDate = moment(patientBirthDate, 'YYYYMMDD');
-          scanDate = moment(scanDate, 'YYYYMMDD');
-          var age = scanDate.diff(patientBirthDate, 'years', true);
-          year = Math.trunc(age);
-          month = Math.round(moment.duration((age - Math.trunc(age)),'years').asMonths());
-          if (year < 10)
-            year = '0' + year.toString();
-          if (month < 10)
-            month = '0' + month.toString();
-        } 
-        
-        //Comparing our date to the map of date to get the closest result
-        date = year + month + example;
-        result = this.mapCheck(map, date);
-        //Run another time to compare if the example we want exist in the closest result
-        date = result[0]+result[1]+result[2]+result[3]+example[0]+example[1];
-        result = this.mapCheck(map, date);
-        year = result[0]+result[1];
-        month = result[2]+result[3];
+        // process jsonMap and reduce to a list of strings that are numeric
+        // ordered
+        var l_FSrep   = this.dirTree_process(jsonMap);
 
-        //case YRMOEX
+        // Age to lookup
+        var d_ageAtScan = {
+          'YYMM':     'yearAndMonth',
+          'years':    'yearOnly',
+          'months':   'monthsOnly'
+        };
+
+        // Age in library 
+        var d_closestAgeInLib = {
+          'YYMMEX':   'yearAndMonthAndExample',
+          'years':    'yearOnly',
+          'months':   'monthsOnly',
+          'example':  'example'
+        };
+
+        switch(mode) {
+          case 0:
+            // This mode is actually unreachable during normal execution, 
+            // but can be hit when incorrect string parameters are passed
+            // in the client call URL.
+            d_ageAtScan = {
+                              'YYMM':   '0000',
+                              'years':  '00',
+                              'months': '00'
+                          };
+            break;
+          case 1:
+            d_ageAtScan = this.patientBirthDateScanDate_processDiffinYYMM(
+                                    str_urlPatientBirthDate, 
+                                    str_urlScanDate
+                          );
+            break;
+          case 2:
+            d_ageAtScan = {
+                              'YYMM':   str_urlYear + str_urlMonth,
+                              'years':  str_urlYear,
+                              'months': str_urlMonth
+                          };
+            break;
+        }
+
+        var str_search    = d_ageAtScan.YYMM  + str_urlExample
+
+        // find the closest hit in the map array to this age difference string
+        var index                 = this.getNearestNumberIndex(l_FSrep, parseInt(str_search));
+        d_closestAgeInLib.YYMMEX  = l_FSrep[index];
+        d_closestAgeInLib.years   = l_FSrep[index][0] + l_FSrep[index][1];
+        d_closestAgeInLib.months  = l_FSrep[index][2] + l_FSrep[index][3];
+        d_closestAgeInLib.example = l_FSrep[index][4] + l_FSrep[index][5];
+
         if (mode == 2) {
-          //in case the input are not in map.json we update the parameters to the closest match 
-          //if not, this does nothing
-          urlSearchParameters.set('year', year);
-          urlSearchParameters.set('month', month);
+          // Update the URL search parameters to ths actual hit
+          urlSearchParameters.set('year',   d_closestAgeInLib.years);
+          urlSearchParameters.set('month',  d_closestAgeInLib.months);
           window.history.replaceState({}, '', `${window.location.pathname}?${urlSearchParameters}`);
         }
 
-        //If the example does not exist, we redirect to H5AI to get the list of examples
-        if (example != result[4]+result[5]){
-          this.redirectionToH5AI(year, month)
+        // If the example does not exist, we redirect to H5AI to get the list of examples
+        if (str_urlExample != d_closestAgeInLib.example){
+          this.redirectToH5AI(d_closestAgeInLib.years, d_closestAgeInLib.months)
         }
 
-        //If the example exist we get the target to the right description.json directory
-        target = this.pathFromHome(year, month, example);
+        // If the example exists we set the target to the right description.json directory
+        var target  = this.pathFromHome(
+                              d_closestAgeInLib.years, 
+                              d_closestAgeInLib.months, 
+                              str_urlExample
+                      );
         
         // fetch target...
         const testURL = `${this.demoPrefix}/${target}/description.json`
@@ -319,12 +359,72 @@ name="view404"></rev-view404>
       });
     }
 
+    patientBirthDateScanDate_processDiffinYYMM(str_urlPatientBirthDate, str_urlScanDate) {           
+          // This function processes the passed PatientBirthData and ScanDate
+          // to deterime the age delta in years and months. This is returned as
+          // a string 'YYMM', i.e. 0302 to denote three years, two months.
+
+          // use Moment.js to process dates -- at the end of this snippet
+          // we need to have years and months difference between the
+          // passed dates as two char strings.
+          var patientBirthDate  = moment(str_urlPatientBirthDate, 'YYYYMMDD');
+          var scanDate          = moment(str_urlScanDate,         'YYYYMMDD');
+          var tempDate          = '';
+          var str_year          = '';
+          var str_month         = '';
+          
+          // Make sure that patientBirthDate is "earlier" than scanDate.
+          // Admittedly, this should never be true... but just in case
+          // we check and swap.
+          if(scanDate < patientBirthDate) {
+              tempDate          = patientBirthDate;
+              patientBirthDate  = scanDate;
+              scanDate          = tempDate;
+          }
+
+          var years   = scanDate.diff(patientBirthDate, 'years');
+          var months  = scanDate.diff(patientBirthDate, 'months') - 12 * years;
+
+          if (years < 10)
+            str_year  = '0' + years.toString();
+          else
+            str_year  = years.toString()
+          if (months < 10)
+            str_month = '0' + months.toString();
+          else
+            str_month = months.toString();
+          return {
+              'YYMM':   str_year + str_month,
+              'years':  str_year,
+              'months': str_month
+          }
+        } 
+
+    dirTree_process(json_FSrepresentation) {
+      var str_FSrep = JSON.stringify(json_FSrepresentation)
+      var l_FSrep   = str_FSrep.replace(/[^0-9,]+/g,"").split(",").sort()
+      console.log('FileSystem lookup list = ', l_FSrep)
+      return l_FSrep;
+    }
+
     pathFromHome(year, month, example) {
       return `${year}-yr/${month}-mo/${example}-ex`;
     }
 
+    getNearestNumberIndex(a, n){
+        // this function returns the closest index in arr 'a' to number 'n'
+        // assuming that a is sorted.
+        if((l = a.length) < 2)
+            return l - 1;
+        for(var l, p = Math.abs(a[--l] - n); l--;)
+            if(p < (p = Math.abs(a[l] - n)))
+                break;
+        return l + 1;
+    }
+
     mapCheck(map, date){
-      //this function run through the list of examples and fine the closest match to date
+      // this function runs through the list of examples and finds the closest match to 
+      // the passed date
       var i;
       var tmp = 10000000;
       var result;
@@ -337,8 +437,8 @@ name="view404"></rev-view404>
       return result;
     }
 
-    redirectionToH5AI(year, month){
-      //this function redirect to the list of example for a given year and month
+    redirectToH5AI(year, month){
+      // this function redirects to the example thumbnail page for a given year and month
       var target = window.location.href.split('?')[0]+this.demoPrefix+'/'+year+'-yr/'+month+'-mo/'; 
             window.location.replace(target);
     }
