@@ -150,7 +150,7 @@ NOTE:
 
 ## Data handling
 
-Whether using a _Development_ or _Production_ build, the viewer needs a data tree containing DICOMs (and optionally pre-processed JPG, JSON, and various index.html files for the full viewer experience).
+Whether using a _Development_ or _Production_ build, the viewer needs a data tree containing DICOMs (and optionally pre-processed JPG, JSON, and various index.html files for the full viewer experience -- note that the full experience is only available in _Production_ builds as _Development_ is only for the viewer itself and not the `_h5ai` file browsing).
 
 ### Data location
 
