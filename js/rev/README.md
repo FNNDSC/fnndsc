@@ -316,9 +316,25 @@ Note that the es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-Finally, copy the file tree (all files and directories) in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`. Using the system `apache2` server, the newly built viewer should be accessible from:
+Finally, copy the file tree (all files and directories) in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`. 
 
-    http://yourIPaddress/rev/viewer/
+```bash
+cp -pvrdi /var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled \
+          /var/www/html/rev/viewer
+```
+
+and remember to link the `library-anon` to the viewer directory:
+
+```bash
+cd /var/www/html/rev/viewer
+ln -s ../src/fnndsc/js/rev/library-anon .
+```
+
+Now, using the system `apache2` server, the newly built viewer should be accessible from:
+
+```bash
+http://yourIPaddress/rev/viewer/
+```
 
 ## Quick summary of most likely touched files duing development:
 
