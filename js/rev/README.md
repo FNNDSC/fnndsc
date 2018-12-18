@@ -330,6 +330,13 @@ cd /var/www/html/rev/viewer
 ln -s ../src/fnndsc/js/rev/library-anon .
 ```
 
+You might need to run `bower update` in the build dir, too
+
+```bash
+cd /var/www/html/rev/viewer
+bower update
+```
+
 Now, using the system `apache2` server, the newly built viewer should be accessible from:
 
 ```bash
