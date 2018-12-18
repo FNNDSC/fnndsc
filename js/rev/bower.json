@@ -41,7 +41,7 @@
     "wc-series-preview": "FNNDSC/wc-series-preview#master",
     "wc-periodic-logo": "FNNDSC/wc-periodic-logo#master",
     "wc-viewer-2d": "fnndsc/wc-viewer-2d#master",
-    "moment": "^2.22.2"
+    "moment": "^2.23.0"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0-prerelease.7"
@@ -49,6 +49,7 @@
   "private": true,
   "resolutions": {
     "paper-icon-button": "^2.2.0",
-    "chips-api": "master"
+    "chips-api": "master",
+    "moment": "^2.23.0"
   }
 }
