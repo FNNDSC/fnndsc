@@ -146,7 +146,7 @@ polymer serve --port <port> --hostname <serverNameOrIP>
 NOTE:
 * In BCH deployments, in some Linux environments running Chrome, `localhost` and `127.0.0.1` may have proxy lookup issues. In those cases, use the actual machine IP.
 
-* If you are planning on running a full viewer experience from a dev build, remember to specify the same IP/port in the call to `pfdicom_rev` while building the full backend.
+* During development, only the `rev` viewer is really available. The full experience, including the `_h5ai` browsing, is *not* part of the development process (this is because the `polymer` server used during development does not run the `_h5ai` browser).
 
 ## Data handling
 
