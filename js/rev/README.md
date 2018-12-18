@@ -316,8 +316,7 @@ Note that the es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-
-Finally, copy the file in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`. Using the system apache2 server, the newly built viewer should be accessible from:
+Finally, copy the file tree (all files and directories) in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`. Using the system `apache2` server, the newly built viewer should be accessible from:
 
     http://yourIPaddress/rev/viewer/
 
