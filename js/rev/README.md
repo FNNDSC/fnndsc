@@ -47,7 +47,7 @@ git clone https://github.com/FNNDSC/rev.git
 To test, and assuming an already running LAMP instance, you should be able to access the viewer without data on 
 
 ```bash
-    http://yourIPaddress/rev/viewer/
+http://yourIPaddress/rev/viewer/
 ```
 
 Skip ahead to [_Data Handling_](https://github.com/FNNDSC/fnndsc/tree/master/js/rev#data-handling).
@@ -325,13 +325,14 @@ Finally, copy the file in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled
 
 Development will be most likely limited to the following files and variables:
 
-In index.html:
+In `index.html`:
 
-- `<base href='/'>` This parameter will be used to define the root of the viewer. 
+- `<base href='/'>` This parameter will be used to define the root of the viewer, see  [here](https://github.com/FNNDSC/fnndsc/blob/master/js/rev/index.html#L20).
+
 * *_Development_* value: `<base href='/'>`. 
 * *_Production_* value: `<base href='/rev/viewer/'>`
 
-In src/rev-app.html:
+In `src/rev-app.html`:
 
 - `demoPrefix` This parameter is used to define the name of the file containing all the data.
   Default : library-anon
