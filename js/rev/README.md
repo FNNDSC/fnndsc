@@ -146,11 +146,11 @@ polymer serve --port <port> --hostname <serverNameOrIP>
 NOTE:
 * In BCH deployments, in some Linux environments running Chrome, `localhost` and `127.0.0.1` may have proxy lookup issues. In those cases, use the actual machine IP.
 
-* If you are planning on running a full viewer experience from a dev build, remember to specify the same IP/port in the call to `pfdicom_rev` while building the full backend.
+* During development, only the `rev` viewer is really available. The full experience, including the `_h5ai` browsing, is *not* part of the development process (this is because the `polymer` server used during development does not run the `_h5ai` browser).
 
 ## Data handling
 
-Whether using a _Development_ or _Production_ build, the viewer needs a data tree containing DICOMs (and optionally pre-processed JPG, JSON, and various index.html files for the full viewer experience).
+Whether using a _Development_ or _Production_ build, the viewer needs a data tree containing DICOMs (and optionally pre-processed JPG, JSON, and various index.html files for the full viewer experience -- note that the full experience is only available in _Production_ builds as _Development_ is only for the viewer itself and not the `_h5ai` file browsing).
 
 ### Data location
 
@@ -316,8 +316,7 @@ Note that the es5-bundled preset includes:
 * css-minify
 * [more](https://www.polymer-project.org/1.0/docs/tools/polymer-cli)
 
-
-Finally, copy the file in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`. Using the system apache2 server, the newly built viewer should be accessible from:
+Finally, copy the file tree (all files and directories) in `/var/www/html/rev/src/fnndsc/js/rev/build/es5-bundled/` to `/var/www/html/rev/viewer`. Using the system `apache2` server, the newly built viewer should be accessible from:
 
     http://yourIPaddress/rev/viewer/
 
