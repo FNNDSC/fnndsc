@@ -60,6 +60,20 @@ Using [HTTPie](https://httpie.org/) REST API client:
 http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"./"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
 ```
 
+#### Update the feed's files by making the following GET request:
+
+Using curl:
+
+```bash
+curl -u cube:cube1234 http://localhost:8000/api/v1/plugins/instances/1/
+```
+
+Using [HTTPie](https://httpie.org/) REST API client:
+
+```bash
+http -a cube:cube1234 http://localhost:8000/api/v1/plugins/instances/1/
+```
+
 ### JavaScript package manager prerequisite
 
 * yarn
