@@ -3,7 +3,7 @@ import { ItemResource, ListResource } from './resource';
 import { Plugin } from './plugin';
 import { Feed } from './feed';
 import { PluginParameter } from './pluginparameter';
-import { FeedFileList } from './feedfile';
+import { PluginInstanceFileList } from './feedfile';
 
 /**
  * Plugin instance item resource object representing a plugin instance.
@@ -112,11 +112,11 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object
+   * @return {Object} - JS Promise, resolves to a ``PluginInstanceFileList`` object
    */
   getFiles(params = null, timeout = 30000) {
     const linkRelation = 'files';
-    const resourceClass = FeedFileList;
+    const resourceClass = PluginInstanceFileList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
@@ -165,6 +165,40 @@ export class PluginInstanceList extends ListResource {
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
+  }
+}
+
+/**
+ * Feed-specific plugin instance list resource object representing a list of plugin
+ * instances associated to an specific feed.
+ */
+export class FeedPluginInstanceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstance;
+  }
+
+  /**
+   * Fetch the feed associated to this feed-specific list of plugin instances from
+   * the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 }
 

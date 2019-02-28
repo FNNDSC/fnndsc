@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import Request from './request';
 import { FeedList, Feed } from './feed';
 import { Plugin } from './plugin';
-import { PluginInstanceList, PluginInstanceDescendantList, PluginInstance } from './plugininstance';
+import { PluginInstanceDescendantList, PluginInstance } from './plugininstance';
 import { PluginInstanceParameterList } from './plugininstance';
-import { FeedFileList } from './feedfile';
+import { PluginInstanceFileList } from './feedfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -112,9 +112,9 @@ describe('Resource', () => {
     it('can fetch the list of files created by the plugin instance from the REST API', done => {
       const result = pluginInst.getFiles();
       result
-        .then(feedFileList => {
-          expect(feedFileList).to.be.an.instanceof(FeedFileList);
-          expect(feedFileList.isEmpty).to.be.false;
+        .then(fileList => {
+          expect(fileList).to.be.an.instanceof(PluginInstanceFileList);
+          expect(fileList.isEmpty).to.be.false;
         })
         .then(done, done);
     });

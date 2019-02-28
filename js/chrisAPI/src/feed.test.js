@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import { FeedList } from './feed';
 import Note from './note';
-import { TagList } from './tag';
+import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
 import { FeedFileList } from './feedfile';
-import { PluginInstance } from './plugininstance';
+import { FeedPluginInstanceList } from './plugininstance';
 import User from './user';
 import { PluginList } from './plugin';
 import { UploadedFileList } from './uploadedfile';
@@ -45,7 +45,16 @@ describe('Resource', () => {
       const result = feed.getTags();
       result
         .then(tagList => {
-          expect(tagList).to.be.an.instanceof(TagList);
+          expect(tagList).to.be.an.instanceof(FeedTagList);
+        })
+        .then(done, done);
+    });
+
+    it('can fetch the associated taggings from the REST API', done => {
+      const result = feed.getTaggings();
+      result
+        .then(taggingList => {
+          expect(taggingList).to.be.an.instanceof(FeedTaggingList);
         })
         .then(done, done);
     });
@@ -68,12 +77,12 @@ describe('Resource', () => {
         .then(done, done);
     });
 
-    it('can fetch the plugin instance that created the feed from the REST API', done => {
-      const result = feed.getPluginInstance();
+    it('can fetch the associated plugin instances from the REST API', done => {
+      const result = feed.getPluginInstances();
       result
-        .then(plgInst => {
-          expect(plgInst).to.be.an.instanceof(PluginInstance);
-          expect(plgInst.isEmpty).to.be.false;
+        .then(plgInstList => {
+          expect(plgInstList).to.be.an.instanceof(FeedPluginInstanceList);
+          expect(plgInstList.isEmpty).to.be.false;
         })
         .then(done, done);
     });

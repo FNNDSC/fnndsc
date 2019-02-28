@@ -4,10 +4,10 @@ import User from './user';
 import { PluginList } from './plugin';
 import { UploadedFileList } from './uploadedfile';
 import Note from './note';
-import { TagList } from './tag';
+import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
 import { FeedFileList } from './feedfile';
-import { PluginInstance } from './plugininstance';
+import { FeedPluginInstanceList } from './plugininstance';
 
 /**
  * Feed item resource object representing a feed.
@@ -44,11 +44,27 @@ export class Feed extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``TagList`` object
+   * @return {Object} - JS Promise, resolves to a ``FeedTagList`` object
    */
   getTags(params = null, timeout = 30000) {
     const linkRelation = 'tags';
-    const resourceClass = TagList;
+    const resourceClass = FeedTagList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Fetch a list of taggings associated to this feed from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``FeedTaggingList`` object
+   */
+  getTaggings(params = null, timeout = 30000) {
+    const linkRelation = 'taggings';
+    const resourceClass = FeedTaggingList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
@@ -86,14 +102,17 @@ export class Feed extends ItemResource {
   }
 
   /**
-   * Fetch the plugin instance that created this feed from the REST API.
+   * Fetch a list of plugin instances associated to this feed from the REST API.
    *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Object} - JS Promise, resolves to a ``FeedPluginInstanceList`` object
    */
-  getPluginInstance(timeout = 30000) {
-    const linkRelation = 'plugin_inst';
-    const resourceClass = PluginInstance;
+  getPluginInstances(params = null, timeout = 30000) {
+    const linkRelation = 'plugin_instances';
+    const resourceClass = FeedPluginInstanceList;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }

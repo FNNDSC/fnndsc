@@ -34,19 +34,6 @@ export class FeedFile extends ItemResource {
   }
 
   /**
-   * Fetch the feed associated to this file item from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
-   */
-  getFeed(timeout = 30000) {
-    const linkRelation = 'feed';
-    const resourceClass = Feed;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-
-  /**
    * Fetch the plugin instance that created this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -87,6 +74,52 @@ export class FeedFileList extends ListResource {
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
     const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Plugin instance file list resource object representing a list of files written by
+ * a plugin instance.
+ */
+export class PluginInstanceFileList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = FeedFile;
+  }
+
+  /**
+   * Fetch the feed associated to this file list from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the plugin instance associated to this file list from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   */
+  getPluginInstance(timeout = 30000) {
+    const linkRelation = 'plugin_inst';
+    const resourceClass = PluginInstance;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }

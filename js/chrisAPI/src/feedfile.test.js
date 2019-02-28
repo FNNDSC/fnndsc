@@ -66,21 +66,12 @@ describe('Resource', () => {
         .then(done, done);
     });
 
-    it('can fetch the associated feed from the REST API', done => {
-      const result = feedFile.getFeed();
-      result
-        .then(feed => {
-          expect(feed).to.be.an.instanceof(Feed);
-          expect(feed.isEmpty).to.be.false;
-        })
-        .then(done, done);
-    });
-
     it('can fetch the plugin instance that created this file from the REST API', done => {
       const result = feedFile.getPluginInstance();
       result
         .then(plgInst => {
           expect(plgInst).to.be.an.instanceof(PluginInstance);
+          expect(plgInst.isEmpty).to.be.false;
         })
         .then(done, done);
     });
