@@ -48,6 +48,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~feedplugininstancelist",
+    "class/src/plugininstance.js~FeedPluginInstanceList.html",
+    "<span>FeedPluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~feedtaglist",
     "class/src/tag.js~FeedTagList.html",
     "<span>FeedTagList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -93,6 +99,12 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~plugininstancedescendantlist",
     "class/src/plugininstance.js~PluginInstanceDescendantList.html",
     "<span>PluginInstanceDescendantList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~plugininstancefilelist",
+    "class/src/feedfile.js~PluginInstanceFileList.html",
+    "<span>PluginInstanceFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -684,9 +696,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/feed.js~feed#getplugininstance",
-    "class/src/feed.js~Feed.html#instance-method-getPluginInstance",
-    "src/feed.js~Feed#getPluginInstance",
+    "src/feed.js~feed#getplugininstances",
+    "class/src/feed.js~Feed.html#instance-method-getPluginInstances",
+    "src/feed.js~Feed#getPluginInstances",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#gettaggings",
+    "class/src/feed.js~Feed.html#instance-method-getTaggings",
+    "src/feed.js~Feed#getTaggings",
     "method"
   ],
   [
@@ -750,12 +768,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/feedfile.js~feedfile#getfeed",
-    "class/src/feedfile.js~FeedFile.html#instance-method-getFeed",
-    "src/feedfile.js~FeedFile#getFeed",
-    "method"
-  ],
-  [
     "src/feedfile.js~feedfile#getfileblob",
     "class/src/feedfile.js~FeedFile.html#instance-method-getFileBlob",
     "src/feedfile.js~FeedFile#getFileBlob",
@@ -783,6 +795,30 @@ window.esdocSearchIndex = [
     "src/feedfile.js~feedfilelist#itemclass",
     "class/src/feedfile.js~FeedFileList.html#instance-member-itemClass",
     "src/feedfile.js~FeedFileList#itemClass",
+    "member"
+  ],
+  [
+    "src/feedfile.js~plugininstancefilelist#constructor",
+    "class/src/feedfile.js~PluginInstanceFileList.html#instance-constructor-constructor",
+    "src/feedfile.js~PluginInstanceFileList#constructor",
+    "method"
+  ],
+  [
+    "src/feedfile.js~plugininstancefilelist#getfeed",
+    "class/src/feedfile.js~PluginInstanceFileList.html#instance-method-getFeed",
+    "src/feedfile.js~PluginInstanceFileList#getFeed",
+    "method"
+  ],
+  [
+    "src/feedfile.js~plugininstancefilelist#getplugininstance",
+    "class/src/feedfile.js~PluginInstanceFileList.html#instance-method-getPluginInstance",
+    "src/feedfile.js~PluginInstanceFileList#getPluginInstance",
+    "method"
+  ],
+  [
+    "src/feedfile.js~plugininstancefilelist#itemclass",
+    "class/src/feedfile.js~PluginInstanceFileList.html#instance-member-itemClass",
+    "src/feedfile.js~PluginInstanceFileList#itemClass",
     "member"
   ],
   [
@@ -856,6 +892,24 @@ window.esdocSearchIndex = [
     "file/src/plugininstance.js.html",
     "src/plugininstance.js",
     "file"
+  ],
+  [
+    "src/plugininstance.js~feedplugininstancelist#constructor",
+    "class/src/plugininstance.js~FeedPluginInstanceList.html#instance-constructor-constructor",
+    "src/plugininstance.js~FeedPluginInstanceList#constructor",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~feedplugininstancelist#getfeed",
+    "class/src/plugininstance.js~FeedPluginInstanceList.html#instance-method-getFeed",
+    "src/plugininstance.js~FeedPluginInstanceList#getFeed",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~feedplugininstancelist#itemclass",
+    "class/src/plugininstance.js~FeedPluginInstanceList.html#instance-member-itemClass",
+    "src/plugininstance.js~FeedPluginInstanceList#itemClass",
+    "member"
   ],
   [
     "src/plugininstance.js~plugininstance#constructor",

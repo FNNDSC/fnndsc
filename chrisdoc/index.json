@@ -569,7 +569,7 @@
     "name": "src/cj.js",
     "content": "/**\n * Collection+Json utility object.\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - error message\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation from a collection or item object.\n   *\n   * @param {Object} obj - Collection+Json collection or item object\n   * @param {string} relationName - name of the link relation\n   * @return {string[]} - list of urls\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors).\n   *\n   * @param {Object} item - Collection+Json item object\n   * @return {Object} - object whose properties and values are the item's descriptor names and values respectively\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the url of the representation given by a collection obj.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - url of the resource representation\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the list of descriptor names within a collection's template object.\n   *\n   * @param {Object} template - Collection+Json template object\n   * @return {string[]} - list of descriptor names\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Get the list of descriptor names within a Collection+Json query array.\n   *\n   * @param {Object[]} queryArr - Collection+Json query array\n   * @return {string[]} - list of query parameter names\n   */\n  static getQueryParameters(queryArr) {\n    return queryArr[0].data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Make a Collection+Json template object from a regular object whose properties are\n   * the item descriptors.\n   *\n   * @param {Object} descriptorsObj - item descriptors object\n   * @return {Object} - template object\n   */\n  static makeTemplate(descriptorsObj) {\n    const template = { data: [] };\n\n    let i = 0;\n    for (let property in descriptorsObj) {\n      if (descriptorsObj.hasOwnProperty(property)) {\n        template.data[i] = { name: property, value: descriptorsObj[property] };\n      }\n      i++;\n    }\n    return template;\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/cj.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/cj.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -836,7 +836,7 @@
     "name": "src/client.js",
     "content": "/** * Imports ***/\nimport Request from './request';\nimport RequestException from './exception';\nimport User from './user';\nimport { FeedList } from './feed';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS service\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    /** @type {string} */\n    this.url = url;\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n  }\n\n  /**\n   * Fetch a list of currently authenticated user's feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const feedList = new FeedList(this.url, this.auth);\n\n    return feedList.get(params, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    const result = req.post(usersUrl, userData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          const coll = response.data.collection;\n          const userUrl = coll.items[0].href;\n          const auth = { username: username, password: password };\n\n          const user = new User(userUrl, auth);\n          user.collection = coll;\n          user.item = coll.items[0];\n\n          resolve(user);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``string`` value\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    const result = req.post(authUrl, authData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.token);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/client.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/client.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1178,7 +1178,7 @@
     "name": "src/comment.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\n\n/**\n * Comment item resource object representing a feed comment.\n */\nexport class Comment extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed associated to the comment item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this comment item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this comment item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Comment list resource object representing a list of feed comments.\n */\nexport class CommentList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Comment;\n  }\n\n  /**\n   * Fetch the feed associated to the comment list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this comment list resource to create a new comment item\n   * resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/comment.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/comment.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1569,7 +1569,7 @@
     "name": "src/exception.js",
     "content": "/**\n * Custom exception object.\n */\nexport default class RequestException extends Error {\n  /**\n   * Constructor\n   *\n   * @param {...string} args\n   */\n  constructor(...args) {\n    super(...args);\n    /** @type {string} */\n    this.name = this.constructor.name;\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/exception.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/exception.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1640,9 +1640,9 @@
     "__docId__": 81,
     "kind": "file",
     "name": "src/feed.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport User from './user';\nimport { PluginList } from './plugin';\nimport { UploadedFileList } from './uploadedfile';\nimport Note from './note';\nimport { TagList } from './tag';\nimport { CommentList } from './comment';\nimport { FeedFileList } from './feedfile';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed item resource object representing a feed.\n */\nexport class Feed extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the note associated to this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Note`` object\n   */\n  getNote(timeout = 30000) {\n    const linkRelation = 'note';\n    const resourceClass = Note;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of tags associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of comments associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``CommentList`` object\n   */\n  getComments(params = null, timeout = 30000) {\n    const linkRelation = 'comments';\n    const resourceClass = CommentList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this feed item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - name of the feed\n   * @param {string} data.owner - username to be added to the list of this feed's owners\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this feed item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Feed list resource object representing a list of user's feeds.\n */\nexport class FeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch currently authenticated user's information from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of tags from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of uploaded files from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object\n   */\n  getUploadedFiles(params = null, timeout = 30000) {\n    const linkRelation = 'uploadedfiles';\n    const resourceClass = UploadedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport User from './user';\nimport { PluginList } from './plugin';\nimport { UploadedFileList } from './uploadedfile';\nimport Note from './note';\nimport { FeedTagList, FeedTaggingList, TagList } from './tag';\nimport { CommentList } from './comment';\nimport { FeedFileList } from './feedfile';\nimport { FeedPluginInstanceList } from './plugininstance';\n\n/**\n * Feed item resource object representing a feed.\n */\nexport class Feed extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the note associated to this feed from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Note`` object\n   */\n  getNote(timeout = 30000) {\n    const linkRelation = 'note';\n    const resourceClass = Note;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of tags associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedTagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = FeedTagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of taggings associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedTaggingList`` object\n   */\n  getTaggings(params = null, timeout = 30000) {\n    const linkRelation = 'taggings';\n    const resourceClass = FeedTaggingList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of comments associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``CommentList`` object\n   */\n  getComments(params = null, timeout = 30000) {\n    const linkRelation = 'comments';\n    const resourceClass = CommentList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instances associated to this feed from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedPluginInstanceList`` object\n   */\n  getPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'plugin_instances';\n    const resourceClass = FeedPluginInstanceList;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this feed item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - name of the feed\n   * @param {string} data.owner - username to be added to the list of this feed's owners\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this feed item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Feed list resource object representing a list of user's feeds.\n */\nexport class FeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch currently authenticated user's information from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of tags from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(params = null, timeout = 30000) {\n    const linkRelation = 'tags';\n    const resourceClass = TagList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of uploaded files from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object\n   */\n  getUploadedFiles(params = null, timeout = 30000) {\n    const linkRelation = 'uploadedfiles';\n    const resourceClass = UploadedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/feed.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/feed.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1809,11 +1809,78 @@
         "Object"
       ],
       "spread": false,
-      "description": "JS Promise, resolves to a ``TagList`` object"
+      "description": "JS Promise, resolves to a ``FeedTagList`` object"
     }
   },
   {
     "__docId__": 86,
+    "kind": "method",
+    "name": "getTaggings",
+    "memberof": "src/feed.js~Feed",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feed.js~Feed#getTaggings",
+    "access": "public",
+    "description": "Fetch a list of taggings associated to this feed from the REST API.",
+    "lineNumber": 65,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "params",
+        "description": "page parameters"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``FeedTaggingList`` object"
+    }
+  },
+  {
+    "__docId__": 87,
     "kind": "method",
     "name": "getComments",
     "memberof": "src/feed.js~Feed",
@@ -1823,7 +1890,7 @@
     "longname": "src/feed.js~Feed#getComments",
     "access": "public",
     "description": "Fetch a list of comments associated to this feed from the REST API.",
-    "lineNumber": 65,
+    "lineNumber": 81,
     "params": [
       {
         "nullable": null,
@@ -1880,7 +1947,7 @@
     }
   },
   {
-    "__docId__": 87,
+    "__docId__": 88,
     "kind": "method",
     "name": "getFiles",
     "memberof": "src/feed.js~Feed",
@@ -1890,7 +1957,7 @@
     "longname": "src/feed.js~Feed#getFiles",
     "access": "public",
     "description": "Fetch a list of files associated to this feed from the REST API.",
-    "lineNumber": 81,
+    "lineNumber": 97,
     "params": [
       {
         "nullable": null,
@@ -1947,18 +2014,50 @@
     }
   },
   {
-    "__docId__": 88,
+    "__docId__": 89,
     "kind": "method",
-    "name": "getPluginInstance",
+    "name": "getPluginInstances",
     "memberof": "src/feed.js~Feed",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/feed.js~Feed#getPluginInstance",
+    "longname": "src/feed.js~Feed#getPluginInstances",
     "access": "public",
-    "description": "Fetch the plugin instance that created this feed from the REST API.",
-    "lineNumber": 94,
+    "description": "Fetch a list of plugin instances associated to this feed from the REST API.",
+    "lineNumber": 113,
     "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "params",
+        "description": "page parameters"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
       {
         "nullable": null,
         "types": [
@@ -1978,11 +2077,11 @@
         "Object"
       ],
       "spread": false,
-      "description": "JS Promise, resolves to a ``PluginInstance`` object"
+      "description": "JS Promise, resolves to a ``FeedPluginInstanceList`` object"
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 90,
     "kind": "method",
     "name": "put",
     "memberof": "src/feed.js~Feed",
@@ -1992,7 +2091,7 @@
     "longname": "src/feed.js~Feed#put",
     "access": "public",
     "description": "Make a PUT request to modify this feed item resource through the REST API.",
-    "lineNumber": 110,
+    "lineNumber": 129,
     "params": [
       {
         "nullable": null,
@@ -2047,7 +2146,7 @@
     }
   },
   {
-    "__docId__": 90,
+    "__docId__": 91,
     "kind": "method",
     "name": "delete",
     "memberof": "src/feed.js~Feed",
@@ -2057,7 +2156,7 @@
     "longname": "src/feed.js~Feed#delete",
     "access": "public",
     "description": "Make a DELETE request to delete this feed item resource through the REST API.",
-    "lineNumber": 120,
+    "lineNumber": 139,
     "params": [
       {
         "nullable": null,
@@ -2082,7 +2181,7 @@
     }
   },
   {
-    "__docId__": 91,
+    "__docId__": 92,
     "kind": "class",
     "name": "FeedList",
     "memberof": "src/feed.js",
@@ -2093,14 +2192,14 @@
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{FeedList}",
     "description": "Feed list resource object representing a list of user's feeds.",
-    "lineNumber": 128,
+    "lineNumber": 147,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
     ]
   },
   {
-    "__docId__": 92,
+    "__docId__": 93,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/feed.js~FeedList",
@@ -2110,7 +2209,7 @@
     "longname": "src/feed.js~FeedList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 136,
+    "lineNumber": 155,
     "params": [
       {
         "nullable": null,
@@ -2145,7 +2244,7 @@
     ]
   },
   {
-    "__docId__": 93,
+    "__docId__": 94,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/feed.js~FeedList",
@@ -2153,7 +2252,7 @@
     "longname": "src/feed.js~FeedList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 140,
+    "lineNumber": 159,
     "type": {
       "nullable": null,
       "types": [
@@ -2164,7 +2263,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 95,
     "kind": "method",
     "name": "getUser",
     "memberof": "src/feed.js~FeedList",
@@ -2174,7 +2273,7 @@
     "longname": "src/feed.js~FeedList#getUser",
     "access": "public",
     "description": "Fetch currently authenticated user's information from the REST API.",
-    "lineNumber": 149,
+    "lineNumber": 168,
     "params": [
       {
         "nullable": null,
@@ -2199,7 +2298,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 96,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/feed.js~FeedList",
@@ -2209,7 +2308,7 @@
     "longname": "src/feed.js~FeedList#getPlugins",
     "access": "public",
     "description": "Fetch a list of plugins from the REST API.",
-    "lineNumber": 165,
+    "lineNumber": 184,
     "params": [
       {
         "nullable": null,
@@ -2266,7 +2365,7 @@
     }
   },
   {
-    "__docId__": 96,
+    "__docId__": 97,
     "kind": "method",
     "name": "getTags",
     "memberof": "src/feed.js~FeedList",
@@ -2276,7 +2375,7 @@
     "longname": "src/feed.js~FeedList#getTags",
     "access": "public",
     "description": "Fetch a list of tags from the REST API.",
-    "lineNumber": 181,
+    "lineNumber": 200,
     "params": [
       {
         "nullable": null,
@@ -2333,7 +2432,7 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 98,
     "kind": "method",
     "name": "getUploadedFiles",
     "memberof": "src/feed.js~FeedList",
@@ -2343,7 +2442,7 @@
     "longname": "src/feed.js~FeedList#getUploadedFiles",
     "access": "public",
     "description": "Fetch a list of uploaded files from the REST API.",
-    "lineNumber": 197,
+    "lineNumber": 216,
     "params": [
       {
         "nullable": null,
@@ -2400,18 +2499,18 @@
     }
   },
   {
-    "__docId__": 98,
+    "__docId__": 99,
     "kind": "file",
     "name": "src/feedfile.js",
-    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed file item resource object representing a file written to a feed.\n */\nexport class FeedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Fetch the feed associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance that created this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed file list resource object representing a list of files written to a feed.\n */\nexport class FeedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = FeedFile;\n  }\n\n  /**\n   * Fetch the feed associated to this file list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\nimport { Feed } from './feed';\nimport { PluginInstance } from './plugininstance';\n\n/**\n * Feed file item resource object representing a file written to a feed.\n */\nexport class FeedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Fetch the plugin instance that created this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed file list resource object representing a list of files written to a feed.\n */\nexport class FeedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = FeedFile;\n  }\n\n  /**\n   * Fetch the feed associated to this file list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin instance file list resource object representing a list of files written by\n * a plugin instance.\n */\nexport class PluginInstanceFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = FeedFile;\n  }\n\n  /**\n   * Fetch the feed associated to this file list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin instance associated to this file list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/feedfile.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/feedfile.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 99,
+    "__docId__": 100,
     "kind": "class",
     "name": "FeedFile",
     "memberof": "src/feedfile.js",
@@ -2429,7 +2528,7 @@
     ]
   },
   {
-    "__docId__": 100,
+    "__docId__": 101,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/feedfile.js~FeedFile",
@@ -2474,7 +2573,7 @@
     ]
   },
   {
-    "__docId__": 101,
+    "__docId__": 102,
     "kind": "method",
     "name": "getFileBlob",
     "memberof": "src/feedfile.js~FeedFile",
@@ -2509,41 +2608,6 @@
     }
   },
   {
-    "__docId__": 102,
-    "kind": "method",
-    "name": "getFeed",
-    "memberof": "src/feedfile.js~FeedFile",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/feedfile.js~FeedFile#getFeed",
-    "access": "public",
-    "description": "Fetch the feed associated to this file item from the REST API.",
-    "lineNumber": 42,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": true,
-        "defaultValue": "30000",
-        "defaultRaw": 30000,
-        "name": "timeout",
-        "description": "request timeout"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise, resolves to a ``Feed`` object"
-    }
-  },
-  {
     "__docId__": 103,
     "kind": "method",
     "name": "getPluginInstance",
@@ -2554,7 +2618,7 @@
     "longname": "src/feedfile.js~FeedFile#getPluginInstance",
     "access": "public",
     "description": "Fetch the plugin instance that created this file item from the REST API.",
-    "lineNumber": 55,
+    "lineNumber": 42,
     "params": [
       {
         "nullable": null,
@@ -2590,7 +2654,7 @@
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{FeedFileList}",
     "description": "Feed file list resource object representing a list of files written to a feed.",
-    "lineNumber": 66,
+    "lineNumber": 53,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
@@ -2607,7 +2671,7 @@
     "longname": "src/feedfile.js~FeedFileList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 74,
+    "lineNumber": 61,
     "params": [
       {
         "nullable": null,
@@ -2650,7 +2714,7 @@
     "longname": "src/feedfile.js~FeedFileList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 78,
+    "lineNumber": 65,
     "type": {
       "nullable": null,
       "types": [
@@ -2671,7 +2735,7 @@
     "longname": "src/feedfile.js~FeedFileList#getFeed",
     "access": "public",
     "description": "Fetch the feed associated to this file list from the REST API.",
-    "lineNumber": 87,
+    "lineNumber": 74,
     "params": [
       {
         "nullable": null,
@@ -2697,28 +2761,180 @@
   },
   {
     "__docId__": 108,
+    "kind": "class",
+    "name": "PluginInstanceFileList",
+    "memberof": "src/feedfile.js",
+    "static": true,
+    "longname": "src/feedfile.js~PluginInstanceFileList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi",
+    "importStyle": "{PluginInstanceFileList}",
+    "description": "Plugin instance file list resource object representing a list of files written by\na plugin instance.",
+    "lineNumber": 86,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 109,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/feedfile.js~PluginInstanceFileList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~PluginInstanceFileList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 94,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
+      }
+    ]
+  },
+  {
+    "__docId__": 110,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/feedfile.js~PluginInstanceFileList",
+    "static": false,
+    "longname": "src/feedfile.js~PluginInstanceFileList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 98,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 111,
+    "kind": "method",
+    "name": "getFeed",
+    "memberof": "src/feedfile.js~PluginInstanceFileList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~PluginInstanceFileList#getFeed",
+    "access": "public",
+    "description": "Fetch the feed associated to this file list from the REST API.",
+    "lineNumber": 107,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``Feed`` object"
+    }
+  },
+  {
+    "__docId__": 112,
+    "kind": "method",
+    "name": "getPluginInstance",
+    "memberof": "src/feedfile.js~PluginInstanceFileList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/feedfile.js~PluginInstanceFileList#getPluginInstance",
+    "access": "public",
+    "description": "Fetch the plugin instance associated to this file list from the REST API.",
+    "lineNumber": 120,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``PluginInstance`` object"
+    }
+  },
+  {
+    "__docId__": 113,
     "kind": "file",
     "name": "src/index.js",
     "content": "import Client from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport RequestException from './exception';\nimport { ListResource, ItemResource } from './resource';\nimport { FeedList, Feed } from './feed';\nimport { PluginList, Plugin } from './plugin';\nimport { PluginInstanceList, PluginInstance } from './plugininstance';\nimport { PluginInstanceDescendantList, PluginInstanceParameter } from './plugininstance';\nimport { TagList, Tag, TagTaggingList, FeedTaggingList, Tagging } from './tag';\nimport { TagFeedList, FeedTagList } from './tag';\nimport { Note } from './note';\nimport { User } from './user';\nimport { CommentList, Comment } from './comment';\nimport { FeedFileList, FeedFile } from './feedfile';\nimport { UploadedFileList, UploadedFile } from './uploadedfile';\n\nexport default Client;\nexport { Request };\nexport { Collection };\nexport { RequestException };\nexport { ListResource, ItemResource };\nexport { FeedList, Feed };\nexport { PluginList, Plugin };\nexport { PluginInstanceList, PluginInstance };\nexport { PluginInstanceDescendantList, PluginInstanceParameter };\nexport { TagList, Tag, TagTaggingList, FeedTaggingList, Tagging };\nexport { TagFeedList, FeedTagList };\nexport { Note };\nexport { User };\nexport { CommentList, Comment };\nexport { FeedFileList, FeedFile };\nexport { UploadedFileList, UploadedFile };\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/index.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 109,
+    "__docId__": 114,
     "kind": "file",
     "name": "src/note.js",
     "content": "/** * Imports ***/\nimport { ItemResource } from './resource';\n\n/**\n * Note item resource object representing a feed's note.\n */\nexport default class Note extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this note item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.title - title of the comment\n   * @param {string} data.content - content of the comment\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/note.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/note.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 110,
+    "__docId__": 115,
     "kind": "class",
     "name": "Note",
     "memberof": "src/note.js",
@@ -2736,7 +2952,7 @@
     ]
   },
   {
-    "__docId__": 111,
+    "__docId__": 116,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/note.js~Note",
@@ -2781,7 +2997,7 @@
     ]
   },
   {
-    "__docId__": 112,
+    "__docId__": 117,
     "kind": "method",
     "name": "put",
     "memberof": "src/note.js~Note",
@@ -2846,18 +3062,18 @@
     }
   },
   {
-    "__docId__": 113,
+    "__docId__": 118,
     "kind": "file",
     "name": "src/plugin.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList } from './feed';\nimport { PluginParameterList } from './pluginparameter';\nimport { PluginInstanceList } from './plugininstance';\n\n/**\n * Plugin item resource object representing a plugin.\n */\nexport class Plugin extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugin parameters associated to this plugin from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object\n   */\n  getPluginParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instances associated to this plugin from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object\n   */\n  getPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'instances';\n    const resourceClass = PluginInstanceList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n/**\n * Plugin list resource object representing a list of plugins.\n */\nexport class PluginList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Plugin;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/plugin.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/plugin.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 114,
+    "__docId__": 119,
     "kind": "class",
     "name": "Plugin",
     "memberof": "src/plugin.js",
@@ -2875,7 +3091,7 @@
     ]
   },
   {
-    "__docId__": 115,
+    "__docId__": 120,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugin.js~Plugin",
@@ -2920,7 +3136,7 @@
     ]
   },
   {
-    "__docId__": 116,
+    "__docId__": 121,
     "kind": "method",
     "name": "getPluginParameters",
     "memberof": "src/plugin.js~Plugin",
@@ -2987,7 +3203,7 @@
     }
   },
   {
-    "__docId__": 117,
+    "__docId__": 122,
     "kind": "method",
     "name": "getPluginInstances",
     "memberof": "src/plugin.js~Plugin",
@@ -3054,7 +3270,7 @@
     }
   },
   {
-    "__docId__": 118,
+    "__docId__": 123,
     "kind": "class",
     "name": "PluginList",
     "memberof": "src/plugin.js",
@@ -3072,7 +3288,7 @@
     ]
   },
   {
-    "__docId__": 119,
+    "__docId__": 124,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugin.js~PluginList",
@@ -3117,7 +3333,7 @@
     ]
   },
   {
-    "__docId__": 120,
+    "__docId__": 125,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/plugin.js~PluginList",
@@ -3136,7 +3352,7 @@
     }
   },
   {
-    "__docId__": 121,
+    "__docId__": 126,
     "kind": "method",
     "name": "getFeeds",
     "memberof": "src/plugin.js~PluginList",
@@ -3203,18 +3419,18 @@
     }
   },
   {
-    "__docId__": 122,
+    "__docId__": 127,
     "kind": "file",
     "name": "src/plugininstance.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\nimport { Feed } from './feed';\nimport { PluginParameter } from './pluginparameter';\nimport { FeedFileList } from './feedfile';\n\n/**\n * Plugin instance item resource object representing a plugin instance.\n */\nexport class PluginInstance extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed created by this plugin instance from the REST API\n   * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object or ``null``\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    try {\n      // 'feed' link relation only exists for 'fs' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the parent plugin instance of this plugin instance from the REST API\n   * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object or ``null``\n   */\n  getPreviousPluginInstance(timeout = 30000) {\n    const linkRelation = 'previous';\n    const resourceClass = PluginInstance;\n\n    try {\n      // 'previous' link relation only exists for 'ds' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch a list of plugin instances that are descendents of this plugin instance from the\n   * REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object\n   */\n  getDescendantPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'descendants';\n    const resourceClass = PluginInstanceDescendantList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instance parameters associated to this plugin instance from\n   * the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceParameterList`` object\n   */\n  getParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginInstanceParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files created by this plugin instance from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = FeedFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n/**\n * Plugin instance list resource object representing a list of plugin instances.\n */\nexport class PluginInstanceList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin instance list resource to create a new plugin\n   * instance item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object which is plugin-specific and it's\n   * properties can be determined by calling the ``getPOSTDataParameters`` method on this\n   * resource object\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Plugin instance descendant list resource object. This is a list of all plugin\n * instances that have this plugin instance as an ancestor in a pipeline tree.\n */\nexport class PluginInstanceDescendantList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n}\n\n/**\n * Plugin instance parameter item resource object representing a parameter that the\n * plugin instance was run with.\n */\nexport class PluginInstanceParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin instance associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin parameter definition associated to this plugin instance item\n   * from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object\n   */\n  getPluginParameter(timeout = 30000) {\n    const linkRelation = 'plugin_param';\n    const resourceClass = PluginParameter;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin instance parameter list resource object representing a list of parameters that  \n * the plugin instance was run with.\n */\nexport class PluginInstanceParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstanceParameter;\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\nimport { Feed } from './feed';\nimport { PluginParameter } from './pluginparameter';\nimport { PluginInstanceFileList } from './feedfile';\n\n/**\n * Plugin instance item resource object representing a plugin instance.\n */\nexport class PluginInstance extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the feed created by this plugin instance from the REST API\n   * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object or ``null``\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    try {\n      // 'feed' link relation only exists for 'fs' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the parent plugin instance of this plugin instance from the REST API\n   * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object or ``null``\n   */\n  getPreviousPluginInstance(timeout = 30000) {\n    const linkRelation = 'previous';\n    const resourceClass = PluginInstance;\n\n    try {\n      // 'previous' link relation only exists for 'ds' plugin instances\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch a list of plugin instances that are descendents of this plugin instance from the\n   * REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object\n   */\n  getDescendantPluginInstances(params = null, timeout = 30000) {\n    const linkRelation = 'descendants';\n    const resourceClass = PluginInstanceDescendantList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin instance parameters associated to this plugin instance from\n   * the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceParameterList`` object\n   */\n  getParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginInstanceParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of files created by this plugin instance from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstanceFileList`` object\n   */\n  getFiles(params = null, timeout = 30000) {\n    const linkRelation = 'files';\n    const resourceClass = PluginInstanceFileList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n\n/**\n * Plugin instance list resource object representing a list of plugin instances.\n */\nexport class PluginInstanceList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n\n  /**\n   * Fetch the plugin associated to this plugin instance list from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin instance list resource to create a new plugin\n   * instance item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object which is plugin-specific and it's\n   * properties can be determined by calling the ``getPOSTDataParameters`` method on this\n   * resource object\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Feed-specific plugin instance list resource object representing a list of plugin\n * instances associated to an specific feed.\n */\nexport class FeedPluginInstanceList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of plugin instances from\n   * the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin instance descendant list resource object. This is a list of all plugin\n * instances that have this plugin instance as an ancestor in a pipeline tree.\n */\nexport class PluginInstanceDescendantList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstance;\n  }\n}\n\n/**\n * Plugin instance parameter item resource object representing a parameter that the\n * plugin instance was run with.\n */\nexport class PluginInstanceParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin instance associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(timeout = 30000) {\n    const linkRelation = 'plugin_inst';\n    const resourceClass = PluginInstance;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the plugin parameter definition associated to this plugin instance item\n   * from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object\n   */\n  getPluginParameter(timeout = 30000) {\n    const linkRelation = 'plugin_param';\n    const resourceClass = PluginParameter;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin instance parameter list resource object representing a list of parameters that\n * the plugin instance was run with.\n */\nexport class PluginInstanceParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginInstanceParameter;\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/plugininstance.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/plugininstance.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 123,
+    "__docId__": 128,
     "kind": "class",
     "name": "PluginInstance",
     "memberof": "src/plugininstance.js",
@@ -3232,7 +3448,7 @@
     ]
   },
   {
-    "__docId__": 124,
+    "__docId__": 129,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugininstance.js~PluginInstance",
@@ -3277,7 +3493,7 @@
     ]
   },
   {
-    "__docId__": 125,
+    "__docId__": 130,
     "kind": "method",
     "name": "getFeed",
     "memberof": "src/plugininstance.js~PluginInstance",
@@ -3312,7 +3528,7 @@
     }
   },
   {
-    "__docId__": 126,
+    "__docId__": 131,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/plugininstance.js~PluginInstance",
@@ -3347,7 +3563,7 @@
     }
   },
   {
-    "__docId__": 127,
+    "__docId__": 132,
     "kind": "method",
     "name": "getPreviousPluginInstance",
     "memberof": "src/plugininstance.js~PluginInstance",
@@ -3382,7 +3598,7 @@
     }
   },
   {
-    "__docId__": 128,
+    "__docId__": 133,
     "kind": "method",
     "name": "getDescendantPluginInstances",
     "memberof": "src/plugininstance.js~PluginInstance",
@@ -3449,7 +3665,7 @@
     }
   },
   {
-    "__docId__": 129,
+    "__docId__": 134,
     "kind": "method",
     "name": "getParameters",
     "memberof": "src/plugininstance.js~PluginInstance",
@@ -3516,7 +3732,7 @@
     }
   },
   {
-    "__docId__": 130,
+    "__docId__": 135,
     "kind": "method",
     "name": "getFiles",
     "memberof": "src/plugininstance.js~PluginInstance",
@@ -3579,11 +3795,11 @@
         "Object"
       ],
       "spread": false,
-      "description": "JS Promise, resolves to a ``FeedFileList`` object"
+      "description": "JS Promise, resolves to a ``PluginInstanceFileList`` object"
     }
   },
   {
-    "__docId__": 131,
+    "__docId__": 136,
     "kind": "class",
     "name": "PluginInstanceList",
     "memberof": "src/plugininstance.js",
@@ -3601,7 +3817,7 @@
     ]
   },
   {
-    "__docId__": 132,
+    "__docId__": 137,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugininstance.js~PluginInstanceList",
@@ -3646,7 +3862,7 @@
     ]
   },
   {
-    "__docId__": 133,
+    "__docId__": 138,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/plugininstance.js~PluginInstanceList",
@@ -3665,7 +3881,7 @@
     }
   },
   {
-    "__docId__": 134,
+    "__docId__": 139,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/plugininstance.js~PluginInstanceList",
@@ -3700,7 +3916,7 @@
     }
   },
   {
-    "__docId__": 135,
+    "__docId__": 140,
     "kind": "method",
     "name": "post",
     "memberof": "src/plugininstance.js~PluginInstanceList",
@@ -3745,17 +3961,17 @@
     }
   },
   {
-    "__docId__": 136,
+    "__docId__": 141,
     "kind": "class",
-    "name": "PluginInstanceDescendantList",
+    "name": "FeedPluginInstanceList",
     "memberof": "src/plugininstance.js",
     "static": true,
-    "longname": "src/plugininstance.js~PluginInstanceDescendantList",
+    "longname": "src/plugininstance.js~FeedPluginInstanceList",
     "access": "public",
     "export": true,
     "importPath": "@fnndsc/chrisapi",
-    "importStyle": "{PluginInstanceDescendantList}",
-    "description": "Plugin instance descendant list resource object. This is a list of all plugin\ninstances that have this plugin instance as an ancestor in a pipeline tree.",
+    "importStyle": "{FeedPluginInstanceList}",
+    "description": "Feed-specific plugin instance list resource object representing a list of plugin\ninstances associated to an specific feed.",
     "lineNumber": 175,
     "interface": false,
     "extends": [
@@ -3763,14 +3979,14 @@
     ]
   },
   {
-    "__docId__": 137,
+    "__docId__": 142,
     "kind": "constructor",
     "name": "constructor",
-    "memberof": "src/plugininstance.js~PluginInstanceDescendantList",
+    "memberof": "src/plugininstance.js~FeedPluginInstanceList",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/plugininstance.js~PluginInstanceDescendantList#constructor",
+    "longname": "src/plugininstance.js~FeedPluginInstanceList#constructor",
     "access": "public",
     "description": "Constructor",
     "lineNumber": 183,
@@ -3808,12 +4024,12 @@
     ]
   },
   {
-    "__docId__": 138,
+    "__docId__": 143,
     "kind": "member",
     "name": "itemClass",
-    "memberof": "src/plugininstance.js~PluginInstanceDescendantList",
+    "memberof": "src/plugininstance.js~FeedPluginInstanceList",
     "static": false,
-    "longname": "src/plugininstance.js~PluginInstanceDescendantList#itemClass",
+    "longname": "src/plugininstance.js~FeedPluginInstanceList#itemClass",
     "access": "public",
     "description": null,
     "lineNumber": 187,
@@ -3827,35 +4043,70 @@
     }
   },
   {
-    "__docId__": 139,
-    "kind": "class",
-    "name": "PluginInstanceParameter",
-    "memberof": "src/plugininstance.js",
-    "static": true,
-    "longname": "src/plugininstance.js~PluginInstanceParameter",
-    "access": "public",
-    "export": true,
-    "importPath": "@fnndsc/chrisapi",
-    "importStyle": "{PluginInstanceParameter}",
-    "description": "Plugin instance parameter item resource object representing a parameter that the\nplugin instance was run with.",
-    "lineNumber": 195,
-    "interface": false,
-    "extends": [
-      "src/resource.js~ItemResource"
-    ]
-  },
-  {
-    "__docId__": 140,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "src/plugininstance.js~PluginInstanceParameter",
+    "__docId__": 144,
+    "kind": "method",
+    "name": "getFeed",
+    "memberof": "src/plugininstance.js~FeedPluginInstanceList",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/plugininstance.js~PluginInstanceParameter#constructor",
+    "longname": "src/plugininstance.js~FeedPluginInstanceList#getFeed",
+    "access": "public",
+    "description": "Fetch the feed associated to this feed-specific list of plugin instances from\nthe REST API.",
+    "lineNumber": 197,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``Feed`` object"
+    }
+  },
+  {
+    "__docId__": 145,
+    "kind": "class",
+    "name": "PluginInstanceDescendantList",
+    "memberof": "src/plugininstance.js",
+    "static": true,
+    "longname": "src/plugininstance.js~PluginInstanceDescendantList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi",
+    "importStyle": "{PluginInstanceDescendantList}",
+    "description": "Plugin instance descendant list resource object. This is a list of all plugin\ninstances that have this plugin instance as an ancestor in a pipeline tree.",
+    "lineNumber": 209,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 146,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugininstance.js~PluginInstanceDescendantList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceDescendantList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 203,
+    "lineNumber": 217,
     "params": [
       {
         "nullable": null,
@@ -3890,7 +4141,89 @@
     ]
   },
   {
-    "__docId__": 141,
+    "__docId__": 147,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/plugininstance.js~PluginInstanceDescendantList",
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceDescendantList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 221,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 148,
+    "kind": "class",
+    "name": "PluginInstanceParameter",
+    "memberof": "src/plugininstance.js",
+    "static": true,
+    "longname": "src/plugininstance.js~PluginInstanceParameter",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisapi",
+    "importStyle": "{PluginInstanceParameter}",
+    "description": "Plugin instance parameter item resource object representing a parameter that the\nplugin instance was run with.",
+    "lineNumber": 229,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 149,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugininstance.js~PluginInstanceParameter",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugininstance.js~PluginInstanceParameter#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 237,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
+      }
+    ]
+  },
+  {
+    "__docId__": 150,
     "kind": "method",
     "name": "getPluginInstance",
     "memberof": "src/plugininstance.js~PluginInstanceParameter",
@@ -3900,7 +4233,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameter#getPluginInstance",
     "access": "public",
     "description": "Fetch the plugin instance associated to this parameter item from the REST API.",
-    "lineNumber": 213,
+    "lineNumber": 247,
     "params": [
       {
         "nullable": null,
@@ -3925,7 +4258,7 @@
     }
   },
   {
-    "__docId__": 142,
+    "__docId__": 151,
     "kind": "method",
     "name": "getPluginParameter",
     "memberof": "src/plugininstance.js~PluginInstanceParameter",
@@ -3935,7 +4268,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameter#getPluginParameter",
     "access": "public",
     "description": "Fetch the plugin parameter definition associated to this plugin instance item\nfrom the REST API.",
-    "lineNumber": 227,
+    "lineNumber": 261,
     "params": [
       {
         "nullable": null,
@@ -3960,7 +4293,7 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 152,
     "kind": "class",
     "name": "PluginInstanceParameterList",
     "memberof": "src/plugininstance.js",
@@ -3970,15 +4303,15 @@
     "export": true,
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{PluginInstanceParameterList}",
-    "description": "Plugin instance parameter list resource object representing a list of parameters that  \nthe plugin instance was run with.",
-    "lineNumber": 239,
+    "description": "Plugin instance parameter list resource object representing a list of parameters that\nthe plugin instance was run with.",
+    "lineNumber": 273,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
     ]
   },
   {
-    "__docId__": 144,
+    "__docId__": 153,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugininstance.js~PluginInstanceParameterList",
@@ -3988,7 +4321,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameterList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 247,
+    "lineNumber": 281,
     "params": [
       {
         "nullable": null,
@@ -4023,7 +4356,7 @@
     ]
   },
   {
-    "__docId__": 145,
+    "__docId__": 154,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/plugininstance.js~PluginInstanceParameterList",
@@ -4031,7 +4364,7 @@
     "longname": "src/plugininstance.js~PluginInstanceParameterList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 251,
+    "lineNumber": 285,
     "type": {
       "nullable": null,
       "types": [
@@ -4042,18 +4375,18 @@
     }
   },
   {
-    "__docId__": 146,
+    "__docId__": 155,
     "kind": "file",
     "name": "src/pluginparameter.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\n\n/**\n * Plugin parameter item resource object representing a plugin parameter.\n */\nexport class PluginParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin parameter list resource object representing a list of plugin parameters.\n */\nexport class PluginParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginParameter;\n  }\n\n  /**\n   * Fetch the plugin associated to this list of parameters from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/pluginparameter.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/pluginparameter.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 147,
+    "__docId__": 156,
     "kind": "class",
     "name": "PluginParameter",
     "memberof": "src/pluginparameter.js",
@@ -4071,7 +4404,7 @@
     ]
   },
   {
-    "__docId__": 148,
+    "__docId__": 157,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginparameter.js~PluginParameter",
@@ -4116,7 +4449,7 @@
     ]
   },
   {
-    "__docId__": 149,
+    "__docId__": 158,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/pluginparameter.js~PluginParameter",
@@ -4151,7 +4484,7 @@
     }
   },
   {
-    "__docId__": 150,
+    "__docId__": 159,
     "kind": "class",
     "name": "PluginParameterList",
     "memberof": "src/pluginparameter.js",
@@ -4169,7 +4502,7 @@
     ]
   },
   {
-    "__docId__": 151,
+    "__docId__": 160,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginparameter.js~PluginParameterList",
@@ -4214,7 +4547,7 @@
     ]
   },
   {
-    "__docId__": 152,
+    "__docId__": 161,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pluginparameter.js~PluginParameterList",
@@ -4233,7 +4566,7 @@
     }
   },
   {
-    "__docId__": 153,
+    "__docId__": 162,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/pluginparameter.js~PluginParameterList",
@@ -4268,18 +4601,18 @@
     }
   },
   {
-    "__docId__": 154,
+    "__docId__": 163,
     "kind": "file",
     "name": "src/request.js",
-    "content": "/** * Imports ***/\nimport axios from 'axios';\nimport Collection from './cj';\nimport RequestException from './exception';\n\n/**\n * Http request object.\n */\nexport default class Request {\n  /**\n   * Constructor\n   *\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   * @param {string} contentType - request content type\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(auth, contentType, timeout = 30000) {\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = contentType;\n\n    /** @type {number} */\n    this.timeout = timeout;\n  }\n\n  /**\n   * Perform a GET request.\n   *\n   * @param {string} url - url of the resource\n   * @param {?Object} params - search parameters\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  get(url, params = null) {\n    const config = this._getConfig(url, 'get');\n\n    if (params) {\n      config.params = params;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Perform a POST request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  post(url, data, uploadFileObj = null) {\n    return this._postOrPut('post', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a PUT request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  put(url, data, uploadFileObj = null) {\n    return this._postOrPut('put', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a DELETE request.\n   *\n   * @param {string} url - url of the resource\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  delete(url) {\n    const config = this._getConfig(url, 'delete');\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to make either a POST or PUT request.\n   *\n   * @param {string} requestMethod - either 'post' or 'put'\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  _postOrPut(requestMethod, url, data, uploadFileObj = null) {\n    const config = this._getConfig(url, requestMethod);\n    config.data = data;\n\n    if (uploadFileObj) {\n      config['headers']['content-type'] = 'multipart/form-data';\n      const bFormData = new FormData();\n\n      for (let property in data) {\n        if (data.hasOwnProperty(property)) {\n          bFormData.set(property, data[property]);\n        }\n      }\n      for (let property in uploadFileObj) {\n        if (uploadFileObj.hasOwnProperty(property)) {\n          bFormData.set(property, uploadFileObj[property]);\n        }\n      }\n      config.data = bFormData;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to create a config file for axios.\n   *\n   * @param {string} url - url of the resource\n   * @param {string} method - request verb\n   * @return {Object} - axios configuration object\n   */\n  _getConfig(url, method) {\n    const config = {\n      url: url,\n      method: method,\n      headers: {\n        Accept: this.contentType,\n        'content-type': this.contentType,\n      },\n      timeout: this.timeout,\n    };\n\n    if (this.auth && this.auth.username && this.auth.password) {\n      config.auth = this.auth;\n    } else if (this.auth && this.auth.token) {\n      config.headers.Authorization = 'Token ' + this.auth.token;\n    }\n\n    if (this.contentType === 'application/octet-stream') {\n      config.responseType = 'blob';\n    }\n\n    return config;\n  }\n\n  /**\n   * Internal method to make an axios request.\n   *\n   * @param {Object} config - axios configuration object\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  static _callAxios(config) {\n    return axios(config)\n      .then(response => {\n        return response;\n      })\n      .catch(error => {\n        Request._handleRequestError(error);\n      });\n  }\n\n  /**\n   * Internal method to handle errors produced by HTTP requests.\n   *\n   * @param {Object} error - axios error object\n   * @throws {RequestException} throw error\n   */\n  static _handleRequestError(error) {\n    let errMsg;\n\n    if (error.response) {\n      // The request was made and the server responded with a status code\n      // that falls out of the range of 2xx\n      //console.log(error.response.data);\n      //console.log(error.response.status);\n      //console.log(error.response.headers);\n      errMsg = error.response;\n      if (error.response.data.collection) {\n        errMsg = Collection.getErrorMessage(error.response.data.collection);\n      }\n    } else if (error.request) {\n      // The request was made but no response was received\n      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of\n      // http.ClientRequest in node.js\n      //console.log(error.request);\n      errMsg = error.request;\n    } else {\n      // Something happened in setting up the request that triggered an Error\n      //console.log('Error', error.message);\n      errMsg = error.message;\n    }\n\n    throw new RequestException(errMsg);\n    //console.log(error.config);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    // create the iterator\n    let task = taskGenerator();\n    // start the task\n    let result = task.next();\n\n    // recursive function to iterate through\n    (function step() {\n      // if there's more to do (result.value and result.done are iterator's properties)\n      if (!result.done) {\n        result.value\n          .then(resp => {\n            result = task.next(resp); // send this resp value to the yield\n            step();\n          })\n          .catch(error => {\n            result = task.throw(error); // throws error within taskGenerator generator\n            step();\n          });\n      }\n    })(); // start the recursive process by calling it immediatly\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport axios from 'axios';\nimport Collection from './cj';\nimport RequestException from './exception';\n\n/**\n * Http request object.\n */\nexport default class Request {\n  /**\n   * Constructor\n   *\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   * @param {string} contentType - request content type\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(auth, contentType, timeout = 30000) {\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = contentType;\n\n    /** @type {number} */\n    this.timeout = timeout;\n  }\n\n  /**\n   * Perform a GET request.\n   *\n   * @param {string} url - url of the resource\n   * @param {?Object} params - search parameters\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  get(url, params = null) {\n    const config = this._getConfig(url, 'get');\n\n    if (params) {\n      config.params = params;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Perform a POST request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  post(url, data, uploadFileObj = null) {\n    return this._postOrPut('post', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a PUT request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  put(url, data, uploadFileObj = null) {\n    return this._postOrPut('put', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a DELETE request.\n   *\n   * @param {string} url - url of the resource\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  delete(url) {\n    const config = this._getConfig(url, 'delete');\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to make either a POST or PUT request.\n   *\n   * @param {string} requestMethod - either 'post' or 'put'\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  _postOrPut(requestMethod, url, data, uploadFileObj = null) {\n    const config = this._getConfig(url, requestMethod);\n    config.data = data;\n\n    if (uploadFileObj) {\n      config['headers']['content-type'] = 'multipart/form-data';\n      const bFormData = new FormData();\n\n      for (let property in data) {\n        if (data.hasOwnProperty(property)) {\n          bFormData.set(property, data[property]);\n        }\n      }\n      for (let property in uploadFileObj) {\n        if (uploadFileObj.hasOwnProperty(property)) {\n          bFormData.set(property, uploadFileObj[property]);\n        }\n      }\n      config.data = bFormData;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to create a config file for axios.\n   *\n   * @param {string} url - url of the resource\n   * @param {string} method - request verb\n   * @return {Object} - axios configuration object\n   */\n  _getConfig(url, method) {\n    const config = {\n      url: url,\n      method: method,\n      headers: {\n        Accept: this.contentType,\n        'content-type': this.contentType,\n      },\n      timeout: this.timeout,\n    };\n\n    if (this.auth && this.auth.username && this.auth.password) {\n      config.auth = this.auth;\n    } else if (this.auth && this.auth.token) {\n      config.headers.Authorization = 'Token ' + this.auth.token;\n    }\n\n    if (this.contentType === 'application/octet-stream') {\n      config.responseType = 'blob';\n    }\n\n    return config;\n  }\n\n  /**\n   * Internal method to make an axios request.\n   *\n   * @param {Object} config - axios configuration object\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  static _callAxios(config) {\n    return axios(config)\n      .then(response => {\n        return response;\n      })\n      .catch(error => {\n        Request._handleRequestError(error);\n      });\n  }\n\n  /**\n   * Internal method to handle errors produced by HTTP requests.\n   *\n   * @param {Object} error - axios error object\n   * @throws {RequestException} throw error\n   */\n  static _handleRequestError(error) {\n    let errMsg;\n\n    if (error.response) {\n      // The request was made and the server responded with a status code\n      // that falls out of the range of 2xx\n      //console.log(error.response.data);\n      //console.log(error.response.status);\n      //console.log(error.response.headers);\n      errMsg = error.response;\n      if (error.response.data.collection) {\n        errMsg = Collection.getErrorMessage(error.response.data.collection);\n      }\n    } else if (error.request) {\n      // The request was made but no response was received\n      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of\n      // http.ClientRequest in node.js\n      //console.log(error.request);\n      errMsg = error.request;\n    } else {\n      // Something happened in setting up the request that triggered an Error\n      //console.log('Error', error.message);\n      errMsg = error.message;\n    }\n\n    throw new RequestException(errMsg);\n    //console.log(error.config);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    // create the iterator\n    let task = taskGenerator();\n    // start the task\n    let result = task.next();\n\n    // recursive function to iterate through\n    (function step() {\n      // if there's more to do (result.value and result.done are iterator's properties)\n      if (!result.done) {\n        result.value\n          .then(resp => {\n            result = task.next(resp); // send this resp value to the yield\n            step();\n          })\n          .catch(error => {\n            result = task.throw(error); // throws error within taskGenerator generator\n            step();\n          });\n      }\n    })(); // start the recursive process by calling it immediatly\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/request.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/request.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 155,
+    "__docId__": 164,
     "kind": "class",
     "name": "Request",
     "memberof": "src/request.js",
@@ -4294,7 +4627,7 @@
     "interface": false
   },
   {
-    "__docId__": 156,
+    "__docId__": 165,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/request.js~Request",
@@ -4351,7 +4684,7 @@
     ]
   },
   {
-    "__docId__": 157,
+    "__docId__": 166,
     "kind": "member",
     "name": "auth",
     "memberof": "src/request.js~Request",
@@ -4370,7 +4703,7 @@
     }
   },
   {
-    "__docId__": 158,
+    "__docId__": 167,
     "kind": "member",
     "name": "contentType",
     "memberof": "src/request.js~Request",
@@ -4389,7 +4722,7 @@
     }
   },
   {
-    "__docId__": 159,
+    "__docId__": 168,
     "kind": "member",
     "name": "timeout",
     "memberof": "src/request.js~Request",
@@ -4408,7 +4741,7 @@
     }
   },
   {
-    "__docId__": 160,
+    "__docId__": 169,
     "kind": "method",
     "name": "get",
     "memberof": "src/request.js~Request",
@@ -4451,7 +4784,7 @@
     }
   },
   {
-    "__docId__": 161,
+    "__docId__": 170,
     "kind": "method",
     "name": "post",
     "memberof": "src/request.js~Request",
@@ -4491,17 +4824,7 @@
         "spread": false,
         "optional": false,
         "name": "uploadFileObj",
-        "description": "custom file object"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "uploadFileObj.fname",
-        "description": "file blob"
+        "description": "custom object with a property with the same name as\nthe API descriptor corresponding to the file and whose value is the file blob"
       }
     ],
     "return": {
@@ -4514,7 +4837,7 @@
     }
   },
   {
-    "__docId__": 162,
+    "__docId__": 171,
     "kind": "method",
     "name": "put",
     "memberof": "src/request.js~Request",
@@ -4554,17 +4877,7 @@
         "spread": false,
         "optional": false,
         "name": "uploadFileObj",
-        "description": "custom file object"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "uploadFileObj.fname",
-        "description": "file blob"
+        "description": "custom object with a property with the same name as\nthe API descriptor corresponding to the file and whose value is the file blob"
       }
     ],
     "return": {
@@ -4577,7 +4890,7 @@
     }
   },
   {
-    "__docId__": 163,
+    "__docId__": 172,
     "kind": "method",
     "name": "delete",
     "memberof": "src/request.js~Request",
@@ -4610,7 +4923,7 @@
     }
   },
   {
-    "__docId__": 164,
+    "__docId__": 173,
     "kind": "method",
     "name": "_postOrPut",
     "memberof": "src/request.js~Request",
@@ -4660,17 +4973,7 @@
         "spread": false,
         "optional": false,
         "name": "uploadFileObj",
-        "description": "custom file object"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "uploadFileObj.fname",
-        "description": "file blob"
+        "description": "custom object with a property with the same name as\nthe API descriptor corresponding to the file and whose value is the file blob"
       }
     ],
     "return": {
@@ -4683,7 +4986,7 @@
     }
   },
   {
-    "__docId__": 165,
+    "__docId__": 174,
     "kind": "method",
     "name": "_getConfig",
     "memberof": "src/request.js~Request",
@@ -4726,7 +5029,7 @@
     }
   },
   {
-    "__docId__": 166,
+    "__docId__": 175,
     "kind": "method",
     "name": "_callAxios",
     "memberof": "src/request.js~Request",
@@ -4759,7 +5062,7 @@
     }
   },
   {
-    "__docId__": 167,
+    "__docId__": 176,
     "kind": "method",
     "name": "_handleRequestError",
     "memberof": "src/request.js~Request",
@@ -4793,7 +5096,7 @@
     "return": null
   },
   {
-    "__docId__": 168,
+    "__docId__": 177,
     "kind": "method",
     "name": "runAsyncTask",
     "memberof": "src/request.js~Request",
@@ -4819,18 +5122,18 @@
     "return": null
   },
   {
-    "__docId__": 169,
+    "__docId__": 178,
     "kind": "file",
     "name": "src/resource.js",
     "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource class.\n */\nclass Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} resourceUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(resourceUrl, auth) {\n    /** @type {string} */\n    this.url = resourceUrl;\n\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = 'application/vnd.collection+json';\n\n    /** @type {?Object} */\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {Object} - clone object\n   */\n  clone() {\n    const cloneObj = Object.create(Object.getPrototypeOf(this));\n\n    for (let prop in this) {\n      if (this[prop] !== null && typeof this[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));\n      } else {\n        cloneObj[prop] = this[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\n/**\n * API abstract item resource class.\n */\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} itemUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(itemUrl, auth) {\n    super(itemUrl, auth);\n\n    /** @type {?Object} */\n    this.item = null; // Collection+JSON item obj\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const result = req.get(this.url);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.item = null;\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n            this.item = this.collection.items[0];\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Get the item's data object (REST API descriptors).\n   *\n   * @type {?Object}\n   */\n  get data() {\n    if (this.item) {\n      return Collection.getItemDescriptors(this.item);\n    }\n    return null;\n  }\n\n  /**\n   * Return true if the item resource object contains any item data.\n   *\n   * @type {boolean}\n   */\n  get isEmpty() {\n    if (this.item) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in PUT requests.\n   *\n   * @return {?string[]} - array of PUT data property name or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * PUT requests.\n   */\n  getPUTDataParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is referenced\n   * by a link relation within the item object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error when the link relation is not found\n   * @throws {RequestException} throw error if this item resource has not yet been\n   * fetched from the REST API\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.item) {\n      const urls = Collection.getLinkRelationUrls(this.item, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Item object has not been set!');\n  }\n\n  /**\n   * Internal helper method to make a PUT request to this item resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _put(data, uploadFileObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    let putData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      putData = { template: Collection.makeTemplate(data) };\n    }\n\n    return new Promise((resolve, reject) => {\n      const result = req.put(url, putData, uploadFileObj);\n\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.item = null;\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n            this.item = this.collection.items[0];\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Internal helper method to make a DELETE request to this item resource through\n   * the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  _delete(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return new Promise((resolve, reject) => {\n      const result = req.delete(this.url);\n\n      result\n        .then(() => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.item = null;\n          resolve(null);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n}\n\n/**\n * API abstract list resource class.\n */\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} listUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(listUrl, auth) {\n    super(listUrl, auth);\n\n    /** @type {string} */\n    this.queryUrl = '';\n\n    /** @type {?Object} */\n    this.searchParams = null;\n\n    /** @type {Object} */\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API using limit and offset as optional\n   * parameters.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(params = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let getParams = null;\n\n    if (params) {\n      for (let param in params) {\n        if (params.hasOwnProperty(param) && (param === 'limit' || param === 'offset')) {\n          if (!getParams) {\n            getParams = {};\n          }\n          getParams[param] = params[param];\n        }\n      }\n    }\n    const result = req.get(this.url, getParams);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.searchParams = getParams;\n\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n\n            if (this.collection.queries && this.collection.queries.length) {\n              this.queryUrl = this.collection.queries[0].href;\n            }\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Get an array of search parameter names that can be used as properties of the\n   * ``params`` argument to the ``getSearch`` method.\n   *\n   * @return {?string[]} - array of search parameter names or null if this list\n   * resource's data has not been fetched from the API yet.\n   */\n  getSearchParameters() {\n    if (this.collection) {\n      if (this.collection.queries) {\n        const params = Collection.getQueryParameters(this.collection.queries);\n        params.push('limit', 'offset');\n        return params;\n      }\n      return ['limit', 'offset'];\n    }\n    return null;\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters.\n   *\n   * @param {Object} params - search parameters, the ``getSearchParameters``\n   * method can be used to get a list of possible search parameters\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  getSearch(params, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    if (this.queryUrl) {\n      const result = req.get(this.queryUrl, params);\n\n      return new Promise((resolve, reject) => {\n        result\n          .then(response => {\n            // change the state of this object on successfull response\n            this.collection = null;\n            this.searchParams = params;\n            if (response.data && response.data.collection) {\n              this.collection = response.data.collection;\n            }\n            resolve(this);\n          })\n          .catch(error => {\n            reject(error);\n          });\n      });\n    }\n    return Promise.reject('A search url has not been setup for this resource!');\n  }\n\n  /**\n   * Return true if the list resource object contains any data.\n   *\n   * @type {boolean}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {?Object[]}\n   */\n  getItems() {\n    if (this.collection) {\n      const items = this.collection.items;\n\n      return items.map(item => {\n        const itemResource = new this.itemClass(item.href, this.auth);\n        itemResource.collection = this.collection;\n        itemResource.item = item;\n\n        return itemResource;\n      });\n    }\n    return null;\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in POST requests.\n   *\n   * @return {?string[]} - array of POST data properties or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * POST requests.\n   */\n  getPOSTDataParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Fetch the next resource page from the paginated REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  getNextPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('next', timeout);\n  }\n\n  /**\n   * Fetch the previous resource page from the paginated REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  getPreviousPage(timeout = 30000) {\n    return this._getNextOrPreviousPage('previous', timeout);\n  }\n\n  /**\n   * Internal method to fetch the next or previous page from the paginated REST API.\n   *\n   * @param {string} linkRelation - either the string 'previous' or 'next'\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _getNextOrPreviousPage(linkRelation, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const searchParams = new URL(urls[0]).searchParams;\n        const params = {};\n        let urlHasSearchParams = false;\n\n        for (let pair of searchParams.entries()) {\n          params[pair[0]] = pair[1];\n          if (pair[0] !== 'offset' && pair[0] !== 'limit') {\n            urlHasSearchParams = true;\n          }\n        }\n\n        if (urlHasSearchParams) {\n          return this.getSearch(params, timeout);\n        }\n        if (params.offset || params.limit) {\n          return this.get(params, timeout);\n        }\n        return this.get(null, timeout);\n      }\n    }\n    this.collection = null;\n    this.searchParams = null;\n    return Promise.resolve(this);\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is referenced by\n   * a link relation within this list resource's collection object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error when the link relation is not found\n   * @throws {RequestException} throw error if this list resource has not yet been fetched from the REST API\n   */\n  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n      if (urls.length) {\n        const resourceUrl = urls[0];\n        const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n        return resourceObj.get(params, timeout);\n      } else {\n        const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n        throw new RequestException(errMsg);\n      }\n    }\n    throw new RequestException('Collection object has not been set!');\n  }\n\n  /**\n   * Internal helper method to make a POST request to this list resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _post(data, uploadFileObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    let postData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      postData = { template: Collection.makeTemplate(data) };\n    }\n\n    return new Promise((resolve, reject) => {\n      const result = req.post(url, postData, uploadFileObj);\n\n      result\n        .then(response => {\n          // change the state of this object on successfull response\n          this.collection = null;\n          this.searchParams = null;\n          if (response.data && response.data.collection) {\n            this.collection = response.data.collection;\n          }\n          resolve(this);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/resource.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/resource.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 170,
+    "__docId__": 179,
     "kind": "class",
     "name": "Resource",
     "memberof": "src/resource.js",
@@ -4846,7 +5149,7 @@
     "ignore": true
   },
   {
-    "__docId__": 171,
+    "__docId__": 180,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~Resource",
@@ -4891,7 +5194,7 @@
     ]
   },
   {
-    "__docId__": 172,
+    "__docId__": 181,
     "kind": "member",
     "name": "url",
     "memberof": "src/resource.js~Resource",
@@ -4910,7 +5213,7 @@
     }
   },
   {
-    "__docId__": 173,
+    "__docId__": 182,
     "kind": "member",
     "name": "auth",
     "memberof": "src/resource.js~Resource",
@@ -4929,7 +5232,7 @@
     }
   },
   {
-    "__docId__": 174,
+    "__docId__": 183,
     "kind": "member",
     "name": "contentType",
     "memberof": "src/resource.js~Resource",
@@ -4948,7 +5251,7 @@
     }
   },
   {
-    "__docId__": 175,
+    "__docId__": 184,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~Resource",
@@ -4967,7 +5270,7 @@
     }
   },
   {
-    "__docId__": 176,
+    "__docId__": 185,
     "kind": "method",
     "name": "clone",
     "memberof": "src/resource.js~Resource",
@@ -4989,7 +5292,7 @@
     "params": []
   },
   {
-    "__docId__": 177,
+    "__docId__": 186,
     "kind": "class",
     "name": "ItemResource",
     "memberof": "src/resource.js",
@@ -5007,7 +5310,7 @@
     ]
   },
   {
-    "__docId__": 178,
+    "__docId__": 187,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~ItemResource",
@@ -5052,7 +5355,7 @@
     ]
   },
   {
-    "__docId__": 179,
+    "__docId__": 188,
     "kind": "member",
     "name": "item",
     "memberof": "src/resource.js~ItemResource",
@@ -5071,7 +5374,7 @@
     }
   },
   {
-    "__docId__": 180,
+    "__docId__": 189,
     "kind": "method",
     "name": "get",
     "memberof": "src/resource.js~ItemResource",
@@ -5106,7 +5409,7 @@
     }
   },
   {
-    "__docId__": 181,
+    "__docId__": 190,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~ItemResource",
@@ -5123,7 +5426,7 @@
     }
   },
   {
-    "__docId__": 185,
+    "__docId__": 194,
     "kind": "get",
     "name": "data",
     "memberof": "src/resource.js~ItemResource",
@@ -5144,7 +5447,7 @@
     }
   },
   {
-    "__docId__": 186,
+    "__docId__": 195,
     "kind": "get",
     "name": "isEmpty",
     "memberof": "src/resource.js~ItemResource",
@@ -5165,7 +5468,7 @@
     }
   },
   {
-    "__docId__": 187,
+    "__docId__": 196,
     "kind": "method",
     "name": "getPUTDataParameters",
     "memberof": "src/resource.js~ItemResource",
@@ -5187,7 +5490,7 @@
     "params": []
   },
   {
-    "__docId__": 188,
+    "__docId__": 197,
     "kind": "method",
     "name": "_getResource",
     "memberof": "src/resource.js~ItemResource",
@@ -5288,7 +5591,7 @@
     ]
   },
   {
-    "__docId__": 189,
+    "__docId__": 198,
     "kind": "method",
     "name": "_put",
     "memberof": "src/resource.js~ItemResource",
@@ -5353,7 +5656,7 @@
     }
   },
   {
-    "__docId__": 194,
+    "__docId__": 203,
     "kind": "method",
     "name": "_delete",
     "memberof": "src/resource.js~ItemResource",
@@ -5388,7 +5691,7 @@
     }
   },
   {
-    "__docId__": 197,
+    "__docId__": 206,
     "kind": "class",
     "name": "ListResource",
     "memberof": "src/resource.js",
@@ -5406,7 +5709,7 @@
     ]
   },
   {
-    "__docId__": 198,
+    "__docId__": 207,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~ListResource",
@@ -5451,7 +5754,7 @@
     ]
   },
   {
-    "__docId__": 199,
+    "__docId__": 208,
     "kind": "member",
     "name": "queryUrl",
     "memberof": "src/resource.js~ListResource",
@@ -5470,7 +5773,7 @@
     }
   },
   {
-    "__docId__": 200,
+    "__docId__": 209,
     "kind": "member",
     "name": "searchParams",
     "memberof": "src/resource.js~ListResource",
@@ -5489,7 +5792,7 @@
     }
   },
   {
-    "__docId__": 201,
+    "__docId__": 210,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/resource.js~ListResource",
@@ -5508,7 +5811,7 @@
     }
   },
   {
-    "__docId__": 202,
+    "__docId__": 211,
     "kind": "method",
     "name": "get",
     "memberof": "src/resource.js~ListResource",
@@ -5575,7 +5878,7 @@
     }
   },
   {
-    "__docId__": 203,
+    "__docId__": 212,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~ListResource",
@@ -5592,7 +5895,7 @@
     }
   },
   {
-    "__docId__": 207,
+    "__docId__": 216,
     "kind": "method",
     "name": "getSearchParameters",
     "memberof": "src/resource.js~ListResource",
@@ -5614,7 +5917,7 @@
     "params": []
   },
   {
-    "__docId__": 208,
+    "__docId__": 217,
     "kind": "method",
     "name": "getSearch",
     "memberof": "src/resource.js~ListResource",
@@ -5659,7 +5962,7 @@
     }
   },
   {
-    "__docId__": 212,
+    "__docId__": 221,
     "kind": "get",
     "name": "isEmpty",
     "memberof": "src/resource.js~ListResource",
@@ -5680,7 +5983,7 @@
     }
   },
   {
-    "__docId__": 213,
+    "__docId__": 222,
     "kind": "get",
     "name": "hasNextPage",
     "memberof": "src/resource.js~ListResource",
@@ -5701,7 +6004,7 @@
     }
   },
   {
-    "__docId__": 214,
+    "__docId__": 223,
     "kind": "get",
     "name": "hasPreviousPage",
     "memberof": "src/resource.js~ListResource",
@@ -5722,7 +6025,7 @@
     }
   },
   {
-    "__docId__": 215,
+    "__docId__": 224,
     "kind": "method",
     "name": "getItems",
     "memberof": "src/resource.js~ListResource",
@@ -5744,7 +6047,7 @@
     "params": []
   },
   {
-    "__docId__": 216,
+    "__docId__": 225,
     "kind": "method",
     "name": "getPOSTDataParameters",
     "memberof": "src/resource.js~ListResource",
@@ -5766,7 +6069,7 @@
     "params": []
   },
   {
-    "__docId__": 217,
+    "__docId__": 226,
     "kind": "method",
     "name": "getNextPage",
     "memberof": "src/resource.js~ListResource",
@@ -5801,7 +6104,7 @@
     }
   },
   {
-    "__docId__": 218,
+    "__docId__": 227,
     "kind": "method",
     "name": "getPreviousPage",
     "memberof": "src/resource.js~ListResource",
@@ -5836,7 +6139,7 @@
     }
   },
   {
-    "__docId__": 219,
+    "__docId__": 228,
     "kind": "method",
     "name": "_getNextOrPreviousPage",
     "memberof": "src/resource.js~ListResource",
@@ -5881,7 +6184,7 @@
     }
   },
   {
-    "__docId__": 222,
+    "__docId__": 231,
     "kind": "method",
     "name": "_getResource",
     "memberof": "src/resource.js~ListResource",
@@ -5982,7 +6285,7 @@
     ]
   },
   {
-    "__docId__": 223,
+    "__docId__": 232,
     "kind": "method",
     "name": "_post",
     "memberof": "src/resource.js~ListResource",
@@ -6047,18 +6350,18 @@
     }
   },
   {
-    "__docId__": 227,
+    "__docId__": 236,
     "kind": "file",
     "name": "src/tag.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList, Feed } from './feed';\n\n/**\n * Tag item resource object representing a feed tag.\n */\nexport class Tag extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of feeds that are tagged with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TagFeedList`` object\n   */\n  getTaggedFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = TagFeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of taggings made with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``TaggingList`` object\n   */\n  getTaggings(params = null, timeout = 30000) {\n    const linkRelation = 'taggings';\n    const resourceClass = TagTaggingList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this tag item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - tag name\n   * @param {string} data.color - tag color\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tag item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag list resource object representing a list of a feed's tags.\n */\nexport class TagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag list resource to create a new tag item resource\n   * through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - tag name\n   * @param {string} data.color - tag color\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tagging item resource object representing a tagging of an specific feed with an\n * specific tag.\n */\nexport class Tagging extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the tag associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the feed associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tagging item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag-specific tagging list resource object representing a list of taggings made with an\n * specific tag.\n */\nexport class TagTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.feed_id - id of the feed to be tagged\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tagging list resource object representing a list of taggings applied to\n * an specific feed.\n */\nexport class FeedTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this feed-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.tag_id - id of the tag to be used to tag the feed\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tag-specific feed list resource object representing a list of feeds that are tagged\n * with an specific tag.\n */\nexport class TagFeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of feeds from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tag list resource object representing a list of tags that an specific\n * feed is tagged with.\n */\nexport class FeedTagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of tags from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/tag.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/tag.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 228,
+    "__docId__": 237,
     "kind": "class",
     "name": "Tag",
     "memberof": "src/tag.js",
@@ -6076,7 +6379,7 @@
     ]
   },
   {
-    "__docId__": 229,
+    "__docId__": 238,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~Tag",
@@ -6121,7 +6424,7 @@
     ]
   },
   {
-    "__docId__": 230,
+    "__docId__": 239,
     "kind": "method",
     "name": "getTaggedFeeds",
     "memberof": "src/tag.js~Tag",
@@ -6188,7 +6491,7 @@
     }
   },
   {
-    "__docId__": 231,
+    "__docId__": 240,
     "kind": "method",
     "name": "getTaggings",
     "memberof": "src/tag.js~Tag",
@@ -6255,7 +6558,7 @@
     }
   },
   {
-    "__docId__": 232,
+    "__docId__": 241,
     "kind": "method",
     "name": "put",
     "memberof": "src/tag.js~Tag",
@@ -6320,7 +6623,7 @@
     }
   },
   {
-    "__docId__": 233,
+    "__docId__": 242,
     "kind": "method",
     "name": "delete",
     "memberof": "src/tag.js~Tag",
@@ -6355,7 +6658,7 @@
     }
   },
   {
-    "__docId__": 234,
+    "__docId__": 243,
     "kind": "class",
     "name": "TagList",
     "memberof": "src/tag.js",
@@ -6373,7 +6676,7 @@
     ]
   },
   {
-    "__docId__": 235,
+    "__docId__": 244,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~TagList",
@@ -6418,7 +6721,7 @@
     ]
   },
   {
-    "__docId__": 236,
+    "__docId__": 245,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~TagList",
@@ -6437,7 +6740,7 @@
     }
   },
   {
-    "__docId__": 237,
+    "__docId__": 246,
     "kind": "method",
     "name": "getFeeds",
     "memberof": "src/tag.js~TagList",
@@ -6504,7 +6807,7 @@
     }
   },
   {
-    "__docId__": 238,
+    "__docId__": 247,
     "kind": "method",
     "name": "post",
     "memberof": "src/tag.js~TagList",
@@ -6569,7 +6872,7 @@
     }
   },
   {
-    "__docId__": 239,
+    "__docId__": 248,
     "kind": "class",
     "name": "Tagging",
     "memberof": "src/tag.js",
@@ -6587,7 +6890,7 @@
     ]
   },
   {
-    "__docId__": 240,
+    "__docId__": 249,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~Tagging",
@@ -6632,7 +6935,7 @@
     ]
   },
   {
-    "__docId__": 241,
+    "__docId__": 250,
     "kind": "method",
     "name": "getTag",
     "memberof": "src/tag.js~Tagging",
@@ -6667,7 +6970,7 @@
     }
   },
   {
-    "__docId__": 242,
+    "__docId__": 251,
     "kind": "method",
     "name": "getFeed",
     "memberof": "src/tag.js~Tagging",
@@ -6702,7 +7005,7 @@
     }
   },
   {
-    "__docId__": 243,
+    "__docId__": 252,
     "kind": "method",
     "name": "delete",
     "memberof": "src/tag.js~Tagging",
@@ -6737,7 +7040,7 @@
     }
   },
   {
-    "__docId__": 244,
+    "__docId__": 253,
     "kind": "class",
     "name": "TagTaggingList",
     "memberof": "src/tag.js",
@@ -6755,7 +7058,7 @@
     ]
   },
   {
-    "__docId__": 245,
+    "__docId__": 254,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~TagTaggingList",
@@ -6800,7 +7103,7 @@
     ]
   },
   {
-    "__docId__": 246,
+    "__docId__": 255,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~TagTaggingList",
@@ -6819,7 +7122,7 @@
     }
   },
   {
-    "__docId__": 247,
+    "__docId__": 256,
     "kind": "method",
     "name": "getTag",
     "memberof": "src/tag.js~TagTaggingList",
@@ -6854,7 +7157,7 @@
     }
   },
   {
-    "__docId__": 248,
+    "__docId__": 257,
     "kind": "method",
     "name": "post",
     "memberof": "src/tag.js~TagTaggingList",
@@ -6909,7 +7212,7 @@
     }
   },
   {
-    "__docId__": 249,
+    "__docId__": 258,
     "kind": "class",
     "name": "FeedTaggingList",
     "memberof": "src/tag.js",
@@ -6927,7 +7230,7 @@
     ]
   },
   {
-    "__docId__": 250,
+    "__docId__": 259,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -6972,7 +7275,7 @@
     ]
   },
   {
-    "__docId__": 251,
+    "__docId__": 260,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -6991,7 +7294,7 @@
     }
   },
   {
-    "__docId__": 252,
+    "__docId__": 261,
     "kind": "method",
     "name": "getFeed",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -7026,7 +7329,7 @@
     }
   },
   {
-    "__docId__": 253,
+    "__docId__": 262,
     "kind": "method",
     "name": "post",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -7081,7 +7384,7 @@
     }
   },
   {
-    "__docId__": 254,
+    "__docId__": 263,
     "kind": "class",
     "name": "TagFeedList",
     "memberof": "src/tag.js",
@@ -7099,7 +7402,7 @@
     ]
   },
   {
-    "__docId__": 255,
+    "__docId__": 264,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~TagFeedList",
@@ -7144,7 +7447,7 @@
     ]
   },
   {
-    "__docId__": 256,
+    "__docId__": 265,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~TagFeedList",
@@ -7163,7 +7466,7 @@
     }
   },
   {
-    "__docId__": 257,
+    "__docId__": 266,
     "kind": "method",
     "name": "getTag",
     "memberof": "src/tag.js~TagFeedList",
@@ -7198,7 +7501,7 @@
     }
   },
   {
-    "__docId__": 258,
+    "__docId__": 267,
     "kind": "class",
     "name": "FeedTagList",
     "memberof": "src/tag.js",
@@ -7216,7 +7519,7 @@
     ]
   },
   {
-    "__docId__": 259,
+    "__docId__": 268,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~FeedTagList",
@@ -7261,7 +7564,7 @@
     ]
   },
   {
-    "__docId__": 260,
+    "__docId__": 269,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~FeedTagList",
@@ -7280,7 +7583,7 @@
     }
   },
   {
-    "__docId__": 261,
+    "__docId__": 270,
     "kind": "method",
     "name": "getFeed",
     "memberof": "src/tag.js~FeedTagList",
@@ -7315,18 +7618,18 @@
     }
   },
   {
-    "__docId__": 262,
+    "__docId__": 271,
     "kind": "file",
     "name": "src/uploadedfile.js",
     "content": "/** * Imports ***/\nimport Request from './request';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\n\n/**\n * Uploaded file item resource object representing a user's uploaded file.\n */\nexport class UploadedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Make a PUT request to modify this uploaded file item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this uploaded file item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``null``\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Uploaded file list resource object representing a list of a user's uploaded files.\n */\nexport class UploadedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = UploadedFile;\n  }\n\n  /**\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, uploadFileObj, timeout = 30000) {\n    return this._post(data, uploadFileObj, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/uploadedfile.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/uploadedfile.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 263,
+    "__docId__": 272,
     "kind": "class",
     "name": "UploadedFile",
     "memberof": "src/uploadedfile.js",
@@ -7344,7 +7647,7 @@
     ]
   },
   {
-    "__docId__": 264,
+    "__docId__": 273,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -7389,7 +7692,7 @@
     ]
   },
   {
-    "__docId__": 265,
+    "__docId__": 274,
     "kind": "method",
     "name": "getFileBlob",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -7424,7 +7727,7 @@
     }
   },
   {
-    "__docId__": 266,
+    "__docId__": 275,
     "kind": "method",
     "name": "put",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -7479,7 +7782,7 @@
     }
   },
   {
-    "__docId__": 267,
+    "__docId__": 276,
     "kind": "method",
     "name": "delete",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -7514,7 +7817,7 @@
     }
   },
   {
-    "__docId__": 268,
+    "__docId__": 277,
     "kind": "class",
     "name": "UploadedFileList",
     "memberof": "src/uploadedfile.js",
@@ -7532,7 +7835,7 @@
     ]
   },
   {
-    "__docId__": 269,
+    "__docId__": 278,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/uploadedfile.js~UploadedFileList",
@@ -7577,7 +7880,7 @@
     ]
   },
   {
-    "__docId__": 270,
+    "__docId__": 279,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/uploadedfile.js~UploadedFileList",
@@ -7596,7 +7899,7 @@
     }
   },
   {
-    "__docId__": 271,
+    "__docId__": 280,
     "kind": "method",
     "name": "post",
     "memberof": "src/uploadedfile.js~UploadedFileList",
@@ -7671,18 +7974,18 @@
     }
   },
   {
-    "__docId__": 272,
+    "__docId__": 281,
     "kind": "file",
     "name": "src/user.js",
     "content": "/** * Imports ***/\nimport Request from './request';\nimport { ItemResource } from './resource';\n\n/**\n * User item resource object representing a user of the system.\n */\nexport default class User extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this user item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.password - user password\n   * @param {string} data.email - user email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/src/user.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/user.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 273,
+    "__docId__": 282,
     "kind": "class",
     "name": "User",
     "memberof": "src/user.js",
@@ -7700,7 +8003,7 @@
     ]
   },
   {
-    "__docId__": 274,
+    "__docId__": 283,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/user.js~User",
@@ -7745,7 +8048,7 @@
     ]
   },
   {
-    "__docId__": 275,
+    "__docId__": 284,
     "kind": "method",
     "name": "put",
     "memberof": "src/user.js~User",
@@ -7812,15 +8115,15 @@
   {
     "kind": "index",
     "content": "# ChRIS API\nJavaScript 6 client for the ChRIS API.\n\n## Usage\n\n``` javascript\nimport Client from '@fnndsc/chrisapi';\n\nconst chrisUrl = 'http://localhost:8000/api/v1/';\nconst usersUrl = chrisUrl + 'users/';\nconst authUrl = chrisUrl + 'auth-token/';\nlet authToken;\nlet resp;\n\n\n// create a new user\nresp = Client.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');\nresp\n  .then(user => {\n\n    window.console.log('New user: ', user);\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n\n// fetch a user auth token\nresp = Client.getAuthToken(authUrl, 'cube', 'cube1234');\nresp\n  .then(token => {\n\n    window.console.log('Token: ', token);\n    authToken = token;\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n```\n\nThe ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance\nof a Javascript class that inherits from either of two base classes:\n\n* ``ItemResource`` (an object containing a reference to an individual item in a collection of resource items)\n* ``ListResource`` (an object modeling a collection of resource items)\n\nThese model the two general type of REST API resources available from a ChRIS server.\n\nIn addition to methods and properties provided by these base classes every resource object returned by\nthe client API has additional methods to fetch its associated resources (item or list resources)\nfrom the ChRIS REST API. It can also have ``get``, ``post``, ``put`` and ``delete`` methods as allowed by\nthe REST API. In particular every object inherits a ``get`` method that updates the internal state of the object\nwith the new data fetched from the ChRIS server. A `clone` method is provided to cover the case when a reference\nto the previous object state is desired. This method returns a new instance of the same class as the cloned object.\n\nAll methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource\nobject as an argument to the fulfillment callback.\n\nAll resources can be fetched from the REST API starting with the initial `FeedList` instance returned by the client\nas in the following examples:\n\n``` javascript\n\n// create a new client instance with an auth object to be able to make authenticated requests\nconst auth = {token: authToken};\n// or alternatively auth = {username: 'cube', password: 'cube1234'}\nconst client = new Client(chrisUrl, auth);\n\n// fetch a subset of the authenticated user's feeds from the REST API into an initial\n// Feedlist object\nlet params = { limit: 10, offset: 0 };\nresp = client.getFeeds(params);\nresp\n  .then(feedListObj => {\n    let result;\n\n    window.console.log('FeedList resource object: ', feedListObj);\n\n    // the getItems method of any list resource obj can be used to retrieve an array of\n    // its item resource objects\n    // here we retrieve an array of Feed item resource objects from feedListObj\n    let feedObjArray = feedListObj.getItems();\n\n    // the data property of an item resource object can be used to get its data\n    // (REST API descriptors), here we log the individual Feed items' data\n    for (let feed of feedObjArray) {\n\n        window.console.log(feed.data);\n    }\n\n    // the current object's state can be saved into another copy object before fetching\n    // more data if desired\n    const feedListObjClone = feedListObj.clone();\n\n    // the hasNextPage/hasPreviousPage property of any list resource object tells whether\n    // there is a next/previous page available from the paginated REST API\n    if (feedListObj.hasNextPage) {\n\n      // the getNextPage/getPreviousPage method of any list resource obj can be used to\n      // fetch the next/previous page from the paginated REST API\n      result = feedListObj.getNextPage();\n      result\n      .then(feedListObj => {\n\n        window.console.log('FeedList resource object: ', feedListObj);\n      });\n    }\n\n    // the get method of any list resource obj can be used to fetch any arbitrary page\n    // from the paginated REST API\n    result = feedListObj.get({ limit: 10, offset: 20 });\n    result\n      .then(feedListObj => {\n\n        // the isEmpty property of any resource obj can be used to know if the object\n        // contains any item/list data\n        window.console.log('Does the feed list contain any data?: ', !feedListObj.isEmpty);\n      });\n\n    // resource objects have methods to fetch other related resources\n    // here we fetch a list of available ChRIS plugins from the REST API\n    result = feedListObj.getPlugins(params);\n    result\n      .then(pluginListObj => {\n\n        window.console.log('PluginList resource object: ', pluginListObj);\n      });\n  })\n  .catch(error => {\n\n    window.console.log('Error!!!: ', error);\n  });\n\n// for convenience the Client class provides a runAsyncTask static method that could\n// alternatively be used to wait for promises in Javascript 6\n// for instance iterate over all pages of the list of available 'fs' plugins\nClient.runAsyncTask(function*() {\n\n  // fetch the FeedList resource obj which corresponds to the API home page\n  let feedListObj = yield client.getFeeds(); // wait for response here\n\n  // now fetch an initial PluginList resource obj from previous response\n  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // wait here\n\n  const searchParams = { type: 'fs'};\n  // const searchParams = {limit: 5, type: 'fs'}; if you want to override default page size\n\n  // the getSearch method of any list resource obj can be used to fetch a list resource from\n  // the REST API based on search parameters, here we fetch lists of plugins of type 'fs'\n  pluginListObj = yield pluginListObj.getSearch(searchParams); // wait here\n\n  window.console.log('Page 1 of Plugin fs list resource object: ', pluginListObj);\n\n  let i = 2;\n  while (pluginListObj.hasNextPage) {\n\n    try {\n\n      pluginListObj = yield pluginListObj.getNextPage(); // wait here\n      window.console.log('Page ' + i + ' of Plugin fs list resource object: ', pluginListObj);\n\n    } catch (ex) { // errors while fetching resources can be handled\n\n      window.console.log('Something went wrong while fetching page ' + i '!!!: ', ex);\n    }\n\n    i++;\n  }\n});\n\n```\n\n## API reference\n\nPlease check the API reference links to learn more about the API resource objects and their functionality.\n",
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/APIDocumentation.md",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/APIDocumentation.md",
     "name": "./APIDocumentation.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fnndsc/chrisapi\",\n  \"version\": \"0.0.2\",\n  \"description\": \"JavaScript6 client for the ChRIS API\",\n  \"main\": \"dist/chrisapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
-    "longname": "/home/jbernal/work/labsoft/fnndsc/js/chrisAPI/package.json",
+    "content": "{\n  \"name\": \"@fnndsc/chrisapi\",\n  \"version\": \"0.0.3\",\n  \"description\": \"JavaScript6 client for the ChRIS API\",\n  \"main\": \"dist/chrisapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"

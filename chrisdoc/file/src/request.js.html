@@ -38,9 +38,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
@@ -117,8 +119,8 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   post(url, data, uploadFileObj = null) {
@@ -130,8 +132,8 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   put(url, data, uploadFileObj = null) {
@@ -156,8 +158,8 @@ export default class Request {
    * @param {string} requestMethod - either &apos;post&apos; or &apos;put&apos;
    * @param {string} url - url of the resource
    * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   _postOrPut(requestMethod, url, data, uploadFileObj = null) {

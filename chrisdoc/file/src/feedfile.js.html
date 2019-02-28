@@ -38,9 +38,11 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
@@ -103,19 +105,6 @@ export class FeedFile extends ItemResource {
   }
 
   /**
-   * Fetch the feed associated to this file item from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
-   */
-  getFeed(timeout = 30000) {
-    const linkRelation = &apos;feed&apos;;
-    const resourceClass = Feed;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-
-  /**
    * Fetch the plugin instance that created this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -156,6 +145,52 @@ export class FeedFileList extends ListResource {
   getFeed(timeout = 30000) {
     const linkRelation = &apos;feed&apos;;
     const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Plugin instance file list resource object representing a list of files written by
+ * a plugin instance.
+ */
+export class PluginInstanceFileList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = FeedFile;
+  }
+
+  /**
+   * Fetch the feed associated to this file list from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = &apos;feed&apos;;
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the plugin instance associated to this file list from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   */
+  getPluginInstance(timeout = 30000) {
+    const linkRelation = &apos;plugin_inst&apos;;
+    const resourceClass = PluginInstance;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
