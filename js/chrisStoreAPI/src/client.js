@@ -12,9 +12,10 @@ export default class StoreClient {
   /**
    * Constructor
    *
-   * @param {*} storeUrl
-   * @param {*} auth
-   * @param {*} timeout
+   * @param {string} storeUrl - url of the ChRIS storeservice
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   * @param {number} [timeout=30000] - request timeout
    */
   constructor(storeUrl, auth = null, timeout = 30000) {
     this.storeUrl = storeUrl;
@@ -28,8 +29,8 @@ export default class StoreClient {
    * Get a plugin's information (descriptors and parameters) given its ChRIS
    * store id.
    *
-   * @param {*} id
-   * @return {*}
+   * @param {number} id - plugin id
+   * @return {Object} - JS Promise
    */
   getPlugin(id) {
     const self = this;
@@ -74,9 +75,10 @@ export default class StoreClient {
    * each page and passed an argument object containing the plugin list for that
    * page.
    *
-   * @param {*} searchParams
-   * @param {*} callback
-   * @return {*}
+   * @param {Object} [searchParams=null] - search parameters, the ``getSearchParameters``
+   * method can be used to get a list of possible search parameters
+   * @param {function} [callback=null]
+   * @return {Object} - JS Promise
    */
   getPlugins(searchParams = null, callback = null) {
     const self = this;
