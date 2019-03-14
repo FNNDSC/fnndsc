@@ -1,5 +1,5 @@
 # ChRIS Store API
-JJavaScript6 client for the ChRIS Store API.
+JavaScript6 client for the ChRIS Store API.
 
 ## Usage
 
@@ -163,28 +163,14 @@ resp
 
 // modify an existing plugin's representation in the store
 const testPlgId = 1;
-testPluginRepresentation.description = 'A new description';
-fileData = JSON.stringify(testPluginRepresentation);
-dfile = new Blob([fileData], { type: 'application/json' });
+const testPlgDockImg = 'fnndsc/pl-simplefsapp11';
+const testPlgPublicRepo = 'https://github.com/FNNDSC11';
 
-resp = client.modifyPlugin(testPlgId, dfile);
+resp = client.modifyPlugin(testPlgId, testPlgDockImg, testPlgPublicRepo);
 resp
   .then(response => {
 
-    window.console.log('Updated description for plugin: ', testPlgName);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// change an existing plugin's name (the descriptor file is always required)
-resp = client.modifyPlugin(testPlgId, dfile, 'newPluginName');
-resp
-  .then(response => {
-
-    window.console.log('Plugin name is now newPluginName');
+    window.console.log('Updated description for plugin with id: ', testPlgId);
   })
   .catch(error => {
 
@@ -193,7 +179,7 @@ resp
 
 
 // share an existing plugin with another store user (who then becomes an owner of the plugin)
-resp = client.modifyPlugin(testPlgId, dfile, undefined, undefined, undefined, 'chris');
+resp = client.modifyPlugin(testPlgId, undefined, undefined, 'chris');
 resp
   .then(response => {
 
