@@ -75,9 +75,8 @@ export default class StoreClient {
    * each page and passed an argument object containing the plugin list for that
    * page.
    *
-   * @param {Object} [searchParams=null] - search parameters, the ``getSearchParameters``
-   * method can be used to get a list of possible search parameters
-   * @param {function} [callback=null]
+   * @param {Object} [searchParams=null] - search parameters,
+   * @param {function(pluginList: Object)} [callback=null]
    * @return {Object} - JS Promise
    */
   getPlugins(searchParams = null, callback = null) {
@@ -114,11 +113,11 @@ export default class StoreClient {
   /**
    * Add a new plugin to the ChRIS store.
    *
-   * @param {*} name
-   * @param {*} dockImage
-   * @param {*} descriptorFile
-   * @param {*} publicRepo
-   * @return {*}
+   * @param {string} name - plugin name
+   * @param {string} dockImage - plugin docker image
+   * @param {Object} descriptorFile - file blob
+   * @param {string} publicRepo - url of the plugin public repository
+   * @return {Object} - JS Promise
    */
   addPlugin(name, dockImage, descriptorFile, publicRepo) {
     const self = this;
@@ -158,11 +157,11 @@ export default class StoreClient {
   /**
    * Modify an existing plugin in the ChRIS store.
    *
-   * @param {*} id
-   * @param {*} dockImage
-   * @param {*} publicRepo
-   * @param {*} newOwner
-   * @return {*}
+   * @param {number} id - plugin id
+   * @param {string} dockImage - plugin docker image
+   * @param {string} publicRepo - url of the plugin public repository
+   * @param {string} newOwner - username of a new owner for the plugin
+   * @return {Object} - JS Promise
    */
   modifyPlugin(id, dockImage = '', publicRepo = '', newOwner = '') {
     const self = this;
@@ -220,8 +219,8 @@ export default class StoreClient {
   /**
    * Remove an existing plugin from the ChRIS store.
    *
-   * @param {*} id
-   * @return {*}
+   * @param {number} id - plugin id
+   * @return {Object} - JS Promise
    */
   removePlugin(id) {
     const self = this;
@@ -258,8 +257,8 @@ export default class StoreClient {
    * query search parameters. If no search parameters is given then return the
    * first page of a paginated list of all plugins in the store.
    *
-   * @param {*} searchParams
-   * @return {*}
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
    */
   getPluginsInitialPage(searchParams = null) {
     return this._getPluginsPage(undefined, searchParams);
@@ -269,8 +268,8 @@ export default class StoreClient {
    * Get the single page corresponding to the url argument from a paginated list
    * of plugin data (descriptors).
    *
-   * @param {*} url
-   * @return {*}
+   * @param {string} url - url of the page
+   * @return {Object} - JS Promise
    */
   getPluginsPage(url) {
     return this._getPluginsPage(url);
@@ -281,9 +280,9 @@ export default class StoreClient {
    * query search parameters. If no search parameters is given then return a
    * paginated list of all plugins in the store.
    *
-   * @param {*} url
-   * @param {*} searchParams
-   * @return {*}
+   * @param {string} url - url
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
    */
   _getPluginsPage(url, searchParams = null) {
     const self = this;
@@ -340,8 +339,8 @@ export default class StoreClient {
    * Internal method to get the list of the parameters data given the url of
    * the parameters.
    *
-   * @param {*} url
-   * @return {*}
+   * @param {string} url - url of the plugin parameters
+   * @return {Object} - JS Promise
    */
   _getParameters(url) {
     const self = this;
@@ -369,9 +368,9 @@ export default class StoreClient {
    * Internal method to tet the initial collection in a linked list of paginated
    * collections.
    *
-   * @param {*} url
-   * @param {*} searchParams
-   * @return {*}
+   * @param {string} url - url
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
    */
   _getInitialCollection(url, searchParams = null) {
     const self = this;
@@ -394,8 +393,8 @@ export default class StoreClient {
    * Internal method to get the next collection in a linked list of paginated
    * collections.
    *
-   * @param {*} coll
-   * @return {*}
+   * @param {Object} coll - collection object
+   * @return {Object} - JS Promise
    */
   _getNextCollection(coll) {
     const self = this;
@@ -420,9 +419,9 @@ export default class StoreClient {
    * Internal method to recursively get the data (descriptors and related item's
    * descriptors) of all the items in a linked list of paginated collections.
    *
-   * @param {*} coll
-   * @param {*} followLinkRelations
-   * @return {*}
+   * @param {Object} coll - collection object
+   * @param {string[]} followLinkRelations - array of link relation names
+   * @return {Object} - JS Promise
    */
   _getItemsFromPaginatedCollections(coll, followLinkRelations = []) {
     const self = this;
@@ -484,8 +483,8 @@ export default class StoreClient {
   /**
    * Get a full list of paginated collections.
    *
-   * @param {*} coll
-   * @return {*}
+   * @param {Object} coll - collection object
+   * @return {Object} - JS Promise
    */
   _getPaginatedCollections(coll) {
     let collections = [coll];
@@ -516,7 +515,7 @@ export default class StoreClient {
   /**
    * Get currently authenticated user's information.
    *
-   * @return {*}
+   * @return {Object} - JS Promise
    */
   getUser() {
     const storeUrl = this.storeUrl;
@@ -543,8 +542,10 @@ export default class StoreClient {
   /**
    * Update currently authenticated user's information (email and or password).
    *
-   * @param {*} userInfoObj
-   * @return {*}
+   * @param {Object} userInfoObj - collection object
+   * @param {string} userInfoObj.email - user's email
+   * @param {string} userInfoObj.password - user's password
+   * @return {Object} - JS Promise
    */
   updateUser(userInfoObj) {
     const storeUrl = this.storeUrl;
@@ -580,12 +581,12 @@ export default class StoreClient {
   /**
    * Create a new store user account.
    *
-   * @param {*} usersUrl
-   * @param {*} username
-   * @param {*} password
-   * @param {*} email
-   * @param {*} timeout
-   * @return {*}
+   * @param {string} usersUrl - url of the user accounts service
+   * @param {string} username - user's username
+   * @param {string} password - user's password
+   * @param {string} email - user's email
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise
    */
   static createUser(usersUrl, username, password, email, timeout = 30000) {
     const req = new Request(undefined, 'application/vnd.collection+json', timeout);
@@ -613,12 +614,11 @@ export default class StoreClient {
 
   /**
    * Get a user's login authorization token.
-   * @param {*} authUrl
-   * @param {*} username
-   * @param {*} password
-   * @param {*} timeout
-   *
-   * @return {*}
+   * @param {string} authUrl - url of the authentication service
+   * @param {string} username - user's username
+   * @param {string} password - user's password
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise
    */
   static getAuthToken(authUrl, username, password, timeout = 30000) {
     const req = new Request(undefined, 'application/json', timeout);
