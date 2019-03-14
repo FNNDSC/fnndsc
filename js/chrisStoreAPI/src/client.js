@@ -35,7 +35,7 @@ export default class StoreClient {
     const self = this;
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
         const searchParams = { id: id };
         let plugin;
@@ -82,7 +82,7 @@ export default class StoreClient {
     const self = this;
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         let pluginList = [];
         let resp;
 
@@ -122,7 +122,7 @@ export default class StoreClient {
     const self = this;
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
         const data = {
           name: name,
@@ -157,18 +157,16 @@ export default class StoreClient {
    * Modify an existing plugin in the ChRIS store.
    *
    * @param {*} id
-   * @param {*} descriptorFile
-   * @param {*} name
    * @param {*} dockImage
    * @param {*} publicRepo
    * @param {*} newOwner
    * @return {*}
    */
-  modifyPlugin(id, descriptorFile, name= '', dockImage= '', publicRepo= '', newOwner = '') {
+  modifyPlugin(id, dockImage = '', publicRepo = '', newOwner = '') {
     const self = this;
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
         let resp;
 
@@ -179,15 +177,8 @@ export default class StoreClient {
 
           if (coll.items.length) {
             const url = coll.items[0].href;
-            const data = {};
+            let data = {};
 
-            if (name) {
-              data.name = name;
-            } else {
-              data.name = coll.items[0].data.filter(descriptor => {
-                return descriptor.name === 'name';
-              })[0].value;
-            }
             if (dockImage) {
               data.dock_image = dockImage;
             } else {
@@ -206,8 +197,10 @@ export default class StoreClient {
               data.owner = newOwner;
             }
 
-            resp = yield req.put(url, data, { descriptor_file: descriptorFile });
-
+            if (self.contentType === 'application/vnd.collection+json') {
+              data = { template: Collection.makeTemplate(data) };
+            }
+            resp = yield req.put(url, data);
           } else {
             const errMsg = 'Could not find plugin with id: ' + id;
             throw new StoreRequestException(errMsg);
@@ -232,7 +225,7 @@ export default class StoreClient {
     const self = this;
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
         const searchParams = { id: id };
         let resp;
@@ -294,7 +287,7 @@ export default class StoreClient {
     const self = this;
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
         const pluginList = [];
         let resp;
@@ -352,7 +345,7 @@ export default class StoreClient {
     const self = this;
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
         let paramList;
 
@@ -442,9 +435,9 @@ export default class StoreClient {
       let itemList = [];
 
       return new Promise((resolve, reject) => {
-        StoreClient._runAsyncTask(function*() {
+        StoreClient.runAsyncTask(function*() {
           try {
-            // execution stops here before collections is assigned, and resumed in _runAsyncTask
+            // execution stops here before collections is assigned, and resumed in runAsyncTask
             let collections = yield self._getPaginatedCollections(collObj); // wait for resp
 
             for (let collection of collections) {
@@ -497,13 +490,13 @@ export default class StoreClient {
     const req = new Request(this.auth, this.contentType, this.timeout);
 
     return new Promise(function(resolve, reject) {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         try {
           let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');
 
           while (nextPageUrls.length) {
             // there is only a single next page
-            // execution stops here before resp is assigned, and resumed in _runAsyncTask
+            // execution stops here before resp is assigned, and resumed in runAsyncTask
             let resp = yield req.get(nextPageUrls[0]);
             collections = collections.concat(resp.data.collection);
             nextPageUrls = Collection.getLinkRelationUrls(resp.data.collection, 'next');
@@ -528,7 +521,7 @@ export default class StoreClient {
     const req = new Request(this.auth, this.contentType, this.timeout);
 
     return new Promise((resolve, reject) => {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         let resp;
 
         try {
@@ -565,7 +558,7 @@ export default class StoreClient {
     };
 
     return new Promise((resolve, reject) => {
-      StoreClient._runAsyncTask(function*() {
+      StoreClient.runAsyncTask(function*() {
         let resp;
 
         try {
@@ -645,32 +638,12 @@ export default class StoreClient {
   }
 
   /**
-   * Internal method to run asynchronous task defined by a task generator function.
+   * Helper method to run an asynchronous task defined by a task generator function.
    *
-   * @param {*} taskGenerator
-   * @return {*}
+   * @param {function*()} taskGenerator - generator function
    */
-  static _runAsyncTask(taskGenerator) {
-    // create the iterator
-    let task = taskGenerator();
-    // start the task
-    let result = task.next();
-
-    // recursive function to iterate through
-    (function step() {
-      // if there's more to do (result.value and result.done are iterator's properties)
-      if (!result.done) {
-        result.value
-          .then(resp => {
-            result = task.next(resp); // send this resp value to the yield
-            step();
-          })
-          .catch(error => {
-            result = task.throw(error); // throws error within taskGenerator generator
-            step();
-          });
-      }
-    })(); // start the recursive process by calling it immediatly
+  static runAsyncTask(taskGenerator) {
+    Request.runAsyncTask(taskGenerator);
   }
 
   /*export const login = credentials => {

@@ -110,68 +110,52 @@ describe('StoreClient', () => {
 
   it('can modify an existing plugin in the store', done => {
     const testPlgId = 1;
-    const testPlgName = 'simplefsapp';
-    const testPlgNewName = 'simplefsapp' + Date.now();
     const testPlgNewOwner = 'chris';
-    const testPlgDockImg = 'fnndsc/pl-simplefsapp';
-    const testPlgPublicRepo = 'https://github.com/FNNDSC';
-    const testPlgDescription = testPluginRepresentation.description;
-
-    testPluginRepresentation.description = 'A quite simple chris fs app demo';
-    let fileData = JSON.stringify(testPluginRepresentation);
-    let dfile = new Blob([fileData], { type: 'application/json' });
+    const testPlgDockImg = 'fnndsc/pl-simplefsapp11';
+    const testPlgPublicRepo = 'https://github.com/FNNDSC11';
 
     const result = client.modifyPlugin(
       testPlgId,
-      dfile,
-      testPlgNewName,
       testPlgDockImg,
       testPlgPublicRepo,
       testPlgNewOwner
     );
     result
       .then(response => {
-        const plgDescription = response.items[0].data.filter(descriptor => {
-          return descriptor.name === 'description';
+        const plgDockImg = response.items[0].data.filter(descriptor => {
+          return descriptor.name === 'dock_image';
         })[0].value;
 
-        const plgName = response.items[0].data.filter(descriptor => {
-          return descriptor.name === 'name';
+        const plgPublicRepo = response.items[0].data.filter(descriptor => {
+          return descriptor.name === 'public_repo';
         })[0].value;
 
-        expect(plgDescription).to.equal(testPluginRepresentation.description);
-        expect(plgName).to.equal(testPlgNewName);
+        expect(plgDockImg).to.equal(testPlgDockImg);
+        expect(plgPublicRepo).to.equal(testPlgPublicRepo);
 
-        // restore plugin to its original name and description
-        testPluginRepresentation.description = testPlgDescription;
-        fileData = JSON.stringify(testPluginRepresentation);
-        dfile = new Blob([fileData], { type: 'application/json' });
-
+        // restore plugin to its original public repo and  docker image
         const res = client.modifyPlugin(
           testPlgId,
-          dfile,
-          testPlgName,
-          testPlgDockImg,
-          testPlgPublicRepo,
-          testPlgNewOwner
+          'fnndsc/pl-simplefsapp',
+          'https://github.com/FNNDSC'
         );
         res.then(resp => {
-          const plgDescription = resp.items[0].data.filter(descriptor => {
-            return descriptor.name === 'description';
+          const plgDockImg = resp.items[0].data.filter(descriptor => {
+            return descriptor.name === 'dock_image';
           })[0].value;
 
-          const plgName = resp.items[0].data.filter(descriptor => {
-            return descriptor.name === 'name';
+          const plgPublicRepo = resp.items[0].data.filter(descriptor => {
+            return descriptor.name === 'public_repo';
           })[0].value;
 
-          expect(plgDescription).to.equal(testPlgDescription);
-          expect(plgName).to.equal(testPlgName);
+          expect(plgDockImg).to.equal('fnndsc/pl-simplefsapp');
+          expect(plgPublicRepo).to.equal('https://github.com/FNNDSC');
         });
       })
       .then(done, done);
   });
 
-/* it('can delete plugin to the store', done => {
+  /* it('can delete plugin to the store', done => {
     const testPlgId = 28;
 
     const result = client.removePlugin(testPlgId);
