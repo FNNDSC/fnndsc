@@ -37,7 +37,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="chris-store-api">ChRIS Store API</h1><p>JJavaScript6 client for the ChRIS Store API.</p>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="chris-store-api">ChRIS Store API</h1><p>JavaScript6 client for the ChRIS Store API.</p>
 <h2 id="usage">Usage</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">import StoreClient from &apos;@fnndsc/chrisstoreapi&apos;;
 
 const storeUrl = &apos;http://localhost:8010/api/v1/&apos;;
@@ -197,28 +197,14 @@ resp
 
 // modify an existing plugin&apos;s representation in the store
 const testPlgId = 1;
-testPluginRepresentation.description = &apos;A new description&apos;;
-fileData = JSON.stringify(testPluginRepresentation);
-dfile = new Blob([fileData], { type: &apos;application/json&apos; });
+const testPlgDockImg = &apos;fnndsc/pl-simplefsapp11&apos;;
+const testPlgPublicRepo = &apos;https://github.com/FNNDSC11&apos;;
 
-resp = client.modifyPlugin(testPlgId, dfile);
+resp = client.modifyPlugin(testPlgId, testPlgDockImg, testPlgPublicRepo);
 resp
   .then(response =&gt; {
 
-    window.console.log(&apos;Updated description for plugin: &apos;, testPlgName);
-  })
-  .catch(error =&gt; {
-
-    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
-  });
-
-
-// change an existing plugin&apos;s name (the descriptor file is always required)
-resp = client.modifyPlugin(testPlgId, dfile, &apos;newPluginName&apos;);
-resp
-  .then(response =&gt; {
-
-    window.console.log(&apos;Plugin name is now newPluginName&apos;);
+    window.console.log(&apos;Updated description for plugin with id: &apos;, testPlgId);
   })
   .catch(error =&gt; {
 
@@ -227,7 +213,7 @@ resp
 
 
 // share an existing plugin with another store user (who then becomes an owner of the plugin)
-resp = client.modifyPlugin(testPlgId, dfile, undefined, undefined, undefined, &apos;chris&apos;);
+resp = client.modifyPlugin(testPlgId, undefined, undefined, &apos;chris&apos;);
 resp
   .then(response =&gt; {
 
