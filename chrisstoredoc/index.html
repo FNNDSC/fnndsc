@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | @fnndsc/chrisstoreapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~StoreClient.html">StoreClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~StoreRequestException.html">StoreRequestException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="chris-store-api">ChRIS Store API</h1><p>JJavaScript6 client for the ChRIS Store API.</p>
+<h2 id="usage">Usage</h2><pre><code class="lang-javascript"><code class="source-code prettyprint">import StoreClient from &apos;@fnndsc/chrisstoreapi&apos;;
+
+const storeUrl = &apos;http://localhost:8010/api/v1/&apos;;
+const usersUrl = storeUrl + &apos;users/&apos;;
+const authUrl = storeUrl + &apos;auth-token/&apos;;
+let authToken;
+let resp;
+
+
+// create a new user
+resp = StoreClient.createUser(usersUrl, &apos;user1&apos;, &apos;user1pass&apos;, &apos;user1@gmail.com&apos;);
+resp
+  .then(user =&gt; {
+
+    window.console.log(&apos;New user: &apos;, user);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// fetch a user auth token
+resp = StoreClient.getAuthToken(authUrl, &apos;cubeadmin&apos;, &apos;cubeadmin1234&apos;);
+resp
+  .then(token =&gt; {
+
+    window.console.log(&apos;Token: &apos;, token);
+    authToken = token;
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// create a new client instance  without an auth object to make allowed unauthenticated requests
+let client = new StoreClient(storeUrl);
+
+
+// fetch a plugin given its id
+resp = client.getPlugin(1);
+resp
+  .then(plugin =&gt; {
+
+    window.console.log(&apos;Plugin: &apos;, plugin);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// fetch in a list a subset of the plugins in the store given search params
+let searchParams = { limit: 10, offset:10 };
+resp = client.getPlugins(searchParams);
+resp
+  .then(smallPluginList =&gt; {
+
+    window.console.log(&apos;Small plugin list: &apos;, smallPluginList);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// fetch in a list a subset of the plugins in the store created by a specific user
+let searchParams = { owner_username: &apos;cubeadmin&apos;, limit: 10, offset:10 };
+resp = client.getPlugins(searchParams);
+resp
+  .then(userPluginList =&gt; {
+
+    window.console.log(&apos;A subset of the plugins created by the user: &apos;, userPluginList);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// fetch a paginated list of plugins given search params and call a callback function on every page of the plugin list
+searchParams = { type: &apos;fs&apos; };
+resp = client.getPlugins(searchParams, onePageFsPluginList =&gt; {
+
+  window.console.log(&apos;One page of the fs plugin list: &apos;, onePageFsPluginList);
+});
+resp
+  .then(fullFsPluginList =&gt; {
+
+    window.console.log(&apos;&quot;fs&quot; plugins: &apos;, fullFsPluginList);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// create a new client instance  with an auth object to be able to make required authenticated requests
+const auth = {token: authToken}; // or alternatively auth = {username: &apos;cubeadmin&apos;, password: &apos;cubeadmin1234&apos;}
+client = new StoreClient(storeUrl, auth);
+
+
+// add a new plugin to the store
+const testPlgName = &apos;myPlugin&apos;;
+const testPlgDockImg = &apos;fnndsc/pl-myPlugin&apos;;
+const testPlgPublicRepo = &apos;https://github.com/FNNDSC/pl-myPlugin&apos;;
+const testPluginRepresentation = {
+  creation_date: &apos;2018-05-22T15:49:52.419437Z&apos;,
+  modification_date: &apos;2018-05-22T15:49:52.419481Z&apos;,
+  type: &apos;fs&apos;,
+  authors: &apos;FNNDSC (dev@babyMRI.org)&apos;,
+  title: &apos;Simple chris fs app&apos;,
+  category: &apos;&apos;,
+  description: &apos;A simple chris fs app demo&apos;,
+  documentation: &apos;http://wiki&apos;,
+  license: &apos;Opensource (MIT)&apos;,
+  version: &apos;0.1&apos;,
+  execshell: &apos;python3&apos;,
+  selfpath: &apos;/usr/src/simplefsapp&apos;,
+  selfexec: &apos;simplefsapp.py&apos;,
+  min_number_of_workers: 1,
+  max_number_of_workers: 1,
+  min_cpu_limit: 1000,
+  max_cpu_limit: 2147483647,
+  min_memory_limit: 200,
+  max_memory_limit: 2147483647,
+  min_gpu_limit: 0,
+  max_gpu_limit: 0,
+  parameters: [
+    {
+      name: &apos;dir&apos;,
+      type: &apos;path&apos;,
+      optional: true,
+      default: &apos;./&apos;,
+      flag: &apos;--dir&apos;,
+      action: &apos;store&apos;,
+      help: &apos;look up directory&apos;,
+    },
+  ],
+};
+
+let fileData = JSON.stringify(testPluginRepresentation);
+let dfile = new Blob([fileData], { type: &apos;application/json&apos; });
+
+resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
+resp
+  .then(response =&gt; {
+
+      window.console.log(&apos;New plugin in the store: &apos;, response);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// modify an existing plugin&apos;s representation in the store
+const testPlgId = 1;
+testPluginRepresentation.description = &apos;A new description&apos;;
+fileData = JSON.stringify(testPluginRepresentation);
+dfile = new Blob([fileData], { type: &apos;application/json&apos; });
+
+resp = client.modifyPlugin(testPlgId, dfile);
+resp
+  .then(response =&gt; {
+
+    window.console.log(&apos;Updated description for plugin: &apos;, testPlgName);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// change an existing plugin&apos;s name (the descriptor file is always required)
+resp = client.modifyPlugin(testPlgId, dfile, &apos;newPluginName&apos;);
+resp
+  .then(response =&gt; {
+
+    window.console.log(&apos;Plugin name is now newPluginName&apos;);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// share an existing plugin with another store user (who then becomes an owner of the plugin)
+resp = client.modifyPlugin(testPlgId, dfile, undefined, undefined, undefined, &apos;chris&apos;);
+resp
+  .then(response =&gt; {
+
+    window.console.log(&apos;User chris is now in the list of owners of plugin with id : &apos; + testPlgId);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// remove an existing plugin from the store
+resp = client.removePlugin(testPlgId);
+resp
+  .then(() =&gt; {
+
+    window.console.log(&apos;Removed plugin with id: &apos;, testPlgId);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });</code>
+</code></pre>
+<h2 id="api-reference">API reference</h2><p>Please check the API reference links to learn more about the API resource objects and their functionality.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/client.js | @fnndsc/chrisstoreapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~StoreClient.html">StoreClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~StoreRequestException.html">StoreRequestException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/client.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
+import Collection from &apos;./cj&apos;;
+import Request from &apos;./request&apos;;
+import StoreRequestException from &apos;./exception&apos;;
+
+/**
+ * Chris store object.
+ *
+ * @module client
+ */
+export default class StoreClient {
+  /**
+   * Constructor
+   *
+   * @param {string} storeUrl - url of the ChRIS storeservice
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   * @param {number} [timeout=30000] - request timeout
+   */
+  constructor(storeUrl, auth = null, timeout = 30000) {
+    this.storeUrl = storeUrl;
+    this.storeQueryUrl = storeUrl + &apos;search/&apos;;
+    this.auth = auth;
+    this.timeout = timeout;
+    this.contentType = &apos;application/vnd.collection+json&apos;;
+  }
+
+  /**
+   * Get a plugin&apos;s information (descriptors and parameters) given its ChRIS
+   * store id.
+   *
+   * @param {number} id - plugin id
+   * @return {Object} - JS Promise
+   */
+  getPlugin(id) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        const searchParams = { id: id };
+        let plugin;
+
+        try {
+          const resp = yield req.get(self.storeQueryUrl, searchParams);
+          const coll = resp.data.collection;
+
+          if (coll.items.length) {
+            const item = coll.items[0];
+            plugin = Collection.getItemDescriptors(item);
+            const parametersLinks = Collection.getLinkRelationUrls(item, &apos;parameters&apos;);
+
+            if (parametersLinks.length) {
+              const paramList = yield self._getParameters(parametersLinks[0]); // there can only be a single parameters link
+              plugin.parameters = paramList;
+            }
+          } else {
+            const errMsg = &apos;Could not find plugin with id: &apos; + id;
+            throw new StoreRequestException(errMsg);
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(plugin);
+      });
+    });
+  }
+
+  /**
+   * Get a paginated list of plugin data (descriptors) given query search
+   * parameters. If no search parameters is given then get a paginated list
+   * of all plugins in the store. callback function, if provided, is called for
+   * each page and passed an argument object containing the plugin list for that
+   * page.
+   *
+   * @param {Object} [searchParams=null] - search parameters,
+   * @param {function(pluginList: Object)} [callback=null]
+   * @return {Object} - JS Promise
+   */
+  getPlugins(searchParams = null, callback = null) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        let pluginList = [];
+        let resp;
+
+        try {
+          resp = yield self.getPluginsInitialPage(searchParams);
+          pluginList = pluginList.concat(resp.plugins);
+          if (callback) {
+            callback(resp);
+          }
+          while (resp.nextLink) {
+            resp = yield self.getPluginsPage(resp.nextLink);
+            pluginList = pluginList.concat(resp.plugins);
+            if (callback) {
+              callback(resp);
+            }
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(pluginList);
+      });
+    });
+  }
+
+  /**
+   * Add a new plugin to the ChRIS store.
+   *
+   * @param {string} name - plugin name
+   * @param {string} dockImage - plugin docker image
+   * @param {Object} descriptorFile - file blob
+   * @param {string} publicRepo - url of the plugin public repository
+   * @return {Object} - JS Promise
+   */
+  addPlugin(name, dockImage, descriptorFile, publicRepo) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        const data = {
+          name: name,
+          dock_image: dockImage,
+          public_repo: publicRepo,
+        };
+        let resp;
+
+        try {
+          resp = yield req.get(self.storeUrl);
+          const coll = resp.data.collection;
+          const userPluginsUrls = Collection.getLinkRelationUrls(coll, &apos;user_plugins&apos;);
+
+          if (userPluginsUrls.length) {
+            // use userPluginsUrls[0] bc there can only be a single user_plugins url
+            resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });
+          } else {
+            const errMsg = &apos;Could not find url for POST request. Make sure you are authenticated&apos;;
+            throw new StoreRequestException(errMsg);
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(resp.data.collection);
+      });
+    });
+  }
+
+  /**
+   * Modify an existing plugin in the ChRIS store.
+   *
+   * @param {number} id - plugin id
+   * @param {string} dockImage - plugin docker image
+   * @param {string} publicRepo - url of the plugin public repository
+   * @param {string} newOwner - username of a new owner for the plugin
+   * @return {Object} - JS Promise
+   */
+  modifyPlugin(id, dockImage = &apos;&apos;, publicRepo = &apos;&apos;, newOwner = &apos;&apos;) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        let resp;
+
+        try {
+          const searchParams = { id: id };
+          resp = yield req.get(self.storeQueryUrl, searchParams);
+          const coll = resp.data.collection;
+
+          if (coll.items.length) {
+            const url = coll.items[0].href;
+            let data = {};
+
+            if (dockImage) {
+              data.dock_image = dockImage;
+            } else {
+              data.dock_image = coll.items[0].data.filter(descriptor =&gt; {
+                return descriptor.name === &apos;dock_image&apos;;
+              })[0].value;
+            }
+            if (publicRepo) {
+              data.public_repo = publicRepo;
+            } else {
+              data.public_repo = coll.items[0].data.filter(descriptor =&gt; {
+                return descriptor.name === &apos;public_repo&apos;;
+              })[0].value;
+            }
+            if (newOwner) {
+              data.owner = newOwner;
+            }
+
+            if (self.contentType === &apos;application/vnd.collection+json&apos;) {
+              data = { template: Collection.makeTemplate(data) };
+            }
+            resp = yield req.put(url, data);
+          } else {
+            const errMsg = &apos;Could not find plugin with id: &apos; + id;
+            throw new StoreRequestException(errMsg);
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(resp.data.collection);
+      });
+    });
+  }
+
+  /**
+   * Remove an existing plugin from the ChRIS store.
+   *
+   * @param {number} id - plugin id
+   * @return {Object} - JS Promise
+   */
+  removePlugin(id) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        const searchParams = { id: id };
+        let resp;
+
+        try {
+          resp = yield req.get(self.storeQueryUrl, searchParams);
+          const coll = resp.data.collection;
+
+          if (coll.items.length) {
+            const url = coll.items[0].href;
+            resp = yield req.delete(url);
+          } else {
+            const errMsg = &apos;Could not find plugin with id: &apos; + id;
+            throw new StoreRequestException(errMsg);
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * Get the first page of a paginated list of plugin data (descriptors) given
+   * query search parameters. If no search parameters is given then return the
+   * first page of a paginated list of all plugins in the store.
+   *
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
+   */
+  getPluginsInitialPage(searchParams = null) {
+    return this._getPluginsPage(undefined, searchParams);
+  }
+
+  /**
+   * Get the single page corresponding to the url argument from a paginated list
+   * of plugin data (descriptors).
+   *
+   * @param {string} url - url of the page
+   * @return {Object} - JS Promise
+   */
+  getPluginsPage(url) {
+    return this._getPluginsPage(url);
+  }
+
+  /**
+   * Internal method to get a paginated list of plugin data (descriptors) given
+   * query search parameters. If no search parameters is given then return a
+   * paginated list of all plugins in the store.
+   *
+   * @param {string} url - url
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
+   */
+  _getPluginsPage(url, searchParams = null) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        const pluginList = [];
+        let resp;
+        let coll;
+
+        try {
+          if (url) {
+            resp = yield req.get(url);
+          } else if (searchParams) {
+            // then it&apos;s a query and should use the query url
+            resp = yield req.get(self.storeQueryUrl, searchParams);
+          } else {
+            resp = yield req.get(self.storeUrl);
+          }
+          coll = resp.data.collection;
+          // for each plugin item get its data
+          for (let item of coll.items) {
+            pluginList.push(Collection.getItemDescriptors(item));
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        let nextLink = &apos;&apos;;
+        let next = Collection.getLinkRelationUrls(coll, &apos;next&apos;);
+        if (next.length) {
+          nextLink = next[0];
+        }
+
+        let previousLink = &apos;&apos;;
+        let previous = Collection.getLinkRelationUrls(coll, &apos;previous&apos;);
+        if (previous.length) {
+          previousLink = previous[0];
+        }
+
+        resolve({
+          plugins: pluginList,
+          nextLink: nextLink,
+          currentLink: coll.href,
+          previousLink: previousLink,
+        });
+      });
+    });
+  }
+
+  /**
+   * Internal method to get the list of the parameters data given the url of
+   * the parameters.
+   *
+   * @param {string} url - url of the plugin parameters
+   * @return {Object} - JS Promise
+   */
+  _getParameters(url) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        let paramList;
+
+        try {
+          const resp = yield req.get(url); // there can only be a single parameters link
+
+          paramList = yield self._getItemsFromPaginatedCollections(resp.data.collection);
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(paramList);
+      });
+    });
+  }
+
+  /**
+   * Internal method to tet the initial collection in a linked list of paginated
+   * collections.
+   *
+   * @param {string} url - url
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
+   */
+  _getInitialCollection(url, searchParams = null) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      const req = new Request(self.auth, self.contentType, self.timeout);
+      const result = req.get(url, searchParams);
+
+      result
+        .then(resp =&gt; {
+          resolve(resp.data.collection);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Internal method to get the next collection in a linked list of paginated
+   * collections.
+   *
+   * @param {Object} coll - collection object
+   * @return {Object} - JS Promise
+   */
+  _getNextCollection(coll) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      const req = new Request(self.auth, self.contentType, self.timeout);
+      let nextPageUrls = Collection.getLinkRelationUrls(coll, &apos;next&apos;);
+
+      const result = req.get(nextPageUrls[0]);
+
+      result
+        .then(resp =&gt; {
+          resolve(resp.data.collection);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Internal method to recursively get the data (descriptors and related item&apos;s
+   * descriptors) of all the items in a linked list of paginated collections.
+   *
+   * @param {Object} coll - collection object
+   * @param {string[]} followLinkRelations - array of link relation names
+   * @return {Object} - JS Promise
+   */
+  _getItemsFromPaginatedCollections(coll, followLinkRelations = []) {
+    const self = this;
+    const req = new Request(this.auth, this.contentType, this.timeout);
+    const ix = followLinkRelations.indexOf(&apos;next&apos;);
+
+    if (ix !== -1) {
+      followLinkRelations.splice(ix, 1);
+    }
+
+    function getItemsFromPaginatedColl(collObj) {
+      let itemList = [];
+
+      return new Promise((resolve, reject) =&gt; {
+        StoreClient.runAsyncTask(function*() {
+          try {
+            // execution stops here before collections is assigned, and resumed in runAsyncTask
+            let collections = yield self._getPaginatedCollections(collObj); // wait for resp
+
+            for (let collection of collections) {
+              let itemObjList = [];
+              let items = collection.items;
+
+              // for each item get its data and the data of all related items in a depth-first search
+              for (let item of items) {
+                let itemObj = Collection.getItemDescriptors(item);
+
+                for (let link_relation of followLinkRelations) {
+                  let related_urls = Collection.getLinkRelationUrls(item, link_relation);
+
+                  if (related_urls.length &amp;&amp; !(link_relation in itemObj)) {
+                    // assumes link relations and descriptors in an item never have the same name
+                    itemObj[link_relation] = [];
+                  }
+                  for (let url of related_urls) {
+                    let resp = yield req.get(url); // wait for resp
+                    let newItemList = yield getItemsFromPaginatedColl(resp.data.collection); // wait for resp
+                    itemObj[link_relation] = itemObj[link_relation].concat(newItemList);
+                  }
+                }
+                itemObjList.push(itemObj);
+              }
+              itemList = itemList.concat(itemObjList);
+            }
+          } catch (ex) {
+            reject(ex);
+            return;
+          }
+
+          resolve(itemList);
+        });
+      });
+    }
+
+    // start the recursive process
+    return getItemsFromPaginatedColl(coll);
+  }
+
+  /**
+   * Get a full list of paginated collections.
+   *
+   * @param {Object} coll - collection object
+   * @return {Object} - JS Promise
+   */
+  _getPaginatedCollections(coll) {
+    let collections = [coll];
+    const req = new Request(this.auth, this.contentType, this.timeout);
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        try {
+          let nextPageUrls = Collection.getLinkRelationUrls(coll, &apos;next&apos;);
+
+          while (nextPageUrls.length) {
+            // there is only a single next page
+            // execution stops here before resp is assigned, and resumed in runAsyncTask
+            let resp = yield req.get(nextPageUrls[0]);
+            collections = collections.concat(resp.data.collection);
+            nextPageUrls = Collection.getLinkRelationUrls(resp.data.collection, &apos;next&apos;);
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(collections);
+      });
+    });
+  }
+
+  /**
+   * Get currently authenticated user&apos;s information.
+   *
+   * @return {Object} - JS Promise
+   */
+  getUser() {
+    const storeUrl = this.storeUrl;
+    const req = new Request(this.auth, this.contentType, this.timeout);
+
+    return new Promise((resolve, reject) =&gt; {
+      StoreClient.runAsyncTask(function*() {
+        let resp;
+
+        try {
+          resp = yield req.get(storeUrl);
+          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, &apos;user&apos;);
+          resp = yield req.get(userUrls[0]); // there is only a single user url
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(resp.data.collection);
+      });
+    });
+  }
+
+  /**
+   * Update currently authenticated user&apos;s information (email and or password).
+   *
+   * @param {Object} userInfoObj - collection object
+   * @param {string} userInfoObj.email - user&apos;s email
+   * @param {string} userInfoObj.password - user&apos;s password
+   * @return {Object} - JS Promise
+   */
+  updateUser(userInfoObj) {
+    const storeUrl = this.storeUrl;
+    const req = new Request(this.auth, this.contentType, this.timeout);
+
+    const userData = {
+      template: {
+        data: [
+          { name: &apos;email&apos;, value: userInfoObj.email },
+          { name: &apos;password&apos;, value: userInfoObj.password },
+        ],
+      },
+    };
+
+    return new Promise((resolve, reject) =&gt; {
+      StoreClient.runAsyncTask(function*() {
+        let resp;
+
+        try {
+          resp = yield req.get(storeUrl);
+          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, &apos;user&apos;);
+          resp = yield req.put(userUrls[0], userData); // there is only a single user url
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(resp.data.collection);
+      });
+    });
+  }
+
+  /**
+   * Create a new store user account.
+   *
+   * @param {string} usersUrl - url of the user accounts service
+   * @param {string} username - user&apos;s username
+   * @param {string} password - user&apos;s password
+   * @param {string} email - user&apos;s email
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise
+   */
+  static createUser(usersUrl, username, password, email, timeout = 30000) {
+    const req = new Request(undefined, &apos;application/vnd.collection+json&apos;, timeout);
+    const userData = {
+      template: {
+        data: [
+          { name: &apos;username&apos;, value: username },
+          { name: &apos;password&apos;, value: password },
+          { name: &apos;email&apos;, value: email },
+        ],
+      },
+    };
+    const result = req.post(usersUrl, userData);
+
+    return new Promise((resolve, reject) =&gt; {
+      result
+        .then(response =&gt; {
+          resolve(response.data.collection);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Get a user&apos;s login authorization token.
+   * @param {string} authUrl - url of the authentication service
+   * @param {string} username - user&apos;s username
+   * @param {string} password - user&apos;s password
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise
+   */
+  static getAuthToken(authUrl, username, password, timeout = 30000) {
+    const req = new Request(undefined, &apos;application/json&apos;, timeout);
+    const authData = {
+      username: username,
+      password: password,
+    };
+    const result = req.post(authUrl, authData);
+
+    return new Promise((resolve, reject) =&gt; {
+      result
+        .then(response =&gt; {
+          resolve(response.data.token);
+        })
+        .catch(error =&gt; {
+          reject(error);
+        });
+    });
+  }
+
+  /**
+   * Helper method to run an asynchronous task defined by a task generator function.
+   *
+   * @param {function*()} taskGenerator - generator function
+   */
+  static runAsyncTask(taskGenerator) {
+    Request.runAsyncTask(taskGenerator);
+  }
+
+  /*export const login = credentials =&gt; {
+    return axios.get(&apos;https://jsonplaceholder.typicode.com/posts/1&apos;).then(response =&gt; {
+      // process response somehow
+    });
+  };*/
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

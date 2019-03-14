@@ -1,0 +1,2403 @@
+[
+  {
+    "__docId__": 1,
+    "kind": "external",
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Infinity",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "external",
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~NaN",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 3,
+    "kind": "external",
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~undefined",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 4,
+    "kind": "external",
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~null",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 5,
+    "kind": "external",
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 6,
+    "kind": "external",
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~object",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 7,
+    "kind": "external",
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 8,
+    "kind": "external",
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~function",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 9,
+    "kind": "external",
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 10,
+    "kind": "external",
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~boolean",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 11,
+    "kind": "external",
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Symbol",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 12,
+    "kind": "external",
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Error",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 13,
+    "kind": "external",
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~EvalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 14,
+    "kind": "external",
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~InternalError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 15,
+    "kind": "external",
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RangeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 16,
+    "kind": "external",
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ReferenceError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 17,
+    "kind": "external",
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~SyntaxError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 18,
+    "kind": "external",
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~TypeError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 19,
+    "kind": "external",
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~URIError",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 20,
+    "kind": "external",
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 21,
+    "kind": "external",
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~number",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 22,
+    "kind": "external",
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Date",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 23,
+    "kind": "external",
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~String",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 24,
+    "kind": "external",
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~string",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 25,
+    "kind": "external",
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~RegExp",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 26,
+    "kind": "external",
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 27,
+    "kind": "external",
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 28,
+    "kind": "external",
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 29,
+    "kind": "external",
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint8ClampedArray",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 30,
+    "kind": "external",
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 31,
+    "kind": "external",
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint16Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Int32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Uint32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float32Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Float64Array",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Map",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Set",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakMap",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~WeakSet",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~ArrayBuffer",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~DataView",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~JSON",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Promise",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Generator",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~GeneratorFunction",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Reflect",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "src/.external-ecmascript.js",
+    "static": true,
+    "longname": "src/.external-ecmascript.js~Proxy",
+    "access": "public",
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "file",
+    "name": "src/cj.js",
+    "content": "/**\n * Collection+Json utility object.\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - error message\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation from a collection or item object.\n   *\n   * @param {Object} obj - Collection+Json collection or item object\n   * @param {string} relationName - name of the link relation\n   * @return {string[]} - list of urls\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors).\n   *\n   * @param {Object} item - Collection+Json item object\n   * @return {Object} - object whose properties and values are the item's descriptor names and values respectively\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the url of the representation given by a collection obj.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - url of the resource representation\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the list of descriptor names within a collection's template object.\n   *\n   * @param {Object} template - Collection+Json template object\n   * @return {string[]} - list of descriptor names\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Get the list of descriptor names within a Collection+Json query array.\n   *\n   * @param {Object[]} queryArr - Collection+Json query array\n   * @return {string[]} - list of query parameter names\n   */\n  static getQueryParameters(queryArr) {\n    return queryArr[0].data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Make a Collection+Json template object from a regular object whose properties are\n   * the item descriptors.\n   *\n   * @param {Object} descriptorsObj - item descriptors object\n   * @return {Object} - template object\n   */\n  static makeTemplate(descriptorsObj) {\n    const template = { data: [] };\n\n    let i = 0;\n    for (let property in descriptorsObj) {\n      if (descriptorsObj.hasOwnProperty(property)) {\n        template.data[i] = { name: property, value: descriptorsObj[property] };\n      }\n      i++;\n    }\n    return template;\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/cj.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 49,
+    "kind": "class",
+    "name": "Collection",
+    "memberof": "src/cj.js",
+    "static": true,
+    "longname": "src/cj.js~Collection",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisstoreapi",
+    "importStyle": "Collection",
+    "description": "Collection+Json utility object.",
+    "lineNumber": 4,
+    "interface": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "name": "getErrorMessage",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getErrorMessage",
+    "access": "public",
+    "description": "Get the error message from the collection object.",
+    "lineNumber": 11,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collection",
+        "description": "Collection+Json collection object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "error message"
+    }
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "name": "getLinkRelationUrls",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getLinkRelationUrls",
+    "access": "public",
+    "description": "Get the list of urls for a link relation from a collection or item object.",
+    "lineNumber": 25,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "obj",
+        "description": "Collection+Json collection or item object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "relationName",
+        "description": "name of the link relation"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": "list of urls"
+    }
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "name": "getItemDescriptors",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getItemDescriptors",
+    "access": "public",
+    "description": "Get an item's data (descriptors).",
+    "lineNumber": 38,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "item",
+        "description": "Collection+Json item object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "object whose properties and values are the item's descriptor names and values respectively"
+    }
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
+    "name": "getUrl",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getUrl",
+    "access": "public",
+    "description": "Get the url of the representation given by a collection obj.",
+    "lineNumber": 54,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collection",
+        "description": "Collection+Json collection object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "url of the resource representation"
+    }
+  },
+  {
+    "__docId__": 54,
+    "kind": "method",
+    "name": "getTemplateDescriptorNames",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getTemplateDescriptorNames",
+    "access": "public",
+    "description": "Get the list of descriptor names within a collection's template object.",
+    "lineNumber": 64,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "template",
+        "description": "Collection+Json template object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": "list of descriptor names"
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "method",
+    "name": "getQueryParameters",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getQueryParameters",
+    "access": "public",
+    "description": "Get the list of descriptor names within a Collection+Json query array.",
+    "lineNumber": 74,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "queryArr",
+        "description": "Collection+Json query array"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": "list of query parameter names"
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "method",
+    "name": "makeTemplate",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.makeTemplate",
+    "access": "public",
+    "description": "Make a Collection+Json template object from a regular object whose properties are\nthe item descriptors.",
+    "lineNumber": 85,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "descriptorsObj",
+        "description": "item descriptors object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "template object"
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "file",
+    "name": "src/client.js",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport StoreRequestException from './exception';\n\n/**\n * Chris store object.\n *\n * @module client\n */\nexport default class StoreClient {\n  /**\n   * Constructor\n   *\n   * @param {string} storeUrl - url of the ChRIS storeservice\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(storeUrl, auth = null, timeout = 30000) {\n    this.storeUrl = storeUrl;\n    this.storeQueryUrl = storeUrl + 'search/';\n    this.auth = auth;\n    this.timeout = timeout;\n    this.contentType = 'application/vnd.collection+json';\n  }\n\n  /**\n   * Get a plugin's information (descriptors and parameters) given its ChRIS\n   * store id.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  getPlugin(id) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const searchParams = { id: id };\n        let plugin;\n\n        try {\n          const resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const item = coll.items[0];\n            plugin = Collection.getItemDescriptors(item);\n            const parametersLinks = Collection.getLinkRelationUrls(item, 'parameters');\n\n            if (parametersLinks.length) {\n              const paramList = yield self._getParameters(parametersLinks[0]); // there can only be a single parameters link\n              plugin.parameters = paramList;\n            }\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(plugin);\n      });\n    });\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get a paginated list\n   * of all plugins in the store. callback function, if provided, is called for\n   * each page and passed an argument object containing the plugin list for that\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters,\n   * @param {function(pluginList: Object)} [callback=null]\n   * @return {Object} - JS Promise\n   */\n  getPlugins(searchParams = null, callback = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        let pluginList = [];\n        let resp;\n\n        try {\n          resp = yield self.getPluginsInitialPage(searchParams);\n          pluginList = pluginList.concat(resp.plugins);\n          if (callback) {\n            callback(resp);\n          }\n          while (resp.nextLink) {\n            resp = yield self.getPluginsPage(resp.nextLink);\n            pluginList = pluginList.concat(resp.plugins);\n            if (callback) {\n              callback(resp);\n            }\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(pluginList);\n      });\n    });\n  }\n\n  /**\n   * Add a new plugin to the ChRIS store.\n   *\n   * @param {string} name - plugin name\n   * @param {string} dockImage - plugin docker image\n   * @param {Object} descriptorFile - file blob\n   * @param {string} publicRepo - url of the plugin public repository\n   * @return {Object} - JS Promise\n   */\n  addPlugin(name, dockImage, descriptorFile, publicRepo) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const data = {\n          name: name,\n          dock_image: dockImage,\n          public_repo: publicRepo,\n        };\n        let resp;\n\n        try {\n          resp = yield req.get(self.storeUrl);\n          const coll = resp.data.collection;\n          const userPluginsUrls = Collection.getLinkRelationUrls(coll, 'user_plugins');\n\n          if (userPluginsUrls.length) {\n            // use userPluginsUrls[0] bc there can only be a single user_plugins url\n            resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });\n          } else {\n            const errMsg = 'Could not find url for POST request. Make sure you are authenticated';\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Modify an existing plugin in the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @param {string} dockImage - plugin docker image\n   * @param {string} publicRepo - url of the plugin public repository\n   * @param {string} newOwner - username of a new owner for the plugin\n   * @return {Object} - JS Promise\n   */\n  modifyPlugin(id, dockImage = '', publicRepo = '', newOwner = '') {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let resp;\n\n        try {\n          const searchParams = { id: id };\n          resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            let data = {};\n\n            if (dockImage) {\n              data.dock_image = dockImage;\n            } else {\n              data.dock_image = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'dock_image';\n              })[0].value;\n            }\n            if (publicRepo) {\n              data.public_repo = publicRepo;\n            } else {\n              data.public_repo = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'public_repo';\n              })[0].value;\n            }\n            if (newOwner) {\n              data.owner = newOwner;\n            }\n\n            if (self.contentType === 'application/vnd.collection+json') {\n              data = { template: Collection.makeTemplate(data) };\n            }\n            resp = yield req.put(url, data);\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Remove an existing plugin from the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  removePlugin(id) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const searchParams = { id: id };\n        let resp;\n\n        try {\n          resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            resp = yield req.delete(url);\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve();\n      });\n    });\n  }\n\n  /**\n   * Get the first page of a paginated list of plugin data (descriptors) given\n   * query search parameters. If no search parameters is given then return the\n   * first page of a paginated list of all plugins in the store.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  getPluginsInitialPage(searchParams = null) {\n    return this._getPluginsPage(undefined, searchParams);\n  }\n\n  /**\n   * Get the single page corresponding to the url argument from a paginated list\n   * of plugin data (descriptors).\n   *\n   * @param {string} url - url of the page\n   * @return {Object} - JS Promise\n   */\n  getPluginsPage(url) {\n    return this._getPluginsPage(url);\n  }\n\n  /**\n   * Internal method to get a paginated list of plugin data (descriptors) given\n   * query search parameters. If no search parameters is given then return a\n   * paginated list of all plugins in the store.\n   *\n   * @param {string} url - url\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  _getPluginsPage(url, searchParams = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const pluginList = [];\n        let resp;\n        let coll;\n\n        try {\n          if (url) {\n            resp = yield req.get(url);\n          } else if (searchParams) {\n            // then it's a query and should use the query url\n            resp = yield req.get(self.storeQueryUrl, searchParams);\n          } else {\n            resp = yield req.get(self.storeUrl);\n          }\n          coll = resp.data.collection;\n          // for each plugin item get its data\n          for (let item of coll.items) {\n            pluginList.push(Collection.getItemDescriptors(item));\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        let nextLink = '';\n        let next = Collection.getLinkRelationUrls(coll, 'next');\n        if (next.length) {\n          nextLink = next[0];\n        }\n\n        let previousLink = '';\n        let previous = Collection.getLinkRelationUrls(coll, 'previous');\n        if (previous.length) {\n          previousLink = previous[0];\n        }\n\n        resolve({\n          plugins: pluginList,\n          nextLink: nextLink,\n          currentLink: coll.href,\n          previousLink: previousLink,\n        });\n      });\n    });\n  }\n\n  /**\n   * Internal method to get the list of the parameters data given the url of\n   * the parameters.\n   *\n   * @param {string} url - url of the plugin parameters\n   * @return {Object} - JS Promise\n   */\n  _getParameters(url) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let paramList;\n\n        try {\n          const resp = yield req.get(url); // there can only be a single parameters link\n\n          paramList = yield self._getItemsFromPaginatedCollections(resp.data.collection);\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(paramList);\n      });\n    });\n  }\n\n  /**\n   * Internal method to tet the initial collection in a linked list of paginated\n   * collections.\n   *\n   * @param {string} url - url\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  _getInitialCollection(url, searchParams = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      const req = new Request(self.auth, self.contentType, self.timeout);\n      const result = req.get(url, searchParams);\n\n      result\n        .then(resp => {\n          resolve(resp.data.collection);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Internal method to get the next collection in a linked list of paginated\n   * collections.\n   *\n   * @param {Object} coll - collection object\n   * @return {Object} - JS Promise\n   */\n  _getNextCollection(coll) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      const req = new Request(self.auth, self.contentType, self.timeout);\n      let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');\n\n      const result = req.get(nextPageUrls[0]);\n\n      result\n        .then(resp => {\n          resolve(resp.data.collection);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Internal method to recursively get the data (descriptors and related item's\n   * descriptors) of all the items in a linked list of paginated collections.\n   *\n   * @param {Object} coll - collection object\n   * @param {string[]} followLinkRelations - array of link relation names\n   * @return {Object} - JS Promise\n   */\n  _getItemsFromPaginatedCollections(coll, followLinkRelations = []) {\n    const self = this;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n    const ix = followLinkRelations.indexOf('next');\n\n    if (ix !== -1) {\n      followLinkRelations.splice(ix, 1);\n    }\n\n    function getItemsFromPaginatedColl(collObj) {\n      let itemList = [];\n\n      return new Promise((resolve, reject) => {\n        StoreClient.runAsyncTask(function*() {\n          try {\n            // execution stops here before collections is assigned, and resumed in runAsyncTask\n            let collections = yield self._getPaginatedCollections(collObj); // wait for resp\n\n            for (let collection of collections) {\n              let itemObjList = [];\n              let items = collection.items;\n\n              // for each item get its data and the data of all related items in a depth-first search\n              for (let item of items) {\n                let itemObj = Collection.getItemDescriptors(item);\n\n                for (let link_relation of followLinkRelations) {\n                  let related_urls = Collection.getLinkRelationUrls(item, link_relation);\n\n                  if (related_urls.length && !(link_relation in itemObj)) {\n                    // assumes link relations and descriptors in an item never have the same name\n                    itemObj[link_relation] = [];\n                  }\n                  for (let url of related_urls) {\n                    let resp = yield req.get(url); // wait for resp\n                    let newItemList = yield getItemsFromPaginatedColl(resp.data.collection); // wait for resp\n                    itemObj[link_relation] = itemObj[link_relation].concat(newItemList);\n                  }\n                }\n                itemObjList.push(itemObj);\n              }\n              itemList = itemList.concat(itemObjList);\n            }\n          } catch (ex) {\n            reject(ex);\n            return;\n          }\n\n          resolve(itemList);\n        });\n      });\n    }\n\n    // start the recursive process\n    return getItemsFromPaginatedColl(coll);\n  }\n\n  /**\n   * Get a full list of paginated collections.\n   *\n   * @param {Object} coll - collection object\n   * @return {Object} - JS Promise\n   */\n  _getPaginatedCollections(coll) {\n    let collections = [coll];\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        try {\n          let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');\n\n          while (nextPageUrls.length) {\n            // there is only a single next page\n            // execution stops here before resp is assigned, and resumed in runAsyncTask\n            let resp = yield req.get(nextPageUrls[0]);\n            collections = collections.concat(resp.data.collection);\n            nextPageUrls = Collection.getLinkRelationUrls(resp.data.collection, 'next');\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(collections);\n      });\n    });\n  }\n\n  /**\n   * Get currently authenticated user's information.\n   *\n   * @return {Object} - JS Promise\n   */\n  getUser() {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.get(userUrls[0]); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Update currently authenticated user's information (email and or password).\n   *\n   * @param {Object} userInfoObj - collection object\n   * @param {string} userInfoObj.email - user's email\n   * @param {string} userInfoObj.password - user's password\n   * @return {Object} - JS Promise\n   */\n  updateUser(userInfoObj) {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    const userData = {\n      template: {\n        data: [\n          { name: 'email', value: userInfoObj.email },\n          { name: 'password', value: userInfoObj.password },\n        ],\n      },\n    };\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.put(userUrls[0], userData); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Create a new store user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {string} email - user's email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    const result = req.post(usersUrl, userData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.collection);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Get a user's login authorization token.\n   * @param {string} authUrl - url of the authentication service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    const result = req.post(authUrl, authData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.token);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /*export const login = credentials => {\n    return axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {\n      // process response somehow\n    });\n  };*/\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/client.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 58,
+    "kind": "class",
+    "name": "StoreClient",
+    "memberof": "src/client.js",
+    "static": true,
+    "longname": "src/client.js~StoreClient",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisstoreapi",
+    "importStyle": "StoreClient",
+    "description": "Chris store object.",
+    "lineNumber": 11,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "client"
+      }
+    ],
+    "interface": false
+  },
+  {
+    "__docId__": 59,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "storeUrl",
+        "description": "url of the ChRIS storeservice"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "auth",
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "auth.token",
+        "description": "authentication token"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ]
+  },
+  {
+    "__docId__": 60,
+    "kind": "member",
+    "name": "storeUrl",
+    "memberof": "src/client.js~StoreClient",
+    "static": false,
+    "longname": "src/client.js~StoreClient#storeUrl",
+    "access": "public",
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 61,
+    "kind": "member",
+    "name": "storeQueryUrl",
+    "memberof": "src/client.js~StoreClient",
+    "static": false,
+    "longname": "src/client.js~StoreClient#storeQueryUrl",
+    "access": "public",
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 62,
+    "kind": "member",
+    "name": "auth",
+    "memberof": "src/client.js~StoreClient",
+    "static": false,
+    "longname": "src/client.js~StoreClient#auth",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "member",
+    "name": "timeout",
+    "memberof": "src/client.js~StoreClient",
+    "static": false,
+    "longname": "src/client.js~StoreClient#timeout",
+    "access": "public",
+    "description": null,
+    "lineNumber": 24,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "member",
+    "name": "contentType",
+    "memberof": "src/client.js~StoreClient",
+    "static": false,
+    "longname": "src/client.js~StoreClient#contentType",
+    "access": "public",
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "method",
+    "name": "getPlugin",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#getPlugin",
+    "access": "public",
+    "description": "Get a plugin's information (descriptors and parameters) given its ChRIS\nstore id.",
+    "lineNumber": 35,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "plugin id"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
+    "name": "getPlugins",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#getPlugins",
+    "access": "public",
+    "description": "Get a paginated list of plugin data (descriptors) given query search\nparameters. If no search parameters is given then get a paginated list\nof all plugins in the store. callback function, if provided, is called for\neach page and passed an argument object containing the plugin list for that\npage.",
+    "lineNumber": 82,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "searchParams",
+        "description": "search parameters,"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "function(pluginList: Object)"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "callback",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "name": "addPlugin",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#addPlugin",
+    "access": "public",
+    "description": "Add a new plugin to the ChRIS store.",
+    "lineNumber": 122,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "name",
+        "description": "plugin name"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dockImage",
+        "description": "plugin docker image"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "descriptorFile",
+        "description": "file blob"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "publicRepo",
+        "description": "url of the plugin public repository"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 68,
+    "kind": "method",
+    "name": "modifyPlugin",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#modifyPlugin",
+    "access": "public",
+    "description": "Modify an existing plugin in the ChRIS store.",
+    "lineNumber": 166,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "plugin id"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dockImage",
+        "description": "plugin docker image"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "publicRepo",
+        "description": "url of the plugin public repository"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "newOwner",
+        "description": "username of a new owner for the plugin"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 69,
+    "kind": "method",
+    "name": "removePlugin",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#removePlugin",
+    "access": "public",
+    "description": "Remove an existing plugin from the ChRIS store.",
+    "lineNumber": 225,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "id",
+        "description": "plugin id"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 70,
+    "kind": "method",
+    "name": "getPluginsInitialPage",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#getPluginsInitialPage",
+    "access": "public",
+    "description": "Get the first page of a paginated list of plugin data (descriptors) given\nquery search parameters. If no search parameters is given then return the\nfirst page of a paginated list of all plugins in the store.",
+    "lineNumber": 263,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "searchParams",
+        "description": "search parameters"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 71,
+    "kind": "method",
+    "name": "getPluginsPage",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#getPluginsPage",
+    "access": "public",
+    "description": "Get the single page corresponding to the url argument from a paginated list\nof plugin data (descriptors).",
+    "lineNumber": 274,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the page"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 72,
+    "kind": "method",
+    "name": "_getPluginsPage",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#_getPluginsPage",
+    "access": "private",
+    "description": "Internal method to get a paginated list of plugin data (descriptors) given\nquery search parameters. If no search parameters is given then return a\npaginated list of all plugins in the store.",
+    "lineNumber": 287,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "searchParams",
+        "description": "search parameters"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 73,
+    "kind": "method",
+    "name": "_getParameters",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#_getParameters",
+    "access": "private",
+    "description": "Internal method to get the list of the parameters data given the url of\nthe parameters.",
+    "lineNumber": 345,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the plugin parameters"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 74,
+    "kind": "method",
+    "name": "_getInitialCollection",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#_getInitialCollection",
+    "access": "private",
+    "description": "Internal method to tet the initial collection in a linked list of paginated\ncollections.",
+    "lineNumber": 375,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "searchParams",
+        "description": "search parameters"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 75,
+    "kind": "method",
+    "name": "_getNextCollection",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#_getNextCollection",
+    "access": "private",
+    "description": "Internal method to get the next collection in a linked list of paginated\ncollections.",
+    "lineNumber": 399,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "coll",
+        "description": "collection object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 76,
+    "kind": "method",
+    "name": "_getItemsFromPaginatedCollections",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#_getItemsFromPaginatedCollections",
+    "access": "private",
+    "description": "Internal method to recursively get the data (descriptors and related item's\ndescriptors) of all the items in a linked list of paginated collections.",
+    "lineNumber": 426,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "coll",
+        "description": "collection object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "followLinkRelations",
+        "description": "array of link relation names"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "method",
+    "name": "_getPaginatedCollections",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#_getPaginatedCollections",
+    "access": "private",
+    "description": "Get a full list of paginated collections.",
+    "lineNumber": 489,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "coll",
+        "description": "collection object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "method",
+    "name": "getUser",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#getUser",
+    "access": "public",
+    "description": "Get currently authenticated user's information.",
+    "lineNumber": 520,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 79,
+    "kind": "method",
+    "name": "updateUser",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#updateUser",
+    "access": "public",
+    "description": "Update currently authenticated user's information (email and or password).",
+    "lineNumber": 550,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userInfoObj",
+        "description": "collection object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userInfoObj.email",
+        "description": "user's email"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "userInfoObj.password",
+        "description": "user's password"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "name": "createUser",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/client.js~StoreClient.createUser",
+    "access": "public",
+    "description": "Create a new store user account.",
+    "lineNumber": 591,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "usersUrl",
+        "description": "url of the user accounts service"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "username",
+        "description": "user's username"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "password",
+        "description": "user's password"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "email",
+        "description": "user's email"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "getAuthToken",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/client.js~StoreClient.getAuthToken",
+    "access": "public",
+    "description": "Get a user's login authorization token.",
+    "lineNumber": 623,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "authUrl",
+        "description": "url of the authentication service"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "username",
+        "description": "user's username"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "password",
+        "description": "user's password"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "runAsyncTask",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/client.js~StoreClient.runAsyncTask",
+    "access": "public",
+    "description": "Helper method to run an asynchronous task defined by a task generator function.",
+    "lineNumber": 647,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function*()"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "taskGenerator",
+        "description": "generator function"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 83,
+    "kind": "file",
+    "name": "src/exception.js",
+    "content": "/**\n * Custom exception object.\n *\n * @module exception\n */\nexport default class StoreRequestException extends Error {\n  constructor(...args) {\n    super(...args);\n    this.name = this.constructor.name;\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/exception.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 84,
+    "kind": "class",
+    "name": "StoreRequestException",
+    "memberof": "src/exception.js",
+    "static": true,
+    "longname": "src/exception.js~StoreRequestException",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisstoreapi",
+    "importStyle": "StoreRequestException",
+    "description": "Custom exception object.",
+    "lineNumber": 6,
+    "unknown": [
+      {
+        "tagName": "@module",
+        "tagValue": "exception"
+      }
+    ],
+    "interface": false,
+    "extends": [
+      "Error"
+    ]
+  },
+  {
+    "__docId__": 85,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/exception.js~StoreRequestException",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/exception.js~StoreRequestException#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true
+  },
+  {
+    "__docId__": 86,
+    "kind": "member",
+    "name": "name",
+    "memberof": "src/exception.js~StoreRequestException",
+    "static": false,
+    "longname": "src/exception.js~StoreRequestException#name",
+    "access": "public",
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "file",
+    "name": "src/index.js",
+    "content": "import StoreClient from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport StoreRequestException from './exception';\n\nexport default StoreClient;\nexport { Request };\nexport { Collection };\nexport { StoreRequestException };\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 88,
+    "kind": "file",
+    "name": "src/request.js",
+    "content": "/** * Imports ***/\nimport axios from 'axios';\nimport Collection from './cj';\nimport RequestException from './exception';\n\n/**\n * Http request object.\n */\nexport default class Request {\n  /**\n   * Constructor\n   *\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   * @param {string} contentType - request content type\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(auth, contentType, timeout = 30000) {\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = contentType;\n\n    /** @type {number} */\n    this.timeout = timeout;\n  }\n\n  /**\n   * Perform a GET request.\n   *\n   * @param {string} url - url of the resource\n   * @param {?Object} params - search parameters\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  get(url, params = null) {\n    const config = this._getConfig(url, 'get');\n\n    if (params) {\n      config.params = params;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Perform a POST request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  post(url, data, uploadFileObj = null) {\n    return this._postOrPut('post', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a PUT request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  put(url, data, uploadFileObj = null) {\n    return this._postOrPut('put', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a DELETE request.\n   *\n   * @param {string} url - url of the resource\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  delete(url) {\n    const config = this._getConfig(url, 'delete');\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to make either a POST or PUT request.\n   *\n   * @param {string} requestMethod - either 'post' or 'put'\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  _postOrPut(requestMethod, url, data, uploadFileObj = null) {\n    const config = this._getConfig(url, requestMethod);\n    config.data = data;\n\n    if (uploadFileObj) {\n      config['headers']['content-type'] = 'multipart/form-data';\n      const bFormData = new FormData();\n\n      for (let property in data) {\n        if (data.hasOwnProperty(property)) {\n          bFormData.set(property, data[property]);\n        }\n      }\n      for (let property in uploadFileObj) {\n        if (uploadFileObj.hasOwnProperty(property)) {\n          bFormData.set(property, uploadFileObj[property]);\n        }\n      }\n      config.data = bFormData;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to create a config file for axios.\n   *\n   * @param {string} url - url of the resource\n   * @param {string} method - request verb\n   * @return {Object} - axios configuration object\n   */\n  _getConfig(url, method) {\n    const config = {\n      url: url,\n      method: method,\n      headers: {\n        Accept: this.contentType,\n        'content-type': this.contentType,\n      },\n      timeout: this.timeout,\n    };\n\n    if (this.auth && this.auth.username && this.auth.password) {\n      config.auth = this.auth;\n    } else if (this.auth && this.auth.token) {\n      config.headers.Authorization = 'Token ' + this.auth.token;\n    }\n\n    if (this.contentType === 'application/octet-stream') {\n      config.responseType = 'blob';\n    }\n\n    return config;\n  }\n\n  /**\n   * Internal method to make an axios request.\n   *\n   * @param {Object} config - axios configuration object\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  static _callAxios(config) {\n    return axios(config)\n      .then(response => {\n        return response;\n      })\n      .catch(error => {\n        Request._handleRequestError(error);\n      });\n  }\n\n  /**\n   * Internal method to handle errors produced by HTTP requests.\n   *\n   * @param {Object} error - axios error object\n   * @throws {RequestException} throw error\n   */\n  static _handleRequestError(error) {\n    let errMsg;\n\n    if (error.response) {\n      // The request was made and the server responded with a status code\n      // that falls out of the range of 2xx\n      //console.log(error.response.data);\n      //console.log(error.response.status);\n      //console.log(error.response.headers);\n      errMsg = error.response;\n      if (error.response.data.collection) {\n        errMsg = Collection.getErrorMessage(error.response.data.collection);\n      }\n    } else if (error.request) {\n      // The request was made but no response was received\n      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of\n      // http.ClientRequest in node.js\n      //console.log(error.request);\n      errMsg = error.request;\n    } else {\n      // Something happened in setting up the request that triggered an Error\n      //console.log('Error', error.message);\n      errMsg = error.message;\n    }\n\n    throw new RequestException(errMsg);\n    //console.log(error.config);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    // create the iterator\n    let task = taskGenerator();\n    // start the task\n    let result = task.next();\n\n    // recursive function to iterate through\n    (function step() {\n      // if there's more to do (result.value and result.done are iterator's properties)\n      if (!result.done) {\n        result.value\n          .then(resp => {\n            result = task.next(resp); // send this resp value to the yield\n            step();\n          })\n          .catch(error => {\n            result = task.throw(error); // throws error within taskGenerator generator\n            step();\n          });\n      }\n    })(); // start the recursive process by calling it immediatly\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/request.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 89,
+    "kind": "class",
+    "name": "Request",
+    "memberof": "src/request.js",
+    "static": true,
+    "longname": "src/request.js~Request",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisstoreapi",
+    "importStyle": "Request",
+    "description": "Http request object.",
+    "lineNumber": 9,
+    "interface": false
+  },
+  {
+    "__docId__": 90,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth",
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "auth.token",
+        "description": "authentication token"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "contentType",
+        "description": "request content type"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ]
+  },
+  {
+    "__docId__": 91,
+    "kind": "member",
+    "name": "auth",
+    "memberof": "src/request.js~Request",
+    "static": false,
+    "longname": "src/request.js~Request#auth",
+    "access": "public",
+    "description": null,
+    "lineNumber": 20,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 92,
+    "kind": "member",
+    "name": "contentType",
+    "memberof": "src/request.js~Request",
+    "static": false,
+    "longname": "src/request.js~Request#contentType",
+    "access": "public",
+    "description": null,
+    "lineNumber": 23,
+    "type": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 93,
+    "kind": "member",
+    "name": "timeout",
+    "memberof": "src/request.js~Request",
+    "static": false,
+    "longname": "src/request.js~Request#timeout",
+    "access": "public",
+    "description": null,
+    "lineNumber": 26,
+    "type": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 94,
+    "kind": "method",
+    "name": "get",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#get",
+    "access": "public",
+    "description": "Perform a GET request.",
+    "lineNumber": 36,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "params",
+        "description": "search parameters"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to an ``axios reponse`` object"
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "method",
+    "name": "post",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#post",
+    "access": "public",
+    "description": "Perform a POST request.",
+    "lineNumber": 55,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "JSON data object"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "uploadFileObj",
+        "description": "custom object with a property with the same name as\nthe API descriptor corresponding to the file and whose value is the file blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to an ``axios reponse`` object"
+    }
+  },
+  {
+    "__docId__": 96,
+    "kind": "method",
+    "name": "put",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#put",
+    "access": "public",
+    "description": "Perform a PUT request.",
+    "lineNumber": 68,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "JSON data object"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "uploadFileObj",
+        "description": "custom object with a property with the same name as\nthe API descriptor corresponding to the file and whose value is the file blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to an ``axios reponse`` object"
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "method",
+    "name": "delete",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#delete",
+    "access": "public",
+    "description": "Perform a DELETE request.",
+    "lineNumber": 78,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to an ``axios reponse`` object"
+    }
+  },
+  {
+    "__docId__": 98,
+    "kind": "method",
+    "name": "_postOrPut",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#_postOrPut",
+    "access": "private",
+    "description": "Internal method to make either a POST or PUT request.",
+    "lineNumber": 94,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "requestMethod",
+        "description": "either 'post' or 'put'"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "JSON data object"
+      },
+      {
+        "nullable": true,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "uploadFileObj",
+        "description": "custom object with a property with the same name as\nthe API descriptor corresponding to the file and whose value is the file blob"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to an ``axios reponse`` object"
+    }
+  },
+  {
+    "__docId__": 99,
+    "kind": "method",
+    "name": "_getConfig",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/request.js~Request#_getConfig",
+    "access": "private",
+    "description": "Internal method to create a config file for axios.",
+    "lineNumber": 125,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "method",
+        "description": "request verb"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "axios configuration object"
+    }
+  },
+  {
+    "__docId__": 100,
+    "kind": "method",
+    "name": "_callAxios",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/request.js~Request._callAxios",
+    "access": "private",
+    "description": "Internal method to make an axios request.",
+    "lineNumber": 155,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "config",
+        "description": "axios configuration object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to an ``axios reponse`` object"
+    }
+  },
+  {
+    "__docId__": 101,
+    "kind": "method",
+    "name": "_handleRequestError",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/request.js~Request._handleRequestError",
+    "access": "private",
+    "description": "Internal method to handle errors produced by HTTP requests.",
+    "lineNumber": 171,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "error",
+        "description": "axios error object"
+      }
+    ],
+    "throws": [
+      {
+        "types": [
+          "RequestException"
+        ],
+        "description": "throw error"
+      }
+    ],
+    "return": null
+  },
+  {
+    "__docId__": 102,
+    "kind": "method",
+    "name": "runAsyncTask",
+    "memberof": "src/request.js~Request",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/request.js~Request.runAsyncTask",
+    "access": "public",
+    "description": "Helper method to run an asynchronous task defined by a task generator function.",
+    "lineNumber": 205,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function*()"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "taskGenerator",
+        "description": "generator function"
+      }
+    ],
+    "return": null
+  },
+  {
+    "kind": "index",
+    "content": "# ChRIS Store API\nJJavaScript6 client for the ChRIS Store API.\n\n## Usage\n\n``` javascript\nimport StoreClient from '@fnndsc/chrisstoreapi';\n\nconst storeUrl = 'http://localhost:8010/api/v1/';\nconst usersUrl = storeUrl + 'users/';\nconst authUrl = storeUrl + 'auth-token/';\nlet authToken;\nlet resp;\n\n\n// create a new user\nresp = StoreClient.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');\nresp\n  .then(user => {\n\n    window.console.log('New user: ', user);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// fetch a user auth token\nresp = StoreClient.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');\nresp\n  .then(token => {\n\n    window.console.log('Token: ', token);\n    authToken = token;\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// create a new client instance  without an auth object to make allowed unauthenticated requests\nlet client = new StoreClient(storeUrl);\n\n\n// fetch a plugin given its id\nresp = client.getPlugin(1);\nresp\n  .then(plugin => {\n\n    window.console.log('Plugin: ', plugin);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// fetch in a list a subset of the plugins in the store given search params\nlet searchParams = { limit: 10, offset:10 };\nresp = client.getPlugins(searchParams);\nresp\n  .then(smallPluginList => {\n\n    window.console.log('Small plugin list: ', smallPluginList);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// fetch in a list a subset of the plugins in the store created by a specific user\nlet searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };\nresp = client.getPlugins(searchParams);\nresp\n  .then(userPluginList => {\n\n    window.console.log('A subset of the plugins created by the user: ', userPluginList);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// fetch a paginated list of plugins given search params and call a callback function on every page of the plugin list\nsearchParams = { type: 'fs' };\nresp = client.getPlugins(searchParams, onePageFsPluginList => {\n\n  window.console.log('One page of the fs plugin list: ', onePageFsPluginList);\n});\nresp\n  .then(fullFsPluginList => {\n\n    window.console.log('\"fs\" plugins: ', fullFsPluginList);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// create a new client instance  with an auth object to be able to make required authenticated requests\nconst auth = {token: authToken}; // or alternatively auth = {username: 'cubeadmin', password: 'cubeadmin1234'}\nclient = new StoreClient(storeUrl, auth);\n\n\n// add a new plugin to the store\nconst testPlgName = 'myPlugin';\nconst testPlgDockImg = 'fnndsc/pl-myPlugin';\nconst testPlgPublicRepo = 'https://github.com/FNNDSC/pl-myPlugin';\nconst testPluginRepresentation = {\n  creation_date: '2018-05-22T15:49:52.419437Z',\n  modification_date: '2018-05-22T15:49:52.419481Z',\n  type: 'fs',\n  authors: 'FNNDSC (dev@babyMRI.org)',\n  title: 'Simple chris fs app',\n  category: '',\n  description: 'A simple chris fs app demo',\n  documentation: 'http://wiki',\n  license: 'Opensource (MIT)',\n  version: '0.1',\n  execshell: 'python3',\n  selfpath: '/usr/src/simplefsapp',\n  selfexec: 'simplefsapp.py',\n  min_number_of_workers: 1,\n  max_number_of_workers: 1,\n  min_cpu_limit: 1000,\n  max_cpu_limit: 2147483647,\n  min_memory_limit: 200,\n  max_memory_limit: 2147483647,\n  min_gpu_limit: 0,\n  max_gpu_limit: 0,\n  parameters: [\n    {\n      name: 'dir',\n      type: 'path',\n      optional: true,\n      default: './',\n      flag: '--dir',\n      action: 'store',\n      help: 'look up directory',\n    },\n  ],\n};\n\nlet fileData = JSON.stringify(testPluginRepresentation);\nlet dfile = new Blob([fileData], { type: 'application/json' });\n\nresp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);\nresp\n  .then(response => {\n\n      window.console.log('New plugin in the store: ', response);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// modify an existing plugin's representation in the store\nconst testPlgId = 1;\ntestPluginRepresentation.description = 'A new description';\nfileData = JSON.stringify(testPluginRepresentation);\ndfile = new Blob([fileData], { type: 'application/json' });\n\nresp = client.modifyPlugin(testPlgId, dfile);\nresp\n  .then(response => {\n\n    window.console.log('Updated description for plugin: ', testPlgName);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// change an existing plugin's name (the descriptor file is always required)\nresp = client.modifyPlugin(testPlgId, dfile, 'newPluginName');\nresp\n  .then(response => {\n\n    window.console.log('Plugin name is now newPluginName');\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// share an existing plugin with another store user (who then becomes an owner of the plugin)\nresp = client.modifyPlugin(testPlgId, dfile, undefined, undefined, undefined, 'chris');\nresp\n  .then(response => {\n\n    window.console.log('User chris is now in the list of owners of plugin with id : ' + testPlgId);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n\n\n// remove an existing plugin from the store\nresp = client.removePlugin(testPlgId);\nresp\n  .then(() => {\n\n    window.console.log('Removed plugin with id: ', testPlgId);\n  })\n  .catch(error => {\n\n    window.console.log('Something went wrong with this request!!!: ', error);\n  });\n```\n\n## API reference\n\nPlease check the API reference links to learn more about the API resource objects and their functionality.\n",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/APIDocumentation.md",
+    "name": "./APIDocumentation.md",
+    "static": true,
+    "access": "public"
+  },
+  {
+    "kind": "packageJSON",
+    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"1.1.3\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/package.json",
+    "name": "package.json",
+    "static": true,
+    "access": "public"
+  }
+]
