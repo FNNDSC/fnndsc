@@ -6,3 +6,4 @@ Mono repo for FNNDSC's Javascript projects.
 
 * [ChRIS REST API client](js/chrisAPI/README.md)
 * [ChRIS store REST API client](js/chrisStoreAPI/README.md)
+* [Radiology Viewer](js/rev/README.md)
