@@ -1,5 +1,6 @@
 import StoreClient from './client';
 import { expect } from 'chai';
+import RequestException from './exception';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -47,36 +48,46 @@ describe('StoreClient', () => {
   //const auth = {token: "aad06988fef07626ed5cc205828cea21f9c501dd"};
   const client = new StoreClient(storeUrl, auth);
 
-  it('can retrieve a plugin given its id', function(done) {
-    const resp = client.getPlugin(1);
-    resp
-      .then(plugin => {
-        expect(plugin.id).to.equal(1);
-        expect(plugin.parameters).to.have.lengthOf.at.least(1);
-      })
-      .then(done, done);
-  });
-
   it('can retrieve plugins given search params', function(done) {
     const searchParams = { type: 'fs' };
 
     this.timeout(10000); // mocha test timeout, don't work with arrow functions
 
-    const result1 = client.getPlugins(searchParams, onePageResp1 => {
-      expect(onePageResp1).to.have.property('currentLink');
-      expect(onePageResp1).to.have.property('plugins');
-    });
-    result1
-      .then(fsPlugins => {
-        expect(fsPlugins).to.have.lengthOf.at.least(1);
+    const result = client.getPlugins(searchParams);
+    result
+      .then(plugins => {
+        expect(plugins).to.have.property('hasNextPage');
+        expect(plugins).to.have.property('hasPreviousPage');
+        expect(plugins.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
 
-        const result2 = client.getPlugins(null, onePageResp2 => {
-          expect(onePageResp2).to.have.property('currentLink');
-          expect(onePageResp2).to.have.property('plugins');
-        });
-        result2.then(allPlugins => {
-          expect(allPlugins).to.have.lengthOf.above(fsPlugins.length);
-        });
+  it('can retrieve a plugin given its id', function(done) {
+    const resp = client.getPlugin(1);
+    resp
+      .then(plugin => {
+        expect(plugin.data.id).to.equal(1);
+      })
+      .then(done, done);
+  });
+
+  it('can not retrieve a plugin given its id when id does not exist in the store', function(done) {
+    const resp = client.getPlugin(-1);
+    resp
+      .catch(error => {
+        expect(error).to.be.an.instanceof(RequestException);
+      })
+      .then(done, done);
+  });
+
+  it('can retrieve the first page of a plugin parameters given the plugin id', function(done) {
+    const resp = client.getPluginParameters(1, { offset: 0 });
+    resp
+      .then(parameters => {
+        expect(parameters).to.have.property('hasNextPage');
+        expect(parameters).to.have.property('hasPreviousPage');
+        expect(parameters.data).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
@@ -90,20 +101,11 @@ describe('StoreClient', () => {
     const dfile = new Blob([fileData], { type: 'application/json' });
 
     const result = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
-
     result
       .then(response => {
-        const plgName = response.items[0].data.filter(descriptor => {
-          return descriptor.name === 'name';
-        })[0].value;
-
+        const plgName = response.data['name'];
         expect(plgName).to.equal(testPlgName);
-
-        const plgId = response.items[0].data.filter(descriptor => {
-          return descriptor.name === 'id';
-        })[0].value;
-
-        return client.removePlugin(plgId); // pass rejection or fulfilment through the promise chain
+        return client.removePlugin(response.data['id']); // pass rejection or fulfilment through the promise chain
       })
       .then(done, done);
   });
@@ -122,14 +124,8 @@ describe('StoreClient', () => {
     );
     result
       .then(response => {
-        const plgDockImg = response.items[0].data.filter(descriptor => {
-          return descriptor.name === 'dock_image';
-        })[0].value;
-
-        const plgPublicRepo = response.items[0].data.filter(descriptor => {
-          return descriptor.name === 'public_repo';
-        })[0].value;
-
+        const plgDockImg = response.data['dock_image'];
+        const plgPublicRepo = response.data['public_repo'];
         expect(plgDockImg).to.equal(testPlgDockImg);
         expect(plgPublicRepo).to.equal(testPlgPublicRepo);
 
@@ -140,14 +136,8 @@ describe('StoreClient', () => {
           'https://github.com/FNNDSC'
         );
         res.then(resp => {
-          const plgDockImg = resp.items[0].data.filter(descriptor => {
-            return descriptor.name === 'dock_image';
-          })[0].value;
-
-          const plgPublicRepo = resp.items[0].data.filter(descriptor => {
-            return descriptor.name === 'public_repo';
-          })[0].value;
-
+          const plgDockImg = resp.data['dock_image'];
+          const plgPublicRepo = resp.data['public_repo'];
           expect(plgDockImg).to.equal('fnndsc/pl-simplefsapp');
           expect(plgPublicRepo).to.equal('https://github.com/FNNDSC');
         });
@@ -175,7 +165,7 @@ describe('StoreClient', () => {
     resp
       .then(user => {
         //window.console.log(user.items[0].data);
-        expect(user.items).to.have.lengthOf(1);
+        expect(user.data.username).to.equal(username);
       })
       .then(done, done);
   });
@@ -186,7 +176,7 @@ describe('StoreClient', () => {
 
     resp
       .then(user => {
-        expect(user.items).to.have.lengthOf(1);
+        expect(user.data.email).to.equal('cubeadmin1@babymri.org');
       })
       .then(done, done);
   });
@@ -200,8 +190,8 @@ describe('StoreClient', () => {
 
     resp
       .then(user => {
-        //window.console.log(user.items[0].data);
-        expect(user.items).to.have.lengthOf(1);
+        expect(user.data.username).to.equal(username);
+        expect(user.data.email).to.equal(email);
       })
       .then(done, done);
   });

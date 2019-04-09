@@ -26,88 +26,116 @@ export default class StoreClient {
   }
 
   /**
-   * Get a plugin's information (descriptors and parameters) given its ChRIS
-   * store id.
+   * Get a paginated list of plugin data (descriptors) given query search
+   * parameters. If no search parameters is given then get the default first
+   * page.
+   *
+   * @param {Object} [searchParams=null] - search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {string} [searchParams.name] - match plugin name containing this string
+   * @param {string} [searchParams.name_latest] - match plugin name containing this string
+   * and return only the latest version
+   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string
+   * and return only the latest version
+   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string
+   * @param {string} [searchParams.public_repo] - match plugin public repository exactly with this string
+   * @param {string} [searchParams.type] - match plugin type with this string
+   * @param {string} [searchParams.category] - match plugin category containing this string
+   * @param {string} [searchParams.owner_username] - match plugin username containing this string
+   * @param {string} [searchParams.description] - match plugin description containing this string
+   * @param {string} [searchParams.name_title_category] - match plugin name, title or category
+   * containing this string
+   * @param {string} [searchParams.title] - match plugin title containing this string
+   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date
+   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date
+   * @return {Object} - JS Promise
+   */
+  getPlugins(searchParams = null) {
+    let url = this.storeUrl;
+
+    if (searchParams) {
+      // then it's a query and should use the query url
+      url = this.storeQueryUrl;
+    }
+    return this._fetchCollection(url, searchParams).then(coll => {
+      return StoreClient.getDataFromCollection(coll, 'list');
+    });
+  }
+
+  /**
+   * Get a plugin's information (descriptors) given its ChRIS store id.
    *
    * @param {number} id - plugin id
    * @return {Object} - JS Promise
    */
   getPlugin(id) {
+    const searchParams = { id: id };
+    const url = this.storeQueryUrl;
+
+    return this._fetchCollection(url, searchParams).then(coll => {
+      if (coll.items.length) {
+        return StoreClient.getDataFromCollection(coll, 'item');
+      }
+      const errMsg = 'Could not find plugin with id: ' + id;
+      throw new StoreRequestException(errMsg);
+    });
+  }
+
+  /**
+   * Get a plugin's paginated parameters given its ChRIS store id.
+   *
+   * @param {number} pluginId - plugin id
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @return {Object} - JS Promise
+   */
+  getPluginParameters(pluginId, params = null) {
+    const url = this.storeQueryUrl;
     const self = this;
 
     return new Promise(function(resolve, reject) {
       StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        const searchParams = { id: id };
-        let plugin;
+        let coll;
+        let result = {
+          data: [],
+          hasNextPage: false,
+          hasPreviousPage: false,
+        };
 
         try {
-          const resp = yield req.get(self.storeQueryUrl, searchParams);
-          const coll = resp.data.collection;
-
-          if (coll.items.length) {
-            const item = coll.items[0];
-            plugin = Collection.getItemDescriptors(item);
-            const parametersLinks = Collection.getLinkRelationUrls(item, 'parameters');
-
-            if (parametersLinks.length) {
-              const paramList = yield self._getParameters(parametersLinks[0]); // there can only be a single parameters link
-              plugin.parameters = paramList;
-            }
-          } else {
-            const errMsg = 'Could not find plugin with id: ' + id;
+          coll = yield self._fetchCollection(url, { id: pluginId });
+          if (coll.items.length === 0) {
+            const errMsg = 'Could not find plugin with id: ' + pluginId;
             throw new StoreRequestException(errMsg);
+          }
+          const parametersLinks = Collection.getLinkRelationUrls(coll.items[0], 'parameters');
+          if (parametersLinks.length) {
+            coll = yield self._fetchCollection(parametersLinks[0], params); // there can only be a single parameters link
+            result = StoreClient.getDataFromCollection(coll, 'list');
           }
         } catch (ex) {
           reject(ex);
           return;
         }
 
-        resolve(plugin);
+        resolve(result);
       });
     });
   }
 
   /**
-   * Get a paginated list of plugin data (descriptors) given query search
-   * parameters. If no search parameters is given then get a paginated list
-   * of all plugins in the store. callback function, if provided, is called for
-   * each page and passed an argument object containing the plugin list for that
-   * page.
+   * Internal method to fetch a collection object from a resource url.
    *
-   * @param {Object} [searchParams=null] - search parameters,
-   * @param {function(pluginList: Object)} [callback=null]
+   * @param {string} url - url
+   * @param {Object} [searchParams=null] - search parameters
    * @return {Object} - JS Promise
    */
-  getPlugins(searchParams = null, callback = null) {
-    const self = this;
+  _fetchCollection(url, searchParams = null) {
+    const req = new Request(this.auth, this.contentType, this.timeout);
 
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        let pluginList = [];
-        let resp;
-
-        try {
-          resp = yield self.getPluginsInitialPage(searchParams);
-          pluginList = pluginList.concat(resp.plugins);
-          if (callback) {
-            callback(resp);
-          }
-          while (resp.nextLink) {
-            resp = yield self.getPluginsPage(resp.nextLink);
-            pluginList = pluginList.concat(resp.plugins);
-            if (callback) {
-              callback(resp);
-            }
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(pluginList);
-      });
-    });
+    return req.get(url, searchParams).then(resp => resp.data.collection);
   }
 
   /**
@@ -149,7 +177,7 @@ export default class StoreClient {
           return;
         }
 
-        resolve(resp.data.collection);
+        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
       });
     });
   }
@@ -211,7 +239,7 @@ export default class StoreClient {
           return;
         }
 
-        resolve(resp.data.collection);
+        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
       });
     });
   }
@@ -253,266 +281,6 @@ export default class StoreClient {
   }
 
   /**
-   * Get the first page of a paginated list of plugin data (descriptors) given
-   * query search parameters. If no search parameters is given then return the
-   * first page of a paginated list of all plugins in the store.
-   *
-   * @param {Object} [searchParams=null] - search parameters
-   * @return {Object} - JS Promise
-   */
-  getPluginsInitialPage(searchParams = null) {
-    return this._getPluginsPage(undefined, searchParams);
-  }
-
-  /**
-   * Get the single page corresponding to the url argument from a paginated list
-   * of plugin data (descriptors).
-   *
-   * @param {string} url - url of the page
-   * @return {Object} - JS Promise
-   */
-  getPluginsPage(url) {
-    return this._getPluginsPage(url);
-  }
-
-  /**
-   * Internal method to get a paginated list of plugin data (descriptors) given
-   * query search parameters. If no search parameters is given then return a
-   * paginated list of all plugins in the store.
-   *
-   * @param {string} url - url
-   * @param {Object} [searchParams=null] - search parameters
-   * @return {Object} - JS Promise
-   */
-  _getPluginsPage(url, searchParams = null) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        const pluginList = [];
-        let resp;
-        let coll;
-
-        try {
-          if (url) {
-            resp = yield req.get(url);
-          } else if (searchParams) {
-            // then it's a query and should use the query url
-            resp = yield req.get(self.storeQueryUrl, searchParams);
-          } else {
-            resp = yield req.get(self.storeUrl);
-          }
-          coll = resp.data.collection;
-          // for each plugin item get its data
-          for (let item of coll.items) {
-            pluginList.push(Collection.getItemDescriptors(item));
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        let nextLink = '';
-        let next = Collection.getLinkRelationUrls(coll, 'next');
-        if (next.length) {
-          nextLink = next[0];
-        }
-
-        let previousLink = '';
-        let previous = Collection.getLinkRelationUrls(coll, 'previous');
-        if (previous.length) {
-          previousLink = previous[0];
-        }
-
-        resolve({
-          plugins: pluginList,
-          nextLink: nextLink,
-          currentLink: coll.href,
-          previousLink: previousLink,
-        });
-      });
-    });
-  }
-
-  /**
-   * Internal method to get the list of the parameters data given the url of
-   * the parameters.
-   *
-   * @param {string} url - url of the plugin parameters
-   * @return {Object} - JS Promise
-   */
-  _getParameters(url) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        let paramList;
-
-        try {
-          const resp = yield req.get(url); // there can only be a single parameters link
-
-          paramList = yield self._getItemsFromPaginatedCollections(resp.data.collection);
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(paramList);
-      });
-    });
-  }
-
-  /**
-   * Internal method to tet the initial collection in a linked list of paginated
-   * collections.
-   *
-   * @param {string} url - url
-   * @param {Object} [searchParams=null] - search parameters
-   * @return {Object} - JS Promise
-   */
-  _getInitialCollection(url, searchParams = null) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      const req = new Request(self.auth, self.contentType, self.timeout);
-      const result = req.get(url, searchParams);
-
-      result
-        .then(resp => {
-          resolve(resp.data.collection);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  }
-
-  /**
-   * Internal method to get the next collection in a linked list of paginated
-   * collections.
-   *
-   * @param {Object} coll - collection object
-   * @return {Object} - JS Promise
-   */
-  _getNextCollection(coll) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      const req = new Request(self.auth, self.contentType, self.timeout);
-      let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');
-
-      const result = req.get(nextPageUrls[0]);
-
-      result
-        .then(resp => {
-          resolve(resp.data.collection);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
-  }
-
-  /**
-   * Internal method to recursively get the data (descriptors and related item's
-   * descriptors) of all the items in a linked list of paginated collections.
-   *
-   * @param {Object} coll - collection object
-   * @param {string[]} followLinkRelations - array of link relation names
-   * @return {Object} - JS Promise
-   */
-  _getItemsFromPaginatedCollections(coll, followLinkRelations = []) {
-    const self = this;
-    const req = new Request(this.auth, this.contentType, this.timeout);
-    const ix = followLinkRelations.indexOf('next');
-
-    if (ix !== -1) {
-      followLinkRelations.splice(ix, 1);
-    }
-
-    function getItemsFromPaginatedColl(collObj) {
-      let itemList = [];
-
-      return new Promise((resolve, reject) => {
-        StoreClient.runAsyncTask(function*() {
-          try {
-            // execution stops here before collections is assigned, and resumed in runAsyncTask
-            let collections = yield self._getPaginatedCollections(collObj); // wait for resp
-
-            for (let collection of collections) {
-              let itemObjList = [];
-              let items = collection.items;
-
-              // for each item get its data and the data of all related items in a depth-first search
-              for (let item of items) {
-                let itemObj = Collection.getItemDescriptors(item);
-
-                for (let link_relation of followLinkRelations) {
-                  let related_urls = Collection.getLinkRelationUrls(item, link_relation);
-
-                  if (related_urls.length && !(link_relation in itemObj)) {
-                    // assumes link relations and descriptors in an item never have the same name
-                    itemObj[link_relation] = [];
-                  }
-                  for (let url of related_urls) {
-                    let resp = yield req.get(url); // wait for resp
-                    let newItemList = yield getItemsFromPaginatedColl(resp.data.collection); // wait for resp
-                    itemObj[link_relation] = itemObj[link_relation].concat(newItemList);
-                  }
-                }
-                itemObjList.push(itemObj);
-              }
-              itemList = itemList.concat(itemObjList);
-            }
-          } catch (ex) {
-            reject(ex);
-            return;
-          }
-
-          resolve(itemList);
-        });
-      });
-    }
-
-    // start the recursive process
-    return getItemsFromPaginatedColl(coll);
-  }
-
-  /**
-   * Get a full list of paginated collections.
-   *
-   * @param {Object} coll - collection object
-   * @return {Object} - JS Promise
-   */
-  _getPaginatedCollections(coll) {
-    let collections = [coll];
-    const req = new Request(this.auth, this.contentType, this.timeout);
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        try {
-          let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');
-
-          while (nextPageUrls.length) {
-            // there is only a single next page
-            // execution stops here before resp is assigned, and resumed in runAsyncTask
-            let resp = yield req.get(nextPageUrls[0]);
-            collections = collections.concat(resp.data.collection);
-            nextPageUrls = Collection.getLinkRelationUrls(resp.data.collection, 'next');
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(collections);
-      });
-    });
-  }
-
-  /**
    * Get currently authenticated user's information.
    *
    * @return {Object} - JS Promise
@@ -534,7 +302,7 @@ export default class StoreClient {
           return;
         }
 
-        resolve(resp.data.collection);
+        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
       });
     });
   }
@@ -573,7 +341,7 @@ export default class StoreClient {
           return;
         }
 
-        resolve(resp.data.collection);
+        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
       });
     });
   }
@@ -599,17 +367,9 @@ export default class StoreClient {
         ],
       },
     };
-    const result = req.post(usersUrl, userData);
-
-    return new Promise((resolve, reject) => {
-      result
-        .then(response => {
-          resolve(response.data.collection);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+    return req
+      .post(usersUrl, userData)
+      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));
   }
 
   /**
@@ -626,17 +386,7 @@ export default class StoreClient {
       username: username,
       password: password,
     };
-    const result = req.post(authUrl, authData);
-
-    return new Promise((resolve, reject) => {
-      result
-        .then(response => {
-          resolve(response.data.token);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+    return req.post(authUrl, authData).then(resp => resp.data.token);
   }
 
   /**
@@ -646,6 +396,33 @@ export default class StoreClient {
    */
   static runAsyncTask(taskGenerator) {
     Request.runAsyncTask(taskGenerator);
+  }
+
+  /**
+   * Get the data object from a collection object.
+   *
+   * @param {Object} coll - collection object
+   * @param {string} [collection_type='item'] - collection type, either 'list' or 'item'
+   * @return {Object} - result object
+   */
+  static getDataFromCollection(coll, collection_type = 'item') {
+    const result = {};
+
+    if (collection_type === 'list') {
+      result.data = [];
+
+      // for each item get its data
+      for (let item of coll.items) {
+        result.data.push(Collection.getItemDescriptors(item));
+      }
+      const next = Collection.getLinkRelationUrls(coll, 'next');
+      result.hasNextPage = next.length ? true : false;
+      const previous = Collection.getLinkRelationUrls(coll, 'previous');
+      result.hasPreviousPage = previous.length ? true : false;
+    } else {
+      result.data = Collection.getItemDescriptors(coll.items[0]);
+    }
+    return result;
   }
 
   /*export const login = credentials => {
