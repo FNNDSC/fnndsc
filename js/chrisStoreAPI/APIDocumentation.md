@@ -44,8 +44,54 @@ resp
 let client = new StoreClient(storeUrl);
 
 
+// fetch a subset of the plugins in the store corresponding to the page determined by offset and limit
+let searchParams = { limit: 15, offset:0 };
+resp = client.getPlugins(searchParams);
+resp
+  .then(plugins => {
+
+    window.console.log('Plugin list: ', plugins);
+    window.console.log('Is there a next page?: ', plugins.hasNextPage);
+  })
+  .catch(error => {
+
+    window.console.log('Something went wrong with this request!!!: ', error);
+  });
+
+
+// fetch a subset of the plugins in the store created by a specific user
+let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
+resp = client.getPlugins(searchParams);
+resp
+  .then(userPlugins => {
+
+    window.console.log('A subset of the plugins created by the user: ', userPlugins);
+    window.console.log('Is there a next page?: ', userPlugins.hasNextPage);
+  })
+  .catch(error => {
+
+    window.console.log('Something went wrong with this request!!!: ', error);
+  });
+
+
+// fetch a subset of the the plugins of type 'fs' from the store
+searchParams = { type: 'fs' };
+resp = client.getPlugins(searchParams);
+resp
+  .then(fsPlugins => {
+
+    window.console.log('A subset of the plugins of type fs: ', fsPlugins);
+    window.console.log('Is there a next page?: ', fsPlugins.hasNextPage);
+  })
+  .catch(error => {
+
+    window.console.log('Something went wrong with this request!!!: ', error);
+  });
+
+
 // fetch a plugin given its id
-resp = client.getPlugin(1);
+const pluginId = 1;
+resp = client.getPlugin(pluginId);
 resp
   .then(plugin => {
 
@@ -57,44 +103,14 @@ resp
   });
 
 
-// fetch in a list a subset of the plugins in the store given search params
-let searchParams = { limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
+// fetch a subset of the parameters for the plugin with id 1
+const params = { limit: 10, offset:0 };
+resp = client.getPluginParameters(pluginId, params);
 resp
-  .then(smallPluginList => {
+  .then(parameters => {
 
-    window.console.log('Small plugin list: ', smallPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// fetch in a list a subset of the plugins in the store created by a specific user
-let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
-resp
-  .then(userPluginList => {
-
-    window.console.log('A subset of the plugins created by the user: ', userPluginList);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// fetch a paginated list of plugins given search params and call a callback function on every page of the plugin list
-searchParams = { type: 'fs' };
-resp = client.getPlugins(searchParams, onePageFsPluginList => {
-
-  window.console.log('One page of the fs plugin list: ', onePageFsPluginList);
-});
-resp
-  .then(fullFsPluginList => {
-
-    window.console.log('"fs" plugins: ', fullFsPluginList);
+    window.console.log('parameters: ', parameters);
+    window.console.log('Is there a next page?: ', parameters.hasNextPage);
   })
   .catch(error => {
 
@@ -153,7 +169,7 @@ resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
 resp
   .then(response => {
 
-      window.console.log('New plugin in the store: ', response);
+      window.console.log('New plugin in the store: ', response.data);
   })
   .catch(error => {
 
@@ -170,7 +186,8 @@ resp = client.modifyPlugin(testPlgId, testPlgDockImg, testPlgPublicRepo);
 resp
   .then(response => {
 
-    window.console.log('Updated description for plugin with id: ', testPlgId);
+    window.console.log('Updated representation for plugin with id: ', testPlgId);
+    window.console.log('New representation: ', response.data);
   })
   .catch(error => {
 
