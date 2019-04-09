@@ -834,7 +834,7 @@
     "__docId__": 57,
     "kind": "file",
     "name": "src/client.js",
-    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport StoreRequestException from './exception';\n\n/**\n * Chris store object.\n *\n * @module client\n */\nexport default class StoreClient {\n  /**\n   * Constructor\n   *\n   * @param {string} storeUrl - url of the ChRIS storeservice\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(storeUrl, auth = null, timeout = 30000) {\n    this.storeUrl = storeUrl;\n    this.storeQueryUrl = storeUrl + 'search/';\n    this.auth = auth;\n    this.timeout = timeout;\n    this.contentType = 'application/vnd.collection+json';\n  }\n\n  /**\n   * Get a plugin's information (descriptors and parameters) given its ChRIS\n   * store id.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  getPlugin(id) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const searchParams = { id: id };\n        let plugin;\n\n        try {\n          const resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const item = coll.items[0];\n            plugin = Collection.getItemDescriptors(item);\n            const parametersLinks = Collection.getLinkRelationUrls(item, 'parameters');\n\n            if (parametersLinks.length) {\n              const paramList = yield self._getParameters(parametersLinks[0]); // there can only be a single parameters link\n              plugin.parameters = paramList;\n            }\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(plugin);\n      });\n    });\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get a paginated list\n   * of all plugins in the store. callback function, if provided, is called for\n   * each page and passed an argument object containing the plugin list for that\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters,\n   * @param {function(pluginList: Object)} [callback=null]\n   * @return {Object} - JS Promise\n   */\n  getPlugins(searchParams = null, callback = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        let pluginList = [];\n        let resp;\n\n        try {\n          resp = yield self.getPluginsInitialPage(searchParams);\n          pluginList = pluginList.concat(resp.plugins);\n          if (callback) {\n            callback(resp);\n          }\n          while (resp.nextLink) {\n            resp = yield self.getPluginsPage(resp.nextLink);\n            pluginList = pluginList.concat(resp.plugins);\n            if (callback) {\n              callback(resp);\n            }\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(pluginList);\n      });\n    });\n  }\n\n  /**\n   * Add a new plugin to the ChRIS store.\n   *\n   * @param {string} name - plugin name\n   * @param {string} dockImage - plugin docker image\n   * @param {Object} descriptorFile - file blob\n   * @param {string} publicRepo - url of the plugin public repository\n   * @return {Object} - JS Promise\n   */\n  addPlugin(name, dockImage, descriptorFile, publicRepo) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const data = {\n          name: name,\n          dock_image: dockImage,\n          public_repo: publicRepo,\n        };\n        let resp;\n\n        try {\n          resp = yield req.get(self.storeUrl);\n          const coll = resp.data.collection;\n          const userPluginsUrls = Collection.getLinkRelationUrls(coll, 'user_plugins');\n\n          if (userPluginsUrls.length) {\n            // use userPluginsUrls[0] bc there can only be a single user_plugins url\n            resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });\n          } else {\n            const errMsg = 'Could not find url for POST request. Make sure you are authenticated';\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Modify an existing plugin in the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @param {string} dockImage - plugin docker image\n   * @param {string} publicRepo - url of the plugin public repository\n   * @param {string} newOwner - username of a new owner for the plugin\n   * @return {Object} - JS Promise\n   */\n  modifyPlugin(id, dockImage = '', publicRepo = '', newOwner = '') {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let resp;\n\n        try {\n          const searchParams = { id: id };\n          resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            let data = {};\n\n            if (dockImage) {\n              data.dock_image = dockImage;\n            } else {\n              data.dock_image = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'dock_image';\n              })[0].value;\n            }\n            if (publicRepo) {\n              data.public_repo = publicRepo;\n            } else {\n              data.public_repo = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'public_repo';\n              })[0].value;\n            }\n            if (newOwner) {\n              data.owner = newOwner;\n            }\n\n            if (self.contentType === 'application/vnd.collection+json') {\n              data = { template: Collection.makeTemplate(data) };\n            }\n            resp = yield req.put(url, data);\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Remove an existing plugin from the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  removePlugin(id) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const searchParams = { id: id };\n        let resp;\n\n        try {\n          resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            resp = yield req.delete(url);\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve();\n      });\n    });\n  }\n\n  /**\n   * Get the first page of a paginated list of plugin data (descriptors) given\n   * query search parameters. If no search parameters is given then return the\n   * first page of a paginated list of all plugins in the store.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  getPluginsInitialPage(searchParams = null) {\n    return this._getPluginsPage(undefined, searchParams);\n  }\n\n  /**\n   * Get the single page corresponding to the url argument from a paginated list\n   * of plugin data (descriptors).\n   *\n   * @param {string} url - url of the page\n   * @return {Object} - JS Promise\n   */\n  getPluginsPage(url) {\n    return this._getPluginsPage(url);\n  }\n\n  /**\n   * Internal method to get a paginated list of plugin data (descriptors) given\n   * query search parameters. If no search parameters is given then return a\n   * paginated list of all plugins in the store.\n   *\n   * @param {string} url - url\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  _getPluginsPage(url, searchParams = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const pluginList = [];\n        let resp;\n        let coll;\n\n        try {\n          if (url) {\n            resp = yield req.get(url);\n          } else if (searchParams) {\n            // then it's a query and should use the query url\n            resp = yield req.get(self.storeQueryUrl, searchParams);\n          } else {\n            resp = yield req.get(self.storeUrl);\n          }\n          coll = resp.data.collection;\n          // for each plugin item get its data\n          for (let item of coll.items) {\n            pluginList.push(Collection.getItemDescriptors(item));\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        let nextLink = '';\n        let next = Collection.getLinkRelationUrls(coll, 'next');\n        if (next.length) {\n          nextLink = next[0];\n        }\n\n        let previousLink = '';\n        let previous = Collection.getLinkRelationUrls(coll, 'previous');\n        if (previous.length) {\n          previousLink = previous[0];\n        }\n\n        resolve({\n          plugins: pluginList,\n          nextLink: nextLink,\n          currentLink: coll.href,\n          previousLink: previousLink,\n        });\n      });\n    });\n  }\n\n  /**\n   * Internal method to get the list of the parameters data given the url of\n   * the parameters.\n   *\n   * @param {string} url - url of the plugin parameters\n   * @return {Object} - JS Promise\n   */\n  _getParameters(url) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let paramList;\n\n        try {\n          const resp = yield req.get(url); // there can only be a single parameters link\n\n          paramList = yield self._getItemsFromPaginatedCollections(resp.data.collection);\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(paramList);\n      });\n    });\n  }\n\n  /**\n   * Internal method to tet the initial collection in a linked list of paginated\n   * collections.\n   *\n   * @param {string} url - url\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  _getInitialCollection(url, searchParams = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      const req = new Request(self.auth, self.contentType, self.timeout);\n      const result = req.get(url, searchParams);\n\n      result\n        .then(resp => {\n          resolve(resp.data.collection);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Internal method to get the next collection in a linked list of paginated\n   * collections.\n   *\n   * @param {Object} coll - collection object\n   * @return {Object} - JS Promise\n   */\n  _getNextCollection(coll) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      const req = new Request(self.auth, self.contentType, self.timeout);\n      let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');\n\n      const result = req.get(nextPageUrls[0]);\n\n      result\n        .then(resp => {\n          resolve(resp.data.collection);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Internal method to recursively get the data (descriptors and related item's\n   * descriptors) of all the items in a linked list of paginated collections.\n   *\n   * @param {Object} coll - collection object\n   * @param {string[]} followLinkRelations - array of link relation names\n   * @return {Object} - JS Promise\n   */\n  _getItemsFromPaginatedCollections(coll, followLinkRelations = []) {\n    const self = this;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n    const ix = followLinkRelations.indexOf('next');\n\n    if (ix !== -1) {\n      followLinkRelations.splice(ix, 1);\n    }\n\n    function getItemsFromPaginatedColl(collObj) {\n      let itemList = [];\n\n      return new Promise((resolve, reject) => {\n        StoreClient.runAsyncTask(function*() {\n          try {\n            // execution stops here before collections is assigned, and resumed in runAsyncTask\n            let collections = yield self._getPaginatedCollections(collObj); // wait for resp\n\n            for (let collection of collections) {\n              let itemObjList = [];\n              let items = collection.items;\n\n              // for each item get its data and the data of all related items in a depth-first search\n              for (let item of items) {\n                let itemObj = Collection.getItemDescriptors(item);\n\n                for (let link_relation of followLinkRelations) {\n                  let related_urls = Collection.getLinkRelationUrls(item, link_relation);\n\n                  if (related_urls.length && !(link_relation in itemObj)) {\n                    // assumes link relations and descriptors in an item never have the same name\n                    itemObj[link_relation] = [];\n                  }\n                  for (let url of related_urls) {\n                    let resp = yield req.get(url); // wait for resp\n                    let newItemList = yield getItemsFromPaginatedColl(resp.data.collection); // wait for resp\n                    itemObj[link_relation] = itemObj[link_relation].concat(newItemList);\n                  }\n                }\n                itemObjList.push(itemObj);\n              }\n              itemList = itemList.concat(itemObjList);\n            }\n          } catch (ex) {\n            reject(ex);\n            return;\n          }\n\n          resolve(itemList);\n        });\n      });\n    }\n\n    // start the recursive process\n    return getItemsFromPaginatedColl(coll);\n  }\n\n  /**\n   * Get a full list of paginated collections.\n   *\n   * @param {Object} coll - collection object\n   * @return {Object} - JS Promise\n   */\n  _getPaginatedCollections(coll) {\n    let collections = [coll];\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        try {\n          let nextPageUrls = Collection.getLinkRelationUrls(coll, 'next');\n\n          while (nextPageUrls.length) {\n            // there is only a single next page\n            // execution stops here before resp is assigned, and resumed in runAsyncTask\n            let resp = yield req.get(nextPageUrls[0]);\n            collections = collections.concat(resp.data.collection);\n            nextPageUrls = Collection.getLinkRelationUrls(resp.data.collection, 'next');\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(collections);\n      });\n    });\n  }\n\n  /**\n   * Get currently authenticated user's information.\n   *\n   * @return {Object} - JS Promise\n   */\n  getUser() {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.get(userUrls[0]); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Update currently authenticated user's information (email and or password).\n   *\n   * @param {Object} userInfoObj - collection object\n   * @param {string} userInfoObj.email - user's email\n   * @param {string} userInfoObj.password - user's password\n   * @return {Object} - JS Promise\n   */\n  updateUser(userInfoObj) {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    const userData = {\n      template: {\n        data: [\n          { name: 'email', value: userInfoObj.email },\n          { name: 'password', value: userInfoObj.password },\n        ],\n      },\n    };\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.put(userUrls[0], userData); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(resp.data.collection);\n      });\n    });\n  }\n\n  /**\n   * Create a new store user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {string} email - user's email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    const result = req.post(usersUrl, userData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.collection);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Get a user's login authorization token.\n   * @param {string} authUrl - url of the authentication service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    const result = req.post(authUrl, authData);\n\n    return new Promise((resolve, reject) => {\n      result\n        .then(response => {\n          resolve(response.data.token);\n        })\n        .catch(error => {\n          reject(error);\n        });\n    });\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /*export const login = credentials => {\n    return axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {\n      // process response somehow\n    });\n  };*/\n}\n",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport StoreRequestException from './exception';\n\n/**\n * Chris store object.\n *\n * @module client\n */\nexport default class StoreClient {\n  /**\n   * Constructor\n   *\n   * @param {string} storeUrl - url of the ChRIS storeservice\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(storeUrl, auth = null, timeout = 30000) {\n    this.storeUrl = storeUrl;\n    this.storeQueryUrl = storeUrl + 'search/';\n    this.auth = auth;\n    this.timeout = timeout;\n    this.contentType = 'application/vnd.collection+json';\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_latest] - match plugin name containing this string\n   * and return only the latest version\n   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string\n   * and return only the latest version\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.public_repo] - match plugin public repository exactly with this string\n   * @param {string} [searchParams.type] - match plugin type with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin username containing this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or category\n   * containing this string\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date\n   * @return {Object} - JS Promise\n   */\n  getPlugins(searchParams = null) {\n    let url = this.storeUrl;\n\n    if (searchParams) {\n      // then it's a query and should use the query url\n      url = this.storeQueryUrl;\n    }\n    return this._fetchCollection(url, searchParams).then(coll => {\n      return StoreClient.getDataFromCollection(coll, 'list');\n    });\n  }\n\n  /**\n   * Get a plugin's information (descriptors) given its ChRIS store id.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  getPlugin(id) {\n    const searchParams = { id: id };\n    const url = this.storeQueryUrl;\n\n    return this._fetchCollection(url, searchParams).then(coll => {\n      if (coll.items.length) {\n        return StoreClient.getDataFromCollection(coll, 'item');\n      }\n      const errMsg = 'Could not find plugin with id: ' + id;\n      throw new StoreRequestException(errMsg);\n    });\n  }\n\n  /**\n   * Get a plugin's paginated parameters given its ChRIS store id.\n   *\n   * @param {number} pluginId - plugin id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @return {Object} - JS Promise\n   */\n  getPluginParameters(pluginId, params = null) {\n    const url = this.storeQueryUrl;\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        let coll;\n        let result = {\n          data: [],\n          hasNextPage: false,\n          hasPreviousPage: false,\n        };\n\n        try {\n          coll = yield self._fetchCollection(url, { id: pluginId });\n          if (coll.items.length === 0) {\n            const errMsg = 'Could not find plugin with id: ' + pluginId;\n            throw new StoreRequestException(errMsg);\n          }\n          const parametersLinks = Collection.getLinkRelationUrls(coll.items[0], 'parameters');\n          if (parametersLinks.length) {\n            coll = yield self._fetchCollection(parametersLinks[0], params); // there can only be a single parameters link\n            result = StoreClient.getDataFromCollection(coll, 'list');\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(result);\n      });\n    });\n  }\n\n  /**\n   * Internal method to fetch a collection object from a resource url.\n   *\n   * @param {string} url - url\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  _fetchCollection(url, searchParams = null) {\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return req.get(url, searchParams).then(resp => resp.data.collection);\n  }\n\n  /**\n   * Add a new plugin to the ChRIS store.\n   *\n   * @param {string} name - plugin name\n   * @param {string} dockImage - plugin docker image\n   * @param {Object} descriptorFile - file blob\n   * @param {string} publicRepo - url of the plugin public repository\n   * @return {Object} - JS Promise\n   */\n  addPlugin(name, dockImage, descriptorFile, publicRepo) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const data = {\n          name: name,\n          dock_image: dockImage,\n          public_repo: publicRepo,\n        };\n        let resp;\n\n        try {\n          resp = yield req.get(self.storeUrl);\n          const coll = resp.data.collection;\n          const userPluginsUrls = Collection.getLinkRelationUrls(coll, 'user_plugins');\n\n          if (userPluginsUrls.length) {\n            // use userPluginsUrls[0] bc there can only be a single user_plugins url\n            resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });\n          } else {\n            const errMsg = 'Could not find url for POST request. Make sure you are authenticated';\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Modify an existing plugin in the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @param {string} dockImage - plugin docker image\n   * @param {string} publicRepo - url of the plugin public repository\n   * @param {string} newOwner - username of a new owner for the plugin\n   * @return {Object} - JS Promise\n   */\n  modifyPlugin(id, dockImage = '', publicRepo = '', newOwner = '') {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let resp;\n\n        try {\n          const searchParams = { id: id };\n          resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            let data = {};\n\n            if (dockImage) {\n              data.dock_image = dockImage;\n            } else {\n              data.dock_image = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'dock_image';\n              })[0].value;\n            }\n            if (publicRepo) {\n              data.public_repo = publicRepo;\n            } else {\n              data.public_repo = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'public_repo';\n              })[0].value;\n            }\n            if (newOwner) {\n              data.owner = newOwner;\n            }\n\n            if (self.contentType === 'application/vnd.collection+json') {\n              data = { template: Collection.makeTemplate(data) };\n            }\n            resp = yield req.put(url, data);\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Remove an existing plugin from the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  removePlugin(id) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const searchParams = { id: id };\n        let resp;\n\n        try {\n          resp = yield req.get(self.storeQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            resp = yield req.delete(url);\n          } else {\n            const errMsg = 'Could not find plugin with id: ' + id;\n            throw new StoreRequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve();\n      });\n    });\n  }\n\n  /**\n   * Get currently authenticated user's information.\n   *\n   * @return {Object} - JS Promise\n   */\n  getUser() {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.get(userUrls[0]); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Update currently authenticated user's information (email and or password).\n   *\n   * @param {Object} userInfoObj - collection object\n   * @param {string} userInfoObj.email - user's email\n   * @param {string} userInfoObj.password - user's password\n   * @return {Object} - JS Promise\n   */\n  updateUser(userInfoObj) {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    const userData = {\n      template: {\n        data: [\n          { name: 'email', value: userInfoObj.email },\n          { name: 'password', value: userInfoObj.password },\n        ],\n      },\n    };\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.put(userUrls[0], userData); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Create a new store user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {string} email - user's email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req\n      .post(usersUrl, userData)\n      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n  }\n\n  /**\n   * Get a user's login authorization token.\n   * @param {string} authUrl - url of the authentication service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then(resp => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Get the data object from a collection object.\n   *\n   * @param {Object} coll - collection object\n   * @param {string} [collection_type='item'] - collection type, either 'list' or 'item'\n   * @return {Object} - result object\n   */\n  static getDataFromCollection(coll, collection_type = 'item') {\n    const result = {};\n\n    if (collection_type === 'list') {\n      result.data = [];\n\n      // for each item get its data\n      for (let item of coll.items) {\n        result.data.push(Collection.getItemDescriptors(item));\n      }\n      const next = Collection.getLinkRelationUrls(coll, 'next');\n      result.hasNextPage = next.length ? true : false;\n      const previous = Collection.getLinkRelationUrls(coll, 'previous');\n      result.hasPreviousPage = previous.length ? true : false;\n    } else {\n      result.data = Collection.getItemDescriptors(coll.items[0]);\n    }\n    return result;\n  }\n\n  /*export const login = credentials => {\n    return axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {\n      // process response somehow\n    });\n  };*/\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/client.js",
     "access": "public",
@@ -1009,6 +1009,191 @@
   {
     "__docId__": 65,
     "kind": "method",
+    "name": "getPlugins",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#getPlugins",
+    "access": "public",
+    "description": "Get a paginated list of plugin data (descriptors) given query search\nparameters. If no search parameters is given then get the default first\npage.",
+    "lineNumber": 54,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "searchParams",
+        "description": "search parameters"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.name",
+        "description": "match plugin name containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.name_latest",
+        "description": "match plugin name containing this string\nand return only the latest version"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.name_exact_latest",
+        "description": "match plugin name exactly with this string\nand return only the latest version"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.dock_image",
+        "description": "match plugin docker image exactly with this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.public_repo",
+        "description": "match plugin public repository exactly with this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.type",
+        "description": "match plugin type with this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.category",
+        "description": "match plugin category containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.owner_username",
+        "description": "match plugin username containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.description",
+        "description": "match plugin description containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.name_title_category",
+        "description": "match plugin name, title or category\ncontaining this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.title",
+        "description": "match plugin title containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.min_creation_date",
+        "description": "match plugin creation date after this date"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.max_creation_date",
+        "description": "match plugin creation date before this date"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
     "name": "getPlugin",
     "memberof": "src/client.js~StoreClient",
     "generator": false,
@@ -1016,8 +1201,8 @@
     "static": false,
     "longname": "src/client.js~StoreClient#getPlugin",
     "access": "public",
-    "description": "Get a plugin's information (descriptors and parameters) given its ChRIS\nstore id.",
-    "lineNumber": 35,
+    "description": "Get a plugin's information (descriptors) given its ChRIS store id.",
+    "lineNumber": 72,
     "params": [
       {
         "nullable": null,
@@ -1040,18 +1225,28 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 67,
     "kind": "method",
-    "name": "getPlugins",
+    "name": "getPluginParameters",
     "memberof": "src/client.js~StoreClient",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/client.js~StoreClient#getPlugins",
+    "longname": "src/client.js~StoreClient#getPluginParameters",
     "access": "public",
-    "description": "Get a paginated list of plugin data (descriptors) given query search\nparameters. If no search parameters is given then get a paginated list\nof all plugins in the store. callback function, if provided, is called for\neach page and passed an argument object containing the plugin list for that\npage.",
-    "lineNumber": 82,
+    "description": "Get a plugin's paginated parameters given its ChRIS store id.",
+    "lineNumber": 94,
     "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pluginId",
+        "description": "plugin id"
+      },
       {
         "nullable": null,
         "types": [
@@ -1061,20 +1256,28 @@
         "optional": true,
         "defaultValue": "null",
         "defaultRaw": null,
-        "name": "searchParams",
-        "description": "search parameters,"
+        "name": "params",
+        "description": "page parameters"
       },
       {
         "nullable": null,
         "types": [
-          "function(pluginList: Object)"
+          "number"
         ],
         "spread": false,
         "optional": true,
-        "defaultValue": "null",
-        "defaultRaw": null,
-        "name": "callback",
-        "description": ""
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
       }
     ],
     "return": {
@@ -1087,7 +1290,52 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 68,
+    "kind": "method",
+    "name": "_fetchCollection",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#_fetchCollection",
+    "access": "private",
+    "description": "Internal method to fetch a collection object from a resource url.",
+    "lineNumber": 135,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "searchParams",
+        "description": "search parameters"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 69,
     "kind": "method",
     "name": "addPlugin",
     "memberof": "src/client.js~StoreClient",
@@ -1097,7 +1345,7 @@
     "longname": "src/client.js~StoreClient#addPlugin",
     "access": "public",
     "description": "Add a new plugin to the ChRIS store.",
-    "lineNumber": 122,
+    "lineNumber": 150,
     "params": [
       {
         "nullable": null,
@@ -1150,7 +1398,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 70,
     "kind": "method",
     "name": "modifyPlugin",
     "memberof": "src/client.js~StoreClient",
@@ -1160,7 +1408,7 @@
     "longname": "src/client.js~StoreClient#modifyPlugin",
     "access": "public",
     "description": "Modify an existing plugin in the ChRIS store.",
-    "lineNumber": 166,
+    "lineNumber": 194,
     "params": [
       {
         "nullable": null,
@@ -1213,7 +1461,7 @@
     }
   },
   {
-    "__docId__": 69,
+    "__docId__": 71,
     "kind": "method",
     "name": "removePlugin",
     "memberof": "src/client.js~StoreClient",
@@ -1223,7 +1471,7 @@
     "longname": "src/client.js~StoreClient#removePlugin",
     "access": "public",
     "description": "Remove an existing plugin from the ChRIS store.",
-    "lineNumber": 225,
+    "lineNumber": 253,
     "params": [
       {
         "nullable": null,
@@ -1246,307 +1494,7 @@
     }
   },
   {
-    "__docId__": 70,
-    "kind": "method",
-    "name": "getPluginsInitialPage",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#getPluginsInitialPage",
-    "access": "public",
-    "description": "Get the first page of a paginated list of plugin data (descriptors) given\nquery search parameters. If no search parameters is given then return the\nfirst page of a paginated list of all plugins in the store.",
-    "lineNumber": 263,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": true,
-        "defaultValue": "null",
-        "defaultRaw": null,
-        "name": "searchParams",
-        "description": "search parameters"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 71,
-    "kind": "method",
-    "name": "getPluginsPage",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#getPluginsPage",
-    "access": "public",
-    "description": "Get the single page corresponding to the url argument from a paginated list\nof plugin data (descriptors).",
-    "lineNumber": 274,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "url",
-        "description": "url of the page"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
     "__docId__": 72,
-    "kind": "method",
-    "name": "_getPluginsPage",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#_getPluginsPage",
-    "access": "private",
-    "description": "Internal method to get a paginated list of plugin data (descriptors) given\nquery search parameters. If no search parameters is given then return a\npaginated list of all plugins in the store.",
-    "lineNumber": 287,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "url",
-        "description": "url"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": true,
-        "defaultValue": "null",
-        "defaultRaw": null,
-        "name": "searchParams",
-        "description": "search parameters"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 73,
-    "kind": "method",
-    "name": "_getParameters",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#_getParameters",
-    "access": "private",
-    "description": "Internal method to get the list of the parameters data given the url of\nthe parameters.",
-    "lineNumber": 345,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "url",
-        "description": "url of the plugin parameters"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 74,
-    "kind": "method",
-    "name": "_getInitialCollection",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#_getInitialCollection",
-    "access": "private",
-    "description": "Internal method to tet the initial collection in a linked list of paginated\ncollections.",
-    "lineNumber": 375,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "string"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "url",
-        "description": "url"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": true,
-        "defaultValue": "null",
-        "defaultRaw": null,
-        "name": "searchParams",
-        "description": "search parameters"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 75,
-    "kind": "method",
-    "name": "_getNextCollection",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#_getNextCollection",
-    "access": "private",
-    "description": "Internal method to get the next collection in a linked list of paginated\ncollections.",
-    "lineNumber": 399,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "coll",
-        "description": "collection object"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 76,
-    "kind": "method",
-    "name": "_getItemsFromPaginatedCollections",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#_getItemsFromPaginatedCollections",
-    "access": "private",
-    "description": "Internal method to recursively get the data (descriptors and related item's\ndescriptors) of all the items in a linked list of paginated collections.",
-    "lineNumber": 426,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "coll",
-        "description": "collection object"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "string[]"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "followLinkRelations",
-        "description": "array of link relation names"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 77,
-    "kind": "method",
-    "name": "_getPaginatedCollections",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#_getPaginatedCollections",
-    "access": "private",
-    "description": "Get a full list of paginated collections.",
-    "lineNumber": 489,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "coll",
-        "description": "collection object"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 78,
     "kind": "method",
     "name": "getUser",
     "memberof": "src/client.js~StoreClient",
@@ -1556,7 +1504,7 @@
     "longname": "src/client.js~StoreClient#getUser",
     "access": "public",
     "description": "Get currently authenticated user's information.",
-    "lineNumber": 520,
+    "lineNumber": 288,
     "return": {
       "nullable": null,
       "types": [
@@ -1568,7 +1516,7 @@
     "params": []
   },
   {
-    "__docId__": 79,
+    "__docId__": 73,
     "kind": "method",
     "name": "updateUser",
     "memberof": "src/client.js~StoreClient",
@@ -1578,7 +1526,7 @@
     "longname": "src/client.js~StoreClient#updateUser",
     "access": "public",
     "description": "Update currently authenticated user's information (email and or password).",
-    "lineNumber": 550,
+    "lineNumber": 318,
     "params": [
       {
         "nullable": null,
@@ -1621,7 +1569,7 @@
     }
   },
   {
-    "__docId__": 80,
+    "__docId__": 74,
     "kind": "method",
     "name": "createUser",
     "memberof": "src/client.js~StoreClient",
@@ -1631,7 +1579,7 @@
     "longname": "src/client.js~StoreClient.createUser",
     "access": "public",
     "description": "Create a new store user account.",
-    "lineNumber": 591,
+    "lineNumber": 359,
     "params": [
       {
         "nullable": null,
@@ -1696,7 +1644,7 @@
     }
   },
   {
-    "__docId__": 81,
+    "__docId__": 75,
     "kind": "method",
     "name": "getAuthToken",
     "memberof": "src/client.js~StoreClient",
@@ -1706,7 +1654,7 @@
     "longname": "src/client.js~StoreClient.getAuthToken",
     "access": "public",
     "description": "Get a user's login authorization token.",
-    "lineNumber": 623,
+    "lineNumber": 383,
     "params": [
       {
         "nullable": null,
@@ -1761,7 +1709,7 @@
     }
   },
   {
-    "__docId__": 82,
+    "__docId__": 76,
     "kind": "method",
     "name": "runAsyncTask",
     "memberof": "src/client.js~StoreClient",
@@ -1771,7 +1719,7 @@
     "longname": "src/client.js~StoreClient.runAsyncTask",
     "access": "public",
     "description": "Helper method to run an asynchronous task defined by a task generator function.",
-    "lineNumber": 647,
+    "lineNumber": 397,
     "params": [
       {
         "nullable": null,
@@ -1787,7 +1735,52 @@
     "return": null
   },
   {
-    "__docId__": 83,
+    "__docId__": 77,
+    "kind": "method",
+    "name": "getDataFromCollection",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/client.js~StoreClient.getDataFromCollection",
+    "access": "public",
+    "description": "Get the data object from a collection object.",
+    "lineNumber": 408,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "coll",
+        "description": "collection object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "'item'",
+        "defaultRaw": "'item'",
+        "name": "collection_type",
+        "description": "collection type, either 'list' or 'item'"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "result object"
+    }
+  },
+  {
+    "__docId__": 78,
     "kind": "file",
     "name": "src/exception.js",
     "content": "/**\n * Custom exception object.\n *\n * @module exception\n */\nexport default class StoreRequestException extends Error {\n  constructor(...args) {\n    super(...args);\n    this.name = this.constructor.name;\n  }\n}\n",
@@ -1798,7 +1791,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 84,
+    "__docId__": 79,
     "kind": "class",
     "name": "StoreRequestException",
     "memberof": "src/exception.js",
@@ -1822,7 +1815,7 @@
     ]
   },
   {
-    "__docId__": 85,
+    "__docId__": 80,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exception.js~StoreRequestException",
@@ -1836,7 +1829,7 @@
     "undocument": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 81,
     "kind": "member",
     "name": "name",
     "memberof": "src/exception.js~StoreRequestException",
@@ -1853,7 +1846,7 @@
     }
   },
   {
-    "__docId__": 87,
+    "__docId__": 82,
     "kind": "file",
     "name": "src/index.js",
     "content": "import StoreClient from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport StoreRequestException from './exception';\n\nexport default StoreClient;\nexport { Request };\nexport { Collection };\nexport { StoreRequestException };\n",
@@ -1864,7 +1857,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 88,
+    "__docId__": 83,
     "kind": "file",
     "name": "src/request.js",
     "content": "/** * Imports ***/\nimport axios from 'axios';\nimport Collection from './cj';\nimport RequestException from './exception';\n\n/**\n * Http request object.\n */\nexport default class Request {\n  /**\n   * Constructor\n   *\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   * @param {string} contentType - request content type\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(auth, contentType, timeout = 30000) {\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = contentType;\n\n    /** @type {number} */\n    this.timeout = timeout;\n  }\n\n  /**\n   * Perform a GET request.\n   *\n   * @param {string} url - url of the resource\n   * @param {?Object} params - search parameters\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  get(url, params = null) {\n    const config = this._getConfig(url, 'get');\n\n    if (params) {\n      config.params = params;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Perform a POST request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  post(url, data, uploadFileObj = null) {\n    return this._postOrPut('post', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a PUT request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  put(url, data, uploadFileObj = null) {\n    return this._postOrPut('put', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a DELETE request.\n   *\n   * @param {string} url - url of the resource\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  delete(url) {\n    const config = this._getConfig(url, 'delete');\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to make either a POST or PUT request.\n   *\n   * @param {string} requestMethod - either 'post' or 'put'\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  _postOrPut(requestMethod, url, data, uploadFileObj = null) {\n    const config = this._getConfig(url, requestMethod);\n    config.data = data;\n\n    if (uploadFileObj) {\n      config['headers']['content-type'] = 'multipart/form-data';\n      const bFormData = new FormData();\n\n      for (let property in data) {\n        if (data.hasOwnProperty(property)) {\n          bFormData.set(property, data[property]);\n        }\n      }\n      for (let property in uploadFileObj) {\n        if (uploadFileObj.hasOwnProperty(property)) {\n          bFormData.set(property, uploadFileObj[property]);\n        }\n      }\n      config.data = bFormData;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to create a config file for axios.\n   *\n   * @param {string} url - url of the resource\n   * @param {string} method - request verb\n   * @return {Object} - axios configuration object\n   */\n  _getConfig(url, method) {\n    const config = {\n      url: url,\n      method: method,\n      headers: {\n        Accept: this.contentType,\n        'content-type': this.contentType,\n      },\n      timeout: this.timeout,\n    };\n\n    if (this.auth && this.auth.username && this.auth.password) {\n      config.auth = this.auth;\n    } else if (this.auth && this.auth.token) {\n      config.headers.Authorization = 'Token ' + this.auth.token;\n    }\n\n    if (this.contentType === 'application/octet-stream') {\n      config.responseType = 'blob';\n    }\n\n    return config;\n  }\n\n  /**\n   * Internal method to make an axios request.\n   *\n   * @param {Object} config - axios configuration object\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  static _callAxios(config) {\n    return axios(config)\n      .then(response => {\n        return response;\n      })\n      .catch(error => {\n        Request._handleRequestError(error);\n      });\n  }\n\n  /**\n   * Internal method to handle errors produced by HTTP requests.\n   *\n   * @param {Object} error - axios error object\n   * @throws {RequestException} throw error\n   */\n  static _handleRequestError(error) {\n    let errMsg;\n\n    if (error.response) {\n      // The request was made and the server responded with a status code\n      // that falls out of the range of 2xx\n      //console.log(error.response.data);\n      //console.log(error.response.status);\n      //console.log(error.response.headers);\n      errMsg = error.response;\n      if (error.response.data.collection) {\n        errMsg = Collection.getErrorMessage(error.response.data.collection);\n      }\n    } else if (error.request) {\n      // The request was made but no response was received\n      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of\n      // http.ClientRequest in node.js\n      //console.log(error.request);\n      errMsg = error.request;\n    } else {\n      // Something happened in setting up the request that triggered an Error\n      //console.log('Error', error.message);\n      errMsg = error.message;\n    }\n\n    throw new RequestException(errMsg);\n    //console.log(error.config);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    // create the iterator\n    let task = taskGenerator();\n    // start the task\n    let result = task.next();\n\n    // recursive function to iterate through\n    (function step() {\n      // if there's more to do (result.value and result.done are iterator's properties)\n      if (!result.done) {\n        result.value\n          .then(resp => {\n            result = task.next(resp); // send this resp value to the yield\n            step();\n          })\n          .catch(error => {\n            result = task.throw(error); // throws error within taskGenerator generator\n            step();\n          });\n      }\n    })(); // start the recursive process by calling it immediatly\n  }\n}\n",
@@ -1875,7 +1868,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 89,
+    "__docId__": 84,
     "kind": "class",
     "name": "Request",
     "memberof": "src/request.js",
@@ -1890,7 +1883,7 @@
     "interface": false
   },
   {
-    "__docId__": 90,
+    "__docId__": 85,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/request.js~Request",
@@ -1947,7 +1940,7 @@
     ]
   },
   {
-    "__docId__": 91,
+    "__docId__": 86,
     "kind": "member",
     "name": "auth",
     "memberof": "src/request.js~Request",
@@ -1966,7 +1959,7 @@
     }
   },
   {
-    "__docId__": 92,
+    "__docId__": 87,
     "kind": "member",
     "name": "contentType",
     "memberof": "src/request.js~Request",
@@ -1985,7 +1978,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 88,
     "kind": "member",
     "name": "timeout",
     "memberof": "src/request.js~Request",
@@ -2004,7 +1997,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 89,
     "kind": "method",
     "name": "get",
     "memberof": "src/request.js~Request",
@@ -2047,7 +2040,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 90,
     "kind": "method",
     "name": "post",
     "memberof": "src/request.js~Request",
@@ -2100,7 +2093,7 @@
     }
   },
   {
-    "__docId__": 96,
+    "__docId__": 91,
     "kind": "method",
     "name": "put",
     "memberof": "src/request.js~Request",
@@ -2153,7 +2146,7 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 92,
     "kind": "method",
     "name": "delete",
     "memberof": "src/request.js~Request",
@@ -2186,7 +2179,7 @@
     }
   },
   {
-    "__docId__": 98,
+    "__docId__": 93,
     "kind": "method",
     "name": "_postOrPut",
     "memberof": "src/request.js~Request",
@@ -2249,7 +2242,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 94,
     "kind": "method",
     "name": "_getConfig",
     "memberof": "src/request.js~Request",
@@ -2292,7 +2285,7 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 95,
     "kind": "method",
     "name": "_callAxios",
     "memberof": "src/request.js~Request",
@@ -2325,7 +2318,7 @@
     }
   },
   {
-    "__docId__": 101,
+    "__docId__": 96,
     "kind": "method",
     "name": "_handleRequestError",
     "memberof": "src/request.js~Request",
@@ -2359,7 +2352,7 @@
     "return": null
   },
   {
-    "__docId__": 102,
+    "__docId__": 97,
     "kind": "method",
     "name": "runAsyncTask",
     "memberof": "src/request.js~Request",
@@ -2394,7 +2387,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"1.1.3\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"1.1.5\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/package.json",
     "name": "package.json",
     "static": true,

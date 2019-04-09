@@ -360,39 +360,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/client.js~storeclient#_getinitialcollection",
-    "class/src/client.js~StoreClient.html#instance-method-_getInitialCollection",
-    "src/client.js~StoreClient#_getInitialCollection",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_getitemsfrompaginatedcollections",
-    "class/src/client.js~StoreClient.html#instance-method-_getItemsFromPaginatedCollections",
-    "src/client.js~StoreClient#_getItemsFromPaginatedCollections",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_getnextcollection",
-    "class/src/client.js~StoreClient.html#instance-method-_getNextCollection",
-    "src/client.js~StoreClient#_getNextCollection",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_getpaginatedcollections",
-    "class/src/client.js~StoreClient.html#instance-method-_getPaginatedCollections",
-    "src/client.js~StoreClient#_getPaginatedCollections",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_getparameters",
-    "class/src/client.js~StoreClient.html#instance-method-_getParameters",
-    "src/client.js~StoreClient#_getParameters",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_getpluginspage",
-    "class/src/client.js~StoreClient.html#instance-method-_getPluginsPage",
-    "src/client.js~StoreClient#_getPluginsPage",
+    "src/client.js~storeclient#_fetchcollection",
+    "class/src/client.js~StoreClient.html#instance-method-_fetchCollection",
+    "src/client.js~StoreClient#_fetchCollection",
     "method"
   ],
   [
@@ -426,21 +396,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~storeclient#getpluginparameters",
+    "class/src/client.js~StoreClient.html#instance-method-getPluginParameters",
+    "src/client.js~StoreClient#getPluginParameters",
+    "method"
+  ],
+  [
     "src/client.js~storeclient#getplugins",
     "class/src/client.js~StoreClient.html#instance-method-getPlugins",
     "src/client.js~StoreClient#getPlugins",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#getpluginsinitialpage",
-    "class/src/client.js~StoreClient.html#instance-method-getPluginsInitialPage",
-    "src/client.js~StoreClient#getPluginsInitialPage",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#getpluginspage",
-    "class/src/client.js~StoreClient.html#instance-method-getPluginsPage",
-    "src/client.js~StoreClient#getPluginsPage",
     "method"
   ],
   [
@@ -495,6 +459,12 @@ window.esdocSearchIndex = [
     "src/client.js~storeclient.getauthtoken",
     "class/src/client.js~StoreClient.html#static-method-getAuthToken",
     "src/client.js~StoreClient.getAuthToken",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient.getdatafromcollection",
+    "class/src/client.js~StoreClient.html#static-method-getDataFromCollection",
+    "src/client.js~StoreClient.getDataFromCollection",
     "method"
   ],
   [
