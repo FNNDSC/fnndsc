@@ -78,8 +78,54 @@ resp
 let client = new StoreClient(storeUrl);
 
 
+// fetch a subset of the plugins in the store corresponding to the page determined by offset and limit
+let searchParams = { limit: 15, offset:0 };
+resp = client.getPlugins(searchParams);
+resp
+  .then(plugins =&gt; {
+
+    window.console.log(&apos;Plugin list: &apos;, plugins);
+    window.console.log(&apos;Is there a next page?: &apos;, plugins.hasNextPage);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// fetch a subset of the plugins in the store created by a specific user
+let searchParams = { owner_username: &apos;cubeadmin&apos;, limit: 10, offset:10 };
+resp = client.getPlugins(searchParams);
+resp
+  .then(userPlugins =&gt; {
+
+    window.console.log(&apos;A subset of the plugins created by the user: &apos;, userPlugins);
+    window.console.log(&apos;Is there a next page?: &apos;, userPlugins.hasNextPage);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// fetch a subset of the the plugins of type &apos;fs&apos; from the store
+searchParams = { type: &apos;fs&apos; };
+resp = client.getPlugins(searchParams);
+resp
+  .then(fsPlugins =&gt; {
+
+    window.console.log(&apos;A subset of the plugins of type fs: &apos;, fsPlugins);
+    window.console.log(&apos;Is there a next page?: &apos;, fsPlugins.hasNextPage);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
 // fetch a plugin given its id
-resp = client.getPlugin(1);
+const pluginId = 1;
+resp = client.getPlugin(pluginId);
 resp
   .then(plugin =&gt; {
 
@@ -91,44 +137,14 @@ resp
   });
 
 
-// fetch in a list a subset of the plugins in the store given search params
-let searchParams = { limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
+// fetch a subset of the parameters for the plugin with id 1
+const params = { limit: 10, offset:0 };
+resp = client.getPluginParameters(pluginId, params);
 resp
-  .then(smallPluginList =&gt; {
+  .then(parameters =&gt; {
 
-    window.console.log(&apos;Small plugin list: &apos;, smallPluginList);
-  })
-  .catch(error =&gt; {
-
-    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
-  });
-
-
-// fetch in a list a subset of the plugins in the store created by a specific user
-let searchParams = { owner_username: &apos;cubeadmin&apos;, limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
-resp
-  .then(userPluginList =&gt; {
-
-    window.console.log(&apos;A subset of the plugins created by the user: &apos;, userPluginList);
-  })
-  .catch(error =&gt; {
-
-    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
-  });
-
-
-// fetch a paginated list of plugins given search params and call a callback function on every page of the plugin list
-searchParams = { type: &apos;fs&apos; };
-resp = client.getPlugins(searchParams, onePageFsPluginList =&gt; {
-
-  window.console.log(&apos;One page of the fs plugin list: &apos;, onePageFsPluginList);
-});
-resp
-  .then(fullFsPluginList =&gt; {
-
-    window.console.log(&apos;&quot;fs&quot; plugins: &apos;, fullFsPluginList);
+    window.console.log(&apos;parameters: &apos;, parameters);
+    window.console.log(&apos;Is there a next page?: &apos;, parameters.hasNextPage);
   })
   .catch(error =&gt; {
 
@@ -187,7 +203,7 @@ resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
 resp
   .then(response =&gt; {
 
-      window.console.log(&apos;New plugin in the store: &apos;, response);
+      window.console.log(&apos;New plugin in the store: &apos;, response.data);
   })
   .catch(error =&gt; {
 
@@ -204,7 +220,8 @@ resp = client.modifyPlugin(testPlgId, testPlgDockImg, testPlgPublicRepo);
 resp
   .then(response =&gt; {
 
-    window.console.log(&apos;Updated description for plugin with id: &apos;, testPlgId);
+    window.console.log(&apos;Updated representation for plugin with id: &apos;, testPlgId);
+    window.console.log(&apos;New representation: &apos;, response.data);
   })
   .catch(error =&gt; {
 
