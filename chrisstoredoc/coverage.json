@@ -1,6 +1,6 @@
 {
-  "coverage": "84.44%",
-  "expectCount": 45,
+  "coverage": "80.85%",
+  "expectCount": 47,
   "actualCount": 38,
   "files": {
     "src/cj.js": {
@@ -20,11 +20,13 @@
       ]
     },
     "src/exception.js": {
-      "expectCount": 3,
+      "expectCount": 5,
       "actualCount": 1,
       "undocumentLines": [
         7,
-        9
+        9,
+        10,
+        11
       ]
     },
     "src/request.js": {

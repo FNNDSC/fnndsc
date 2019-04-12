@@ -31,7 +31,7 @@
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~StoreClient.html">StoreClient</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~StoreRequestException.html">StoreRequestException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
 </ul>
 </div>
@@ -41,7 +41,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import Collection from &apos;./cj&apos;;
 import Request from &apos;./request&apos;;
-import StoreRequestException from &apos;./exception&apos;;
+import RequestException from &apos;./exception&apos;;
 
 /**
  * Chris store object.
@@ -118,7 +118,7 @@ export default class StoreClient {
         return StoreClient.getDataFromCollection(coll, &apos;item&apos;);
       }
       const errMsg = &apos;Could not find plugin with id: &apos; + id;
-      throw new StoreRequestException(errMsg);
+      throw new RequestException(errMsg);
     });
   }
 
@@ -148,7 +148,7 @@ export default class StoreClient {
           coll = yield self._fetchCollection(url, { id: pluginId });
           if (coll.items.length === 0) {
             const errMsg = &apos;Could not find plugin with id: &apos; + pluginId;
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
           const parametersLinks = Collection.getLinkRelationUrls(coll.items[0], &apos;parameters&apos;);
           if (parametersLinks.length) {
@@ -210,7 +210,7 @@ export default class StoreClient {
             resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });
           } else {
             const errMsg = &apos;Could not find url for POST request. Make sure you are authenticated&apos;;
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
         } catch (ex) {
           reject(ex);
@@ -272,7 +272,7 @@ export default class StoreClient {
             resp = yield req.put(url, data);
           } else {
             const errMsg = &apos;Could not find plugin with id: &apos; + id;
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
         } catch (ex) {
           reject(ex);
@@ -308,7 +308,7 @@ export default class StoreClient {
             resp = yield req.delete(url);
           } else {
             const errMsg = &apos;Could not find plugin with id: &apos; + id;
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
         } catch (ex) {
           reject(ex);

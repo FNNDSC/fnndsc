@@ -12,15 +12,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@fnndsc/chrisstoreapi~storeclient",
-    "class/src/client.js~StoreClient.html",
-    "<span>StoreClient</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "@fnndsc/chrisstoreapi~requestexception",
+    "class/src/exception.js~RequestException.html",
+    "<span>RequestException</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisstoreapi~storerequestexception",
-    "class/src/exception.js~StoreRequestException.html",
-    "<span>StoreRequestException</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "@fnndsc/chrisstoreapi~storeclient",
+    "class/src/client.js~StoreClient.html",
+    "<span>StoreClient</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
     "class"
   ],
   [
@@ -480,15 +480,27 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/exception.js~storerequestexception#constructor",
-    "class/src/exception.js~StoreRequestException.html#instance-constructor-constructor",
-    "src/exception.js~StoreRequestException#constructor",
+    "src/exception.js~requestexception#constructor",
+    "class/src/exception.js~RequestException.html#instance-constructor-constructor",
+    "src/exception.js~RequestException#constructor",
     "method"
   ],
   [
-    "src/exception.js~storerequestexception#name",
-    "class/src/exception.js~StoreRequestException.html#instance-member-name",
-    "src/exception.js~StoreRequestException#name",
+    "src/exception.js~requestexception#name",
+    "class/src/exception.js~RequestException.html#instance-member-name",
+    "src/exception.js~RequestException#name",
+    "member"
+  ],
+  [
+    "src/exception.js~requestexception#request",
+    "class/src/exception.js~RequestException.html#instance-member-request",
+    "src/exception.js~RequestException#request",
+    "member"
+  ],
+  [
+    "src/exception.js~requestexception#response",
+    "class/src/exception.js~RequestException.html#instance-member-response",
+    "src/exception.js~RequestException#response",
     "member"
   ],
   [
