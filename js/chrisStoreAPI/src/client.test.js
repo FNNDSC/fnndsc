@@ -145,6 +145,24 @@ describe('StoreClient', () => {
       .then(done, done);
   });
 
+  it('can not modify an existing plugin in the store when sending wrong descriptor values', function(done) {
+    const testPlgId = 1;
+    const testPlgDockImg = 'fnndsc/pl-simplefsapp11';
+    const testPlgPublicRepo = 'github.com/FNNDSC11'; // wrong value
+
+    const resp = client.modifyPlugin(testPlgId, testPlgDockImg, testPlgPublicRepo);
+    resp
+      .catch(error => {
+        expect(error).to.be.an.instanceof(RequestException);
+        // console.log('error.message: ', error.message);
+        expect(error.response.data).to.have.property('public_repo');
+        expect(error.response.data).to.deep.equal(JSON.parse(error.message));
+        expect(error.response.status).to.equal(400);
+        expect(error.request).to.be.an.instanceof(XMLHttpRequest);
+      })
+      .then(done, done);
+  });
+
   /* it('can delete plugin to the store', done => {
     const testPlgId = 28;
 

@@ -169,7 +169,7 @@ export default class Request {
    * @throws {RequestException} throw error
    */
   static _handleRequestError(error) {
-    let errMsg;
+    let storeError;
 
     if (error.response) {
       // The request was made and the server responded with a status code
@@ -177,23 +177,32 @@ export default class Request {
       //console.log(error.response.data);
       //console.log(error.response.status);
       //console.log(error.response.headers);
-      errMsg = error.response;
+      let errMsg = 'Bad server response!';
       if (error.response.data.collection) {
         errMsg = Collection.getErrorMessage(error.response.data.collection);
+      }
+      storeError = new RequestException(errMsg);
+      storeError.request = error.request;
+      storeError.response = error.response;
+      try {
+        storeError.response.data = JSON.parse(errMsg);
+      } catch (ex) {
+        storeError.response.data = errMsg;
       }
     } else if (error.request) {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
       //console.log(error.request);
-      errMsg = error.request;
+      storeError = new RequestException('No server response!');
+      storeError.request = error.request;
     } else {
       // Something happened in setting up the request that triggered an Error
       //console.log('Error', error.message);
-      errMsg = error.message;
+      storeError = new RequestException(error.message);
     }
 
-    throw new RequestException(errMsg);
+    throw storeError;
     //console.log(error.config);
   }
 

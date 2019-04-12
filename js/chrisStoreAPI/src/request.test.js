@@ -1,5 +1,5 @@
 import Request from './request';
-import StoreRequestException from './exception';
+import RequestException from './exception';
 import { expect } from 'chai';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
@@ -81,7 +81,10 @@ describe('Request', () => {
 
     result
       .catch(error => {
-        expect(error).to.be.an.instanceof(StoreRequestException);
+        expect(error.response.status).to.equal(401);
+        expect(error.message).to.be.a('string');
+        expect(error.request).to.be.an.instanceof(XMLHttpRequest);
+        expect(error).to.be.an.instanceof(RequestException);
       })
       .then(done, done);
   });

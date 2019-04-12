@@ -1,7 +1,7 @@
 /** * Imports ***/
 import Collection from './cj';
 import Request from './request';
-import StoreRequestException from './exception';
+import RequestException from './exception';
 
 /**
  * Chris store object.
@@ -78,7 +78,7 @@ export default class StoreClient {
         return StoreClient.getDataFromCollection(coll, 'item');
       }
       const errMsg = 'Could not find plugin with id: ' + id;
-      throw new StoreRequestException(errMsg);
+      throw new RequestException(errMsg);
     });
   }
 
@@ -108,7 +108,7 @@ export default class StoreClient {
           coll = yield self._fetchCollection(url, { id: pluginId });
           if (coll.items.length === 0) {
             const errMsg = 'Could not find plugin with id: ' + pluginId;
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
           const parametersLinks = Collection.getLinkRelationUrls(coll.items[0], 'parameters');
           if (parametersLinks.length) {
@@ -170,7 +170,7 @@ export default class StoreClient {
             resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });
           } else {
             const errMsg = 'Could not find url for POST request. Make sure you are authenticated';
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
         } catch (ex) {
           reject(ex);
@@ -232,7 +232,7 @@ export default class StoreClient {
             resp = yield req.put(url, data);
           } else {
             const errMsg = 'Could not find plugin with id: ' + id;
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
         } catch (ex) {
           reject(ex);
@@ -268,7 +268,7 @@ export default class StoreClient {
             resp = yield req.delete(url);
           } else {
             const errMsg = 'Could not find plugin with id: ' + id;
-            throw new StoreRequestException(errMsg);
+            throw new RequestException(errMsg);
           }
         } catch (ex) {
           reject(ex);
