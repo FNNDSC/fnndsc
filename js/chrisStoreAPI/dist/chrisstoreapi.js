@@ -4266,7 +4266,7 @@
             return i.default;
           },
         }),
-        Object.defineProperty(e, 'StoreRequestException', {
+        Object.defineProperty(e, 'RequestException', {
           enumerable: !0,
           get: function() {
             return u.default;
