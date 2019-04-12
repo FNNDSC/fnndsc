@@ -1783,7 +1783,7 @@
     "__docId__": 78,
     "kind": "file",
     "name": "src/exception.js",
-    "content": "/**\n * Custom exception object.\n *\n * @module exception\n */\nexport default class RequestException extends Error {\n  constructor(...args) {\n    super(...args);\n    this.name = this.constructor.name;\n    this.request = null;\n    this.response = null;\n  }\n}\n",
+    "content": "/**\n * Custom exception object.\n *\n * @module exception\n */\nexport default class RequestException extends Error {\n  constructor(...args) {\n    super(...args);\n\n    /** @type {string} */\n    this.name = this.constructor.name;\n\n    /** @type {Object} */\n    this.request = null;\n\n    /** @type {Object} */\n    this.response = null;\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/exception.js",
     "access": "public",
@@ -1837,12 +1837,14 @@
     "longname": "src/exception.js~RequestException#name",
     "access": "public",
     "description": null,
-    "lineNumber": 9,
-    "undocument": true,
+    "lineNumber": 11,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "string"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1854,12 +1856,14 @@
     "longname": "src/exception.js~RequestException#request",
     "access": "public",
     "description": null,
-    "lineNumber": 10,
-    "undocument": true,
+    "lineNumber": 14,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -1871,19 +1875,21 @@
     "longname": "src/exception.js~RequestException#response",
     "access": "public",
     "description": null,
-    "lineNumber": 11,
-    "undocument": true,
+    "lineNumber": 17,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
     "__docId__": 84,
     "kind": "file",
     "name": "src/index.js",
-    "content": "import StoreClient from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport StoreRequestException from './exception';\n\nexport default StoreClient;\nexport { Request };\nexport { Collection };\nexport { StoreRequestException };\n",
+    "content": "import StoreClient from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport RequestException from './exception';\n\nexport default StoreClient;\nexport { Request };\nexport { Collection };\nexport { RequestException };\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/index.js",
     "access": "public",
@@ -2421,7 +2427,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"1.1.6\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"1.1.7\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/package.json",
     "name": "package.json",
     "static": true,
