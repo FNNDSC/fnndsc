@@ -527,7 +527,10 @@
           })(this, e);
           for (var r = arguments.length, i = new Array(r), u = 0; u < r; u++) i[u] = arguments[u];
           return (
-            ((n = o(this, (t = c(e)).call.apply(t, [this].concat(i)))).name = n.constructor.name), n
+            ((n = o(this, (t = c(e)).call.apply(t, [this].concat(i)))).name = n.constructor.name),
+            (n.request = null),
+            (n.response = null),
+            n
           );
         }
         return (
@@ -1014,8 +1017,8 @@
         A = r.JSON,
         R = A && A.stringify,
         F = h('_hidden'),
-        M = h('toPrimitive'),
-        N = {}.propertyIsEnumerable,
+        N = h('toPrimitive'),
+        M = {}.propertyIsEnumerable,
         D = f('symbol-registry'),
         U = f('symbols'),
         I = f('op-symbols'),
@@ -1046,7 +1049,7 @@
           var e = (U[t] = S(C.prototype));
           return (e._k = t), e;
         },
-        K =
+        J =
           B && 'symbol' == typeof C.iterator
             ? function(t) {
                 return 'symbol' == typeof t;
@@ -1054,9 +1057,9 @@
             : function(t) {
                 return t instanceof C;
               },
-        Q = function(t, e, n) {
+        K = function(t, e, n) {
           return (
-            t === q && Q(I, e, n),
+            t === q && K(I, e, n),
             g(t),
             (e = x(e, !0)),
             g(n),
@@ -1068,13 +1071,13 @@
               : T(t, e, n)
           );
         },
-        W = function(t, e) {
+        Q = function(t, e) {
           g(t);
-          for (var n, r = y((e = b(e))), o = 0, i = r.length; i > o; ) Q(t, (n = r[o++]), e[n]);
+          for (var n, r = y((e = b(e))), o = 0, i = r.length; i > o; ) K(t, (n = r[o++]), e[n]);
           return t;
         },
-        J = function(t) {
-          var e = N.call(this, (t = x(t, !0)));
+        W = function(t) {
+          var e = M.call(this, (t = x(t, !0)));
           return (
             !(this === q && o(U, t) && !o(I, t)) &&
             (!(e || !o(this, t) || !o(U, t) || (o(this, F) && this[F][t])) || e)
@@ -1114,11 +1117,11 @@
           }
         ),
         (O.f = X),
-        (P.f = Q),
+        (P.f = K),
         (n(69).f = k.f = Y),
-        (n(34).f = J),
+        (n(34).f = W),
         (n(72).f = $),
-        i && !n(20) && a(q, 'propertyIsEnumerable', J, !0),
+        i && !n(20) && a(q, 'propertyIsEnumerable', W, !0),
         (v.f = function(t) {
           return V(h(t));
         })),
@@ -1138,7 +1141,7 @@
           return o(D, (t += '')) ? D[t] : (D[t] = C(t));
         },
         keyFor: function(t) {
-          if (!K(t)) throw TypeError(t + ' is not a symbol!');
+          if (!J(t)) throw TypeError(t + ' is not a symbol!');
           for (var e in D) if (D[e] === t) return e;
         },
         useSetter: function() {
@@ -1150,10 +1153,10 @@
       }),
         u(u.S + u.F * !B, 'Object', {
           create: function(t, e) {
-            return void 0 === e ? S(t) : W(S(t), e);
+            return void 0 === e ? S(t) : Q(S(t), e);
           },
-          defineProperty: Q,
-          defineProperties: W,
+          defineProperty: K,
+          defineProperties: Q,
           getOwnPropertyDescriptor: X,
           getOwnPropertyNames: Y,
           getOwnPropertySymbols: $,
@@ -1171,11 +1174,11 @@
             {
               stringify: function(t) {
                 for (var e, n, r = [t], o = 1; arguments.length > o; ) r.push(arguments[o++]);
-                if (((n = e = r[1]), (w(e) || void 0 !== t) && !K(t)))
+                if (((n = e = r[1]), (w(e) || void 0 !== t) && !J(t)))
                   return (
                     m(e) ||
                       (e = function(t, e) {
-                        if (('function' == typeof n && (e = n.call(this, t, e)), !K(e))) return e;
+                        if (('function' == typeof n && (e = n.call(this, t, e)), !J(e))) return e;
                       }),
                     (r[1] = e),
                     R.apply(A, r)
@@ -1183,7 +1186,7 @@
               },
             }
           ),
-        C.prototype[M] || n(12)(C.prototype, M, C.prototype.valueOf),
+        C.prototype[N] || n(12)(C.prototype, N, C.prototype.valueOf),
         l(C, 'Symbol'),
         l(Math, 'Math', !0),
         l(r.JSON, 'JSON', !0);
@@ -1477,12 +1480,22 @@
               key: '_handleRequestError',
               value: function(t) {
                 var e;
-                throw (t.response
-                  ? ((e = t.response),
-                    t.response.data.collection &&
-                      (e = o.default.getErrorMessage(t.response.data.collection)))
-                  : (e = t.request ? t.request : t.message),
-                new i.default(e));
+                if (t.response) {
+                  var n = 'Bad server response!';
+                  t.response.data.collection &&
+                    (n = o.default.getErrorMessage(t.response.data.collection)),
+                    ((e = new i.default(n)).request = t.request),
+                    (e.response = t.response);
+                  try {
+                    e.response.data = JSON.parse(n);
+                  } catch (t) {
+                    e.response.data = n;
+                  }
+                } else
+                  t.request
+                    ? ((e = new i.default('No server response!')).request = t.request)
+                    : (e = new i.default(t.message));
+                throw e;
               },
             },
             {
@@ -3040,7 +3053,7 @@
                       f = e.domain;
                     try {
                       a
-                        ? (o || (2 == t._h && N(t), (t._h = 1)),
+                        ? (o || (2 == t._h && M(t), (t._h = 1)),
                           !0 === a
                             ? (n = r)
                             : (f && f.enter(), (n = a(r)), f && (f.exit(), (u = !0))),
@@ -3068,7 +3081,7 @@
               n,
               r,
               o = t._v,
-              i = M(t);
+              i = N(t);
             if (
               (i &&
                 ((e = b(function() {
@@ -3078,17 +3091,17 @@
                       ? n({ promise: t, reason: o })
                       : (r = c.console) && r.error && r.error('Unhandled promise rejection', o);
                 })),
-                (t._h = E || M(t) ? 2 : 1)),
+                (t._h = E || N(t) ? 2 : 1)),
               (t._a = void 0),
               i && e.e)
             )
               throw e.v;
           });
         },
-        M = function(t) {
+        N = function(t) {
           return 1 !== t._h && 0 === (t._a || t._c).length;
         },
-        N = function(t) {
+        M = function(t) {
           m.call(c, function() {
             var e;
             E
