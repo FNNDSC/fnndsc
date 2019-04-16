@@ -660,6 +660,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/exception.js~requestexception#request",
+    "class/src/exception.js~RequestException.html#instance-member-request",
+    "src/exception.js~RequestException#request",
+    "member"
+  ],
+  [
+    "src/exception.js~requestexception#response",
+    "class/src/exception.js~RequestException.html#instance-member-response",
+    "src/exception.js~RequestException#response",
+    "member"
+  ],
+  [
     "src/feed.js",
     "file/src/feed.js.html",
     "src/feed.js",

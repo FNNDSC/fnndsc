@@ -231,6 +231,14 @@ Client.runAsyncTask(function*() {
 });
 </code>
 </code></pre>
+<h2 id="error-handling">Error handling</h2><p>The API basically follows the same error handling scheme as the <a href="https://https://github.com/axios/axios">Axios</a>
+library.</p>
+<p>So given an error you first check if <code>error.response</code> exists. If so the error data is in <code>error.response.data</code>,
+otherwise <code>error.message</code> should be used to report the error.</p>
+<p>Now <code>error.response.data</code> may be a plain error string or an object whose properties are the field names that produced
+the bad request. It may also have a property called <code>non_field_errors</code> when the error is not specifically related
+to a single field. The value of any of those properties is a list of plain string errors. This is the standard Django
+Rest Framework approach to reporting errors.</p>
 <h2 id="api-reference">API reference</h2><p>Please check the API reference links to learn more about the API resource objects and their functionality.</p>
 </div>
 </div>
