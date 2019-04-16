@@ -1,6 +1,7 @@
 # ChRIS API
 JavaScript 6 client for the ChRIS API.
 
+
 ## Usage
 
 ``` javascript
@@ -172,6 +173,21 @@ Client.runAsyncTask(function*() {
 });
 
 ```
+
+
+## Error handling
+
+The API basically follows the same error handling scheme as the [Axios](https://https://github.com/axios/axios)
+library.
+
+So given an error you first check if ``error.response`` exists. If so the error data is in ``error.response.data``,
+otherwise `error.message` should be used to report the error.
+
+Now ``error.response.data`` may be a plain error string or an object whose properties are the field names that produced
+the bad request. It may also have a property called ``non_field_errors`` when the error is not specifically related
+to a single field. The value of any of those properties is a list of plain string errors. This is the standard Django
+Rest Framework approach to reporting errors.
+
 
 ## API reference
 

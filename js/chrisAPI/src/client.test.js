@@ -1,6 +1,7 @@
 import Client from './client';
 import { expect } from 'chai';
 import { FeedList } from './feed';
+import RequestException from './exception';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -24,6 +25,23 @@ describe('Client', () => {
       .then(user => {
         // window.console.log('data', user.data);
         expect(user.data.username).to.equal(username);
+      })
+      .then(done, done);
+  });
+
+  it('can report an unsuccessful atempt to create a new user through the REST API', done => {
+    const username = 'user' + Date.now();
+    const password = username + 'pass';
+    const email = username + '/babymri.org';
+
+    const result = Client.createUser(usersUrl, username, password, email);
+    result
+      .catch(error => {
+        expect(error).to.be.an.instanceof(RequestException);
+        expect(error.message).to.be.a('string');
+        expect(error.request).to.be.an.instanceof(XMLHttpRequest);
+        expect(error.response.status).to.equal(400);
+        expect(error.response.data).to.have.property('email');
       })
       .then(done, done);
   });

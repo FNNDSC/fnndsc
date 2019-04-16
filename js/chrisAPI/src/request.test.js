@@ -33,7 +33,25 @@ describe('Request', () => {
 
     result
       .catch(error => {
+        expect(error.response.status).to.equal(404);
+        expect(error.message).to.be.a('string');
+        expect(error.request).to.be.an.instanceof(XMLHttpRequest);
         expect(error).to.be.an.instanceof(RequestException);
+      })
+      .then(done, done);
+  });
+
+  it('can report unsuccessfull unauthenticated GET request', done => {
+    const req = new Request(undefined, contentType);
+    const result = req.get(chrisUrl);
+
+    result
+      .catch(error => {
+        expect(error).to.be.an.instanceof(RequestException);
+        expect(error.message).to.be.a('string');
+        expect(error.request).to.be.an.instanceof(XMLHttpRequest);
+        expect(error.response.status).to.equal(401);
+        expect(error.response.data).to.be.a('string');
       })
       .then(done, done);
   });
