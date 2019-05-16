@@ -42,6 +42,7 @@ describe('Request', () => {
 
   let req;
   const storeUrl = 'http://localhost:8010/api/v1/';
+  const usersUrl = storeUrl + 'users/';
   const auth = {
     username: 'cubeadmin',
     password: 'cubeadmin1234',
@@ -77,7 +78,7 @@ describe('Request', () => {
 
   it('can report unsuccessfull unauthenticated GET request', done => {
     const req = new Request(undefined, contentType);
-    const result = req.get(storeUrl + '1/');
+    const result = req.get(usersUrl + '1/');
 
     result
       .catch(error => {
@@ -99,7 +100,7 @@ describe('Request', () => {
     const dfile = new Blob([fileData], { type: 'application/json' });
     const dfileObj = { descriptor_file: dfile };
 
-    const result = req.post(storeUrl + 'user-plugins/', data, dfileObj);
+    const result = req.post(storeUrl, data, dfileObj);
 
     result
       .then(response => {

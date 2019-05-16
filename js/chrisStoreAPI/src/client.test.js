@@ -113,32 +113,25 @@ describe('StoreClient', () => {
   it('can modify an existing plugin in the store', done => {
     const testPlgId = 1;
     const testPlgNewOwner = 'chris';
-    const testPlgDockImg = 'fnndsc/pl-simplefsapp11';
     const testPlgPublicRepo = 'https://github.com/FNNDSC11';
 
     const result = client.modifyPlugin(
       testPlgId,
-      testPlgDockImg,
       testPlgPublicRepo,
       testPlgNewOwner
     );
     result
       .then(response => {
-        const plgDockImg = response.data['dock_image'];
         const plgPublicRepo = response.data['public_repo'];
-        expect(plgDockImg).to.equal(testPlgDockImg);
         expect(plgPublicRepo).to.equal(testPlgPublicRepo);
 
-        // restore plugin to its original public repo and  docker image
+        // restore plugin to its original public repo
         const res = client.modifyPlugin(
           testPlgId,
-          'fnndsc/pl-simplefsapp',
           'https://github.com/FNNDSC'
         );
         res.then(resp => {
-          const plgDockImg = resp.data['dock_image'];
           const plgPublicRepo = resp.data['public_repo'];
-          expect(plgDockImg).to.equal('fnndsc/pl-simplefsapp');
           expect(plgPublicRepo).to.equal('https://github.com/FNNDSC');
         });
       })
@@ -147,10 +140,9 @@ describe('StoreClient', () => {
 
   it('can not modify an existing plugin in the store when sending wrong descriptor values', function(done) {
     const testPlgId = 1;
-    const testPlgDockImg = 'fnndsc/pl-simplefsapp11';
     const testPlgPublicRepo = 'github.com/FNNDSC11'; // wrong value
 
-    const resp = client.modifyPlugin(testPlgId, testPlgDockImg, testPlgPublicRepo);
+    const resp = client.modifyPlugin(testPlgId, testPlgPublicRepo);
     resp
       .catch(error => {
         expect(error).to.be.an.instanceof(RequestException);

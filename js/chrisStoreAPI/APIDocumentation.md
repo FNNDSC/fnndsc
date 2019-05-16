@@ -180,15 +180,14 @@ resp
 
 // modify an existing plugin's representation in the store
 const testPlgId = 1;
-const testPlgDockImg = 'fnndsc/pl-simplefsapp11';
 const testPlgPublicRepo = 'https://github.com/FNNDSC11';
 
-resp = client.modifyPlugin(testPlgId, testPlgDockImg, testPlgPublicRepo);
+resp = client.modifyPlugin(testPlgId, testPlgPublicRepo);
 resp
   .then(response => {
 
-    window.console.log('Updated representation for plugin with id: ', testPlgId);
-    window.console.log('New representation: ', response.data);
+    window.console.log('Updated the url of the public repository for plugin with id: ', testPlgId);
+    window.console.log('New response data: ', response.data);
   })
   .catch(error => {
 
@@ -197,7 +196,7 @@ resp
 
 
 // share an existing plugin with another store user (who then becomes an owner of the plugin)
-resp = client.modifyPlugin(testPlgId, undefined, undefined, 'chris');
+resp = client.modifyPlugin(testPlgId, undefined, 'chris');
 resp
   .then(response => {
 

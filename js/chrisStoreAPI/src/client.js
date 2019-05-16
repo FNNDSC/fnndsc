@@ -147,51 +147,27 @@ export default class StoreClient {
    * @param {string} publicRepo - url of the plugin public repository
    * @return {Object} - JS Promise
    */
-  addPlugin(name, dockImage, descriptorFile, publicRepo) {
-    const self = this;
+   addPlugin(name, dockImage, descriptorFile, publicRepo) {
+     const req = new Request(this.auth, this.contentType, this.timeout);
+     const data = {
+       name: name,
+       dock_image: dockImage,
+       public_repo: publicRepo,
+     };
 
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        const data = {
-          name: name,
-          dock_image: dockImage,
-          public_repo: publicRepo,
-        };
-        let resp;
-
-        try {
-          resp = yield req.get(self.storeUrl);
-          const coll = resp.data.collection;
-          const userPluginsUrls = Collection.getLinkRelationUrls(coll, 'user_plugins');
-
-          if (userPluginsUrls.length) {
-            // use userPluginsUrls[0] bc there can only be a single user_plugins url
-            resp = yield req.post(userPluginsUrls[0], data, { descriptor_file: descriptorFile });
-          } else {
-            const errMsg = 'Could not find url for POST request. Make sure you are authenticated';
-            throw new RequestException(errMsg);
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
-      });
-    });
-  }
+     return req.post(this.storeUrl, data, { descriptor_file: descriptorFile })
+     .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));
+   }
 
   /**
    * Modify an existing plugin in the ChRIS store.
    *
    * @param {number} id - plugin id
-   * @param {string} dockImage - plugin docker image
    * @param {string} publicRepo - url of the plugin public repository
    * @param {string} newOwner - username of a new owner for the plugin
    * @return {Object} - JS Promise
    */
-  modifyPlugin(id, dockImage = '', publicRepo = '', newOwner = '') {
+  modifyPlugin(id, publicRepo = '', newOwner = '') {
     const self = this;
 
     return new Promise(function(resolve, reject) {
@@ -208,13 +184,6 @@ export default class StoreClient {
             const url = coll.items[0].href;
             let data = {};
 
-            if (dockImage) {
-              data.dock_image = dockImage;
-            } else {
-              data.dock_image = coll.items[0].data.filter(descriptor => {
-                return descriptor.name === 'dock_image';
-              })[0].value;
-            }
             if (publicRepo) {
               data.public_repo = publicRepo;
             } else {
