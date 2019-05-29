@@ -20,6 +20,8 @@ export default class StoreClient {
   constructor(storeUrl, auth = null, timeout = 30000) {
     this.storeUrl = storeUrl;
     this.storeQueryUrl = storeUrl + 'search/';
+    this.pipelinesUrl = '';
+    this.pipelinesQueryUrl = '';
     this.auth = auth;
     this.timeout = timeout;
     this.contentType = 'application/vnd.collection+json';
@@ -147,17 +149,18 @@ export default class StoreClient {
    * @param {string} publicRepo - url of the plugin public repository
    * @return {Object} - JS Promise
    */
-   addPlugin(name, dockImage, descriptorFile, publicRepo) {
-     const req = new Request(this.auth, this.contentType, this.timeout);
-     const data = {
-       name: name,
-       dock_image: dockImage,
-       public_repo: publicRepo,
-     };
+  addPlugin(name, dockImage, descriptorFile, publicRepo) {
+    const req = new Request(this.auth, this.contentType, this.timeout);
+    const data = {
+      name: name,
+      dock_image: dockImage,
+      public_repo: publicRepo,
+    };
 
-     return req.post(this.storeUrl, data, { descriptor_file: descriptorFile })
-     .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));
-   }
+    return req
+      .post(this.storeUrl, data, { descriptor_file: descriptorFile })
+      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));
+  }
 
   /**
    * Modify an existing plugin in the ChRIS store.
@@ -247,6 +250,92 @@ export default class StoreClient {
         resolve();
       });
     });
+  }
+
+  /**
+   * Get a paginated list of pipeline data (descriptors) given query search
+   * parameters. If no search parameters is given then get the default first
+   * page.
+   *
+   * @param {Object} [searchParams=null] - search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {string} [searchParams.name] - match pipeline name containing this string
+   * @param {string} [searchParams.category] - match pipeline category containing this string
+   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string
+   * @param {string} [searchParams.description] - match pipeline description containing this string
+   * @param {string} [searchParams.authors] - match pipeline authors containing this string
+   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date
+   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date
+   * @param {number} [searchParams.id] - match pipeline id exactly with this number
+   * @return {Object} - JS Promise
+   */
+  getPipelines(searchParams = null) {
+    const storeUrl = this.storeUrl;
+
+    const fetchData = (url, searchParams) =>
+      this._fetchCollection(url, searchParams).then(coll => {
+        return StoreClient.getDataFromCollection(coll, 'list');
+      });
+
+    if (searchParams) {
+      if (this.pipelinesQueryUrl) {
+        return fetchData(this.pipelinesQueryUrl, searchParams);
+      } else {
+        return this._fetchCollection(storeUrl).then(coll => {
+          this.setPipelinesUrls(coll);
+          return fetchData(this.pipelinesQueryUrl, searchParams);
+        });
+      }
+    } else {
+      if (this.pipelinesUrl) {
+        return fetchData(this.pipelinesUrl);
+      } else {
+        return this._fetchCollection(storeUrl).then(coll => {
+          this.setPipelinesUrls(coll);
+          return fetchData(this.pipelinesUrl);
+        });
+      }
+    }
+  }
+
+  /**
+   * Get a pipeline's information (descriptors) given its ChRIS store id.
+   *
+   * @param {number} id - pipeline id
+   * @return {Object} - JS Promise
+   */
+  getPipeline(id) {
+    const storeUrl = this.storeUrl;
+    const searchParams = { id: id };
+
+    const fetchData = (url, searchParams) =>
+      this._fetchCollection(url, searchParams).then(coll => {
+        if (coll.items.length) {
+          return StoreClient.getDataFromCollection(coll, 'item');
+        }
+        const errMsg = 'Could not find pipeline with id: ' + id;
+        throw new RequestException(errMsg);
+      });
+
+    if (this.pipelinesQueryUrl) {
+      return fetchData(this.pipelinesQueryUrl, searchParams);
+    } else {
+      return this._fetchCollection(storeUrl).then(coll => {
+        this.setPipelinesUrls(coll);
+        return fetchData(this.pipelinesQueryUrl, searchParams);
+      });
+    }
+  }
+
+  /**
+   * Set the url of the pipelines from a collection object.
+   *
+   * @param {Object} coll - collection object
+   */
+  setPipelinesUrls(coll) {
+    this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');
+    this.pipelinesQueryUrl = this.pipelinesUrl + 'search/';
   }
 
   /**
