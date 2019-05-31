@@ -169,6 +169,91 @@ describe('StoreClient', () => {
       .then(done, done);
   });*/
 
+  it('can retrieve pipelines given search params', function(done) {
+    const searchParams = { limit: 5 };
+
+    this.timeout(10000); // mocha test timeout, don't work with arrow functions
+
+    const result = client.getPipelines(searchParams);
+    result
+      .then(pipelines => {
+        expect(pipelines).to.have.property('hasNextPage');
+        expect(pipelines).to.have.property('hasPreviousPage');
+        expect(pipelines.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can retrieve a pipeline given its id', function(done) {
+    const resp = client.getPipeline(1);
+    resp
+      .then(pipeline => {
+        expect(pipeline.data.id).to.equal(1);
+      })
+      .then(done, done);
+  });
+
+  it('can retrieve the first page of a pipeline default parameters given the pipeline id', function(done) {
+    const resp = client.getPipelineDefaultParameters(1, { offset: 0 });
+    resp
+      .then(parameters => {
+        expect(parameters).to.have.property('hasNextPage');
+        expect(parameters).to.have.property('hasPreviousPage');
+        expect(parameters.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can retrieve the first page of a pipeline pipings given the pipeline id', function(done) {
+    const resp = client.getPipelinePipings(1, { offset: 0 });
+    resp
+      .then(pipings => {
+        expect(pipings).to.have.property('hasNextPage');
+        expect(pipings).to.have.property('hasPreviousPage');
+        expect(pipings.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can retrieve the first page of a pipeline plugins given the pipeline id', function(done) {
+    const resp = client.getPipelinePlugins(1, { offset: 0 });
+    resp
+      .then(plugins => {
+        //console.log('plugins.data: ', plugins.data);
+        expect(plugins).to.have.property('hasNextPage');
+        expect(plugins).to.have.property('hasPreviousPage');
+        expect(plugins.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can modify an existing pipeline in the store', done => {
+    const testPipelineId = 1;
+    const data = {authors: 'admin@babymri.org'};
+
+    const result = client.modifyPipeline(testPipelineId, data);
+    result
+      .then(response => {
+        const pipelineAuthors = response.data['authors'];
+        expect(pipelineAuthors).to.equal('admin@babymri.org');
+      })
+      .then(done, done);
+  });
+
+   /*it('can delete pipeline from the the store', done => {
+    const testPipelineId = 2;
+
+    const result = client.removePipeline(testPipelineId);
+
+    result
+      .then(() => {
+        window.console.log("Removed pipeline with id: ", testPipelineId);
+
+        return client.getPipeline(testPipelineId);
+      })
+      .then(done, done);
+  });*/
+
   it('can retrieve currently authenticated user info', function(done) {
     const resp = client.getUser();
 

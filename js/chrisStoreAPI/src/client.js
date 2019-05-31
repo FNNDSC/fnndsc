@@ -60,9 +60,7 @@ export default class StoreClient {
       // then it's a query and should use the query url
       url = this.storeQueryUrl;
     }
-    return this._fetchCollection(url, searchParams).then(coll => {
-      return StoreClient.getDataFromCollection(coll, 'list');
-    });
+    return this._getListResourceData(url, searchParams);
   }
 
   /**
@@ -72,16 +70,7 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   getPlugin(id) {
-    const searchParams = { id: id };
-    const url = this.storeQueryUrl;
-
-    return this._fetchCollection(url, searchParams).then(coll => {
-      if (coll.items.length) {
-        return StoreClient.getDataFromCollection(coll, 'item');
-      }
-      const errMsg = 'Could not find plugin with id: ' + id;
-      throw new RequestException(errMsg);
-    });
+    return this._getItemResourceData(this.storeQueryUrl, id);
   }
 
   /**
@@ -95,49 +84,8 @@ export default class StoreClient {
    */
   getPluginParameters(pluginId, params = null) {
     const url = this.storeQueryUrl;
-    const self = this;
 
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        let coll;
-        let result = {
-          data: [],
-          hasNextPage: false,
-          hasPreviousPage: false,
-        };
-
-        try {
-          coll = yield self._fetchCollection(url, { id: pluginId });
-          if (coll.items.length === 0) {
-            const errMsg = 'Could not find plugin with id: ' + pluginId;
-            throw new RequestException(errMsg);
-          }
-          const parametersLinks = Collection.getLinkRelationUrls(coll.items[0], 'parameters');
-          if (parametersLinks.length) {
-            coll = yield self._fetchCollection(parametersLinks[0], params); // there can only be a single parameters link
-            result = StoreClient.getDataFromCollection(coll, 'list');
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(result);
-      });
-    });
-  }
-
-  /**
-   * Internal method to fetch a collection object from a resource url.
-   *
-   * @param {string} url - url
-   * @param {Object} [searchParams=null] - search parameters
-   * @return {Object} - JS Promise
-   */
-  _fetchCollection(url, searchParams = null) {
-    const req = new Request(this.auth, this.contentType, this.timeout);
-
-    return req.get(url, searchParams).then(resp => resp.data.collection);
+    return this._getResourceRelatedListData(url, pluginId, 'parameters',  params);
   }
 
   /**
@@ -180,8 +128,7 @@ export default class StoreClient {
 
         try {
           const searchParams = { id: id };
-          resp = yield req.get(self.storeQueryUrl, searchParams);
-          const coll = resp.data.collection;
+          const coll = yield self._fetchCollection(self.storeQueryUrl, searchParams);
 
           if (coll.items.length) {
             const url = coll.items[0].href;
@@ -203,7 +150,7 @@ export default class StoreClient {
             }
             resp = yield req.put(url, data);
           } else {
-            const errMsg = 'Could not find plugin with id: ' + id;
+            const errMsg = 'Could not find resource with id: ' + id;
             throw new RequestException(errMsg);
           }
         } catch (ex) {
@@ -223,39 +170,12 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   removePlugin(id) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        const searchParams = { id: id };
-        let resp;
-
-        try {
-          resp = yield req.get(self.storeQueryUrl, searchParams);
-          const coll = resp.data.collection;
-
-          if (coll.items.length) {
-            const url = coll.items[0].href;
-            resp = yield req.delete(url);
-          } else {
-            const errMsg = 'Could not find plugin with id: ' + id;
-            throw new RequestException(errMsg);
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve();
-      });
-    });
+    return this._removeItemResource(this.storeQueryUrl, id);
   }
 
   /**
-   * Get a paginated list of pipeline data (descriptors) given query search
-   * parameters. If no search parameters is given then get the default first
-   * page.
+   * Get a paginated list of pipeline data (descriptors) given query search parameters.
+   * If no search parameters is given then get the default first page.
    *
    * @param {Object} [searchParams=null] - search parameters
    * @param {number} [searchParams.limit] - page limit
@@ -265,38 +185,30 @@ export default class StoreClient {
    * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string
    * @param {string} [searchParams.description] - match pipeline description containing this string
    * @param {string} [searchParams.authors] - match pipeline authors containing this string
-   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date
-   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date
+   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date
+   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date
    * @param {number} [searchParams.id] - match pipeline id exactly with this number
    * @return {Object} - JS Promise
    */
   getPipelines(searchParams = null) {
     const storeUrl = this.storeUrl;
 
-    const fetchData = (url, searchParams) =>
-      this._fetchCollection(url, searchParams).then(coll => {
-        return StoreClient.getDataFromCollection(coll, 'list');
-      });
-
     if (searchParams) {
       if (this.pipelinesQueryUrl) {
-        return fetchData(this.pipelinesQueryUrl, searchParams);
-      } else {
-        return this._fetchCollection(storeUrl).then(coll => {
-          this.setPipelinesUrls(coll);
-          return fetchData(this.pipelinesQueryUrl, searchParams);
-        });
+        return this._getListResourceData(this.pipelinesQueryUrl, searchParams);
       }
-    } else {
-      if (this.pipelinesUrl) {
-        return fetchData(this.pipelinesUrl);
-      } else {
-        return this._fetchCollection(storeUrl).then(coll => {
-          this.setPipelinesUrls(coll);
-          return fetchData(this.pipelinesUrl);
-        });
-      }
+      return this._fetchCollection(storeUrl).then(coll => {
+        this.setPipelinesUrls(coll);
+        return this._getListResourceData(this.pipelinesQueryUrl, searchParams);
+      });
     }
+    if (this.pipelinesUrl) {
+      return this._getListResourceData(this.pipelinesUrl);
+    }
+    return this._fetchCollection(storeUrl).then(coll => {
+      this.setPipelinesUrls(coll);
+      return this._getListResourceData(this.pipelinesUrl);
+    });
   }
 
   /**
@@ -307,25 +219,83 @@ export default class StoreClient {
    */
   getPipeline(id) {
     const storeUrl = this.storeUrl;
-    const searchParams = { id: id };
-
-    const fetchData = (url, searchParams) =>
-      this._fetchCollection(url, searchParams).then(coll => {
-        if (coll.items.length) {
-          return StoreClient.getDataFromCollection(coll, 'item');
-        }
-        const errMsg = 'Could not find pipeline with id: ' + id;
-        throw new RequestException(errMsg);
-      });
 
     if (this.pipelinesQueryUrl) {
-      return fetchData(this.pipelinesQueryUrl, searchParams);
-    } else {
-      return this._fetchCollection(storeUrl).then(coll => {
-        this.setPipelinesUrls(coll);
-        return fetchData(this.pipelinesQueryUrl, searchParams);
-      });
+      return this._getItemResourceData(this.pipelinesQueryUrl, id);
     }
+    return this._fetchCollection(storeUrl).then(coll => {
+      this.setPipelinesUrls(coll);
+      return this._getItemResourceData(this.pipelinesQueryUrl, id);
+    });
+  }
+
+  /**
+   * Get a pipeline's paginated default parameters given its ChRIS store id.
+   *
+   * @param {number} pipelineId - pipeline id
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @return {Object} - JS Promise
+   */
+  getPipelineDefaultParameters(pipelineId, params = null) {
+    const storeUrl = this.storeUrl;
+
+    if (this.pipelinesQueryUrl) {
+      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
+        'default_parameters',  params);
+    }
+    return this._fetchCollection(storeUrl).then(coll => {
+      this.setPipelinesUrls(coll);
+      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
+        'default_parameters',  params);
+    });
+  }
+
+  /**
+   * Get a pipeline's paginated pipings given its ChRIS store id.
+   *
+   * @param {number} pipelineId - pipeline id
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @return {Object} - JS Promise
+   */
+  getPipelinePipings(pipelineId, params = null) {
+    const storeUrl = this.storeUrl;
+
+    if (this.pipelinesQueryUrl) {
+      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
+        'plugin_pipings',  params);
+    }
+    return this._fetchCollection(storeUrl).then(coll => {
+      this.setPipelinesUrls(coll);
+      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
+        'plugin_pipings',  params);
+    });
+  }
+
+  /**
+   * Get a pipeline's paginated plugins given its ChRIS store id.
+   *
+   * @param {number} pipelineId - pipeline id
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @return {Object} - JS Promise
+   */
+  getPipelinePlugins(pipelineId, params = null) {
+    const storeUrl = this.storeUrl;
+
+    if (this.pipelinesQueryUrl) {
+      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
+        'plugins',  params);
+    }
+    return this._fetchCollection(storeUrl).then(coll => {
+      this.setPipelinesUrls(coll);
+      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
+        'plugins',  params);
+    });
   }
 
   /**
@@ -336,6 +306,72 @@ export default class StoreClient {
   setPipelinesUrls(coll) {
     this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');
     this.pipelinesQueryUrl = this.pipelinesUrl + 'search/';
+  }
+
+  /**
+   * Modify an existing pipeline in the ChRIS store.
+   *
+   * @param {number} id - pipeline id
+   * @param {Object} data - data object with the values for the properties to be modified
+   * @param {string} data.name - pipeline's name
+   * @param {string} data.authors - pipeline's authors
+   * @param {string} data.category - pipeline's category
+   * @param {string} data.description - pipeline's description
+   * @return {Object} - JS Promise
+   */
+  modifyPipeline(id, data) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        let resp;
+        let coll;
+
+        try {
+          const searchParams = { id: id };
+          if (!self.pipelinesQueryUrl) {
+            coll = yield self._fetchCollection(self.storeUrl);
+            self.setPipelinesUrls(coll);
+          }
+          coll = yield self._fetchCollection(self.pipelinesQueryUrl, searchParams);
+          if (coll.items.length) {
+            const url = coll.items[0].href;
+
+            if (self.contentType === 'application/vnd.collection+json') {
+              data = { template: Collection.makeTemplate(data) };
+            }
+            resp = yield req.put(url, data);
+          } else {
+            const errMsg = 'Could not find resource with id: ' + id;
+            throw new RequestException(errMsg);
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
+      });
+    });
+  }
+
+  /**
+   * Remove an existing pipeline from the ChRIS store.
+   *
+   * @param {number} id - pipeline id
+   * @return {Object} - JS Promise
+   */
+  removePipeline(id) {
+    const storeUrl = this.storeUrl;
+
+    if (this.pipelinesQueryUrl) {
+      return this._removeItemResource(this.pipelinesQueryUrl, id);
+    }
+    return this._fetchCollection(storeUrl).then(coll => {
+      this.setPipelinesUrls(coll);
+      this._removeItemResource(this.pipelinesQueryUrl, id);
+    });
   }
 
   /**
@@ -481,6 +517,134 @@ export default class StoreClient {
       result.data = Collection.getItemDescriptors(coll.items[0]);
     }
     return result;
+  }
+
+  /**
+   * Internal method to fetch a collection object from a resource url.
+   *
+   * @param {string} url - url
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
+   */
+  _fetchCollection(url, searchParams = null) {
+    const req = new Request(this.auth, this.contentType, this.timeout);
+
+    return req.get(url, searchParams).then(resp => resp.data.collection);
+  }
+
+  /**
+   * Internal method to get an item resources's data (descriptors) given its ChRIS store id.
+   *
+   * @param {string} resQueryUrl - query url for the resource
+   * @param {number} id - plugin id
+   * @return {Object} - JS Promise
+   */
+  _getItemResourceData(resQueryUrl, id) {
+    const searchParams = { id: id };
+
+    return this._fetchCollection(resQueryUrl, searchParams).then(coll => {
+      if (coll.items.length) {
+        return StoreClient.getDataFromCollection(coll, 'item');
+      }
+      const errMsg = 'Could not find resource with id: ' + id;
+      throw new RequestException(errMsg);
+    });
+  }
+
+  /**
+   * Internal method to remove an existing item resource from the ChRIS store.
+   *
+   * @param {string} resQueryUrl - query url for the resource
+   * @param {number} id - resource id
+   * @return {Object} - JS Promise
+   */
+  _removeItemResource(resQueryUrl, id) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        const req = new Request(self.auth, self.contentType, self.timeout);
+        const searchParams = { id: id };
+        let resp;
+
+        try {
+          resp = yield req.get(resQueryUrl, searchParams);
+          const coll = resp.data.collection;
+
+          if (coll.items.length) {
+            const url = coll.items[0].href;
+            resp = yield req.delete(url);
+          } else {
+            const errMsg = 'Could not find resource with id: ' + id;
+            throw new RequestException(errMsg);
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * Internal method to get a paginated list of data (descriptors) given query search
+   * parameters. If no search parameters is given then get the default first page.
+   *
+   * @param {string} resUrl -  url for the list resource
+   * @param {Object} [searchParams=null] - search parameters
+   * @return {Object} - JS Promise
+   */
+    _getListResourceData(resUrl, searchParams = null) {
+      return this._fetchCollection(resUrl, searchParams).then(coll => {
+        return StoreClient.getDataFromCollection(coll, 'list');
+      });
+    }
+
+  /**
+   * Internal method to get a paginated list of data items related to a resource given
+   * by its id.
+   *
+   * @param {string} resQueryUrl - query url for the resource
+   * @param {number} id - resource id
+   * @param {string} listRelName - name of the related list link relation
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @return {Object} - JS Promise
+   */
+  _getResourceRelatedListData(resQueryUrl, id, listRelName,  params = null) {
+    const self = this;
+
+    return new Promise(function(resolve, reject) {
+      StoreClient.runAsyncTask(function*() {
+        let coll;
+        let result = {
+          data: [],
+          hasNextPage: false,
+          hasPreviousPage: false,
+        };
+
+        try {
+          coll = yield self._fetchCollection(resQueryUrl, { id: id });
+          if (coll.items.length === 0) {
+            const errMsg = 'Could not find resource with id: ' + id;
+            throw new RequestException(errMsg);
+          }
+          const listLinks = Collection.getLinkRelationUrls(coll.items[0], listRelName);
+          if (listLinks.length) {
+            coll = yield self._fetchCollection(listLinks[0], params); // there can only be a single list link
+            result = StoreClient.getDataFromCollection(coll, 'list');
+          }
+        } catch (ex) {
+          reject(ex);
+          return;
+        }
+
+        resolve(result);
+      });
+    });
   }
 
   /*export const login = credentials => {
