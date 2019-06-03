@@ -366,6 +366,30 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~storeclient#_getitemresourcedata",
+    "class/src/client.js~StoreClient.html#instance-method-_getItemResourceData",
+    "src/client.js~StoreClient#_getItemResourceData",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#_getlistresourcedata",
+    "class/src/client.js~StoreClient.html#instance-method-_getListResourceData",
+    "src/client.js~StoreClient#_getListResourceData",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#_getresourcerelatedlistdata",
+    "class/src/client.js~StoreClient.html#instance-method-_getResourceRelatedListData",
+    "src/client.js~StoreClient#_getResourceRelatedListData",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#_removeitemresource",
+    "class/src/client.js~StoreClient.html#instance-method-_removeItemResource",
+    "src/client.js~StoreClient#_removeItemResource",
+    "method"
+  ],
+  [
     "src/client.js~storeclient#addplugin",
     "class/src/client.js~StoreClient.html#instance-method-addPlugin",
     "src/client.js~StoreClient#addPlugin",
@@ -388,6 +412,36 @@ window.esdocSearchIndex = [
     "class/src/client.js~StoreClient.html#instance-member-contentType",
     "src/client.js~StoreClient#contentType",
     "member"
+  ],
+  [
+    "src/client.js~storeclient#getpipeline",
+    "class/src/client.js~StoreClient.html#instance-method-getPipeline",
+    "src/client.js~StoreClient#getPipeline",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#getpipelinedefaultparameters",
+    "class/src/client.js~StoreClient.html#instance-method-getPipelineDefaultParameters",
+    "src/client.js~StoreClient#getPipelineDefaultParameters",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#getpipelinepipings",
+    "class/src/client.js~StoreClient.html#instance-method-getPipelinePipings",
+    "src/client.js~StoreClient#getPipelinePipings",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#getpipelineplugins",
+    "class/src/client.js~StoreClient.html#instance-method-getPipelinePlugins",
+    "src/client.js~StoreClient#getPipelinePlugins",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#getpipelines",
+    "class/src/client.js~StoreClient.html#instance-method-getPipelines",
+    "src/client.js~StoreClient#getPipelines",
+    "method"
   ],
   [
     "src/client.js~storeclient#getplugin",
@@ -414,15 +468,45 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~storeclient#modifypipeline",
+    "class/src/client.js~StoreClient.html#instance-method-modifyPipeline",
+    "src/client.js~StoreClient#modifyPipeline",
+    "method"
+  ],
+  [
     "src/client.js~storeclient#modifyplugin",
     "class/src/client.js~StoreClient.html#instance-method-modifyPlugin",
     "src/client.js~StoreClient#modifyPlugin",
     "method"
   ],
   [
+    "src/client.js~storeclient#pipelinesqueryurl",
+    "class/src/client.js~StoreClient.html#instance-member-pipelinesQueryUrl",
+    "src/client.js~StoreClient#pipelinesQueryUrl",
+    "member"
+  ],
+  [
+    "src/client.js~storeclient#pipelinesurl",
+    "class/src/client.js~StoreClient.html#instance-member-pipelinesUrl",
+    "src/client.js~StoreClient#pipelinesUrl",
+    "member"
+  ],
+  [
+    "src/client.js~storeclient#removepipeline",
+    "class/src/client.js~StoreClient.html#instance-method-removePipeline",
+    "src/client.js~StoreClient#removePipeline",
+    "method"
+  ],
+  [
     "src/client.js~storeclient#removeplugin",
     "class/src/client.js~StoreClient.html#instance-method-removePlugin",
     "src/client.js~StoreClient#removePlugin",
+    "method"
+  ],
+  [
+    "src/client.js~storeclient#setpipelinesurls",
+    "class/src/client.js~StoreClient.html#instance-method-setPipelinesUrls",
+    "src/client.js~StoreClient#setPipelinesUrls",
     "method"
   ],
   [
