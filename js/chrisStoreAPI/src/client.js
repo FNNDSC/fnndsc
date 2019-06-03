@@ -85,7 +85,7 @@ export default class StoreClient {
   getPluginParameters(pluginId, params = null) {
     const url = this.storeQueryUrl;
 
-    return this._getResourceRelatedListData(url, pluginId, 'parameters',  params);
+    return this._getResourceRelatedListData(url, pluginId, 'parameters', params);
   }
 
   /**
@@ -174,6 +174,16 @@ export default class StoreClient {
   }
 
   /**
+   * Set the url of the pipelines.
+   */
+  setPipelinesUrls() {
+    return this._fetchCollection(this.storeUrl).then(coll => {
+      this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');
+      this.pipelinesQueryUrl = this.pipelinesUrl + 'search/';
+    });
+  }
+
+  /**
    * Get a paginated list of pipeline data (descriptors) given query search parameters.
    * If no search parameters is given then get the default first page.
    *
@@ -191,24 +201,20 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   getPipelines(searchParams = null) {
-    const storeUrl = this.storeUrl;
-
     if (searchParams) {
       if (this.pipelinesQueryUrl) {
         return this._getListResourceData(this.pipelinesQueryUrl, searchParams);
       }
-      return this._fetchCollection(storeUrl).then(coll => {
-        this.setPipelinesUrls(coll);
-        return this._getListResourceData(this.pipelinesQueryUrl, searchParams);
-      });
+      return this.setPipelinesUrls().then(() =>
+        this._getListResourceData(this.pipelinesQueryUrl, searchParams)
+      );
     }
     if (this.pipelinesUrl) {
       return this._getListResourceData(this.pipelinesUrl);
     }
-    return this._fetchCollection(storeUrl).then(coll => {
-      this.setPipelinesUrls(coll);
-      return this._getListResourceData(this.pipelinesUrl);
-    });
+    return this.setPipelinesUrls().then(() =>
+      this._getListResourceData(this.pipelinesUrl, searchParams)
+    );
   }
 
   /**
@@ -218,15 +224,12 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   getPipeline(id) {
-    const storeUrl = this.storeUrl;
-
     if (this.pipelinesQueryUrl) {
       return this._getItemResourceData(this.pipelinesQueryUrl, id);
     }
-    return this._fetchCollection(storeUrl).then(coll => {
-      this.setPipelinesUrls(coll);
-      return this._getItemResourceData(this.pipelinesQueryUrl, id);
-    });
+    return this.setPipelinesUrls().then(() =>
+      this._getItemResourceData(this.pipelinesQueryUrl, id)
+    );
   }
 
   /**
@@ -239,17 +242,22 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   getPipelineDefaultParameters(pipelineId, params = null) {
-    const storeUrl = this.storeUrl;
-
     if (this.pipelinesQueryUrl) {
-      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
-        'default_parameters',  params);
+      return this._getResourceRelatedListData(
+        this.pipelinesQueryUrl,
+        pipelineId,
+        'default_parameters',
+        params
+      );
     }
-    return this._fetchCollection(storeUrl).then(coll => {
-      this.setPipelinesUrls(coll);
-      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
-        'default_parameters',  params);
-    });
+    return this.setPipelinesUrls().then(() =>
+      this._getResourceRelatedListData(
+        this.pipelinesQueryUrl,
+        pipelineId,
+        'default_parameters',
+        params
+      )
+    );
   }
 
   /**
@@ -262,17 +270,17 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   getPipelinePipings(pipelineId, params = null) {
-    const storeUrl = this.storeUrl;
-
     if (this.pipelinesQueryUrl) {
-      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
-        'plugin_pipings',  params);
+      return this._getResourceRelatedListData(
+        this.pipelinesQueryUrl,
+        pipelineId,
+        'plugin_pipings',
+        params
+      );
     }
-    return this._fetchCollection(storeUrl).then(coll => {
-      this.setPipelinesUrls(coll);
-      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
-        'plugin_pipings',  params);
-    });
+    return this.setPipelinesUrls().then(() =>
+      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugin_pipings', params)
+    );
   }
 
   /**
@@ -285,27 +293,17 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   getPipelinePlugins(pipelineId, params = null) {
-    const storeUrl = this.storeUrl;
-
     if (this.pipelinesQueryUrl) {
-      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
-        'plugins',  params);
+      return this._getResourceRelatedListData(
+        this.pipelinesQueryUrl,
+        pipelineId,
+        'plugins',
+        params
+      );
     }
-    return this._fetchCollection(storeUrl).then(coll => {
-      this.setPipelinesUrls(coll);
-      return this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId,
-        'plugins',  params);
-    });
-  }
-
-  /**
-   * Set the url of the pipelines from a collection object.
-   *
-   * @param {Object} coll - collection object
-   */
-  setPipelinesUrls(coll) {
-    this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');
-    this.pipelinesQueryUrl = this.pipelinesUrl + 'search/';
+    return this.setPipelinesUrls().then(() =>
+      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugins', params)
+    );
   }
 
   /**
@@ -326,15 +324,13 @@ export default class StoreClient {
       StoreClient.runAsyncTask(function*() {
         const req = new Request(self.auth, self.contentType, self.timeout);
         let resp;
-        let coll;
 
         try {
           const searchParams = { id: id };
           if (!self.pipelinesQueryUrl) {
-            coll = yield self._fetchCollection(self.storeUrl);
-            self.setPipelinesUrls(coll);
+            yield self.setPipelinesUrls();
           }
-          coll = yield self._fetchCollection(self.pipelinesQueryUrl, searchParams);
+          const coll = yield self._fetchCollection(self.pipelinesQueryUrl, searchParams);
           if (coll.items.length) {
             const url = coll.items[0].href;
 
@@ -363,15 +359,10 @@ export default class StoreClient {
    * @return {Object} - JS Promise
    */
   removePipeline(id) {
-    const storeUrl = this.storeUrl;
-
     if (this.pipelinesQueryUrl) {
       return this._removeItemResource(this.pipelinesQueryUrl, id);
     }
-    return this._fetchCollection(storeUrl).then(coll => {
-      this.setPipelinesUrls(coll);
-      this._removeItemResource(this.pipelinesQueryUrl, id);
-    });
+    return this.setPipelinesUrls().then(() => this._removeItemResource(this.pipelinesQueryUrl, id));
   }
 
   /**
@@ -596,11 +587,11 @@ export default class StoreClient {
    * @param {Object} [searchParams=null] - search parameters
    * @return {Object} - JS Promise
    */
-    _getListResourceData(resUrl, searchParams = null) {
-      return this._fetchCollection(resUrl, searchParams).then(coll => {
-        return StoreClient.getDataFromCollection(coll, 'list');
-      });
-    }
+  _getListResourceData(resUrl, searchParams = null) {
+    return this._fetchCollection(resUrl, searchParams).then(coll => {
+      return StoreClient.getDataFromCollection(coll, 'list');
+    });
+  }
 
   /**
    * Internal method to get a paginated list of data items related to a resource given
@@ -614,7 +605,7 @@ export default class StoreClient {
    * @param {number} [params.offset] - page offset
    * @return {Object} - JS Promise
    */
-  _getResourceRelatedListData(resQueryUrl, id, listRelName,  params = null) {
+  _getResourceRelatedListData(resQueryUrl, id, listRelName, params = null) {
     const self = this;
 
     return new Promise(function(resolve, reject) {
