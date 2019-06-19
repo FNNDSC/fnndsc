@@ -32,6 +32,18 @@ class Resource {
   }
 
   /**
+   * Return true if the resource object contains any data.
+   *
+   * @type {boolean}
+   */
+  get isEmpty() {
+    if (this.collection && this.collection.items.length) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Make a deep copy clone of this object resource.
    *
    * @return {Object} - clone object
@@ -63,9 +75,6 @@ export class ItemResource extends Resource {
    */
   constructor(itemUrl, auth) {
     super(itemUrl, auth);
-
-    /** @type {?Object} */
-    this.item = null; // Collection+JSON item obj
   }
 
   /**
@@ -77,23 +86,13 @@ export class ItemResource extends Resource {
   get(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
 
-    const result = req.get(this.url);
-
-    return new Promise((resolve, reject) => {
-      result
-        .then(response => {
-          // change the state of this object on successfull response
-          this.collection = null;
-          this.item = null;
-          if (response.data && response.data.collection) {
-            this.collection = response.data.collection;
-            this.item = this.collection.items[0];
-          }
-          resolve(this);
-        })
-        .catch(error => {
-          reject(error);
-        });
+    return req.get(this.url).then(resp => {
+      // change the state of this object on successfull response
+      this.collection = null;
+      if (resp.data && resp.data.collection) {
+        this.collection = resp.data.collection;
+      }
+      return this;
     });
   }
 
@@ -103,22 +102,10 @@ export class ItemResource extends Resource {
    * @type {?Object}
    */
   get data() {
-    if (this.item) {
-      return Collection.getItemDescriptors(this.item);
+    if (this.isEmpty) {
+      return null;
     }
-    return null;
-  }
-
-  /**
-   * Return true if the item resource object contains any item data.
-   *
-   * @type {boolean}
-   */
-  get isEmpty() {
-    if (this.item) {
-      return false;
-    }
-    return true;
+    return Collection.getItemDescriptors(this.collection.items[0]);
   }
 
   /**
@@ -147,25 +134,27 @@ export class ItemResource extends Resource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
-   * @throws {RequestException} throw error when the link relation is not found
    * @throws {RequestException} throw error if this item resource has not yet been
    * fetched from the REST API
+   * @throws {RequestException} throw error when the link relation is not found
    */
   _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
-    if (this.item) {
-      const urls = Collection.getLinkRelationUrls(this.item, linkRelation);
-
-      if (urls.length) {
-        const resourceUrl = urls[0];
-        const resourceObj = new ResourceClass(resourceUrl, this.auth);
-
-        return resourceObj.get(params, timeout);
-      } else {
-        const errMsg = 'Missing "' + linkRelation + '" link relation!';
-        throw new RequestException(errMsg);
-      }
+    if (this.isEmpty) {
+      throw new RequestException('Item object has not been set!');
     }
-    throw new RequestException('Item object has not been set!');
+    const item = this.collection.items[0];
+    const urls = Collection.getLinkRelationUrls(item, linkRelation);
+
+    if (!urls.length) {
+      const errMsg = 'Missing "' + linkRelation + '" link relation!';
+      throw new RequestException(errMsg);
+    }
+    const resourceUrl = urls[0];
+    const resourceObj = new ResourceClass(resourceUrl, this.auth);
+    if (params) {
+      return resourceObj.get(params, timeout);
+    }
+    return resourceObj.get(timeout);
   }
 
   /**
@@ -179,31 +168,19 @@ export class ItemResource extends Resource {
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   _put(data, uploadFileObj, timeout = 30000) {
-    const url = this.url;
     const req = new Request(this.auth, this.contentType, timeout);
     let putData = data;
 
     if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {
       putData = { template: Collection.makeTemplate(data) };
     }
-
-    return new Promise((resolve, reject) => {
-      const result = req.put(url, putData, uploadFileObj);
-
-      result
-        .then(response => {
-          // change the state of this object on successfull response
-          this.collection = null;
-          this.item = null;
-          if (response.data && response.data.collection) {
-            this.collection = response.data.collection;
-            this.item = this.collection.items[0];
-          }
-          resolve(this);
-        })
-        .catch(error => {
-          reject(error);
-        });
+    return req.put(this.url, putData, uploadFileObj).then(resp => {
+      // change the state of this object on successfull response
+      this.collection = null;
+      if (resp.data && resp.data.collection) {
+        this.collection = resp.data.collection;
+      }
+      return this;
     });
   }
 
@@ -217,19 +194,9 @@ export class ItemResource extends Resource {
   _delete(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
 
-    return new Promise((resolve, reject) => {
-      const result = req.delete(this.url);
-
-      result
-        .then(() => {
-          // change the state of this object on successfull response
-          this.collection = null;
-          this.item = null;
-          resolve(null);
-        })
-        .catch(error => {
-          reject(error);
-        });
+    return req.delete(this.url).then(() => {
+      // change the state of this object on successfull response
+      this.collection = null;
     });
   }
 }
@@ -253,9 +220,6 @@ export class ListResource extends Resource {
 
     /** @type {?Object} */
     this.searchParams = null;
-
-    /** @type {Object} */
-    this.itemClass = ItemResource;
   }
 
   /**
@@ -282,27 +246,19 @@ export class ListResource extends Resource {
         }
       }
     }
-    const result = req.get(this.url, getParams);
+    return req.get(this.url, getParams).then(resp => {
+      // change the state of this object on successfull response
+      this.collection = null;
+      this.searchParams = getParams;
 
-    return new Promise((resolve, reject) => {
-      result
-        .then(response => {
-          // change the state of this object on successfull response
-          this.collection = null;
-          this.searchParams = getParams;
+      if (resp.data && resp.data.collection) {
+        this.collection = resp.data.collection;
 
-          if (response.data && response.data.collection) {
-            this.collection = response.data.collection;
-
-            if (this.collection.queries && this.collection.queries.length) {
-              this.queryUrl = this.collection.queries[0].href;
-            }
-          }
-          resolve(this);
-        })
-        .catch(error => {
-          reject(error);
-        });
+        if (this.collection.queries && this.collection.queries.length) {
+          this.queryUrl = this.collection.queries[0].href;
+        }
+      }
+      return this;
     });
   }
 
@@ -328,46 +284,43 @@ export class ListResource extends Resource {
   /**
    * Fetch this list resource from the REST API based on search parameters.
    *
-   * @param {Object} params - search parameters, the ``getSearchParameters``
+   * @param {Object} searchParams - search parameters, the ``getSearchParameters``
    * method can be used to get a list of possible search parameters
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
-  getSearch(params, timeout = 30000) {
+  getSearch(searchParams, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
 
     if (this.queryUrl) {
-      const result = req.get(this.queryUrl, params);
-
-      return new Promise((resolve, reject) => {
-        result
-          .then(response => {
-            // change the state of this object on successfull response
-            this.collection = null;
-            this.searchParams = params;
-            if (response.data && response.data.collection) {
-              this.collection = response.data.collection;
-            }
-            resolve(this);
-          })
-          .catch(error => {
-            reject(error);
-          });
+      return req.get(this.queryUrl, searchParams).then(resp => {
+        // change the state of this object on successfull response
+        this.collection = null;
+        this.searchParams = searchParams;
+        if (resp.data && resp.data.collection) {
+          this.collection = resp.data.collection;
+        }
+        return this;
       });
     }
     return Promise.reject('A search url has not been setup for this resource!');
   }
 
   /**
-   * Return true if the list resource object contains any data.
+   * Get the list of item data objects (REST API descriptors).
    *
-   * @type {boolean}
+   * @type {?Object[]}
    */
-  get isEmpty() {
-    if (this.collection && this.collection.items.length) {
-      return false;
+  get data() {
+    if (this.isEmpty) {
+      return null;
     }
-    return true;
+    const data = [];
+    // for each item get its data
+    for (let item of this.collection.items) {
+      data.push(Collection.getItemDescriptors(item));
+    }
+    return data;
   }
 
   /**
@@ -403,27 +356,6 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Get an array of item resource objects corresponding to the items in this
-   * list resource object.
-   *
-   * @return {?Object[]}
-   */
-  getItems() {
-    if (this.collection) {
-      const items = this.collection.items;
-
-      return items.map(item => {
-        const itemResource = new this.itemClass(item.href, this.auth);
-        itemResource.collection = this.collection;
-        itemResource.item = item;
-
-        return itemResource;
-      });
-    }
-    return null;
-  }
-
-  /**
    * Get an array of parameter names that can be used as properties of the data
    * object in POST requests.
    *
@@ -439,65 +371,8 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Fetch the next resource page from the paginated REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to ``this`` object
-   */
-  getNextPage(timeout = 30000) {
-    return this._getNextOrPreviousPage('next', timeout);
-  }
-
-  /**
-   * Fetch the previous resource page from the paginated REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to ``this`` object
-   */
-  getPreviousPage(timeout = 30000) {
-    return this._getNextOrPreviousPage('previous', timeout);
-  }
-
-  /**
-   * Internal method to fetch the next or previous page from the paginated REST API.
-   *
-   * @param {string} linkRelation - either the string 'previous' or 'next'
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to ``this`` object
-   */
-  _getNextOrPreviousPage(linkRelation, timeout = 30000) {
-    if (this.collection) {
-      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
-
-      if (urls.length) {
-        const searchParams = new URL(urls[0]).searchParams;
-        const params = {};
-        let urlHasSearchParams = false;
-
-        for (let pair of searchParams.entries()) {
-          params[pair[0]] = pair[1];
-          if (pair[0] !== 'offset' && pair[0] !== 'limit') {
-            urlHasSearchParams = true;
-          }
-        }
-
-        if (urlHasSearchParams) {
-          return this.getSearch(params, timeout);
-        }
-        if (params.offset || params.limit) {
-          return this.get(params, timeout);
-        }
-        return this.get(null, timeout);
-      }
-    }
-    this.collection = null;
-    this.searchParams = null;
-    return Promise.resolve(this);
-  }
-
-  /**
-   * Internal method to fetch a related resource from the REST API that is referenced by
-   * a link relation within this list resource's collection object.
+   * Internal method to fetch a related resource from the REST API that is
+   * referenced by a link relation within this list resource's collection object.
    *
    * @param {string} linkRelation
    * @param {Object} ResourceClass
@@ -506,24 +381,27 @@ export class ListResource extends Resource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
+   * @throws {RequestException} throw error if this list resource has not yet
+   * been fetched from the REST API
    * @throws {RequestException} throw error when the link relation is not found
-   * @throws {RequestException} throw error if this list resource has not yet been fetched from the REST API
    */
   _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
-    if (this.collection) {
-      const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
-
-      if (urls.length) {
-        const resourceUrl = urls[0];
-        const resourceObj = new ResourceClass(resourceUrl, this.auth);
-
-        return resourceObj.get(params, timeout);
-      } else {
-        const errMsg = 'Missing "' + linkRelation + '" link relation!';
-        throw new RequestException(errMsg);
-      }
+    if (!this.collection) {
+      throw new RequestException('Collection object has not been set!');
     }
-    throw new RequestException('Collection object has not been set!');
+    const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);
+
+    if (!urls.length) {
+      const errMsg = 'Missing "' + linkRelation + '" link relation!';
+      throw new RequestException(errMsg);
+    }
+    const resourceUrl = urls[0];
+    const resourceObj = new ResourceClass(resourceUrl, this.auth);
+
+    if (params) {
+      return resourceObj.get(params, timeout);
+    }
+    return resourceObj.get(timeout);
   }
 
   /**
@@ -545,22 +423,14 @@ export class ListResource extends Resource {
       postData = { template: Collection.makeTemplate(data) };
     }
 
-    return new Promise((resolve, reject) => {
-      const result = req.post(url, postData, uploadFileObj);
-
-      result
-        .then(response => {
-          // change the state of this object on successfull response
-          this.collection = null;
-          this.searchParams = null;
-          if (response.data && response.data.collection) {
-            this.collection = response.data.collection;
-          }
-          resolve(this);
-        })
-        .catch(error => {
-          reject(error);
-        });
+    return req.post(url, postData, uploadFileObj).then(resp => {
+      // change the state of this object on successfull response
+      this.collection = null;
+      this.searchParams = null;
+      if (resp.data && resp.data.collection) {
+        this.collection = resp.data.collection;
+      }
+      return this;
     });
   }
 }

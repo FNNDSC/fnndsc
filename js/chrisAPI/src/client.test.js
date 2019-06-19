@@ -61,7 +61,7 @@ describe('Client', () => {
       .then(feedsObj => {
         //window.console.log('items', feedsObj.getItems());
         expect(feedsObj).to.be.an.instanceof(FeedList);
-        expect(feedsObj.getItems()).to.have.lengthOf.at.least(1);
+        expect(feedsObj.data).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });

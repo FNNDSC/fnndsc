@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 import { ItemResource, ListResource } from './resource';
 import Collection from './cj';
 
@@ -14,15 +13,16 @@ describe('Resource', () => {
   let collection;
 
   describe('ItemResource', () => {
+    const itemUrl = chrisUrl + '1/';
     let itemRes;
 
     beforeEach(() => {
       collection = {
-        href: chrisUrl,
+        href: itemUrl,
         items: [{ data: [{ name: 'id', value: 1 }] }],
         links: [],
       };
-      itemRes = new ItemResource(chrisUrl, auth);
+      itemRes = new ItemResource(itemUrl, auth);
       itemRes.collection = collection;
     });
 
@@ -34,13 +34,10 @@ describe('Resource', () => {
     });
 
     it('can check whether or not it is empty (has no data)', () => {
-      expect(itemRes.isEmpty).to.be.true;
-      itemRes.item = itemRes.collection.items[0];
       expect(itemRes.isEmpty).to.be.false;
     });
 
     it('can retrieve its data', () => {
-      itemRes.item = itemRes.collection.items[0];
       expect(itemRes.data).to.deep.equal({ id: 1 });
     });
 
@@ -55,7 +52,7 @@ describe('Resource', () => {
       result
         .then(itemResObj => {
           expect(itemResObj).to.be.an.instanceof(ItemResource);
-          expect(itemResObj.item).to.deep.equal(itemRes.collection.items[0]);
+          expect(itemResObj.data).to.have.property('id');
         })
         .then(done, done);
     });
@@ -91,12 +88,6 @@ describe('Resource', () => {
       expect(listRes.isEmpty).to.be.true;
       listRes.collection.items = collection.items;
       expect(listRes.isEmpty).to.be.false;
-    });
-
-    it('can retrieve an array of item resource objects', () => {
-      const itemResArray = listRes.getItems();
-      expect(itemResArray[0]).to.be.an.instanceof(ItemResource);
-      expect(itemResArray[0].data).to.deep.equal({ id: 1 });
     });
 
     it('can retrieve an array of search parameters or null', () => {
@@ -156,54 +147,6 @@ describe('Resource', () => {
       // current collection document. Here this is just for testing porposes
       listRes.collection.links = [{ rel: 'previous', href: chrisUrl }];
       expect(listRes.hasPreviousPage).to.be.true;
-    });
-
-    it('can update this List Resource by fetching next page from the REST API', done => {
-      // Real REST API will never return link relation "next" pointing to the
-      // current collection document. Here this is just for testing porposes
-      listRes.collection.links = [{ rel: 'next', href: chrisUrl + '?offset=0&limit=1' }];
-      let spy = sinon.spy(listRes, 'get');
-      const result = listRes.getNextPage();
-      expect(spy.calledOnce).to.be.true;
-      result
-        .then(listResObj => {
-          expect(listResObj === listRes).to.be.true;
-          expect(listResObj.collection === collection).to.be.false;
-        })
-        .then(done, done);
-    });
-
-    it('can update this List Resource by fetching next page from the REST API even when there are search params', done => {
-      // Real REST API will never return link relation "next" pointing to the
-      // current collection document. Here this is just for testing porposes
-      listRes.collection.links = [
-        { rel: 'next', href: chrisUrl + 'search/?offset=0&limit=1&name=simplefsapp' },
-      ];
-      listRes.queryUrl = chrisUrl + 'search/';
-      let spy = sinon.spy(listRes, 'getSearch');
-      const result = listRes.getNextPage();
-      expect(spy.calledOnce).to.be.true;
-      result
-        .then(listResObj => {
-          expect(listResObj === listRes).to.be.true;
-          expect(listResObj.collection === collection).to.be.false;
-        })
-        .then(done, done);
-    });
-
-    it('can update this List Resource by fetching previous page from the REST API', done => {
-      // Real REST API will never return link relation "previous" pointing to the
-      // current collection document. Here this is just for testing porposes
-      listRes.collection.links = [{ rel: 'previous', href: chrisUrl }];
-      let spy = sinon.spy(listRes, 'get');
-      const result = listRes.getPreviousPage();
-      expect(spy.calledOnce).to.be.true;
-      result
-        .then(listResObj => {
-          expect(listResObj === listRes).to.be.true;
-          expect(listResObj.collection === collection).to.be.false;
-        })
-        .then(done, done);
     });
   });
 });

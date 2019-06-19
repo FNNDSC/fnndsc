@@ -22,7 +22,7 @@ describe('Resource', () => {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
-          const pluginListRes = yield feedListRes.getPlugins();
+          const pluginListRes = yield feedListRes.getPlugins({ limit: 20 });
           // get the plugin with name 'simplefsapp'
           const plugin = pluginListRes.getItems().filter(plg => {
             return plg.data.name === 'simplefsapp';

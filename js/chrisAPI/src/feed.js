@@ -14,17 +14,6 @@ import { FeedPluginInstanceList } from './plugininstance';
  */
 export class Feed extends ItemResource {
   /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
    * Fetch the note associated to this feed from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -145,20 +134,6 @@ export class Feed extends ItemResource {
  * Feed list resource object representing a list of user's feeds.
  */
 export class FeedList extends ListResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-
-    /** @type {Object} */
-    this.itemClass = Feed;
-  }
-
   /**
    * Fetch currently authenticated user's information from the REST API.
    *

@@ -61,24 +61,13 @@ export default class Client {
         ],
       },
     };
-    const result = req.post(usersUrl, userData);
-
-    return new Promise((resolve, reject) => {
-      result
-        .then(response => {
-          const coll = response.data.collection;
-          const userUrl = coll.items[0].href;
-          const auth = { username: username, password: password };
-
-          const user = new User(userUrl, auth);
-          user.collection = coll;
-          user.item = coll.items[0];
-
-          resolve(user);
-        })
-        .catch(error => {
-          reject(error);
-        });
+    return req.post(usersUrl, userData).then(resp => {
+      const coll = resp.data.collection;
+      const userUrl = coll.items[0].href;
+      const auth = { username: username, password: password };
+      const user = new User(userUrl, auth);
+      user.collection = coll;
+      return user;
     });
   }
 
@@ -97,17 +86,7 @@ export default class Client {
       username: username,
       password: password,
     };
-    const result = req.post(authUrl, authData);
-
-    return new Promise((resolve, reject) => {
-      result
-        .then(response => {
-          resolve(response.data.token);
-        })
-        .catch(error => {
-          reject(error);
-        });
-    });
+    return req.post(authUrl, authData).then(resp => resp.data.token);
   }
 
   /**
