@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import Request from './request';
+import { Plugin } from './plugin';
 import { FeedList } from './feed';
 import { PluginParameterList } from './pluginparameter';
 import { PluginInstanceList } from './plugininstance';
@@ -34,7 +35,9 @@ describe('Resource', () => {
     let plugin;
 
     beforeEach(() => {
-      plugin = pluginListRes.getItems()[0].clone();
+      const url = pluginListRes.collection.items[0].href;
+      plugin = new Plugin(url, auth);
+      return plugin.get();
     });
 
     it('can fetch the associated plugin parameters from the REST API', done => {

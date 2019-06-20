@@ -26,15 +26,32 @@ export default class Client {
   }
 
   /**
-   * Fetch a list of currently authenticated user's feeds from the REST API.
+   * Get a paginated list of currently authenticated user's feeds (descriptors) from the
+   * REST API  given query search parameters. If no search parameters is given then get
+   * the default first page.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
+   * @param {Object} [searchParams=null] - search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {string} [searchParams.name] - match plugin name containing this string
+   * @param {string} [searchParams.name_latest] - match plugin name containing this string
+   * and return only the latest version
+   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string
+   * and return only the latest version
+   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string
+   * @param {string} [searchParams.public_repo] - match plugin public repository exactly with this string
+   * @param {string} [searchParams.type] - match plugin type with this string
+   * @param {string} [searchParams.category] - match plugin category containing this string
+   * @param {string} [searchParams.owner_username] - match plugin username containing this string
+   * @param {string} [searchParams.description] - match plugin description containing this string
+   * @param {string} [searchParams.name_title_category] - match plugin name, title or category
+   * containing this string
+   * @param {string} [searchParams.title] - match plugin title containing this string
+   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date
+   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date
    * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
-  getFeeds(params = null, timeout = 30000) {
+  getFeeds(searchParams = null, timeout = 30000) {
     const feedList = new FeedList(this.url, this.auth);
 
     return feedList.get(params, timeout);

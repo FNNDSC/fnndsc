@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { FeedList } from './feed';
+import { FeedList, Feed } from './feed';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
@@ -20,15 +20,18 @@ describe('Resource', () => {
   let feedListRes;
 
   before(() => {
-   feedListRes = new FeedList(chrisUrl, auth);
-   return feedListRes.get();
+    feedListRes = new FeedList(chrisUrl, auth);
+    return feedListRes.get();
   });
 
   describe('Feed', () => {
     let feed;
 
     beforeEach(() => {
-      feed = feedListRes.getItems()[0].clone();
+      const feedItemURl = feedListRes.collection.items[0].href;
+      feed = new Feed(feedItemURl, auth);
+      feed.collection = feedListRes.collection;
+      feed = feed.clone();
     });
 
     it('can fetch the associated note from the REST API', done => {
@@ -86,7 +89,6 @@ describe('Resource', () => {
         })
         .then(done, done);
     });
-
   });
 
   describe('FeedList', () => {
@@ -133,7 +135,5 @@ describe('Resource', () => {
         })
         .then(done, done);
     });
-
   });
-
 });

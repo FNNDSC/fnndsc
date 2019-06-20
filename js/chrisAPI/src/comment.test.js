@@ -1,6 +1,8 @@
 import { expect } from 'chai';
+import Collection from './cj';
 import Request from './request';
-import { FeedList } from './feed';
+import { FeedList, Feed } from './feed';
+import { Comment } from './comment';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -18,9 +20,12 @@ describe('Resource', () => {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
-          const feedItem = feedListRes.getItems().filter(item => {
-            return item.data.id === 1;
-          })[0];
+          const feedItemURl = feedListRes.collection.items.filter(item => {
+            const data = Collection.getItemDescriptors(item);
+            return data.id === 1;
+          })[0].href;
+          let feedItem = new Feed(feedItemURl, auth);
+          feedItem = yield feedItem.get();
           commentListRes = yield feedItem.getComments();
           commentListRes = yield commentListRes.post({
             title: 'Test comment',
@@ -40,8 +45,9 @@ describe('Resource', () => {
     let commentItem;
 
     beforeEach(() => {
-      // get the plugin instance with id 1
-      commentItem = commentListRes.getItems()[0].clone();
+      // get the first comment item
+      const commentItemURl = commentListRes.collection.items[0].href;
+      commentItem = new Comment(commentItemURl, auth);
     });
 
     it('can modify this comment item resource through a REST API PUT request', done => {
@@ -89,9 +95,10 @@ describe('Resource', () => {
 
       result
         .then(commentList => {
-          const createdCommentItem = commentList.getItems()[0];
-          expect(createdCommentItem.data.title).to.equal(data.title);
-          expect(createdCommentItem.data.content).to.equal(data.content);
+          const commentItemData = commentList.data.filter(
+            itemData => itemData.title === data.title
+          )[0];
+          expect(commentItemData.content).to.equal(data.content);
         })
         .then(done, done);
     });

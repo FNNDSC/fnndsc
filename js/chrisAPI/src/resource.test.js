@@ -110,7 +110,7 @@ describe('Resource', () => {
       result
         .then(listResObj => {
           expect(listResObj).to.be.an.instanceof(ListResource);
-          expect(listResObj.getItems()).to.have.lengthOf.at.least(1);
+          expect(listResObj.data).to.have.lengthOf.at.least(1);
         })
         .then(done, done);
     });
@@ -125,7 +125,7 @@ describe('Resource', () => {
           return searchResult
             .then(listResObj => {
               expect(listResObj).to.be.an.instanceof(ListResource);
-              expect(listResObj.getItems()).to.have.lengthOf.at.least(1);
+              expect(listResObj.data).to.have.lengthOf.at.least(1);
               expect(listResObj.searchParams).to.deep.equal(searchParams);
             })
             .then(() => {});

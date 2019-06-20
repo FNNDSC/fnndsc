@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import Collection from './cj';
 import Request from './request';
 import { FeedList, Feed } from './feed';
 import { Plugin } from './plugin';
@@ -24,9 +25,12 @@ describe('Resource', () => {
           feedListRes = yield feedListRes.get();
           const pluginListRes = yield feedListRes.getPlugins({ limit: 20 });
           // get the plugin with name 'simplefsapp'
-          const plugin = pluginListRes.getItems().filter(plg => {
-            return plg.data.name === 'simplefsapp';
-          })[0];
+          const url = pluginListRes.collection.items.filter(item => {
+            const data = Collection.getItemDescriptors(item);
+            return data.name === 'simplefsapp';
+          })[0].href;
+          let plugin = new Plugin(url, auth);
+          plugin = yield plugin.get();
           pluginInstanceListRes = yield plugin.getPluginInstances();
         } catch (ex) {
           reject(ex);
@@ -42,12 +46,12 @@ describe('Resource', () => {
 
     beforeEach(() => {
       // get the plugin instance with id 1
-      pluginInst = pluginInstanceListRes
-        .getItems()
-        .filter(item => {
-          return item.data.id === 1;
-        })[0]
-        .clone();
+      const url = pluginInstanceListRes.collection.items.filter(item => {
+        const data = Collection.getItemDescriptors(item);
+        return data.id === 1;
+      })[0].href;
+      pluginInst = new PluginInstance(url, auth);
+      return pluginInst.get();
     });
 
     it('can fetch the feed created by this plugin instance from the REST API', done => {

@@ -1,5 +1,6 @@
 /** * Imports ***/
 import Request from './request';
+import RequestException from './exception';
 import Collection from './cj';
 import { ItemResource, ListResource } from './resource';
 import { Feed } from './feed';
@@ -25,10 +26,16 @@ export class FeedFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``Blob`` object
+   * @throws {RequestException} throw error if this item resource has not yet been
+   * fetched from the REST API
    */
   getFileBlob(timeout = 30000) {
+    if (this.isEmpty) {
+      throw new RequestException('Item object has not been set!');
+    }
     const req = new Request(this.auth, 'application/octet-stream', timeout);
-    const blobUrl = Collection.getLinkRelationUrls(this.item, 'file_resource')[0];
+    const item = this.collection.items[0];
+    const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];
 
     return req.get(blobUrl).then(resp => resp.data);
   }
