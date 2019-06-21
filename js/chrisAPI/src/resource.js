@@ -220,6 +220,9 @@ export class ListResource extends Resource {
 
     /** @type {?Object} */
     this.searchParams = null;
+
+    /** @type {Object} */
+    this.itemClass = ItemResource;
   }
 
   /**
@@ -304,6 +307,50 @@ export class ListResource extends Resource {
       });
     }
     return Promise.reject('A search url has not been setup for this resource!');
+  }
+
+  /**
+   * Get an item resource object given its id from the list of items in this
+   * list resource object.
+   *
+   * @param {number} id - item id
+   *
+   * @return {Object} - an instance of ``this.itemClass``
+   */
+  getItem(id) {
+    if (this.isEmpty) {
+      return null;
+    }
+    const items = this.collection.items.filter(
+      item => Collection.getItemDescriptors(item).id === id
+    );
+    if (!items.length) {
+      return null;
+    }
+    const itemResource = new this.itemClass(items[0].href, this.auth);
+    const listRes = this.clone();
+    listRes.collection.items[0] = items[0];
+    itemResource.collection = listRes.collection;
+    return itemResource;
+  }
+
+  /**
+   * Get an array of item resource objects corresponding to the items in this
+   * list resource object.
+   *
+   * @return {?Object[]}
+   */
+  getItems() {
+    if (this.isEmpty) {
+      return [];
+    }
+    return this.collection.items.map(item => {
+      const itemResource = new this.itemClass(item.href, this.auth);
+      const listRes = this.clone();
+      listRes.collection.items[0] = item;
+      itemResource.collection = listRes.collection;
+      return itemResource;
+    });
   }
 
   /**
