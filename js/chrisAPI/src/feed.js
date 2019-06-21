@@ -135,6 +135,20 @@ export class Feed extends ItemResource {
  */
 export class FeedList extends ListResource {
   /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = Feed;
+  }
+
+  /**
    * Fetch currently authenticated user's information from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
