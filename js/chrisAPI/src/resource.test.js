@@ -120,7 +120,7 @@ describe('Resource', () => {
       result
         .then(() => {
           const searchParams = { limit: 1, name: 'simplefsapp' };
-          const searchResult = listRes.getSearch(searchParams);
+          const searchResult = listRes.get(searchParams);
 
           return searchResult
             .then(listResObj => {

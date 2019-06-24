@@ -226,33 +226,24 @@ export class ListResource extends Resource {
   }
 
   /**
-   * Fetch this list resource from the REST API using limit and offset as optional
-   * parameters.
+   * Fetch this list resource from the REST API based on search parameters. If
+   * no search parameters then get the default first page.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters, the
+   * ``getSearchParameters`` method can be used to get a list of possible
+   * search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
-  get(params = null, timeout = 30000) {
+  get(searchParams = null, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
-    let getParams = null;
 
-    if (params) {
-      for (let param in params) {
-        if (params.hasOwnProperty(param) && (param === 'limit' || param === 'offset')) {
-          if (!getParams) {
-            getParams = {};
-          }
-          getParams[param] = params[param];
-        }
-      }
-    }
-    return req.get(this.url, getParams).then(resp => {
+    const updateInternalState = resp => {
       // change the state of this object on successfull response
       this.collection = null;
-      this.searchParams = getParams;
+      this.searchParams = searchParams;
 
       if (resp.data && resp.data.collection) {
         this.collection = resp.data.collection;
@@ -262,12 +253,25 @@ export class ListResource extends Resource {
         }
       }
       return this;
-    });
+    };
+
+    if (searchParams) {
+      for (let prop in searchParams) {
+        if (searchParams.hasOwnProperty(prop) && prop !== 'limit' && prop !== 'offset') {
+          // here we assume a fixed queryUrl form but API resource objecs are more flexible than this
+          this.queryUrl = this.queryUrl || this.url + 'search/';
+
+          return req.get(this.queryUrl, searchParams).then(updateInternalState);
+        }
+      }
+      return req.get(this.url, searchParams).then(updateInternalState);
+    }
+    return req.get(this.url).then(updateInternalState);
   }
 
   /**
    * Get an array of search parameter names that can be used as properties of the
-   * ``params`` argument to the ``getSearch`` method.
+   * ``searchParams`` argument to the ``get`` method.
    *
    * @return {?string[]} - array of search parameter names or null if this list
    * resource's data has not been fetched from the API yet.
@@ -282,31 +286,6 @@ export class ListResource extends Resource {
       return ['limit', 'offset'];
     }
     return null;
-  }
-
-  /**
-   * Fetch this list resource from the REST API based on search parameters.
-   *
-   * @param {Object} searchParams - search parameters, the ``getSearchParameters``
-   * method can be used to get a list of possible search parameters
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to ``this`` object
-   */
-  getSearch(searchParams, timeout = 30000) {
-    const req = new Request(this.auth, this.contentType, timeout);
-
-    if (this.queryUrl) {
-      return req.get(this.queryUrl, searchParams).then(resp => {
-        // change the state of this object on successfull response
-        this.collection = null;
-        this.searchParams = searchParams;
-        if (resp.data && resp.data.collection) {
-          this.collection = resp.data.collection;
-        }
-        return this;
-      });
-    }
-    return Promise.reject('A search url has not been setup for this resource!');
   }
 
   /**
