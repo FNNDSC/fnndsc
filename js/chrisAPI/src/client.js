@@ -5,7 +5,7 @@ import RequestException from './exception';
 import User from './user';
 import { FeedList } from './feed';
 import { PluginList } from './plugin';
-//import { PipelineList } from './pipeline';
+import { PipelineList } from './pipeline';
 import { TagList } from './tag';
 import { UploadedFileList } from './uploadedfile';
 
