@@ -5,6 +5,7 @@ import RequestException from './exception';
 import User from './user';
 import { FeedList } from './feed';
 import { PluginList } from './plugin';
+import { AllPluginInstanceList } from './plugininstance';
 import { PipelineList } from './pipeline';
 import { TagList } from './tag';
 import { UploadedFileList } from './uploadedfile';
@@ -30,10 +31,12 @@ export default class Client {
     this.auth = auth;
 
     /* Urls of the API resources */
+    this.feedsUrl = this.url;
     this.userUrl = '';
-    this.feedsUrl = '';
     this.pluginsUrl = '';
+    this.pluginInstancesUrl = '';
     this.pipelinesUrl = '';
+    this.pipelineInstancesUrl = '';
     this.tagsUrl = '';
     this.uploadedFilesUrl = '';
   }
@@ -98,11 +101,9 @@ export default class Client {
     if (this.userUrl) {
       return Promise.resolve();
     }
-    return this.setFeedsUrl().then(() =>
-      this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
-        this.userUrl = Collection.getLinkRelationUrls(coll, 'user');
-      })
-    );
+    return this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
+      this.userUrl = Collection.getLinkRelationUrls(coll, 'user');
+    });
   }
 
   /**
@@ -116,17 +117,6 @@ export default class Client {
       const user = new User(this.userUrl, this.auth);
       return user.get(timeout);
     });
-  }
-
-  /**
-   * Set the url of the feeds.
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise
-   */
-  setFeedsUrl() {
-    this.feedsUrl = this.feedsUrl || this.url;
-    return Promise.resolve();
   }
 
   /**
@@ -148,9 +138,21 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(searchParams = null, timeout = 30000) {
-    return this.setFeedsUrl().then(() => {
-      const feedList = new FeedList(this.feedsUrl, this.auth);
-      return feedList.get(searchParams, timeout);
+    const feedList = new FeedList(this.feedsUrl, this.auth);
+
+    return feedList.get(searchParams, timeout).then(feedList => {
+      const coll = feedList.collection;
+      const getUrl = Collection.getLinkRelationUrls;
+
+      this.userUrl = this.userUrl || getUrl(coll, 'user');
+      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins');
+      this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances');
+      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines');
+      this.pipelineInstancesUrl = this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances');
+      this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags');
+      this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles');
+
+      return feedList;
     });
   }
 
@@ -176,11 +178,9 @@ export default class Client {
     if (this.pluginsUrl) {
       return Promise.resolve();
     }
-    return this.setFeedsUrl().then(() =>
-      this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
-        this.pluginsUrl = Collection.getLinkRelationUrls(coll, 'plugins');
-      })
-    );
+    return this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
+      this.pluginsUrl = Collection.getLinkRelationUrls(coll, 'plugins');
+    });
   }
 
   /**
@@ -242,18 +242,59 @@ export default class Client {
   }
 
   /**
-   * Get a plugin's paginated instances given the plugin's id.
-   *
-   * @param {number} pluginId - plugin id
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * Set the url of the plugin instances.
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object
+   * @return {Object} - JS Promise
    */
-  getPluginInstances(pluginId, params = null, timeout = 30000) {
-    return this.getPlugin(pluginId, timeout).then(plg => plg.getPluginInstances(params, timeout));
+  setPluginInstancesUrl(timeout = 30000) {
+    if (this.pluginInstancesUrl) {
+      return Promise.resolve();
+    }
+    return this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
+      this.pluginInstancesUrl = Collection.getLinkRelationUrls(coll, 'plugin_instances');
+    });
+  }
+
+  /**
+   * Get a paginated list of plugin instances from the REST API given
+   * query search parameters. If no search parameters then get the default
+   * first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match plugin instance id exactly with this number
+   * @param {string} [searchParams.title] - match plugin instance title containing this string
+   * @param {string} [searchParams.status] - match plugin instance execution status exactly with this string
+   * @param {string} [searchParams.owner_username] - match plugin instances's owner username exactly with this string
+   * @param {number} [searchParams.feed_id] - match associated feed's id exactly with this number
+   * @param {number} [searchParams.root_id] - match root plugin instance's id exactly with this number
+   * @param {number} [searchParams.plugin_id] - match associated plugin's id exactly with this number
+   * @param {number} [searchParams.plugin_name] - match associated plugin's name containing this string
+   * @param {number} [searchParams.plugin_name_exact] - match associated plugin's name exact with this string
+   * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``AllPluginInstanceList`` object
+   */
+  getPluginInstances(searchParams = null, timeout = 30000) {
+    return this.setPluginInstancesUrl().then(() => {
+      const plgInstList = new AllPluginInstanceList(this.pluginInstancesUrl, this.auth);
+      return plgInstList.get(searchParams, timeout);
+    });
+  }
+
+  /**
+   * Get a plugin instance resource object given its id.
+   *
+   * @param {number} id - plugin instance id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   */
+  getPluginInstance(id, timeout = 30000) {
+    return this.getPluginInstances({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
@@ -266,11 +307,9 @@ export default class Client {
     if (this.pipelinesUrl) {
       return Promise.resolve();
     }
-    return this.setFeedsUrl().then(() =>
-      this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
-        this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');
-      })
-    );
+    return this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
+      this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');
+    });
   }
 
   /**
@@ -295,7 +334,7 @@ export default class Client {
    */
   getPipeliness(searchParams = null, timeout = 30000) {
     return this.setPipelinesUrl().then(() => {
-      const pipelineList = new PipelineList(this.pluginsUrl, this.auth);
+      const pipelineList = new PipelineList(this.pipelinesUrl, this.auth);
       return pipelineList.get(searchParams, timeout);
     });
   }
@@ -322,11 +361,9 @@ export default class Client {
     if (this.tagsUrl) {
       return Promise.resolve();
     }
-    return this.setFeedsUrl().then(() =>
-      this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
-        this.tagsUrl = Collection.getLinkRelationUrls(coll, 'tags');
-      })
-    );
+    return this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
+      this.tagsUrl = Collection.getLinkRelationUrls(coll, 'tags');
+    });
   }
 
   /**
@@ -374,11 +411,9 @@ export default class Client {
     if (this.uploadedFilesUrl) {
       return Promise.resolve();
     }
-    return this.setFeedsUrl().then(() =>
-      this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
-        this.uploadedFilesUrl = Collection.getLinkRelationUrls(coll, 'uploadedfiles');
-      })
-    );
+    return this._fetchCollection(this.feedsUrl, null, timeout).then(coll => {
+      this.uploadedFilesUrl = Collection.getLinkRelationUrls(coll, 'uploadedfiles');
+    });
   }
 
   /**

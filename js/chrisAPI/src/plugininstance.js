@@ -1,6 +1,6 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
-import { Plugin } from './plugin';
+import { PluginList, Plugin } from './plugin';
 import { Feed } from './feed';
 import { PluginParameter } from './pluginparameter';
 import { PluginInstanceFileList } from './feedfile';
@@ -123,7 +123,8 @@ export class PluginInstance extends ItemResource {
 }
 
 /**
- * Plugin instance list resource object representing a list of plugin instances.
+ * Plugin instance list resource object representing a list of plugin-specific
+ * instances.
  */
 export class PluginInstanceList extends ListResource {
   /**
@@ -165,6 +166,42 @@ export class PluginInstanceList extends ListResource {
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
+  }
+}
+
+/**
+ * Plugin instance list resource object representing a list of all plugin
+ * instances.
+ */
+export class AllPluginInstanceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstance;
+  }
+
+  /**
+   * Fetch a list of plugins from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   */
+  getPlugins(params = null, timeout = 30000) {
+    const linkRelation = 'plugins';
+    const resourceClass = PluginList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
   }
 }
 
