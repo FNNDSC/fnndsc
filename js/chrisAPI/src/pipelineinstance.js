@@ -1,6 +1,6 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
-import { Pipeline } from './pipeline';
+import { PipelineList, Pipeline } from './pipeline';
 
 /**
  * Pipeline instance item resource object representing a pipeline instance.
@@ -32,9 +32,10 @@ export class PipelineInstance extends ItemResource {
 }
 
 /**
- * Pipeline instance list resource object representing a list of pipeline instances.
+ * Pipeline instance list resource object representing a list of pipeline-specific
+ * instances.
  */
-export class PluginInstanceList extends ListResource {
+export class PipelinenInstanceList extends ListResource {
   /**
    * Constructor
    *
@@ -61,5 +62,41 @@ export class PluginInstanceList extends ListResource {
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
+  }
+}
+
+/**
+ * Pipeline instance list resource object representing a list of all pipeline
+ * instances.
+ */
+export class AllPipelineInstanceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PipelineInstance;
+  }
+
+  /**
+   * Fetch a list of pipelines from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
+   */
+  getPipeline(params = null, timeout = 30000) {
+    const linkRelation = 'pipelines';
+    const resourceClass = PipelineList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
   }
 }
