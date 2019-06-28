@@ -116,7 +116,7 @@ export class ItemResource extends Resource {
    * resource's data has not been fetched from the API yet or it doesn't support
    * PUT requests.
    */
-  getPUTDataParameters() {
+  getPUTParameters() {
     if (this.collection && this.collection.template) {
       return Collection.getTemplateDescriptorNames(this.collection.template);
     }
@@ -389,7 +389,7 @@ export class ListResource extends Resource {
    * resource's data has not been fetched from the API yet or it doesn't support
    * POST requests.
    */
-  getPOSTDataParameters() {
+  getPOSTParameters() {
     if (this.collection && this.collection.template) {
       return Collection.getTemplateDescriptorNames(this.collection.template);
     }
