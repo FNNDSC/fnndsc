@@ -42,9 +42,9 @@ describe('Resource', () => {
     });
 
     it('can retrieve the array of supported PUT data parameters or null', () => {
-      expect(itemRes.getPUTDataParameters()).to.be.a('null');
+      expect(itemRes.getPUTParameters()).to.be.a('null');
       itemRes.collection.template = Collection.makeTemplate({ descriptor1: '', descriptor2: '' });
-      expect(itemRes.getPUTDataParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
+      expect(itemRes.getPUTParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
     });
 
     it('can fetch an Item Resource from the REST API', done => {
@@ -100,9 +100,9 @@ describe('Resource', () => {
     });
 
     it('can retrieve the array of supported POST data parameters or null', () => {
-      expect(listRes.getPOSTDataParameters()).to.be.a('null');
+      expect(listRes.getPOSTParameters()).to.be.a('null');
       listRes.collection.template = Collection.makeTemplate({ descriptor1: '', descriptor2: '' });
-      expect(listRes.getPOSTDataParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
+      expect(listRes.getPOSTParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
     });
 
     it('can fetch a List Resource from the REST API', done => {

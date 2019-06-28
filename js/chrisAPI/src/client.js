@@ -194,6 +194,28 @@ export default class Client {
   }
 
   /**
+   * Make a POST request to this plugin instance list resource to create a new plugin
+   * instance item resource through the REST API.
+   *
+   * @param {number} pluginId - plugin id
+   * @param {Object} data - request data object which is plugin-specific
+   * @param {number} data.previous_id=null - id of the previous plugin instance
+   * @param {string} [data.title] - title
+   * @param {string} [data.cpu_limit] - cpu limit
+   * @param {string} [data.memory_limit] - memory limit
+   * @param {string} [data.number_of_workers] - number of workers
+   * @param {string} [data.gpu_limit] - gpu limit
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``PluginInstance`` object
+   */
+  createPluginInstance(pluginId, data, timeout = 30000) {
+    return this.getPlugin(pluginId, timeout)
+      .then(plg => plg.getPluginInstances(null, timeout))
+      .then(plgInstList => plgInstList.post(data, timeout));
+  }
+
+  /**
    * Get a paginated list of pipelines from the REST API given query search
    * parameters. If no search parameters then get the default first page.
    *

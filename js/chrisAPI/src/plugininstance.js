@@ -159,7 +159,7 @@ export class PluginInstanceList extends ListResource {
    * instance item resource through the REST API.
    *
    * @param {Object} data - request JSON data object which is plugin-specific and it's
-   * properties can be determined by calling the ``getPOSTDataParameters`` method on this
+   * properties can be determined by calling the ``getPOSTParameters`` method on this
    * resource object
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to ``this`` object
