@@ -2,7 +2,7 @@
 import { ItemResource, ListResource } from './resource';
 import { PluginList, Plugin } from './plugin';
 import { PluginParameter } from './pluginparameter';
-import { PipelineInstance } from './pipelineinstance';
+import { PipelineInstanceList } from './pipelineinstance';
 
 /**
  * Pipeline item resource object representing a pipeline.
@@ -76,11 +76,11 @@ export class Pipeline extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``PipelinePipelineInstanceList`` object
+   * @return {Object} - JS Promise, resolves to a ``PipelineInstanceList`` object
    */
-  getInstances(params = null, timeout = 30000) {
+  getPipelineInstances(params = null, timeout = 30000) {
     const linkRelation = 'instances';
-    const resourceClass = PipelinePipelineInstanceList;
+    const resourceClass = PipelineInstanceList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
@@ -303,25 +303,5 @@ export class PipelinePipingDefaultParameterList extends ListResource {
 
     /** @type {Object} */
     this.itemClass = PluginPiping;
-  }
-}
-
-/**
- * List resource object representing a list of pipeline instances associated
- * with this pipeline.
- */
-export class PipelinePipelineInstanceList extends ListResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-
-    /** @type {Object} */
-    this.itemClass = PipelineInstance;
   }
 }
