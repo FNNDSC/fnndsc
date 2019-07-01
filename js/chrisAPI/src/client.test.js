@@ -5,6 +5,7 @@ import { PluginList, Plugin } from './plugin';
 import { PluginParameterList } from './pluginparameter';
 import { AllPluginInstanceList, PluginInstance } from './plugininstance';
 import { PipelineList, Pipeline } from './pipeline';
+import { PipelineInstance } from './pipelineinstance';
 import User from './user';
 import RequestException from './exception';
 
@@ -136,6 +137,22 @@ describe('Client', () => {
       .then(done, done);
   });
 
+  it('can create a new plugin instance from the REST API', done => {
+    const pluginId = 1;
+    const data = {
+      title: 'Test plugin instance',
+      dir: './',
+    };
+
+    const result = client.createPluginInstance(pluginId, data);
+    result
+      .then(plgInstance => {
+        expect(plgInstance).to.be.an.instanceof(PluginInstance);
+        expect(plgInstance.data.title).to.equal('Test plugin instance');
+      })
+      .then(done, done);
+  });
+
   it('can fetch the list of pipelines from the REST API', done => {
     const result = client.getPipelines();
     result
@@ -152,6 +169,22 @@ describe('Client', () => {
       .then(pipeline => {
         expect(pipeline).to.be.an.instanceof(Pipeline);
         expect(pipeline.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can create a new pipeline instance from the REST API', done => {
+    const pipelineId = 2;
+    const data = {
+      title: 'Test pipeline instance',
+      previous_plugin_inst_id: 1,
+    };
+
+    const result = client.createPipelineInstance(pipelineId, data);
+    result
+      .then(pipelineInstance => {
+        expect(pipelineInstance).to.be.an.instanceof(PipelineInstance);
+        expect(pipelineInstance.data.title).to.equal('Test pipeline instance');
       })
       .then(done, done);
   });

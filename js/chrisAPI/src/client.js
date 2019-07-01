@@ -194,8 +194,7 @@ export default class Client {
   }
 
   /**
-   * Make a POST request to this plugin instance list resource to create a new plugin
-   * instance item resource through the REST API.
+   * Create a new plugin instance resource through the REST API.
    *
    * @param {number} pluginId - plugin id
    * @param {Object} data - request data object which is plugin-specific
@@ -212,7 +211,8 @@ export default class Client {
   createPluginInstance(pluginId, data, timeout = 30000) {
     return this.getPlugin(pluginId, timeout)
       .then(plg => plg.getPluginInstances(null, timeout))
-      .then(plgInstList => plgInstList.post(data, timeout));
+      .then(plgInstList => plgInstList.post(data, timeout))
+      .then(plgInstList => plgInstList.getItems()[0]);
   }
 
   /**
@@ -251,6 +251,40 @@ export default class Client {
   }
 
   /**
+   * Get a pipeline's paginated list of plugins given the pipeline's id.
+   *
+   * @param {number} pipelineId - pipeline id
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PipelinePluginList`` object
+   */
+  getPipelinePlugins(pipelineId, params = null, timeout = 30000) {
+    return this.getPipeline(pipelineId, timeout).then(pipeline =>
+      pipeline.getPipelinePlugins(params, timeout)
+    );
+  }
+
+  /**
+   * Get a pipeline's paginated list of plugin pipings given the pipeline's id.
+   *
+   * @param {number} pipelineId - pipeline id
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
+   */
+  getPipelinePluginPipings(pipelineId, params = null, timeout = 30000) {
+    return this.getPipeline(pipelineId, timeout).then(pipeline =>
+      pipeline.getPluginPipings(params, timeout)
+    );
+  }
+
+  /**
    * Get a paginated list of pipeline instances from the REST API given
    * query search parameters. If no search parameters then get the default
    * first page.
@@ -285,6 +319,25 @@ export default class Client {
    */
   getPipelineInstance(id, timeout = 30000) {
     return this.getPipelineInstances({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Create a new pipeline instance resource through the REST API.
+   *
+   * @param {number} pipelineId - pipeline id
+   * @param {Object} data - request data object which is pipeline-specific
+   * @param {number} data.previous_plugin_inst_id - id of the previous plugin instance
+   * @param {string} [data.title] - pipeline title
+   * @param {string} [data.description] - pipeline description
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``PipelineInstance`` object
+   */
+  createPipelineInstance(pipelineId, data, timeout = 30000) {
+    return this.getPipeline(pipelineId, timeout)
+      .then(pipeline => pipeline.getPipelineInstances(null, timeout))
+      .then(pipelineInstList => pipelineInstList.post(data, timeout))
+      .then(pipelineInstList => pipelineInstList.getItems()[0]);
   }
 
   /**
