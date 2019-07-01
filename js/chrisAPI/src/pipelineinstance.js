@@ -35,7 +35,7 @@ export class PipelineInstance extends ItemResource {
  * Pipeline instance list resource object representing a list of pipeline-specific
  * instances.
  */
-export class PipelinenInstanceList extends ListResource {
+export class PipelineInstanceList extends ListResource {
   /**
    * Constructor
    *
