@@ -129,16 +129,16 @@ export class ItemResource extends Resource {
    *
    * @param {string} linkRelation
    * @param {Object} ResourceClass
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object which is resource-specific
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error if this item resource has not yet been
    * fetched from the REST API
    * @throws {RequestException} throw error when the link relation is not found
    */
-  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
+  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {
     if (this.isEmpty) {
       throw new RequestException('Item object has not been set!');
     }
@@ -151,8 +151,8 @@ export class ItemResource extends Resource {
     }
     const resourceUrl = urls[0];
     const resourceObj = new ResourceClass(resourceUrl, this.auth);
-    if (params) {
-      return resourceObj.get(params, timeout);
+    if (searchParams) {
+      return resourceObj.get(searchParams, timeout);
     }
     return resourceObj.get(timeout);
   }
@@ -229,9 +229,9 @@ export class ListResource extends Resource {
    * Fetch this list resource from the REST API based on search parameters. If
    * no search parameters then get the default first page.
    *
-   * @param {Object} [searchParams=null] - search parameters, the
-   * ``getSearchParameters`` method can be used to get a list of possible
-   * search parameters
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``getSearchParameters`` method can be used to get a list
+   * of possible search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
@@ -402,16 +402,16 @@ export class ListResource extends Resource {
    *
    * @param {string} linkRelation
    * @param {Object} ResourceClass
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object which is resource-specific
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error if this list resource has not yet
    * been fetched from the REST API
    * @throws {RequestException} throw error when the link relation is not found
    */
-  _getResource(linkRelation, ResourceClass, params = null, timeout = 30000) {
+  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {
     if (!this.collection) {
       throw new RequestException('Collection object has not been set!');
     }
@@ -424,8 +424,8 @@ export class ListResource extends Resource {
     const resourceUrl = urls[0];
     const resourceObj = new ResourceClass(resourceUrl, this.auth);
 
-    if (params) {
-      return resourceObj.get(params, timeout);
+    if (searchParams) {
+      return resourceObj.get(searchParams, timeout);
     }
     return resourceObj.get(timeout);
   }
