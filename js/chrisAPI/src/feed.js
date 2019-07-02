@@ -164,33 +164,37 @@ export class FeedList extends ListResource {
   /**
    * Fetch a list of plugins from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PluginList.getSearchParameters`` method can be used to
+   * get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``PluginList`` object
    */
-  getPlugins(params = null, timeout = 30000) {
+  getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = 'plugins';
     const resourceClass = PluginList;
 
-    return this._getResource(linkRelation, resourceClass, params, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 
   /**
    * Fetch a list of tags from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``TagList.getSearchParameters`` method can be used to
+   * get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    * @return {Object} - JS Promise, resolves to a ``TagList`` object
    */
-  getTags(params = null, timeout = 30000) {
+  getTags(searchParams = null, timeout = 30000) {
     const linkRelation = 'tags';
     const resourceClass = TagList;
 
-    return this._getResource(linkRelation, resourceClass, params, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 
   /**

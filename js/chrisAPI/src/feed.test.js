@@ -108,8 +108,8 @@ describe('Resource', () => {
         .then(done, done);
     });
 
-    it('can fetch the list of plugins from the REST API', done => {
-      const result = feedList.getPlugins();
+    it('can fetch the list of fs plugins from the REST API', done => {
+      const result = feedList.getPlugins({ type: 'fs' });
       result
         .then(pluginList => {
           expect(pluginList).to.be.an.instanceof(PluginList);
