@@ -6,6 +6,8 @@ import { PluginParameterList } from './pluginparameter';
 import { AllPluginInstanceList, PluginInstance } from './plugininstance';
 import { PipelineList, Pipeline } from './pipeline';
 import { PipelineInstance } from './pipelineinstance';
+import { Tag } from './tag';
+import { UploadedFile } from './uploadedfile';
 import User from './user';
 import RequestException from './exception';
 
@@ -173,18 +175,49 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can create a new pipeline instance from the REST API', done => {
+  it('can create a new pipeline instance through the REST API', done => {
     const pipelineId = 2;
     const data = {
       title: 'Test pipeline instance',
       previous_plugin_inst_id: 1,
     };
-
     const result = client.createPipelineInstance(pipelineId, data);
     result
       .then(pipelineInstance => {
         expect(pipelineInstance).to.be.an.instanceof(PipelineInstance);
         expect(pipelineInstance.data.title).to.equal('Test pipeline instance');
+      })
+      .then(done, done);
+  });
+
+  it('can create a new tag through the REST API', done => {
+    const data = {
+      name: 'Test tag',
+      color: 'red',
+    };
+    const result = client.createTag(data);
+    result
+      .then(tag => {
+        expect(tag).to.be.an.instanceof(Tag);
+        expect(tag.data.name).to.equal('Test tag');
+      })
+      .then(done, done);
+  });
+
+  it('can upload a file through the REST API', done => {
+    const data = {
+      upload_path: '/test' + Date.now() + '.txt',
+    };
+    const fileContent = 'This is a test file';
+    const fileData = JSON.stringify(fileContent);
+    const uploadFile = new Blob([fileData], { type: 'application/json' });
+    const uploadFileObj = { fname: uploadFile };
+
+    const result = client.uploadFile(data, uploadFileObj);
+    result
+      .then(uploadedFile => {
+        expect(uploadedFile).to.be.an.instanceof(UploadedFile);
+        expect(uploadedFile.data.upload_path).to.equal(data.upload_path);
       })
       .then(done, done);
   });

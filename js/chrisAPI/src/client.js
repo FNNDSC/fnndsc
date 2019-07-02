@@ -5,8 +5,8 @@ import RequestException from './exception';
 import User from './user';
 import { FeedList } from './feed';
 import { PluginList } from './plugin';
-import { AllPluginInstanceList } from './plugininstance';
-import { AllPipelineInstanceList } from './pipelineinstance';
+import { AllPluginInstanceList, PluginInstanceList } from './plugininstance';
+import { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstance';
 import { PipelineList } from './pipeline';
 import { TagList } from './tag';
 import { UploadedFileList } from './uploadedfile';
@@ -58,7 +58,7 @@ export default class Client {
    * from the REST API given query search parameters. If no search parameters
    * then get the default first page.
    *
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match feed id exactly with this number
@@ -106,7 +106,7 @@ export default class Client {
    * Get a paginated list of plugins from the REST API given query search
    * parameters. If no search parameters then get the default first page.
    *
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match plugin id exactly with this number
@@ -160,7 +160,7 @@ export default class Client {
    * Get a paginated list of plugin instances from the REST API given query search
    * parameters. If no search parameters then get the default first page.
    *
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match plugin instance id exactly with this number
@@ -210,8 +210,11 @@ export default class Client {
    */
   createPluginInstance(pluginId, data, timeout = 30000) {
     return this.getPlugin(pluginId, timeout)
-      .then(plg => plg.getPluginInstances(null, timeout))
-      .then(plgInstList => plgInstList.post(data, timeout))
+      .then(plg => {
+        const instancesUrl = Collection.getLinkRelationUrls(plg.collection.items[0], 'instances');
+        const plgInstList = new PluginInstanceList(instancesUrl[0], this.auth);
+        return plgInstList.post(data, timeout);
+      })
       .then(plgInstList => plgInstList.getItems()[0]);
   }
 
@@ -219,7 +222,7 @@ export default class Client {
    * Get a paginated list of pipelines from the REST API given query search
    * parameters. If no search parameters then get the default first page.
    *
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match plugin id exactly with this number
@@ -285,11 +288,35 @@ export default class Client {
   }
 
   /**
+   * Create a new pipeline resource through the REST API.
+   *
+   * @param {Object} data - request data object
+   * @param {string} data.name - pipeline name
+   * @param {string} [data.authors] - pipeline authors
+   * @param {string} [data.category] - pipeline category
+   * @param {string} [data.description] - pipeline description
+   * @param {string} [data.category] - pipeline category
+   * @param {boolean} [data.locked=true] - pipeline status
+   * @param {string} [data.plugin_tree] - JSON string containing a plugin tree list
+   * @param {number} [data.plugin_inst_id] - plugin instance id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``Pipeline`` object
+   */
+  createPipeline(data, timeout = 30000) {
+    const createRes = () => {
+      const res = new PipelineList(this.pipelinesUrl, this.auth);
+      return res.post(data, timeout).then(res => res.getItems()[0]);
+    };
+    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());
+  }
+
+  /**
    * Get a paginated list of pipeline instances from the REST API given
    * query search parameters. If no search parameters then get the default
    * first page.
    *
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match pipeline instance id exactly with this number
@@ -335,16 +362,22 @@ export default class Client {
    */
   createPipelineInstance(pipelineId, data, timeout = 30000) {
     return this.getPipeline(pipelineId, timeout)
-      .then(pipeline => pipeline.getPipelineInstances(null, timeout))
-      .then(pipelineInstList => pipelineInstList.post(data, timeout))
-      .then(pipelineInstList => pipelineInstList.getItems()[0]);
+      .then(pipeline => {
+        const instancesUrl = Collection.getLinkRelationUrls(
+          pipeline.collection.items[0],
+          'instances'
+        );
+        const pipInstList = new PipelineInstanceList(instancesUrl[0], this.auth);
+        return pipInstList.post(data, timeout);
+      })
+      .then(pipInstList => pipInstList.getItems()[0]);
   }
 
   /**
    * Get a paginated list of tags from the REST API given query search
    * parameters. If no search parameters then get the default first page.
    *
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match tag id exactly with this number
@@ -372,10 +405,28 @@ export default class Client {
   }
 
   /**
+   * Create a new tag resource through the REST API.
+   *
+   * @param {Object} data - request data object
+   * @param {string} data.color - tag color
+   * @param {string} [data.name=''] - tag name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``Tag`` object
+   */
+  createTag(data, timeout = 30000) {
+    const createRes = () => {
+      const res = new TagList(this.tagsUrl, this.auth);
+      return res.post(data, timeout).then(res => res.getItems()[0]);
+    };
+    return this.tagsUrl ? createRes() : this.setUrls().then(() => createRes());
+  }
+
+  /**
    * Get a paginated list of uploaded files from the REST API given query search
    * parameters. If no search parameters then get the default first page.
    *
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match file id exactly with this number
@@ -399,6 +450,26 @@ export default class Client {
    */
   getUploadedFile(id, timeout = 30000) {
     return this.getUploadedFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Upload a file and create a new uploaded file resource through the REST API.
+   *
+   * @param {Object} data - request data object
+   * @param {string} data.upload_path - absolute path including file name where the file
+   * will be uploaded on the storage service
+   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``UploadedFile`` object
+   */
+  uploadFile(data, uploadFileObj, timeout = 30000) {
+    const createRes = () => {
+      const res = new UploadedFileList(this.uploadedFilesUrl, this.auth);
+      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
+    };
+    return this.uploadedFilesUrl ? createRes() : this.setUrls().then(() => createRes());
   }
 
   /**
@@ -475,7 +546,7 @@ export default class Client {
    *
    * @param {string} resUrl -  url of the resource
    * @param {string} ResClass - resource class
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise
