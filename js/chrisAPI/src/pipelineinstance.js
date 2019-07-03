@@ -1,6 +1,7 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
 import { PipelineList, Pipeline } from './pipeline';
+import { PipelineInstancePluginInstanceList } from './plugininstance';
 
 /**
  * Pipeline instance item resource object representing a pipeline instance.
@@ -29,6 +30,24 @@ export class PipelineInstance extends ItemResource {
     const resourceClass = Pipeline;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch a list of plugin instances associated to this pipeline instance from
+   * the REST API.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PipelineInstancePluginInstanceList`` object
+   */
+  getPluginInstances(params = null, timeout = 30000) {
+    const linkRelation = 'plugin_instances';
+    const resourceClass = PipelineInstancePluginInstanceList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
   }
 }
 
