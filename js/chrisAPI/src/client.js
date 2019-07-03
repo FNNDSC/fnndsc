@@ -145,7 +145,7 @@ export default class Client {
    * Get a plugin's paginated parameters given the plugin's id.
    *
    * @param {number} pluginId - plugin id
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
@@ -295,7 +295,6 @@ export default class Client {
    * @param {string} [data.authors] - pipeline authors
    * @param {string} [data.category] - pipeline category
    * @param {string} [data.description] - pipeline description
-   * @param {string} [data.category] - pipeline category
    * @param {boolean} [data.locked=true] - pipeline status
    * @param {string} [data.plugin_tree] - JSON string containing a plugin tree list
    * @param {number} [data.plugin_inst_id] - plugin instance id

@@ -23,6 +23,7 @@ export class UploadedFile extends ItemResource {
    * Fetch the file blob associated to this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Blob`` object
    */
   getFileBlob(timeout = 30000) {
@@ -43,6 +44,7 @@ export class UploadedFile extends ItemResource {
    * @param {string} data.upload_path - absolute path including file name where the file
    * will be uploaded on the storage service
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
@@ -53,6 +55,7 @@ export class UploadedFile extends ItemResource {
    * Make a DELETE request to delete this uploaded file item resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``null``
    */
   delete(timeout = 30000) {
@@ -88,6 +91,7 @@ export class UploadedFileList extends ListResource {
    * @param {?Object} uploadFileObj - custom file object
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   post(data, uploadFileObj, timeout = 30000) {

@@ -31,6 +31,7 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {?Object} params - search parameters
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   get(url, params = null) {
@@ -50,6 +51,7 @@ export default class Request {
    * @param {Object} data - JSON data object
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   post(url, data, uploadFileObj = null) {
@@ -63,6 +65,7 @@ export default class Request {
    * @param {Object} data - JSON data object
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   put(url, data, uploadFileObj = null) {
@@ -73,6 +76,7 @@ export default class Request {
    * Perform a DELETE request.
    *
    * @param {string} url - url of the resource
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   delete(url) {
@@ -89,6 +93,7 @@ export default class Request {
    * @param {Object} data - JSON data object
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   _postOrPut(requestMethod, url, data, uploadFileObj = null) {
@@ -120,6 +125,7 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {string} method - request verb
+   *
    * @return {Object} - axios configuration object
    */
   _getConfig(url, method) {
@@ -150,6 +156,7 @@ export default class Request {
    * Internal method to make an axios request.
    *
    * @param {Object} config - axios configuration object
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   static _callAxios(config) {
@@ -166,6 +173,7 @@ export default class Request {
    * Internal method to handle errors produced by HTTP requests.
    *
    * @param {Object} error - axios error object
+   *
    * @throws {RequestException} throw error
    */
   static _handleRequestError(error) {

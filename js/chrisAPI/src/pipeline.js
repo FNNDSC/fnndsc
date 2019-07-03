@@ -22,10 +22,11 @@ export class Pipeline extends ItemResource {
   /**
    * Fetch a list of plugins associated to this pipeline from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PipelinePluginList`` object
    */
   getPlugins(params = null, timeout = 30000) {
@@ -38,10 +39,11 @@ export class Pipeline extends ItemResource {
   /**
    * Fetch a list of plugin pipings associated to this pipeline from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
    */
   getPluginPipings(params = null, timeout = 30000) {
@@ -55,10 +57,11 @@ export class Pipeline extends ItemResource {
    * Fetch a list of plugin piping default parameter values for the plugin
    * pipings composing the pipeline from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
    */
   getDefaultParameters(params = null, timeout = 30000) {
@@ -72,10 +75,11 @@ export class Pipeline extends ItemResource {
    * Fetch a list of pipeline instances associated to this pipeline from the
    * REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PipelineInstanceList`` object
    */
   getPipelineInstances(params = null, timeout = 30000) {
@@ -107,17 +111,20 @@ export class PipelineList extends ListResource {
   /**
    * Fetch a list of plugins from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PluginList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginList`` object
    */
-  getPlugins(params = null, timeout = 30000) {
+  getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = 'plugins';
     const resourceClass = PluginList;
 
-    return this._getResource(linkRelation, resourceClass, params, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 
   /**
@@ -126,13 +133,14 @@ export class PipelineList extends ListResource {
    *
    * @param {Object} data - request JSON data object
    * @param {string} data.name - pipeline name
-   * @param {string} data.authors - pipeline authors
-   * @param {string} data.category - pipeline category
-   * @param {string} data.description - pipeline description
-   * @param {string} data.locked - pipeline lock status
-   * @param {string} data.plugin_tree - pipeline plugin tree
-   * @param {string} data.plugin_inst_id - pipeline origin plugin instance id
+   * @param {string} [data.authors] - pipeline authors
+   * @param {string} [data.category] - pipeline category
+   * @param {string} [data.description] - pipeline description
+   * @param {boolean} [data.locked=true] - pipeline status
+   * @param {string} [data.plugin_tree] - JSON string containing a plugin tree list
+   * @param {number} [data.plugin_inst_id] - plugin instance id
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
@@ -161,6 +169,7 @@ export class PluginPiping extends ItemResource {
    * REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object or ``null``
    */
   getPreviousPluginPiping(timeout = 30000) {
@@ -178,6 +187,7 @@ export class PluginPiping extends ItemResource {
    * Fetch the corresponding plugin for this plugin piping from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
@@ -191,6 +201,7 @@ export class PluginPiping extends ItemResource {
    * Fetch the corresponding pipeline for this plugin piping from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(timeout = 30000) {
@@ -222,6 +233,7 @@ export class PipingDefaultParameter extends ItemResource {
    * parameter from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object
    */
   getPluginPiping(timeout = 30000) {
@@ -236,6 +248,7 @@ export class PipingDefaultParameter extends ItemResource {
    * parameter from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object
    */
   getPluginParameter(timeout = 30000) {

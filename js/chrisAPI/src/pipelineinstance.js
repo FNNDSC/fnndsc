@@ -21,6 +21,7 @@ export class PipelineInstance extends ItemResource {
    * Fetch the pipeline associated to this pipeline instance from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(timeout = 30000) {
@@ -58,6 +59,7 @@ export class PipelineInstanceList extends ListResource {
    * properties can be determined by calling the ``getPOSTParameters`` method on this
    * resource object
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
@@ -87,16 +89,19 @@ export class AllPipelineInstanceList extends ListResource {
   /**
    * Fetch a list of pipelines from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PipelineList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
    */
-  getPipeline(params = null, timeout = 30000) {
+  getPipelines(searchParams = null, timeout = 30000) {
     const linkRelation = 'pipelines';
     const resourceClass = PipelineList;
 
-    return this._getResource(linkRelation, resourceClass, params, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 }

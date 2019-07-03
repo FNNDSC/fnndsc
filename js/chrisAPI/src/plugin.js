@@ -22,10 +22,11 @@ export class Plugin extends ItemResource {
   /**
    * Fetch a list of plugin parameters associated to this plugin from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object
    */
   getPluginParameters(params = null, timeout = 30000) {
@@ -38,10 +39,11 @@ export class Plugin extends ItemResource {
   /**
    * Fetch a list of plugin instances associated to this plugin from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object
    */
   getPluginInstances(params = null, timeout = 30000) {
@@ -73,16 +75,19 @@ export class PluginList extends ListResource {
   /**
    * Fetch a list of feeds from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``FeedList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
-  getFeeds(params = null, timeout = 30000) {
+  getFeeds(searchParams = null, timeout = 30000) {
     const linkRelation = 'feeds';
     const resourceClass = FeedList;
 
-    return this._getResource(linkRelation, resourceClass, params, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 }

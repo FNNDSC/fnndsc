@@ -4,7 +4,7 @@ import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
 import { FeedFileList } from './feedfile';
-import { FeedPluginInstanceList } from './plugininstance';
+import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 import User from './user';
 import { PluginList } from './plugin';
 import { UploadedFileList } from './uploadedfile';
@@ -114,6 +114,16 @@ describe('Resource', () => {
         .then(pluginList => {
           expect(pluginList).to.be.an.instanceof(PluginList);
           expect(pluginList.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch the list of plugin instances from the REST API', done => {
+      const result = feedList.getPluginInstances({ id: 1 });
+      result
+        .then(plgInstanceList => {
+          expect(plgInstanceList).to.be.an.instanceof(AllPluginInstanceList);
+          expect(plgInstanceList.data).to.have.lengthOf.at.least(1);
         })
         .then(done, done);
     });

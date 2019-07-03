@@ -25,6 +25,7 @@ export class FeedFile extends ItemResource {
    * Fetch the file blob associated to this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Blob`` object
    * @throws {RequestException} throw error if this item resource has not yet been
    * fetched from the REST API
@@ -44,6 +45,7 @@ export class FeedFile extends ItemResource {
    * Fetch the plugin instance that created this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
@@ -76,6 +78,7 @@ export class FeedFileList extends ListResource {
    * Fetch the feed associated to this file list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -109,6 +112,7 @@ export class PluginInstanceFileList extends ListResource {
    * Fetch the feed associated to this file list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -122,6 +126,7 @@ export class PluginInstanceFileList extends ListResource {
    * Fetch the plugin instance associated to this file list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
