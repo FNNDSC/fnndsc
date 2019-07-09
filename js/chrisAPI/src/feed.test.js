@@ -1,8 +1,9 @@
 import { expect } from 'chai';
+import Collection from './cj';
 import { FeedList, Feed } from './feed';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
-import { CommentList } from './comment';
+import { CommentList, Comment } from './comment';
 import { FeedFileList } from './feedfile';
 import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 import User from './user';
@@ -63,10 +64,37 @@ describe('Resource', () => {
     });
 
     it('can fetch the associated comments from the REST API', done => {
-      const result = feed.getComments();
+      let comment;
+      const commentsUrl = Collection.getLinkRelationUrls(feed.collection.items[0], 'comments');
+      const commentList = new CommentList(commentsUrl[0], auth);
+      const result = commentList
+        .post({ title: 'Test Comment' })
+        .then(listRes => {
+          comment = listRes.getItems()[0];
+        })
+        .then(() => feed.getComments());
       result
         .then(commentList => {
           expect(commentList).to.be.an.instanceof(CommentList);
+          expect(commentList.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch a comment by id from the REST API', done => {
+      let comment;
+      const commentsUrl = Collection.getLinkRelationUrls(feed.collection.items[0], 'comments');
+      const commentList = new CommentList(commentsUrl[0], auth);
+      const result = commentList
+        .post({ title: 'Test Comment' })
+        .then(listRes => {
+          comment = listRes.getItems()[0];
+        })
+        .then(() => feed.getComment(comment.data.id));
+      result
+        .then(comment => {
+          expect(comment).to.be.an.instanceof(Comment);
+          expect(comment.data.title).to.equal('Test Comment');
         })
         .then(done, done);
     });

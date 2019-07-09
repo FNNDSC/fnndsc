@@ -1,12 +1,12 @@
 import Client from './client';
 import { expect } from 'chai';
 import { FeedList, Feed } from './feed';
+import { AllFeedFileList, FeedFile } from './feedfile';
 import { PluginList, Plugin } from './plugin';
-import { PluginParameterList } from './pluginparameter';
 import { AllPluginInstanceList, PluginInstance } from './plugininstance';
 import { PipelineList, Pipeline } from './pipeline';
 import { PipelineInstance } from './pipelineinstance';
-import { Tag } from './tag';
+import { Tag, Tagging } from './tag';
 import { UploadedFile } from './uploadedfile';
 import User from './user';
 import RequestException from './exception';
@@ -85,6 +85,40 @@ describe('Client', () => {
       .then(done, done);
   });
 
+  it('can tag a feed through the REST API', done => {
+    const data = {
+      name: 'Test feed tag',
+      color: 'red',
+    };
+    const result = client.createTag(data).then(tag => client.tagFeed(1, tag.data.id));
+    result
+      .then(tagging => {
+        expect(tagging).to.be.an.instanceof(Tagging);
+        expect(tagging.data.feed_id).to.equal(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of files for all user-owned feeds from the REST API', done => {
+    const result = client.getFiles();
+    result
+      .then(fileList => {
+        expect(fileList).to.be.an.instanceof(AllFeedFileList);
+        expect(fileList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a feed file by id from the REST API', done => {
+    const result = client.getFile(1);
+    result
+      .then(feedFile => {
+        expect(feedFile).to.be.an.instanceof(FeedFile);
+        expect(feedFile.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
   it('can fetch the list of plugins from the REST API', done => {
     const result = client.getPlugins();
     result
@@ -104,17 +138,6 @@ describe('Client', () => {
         //window.console.log('items', feedList.getItems());
         expect(plugin).to.be.an.instanceof(Plugin);
         expect(plugin.isEmpty).to.be.false;
-      })
-      .then(done, done);
-  });
-
-  it('can fetch a plugin parameters from the REST API', done => {
-    const plg_id = 1;
-    const result = client.getPluginParameters(plg_id, { limit: 20 });
-    result
-      .then(plgParams => {
-        expect(plgParams).to.be.an.instanceof(PluginParameterList);
-        expect(plgParams.data).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
@@ -139,7 +162,7 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can create a new plugin instance from the REST API', done => {
+  it('can create a new plugin instance through the REST API', done => {
     const pluginId = 1;
     const data = {
       title: 'Test plugin instance',

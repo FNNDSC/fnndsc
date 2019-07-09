@@ -8,7 +8,7 @@ import { UploadedFileList } from './uploadedfile';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
-import { FeedFileList } from './feedfile';
+import { AllFeedFileList, FeedFileList } from './feedfile';
 import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 
 /**
@@ -66,18 +66,31 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of comments associated to this feed from the REST API.
    *
-   * @param {Object} [params=null] - page parameters object
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match comment id exactly with this number
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``CommentList`` object
    */
-  getComments(params = null, timeout = 30000) {
+  getComments(searchParams = null, timeout = 30000) {
     const linkRelation = 'comments';
     const resourceClass = CommentList;
 
-    return this._getResource(linkRelation, resourceClass, params, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Get a feed comment given its id.
+   *
+   * @param {number} id - comment id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``Comment`` object
+   */
+  getComment(id, timeout = 30000) {
+    return this.getComments({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
@@ -112,6 +125,20 @@ export class Feed extends ItemResource {
     const resourceClass = FeedPluginInstanceList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Tag the feed given the id of the tag.
+   *
+   * @param {number} tag_id - tag id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``Tagging`` object
+   */
+  tagFeed(tag_id, timeout = 30000) {
+    return this.getTaggings(timeout)
+      .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
+      .then(listRes => listRes.getItems()[0]);
   }
 
   /**
@@ -159,17 +186,22 @@ export class FeedList extends ListResource {
   }
 
   /**
-   * Fetch currently authenticated user's information from the REST API.
+   * Fetch a list of files written to any user-owned feed.
    *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``AllFeedFileList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``User`` object
+   * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object
    */
-  getUser(timeout = 30000) {
-    const linkRelation = 'user';
-    const resourceClass = User;
+  getFiles(searchParams = null, timeout = 30000) {
+    const linkRelation = 'files';
+    const resourceClass = AllFeedFileList;
 
-    return this._getResource(linkRelation, resourceClass, null, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 
   /**
@@ -284,5 +316,19 @@ export class FeedList extends ListResource {
     const resourceClass = UploadedFileList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch currently authenticated user's information from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``User`` object
+   */
+  getUser(timeout = 30000) {
+    const linkRelation = 'user';
+    const resourceClass = User;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 }

@@ -68,7 +68,6 @@ describe('Resource', () => {
         })
         .then(text => {
           expect(text).to.be.a('string');
-          expect(text).to.have.lengthOf.at.least(1);
         })
         .then(done, done);
     });

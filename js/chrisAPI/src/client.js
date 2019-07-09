@@ -2,14 +2,15 @@
 import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
-import User from './user';
 import { FeedList } from './feed';
+import { AllFeedFileList } from './feedfile';
 import { PluginList } from './plugin';
 import { AllPluginInstanceList, PluginInstanceList } from './plugininstance';
 import { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstance';
 import { PipelineList } from './pipeline';
 import { TagList } from './tag';
 import { UploadedFileList } from './uploadedfile';
+import User from './user';
 
 /**
  * API client object.
@@ -34,6 +35,7 @@ export default class Client {
 
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
+    this.filesUrl = '';
     this.pluginsUrl = '';
     this.pluginInstancesUrl = '';
     this.pipelinesUrl = '';
@@ -78,13 +80,14 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
-      this.userUrl = this.userUrl || getUrl(coll, 'user');
+      this.filesUrl = this.filesUrl || getUrl(coll, 'files');
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins');
       this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances');
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines');
       this.pipelineInstancesUrl = this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances');
       this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags');
       this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles');
+      this.userUrl = this.userUrl || getUrl(coll, 'user');
 
       return feedList;
     });
@@ -100,6 +103,56 @@ export default class Client {
    */
   getFeed(id, timeout = 30000) {
     return this.getFeeds({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Tag a feed given its id and the id of the tag.
+   *
+   * @param {number} feed_id - feed id
+   * @param {number} tag_id - tag id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``Tagging`` object
+   */
+  tagFeed(feed_id, tag_id, timeout = 30000) {
+    return this.getFeed(feed_id, timeout)
+      .then(feed => feed.getTaggings(timeout))
+      .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
+      .then(listRes => listRes.getItems()[0]);
+  }
+
+  /**
+   * Get a paginated list of files written to any user-owned feed from the REST
+   * API given query search parameters. If no search parameters then get the
+   * default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file id exactly with this number
+   * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance
+   * id exactly with this number
+   * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number
+   * @param {string} [searchParams.min_creation_date] - match file creation date gte this date
+   * @param {string} [searchParams.max_creation_date] - match file creation date lte this date
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object
+   */
+  getFiles(searchParams = null, timeout = 30000) {
+    return this._fetchRes(this.filesUrl, AllFeedFileList, searchParams, timeout);
+  }
+
+  /**
+   * Get a file resource object given its id.
+   *
+   * @param {number} id - file id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``FeedFile`` object
+   */
+  getFile(id, timeout = 30000) {
+    return this.getFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
@@ -139,21 +192,6 @@ export default class Client {
    */
   getPlugin(id, timeout = 30000) {
     return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
-  }
-
-  /**
-   * Get a plugin's paginated parameters given the plugin's id.
-   *
-   * @param {number} pluginId - plugin id
-   * @param {Object} [params=null] - page parameters object
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object
-   */
-  getPluginParameters(pluginId, params = null, timeout = 30000) {
-    return this.getPlugin(pluginId, timeout).then(plg => plg.getPluginParameters(params, timeout));
   }
 
   /**
@@ -251,40 +289,6 @@ export default class Client {
    */
   getPipeline(id, timeout = 30000) {
     return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));
-  }
-
-  /**
-   * Get a pipeline's paginated list of plugins given the pipeline's id.
-   *
-   * @param {number} pipelineId - pipeline id
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePluginList`` object
-   */
-  getPipelinePlugins(pipelineId, params = null, timeout = 30000) {
-    return this.getPipeline(pipelineId, timeout).then(pipeline =>
-      pipeline.getPipelinePlugins(params, timeout)
-    );
-  }
-
-  /**
-   * Get a pipeline's paginated list of plugin pipings given the pipeline's id.
-   *
-   * @param {number} pipelineId - pipeline id
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
-   */
-  getPipelinePluginPipings(pipelineId, params = null, timeout = 30000) {
-    return this.getPipeline(pipelineId, timeout).then(pipeline =>
-      pipeline.getPluginPipings(params, timeout)
-    );
   }
 
   /**

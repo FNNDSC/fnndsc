@@ -45,8 +45,8 @@ resp
 The ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance
 of a Javascript class that inherits from either of two base classes:
 
-* ``ItemResource`` (an object containing a reference to an individual item in a collection of resource items)
-* ``ListResource`` (an object modeling a collection of resource items)
+* ``ListResource`` (an object modeling a collection of items)
+* ``ItemResource`` (an object modeling an individual item in a collection of items)
 
 These model the two general type of REST API resources available from a ChRIS server.
 
@@ -60,8 +60,7 @@ to the previous object state is desired. This method returns a new instance of t
 All methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource
 object as an argument to the fulfillment callback.
 
-All resources can be fetched from the REST API starting with the initial `FeedList` instance returned by the client
-as in the following examples:
+All resources can be fetched from the REST API starting with a ``client`` object as in the following examples:
 
 ``` javascript
 
@@ -70,98 +69,107 @@ const auth = {token: authToken};
 // or alternatively auth = {username: 'cube', password: 'cube1234'}
 const client = new Client(chrisUrl, auth);
 
-// fetch a subset of the authenticated user's feeds from the REST API into an initial
-// Feedlist object
-let params = { limit: 10, offset: 0 };
+// fetch a paginated list of the authenticated user's feeds from the REST API into a ``Feedlist`` resource object
+let params = { limit: 20, offset: 0 };
 resp = client.getFeeds(params);
 resp
-  .then(feedListObj => {
-    let result;
+  .then(feedListResObj => {
 
-    window.console.log('FeedList resource object: ', feedListObj);
+    window.console.log('FeedList resource object: ', feedListResObj);
 
-    // the getItems method of any list resource obj can be used to retrieve an array of
-    // its item resource objects
-    // here we retrieve an array of Feed item resource objects from feedListObj
-    let feedObjArray = feedListObj.getItems();
-
-    // the data property of an item resource object can be used to get its data
-    // (REST API descriptors), here we log the individual Feed items' data
-    for (let feed of feedObjArray) {
-
-        window.console.log(feed.data);
+    // the ``data`` property of any resource object can be used to get its data
+    // here we got the first page of a paginated list of data objects (feed REST API descriptors)
+    let i = 0;
+    for (let dataObj of feedListResObj.data) {
+        window.console.log('Data item ' + i + ' of the feed list resource object: ', dataObj);
+        i++;
     }
-
-    // the current object's state can be saved into another copy object before fetching
-    // more data if desired
-    const feedListObjClone = feedListObj.clone();
 
     // the hasNextPage/hasPreviousPage property of any list resource object tells whether
     // there is a next/previous page available from the paginated REST API
-    if (feedListObj.hasNextPage) {
+    window.console.log('Is there a next page?: ', feedListResObj.hasNextPage);
+    window.console.log('Is there a previous page?: ', feedListResObj.hasPreviousPage);
 
-      // the getNextPage/getPreviousPage method of any list resource obj can be used to
-      // fetch the next/previous page from the paginated REST API
-      result = feedListObj.getNextPage();
-      result
-      .then(feedListObj => {
+    // the ``getItems`` helper method of any list resource obj can be used to create an array of
+    // the individual item resource objects in the list
+    // here we retrieve an array of ``Feed`` item resource objects from ``feedListResObj``
+    const feedResArray = feedListResObj.getItems();
+    let feedRes = feedResArray[0]
+    window.console.log(feedRes.data);
 
-        window.console.log('FeedList resource object: ', feedListObj);
-      });
-    }
+    // the ``getItem`` helper method of any list resource obj can be used to create a single item
+    // resource object given it's id as long as an item with that id is in the list
+    // here we create a ``Feed`` item resource object from ``feedListResObj``
+    feedRes = feedListResObj.getItem(feedResArray[0].data.id);
 
-    // the get method of any list resource obj can be used to fetch any arbitrary page
+    // the current object's state can be saved into another copy object before fetching
+    // more data if desired
+    const feedListResObjClone = feedListResObj.clone();
+
+    // the ``get`` method of any list resource obj can be used to fetch any arbitrary page
     // from the paginated REST API
-    result = feedListObj.get({ limit: 10, offset: 20 });
+    const result = feedListResObj.get({ limit: 20, offset: 20 });
     result
-      .then(feedListObj => {
+      .then(feedListResObj => {
 
         // the isEmpty property of any resource obj can be used to know if the object
         // contains any item/list data
-        window.console.log('Does the feed list contain any data?: ', !feedListObj.isEmpty);
-      });
-
-    // resource objects have methods to fetch other related resources
-    // here we fetch a list of available ChRIS plugins from the REST API
-    result = feedListObj.getPlugins(params);
-    result
-      .then(pluginListObj => {
-
-        window.console.log('PluginList resource object: ', pluginListObj);
+        window.console.log('Does the feed list resource object contain any data?: ', !feedListResObj.isEmpty);
       });
   })
   .catch(error => {
 
-    window.console.log('Error!!!: ', error);
+    window.console.log('Something went wrong with this request!!!: ', error);
   });
 
-// for convenience the Client class provides a runAsyncTask static method that could
+
+// Individual item resource objects for high-level resources can also be directly  
+// fetched from the REST API, these include ``Feed``. ``FeedFile``, ``Plugin``, ``PluginInstance``,
+// ``Pipeline``, ``PipelineInstance``, ``UploadedFile`` and ``Tag``
+// here we fetch a ``Feed`` resource object by id
+const feed_id = 1;
+resp = client.getFeed(feed_id);
+resp
+  .then(feedRes => {
+
+    window.console.log('Feed resource object: ', feedRes);
+    window.console.log('Data in the feed resource object: ', feedRes.data);
+
+    // resource objects have methods to fetch other related resources
+    // here we fetch the feed-specific ``Note`` resource object from the REST API
+    const result = feedRes.getNote();
+    result
+      .then(noteRes => {
+
+        window.console.log('Note resource object data: ', noteRes.data);
+      });    
+  })
+  .catch(error => {
+
+    window.console.log('Something went wrong with this request!!!: ', error);
+  });
+
+
+// For convenience the Client class provides a runAsyncTask static method that could
 // alternatively be used to wait for promises in Javascript 6
 // for instance iterate over all pages of the list of available 'fs' plugins
 Client.runAsyncTask(function*() {
 
-  // fetch the FeedList resource obj which corresponds to the API home page
-  let feedListObj = yield client.getFeeds(); // wait for response here
+  const searchParams = { type: 'fs', limit: 20, offset: 0 };
+  let pluginListResObj = yield client.getPlugins(searchParams); // wait for response here
 
-  // now fetch an initial PluginList resource obj from previous response
-  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // wait here
-
-  const searchParams = { type: 'fs'};
-  // const searchParams = {limit: 5, type: 'fs'}; if you want to override default page size
-
-  // the getSearch method of any list resource obj can be used to fetch a list resource from
-  // the REST API based on search parameters, here we fetch lists of plugins of type 'fs'
-  pluginListObj = yield pluginListObj.getSearch(searchParams); // wait here
-
-  window.console.log('Page 1 of Plugin fs list resource object: ', pluginListObj);
+  window.console.log('Page 1 data of plugin fs list resource object: ', pluginListResObj.data);
 
   let i = 2;
-  while (pluginListObj.hasNextPage) {
+  while (pluginListResObj.hasNextPage) {
 
     try {
+      searchParams.offset += searchParams.limit;
+      pluginListResObj = yield client.getPlugins(searchParams); // wait for response here
+      // alternatively, as explained above you could directly use the ``get`` method available in any resource object
+      // pluginListResObj = yield pluginListResObj.get(searchParams); // wait for response here
 
-      pluginListObj = yield pluginListObj.getNextPage(); // wait here
-      window.console.log('Page ' + i + ' of Plugin fs list resource object: ', pluginListObj);
+      window.console.log('Page ' + i + ' data of plugin fs list resource object: ', pluginListResObj.data);
 
     } catch (ex) { // errors while fetching resources can be handled
 
@@ -171,6 +179,25 @@ Client.runAsyncTask(function*() {
     i++;
   }
 });
+
+
+// For convenience some high-level resources can be directly created through the client object
+const pluginId = 1; // assuming that the plugin with id 1 is 'simplefsapp'
+const data = {
+  previous_id: null,  // instances of 'fs' plugins have previous_id set to null
+  title: "Test plugin instance",
+  dir: "./"  
+};
+resp = client.createPluginInstance(pluginId, data);
+resp
+  .then(plgInstResObj => {
+
+      window.console.log('New plugin instance: ', plgInstResObj);
+  })
+  .catch(error => {
+
+    window.console.log('Something went wrong with this request!!!: ', error);
+  });
 
 ```
 
@@ -191,4 +218,4 @@ Rest Framework approach to reporting errors.
 
 ## API reference
 
-Please check the API reference links to learn more about the API resource objects and their functionality.
+Please check the API reference links to learn more about the `client` object and other API resource objects and their functionality.

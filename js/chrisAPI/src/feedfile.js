@@ -90,6 +90,26 @@ export class FeedFileList extends ListResource {
 }
 
 /**
+ * Feed file list resource object representing a list of all files written to
+ * any user-owned feed.
+ */
+export class AllFeedFileList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = FeedFile;
+  }
+}
+
+/**
  * Plugin instance file list resource object representing a list of files written by
  * a plugin instance.
  */
