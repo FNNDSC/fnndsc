@@ -1,10 +1,11 @@
 import { expect } from 'chai';
-import { FeedList } from './feed';
+import Collection from './cj';
+import { FeedList, Feed } from './feed';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
-import { CommentList } from './comment';
+import { CommentList, Comment } from './comment';
 import { FeedFileList } from './feedfile';
-import { FeedPluginInstanceList } from './plugininstance';
+import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 import User from './user';
 import { PluginList } from './plugin';
 import { UploadedFileList } from './uploadedfile';
@@ -20,15 +21,18 @@ describe('Resource', () => {
   let feedListRes;
 
   before(() => {
-   feedListRes = new FeedList(chrisUrl, auth);
-   return feedListRes.get();
+    feedListRes = new FeedList(chrisUrl, auth);
+    return feedListRes.get();
   });
 
   describe('Feed', () => {
     let feed;
 
     beforeEach(() => {
-      feed = feedListRes.getItems()[0].clone();
+      const feedItemURl = feedListRes.collection.items[0].href;
+      feed = new Feed(feedItemURl, auth);
+      feed.collection = feedListRes.collection;
+      feed = feed.clone();
     });
 
     it('can fetch the associated note from the REST API', done => {
@@ -60,10 +64,37 @@ describe('Resource', () => {
     });
 
     it('can fetch the associated comments from the REST API', done => {
-      const result = feed.getComments();
+      let comment;
+      const commentsUrl = Collection.getLinkRelationUrls(feed.collection.items[0], 'comments');
+      const commentList = new CommentList(commentsUrl[0], auth);
+      const result = commentList
+        .post({ title: 'Test Comment' })
+        .then(listRes => {
+          comment = listRes.getItems()[0];
+        })
+        .then(() => feed.getComments());
       result
         .then(commentList => {
           expect(commentList).to.be.an.instanceof(CommentList);
+          expect(commentList.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch a comment by id from the REST API', done => {
+      let comment;
+      const commentsUrl = Collection.getLinkRelationUrls(feed.collection.items[0], 'comments');
+      const commentList = new CommentList(commentsUrl[0], auth);
+      const result = commentList
+        .post({ title: 'Test Comment' })
+        .then(listRes => {
+          comment = listRes.getItems()[0];
+        })
+        .then(() => feed.getComment(comment.data.id));
+      result
+        .then(comment => {
+          expect(comment).to.be.an.instanceof(Comment);
+          expect(comment.data.title).to.equal('Test Comment');
         })
         .then(done, done);
     });
@@ -86,7 +117,6 @@ describe('Resource', () => {
         })
         .then(done, done);
     });
-
   });
 
   describe('FeedList', () => {
@@ -106,12 +136,22 @@ describe('Resource', () => {
         .then(done, done);
     });
 
-    it('can fetch the list of plugins from the REST API', done => {
-      const result = feedList.getPlugins();
+    it('can fetch the list of fs plugins from the REST API', done => {
+      const result = feedList.getPlugins({ type: 'fs' });
       result
         .then(pluginList => {
           expect(pluginList).to.be.an.instanceof(PluginList);
           expect(pluginList.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch the list of plugin instances from the REST API', done => {
+      const result = feedList.getPluginInstances({ id: 1 });
+      result
+        .then(plgInstanceList => {
+          expect(plgInstanceList).to.be.an.instanceof(AllPluginInstanceList);
+          expect(plgInstanceList.data).to.have.lengthOf.at.least(1);
         })
         .then(done, done);
     });
@@ -133,7 +173,5 @@ describe('Resource', () => {
         })
         .then(done, done);
     });
-
   });
-
 });

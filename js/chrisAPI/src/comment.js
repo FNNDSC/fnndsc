@@ -21,6 +21,7 @@ export class Comment extends ItemResource {
    * Fetch the feed associated to the comment item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -34,9 +35,10 @@ export class Comment extends ItemResource {
    * Make a PUT request to modify this comment item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
-   * @param {string} data.title - title of the comment
-   * @param {string} data.content - content of the comment
+   * @param {string} [data.title] - title of the comment
+   * @param {string} [data.content] - content of the comment
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
@@ -47,6 +49,7 @@ export class Comment extends ItemResource {
    * Make a DELETE request to delete this comment item resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``null``
    */
   delete(timeout = 30000) {
@@ -76,6 +79,7 @@ export class CommentList extends ListResource {
    * Fetch the feed associated to the comment list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -90,9 +94,10 @@ export class CommentList extends ListResource {
    * resource through the REST API.
    *
    * @param {Object} data - request JSON data object
-   * @param {string} data.title - title of the comment
-   * @param {string} data.content - content of the comment
+   * @param {string} [data.title] - title of the comment
+   * @param {string} [data.content] - content of the comment
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {

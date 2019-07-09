@@ -1,5 +1,7 @@
 import { expect } from 'chai';
+import Collection from './cj';
 import Request from './request';
+import { FeedFile } from './feedfile';
 import { FeedList, Feed } from './feed';
 import { PluginInstance } from './plugininstance';
 
@@ -20,9 +22,12 @@ describe('Resource', () => {
         try {
           feedListRes = yield feedListRes.get();
           // get the files for feed with id 1
-          const feed = feedListRes.getItems().filter(item => {
-            return item.data.id === 1;
-          })[0];
+          const feedItemURl = feedListRes.collection.items.filter(item => {
+            const data = Collection.getItemDescriptors(item);
+            return data.id === 1;
+          })[0].href;
+          let feed = new Feed(feedItemURl, auth);
+          feed = yield feed.get();
           feedFileListRes = yield feed.getFiles();
         } catch (ex) {
           reject(ex);
@@ -37,7 +42,9 @@ describe('Resource', () => {
     let feedFile;
 
     beforeEach(() => {
-      feedFile = feedFileListRes.getItems()[0].clone();
+      let url = feedFileListRes.collection.items[0].href;
+      feedFile = new FeedFile(url, auth);
+      return feedFile.get();
     });
 
     it('can fetch the associated file blob from the REST API', done => {
@@ -61,7 +68,6 @@ describe('Resource', () => {
         })
         .then(text => {
           expect(text).to.be.a('string');
-          expect(text).to.have.lengthOf.at.least(1);
         })
         .then(done, done);
     });

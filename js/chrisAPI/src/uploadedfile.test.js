@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import Request from './request';
 import { FeedList } from './feed';
+import { UploadedFile } from './uploadedfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -42,7 +43,10 @@ describe('Resource', () => {
     let uploadedFile;
 
     beforeEach(() => {
-      uploadedFile = uploadedFileListRes.getItems()[0].clone();
+      // get the plugin instance with id 1
+      const url = uploadedFileListRes.collection.items[0].href;
+      uploadedFile = new UploadedFile(url, auth);
+      return uploadedFile.get();
     });
 
     it('can fetch the associated file blob from the REST API', done => {
@@ -91,8 +95,7 @@ describe('Resource', () => {
 
       result
         .then(uploadedFileList => {
-          const createdUploadedFileItem = uploadedFileList.getItems()[0];
-          expect(createdUploadedFileItem.data.upload_path).to.equal(data.upload_path);
+          expect(uploadedFileList.data[0].upload_path).to.equal(data.upload_path);
         })
         .then(done, done);
     });

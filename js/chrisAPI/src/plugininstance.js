@@ -1,9 +1,10 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
-import { Plugin } from './plugin';
+import { PluginList, Plugin } from './plugin';
 import { Feed } from './feed';
 import { PluginParameter } from './pluginparameter';
 import { PluginInstanceFileList } from './feedfile';
+import { PipelineInstance } from './pipelineinstance';
 
 /**
  * Plugin instance item resource object representing a plugin instance.
@@ -25,6 +26,7 @@ export class PluginInstance extends ItemResource {
    * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object or ``null``
    */
   getFeed(timeout = 30000) {
@@ -43,6 +45,7 @@ export class PluginInstance extends ItemResource {
    * Fetch the plugin associated to this plugin instance item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
@@ -57,6 +60,7 @@ export class PluginInstance extends ItemResource {
    * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object or ``null``
    */
   getPreviousPluginInstance(timeout = 30000) {
@@ -72,6 +76,27 @@ export class PluginInstance extends ItemResource {
   }
 
   /**
+   * Fetch the pipeline instance (if any) that created this plugin instance from
+   * the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object or ``null``
+   */
+  getPipelineInstance(timeout = 30000) {
+    const linkRelation = 'pipeline_inst';
+    const resourceClass = PipelineInstance;
+
+    try {
+      // 'pipeline_inst' link relation only exists for plugin instances that were
+      // created as part of a pipeline instance
+      return this._getResource(linkRelation, resourceClass, null, timeout);
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  }
+
+  /**
    * Fetch a list of plugin instances that are descendents of this plugin instance from the
    * REST API.
    *
@@ -79,6 +104,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object
    */
   getDescendantPluginInstances(params = null, timeout = 30000) {
@@ -96,6 +122,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstanceParameterList`` object
    */
   getParameters(params = null, timeout = 30000) {
@@ -112,6 +139,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstanceFileList`` object
    */
   getFiles(params = null, timeout = 30000) {
@@ -123,7 +151,8 @@ export class PluginInstance extends ItemResource {
 }
 
 /**
- * Plugin instance list resource object representing a list of plugin instances.
+ * Plugin instance list resource object representing a list of plugin-specific
+ * instances.
  */
 export class PluginInstanceList extends ListResource {
   /**
@@ -144,6 +173,7 @@ export class PluginInstanceList extends ListResource {
    * Fetch the plugin associated to this plugin instance list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
@@ -158,13 +188,53 @@ export class PluginInstanceList extends ListResource {
    * instance item resource through the REST API.
    *
    * @param {Object} data - request JSON data object which is plugin-specific and it's
-   * properties can be determined by calling the ``getPOSTDataParameters`` method on this
+   * properties can be determined by calling the ``getPOSTParameters`` method on this
    * resource object
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
+  }
+}
+
+/**
+ * Plugin instance list resource object representing a list of all plugin
+ * instances.
+ */
+export class AllPluginInstanceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstance;
+  }
+
+  /**
+   * Fetch a list of plugins from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PluginList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   */
+  getPlugins(searchParams = null, timeout = 30000) {
+    const linkRelation = 'plugins';
+    const resourceClass = PluginList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 }
 
@@ -192,6 +262,7 @@ export class FeedPluginInstanceList extends ListResource {
    * the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -199,6 +270,26 @@ export class FeedPluginInstanceList extends ListResource {
     const resourceClass = Feed;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Pipeline instance-specific plugin instance list resource object representing
+ * a list of plugin instances associated to an specific pipeline instance.
+ */
+export class PipelineInstancePluginInstanceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstance;
   }
 }
 
@@ -223,8 +314,8 @@ export class PluginInstanceDescendantList extends ListResource {
 }
 
 /**
- * Plugin instance parameter item resource object representing a parameter that the
- * plugin instance was run with.
+ * Plugin instance parameter item resource object representing a parameter that
+ * the plugin instance was run with.
  */
 export class PluginInstanceParameter extends ItemResource {
   /**
@@ -242,6 +333,7 @@ export class PluginInstanceParameter extends ItemResource {
    * Fetch the plugin instance associated to this parameter item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
@@ -256,6 +348,7 @@ export class PluginInstanceParameter extends ItemResource {
    * from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object
    */
   getPluginParameter(timeout = 30000) {

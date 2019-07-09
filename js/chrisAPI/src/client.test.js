@@ -1,6 +1,14 @@
 import Client from './client';
 import { expect } from 'chai';
-import { FeedList } from './feed';
+import { FeedList, Feed } from './feed';
+import { AllFeedFileList, FeedFile } from './feedfile';
+import { PluginList, Plugin } from './plugin';
+import { AllPluginInstanceList, PluginInstance } from './plugininstance';
+import { PipelineList, Pipeline } from './pipeline';
+import { PipelineInstance } from './pipelineinstance';
+import { Tag, Tagging } from './tag';
+import { UploadedFile } from './uploadedfile';
+import User from './user';
 import RequestException from './exception';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
@@ -58,10 +66,191 @@ describe('Client', () => {
   it('can fetch the list of feeds from the REST API', done => {
     const result = client.getFeeds();
     result
-      .then(feedsObj => {
-        //window.console.log('items', feedsObj.getItems());
-        expect(feedsObj).to.be.an.instanceof(FeedList);
-        expect(feedsObj.getItems()).to.have.lengthOf.at.least(1);
+      .then(feedList => {
+        //window.console.log('items', feedList.getItems());
+        expect(feedList).to.be.an.instanceof(FeedList);
+        expect(feedList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a feed by id from the REST API', done => {
+    const result = client.getFeed(1);
+    result
+      .then(feed => {
+        //window.console.log('items', feedList.getItems());
+        expect(feed).to.be.an.instanceof(Feed);
+        expect(feed.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can tag a feed through the REST API', done => {
+    const data = {
+      name: 'Test feed tag',
+      color: 'red',
+    };
+    const result = client.createTag(data).then(tag => client.tagFeed(1, tag.data.id));
+    result
+      .then(tagging => {
+        expect(tagging).to.be.an.instanceof(Tagging);
+        expect(tagging.data.feed_id).to.equal(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of files for all user-owned feeds from the REST API', done => {
+    const result = client.getFiles();
+    result
+      .then(fileList => {
+        expect(fileList).to.be.an.instanceof(AllFeedFileList);
+        expect(fileList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a feed file by id from the REST API', done => {
+    const result = client.getFile(1);
+    result
+      .then(feedFile => {
+        expect(feedFile).to.be.an.instanceof(FeedFile);
+        expect(feedFile.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of plugins from the REST API', done => {
+    const result = client.getPlugins();
+    result
+      .then(pluginList => {
+        //window.console.log('pluginList.data', pluginList.data);
+        //window.console.log('pluginList.hasNextPage', pluginList.hasNextPage);
+        expect(pluginList).to.be.an.instanceof(PluginList);
+        expect(pluginList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a plugin by id from the REST API', done => {
+    const result = client.getPlugin(1);
+    result
+      .then(plugin => {
+        //window.console.log('items', feedList.getItems());
+        expect(plugin).to.be.an.instanceof(Plugin);
+        expect(plugin.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of plugin instances from the REST API', done => {
+    const result = client.getPluginInstances();
+    result
+      .then(plgInstanceList => {
+        expect(plgInstanceList).to.be.an.instanceof(AllPluginInstanceList);
+        expect(plgInstanceList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a plugin instance by id from the REST API', done => {
+    const result = client.getPluginInstance(1);
+    result
+      .then(plgInstance => {
+        expect(plgInstance).to.be.an.instanceof(PluginInstance);
+        expect(plgInstance.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can create a new plugin instance through the REST API', done => {
+    const pluginId = 1;
+    const data = {
+      title: 'Test plugin instance',
+      dir: './',
+    };
+
+    const result = client.createPluginInstance(pluginId, data);
+    result
+      .then(plgInstance => {
+        expect(plgInstance).to.be.an.instanceof(PluginInstance);
+        expect(plgInstance.data.title).to.equal('Test plugin instance');
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of pipelines from the REST API', done => {
+    const result = client.getPipelines();
+    result
+      .then(pipelineList => {
+        expect(pipelineList).to.be.an.instanceof(PipelineList);
+        expect(pipelineList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a pipeline by id from the REST API', done => {
+    const result = client.getPipeline(1);
+    result
+      .then(pipeline => {
+        expect(pipeline).to.be.an.instanceof(Pipeline);
+        expect(pipeline.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can create a new pipeline instance through the REST API', done => {
+    const pipelineId = 2;
+    const data = {
+      title: 'Test pipeline instance',
+      previous_plugin_inst_id: 1,
+    };
+    const result = client.createPipelineInstance(pipelineId, data);
+    result
+      .then(pipelineInstance => {
+        expect(pipelineInstance).to.be.an.instanceof(PipelineInstance);
+        expect(pipelineInstance.data.title).to.equal('Test pipeline instance');
+      })
+      .then(done, done);
+  });
+
+  it('can create a new tag through the REST API', done => {
+    const data = {
+      name: 'Test tag',
+      color: 'red',
+    };
+    const result = client.createTag(data);
+    result
+      .then(tag => {
+        expect(tag).to.be.an.instanceof(Tag);
+        expect(tag.data.name).to.equal('Test tag');
+      })
+      .then(done, done);
+  });
+
+  it('can upload a file through the REST API', done => {
+    const data = {
+      upload_path: '/test' + Date.now() + '.txt',
+    };
+    const fileContent = 'This is a test file';
+    const fileData = JSON.stringify(fileContent);
+    const uploadFile = new Blob([fileData], { type: 'application/json' });
+    const uploadFileObj = { fname: uploadFile };
+
+    const result = client.uploadFile(data, uploadFileObj);
+    result
+      .then(uploadedFile => {
+        expect(uploadedFile).to.be.an.instanceof(UploadedFile);
+        expect(uploadedFile.data.upload_path).to.equal(data.upload_path);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch authenticated user from the REST API', done => {
+    const result = client.getUser();
+    result
+      .then(user => {
+        expect(user).to.be.an.instanceof(User);
+        expect(user.data.username).to.equal('cube');
       })
       .then(done, done);
   });
