@@ -36,13 +36,26 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~AllFeedFileList.html">AllFeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelineList.html">PipelineList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePipingDefaultParameterList.html">PipelinePipingDefaultParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginList.html">PipelinePluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginPipingList.html">PipelinePluginPipingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipingDefaultParameter.html">PipingDefaultParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PluginPiping.html">PluginPiping</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~AllPipelineInstanceList.html">AllPipelineInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstance.html">PipelineInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstanceList.html">PipelineInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~AllPluginInstanceList.html">AllPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PipelineInstancePluginInstanceList.html">PipelineInstancePluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
@@ -73,32 +86,24 @@
 import { ItemResource, ListResource } from &apos;./resource&apos;;
 import User from &apos;./user&apos;;
 import { PluginList } from &apos;./plugin&apos;;
+import { PipelineList } from &apos;./pipeline&apos;;
+import { AllPipelineInstanceList } from &apos;./pipelineinstance&apos;;
 import { UploadedFileList } from &apos;./uploadedfile&apos;;
 import Note from &apos;./note&apos;;
 import { FeedTagList, FeedTaggingList, TagList } from &apos;./tag&apos;;
 import { CommentList } from &apos;./comment&apos;;
-import { FeedFileList } from &apos;./feedfile&apos;;
-import { FeedPluginInstanceList } from &apos;./plugininstance&apos;;
+import { AllFeedFileList, FeedFileList } from &apos;./feedfile&apos;;
+import { AllPluginInstanceList, FeedPluginInstanceList } from &apos;./plugininstance&apos;;
 
 /**
  * Feed item resource object representing a feed.
  */
 export class Feed extends ItemResource {
   /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
    * Fetch the note associated to this feed from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Note`` object
    */
   getNote(timeout = 30000) {
@@ -111,10 +116,11 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of tags associated to this feed from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``FeedTagList`` object
    */
   getTags(params = null, timeout = 30000) {
@@ -127,10 +133,11 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of taggings associated to this feed from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``FeedTaggingList`` object
    */
   getTaggings(params = null, timeout = 30000) {
@@ -143,26 +150,41 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of comments associated to this feed from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match comment id exactly with this number
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``CommentList`` object
    */
-  getComments(params = null, timeout = 30000) {
+  getComments(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;comments&apos;;
     const resourceClass = CommentList;
 
-    return this._getResource(linkRelation, resourceClass, params, timeout);
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Get a feed comment given its id.
+   *
+   * @param {number} id - comment id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``Comment`` object
+   */
+  getComment(id, timeout = 30000) {
+    return this.getComments({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
    * Fetch a list of files associated to this feed from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object
    */
   getFiles(params = null, timeout = 30000) {
@@ -175,26 +197,42 @@ export class Feed extends ItemResource {
   /**
    * Fetch a list of plugin instances associated to this feed from the REST API.
    *
-   * @param {Object} [params=null] - page parameters
+   * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``FeedPluginInstanceList`` object
    */
   getPluginInstances(params = null, timeout = 30000) {
     const linkRelation = &apos;plugin_instances&apos;;
     const resourceClass = FeedPluginInstanceList;
 
-    return this._getResource(linkRelation, resourceClass, null, timeout);
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Tag the feed given the id of the tag.
+   *
+   * @param {number} tag_id - tag id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``Tagging`` object
+   */
+  tagFeed(tag_id, timeout = 30000) {
+    return this.getTaggings(timeout)
+      .then(listRes =&gt; listRes.post({ tag_id: tag_id }), timeout)
+      .then(listRes =&gt; listRes.getItems()[0]);
   }
 
   /**
    * Make a PUT request to modify this feed item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
-   * @param {string} data.name - name of the feed
-   * @param {string} data.owner - username to be added to the list of this feed&apos;s owners
+   * @param {string} [data.name] - name of the feed
+   * @param {string} [data.owner] - username to be added to the list of this feed&apos;s owners
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
@@ -205,6 +243,7 @@ export class Feed extends ItemResource {
    * Make a DELETE request to delete this feed item resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``null``
    */
   delete(timeout = 30000) {
@@ -231,9 +270,143 @@ export class FeedList extends ListResource {
   }
 
   /**
+   * Fetch a list of files written to any user-owned feed.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``AllFeedFileList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object
+   */
+  getFiles(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;files&apos;;
+    const resourceClass = AllFeedFileList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of plugins from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PluginList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   */
+  getPlugins(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;plugins&apos;;
+    const resourceClass = PluginList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of plugin instances from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``AllPluginInstanceList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``AllPluginInstanceList`` object
+   */
+  getPluginInstances(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;plugin_instances&apos;;
+    const resourceClass = AllPluginInstanceList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of pipelines from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PipelineList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
+   */
+  getPipelines(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;pipelines&apos;;
+    const resourceClass = PipelineList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of pipeline instances from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``AllPipelineInstanceList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``AllPipelineInstanceList`` object
+   */
+  getPipelineInstances(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;pipeline_instances&apos;;
+    const resourceClass = AllPipelineInstanceList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of tags from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``TagList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``TagList`` object
+   */
+  getTags(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;tags&apos;;
+    const resourceClass = TagList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of uploaded files from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``UploadedFileList.getSearchParameters`` method can
+   * be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object
+   */
+  getUploadedFiles(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;uploadedfiles&apos;;
+    const resourceClass = UploadedFileList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
    * Fetch currently authenticated user&apos;s information from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``User`` object
    */
   getUser(timeout = 30000) {
@@ -241,54 +414,6 @@ export class FeedList extends ListResource {
     const resourceClass = User;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-
-  /**
-   * Fetch a list of plugins from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
-   */
-  getPlugins(params = null, timeout = 30000) {
-    const linkRelation = &apos;plugins&apos;;
-    const resourceClass = PluginList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
-   * Fetch a list of tags from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``TagList`` object
-   */
-  getTags(params = null, timeout = 30000) {
-    const linkRelation = &apos;tags&apos;;
-    const resourceClass = TagList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
-   * Fetch a list of uploaded files from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object
-   */
-  getUploadedFiles(params = null, timeout = 30000) {
-    const linkRelation = &apos;uploadedfiles&apos;;
-    const resourceClass = UploadedFileList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
   }
 }
 </code></pre>

@@ -36,13 +36,26 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~AllFeedFileList.html">AllFeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelineList.html">PipelineList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePipingDefaultParameterList.html">PipelinePipingDefaultParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginList.html">PipelinePluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginPipingList.html">PipelinePluginPipingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipingDefaultParameter.html">PipingDefaultParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PluginPiping.html">PluginPiping</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~AllPipelineInstanceList.html">AllPipelineInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstance.html">PipelineInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstanceList.html">PipelineInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~AllPluginInstanceList.html">AllPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PipelineInstancePluginInstanceList.html">PipelineInstancePluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
@@ -71,10 +84,11 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/plugininstance.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import { ItemResource, ListResource } from &apos;./resource&apos;;
-import { Plugin } from &apos;./plugin&apos;;
+import { PluginList, Plugin } from &apos;./plugin&apos;;
 import { Feed } from &apos;./feed&apos;;
 import { PluginParameter } from &apos;./pluginparameter&apos;;
 import { PluginInstanceFileList } from &apos;./feedfile&apos;;
+import { PipelineInstance } from &apos;./pipelineinstance&apos;;
 
 /**
  * Plugin instance item resource object representing a plugin instance.
@@ -96,6 +110,7 @@ export class PluginInstance extends ItemResource {
    * (only for fs plugins, &apos;ds&apos; plugins pass null to the resultant Promise).
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object or ``null``
    */
   getFeed(timeout = 30000) {
@@ -114,6 +129,7 @@ export class PluginInstance extends ItemResource {
    * Fetch the plugin associated to this plugin instance item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
@@ -128,6 +144,7 @@ export class PluginInstance extends ItemResource {
    * (only for &apos;ds&apos; plugins, &apos;fs&apos; plugins pass null to the resultant Promise).
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object or ``null``
    */
   getPreviousPluginInstance(timeout = 30000) {
@@ -143,6 +160,27 @@ export class PluginInstance extends ItemResource {
   }
 
   /**
+   * Fetch the pipeline instance (if any) that created this plugin instance from
+   * the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object or ``null``
+   */
+  getPipelineInstance(timeout = 30000) {
+    const linkRelation = &apos;pipeline_inst&apos;;
+    const resourceClass = PipelineInstance;
+
+    try {
+      // &apos;pipeline_inst&apos; link relation only exists for plugin instances that were
+      // created as part of a pipeline instance
+      return this._getResource(linkRelation, resourceClass, null, timeout);
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  }
+
+  /**
    * Fetch a list of plugin instances that are descendents of this plugin instance from the
    * REST API.
    *
@@ -150,6 +188,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object
    */
   getDescendantPluginInstances(params = null, timeout = 30000) {
@@ -167,6 +206,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstanceParameterList`` object
    */
   getParameters(params = null, timeout = 30000) {
@@ -183,6 +223,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstanceFileList`` object
    */
   getFiles(params = null, timeout = 30000) {
@@ -194,7 +235,8 @@ export class PluginInstance extends ItemResource {
 }
 
 /**
- * Plugin instance list resource object representing a list of plugin instances.
+ * Plugin instance list resource object representing a list of plugin-specific
+ * instances.
  */
 export class PluginInstanceList extends ListResource {
   /**
@@ -215,6 +257,7 @@ export class PluginInstanceList extends ListResource {
    * Fetch the plugin associated to this plugin instance list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
@@ -229,13 +272,53 @@ export class PluginInstanceList extends ListResource {
    * instance item resource through the REST API.
    *
    * @param {Object} data - request JSON data object which is plugin-specific and it&apos;s
-   * properties can be determined by calling the ``getPOSTDataParameters`` method on this
+   * properties can be determined by calling the ``getPOSTParameters`` method on this
    * resource object
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
+  }
+}
+
+/**
+ * Plugin instance list resource object representing a list of all plugin
+ * instances.
+ */
+export class AllPluginInstanceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstance;
+  }
+
+  /**
+   * Fetch a list of plugins from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PluginList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   */
+  getPlugins(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;plugins&apos;;
+    const resourceClass = PluginList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 }
 
@@ -263,6 +346,7 @@ export class FeedPluginInstanceList extends ListResource {
    * the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -270,6 +354,26 @@ export class FeedPluginInstanceList extends ListResource {
     const resourceClass = Feed;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Pipeline instance-specific plugin instance list resource object representing
+ * a list of plugin instances associated to an specific pipeline instance.
+ */
+export class PipelineInstancePluginInstanceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstance;
   }
 }
 
@@ -294,8 +398,8 @@ export class PluginInstanceDescendantList extends ListResource {
 }
 
 /**
- * Plugin instance parameter item resource object representing a parameter that the
- * plugin instance was run with.
+ * Plugin instance parameter item resource object representing a parameter that
+ * the plugin instance was run with.
  */
 export class PluginInstanceParameter extends ItemResource {
   /**
@@ -313,6 +417,7 @@ export class PluginInstanceParameter extends ItemResource {
    * Fetch the plugin instance associated to this parameter item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
@@ -327,6 +432,7 @@ export class PluginInstanceParameter extends ItemResource {
    * from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object
    */
   getPluginParameter(timeout = 30000) {

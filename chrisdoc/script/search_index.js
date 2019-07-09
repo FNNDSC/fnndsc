@@ -1,5 +1,23 @@
 window.esdocSearchIndex = [
   [
+    "@fnndsc/chrisapi~allfeedfilelist",
+    "class/src/feedfile.js~AllFeedFileList.html",
+    "<span>AllFeedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~allpipelineinstancelist",
+    "class/src/pipelineinstance.js~AllPipelineInstanceList.html",
+    "<span>AllPipelineInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~allplugininstancelist",
+    "class/src/plugininstance.js~AllPluginInstanceList.html",
+    "<span>AllPluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~client",
     "class/src/client.js~Client.html",
     "<span>Client</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -84,6 +102,60 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~pipeline",
+    "class/src/pipeline.js~Pipeline.html",
+    "<span>Pipeline</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelineinstance",
+    "class/src/pipelineinstance.js~PipelineInstance.html",
+    "<span>PipelineInstance</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelineinstancelist",
+    "class/src/pipelineinstance.js~PipelineInstanceList.html",
+    "<span>PipelineInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelineinstanceplugininstancelist",
+    "class/src/plugininstance.js~PipelineInstancePluginInstanceList.html",
+    "<span>PipelineInstancePluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelinelist",
+    "class/src/pipeline.js~PipelineList.html",
+    "<span>PipelineList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelinepipingdefaultparameterlist",
+    "class/src/pipeline.js~PipelinePipingDefaultParameterList.html",
+    "<span>PipelinePipingDefaultParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelinepluginlist",
+    "class/src/pipeline.js~PipelinePluginList.html",
+    "<span>PipelinePluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelinepluginpipinglist",
+    "class/src/pipeline.js~PipelinePluginPipingList.html",
+    "<span>PipelinePluginPipingList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipingdefaultparameter",
+    "class/src/pipeline.js~PipingDefaultParameter.html",
+    "<span>PipingDefaultParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~plugin",
     "class/src/plugin.js~Plugin.html",
     "<span>Plugin</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -141,6 +213,12 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~pluginparameterlist",
     "class/src/pluginparameter.js~PluginParameterList.html",
     "<span>PluginParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pluginpiping",
+    "class/src/pipeline.js~PluginPiping.html",
+    "<span>PluginPiping</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -546,6 +624,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/client.js~client#_fetchres",
+    "class/src/client.js~Client.html#instance-method-_fetchRes",
+    "src/client.js~Client#_fetchRes",
+    "method"
+  ],
+  [
     "src/client.js~client#auth",
     "class/src/client.js~Client.html#instance-member-auth",
     "src/client.js~Client#auth",
@@ -558,15 +642,207 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#createpipeline",
+    "class/src/client.js~Client.html#instance-method-createPipeline",
+    "src/client.js~Client#createPipeline",
+    "method"
+  ],
+  [
+    "src/client.js~client#createpipelineinstance",
+    "class/src/client.js~Client.html#instance-method-createPipelineInstance",
+    "src/client.js~Client#createPipelineInstance",
+    "method"
+  ],
+  [
+    "src/client.js~client#createplugininstance",
+    "class/src/client.js~Client.html#instance-method-createPluginInstance",
+    "src/client.js~Client#createPluginInstance",
+    "method"
+  ],
+  [
+    "src/client.js~client#createtag",
+    "class/src/client.js~Client.html#instance-method-createTag",
+    "src/client.js~Client#createTag",
+    "method"
+  ],
+  [
+    "src/client.js~client#feedsurl",
+    "class/src/client.js~Client.html#instance-member-feedsUrl",
+    "src/client.js~Client#feedsUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#filesurl",
+    "class/src/client.js~Client.html#instance-member-filesUrl",
+    "src/client.js~Client#filesUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#getfeed",
+    "class/src/client.js~Client.html#instance-method-getFeed",
+    "src/client.js~Client#getFeed",
+    "method"
+  ],
+  [
     "src/client.js~client#getfeeds",
     "class/src/client.js~Client.html#instance-method-getFeeds",
     "src/client.js~Client#getFeeds",
     "method"
   ],
   [
+    "src/client.js~client#getfile",
+    "class/src/client.js~Client.html#instance-method-getFile",
+    "src/client.js~Client#getFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#getfiles",
+    "class/src/client.js~Client.html#instance-method-getFiles",
+    "src/client.js~Client#getFiles",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpipeline",
+    "class/src/client.js~Client.html#instance-method-getPipeline",
+    "src/client.js~Client#getPipeline",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpipelineinstance",
+    "class/src/client.js~Client.html#instance-method-getPipelineInstance",
+    "src/client.js~Client#getPipelineInstance",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpipelineinstances",
+    "class/src/client.js~Client.html#instance-method-getPipelineInstances",
+    "src/client.js~Client#getPipelineInstances",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpipelines",
+    "class/src/client.js~Client.html#instance-method-getPipelines",
+    "src/client.js~Client#getPipelines",
+    "method"
+  ],
+  [
+    "src/client.js~client#getplugin",
+    "class/src/client.js~Client.html#instance-method-getPlugin",
+    "src/client.js~Client#getPlugin",
+    "method"
+  ],
+  [
+    "src/client.js~client#getplugininstance",
+    "class/src/client.js~Client.html#instance-method-getPluginInstance",
+    "src/client.js~Client#getPluginInstance",
+    "method"
+  ],
+  [
+    "src/client.js~client#getplugininstances",
+    "class/src/client.js~Client.html#instance-method-getPluginInstances",
+    "src/client.js~Client#getPluginInstances",
+    "method"
+  ],
+  [
+    "src/client.js~client#getplugins",
+    "class/src/client.js~Client.html#instance-method-getPlugins",
+    "src/client.js~Client#getPlugins",
+    "method"
+  ],
+  [
+    "src/client.js~client#gettag",
+    "class/src/client.js~Client.html#instance-method-getTag",
+    "src/client.js~Client#getTag",
+    "method"
+  ],
+  [
+    "src/client.js~client#gettags",
+    "class/src/client.js~Client.html#instance-method-getTags",
+    "src/client.js~Client#getTags",
+    "method"
+  ],
+  [
+    "src/client.js~client#getuploadedfile",
+    "class/src/client.js~Client.html#instance-method-getUploadedFile",
+    "src/client.js~Client#getUploadedFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#getuploadedfiles",
+    "class/src/client.js~Client.html#instance-method-getUploadedFiles",
+    "src/client.js~Client#getUploadedFiles",
+    "method"
+  ],
+  [
+    "src/client.js~client#getuser",
+    "class/src/client.js~Client.html#instance-method-getUser",
+    "src/client.js~Client#getUser",
+    "method"
+  ],
+  [
+    "src/client.js~client#pipelineinstancesurl",
+    "class/src/client.js~Client.html#instance-member-pipelineInstancesUrl",
+    "src/client.js~Client#pipelineInstancesUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#pipelinesurl",
+    "class/src/client.js~Client.html#instance-member-pipelinesUrl",
+    "src/client.js~Client#pipelinesUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#plugininstancesurl",
+    "class/src/client.js~Client.html#instance-member-pluginInstancesUrl",
+    "src/client.js~Client#pluginInstancesUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#pluginsurl",
+    "class/src/client.js~Client.html#instance-member-pluginsUrl",
+    "src/client.js~Client#pluginsUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#seturls",
+    "class/src/client.js~Client.html#instance-method-setUrls",
+    "src/client.js~Client#setUrls",
+    "method"
+  ],
+  [
+    "src/client.js~client#tagfeed",
+    "class/src/client.js~Client.html#instance-method-tagFeed",
+    "src/client.js~Client#tagFeed",
+    "method"
+  ],
+  [
+    "src/client.js~client#tagsurl",
+    "class/src/client.js~Client.html#instance-member-tagsUrl",
+    "src/client.js~Client#tagsUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#uploadfile",
+    "class/src/client.js~Client.html#instance-method-uploadFile",
+    "src/client.js~Client#uploadFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#uploadedfilesurl",
+    "class/src/client.js~Client.html#instance-member-uploadedFilesUrl",
+    "src/client.js~Client#uploadedFilesUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#url",
     "class/src/client.js~Client.html#instance-member-url",
     "src/client.js~Client#url",
+    "member"
+  ],
+  [
+    "src/client.js~client#userurl",
+    "class/src/client.js~Client.html#instance-member-userUrl",
+    "src/client.js~Client#userUrl",
     "member"
   ],
   [
@@ -678,15 +954,15 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/feed.js~feed#constructor",
-    "class/src/feed.js~Feed.html#instance-constructor-constructor",
-    "src/feed.js~Feed#constructor",
-    "method"
-  ],
-  [
     "src/feed.js~feed#delete",
     "class/src/feed.js~Feed.html#instance-method-delete",
     "src/feed.js~Feed#delete",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#getcomment",
+    "class/src/feed.js~Feed.html#instance-method-getComment",
+    "src/feed.js~Feed#getComment",
     "method"
   ],
   [
@@ -732,9 +1008,39 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/feed.js~feed#tagfeed",
+    "class/src/feed.js~Feed.html#instance-method-tagFeed",
+    "src/feed.js~Feed#tagFeed",
+    "method"
+  ],
+  [
     "src/feed.js~feedlist#constructor",
     "class/src/feed.js~FeedList.html#instance-constructor-constructor",
     "src/feed.js~FeedList#constructor",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getfiles",
+    "class/src/feed.js~FeedList.html#instance-method-getFiles",
+    "src/feed.js~FeedList#getFiles",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getpipelineinstances",
+    "class/src/feed.js~FeedList.html#instance-method-getPipelineInstances",
+    "src/feed.js~FeedList#getPipelineInstances",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getpipelines",
+    "class/src/feed.js~FeedList.html#instance-method-getPipelines",
+    "src/feed.js~FeedList#getPipelines",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getplugininstances",
+    "class/src/feed.js~FeedList.html#instance-method-getPluginInstances",
+    "src/feed.js~FeedList#getPluginInstances",
     "method"
   ],
   [
@@ -772,6 +1078,18 @@ window.esdocSearchIndex = [
     "file/src/feedfile.js.html",
     "src/feedfile.js",
     "file"
+  ],
+  [
+    "src/feedfile.js~allfeedfilelist#constructor",
+    "class/src/feedfile.js~AllFeedFileList.html#instance-constructor-constructor",
+    "src/feedfile.js~AllFeedFileList#constructor",
+    "method"
+  ],
+  [
+    "src/feedfile.js~allfeedfilelist#itemclass",
+    "class/src/feedfile.js~AllFeedFileList.html#instance-member-itemClass",
+    "src/feedfile.js~AllFeedFileList#itemClass",
+    "member"
   ],
   [
     "src/feedfile.js~feedfile#constructor",
@@ -858,6 +1176,204 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/pipeline.js",
+    "file/src/pipeline.js.html",
+    "src/pipeline.js",
+    "file"
+  ],
+  [
+    "src/pipeline.js~pipeline#constructor",
+    "class/src/pipeline.js~Pipeline.html#instance-constructor-constructor",
+    "src/pipeline.js~Pipeline#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getdefaultparameters",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getDefaultParameters",
+    "src/pipeline.js~Pipeline#getDefaultParameters",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getpipelineinstances",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getPipelineInstances",
+    "src/pipeline.js~Pipeline#getPipelineInstances",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getpluginpipings",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getPluginPipings",
+    "src/pipeline.js~Pipeline#getPluginPipings",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getplugins",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getPlugins",
+    "src/pipeline.js~Pipeline#getPlugins",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#constructor",
+    "class/src/pipeline.js~PipelineList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelineList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#getplugins",
+    "class/src/pipeline.js~PipelineList.html#instance-method-getPlugins",
+    "src/pipeline.js~PipelineList#getPlugins",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#itemclass",
+    "class/src/pipeline.js~PipelineList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelineList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#post",
+    "class/src/pipeline.js~PipelineList.html#instance-method-post",
+    "src/pipeline.js~PipelineList#post",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepipingdefaultparameterlist#constructor",
+    "class/src/pipeline.js~PipelinePipingDefaultParameterList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelinePipingDefaultParameterList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepipingdefaultparameterlist#itemclass",
+    "class/src/pipeline.js~PipelinePipingDefaultParameterList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelinePipingDefaultParameterList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginlist#constructor",
+    "class/src/pipeline.js~PipelinePluginList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelinePluginList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginlist#itemclass",
+    "class/src/pipeline.js~PipelinePluginList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelinePluginList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginpipinglist#constructor",
+    "class/src/pipeline.js~PipelinePluginPipingList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelinePluginPipingList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginpipinglist#itemclass",
+    "class/src/pipeline.js~PipelinePluginPipingList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelinePluginPipingList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipingdefaultparameter#constructor",
+    "class/src/pipeline.js~PipingDefaultParameter.html#instance-constructor-constructor",
+    "src/pipeline.js~PipingDefaultParameter#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipingdefaultparameter#getpluginparameter",
+    "class/src/pipeline.js~PipingDefaultParameter.html#instance-method-getPluginParameter",
+    "src/pipeline.js~PipingDefaultParameter#getPluginParameter",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipingdefaultparameter#getpluginpiping",
+    "class/src/pipeline.js~PipingDefaultParameter.html#instance-method-getPluginPiping",
+    "src/pipeline.js~PipingDefaultParameter#getPluginPiping",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#constructor",
+    "class/src/pipeline.js~PluginPiping.html#instance-constructor-constructor",
+    "src/pipeline.js~PluginPiping#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#getpipeline",
+    "class/src/pipeline.js~PluginPiping.html#instance-method-getPipeline",
+    "src/pipeline.js~PluginPiping#getPipeline",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#getplugin",
+    "class/src/pipeline.js~PluginPiping.html#instance-method-getPlugin",
+    "src/pipeline.js~PluginPiping#getPlugin",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#getpreviouspluginpiping",
+    "class/src/pipeline.js~PluginPiping.html#instance-method-getPreviousPluginPiping",
+    "src/pipeline.js~PluginPiping#getPreviousPluginPiping",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js",
+    "file/src/pipelineinstance.js.html",
+    "src/pipelineinstance.js",
+    "file"
+  ],
+  [
+    "src/pipelineinstance.js~allpipelineinstancelist#constructor",
+    "class/src/pipelineinstance.js~AllPipelineInstanceList.html#instance-constructor-constructor",
+    "src/pipelineinstance.js~AllPipelineInstanceList#constructor",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js~allpipelineinstancelist#getpipelines",
+    "class/src/pipelineinstance.js~AllPipelineInstanceList.html#instance-method-getPipelines",
+    "src/pipelineinstance.js~AllPipelineInstanceList#getPipelines",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js~allpipelineinstancelist#itemclass",
+    "class/src/pipelineinstance.js~AllPipelineInstanceList.html#instance-member-itemClass",
+    "src/pipelineinstance.js~AllPipelineInstanceList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipelineinstance.js~pipelineinstance#constructor",
+    "class/src/pipelineinstance.js~PipelineInstance.html#instance-constructor-constructor",
+    "src/pipelineinstance.js~PipelineInstance#constructor",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js~pipelineinstance#getpipeline",
+    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-getPipeline",
+    "src/pipelineinstance.js~PipelineInstance#getPipeline",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js~pipelineinstance#getplugininstances",
+    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-getPluginInstances",
+    "src/pipelineinstance.js~PipelineInstance#getPluginInstances",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js~pipelineinstancelist#constructor",
+    "class/src/pipelineinstance.js~PipelineInstanceList.html#instance-constructor-constructor",
+    "src/pipelineinstance.js~PipelineInstanceList#constructor",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js~pipelineinstancelist#itemclass",
+    "class/src/pipelineinstance.js~PipelineInstanceList.html#instance-member-itemClass",
+    "src/pipelineinstance.js~PipelineInstanceList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipelineinstance.js~pipelineinstancelist#post",
+    "class/src/pipelineinstance.js~PipelineInstanceList.html#instance-method-post",
+    "src/pipelineinstance.js~PipelineInstanceList#post",
+    "method"
+  ],
+  [
     "src/plugin.js",
     "file/src/plugin.js.html",
     "src/plugin.js",
@@ -906,6 +1422,24 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/plugininstance.js~allplugininstancelist#constructor",
+    "class/src/plugininstance.js~AllPluginInstanceList.html#instance-constructor-constructor",
+    "src/plugininstance.js~AllPluginInstanceList#constructor",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~allplugininstancelist#getplugins",
+    "class/src/plugininstance.js~AllPluginInstanceList.html#instance-method-getPlugins",
+    "src/plugininstance.js~AllPluginInstanceList#getPlugins",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~allplugininstancelist#itemclass",
+    "class/src/plugininstance.js~AllPluginInstanceList.html#instance-member-itemClass",
+    "src/plugininstance.js~AllPluginInstanceList#itemClass",
+    "member"
+  ],
+  [
     "src/plugininstance.js~feedplugininstancelist#constructor",
     "class/src/plugininstance.js~FeedPluginInstanceList.html#instance-constructor-constructor",
     "src/plugininstance.js~FeedPluginInstanceList#constructor",
@@ -921,6 +1455,18 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~feedplugininstancelist#itemclass",
     "class/src/plugininstance.js~FeedPluginInstanceList.html#instance-member-itemClass",
     "src/plugininstance.js~FeedPluginInstanceList#itemClass",
+    "member"
+  ],
+  [
+    "src/plugininstance.js~pipelineinstanceplugininstancelist#constructor",
+    "class/src/plugininstance.js~PipelineInstancePluginInstanceList.html#instance-constructor-constructor",
+    "src/plugininstance.js~PipelineInstancePluginInstanceList#constructor",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~pipelineinstanceplugininstancelist#itemclass",
+    "class/src/plugininstance.js~PipelineInstancePluginInstanceList.html#instance-member-itemClass",
+    "src/plugininstance.js~PipelineInstancePluginInstanceList#itemClass",
     "member"
   ],
   [
@@ -951,6 +1497,12 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~plugininstance#getparameters",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-getParameters",
     "src/plugininstance.js~PluginInstance#getParameters",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstance#getpipelineinstance",
+    "class/src/plugininstance.js~PluginInstance.html#instance-method-getPipelineInstance",
+    "src/plugininstance.js~PluginInstance#getPipelineInstance",
     "method"
   ],
   [
@@ -1200,27 +1752,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/resource.js~itemresource#getputdataparameters",
-    "class/src/resource.js~ItemResource.html#instance-method-getPUTDataParameters",
-    "src/resource.js~ItemResource#getPUTDataParameters",
-    "method"
-  ],
-  [
-    "src/resource.js~itemresource#isempty",
-    "class/src/resource.js~ItemResource.html#instance-get-isEmpty",
-    "src/resource.js~ItemResource#isEmpty",
-    "member"
-  ],
-  [
-    "src/resource.js~itemresource#item",
-    "class/src/resource.js~ItemResource.html#instance-member-item",
-    "src/resource.js~ItemResource#item",
-    "member"
-  ],
-  [
-    "src/resource.js~listresource#_getnextorpreviouspage",
-    "class/src/resource.js~ListResource.html#instance-method-_getNextOrPreviousPage",
-    "src/resource.js~ListResource#_getNextOrPreviousPage",
+    "src/resource.js~itemresource#getputparameters",
+    "class/src/resource.js~ItemResource.html#instance-method-getPUTParameters",
+    "src/resource.js~ItemResource#getPUTParameters",
     "method"
   ],
   [
@@ -1248,9 +1782,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/resource.js~listresource#data",
+    "class/src/resource.js~ListResource.html#instance-get-data",
+    "src/resource.js~ListResource#data",
+    "member"
+  ],
+  [
     "src/resource.js~listresource#get",
     "class/src/resource.js~ListResource.html#instance-method-get",
     "src/resource.js~ListResource#get",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#getitem",
+    "class/src/resource.js~ListResource.html#instance-method-getItem",
+    "src/resource.js~ListResource#getItem",
     "method"
   ],
   [
@@ -1260,27 +1806,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/resource.js~listresource#getnextpage",
-    "class/src/resource.js~ListResource.html#instance-method-getNextPage",
-    "src/resource.js~ListResource#getNextPage",
-    "method"
-  ],
-  [
-    "src/resource.js~listresource#getpostdataparameters",
-    "class/src/resource.js~ListResource.html#instance-method-getPOSTDataParameters",
-    "src/resource.js~ListResource#getPOSTDataParameters",
-    "method"
-  ],
-  [
-    "src/resource.js~listresource#getpreviouspage",
-    "class/src/resource.js~ListResource.html#instance-method-getPreviousPage",
-    "src/resource.js~ListResource#getPreviousPage",
-    "method"
-  ],
-  [
-    "src/resource.js~listresource#getsearch",
-    "class/src/resource.js~ListResource.html#instance-method-getSearch",
-    "src/resource.js~ListResource#getSearch",
+    "src/resource.js~listresource#getpostparameters",
+    "class/src/resource.js~ListResource.html#instance-method-getPOSTParameters",
+    "src/resource.js~ListResource#getPOSTParameters",
     "method"
   ],
   [
@@ -1299,12 +1827,6 @@ window.esdocSearchIndex = [
     "src/resource.js~listresource#haspreviouspage",
     "class/src/resource.js~ListResource.html#instance-get-hasPreviousPage",
     "src/resource.js~ListResource#hasPreviousPage",
-    "member"
-  ],
-  [
-    "src/resource.js~listresource#isempty",
-    "class/src/resource.js~ListResource.html#instance-get-isEmpty",
-    "src/resource.js~ListResource#isEmpty",
     "member"
   ],
   [
@@ -1353,6 +1875,12 @@ window.esdocSearchIndex = [
     "src/resource.js~resource#contenttype",
     "class/src/resource.js~Resource.html#instance-member-contentType",
     "src/resource.js~Resource#contentType",
+    "member"
+  ],
+  [
+    "src/resource.js~resource#isempty",
+    "class/src/resource.js~Resource.html#instance-get-isEmpty",
+    "src/resource.js~Resource#isEmpty",
     "member"
   ],
   [

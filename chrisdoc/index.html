@@ -36,13 +36,26 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~AllFeedFileList.html">AllFeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelineList.html">PipelineList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePipingDefaultParameterList.html">PipelinePipingDefaultParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginList.html">PipelinePluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginPipingList.html">PipelinePluginPipingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipingDefaultParameter.html">PipingDefaultParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PluginPiping.html">PluginPiping</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~AllPipelineInstanceList.html">AllPipelineInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstance.html">PipelineInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstanceList.html">PipelineInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~AllPluginInstanceList.html">AllPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PipelineInstancePluginInstanceList.html">PipelineInstancePluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
@@ -108,8 +121,8 @@ resp
 <p>The ChRIS Javascript client API takes an object oriented approach in which every API resource object is an instance
 of a Javascript class that inherits from either of two base classes:</p>
 <ul>
-<li><code>ItemResource</code> (an object containing a reference to an individual item in a collection of resource items)</li>
-<li><code>ListResource</code> (an object modeling a collection of resource items)</li>
+<li><code>ListResource</code> (an object modeling a collection of items)</li>
+<li><code>ItemResource</code> (an object modeling an individual item in a collection of items)</li>
 </ul>
 <p>These model the two general type of REST API resources available from a ChRIS server.</p>
 <p>In addition to methods and properties provided by these base classes every resource object returned by
@@ -120,106 +133,114 @@ with the new data fetched from the ChRIS server. A <code>clone</code> method is 
 to the previous object state is desired. This method returns a new instance of the same class as the cloned object.</p>
 <p>All methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource
 object as an argument to the fulfillment callback.</p>
-<p>All resources can be fetched from the REST API starting with the initial <code>FeedList</code> instance returned by the client
-as in the following examples:</p>
+<p>All resources can be fetched from the REST API starting with a <code>client</code> object as in the following examples:</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">
 // create a new client instance with an auth object to be able to make authenticated requests
 const auth = {token: authToken};
 // or alternatively auth = {username: &apos;cube&apos;, password: &apos;cube1234&apos;}
 const client = new Client(chrisUrl, auth);
 
-// fetch a subset of the authenticated user&apos;s feeds from the REST API into an initial
-// Feedlist object
-let params = { limit: 10, offset: 0 };
+// fetch a paginated list of the authenticated user&apos;s feeds from the REST API into a ``Feedlist`` resource object
+let params = { limit: 20, offset: 0 };
 resp = client.getFeeds(params);
 resp
-  .then(feedListObj =&gt; {
-    let result;
+  .then(feedListResObj =&gt; {
 
-    window.console.log(&apos;FeedList resource object: &apos;, feedListObj);
+    window.console.log(&apos;FeedList resource object: &apos;, feedListResObj);
 
-    // the getItems method of any list resource obj can be used to retrieve an array of
-    // its item resource objects
-    // here we retrieve an array of Feed item resource objects from feedListObj
-    let feedObjArray = feedListObj.getItems();
-
-    // the data property of an item resource object can be used to get its data
-    // (REST API descriptors), here we log the individual Feed items&apos; data
-    for (let feed of feedObjArray) {
-
-        window.console.log(feed.data);
+    // the ``data`` property of any resource object can be used to get its data
+    // here we got the first page of a paginated list of data objects (feed REST API descriptors)
+    let i = 0;
+    for (let dataObj of feedListResObj.data) {
+        window.console.log(&apos;Data item &apos; + i + &apos; of the feed list resource object: &apos;, dataObj);
+        i++;
     }
-
-    // the current object&apos;s state can be saved into another copy object before fetching
-    // more data if desired
-    const feedListObjClone = feedListObj.clone();
 
     // the hasNextPage/hasPreviousPage property of any list resource object tells whether
     // there is a next/previous page available from the paginated REST API
-    if (feedListObj.hasNextPage) {
+    window.console.log(&apos;Is there a next page?: &apos;, feedListResObj.hasNextPage);
+    window.console.log(&apos;Is there a previous page?: &apos;, feedListResObj.hasPreviousPage);
 
-      // the getNextPage/getPreviousPage method of any list resource obj can be used to
-      // fetch the next/previous page from the paginated REST API
-      result = feedListObj.getNextPage();
-      result
-      .then(feedListObj =&gt; {
+    // the ``getItems`` helper method of any list resource obj can be used to create an array of
+    // the individual item resource objects in the list
+    // here we retrieve an array of ``Feed`` item resource objects from ``feedListResObj``
+    const feedResArray = feedListResObj.getItems();
+    let feedRes = feedResArray[0]
+    window.console.log(feedRes.data);
 
-        window.console.log(&apos;FeedList resource object: &apos;, feedListObj);
-      });
-    }
+    // the ``getItem`` helper method of any list resource obj can be used to create a single item
+    // resource object given it&apos;s id as long as an item with that id is in the list
+    // here we create a ``Feed`` item resource object from ``feedListResObj``
+    feedRes = feedListResObj.getItem(feedResArray[0].data.id);
 
-    // the get method of any list resource obj can be used to fetch any arbitrary page
+    // the current object&apos;s state can be saved into another copy object before fetching
+    // more data if desired
+    const feedListResObjClone = feedListResObj.clone();
+
+    // the ``get`` method of any list resource obj can be used to fetch any arbitrary page
     // from the paginated REST API
-    result = feedListObj.get({ limit: 10, offset: 20 });
+    const result = feedListResObj.get({ limit: 20, offset: 20 });
     result
-      .then(feedListObj =&gt; {
+      .then(feedListResObj =&gt; {
 
         // the isEmpty property of any resource obj can be used to know if the object
         // contains any item/list data
-        window.console.log(&apos;Does the feed list contain any data?: &apos;, !feedListObj.isEmpty);
-      });
-
-    // resource objects have methods to fetch other related resources
-    // here we fetch a list of available ChRIS plugins from the REST API
-    result = feedListObj.getPlugins(params);
-    result
-      .then(pluginListObj =&gt; {
-
-        window.console.log(&apos;PluginList resource object: &apos;, pluginListObj);
+        window.console.log(&apos;Does the feed list resource object contain any data?: &apos;, !feedListResObj.isEmpty);
       });
   })
   .catch(error =&gt; {
 
-    window.console.log(&apos;Error!!!: &apos;, error);
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
   });
 
-// for convenience the Client class provides a runAsyncTask static method that could
+
+// Individual item resource objects for high-level resources can also be directly  
+// fetched from the REST API, these include ``Feed``. ``FeedFile``, ``Plugin``, ``PluginInstance``,
+// ``Pipeline``, ``PipelineInstance``, ``UploadedFile`` and ``Tag``
+// here we fetch a ``Feed`` resource object by id
+const feed_id = 1;
+resp = client.getFeed(feed_id);
+resp
+  .then(feedRes =&gt; {
+
+    window.console.log(&apos;Feed resource object: &apos;, feedRes);
+    window.console.log(&apos;Data in the feed resource object: &apos;, feedRes.data);
+
+    // resource objects have methods to fetch other related resources
+    // here we fetch the feed-specific ``Note`` resource object from the REST API
+    const result = feedRes.getNote();
+    result
+      .then(noteRes =&gt; {
+
+        window.console.log(&apos;Note resource object data: &apos;, noteRes.data);
+      });    
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
+
+
+// For convenience the Client class provides a runAsyncTask static method that could
 // alternatively be used to wait for promises in Javascript 6
 // for instance iterate over all pages of the list of available &apos;fs&apos; plugins
 Client.runAsyncTask(function*() {
 
-  // fetch the FeedList resource obj which corresponds to the API home page
-  let feedListObj = yield client.getFeeds(); // wait for response here
+  const searchParams = { type: &apos;fs&apos;, limit: 20, offset: 0 };
+  let pluginListResObj = yield client.getPlugins(searchParams); // wait for response here
 
-  // now fetch an initial PluginList resource obj from previous response
-  let pluginListObj = yield feedListObj.getPlugins({limit: 1}); // wait here
-
-  const searchParams = { type: &apos;fs&apos;};
-  // const searchParams = {limit: 5, type: &apos;fs&apos;}; if you want to override default page size
-
-  // the getSearch method of any list resource obj can be used to fetch a list resource from
-  // the REST API based on search parameters, here we fetch lists of plugins of type &apos;fs&apos;
-  pluginListObj = yield pluginListObj.getSearch(searchParams); // wait here
-
-  window.console.log(&apos;Page 1 of Plugin fs list resource object: &apos;, pluginListObj);
+  window.console.log(&apos;Page 1 data of plugin fs list resource object: &apos;, pluginListResObj.data);
 
   let i = 2;
-  while (pluginListObj.hasNextPage) {
+  while (pluginListResObj.hasNextPage) {
 
     try {
+      searchParams.offset += searchParams.limit;
+      pluginListResObj = yield client.getPlugins(searchParams); // wait for response here
+      // alternatively, as explained above you could directly use the ``get`` method available in any resource object
+      // pluginListResObj = yield pluginListResObj.get(searchParams); // wait for response here
 
-      pluginListObj = yield pluginListObj.getNextPage(); // wait here
-      window.console.log(&apos;Page &apos; + i + &apos; of Plugin fs list resource object: &apos;, pluginListObj);
+      window.console.log(&apos;Page &apos; + i + &apos; data of plugin fs list resource object: &apos;, pluginListResObj.data);
 
     } catch (ex) { // errors while fetching resources can be handled
 
@@ -229,6 +250,25 @@ Client.runAsyncTask(function*() {
     i++;
   }
 });
+
+
+// For convenience some high-level resources can be directly created through the client object
+const pluginId = 1; // assuming that the plugin with id 1 is &apos;simplefsapp&apos;
+const data = {
+  previous_id: null,  // instances of &apos;fs&apos; plugins have previous_id set to null
+  title: &quot;Test plugin instance&quot;,
+  dir: &quot;./&quot;  
+};
+resp = client.createPluginInstance(pluginId, data);
+resp
+  .then(plgInstResObj =&gt; {
+
+      window.console.log(&apos;New plugin instance: &apos;, plgInstResObj);
+  })
+  .catch(error =&gt; {
+
+    window.console.log(&apos;Something went wrong with this request!!!: &apos;, error);
+  });
 </code>
 </code></pre>
 <h2 id="error-handling">Error handling</h2><p>The API basically follows the same error handling scheme as the <a href="https://https://github.com/axios/axios">Axios</a>
@@ -239,7 +279,7 @@ otherwise <code>error.message</code> should be used to report the error.</p>
 the bad request. It may also have a property called <code>non_field_errors</code> when the error is not specifically related
 to a single field. The value of any of those properties is a list of plain string errors. This is the standard Django
 Rest Framework approach to reporting errors.</p>
-<h2 id="api-reference">API reference</h2><p>Please check the API reference links to learn more about the API resource objects and their functionality.</p>
+<h2 id="api-reference">API reference</h2><p>Please check the API reference links to learn more about the <code>client</code> object and other API resource objects and their functionality.</p>
 </div>
 </div>
 

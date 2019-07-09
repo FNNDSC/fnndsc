@@ -1,7 +1,7 @@
 {
-  "coverage": "98.52%",
-  "expectCount": 203,
-  "actualCount": 200,
+  "coverage": "95.84%",
+  "expectCount": 289,
+  "actualCount": 277,
   "files": {
     "src/cj.js": {
       "expectCount": 8,
@@ -9,9 +9,19 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 8,
-      "actualCount": 8,
-      "undocumentLines": []
+      "expectCount": 41,
+      "actualCount": 32,
+      "undocumentLines": [
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ]
     },
     "src/comment.js": {
       "expectCount": 10,
@@ -26,18 +36,28 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 17,
-      "actualCount": 17,
+      "expectCount": 22,
+      "actualCount": 22,
       "undocumentLines": []
     },
     "src/feedfile.js": {
-      "expectCount": 13,
-      "actualCount": 13,
+      "expectCount": 16,
+      "actualCount": 16,
       "undocumentLines": []
     },
     "src/note.js": {
       "expectCount": 3,
       "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/pipeline.js": {
+      "expectCount": 29,
+      "actualCount": 29,
+      "undocumentLines": []
+    },
+    "src/pipelineinstance.js": {
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "src/plugin.js": {
@@ -46,8 +66,8 @@
       "undocumentLines": []
     },
     "src/plugininstance.js": {
-      "expectCount": 27,
-      "actualCount": 27,
+      "expectCount": 35,
+      "actualCount": 35,
       "undocumentLines": []
     },
     "src/pluginparameter.js": {
@@ -61,11 +81,11 @@
       "undocumentLines": []
     },
     "src/resource.js": {
-      "expectCount": 37,
-      "actualCount": 35,
+      "expectCount": 33,
+      "actualCount": 31,
       "undocumentLines": [
-        86,
-        291
+        91,
+        248
       ]
     },
     "src/tag.js": {

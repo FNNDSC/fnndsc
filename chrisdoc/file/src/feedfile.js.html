@@ -36,13 +36,26 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~AllFeedFileList.html">AllFeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelineList.html">PipelineList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePipingDefaultParameterList.html">PipelinePipingDefaultParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginList.html">PipelinePluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginPipingList.html">PipelinePluginPipingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipingDefaultParameter.html">PipingDefaultParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PluginPiping.html">PluginPiping</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~AllPipelineInstanceList.html">AllPipelineInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstance.html">PipelineInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstanceList.html">PipelineInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~AllPluginInstanceList.html">AllPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PipelineInstancePluginInstanceList.html">PipelineInstancePluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
@@ -71,6 +84,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/feedfile.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import Request from &apos;./request&apos;;
+import RequestException from &apos;./exception&apos;;
 import Collection from &apos;./cj&apos;;
 import { ItemResource, ListResource } from &apos;./resource&apos;;
 import { Feed } from &apos;./feed&apos;;
@@ -95,11 +109,18 @@ export class FeedFile extends ItemResource {
    * Fetch the file blob associated to this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Blob`` object
+   * @throws {RequestException} throw error if this item resource has not yet been
+   * fetched from the REST API
    */
   getFileBlob(timeout = 30000) {
+    if (this.isEmpty) {
+      throw new RequestException(&apos;Item object has not been set!&apos;);
+    }
     const req = new Request(this.auth, &apos;application/octet-stream&apos;, timeout);
-    const blobUrl = Collection.getLinkRelationUrls(this.item, &apos;file_resource&apos;)[0];
+    const item = this.collection.items[0];
+    const blobUrl = Collection.getLinkRelationUrls(item, &apos;file_resource&apos;)[0];
 
     return req.get(blobUrl).then(resp =&gt; resp.data);
   }
@@ -108,6 +129,7 @@ export class FeedFile extends ItemResource {
    * Fetch the plugin instance that created this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
@@ -140,6 +162,7 @@ export class FeedFileList extends ListResource {
    * Fetch the feed associated to this file list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -147,6 +170,26 @@ export class FeedFileList extends ListResource {
     const resourceClass = Feed;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Feed file list resource object representing a list of all files written to
+ * any user-owned feed.
+ */
+export class AllFeedFileList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = FeedFile;
   }
 }
 
@@ -173,6 +216,7 @@ export class PluginInstanceFileList extends ListResource {
    * Fetch the feed associated to this file list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
@@ -186,6 +230,7 @@ export class PluginInstanceFileList extends ListResource {
    * Fetch the plugin instance associated to this file list from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
