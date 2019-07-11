@@ -52,7 +52,7 @@ export default class Client {
    * @return {Object} - JS Promise
    */
   setUrls(timeout = 30000) {
-    return this.getFeeds(timeout);
+    return this.getFeeds(null, timeout);
   }
 
   /**
