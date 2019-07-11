@@ -103,6 +103,7 @@ export class TagList extends ListResource {
    * used to get a list of possible search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
