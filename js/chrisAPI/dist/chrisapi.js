@@ -5983,7 +5983,7 @@
               key: 'setUrls',
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4;
-                return this.getFeeds(e);
+                return this.getFeeds(null, e);
               },
             },
             {
