@@ -140,7 +140,7 @@ const auth = {token: authToken};
 // or alternatively auth = {username: &apos;cube&apos;, password: &apos;cube1234&apos;}
 const client = new Client(chrisUrl, auth);
 
-// fetch a paginated list of the authenticated user&apos;s feeds from the REST API into a ``Feedlist`` resource object
+// fetch a paginated list of the authenticated user&apos;s feeds from the REST API into a ``FeedList`` resource object
 let params = { limit: 20, offset: 0 };
 resp = client.getFeeds(params);
 resp
