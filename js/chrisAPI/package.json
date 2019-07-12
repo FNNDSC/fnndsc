@@ -1,6 +1,6 @@
 {
   "name": "@fnndsc/chrisapi",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "JavaScript6 client for the ChRIS API",
   "main": "dist/chrisapi.js",
   "scripts": {

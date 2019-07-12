@@ -6039,7 +6039,7 @@
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes(this.filesUrl, c.AllFeedFileList, e, t);
+                return this._fetchRes('filesUrl', c.AllFeedFileList, e, t);
               },
             },
             {
@@ -6056,7 +6056,7 @@
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes(this.pluginsUrl, s.PluginList, e, t);
+                return this._fetchRes('pluginsUrl', s.PluginList, e, t);
               },
             },
             {
@@ -6073,7 +6073,7 @@
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes(this.pluginInstancesUrl, a.AllPluginInstanceList, e, t);
+                return this._fetchRes('pluginInstancesUrl', a.AllPluginInstanceList, e, t);
               },
             },
             {
@@ -6105,7 +6105,7 @@
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes(this.pipelinesUrl, f.PipelineList, e, t);
+                return this._fetchRes('pipelinesUrl', f.PipelineList, e, t);
               },
             },
             {
@@ -6139,7 +6139,7 @@
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes(this.pipelineInstancesUrl, l.AllPipelineInstanceList, e, t);
+                return this._fetchRes('pipelineInstancesUrl', l.AllPipelineInstanceList, e, t);
               },
             },
             {
@@ -6171,7 +6171,7 @@
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes(this.tagsUrl, p.TagList, e, t);
+                return this._fetchRes('tagsUrl', p.TagList, e, t);
               },
             },
             {
@@ -6205,7 +6205,7 @@
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   t = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes(this.uploadedFilesUrl, h.UploadedFileList, e, t);
+                return this._fetchRes('uploadedFilesUrl', h.UploadedFileList, e, t);
               },
             },
             {
@@ -6240,7 +6240,7 @@
               key: 'getUser',
               value: function() {
                 var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4;
-                return this._fetchRes(this.userUrl, v.default, null, e);
+                return this._fetchRes('userUrl', v.default, null, e);
               },
             },
             {
@@ -6250,10 +6250,10 @@
                   r = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : null,
                   o = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : 3e4,
                   i = function() {
-                    var i = new t(e, n.auth);
+                    var i = new t(n[e], n.auth);
                     return r ? i.get(r, o) : i.get(o);
                   };
-                return e
+                return this[e]
                   ? i()
                   : this.setUrls().then(function() {
                       return i();
