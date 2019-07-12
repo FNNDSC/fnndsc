@@ -80,14 +80,15 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
-      this.filesUrl = this.filesUrl || getUrl(coll, 'files');
-      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins');
-      this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances');
-      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines');
-      this.pipelineInstancesUrl = this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances');
-      this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags');
-      this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles');
-      this.userUrl = this.userUrl || getUrl(coll, 'user');
+      this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
+      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];
+      this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances')[0];
+      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];
+      this.pipelineInstancesUrl =
+        this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances')[0];
+      this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags')[0];
+      this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles')[0];
+      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];
 
       return feedList;
     });
