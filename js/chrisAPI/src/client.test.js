@@ -120,7 +120,8 @@ describe('Client', () => {
   });
 
   it('can fetch the list of plugins from the REST API', done => {
-    const result = client.getPlugins();
+    const client1 = new Client(chrisUrl, auth);
+    const result = client1.getPlugins();
     result
       .then(pluginList => {
         //window.console.log('pluginList.data', pluginList.data);
@@ -132,7 +133,8 @@ describe('Client', () => {
   });
 
   it('can fetch a plugin by id from the REST API', done => {
-    const result = client.getPlugin(1);
+    const client1 = new Client(chrisUrl, auth);
+    const result = client1.getPlugin(1);
     result
       .then(plugin => {
         //window.console.log('items', feedList.getItems());
