@@ -5996,14 +5996,15 @@
                   var n = t.collection,
                     o = r.default.getLinkRelationUrls;
                   return (
-                    (e.filesUrl = e.filesUrl || o(n, 'files')),
-                    (e.pluginsUrl = e.pluginsUrl || o(n, 'plugins')),
-                    (e.pluginInstancesUrl = e.pluginInstancesUrl || o(n, 'plugin_instances')),
-                    (e.pipelinesUrl = e.pipelinesUrl || o(n, 'pipelines')),
-                    (e.pipelineInstancesUrl = e.pipelineInstancesUrl || o(n, 'pipeline_instances')),
-                    (e.tagsUrl = e.tagsUrl || o(n, 'tags')),
-                    (e.uploadedFilesUrl = e.uploadedFilesUrl || o(n, 'uploadedfiles')),
-                    (e.userUrl = e.userUrl || o(n, 'user')),
+                    (e.filesUrl = e.filesUrl || o(n, 'files')[0]),
+                    (e.pluginsUrl = e.pluginsUrl || o(n, 'plugins')[0]),
+                    (e.pluginInstancesUrl = e.pluginInstancesUrl || o(n, 'plugin_instances')[0]),
+                    (e.pipelinesUrl = e.pipelinesUrl || o(n, 'pipelines')[0]),
+                    (e.pipelineInstancesUrl =
+                      e.pipelineInstancesUrl || o(n, 'pipeline_instances')[0]),
+                    (e.tagsUrl = e.tagsUrl || o(n, 'tags')[0]),
+                    (e.uploadedFilesUrl = e.uploadedFilesUrl || o(n, 'uploadedfiles')[0]),
+                    (e.userUrl = e.userUrl || o(n, 'user')[0]),
                     t
                   );
                 });
