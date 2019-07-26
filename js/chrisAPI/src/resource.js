@@ -191,7 +191,7 @@ export class ItemResource extends Resource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``null``
+   * @return {Object} - JS Promise
    */
   _delete(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);

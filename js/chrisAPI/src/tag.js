@@ -70,7 +70,7 @@ export class Tag extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``null``
+   * @return {Object} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -179,7 +179,7 @@ export class Tagging extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``null``
+   * @return {Object} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);

@@ -122,6 +122,19 @@ describe('Resource', () => {
         })
         .then(done, done);
     });
+
+    it('can modify this plugin instance resource through a REST API PUT request', done => {
+      const data = {
+        title: 'PUT test plugin instance',
+      };
+
+      const result = pluginInst.put(data);
+      result
+        .then(pluginInst => {
+          expect(pluginInst.data.title).to.equal(data.title);
+        })
+        .then(done, done);
+    });
   });
 
   describe('PluginInstanceList', () => {

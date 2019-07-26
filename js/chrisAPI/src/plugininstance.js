@@ -148,6 +148,31 @@ export class PluginInstance extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
+
+  /**
+   * Make a PUT request to modify this plugin instance resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.title] - title of the plugin instance
+   * @param {string} [data.status] - execution status of the plugin instance (eg. `cancelled`)
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to delete this plugin instance resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**

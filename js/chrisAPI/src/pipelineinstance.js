@@ -49,6 +49,31 @@ export class PipelineInstance extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
+
+  /**
+   * Make a PUT request to modify this pipeline instance resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.title] - title of the pipeline instance
+   * @param {string} [data.description] - pipeline instance description
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to delete this pipeline instance resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**
