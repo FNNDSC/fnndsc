@@ -164,14 +164,15 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
-      this.filesUrl = this.filesUrl || getUrl(coll, &apos;files&apos;);
-      this.pluginsUrl = this.pluginsUrl || getUrl(coll, &apos;plugins&apos;);
-      this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, &apos;plugin_instances&apos;);
-      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, &apos;pipelines&apos;);
-      this.pipelineInstancesUrl = this.pipelineInstancesUrl || getUrl(coll, &apos;pipeline_instances&apos;);
-      this.tagsUrl = this.tagsUrl || getUrl(coll, &apos;tags&apos;);
-      this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, &apos;uploadedfiles&apos;);
-      this.userUrl = this.userUrl || getUrl(coll, &apos;user&apos;);
+      this.filesUrl = this.filesUrl || getUrl(coll, &apos;files&apos;)[0];
+      this.pluginsUrl = this.pluginsUrl || getUrl(coll, &apos;plugins&apos;)[0];
+      this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, &apos;plugin_instances&apos;)[0];
+      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, &apos;pipelines&apos;)[0];
+      this.pipelineInstancesUrl =
+        this.pipelineInstancesUrl || getUrl(coll, &apos;pipeline_instances&apos;)[0];
+      this.tagsUrl = this.tagsUrl || getUrl(coll, &apos;tags&apos;)[0];
+      this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, &apos;uploadedfiles&apos;)[0];
+      this.userUrl = this.userUrl || getUrl(coll, &apos;user&apos;)[0];
 
       return feedList;
     });

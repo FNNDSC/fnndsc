@@ -1188,6 +1188,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/pipeline.js~pipeline#delete",
+    "class/src/pipeline.js~Pipeline.html#instance-method-delete",
+    "src/pipeline.js~Pipeline#delete",
+    "method"
+  ],
+  [
     "src/pipeline.js~pipeline#getdefaultparameters",
     "class/src/pipeline.js~Pipeline.html#instance-method-getDefaultParameters",
     "src/pipeline.js~Pipeline#getDefaultParameters",
@@ -1209,6 +1215,12 @@ window.esdocSearchIndex = [
     "src/pipeline.js~pipeline#getplugins",
     "class/src/pipeline.js~Pipeline.html#instance-method-getPlugins",
     "src/pipeline.js~Pipeline#getPlugins",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#put",
+    "class/src/pipeline.js~Pipeline.html#instance-method-put",
+    "src/pipeline.js~Pipeline#put",
     "method"
   ],
   [
@@ -1344,6 +1356,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/pipelineinstance.js~pipelineinstance#delete",
+    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-delete",
+    "src/pipelineinstance.js~PipelineInstance#delete",
+    "method"
+  ],
+  [
     "src/pipelineinstance.js~pipelineinstance#getpipeline",
     "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-getPipeline",
     "src/pipelineinstance.js~PipelineInstance#getPipeline",
@@ -1353,6 +1371,12 @@ window.esdocSearchIndex = [
     "src/pipelineinstance.js~pipelineinstance#getplugininstances",
     "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-getPluginInstances",
     "src/pipelineinstance.js~PipelineInstance#getPluginInstances",
+    "method"
+  ],
+  [
+    "src/pipelineinstance.js~pipelineinstance#put",
+    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-put",
+    "src/pipelineinstance.js~PipelineInstance#put",
     "method"
   ],
   [
@@ -1476,6 +1500,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/plugininstance.js~plugininstance#delete",
+    "class/src/plugininstance.js~PluginInstance.html#instance-method-delete",
+    "src/plugininstance.js~PluginInstance#delete",
+    "method"
+  ],
+  [
     "src/plugininstance.js~plugininstance#getdescendantplugininstances",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-getDescendantPluginInstances",
     "src/plugininstance.js~PluginInstance#getDescendantPluginInstances",
@@ -1515,6 +1545,12 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~plugininstance#getpreviousplugininstance",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-getPreviousPluginInstance",
     "src/plugininstance.js~PluginInstance#getPreviousPluginInstance",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstance#put",
+    "class/src/plugininstance.js~PluginInstance.html#instance-method-put",
+    "src/plugininstance.js~PluginInstance#put",
     "method"
   ],
   [

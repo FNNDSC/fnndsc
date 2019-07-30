@@ -1,7 +1,7 @@
 {
-  "coverage": "95.84%",
-  "expectCount": 289,
-  "actualCount": 277,
+  "coverage": "95.93%",
+  "expectCount": 295,
+  "actualCount": 283,
   "files": {
     "src/cj.js": {
       "expectCount": 8,
@@ -51,13 +51,13 @@
       "undocumentLines": []
     },
     "src/pipeline.js": {
-      "expectCount": 29,
-      "actualCount": 29,
+      "expectCount": 31,
+      "actualCount": 31,
       "undocumentLines": []
     },
     "src/pipelineinstance.js": {
-      "expectCount": 12,
-      "actualCount": 12,
+      "expectCount": 14,
+      "actualCount": 14,
       "undocumentLines": []
     },
     "src/plugin.js": {
@@ -66,8 +66,8 @@
       "undocumentLines": []
     },
     "src/plugininstance.js": {
-      "expectCount": 35,
-      "actualCount": 35,
+      "expectCount": 37,
+      "actualCount": 37,
       "undocumentLines": []
     },
     "src/pluginparameter.js": {
