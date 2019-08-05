@@ -66,6 +66,7 @@ describe('Resource', () => {
         href: chrisUrl,
         items: [{ data: [{ name: 'id', value: 1 }] }],
         links: [],
+        total: 100,
       };
       listRes = new ListResource(chrisUrl, auth);
       listRes.collection = collection;
@@ -131,6 +132,10 @@ describe('Resource', () => {
             .then(() => {});
         })
         .then(done, done);
+    });
+
+    it('can provide the total number of items across pages in the paginated REST API', () => {
+      expect(listRes.totalCount).to.be.equal(100);
     });
 
     it('can check whether or not there is a next page in the paginated REST API', () => {

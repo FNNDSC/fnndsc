@@ -70,6 +70,7 @@ describe('Client', () => {
         //window.console.log('items', feedList.getItems());
         expect(feedList).to.be.an.instanceof(FeedList);
         expect(feedList.data).to.have.lengthOf.at.least(1);
+        expect(feedList.totalCount).to.be.at.least(1);
       })
       .then(done, done);
   });

@@ -81,6 +81,7 @@ export class ItemResource extends Resource {
    * Fetch this item resource from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise, resolves to ``this`` object
    */
   get(timeout = 30000) {
@@ -350,6 +351,20 @@ export class ListResource extends Resource {
       data.push(Collection.getItemDescriptors(item));
     }
     return data;
+  }
+
+  /**
+   * Get the total count of items of the entire collection across pages in the
+   * paginated REST API. Return -1 if no data has been fetched or the total
+   * number of items info is not available from the fetched data.
+   *
+   * @type {number}
+   */
+  get totalCount() {
+    if (this.collection) {
+      return Collection.getTotalNumberOfItems(this.collection);
+    }
+    return -1;
   }
 
   /**
