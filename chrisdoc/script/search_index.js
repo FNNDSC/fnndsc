@@ -606,6 +606,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/cj.js~collection.gettotalnumberofitems",
+    "class/src/cj.js~Collection.html#static-method-getTotalNumberOfItems",
+    "src/cj.js~Collection.getTotalNumberOfItems",
+    "method"
+  ],
+  [
     "src/cj.js~collection.geturl",
     "class/src/cj.js~Collection.html#static-method-getUrl",
     "src/cj.js~Collection.getUrl",
@@ -1881,6 +1887,12 @@ window.esdocSearchIndex = [
     "src/resource.js~listresource#searchparams",
     "class/src/resource.js~ListResource.html#instance-member-searchParams",
     "src/resource.js~ListResource#searchParams",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#totalcount",
+    "class/src/resource.js~ListResource.html#instance-get-totalCount",
+    "src/resource.js~ListResource#totalCount",
     "member"
   ],
   [
