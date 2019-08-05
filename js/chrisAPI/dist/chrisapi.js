@@ -675,6 +675,12 @@
               },
             },
             {
+              key: 'totalCount',
+              get: function() {
+                return this.collection ? r.default.getTotalNumberOfItems(this.collection) : -1;
+              },
+            },
+            {
               key: 'hasNextPage',
               get: function() {
                 if (
@@ -2005,6 +2011,12 @@
               key: 'getUrl',
               value: function(e) {
                 return e.href;
+              },
+            },
+            {
+              key: 'getTotalNumberOfItems',
+              value: function(e) {
+                return e.total ? e.total : -1;
               },
             },
             {
