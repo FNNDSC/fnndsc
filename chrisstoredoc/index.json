@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/cj.js",
-    "content": "/**\n * Collection+Json utility object.\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - error message\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation from a collection or item object.\n   *\n   * @param {Object} obj - Collection+Json collection or item object\n   * @param {string} relationName - name of the link relation\n   * @return {string[]} - list of urls\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors).\n   *\n   * @param {Object} item - Collection+Json item object\n   * @return {Object} - object whose properties and values are the item's descriptor names and values respectively\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the url of the representation given by a collection obj.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - url of the resource representation\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the list of descriptor names within a collection's template object.\n   *\n   * @param {Object} template - Collection+Json template object\n   * @return {string[]} - list of descriptor names\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Get the list of descriptor names within a Collection+Json query array.\n   *\n   * @param {Object[]} queryArr - Collection+Json query array\n   * @return {string[]} - list of query parameter names\n   */\n  static getQueryParameters(queryArr) {\n    return queryArr[0].data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Make a Collection+Json template object from a regular object whose properties are\n   * the item descriptors.\n   *\n   * @param {Object} descriptorsObj - item descriptors object\n   * @return {Object} - template object\n   */\n  static makeTemplate(descriptorsObj) {\n    const template = { data: [] };\n\n    let i = 0;\n    for (let property in descriptorsObj) {\n      if (descriptorsObj.hasOwnProperty(property)) {\n        template.data[i] = { name: property, value: descriptorsObj[property] };\n      }\n      i++;\n    }\n    return template;\n  }\n}\n",
+    "content": "/**\n * Collection+Json utility object.\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - error message\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation from a collection or item object.\n   *\n   * @param {Object} obj - Collection+Json collection or item object\n   * @param {string} relationName - name of the link relation\n   * @return {string[]} - list of urls\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors).\n   *\n   * @param {Object} item - Collection+Json item object\n   * @return {Object} - object whose properties and values are the item's descriptor names and values respectively\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the url of the representation given by a collection obj.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   * @return {string} - url of the resource representation\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the total number of items from a collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   *\n   * @return {number} - total number of items or -1 if the collection objects\n   * doesn't contain that information\n   */\n  static getTotalNumberOfItems(collection) {\n    if (collection.total) {\n      return collection.total;\n    }\n    return -1;\n  }\n\n  /**\n   * Get the list of descriptor names within a collection's template object.\n   *\n   * @param {Object} template - Collection+Json template object\n   * @return {string[]} - list of descriptor names\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Get the list of descriptor names within a Collection+Json query array.\n   *\n   * @param {Object[]} queryArr - Collection+Json query array\n   * @return {string[]} - list of query parameter names\n   */\n  static getQueryParameters(queryArr) {\n    return queryArr[0].data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Make a Collection+Json template object from a regular object whose properties are\n   * the item descriptors.\n   *\n   * @param {Object} descriptorsObj - item descriptors object\n   * @return {Object} - template object\n   */\n  static makeTemplate(descriptorsObj) {\n    const template = { data: [] };\n\n    let i = 0;\n    for (let property in descriptorsObj) {\n      if (descriptorsObj.hasOwnProperty(property)) {\n        template.data[i] = { name: property, value: descriptorsObj[property] };\n      }\n      i++;\n    }\n    return template;\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/cj.js",
     "access": "public",
@@ -734,6 +734,39 @@
   {
     "__docId__": 54,
     "kind": "method",
+    "name": "getTotalNumberOfItems",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.getTotalNumberOfItems",
+    "access": "public",
+    "description": "Get the total number of items from a collection object.",
+    "lineNumber": 66,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collection",
+        "description": "Collection+Json collection object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "number"
+      ],
+      "spread": false,
+      "description": "total number of items or -1 if the collection objects\ndoesn't contain that information"
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "method",
     "name": "getTemplateDescriptorNames",
     "memberof": "src/cj.js~Collection",
     "generator": false,
@@ -742,7 +775,7 @@
     "longname": "src/cj.js~Collection.getTemplateDescriptorNames",
     "access": "public",
     "description": "Get the list of descriptor names within a collection's template object.",
-    "lineNumber": 64,
+    "lineNumber": 79,
     "params": [
       {
         "nullable": null,
@@ -765,7 +798,7 @@
     }
   },
   {
-    "__docId__": 55,
+    "__docId__": 56,
     "kind": "method",
     "name": "getQueryParameters",
     "memberof": "src/cj.js~Collection",
@@ -775,7 +808,7 @@
     "longname": "src/cj.js~Collection.getQueryParameters",
     "access": "public",
     "description": "Get the list of descriptor names within a Collection+Json query array.",
-    "lineNumber": 74,
+    "lineNumber": 89,
     "params": [
       {
         "nullable": null,
@@ -798,7 +831,7 @@
     }
   },
   {
-    "__docId__": 56,
+    "__docId__": 57,
     "kind": "method",
     "name": "makeTemplate",
     "memberof": "src/cj.js~Collection",
@@ -808,7 +841,7 @@
     "longname": "src/cj.js~Collection.makeTemplate",
     "access": "public",
     "description": "Make a Collection+Json template object from a regular object whose properties are\nthe item descriptors.",
-    "lineNumber": 85,
+    "lineNumber": 100,
     "params": [
       {
         "nullable": null,
@@ -831,10 +864,10 @@
     }
   },
   {
-    "__docId__": 57,
+    "__docId__": 58,
     "kind": "file",
     "name": "src/client.js",
-    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * Chris store object.\n *\n * @module client\n */\nexport default class StoreClient {\n  /**\n   * Constructor\n   *\n   * @param {string} storeUrl - url of the ChRIS storeservice\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(storeUrl, auth = null, timeout = 30000) {\n    this.storeUrl = storeUrl;\n    this.storeQueryUrl = storeUrl + 'search/';\n    this.pipelinesUrl = '';\n    this.pipelinesQueryUrl = '';\n    this.auth = auth;\n    this.timeout = timeout;\n    this.contentType = 'application/vnd.collection+json';\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_latest] - match plugin name containing this string\n   * and return only the latest version\n   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string\n   * and return only the latest version\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.public_repo] - match plugin public repository exactly with this string\n   * @param {string} [searchParams.type] - match plugin type with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin username containing this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or category\n   * containing this string\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date\n   * @return {Object} - JS Promise\n   */\n  getPlugins(searchParams = null) {\n    let url = this.storeUrl;\n\n    if (searchParams) {\n      // then it's a query and should use the query url\n      url = this.storeQueryUrl;\n    }\n    return this._getListResourceData(url, searchParams);\n  }\n\n  /**\n   * Get a plugin's information (descriptors) given its ChRIS store id.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  getPlugin(id) {\n    return this._getItemResourceData(this.storeQueryUrl, id);\n  }\n\n  /**\n   * Get a plugin's paginated parameters given its ChRIS store id.\n   *\n   * @param {number} pluginId - plugin id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @return {Object} - JS Promise\n   */\n  getPluginParameters(pluginId, params = null) {\n    const url = this.storeQueryUrl;\n\n    return this._getResourceRelatedListData(url, pluginId, 'parameters', params);\n  }\n\n  /**\n   * Add a new plugin to the ChRIS store.\n   *\n   * @param {string} name - plugin name\n   * @param {string} dockImage - plugin docker image\n   * @param {Object} descriptorFile - file blob\n   * @param {string} publicRepo - url of the plugin public repository\n   * @return {Object} - JS Promise\n   */\n  addPlugin(name, dockImage, descriptorFile, publicRepo) {\n    const req = new Request(this.auth, this.contentType, this.timeout);\n    const data = {\n      name: name,\n      dock_image: dockImage,\n      public_repo: publicRepo,\n    };\n\n    return req\n      .post(this.storeUrl, data, { descriptor_file: descriptorFile })\n      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n  }\n\n  /**\n   * Modify an existing plugin in the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @param {string} publicRepo - url of the plugin public repository\n   * @param {string} newOwner - username of a new owner for the plugin\n   * @return {Object} - JS Promise\n   */\n  modifyPlugin(id, publicRepo = '', newOwner = '') {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let resp;\n\n        try {\n          const searchParams = { id: id };\n          const coll = yield self._fetchCollection(self.storeQueryUrl, searchParams);\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            let data = {};\n\n            if (publicRepo) {\n              data.public_repo = publicRepo;\n            } else {\n              data.public_repo = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'public_repo';\n              })[0].value;\n            }\n            if (newOwner) {\n              data.owner = newOwner;\n            }\n\n            if (self.contentType === 'application/vnd.collection+json') {\n              data = { template: Collection.makeTemplate(data) };\n            }\n            resp = yield req.put(url, data);\n          } else {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Remove an existing plugin from the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  removePlugin(id) {\n    return this._removeItemResource(this.storeQueryUrl, id);\n  }\n\n  /**\n   * Set the url of the pipelines.\n   */\n  setPipelinesUrls() {\n    return this._fetchCollection(this.storeUrl).then(coll => {\n      this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');\n      this.pipelinesQueryUrl = this.pipelinesUrl + 'search/';\n    });\n  }\n\n  /**\n   * Get a paginated list of pipeline data (descriptors) given query search parameters.\n   * If no search parameters is given then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {string} [searchParams.name] - match pipeline name containing this string\n   * @param {string} [searchParams.category] - match pipeline category containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.description] - match pipeline description containing this string\n   * @param {string} [searchParams.authors] - match pipeline authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date\n   * @param {number} [searchParams.id] - match pipeline id exactly with this number\n   * @return {Object} - JS Promise\n   */\n  getPipelines(searchParams = null) {\n    if (searchParams) {\n      if (this.pipelinesQueryUrl) {\n        return this._getListResourceData(this.pipelinesQueryUrl, searchParams);\n      }\n      return this.setPipelinesUrls().then(() =>\n        this._getListResourceData(this.pipelinesQueryUrl, searchParams)\n      );\n    }\n    if (this.pipelinesUrl) {\n      return this._getListResourceData(this.pipelinesUrl);\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getListResourceData(this.pipelinesUrl, searchParams)\n    );\n  }\n\n  /**\n   * Get a pipeline's information (descriptors) given its ChRIS store id.\n   *\n   * @param {number} id - pipeline id\n   * @return {Object} - JS Promise\n   */\n  getPipeline(id) {\n    if (this.pipelinesQueryUrl) {\n      return this._getItemResourceData(this.pipelinesQueryUrl, id);\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getItemResourceData(this.pipelinesQueryUrl, id)\n    );\n  }\n\n  /**\n   * Get a pipeline's paginated default parameters given its ChRIS store id.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @return {Object} - JS Promise\n   */\n  getPipelineDefaultParameters(pipelineId, params = null) {\n    if (this.pipelinesQueryUrl) {\n      return this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'default_parameters',\n        params\n      );\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'default_parameters',\n        params\n      )\n    );\n  }\n\n  /**\n   * Get a pipeline's paginated pipings given its ChRIS store id.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @return {Object} - JS Promise\n   */\n  getPipelinePipings(pipelineId, params = null) {\n    if (this.pipelinesQueryUrl) {\n      return this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'plugin_pipings',\n        params\n      );\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugin_pipings', params)\n    );\n  }\n\n  /**\n   * Get a pipeline's paginated plugins given its ChRIS store id.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @return {Object} - JS Promise\n   */\n  getPipelinePlugins(pipelineId, params = null) {\n    if (this.pipelinesQueryUrl) {\n      return this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'plugins',\n        params\n      );\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugins', params)\n    );\n  }\n\n  /**\n   * Modify an existing pipeline in the ChRIS store.\n   *\n   * @param {number} id - pipeline id\n   * @param {Object} data - data object with the values for the properties to be modified\n   * @param {string} data.name - pipeline's name\n   * @param {string} data.authors - pipeline's authors\n   * @param {string} data.category - pipeline's category\n   * @param {string} data.description - pipeline's description\n   * @return {Object} - JS Promise\n   */\n  modifyPipeline(id, data) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let resp;\n\n        try {\n          const searchParams = { id: id };\n          if (!self.pipelinesQueryUrl) {\n            yield self.setPipelinesUrls();\n          }\n          const coll = yield self._fetchCollection(self.pipelinesQueryUrl, searchParams);\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n\n            if (self.contentType === 'application/vnd.collection+json') {\n              data = { template: Collection.makeTemplate(data) };\n            }\n            resp = yield req.put(url, data);\n          } else {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Remove an existing pipeline from the ChRIS store.\n   *\n   * @param {number} id - pipeline id\n   * @return {Object} - JS Promise\n   */\n  removePipeline(id) {\n    if (this.pipelinesQueryUrl) {\n      return this._removeItemResource(this.pipelinesQueryUrl, id);\n    }\n    return this.setPipelinesUrls().then(() => this._removeItemResource(this.pipelinesQueryUrl, id));\n  }\n\n  /**\n   * Get currently authenticated user's information.\n   *\n   * @return {Object} - JS Promise\n   */\n  getUser() {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.get(userUrls[0]); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Update currently authenticated user's information (email and or password).\n   *\n   * @param {Object} userInfoObj - collection object\n   * @param {string} userInfoObj.email - user's email\n   * @param {string} userInfoObj.password - user's password\n   * @return {Object} - JS Promise\n   */\n  updateUser(userInfoObj) {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    const userData = {\n      template: {\n        data: [\n          { name: 'email', value: userInfoObj.email },\n          { name: 'password', value: userInfoObj.password },\n        ],\n      },\n    };\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.put(userUrls[0], userData); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Create a new store user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {string} email - user's email\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req\n      .post(usersUrl, userData)\n      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n  }\n\n  /**\n   * Get a user's login authorization token.\n   * @param {string} authUrl - url of the authentication service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then(resp => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Get the data object from a collection object.\n   *\n   * @param {Object} coll - collection object\n   * @param {string} [collection_type='item'] - collection type, either 'list' or 'item'\n   * @return {Object} - result object\n   */\n  static getDataFromCollection(coll, collection_type = 'item') {\n    const result = {};\n\n    if (collection_type === 'list') {\n      result.data = [];\n\n      // for each item get its data\n      for (let item of coll.items) {\n        result.data.push(Collection.getItemDescriptors(item));\n      }\n      const next = Collection.getLinkRelationUrls(coll, 'next');\n      result.hasNextPage = next.length ? true : false;\n      const previous = Collection.getLinkRelationUrls(coll, 'previous');\n      result.hasPreviousPage = previous.length ? true : false;\n    } else {\n      result.data = Collection.getItemDescriptors(coll.items[0]);\n    }\n    return result;\n  }\n\n  /**\n   * Internal method to fetch a collection object from a resource url.\n   *\n   * @param {string} url - url\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  _fetchCollection(url, searchParams = null) {\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return req.get(url, searchParams).then(resp => resp.data.collection);\n  }\n\n  /**\n   * Internal method to get an item resources's data (descriptors) given its ChRIS store id.\n   *\n   * @param {string} resQueryUrl - query url for the resource\n   * @param {number} id - plugin id\n   * @return {Object} - JS Promise\n   */\n  _getItemResourceData(resQueryUrl, id) {\n    const searchParams = { id: id };\n\n    return this._fetchCollection(resQueryUrl, searchParams).then(coll => {\n      if (coll.items.length) {\n        return StoreClient.getDataFromCollection(coll, 'item');\n      }\n      const errMsg = 'Could not find resource with id: ' + id;\n      throw new RequestException(errMsg);\n    });\n  }\n\n  /**\n   * Internal method to remove an existing item resource from the ChRIS store.\n   *\n   * @param {string} resQueryUrl - query url for the resource\n   * @param {number} id - resource id\n   * @return {Object} - JS Promise\n   */\n  _removeItemResource(resQueryUrl, id) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const searchParams = { id: id };\n        let resp;\n\n        try {\n          resp = yield req.get(resQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            resp = yield req.delete(url);\n          } else {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve();\n      });\n    });\n  }\n\n  /**\n   * Internal method to get a paginated list of data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first page.\n   *\n   * @param {string} resUrl -  url for the list resource\n   * @param {Object} [searchParams=null] - search parameters\n   * @return {Object} - JS Promise\n   */\n  _getListResourceData(resUrl, searchParams = null) {\n    return this._fetchCollection(resUrl, searchParams).then(coll => {\n      return StoreClient.getDataFromCollection(coll, 'list');\n    });\n  }\n\n  /**\n   * Internal method to get a paginated list of data items related to a resource given\n   * by its id.\n   *\n   * @param {string} resQueryUrl - query url for the resource\n   * @param {number} id - resource id\n   * @param {string} listRelName - name of the related list link relation\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @return {Object} - JS Promise\n   */\n  _getResourceRelatedListData(resQueryUrl, id, listRelName, params = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        let coll;\n        let result = {\n          data: [],\n          hasNextPage: false,\n          hasPreviousPage: false,\n        };\n\n        try {\n          coll = yield self._fetchCollection(resQueryUrl, { id: id });\n          if (coll.items.length === 0) {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n          const listLinks = Collection.getLinkRelationUrls(coll.items[0], listRelName);\n          if (listLinks.length) {\n            coll = yield self._fetchCollection(listLinks[0], params); // there can only be a single list link\n            result = StoreClient.getDataFromCollection(coll, 'list');\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(result);\n      });\n    });\n  }\n\n  /*export const login = credentials => {\n    return axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {\n      // process response somehow\n    });\n  };*/\n}\n",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * Chris store object.\n *\n * @module client\n */\nexport default class StoreClient {\n  /**\n   * Constructor\n   *\n   * @param {string} storeUrl - url of the ChRIS storeservice\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(storeUrl, auth = null, timeout = 30000) {\n    this.storeUrl = storeUrl;\n    this.storeQueryUrl = storeUrl + 'search/';\n    this.pipelinesUrl = '';\n    this.pipelinesQueryUrl = '';\n    this.auth = auth;\n    this.timeout = timeout;\n    this.contentType = 'application/vnd.collection+json';\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_latest] - match plugin name containing this string\n   * and return only the latest version\n   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string\n   * and return only the latest version\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.public_repo] - match plugin public repository exactly with this string\n   * @param {string} [searchParams.type] - match plugin type with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin username containing this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or category\n   * containing this string\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date\n   *\n   * @return {Object} - JS Promise\n   */\n  getPlugins(searchParams = null) {\n    let url = this.storeUrl;\n\n    if (searchParams) {\n      // then it's a query and should use the query url\n      url = this.storeQueryUrl;\n    }\n    return this._getListResourceData(url, searchParams);\n  }\n\n  /**\n   * Get a plugin's information (descriptors) given its ChRIS store id.\n   *\n   * @param {number} id - plugin id\n   *\n   * @return {Object} - JS Promise\n   */\n  getPlugin(id) {\n    return this._getItemResourceData(this.storeQueryUrl, id);\n  }\n\n  /**\n   * Get a plugin's paginated parameters given its ChRIS store id.\n   *\n   * @param {number} pluginId - plugin id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   *\n   * @return {Object} - JS Promise\n   */\n  getPluginParameters(pluginId, params = null) {\n    const url = this.storeQueryUrl;\n\n    return this._getResourceRelatedListData(url, pluginId, 'parameters', params);\n  }\n\n  /**\n   * Add a new plugin to the ChRIS store.\n   *\n   * @param {string} name - plugin name\n   * @param {string} dockImage - plugin docker image\n   * @param {Object} descriptorFile - file blob\n   * @param {string} publicRepo - url of the plugin public repository\n   *\n   * @return {Object} - JS Promise\n   */\n  addPlugin(name, dockImage, descriptorFile, publicRepo) {\n    const req = new Request(this.auth, this.contentType, this.timeout);\n    const data = {\n      name: name,\n      dock_image: dockImage,\n      public_repo: publicRepo,\n    };\n\n    return req\n      .post(this.storeUrl, data, { descriptor_file: descriptorFile })\n      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n  }\n\n  /**\n   * Modify an existing plugin in the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   * @param {string} publicRepo - url of the plugin public repository\n   * @param {string} newOwner - username of a new owner for the plugin\n   *\n   * @return {Object} - JS Promise\n   */\n  modifyPlugin(id, publicRepo = '', newOwner = '') {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let resp;\n\n        try {\n          const searchParams = { id: id };\n          const coll = yield self._fetchCollection(self.storeQueryUrl, searchParams);\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            let data = {};\n\n            if (publicRepo) {\n              data.public_repo = publicRepo;\n            } else {\n              data.public_repo = coll.items[0].data.filter(descriptor => {\n                return descriptor.name === 'public_repo';\n              })[0].value;\n            }\n            if (newOwner) {\n              data.owner = newOwner;\n            }\n\n            if (self.contentType === 'application/vnd.collection+json') {\n              data = { template: Collection.makeTemplate(data) };\n            }\n            resp = yield req.put(url, data);\n          } else {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Remove an existing plugin from the ChRIS store.\n   *\n   * @param {number} id - plugin id\n   *\n   * @return {Object} - JS Promise\n   */\n  removePlugin(id) {\n    return this._removeItemResource(this.storeQueryUrl, id);\n  }\n\n  /**\n   * Set the url of the pipelines.\n   */\n  setPipelinesUrls() {\n    return this._fetchCollection(this.storeUrl).then(coll => {\n      this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');\n      this.pipelinesQueryUrl = this.pipelinesUrl + 'search/';\n    });\n  }\n\n  /**\n   * Get a paginated list of pipeline data (descriptors) given query search parameters.\n   * If no search parameters is given then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {string} [searchParams.name] - match pipeline name containing this string\n   * @param {string} [searchParams.category] - match pipeline category containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.description] - match pipeline description containing this string\n   * @param {string} [searchParams.authors] - match pipeline authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date\n   * @param {number} [searchParams.id] - match pipeline id exactly with this number\n   *\n   * @return {Object} - JS Promise\n   */\n  getPipelines(searchParams = null) {\n    if (searchParams) {\n      if (this.pipelinesQueryUrl) {\n        return this._getListResourceData(this.pipelinesQueryUrl, searchParams);\n      }\n      return this.setPipelinesUrls().then(() =>\n        this._getListResourceData(this.pipelinesQueryUrl, searchParams)\n      );\n    }\n    if (this.pipelinesUrl) {\n      return this._getListResourceData(this.pipelinesUrl);\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getListResourceData(this.pipelinesUrl, searchParams)\n    );\n  }\n\n  /**\n   * Get a pipeline's information (descriptors) given its ChRIS store id.\n   *\n   * @param {number} id - pipeline id\n   *\n   * @return {Object} - JS Promise\n   */\n  getPipeline(id) {\n    if (this.pipelinesQueryUrl) {\n      return this._getItemResourceData(this.pipelinesQueryUrl, id);\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getItemResourceData(this.pipelinesQueryUrl, id)\n    );\n  }\n\n  /**\n   * Get a pipeline's paginated default parameters given its ChRIS store id.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   *\n   * @return {Object} - JS Promise\n   */\n  getPipelineDefaultParameters(pipelineId, params = null) {\n    if (this.pipelinesQueryUrl) {\n      return this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'default_parameters',\n        params\n      );\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'default_parameters',\n        params\n      )\n    );\n  }\n\n  /**\n   * Get a pipeline's paginated pipings given its ChRIS store id.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   *\n   * @return {Object} - JS Promise\n   */\n  getPipelinePipings(pipelineId, params = null) {\n    if (this.pipelinesQueryUrl) {\n      return this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'plugin_pipings',\n        params\n      );\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugin_pipings', params)\n    );\n  }\n\n  /**\n   * Get a pipeline's paginated plugins given its ChRIS store id.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   *\n   * @return {Object} - JS Promise\n   */\n  getPipelinePlugins(pipelineId, params = null) {\n    if (this.pipelinesQueryUrl) {\n      return this._getResourceRelatedListData(\n        this.pipelinesQueryUrl,\n        pipelineId,\n        'plugins',\n        params\n      );\n    }\n    return this.setPipelinesUrls().then(() =>\n      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugins', params)\n    );\n  }\n\n  /**\n   * Modify an existing pipeline in the ChRIS store.\n   *\n   * @param {number} id - pipeline id\n   * @param {Object} data - data object with the values for the properties to be modified\n   * @param {string} data.name - pipeline's name\n   * @param {string} data.authors - pipeline's authors\n   * @param {string} data.category - pipeline's category\n   * @param {string} data.description - pipeline's description\n   *\n   * @return {Object} - JS Promise\n   */\n  modifyPipeline(id, data) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        let resp;\n\n        try {\n          const searchParams = { id: id };\n          if (!self.pipelinesQueryUrl) {\n            yield self.setPipelinesUrls();\n          }\n          const coll = yield self._fetchCollection(self.pipelinesQueryUrl, searchParams);\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n\n            if (self.contentType === 'application/vnd.collection+json') {\n              data = { template: Collection.makeTemplate(data) };\n            }\n            resp = yield req.put(url, data);\n          } else {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Remove an existing pipeline from the ChRIS store.\n   *\n   * @param {number} id - pipeline id\n   *\n   * @return {Object} - JS Promise\n   */\n  removePipeline(id) {\n    if (this.pipelinesQueryUrl) {\n      return this._removeItemResource(this.pipelinesQueryUrl, id);\n    }\n    return this.setPipelinesUrls().then(() => this._removeItemResource(this.pipelinesQueryUrl, id));\n  }\n\n  /**\n   * Get currently authenticated user's information.\n   *\n   * @return {Object} - JS Promise\n   */\n  getUser() {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.get(userUrls[0]); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Update currently authenticated user's information (email and or password).\n   *\n   * @param {Object} userInfoObj - collection object\n   * @param {string} userInfoObj.email - user's email\n   * @param {string} userInfoObj.password - user's password\n   *\n   * @return {Object} - JS Promise\n   */\n  updateUser(userInfoObj) {\n    const storeUrl = this.storeUrl;\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    const userData = {\n      template: {\n        data: [\n          { name: 'email', value: userInfoObj.email },\n          { name: 'password', value: userInfoObj.password },\n        ],\n      },\n    };\n\n    return new Promise((resolve, reject) => {\n      StoreClient.runAsyncTask(function*() {\n        let resp;\n\n        try {\n          resp = yield req.get(storeUrl);\n          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');\n          resp = yield req.put(userUrls[0], userData); // there is only a single user url\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n      });\n    });\n  }\n\n  /**\n   * Create a new store user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {string} email - user's email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req\n      .post(usersUrl, userData)\n      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));\n  }\n\n  /**\n   * Get a user's login authorization token.\n   * @param {string} authUrl - url of the authentication service\n   * @param {string} username - user's username\n   * @param {string} password - user's password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then(resp => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Get the data object from a collection object.\n   *\n   * @param {Object} coll - collection object\n   * @param {string} [collection_type='item'] - collection type, either 'list' or 'item'\n   *\n   * @return {Object} - result object\n   */\n  static getDataFromCollection(coll, collection_type = 'item') {\n    const result = {};\n\n    if (collection_type === 'list') {\n      result.data = [];\n\n      // for each item get its data\n      for (let item of coll.items) {\n        result.data.push(Collection.getItemDescriptors(item));\n      }\n      const next = Collection.getLinkRelationUrls(coll, 'next');\n      result.hasNextPage = next.length ? true : false;\n      const previous = Collection.getLinkRelationUrls(coll, 'previous');\n      result.hasPreviousPage = previous.length ? true : false;\n      result.totalCount = Collection.getTotalNumberOfItems(coll);\n    } else {\n      result.data = Collection.getItemDescriptors(coll.items[0]);\n    }\n    return result;\n  }\n\n  /**\n   * Internal method to fetch a collection object from a resource url.\n   *\n   * @param {string} url - url\n   * @param {Object} [searchParams=null] - search parameters\n   *\n   * @return {Object} - JS Promise\n   */\n  _fetchCollection(url, searchParams = null) {\n    const req = new Request(this.auth, this.contentType, this.timeout);\n\n    return req.get(url, searchParams).then(resp => resp.data.collection);\n  }\n\n  /**\n   * Internal method to get an item resources's data (descriptors) given its ChRIS store id.\n   *\n   * @param {string} resQueryUrl - query url for the resource\n   * @param {number} id - plugin id\n   *\n   * @return {Object} - JS Promise\n   */\n  _getItemResourceData(resQueryUrl, id) {\n    const searchParams = { id: id };\n\n    return this._fetchCollection(resQueryUrl, searchParams).then(coll => {\n      if (coll.items.length) {\n        return StoreClient.getDataFromCollection(coll, 'item');\n      }\n      const errMsg = 'Could not find resource with id: ' + id;\n      throw new RequestException(errMsg);\n    });\n  }\n\n  /**\n   * Internal method to remove an existing item resource from the ChRIS store.\n   *\n   * @param {string} resQueryUrl - query url for the resource\n   * @param {number} id - resource id\n   *\n   * @return {Object} - JS Promise\n   */\n  _removeItemResource(resQueryUrl, id) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        const req = new Request(self.auth, self.contentType, self.timeout);\n        const searchParams = { id: id };\n        let resp;\n\n        try {\n          resp = yield req.get(resQueryUrl, searchParams);\n          const coll = resp.data.collection;\n\n          if (coll.items.length) {\n            const url = coll.items[0].href;\n            resp = yield req.delete(url);\n          } else {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve();\n      });\n    });\n  }\n\n  /**\n   * Internal method to get a paginated list of data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first page.\n   *\n   * @param {string} resUrl -  url for the list resource\n   * @param {Object} [searchParams=null] - search parameters\n   *\n   * @return {Object} - JS Promise\n   */\n  _getListResourceData(resUrl, searchParams = null) {\n    return this._fetchCollection(resUrl, searchParams).then(coll => {\n      return StoreClient.getDataFromCollection(coll, 'list');\n    });\n  }\n\n  /**\n   * Internal method to get a paginated list of data items related to a resource given\n   * by its id.\n   *\n   * @param {string} resQueryUrl - query url for the resource\n   * @param {number} id - resource id\n   * @param {string} listRelName - name of the related list link relation\n   * @param {Object} [params=null] - page parameters\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   *\n   * @return {Object} - JS Promise\n   */\n  _getResourceRelatedListData(resQueryUrl, id, listRelName, params = null) {\n    const self = this;\n\n    return new Promise(function(resolve, reject) {\n      StoreClient.runAsyncTask(function*() {\n        let coll;\n        let result = {\n          data: [],\n          hasNextPage: false,\n          hasPreviousPage: false,\n          totalCount: -1,\n        };\n\n        try {\n          coll = yield self._fetchCollection(resQueryUrl, { id: id });\n          if (coll.items.length === 0) {\n            const errMsg = 'Could not find resource with id: ' + id;\n            throw new RequestException(errMsg);\n          }\n          const listLinks = Collection.getLinkRelationUrls(coll.items[0], listRelName);\n          if (listLinks.length) {\n            coll = yield self._fetchCollection(listLinks[0], params); // there can only be a single list link\n            result = StoreClient.getDataFromCollection(coll, 'list');\n          }\n        } catch (ex) {\n          reject(ex);\n          return;\n        }\n\n        resolve(result);\n      });\n    });\n  }\n\n  /*export const login = credentials => {\n    return axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {\n      // process response somehow\n    });\n  };*/\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/client.js",
     "access": "public",
@@ -842,7 +875,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 58,
+    "__docId__": 59,
     "kind": "class",
     "name": "StoreClient",
     "memberof": "src/client.js",
@@ -863,7 +896,7 @@
     "interface": false
   },
   {
-    "__docId__": 59,
+    "__docId__": 60,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/client.js~StoreClient",
@@ -922,7 +955,7 @@
     ]
   },
   {
-    "__docId__": 60,
+    "__docId__": 61,
     "kind": "member",
     "name": "storeUrl",
     "memberof": "src/client.js~StoreClient",
@@ -939,7 +972,7 @@
     }
   },
   {
-    "__docId__": 61,
+    "__docId__": 62,
     "kind": "member",
     "name": "storeQueryUrl",
     "memberof": "src/client.js~StoreClient",
@@ -956,7 +989,7 @@
     }
   },
   {
-    "__docId__": 62,
+    "__docId__": 63,
     "kind": "member",
     "name": "pipelinesUrl",
     "memberof": "src/client.js~StoreClient",
@@ -973,7 +1006,7 @@
     }
   },
   {
-    "__docId__": 63,
+    "__docId__": 64,
     "kind": "member",
     "name": "pipelinesQueryUrl",
     "memberof": "src/client.js~StoreClient",
@@ -990,7 +1023,7 @@
     }
   },
   {
-    "__docId__": 64,
+    "__docId__": 65,
     "kind": "member",
     "name": "auth",
     "memberof": "src/client.js~StoreClient",
@@ -1007,7 +1040,7 @@
     }
   },
   {
-    "__docId__": 65,
+    "__docId__": 66,
     "kind": "member",
     "name": "timeout",
     "memberof": "src/client.js~StoreClient",
@@ -1024,7 +1057,7 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 67,
     "kind": "member",
     "name": "contentType",
     "memberof": "src/client.js~StoreClient",
@@ -1041,7 +1074,7 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 68,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/client.js~StoreClient",
@@ -1051,7 +1084,7 @@
     "longname": "src/client.js~StoreClient#getPlugins",
     "access": "public",
     "description": "Get a paginated list of plugin data (descriptors) given query search\nparameters. If no search parameters is given then get the default first\npage.",
-    "lineNumber": 56,
+    "lineNumber": 57,
     "params": [
       {
         "nullable": null,
@@ -1226,7 +1259,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 69,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/client.js~StoreClient",
@@ -1236,7 +1269,7 @@
     "longname": "src/client.js~StoreClient#getPlugin",
     "access": "public",
     "description": "Get a plugin's information (descriptors) given its ChRIS store id.",
-    "lineNumber": 72,
+    "lineNumber": 74,
     "params": [
       {
         "nullable": null,
@@ -1259,7 +1292,7 @@
     }
   },
   {
-    "__docId__": 69,
+    "__docId__": 70,
     "kind": "method",
     "name": "getPluginParameters",
     "memberof": "src/client.js~StoreClient",
@@ -1269,7 +1302,7 @@
     "longname": "src/client.js~StoreClient#getPluginParameters",
     "access": "public",
     "description": "Get a plugin's paginated parameters given its ChRIS store id.",
-    "lineNumber": 85,
+    "lineNumber": 88,
     "params": [
       {
         "nullable": null,
@@ -1324,7 +1357,7 @@
     }
   },
   {
-    "__docId__": 70,
+    "__docId__": 71,
     "kind": "method",
     "name": "addPlugin",
     "memberof": "src/client.js~StoreClient",
@@ -1334,7 +1367,7 @@
     "longname": "src/client.js~StoreClient#addPlugin",
     "access": "public",
     "description": "Add a new plugin to the ChRIS store.",
-    "lineNumber": 100,
+    "lineNumber": 104,
     "params": [
       {
         "nullable": null,
@@ -1387,7 +1420,7 @@
     }
   },
   {
-    "__docId__": 71,
+    "__docId__": 72,
     "kind": "method",
     "name": "modifyPlugin",
     "memberof": "src/client.js~StoreClient",
@@ -1397,7 +1430,7 @@
     "longname": "src/client.js~StoreClient#modifyPlugin",
     "access": "public",
     "description": "Modify an existing plugin in the ChRIS store.",
-    "lineNumber": 121,
+    "lineNumber": 126,
     "params": [
       {
         "nullable": null,
@@ -1440,7 +1473,7 @@
     }
   },
   {
-    "__docId__": 72,
+    "__docId__": 73,
     "kind": "method",
     "name": "removePlugin",
     "memberof": "src/client.js~StoreClient",
@@ -1450,7 +1483,7 @@
     "longname": "src/client.js~StoreClient#removePlugin",
     "access": "public",
     "description": "Remove an existing plugin from the ChRIS store.",
-    "lineNumber": 172,
+    "lineNumber": 178,
     "params": [
       {
         "nullable": null,
@@ -1473,7 +1506,7 @@
     }
   },
   {
-    "__docId__": 73,
+    "__docId__": 74,
     "kind": "method",
     "name": "setPipelinesUrls",
     "memberof": "src/client.js~StoreClient",
@@ -1483,7 +1516,7 @@
     "longname": "src/client.js~StoreClient#setPipelinesUrls",
     "access": "public",
     "description": "Set the url of the pipelines.",
-    "lineNumber": 179,
+    "lineNumber": 185,
     "params": [],
     "return": {
       "types": [
@@ -1492,7 +1525,7 @@
     }
   },
   {
-    "__docId__": 76,
+    "__docId__": 77,
     "kind": "method",
     "name": "getPipelines",
     "memberof": "src/client.js~StoreClient",
@@ -1502,7 +1535,7 @@
     "longname": "src/client.js~StoreClient#getPipelines",
     "access": "public",
     "description": "Get a paginated list of pipeline data (descriptors) given query search parameters.\nIf no search parameters is given then get the default first page.",
-    "lineNumber": 203,
+    "lineNumber": 210,
     "params": [
       {
         "nullable": null,
@@ -1627,7 +1660,7 @@
     }
   },
   {
-    "__docId__": 77,
+    "__docId__": 78,
     "kind": "method",
     "name": "getPipeline",
     "memberof": "src/client.js~StoreClient",
@@ -1637,7 +1670,7 @@
     "longname": "src/client.js~StoreClient#getPipeline",
     "access": "public",
     "description": "Get a pipeline's information (descriptors) given its ChRIS store id.",
-    "lineNumber": 226,
+    "lineNumber": 234,
     "params": [
       {
         "nullable": null,
@@ -1660,7 +1693,7 @@
     }
   },
   {
-    "__docId__": 78,
+    "__docId__": 79,
     "kind": "method",
     "name": "getPipelineDefaultParameters",
     "memberof": "src/client.js~StoreClient",
@@ -1670,72 +1703,7 @@
     "longname": "src/client.js~StoreClient#getPipelineDefaultParameters",
     "access": "public",
     "description": "Get a pipeline's paginated default parameters given its ChRIS store id.",
-    "lineNumber": 244,
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "pipelineId",
-        "description": "pipeline id"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Object"
-        ],
-        "spread": false,
-        "optional": true,
-        "defaultValue": "null",
-        "defaultRaw": null,
-        "name": "params",
-        "description": "page parameters"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": true,
-        "name": "params.limit",
-        "description": "page limit"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "number"
-        ],
-        "spread": false,
-        "optional": true,
-        "name": "params.offset",
-        "description": "page offset"
-      }
-    ],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Object"
-      ],
-      "spread": false,
-      "description": "JS Promise"
-    }
-  },
-  {
-    "__docId__": 79,
-    "kind": "method",
-    "name": "getPipelinePipings",
-    "memberof": "src/client.js~StoreClient",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/client.js~StoreClient#getPipelinePipings",
-    "access": "public",
-    "description": "Get a pipeline's paginated pipings given its ChRIS store id.",
-    "lineNumber": 272,
+    "lineNumber": 253,
     "params": [
       {
         "nullable": null,
@@ -1792,15 +1760,15 @@
   {
     "__docId__": 80,
     "kind": "method",
-    "name": "getPipelinePlugins",
+    "name": "getPipelinePipings",
     "memberof": "src/client.js~StoreClient",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/client.js~StoreClient#getPipelinePlugins",
+    "longname": "src/client.js~StoreClient#getPipelinePipings",
     "access": "public",
-    "description": "Get a pipeline's paginated plugins given its ChRIS store id.",
-    "lineNumber": 295,
+    "description": "Get a pipeline's paginated pipings given its ChRIS store id.",
+    "lineNumber": 282,
     "params": [
       {
         "nullable": null,
@@ -1857,6 +1825,71 @@
   {
     "__docId__": 81,
     "kind": "method",
+    "name": "getPipelinePlugins",
+    "memberof": "src/client.js~StoreClient",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~StoreClient#getPipelinePlugins",
+    "access": "public",
+    "description": "Get a pipeline's paginated plugins given its ChRIS store id.",
+    "lineNumber": 306,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pipelineId",
+        "description": "pipeline id"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "params",
+        "description": "page parameters"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
     "name": "modifyPipeline",
     "memberof": "src/client.js~StoreClient",
     "generator": false,
@@ -1865,7 +1898,7 @@
     "longname": "src/client.js~StoreClient#modifyPipeline",
     "access": "public",
     "description": "Modify an existing pipeline in the ChRIS store.",
-    "lineNumber": 320,
+    "lineNumber": 332,
     "params": [
       {
         "nullable": null,
@@ -1938,7 +1971,7 @@
     }
   },
   {
-    "__docId__": 82,
+    "__docId__": 83,
     "kind": "method",
     "name": "removePipeline",
     "memberof": "src/client.js~StoreClient",
@@ -1948,7 +1981,7 @@
     "longname": "src/client.js~StoreClient#removePipeline",
     "access": "public",
     "description": "Remove an existing pipeline from the ChRIS store.",
-    "lineNumber": 361,
+    "lineNumber": 374,
     "params": [
       {
         "nullable": null,
@@ -1971,7 +2004,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 84,
     "kind": "method",
     "name": "getUser",
     "memberof": "src/client.js~StoreClient",
@@ -1981,7 +2014,7 @@
     "longname": "src/client.js~StoreClient#getUser",
     "access": "public",
     "description": "Get currently authenticated user's information.",
-    "lineNumber": 373,
+    "lineNumber": 386,
     "return": {
       "nullable": null,
       "types": [
@@ -1993,7 +2026,7 @@
     "params": []
   },
   {
-    "__docId__": 84,
+    "__docId__": 85,
     "kind": "method",
     "name": "updateUser",
     "memberof": "src/client.js~StoreClient",
@@ -2003,7 +2036,7 @@
     "longname": "src/client.js~StoreClient#updateUser",
     "access": "public",
     "description": "Update currently authenticated user's information (email and or password).",
-    "lineNumber": 403,
+    "lineNumber": 417,
     "params": [
       {
         "nullable": null,
@@ -2046,7 +2079,7 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 86,
     "kind": "method",
     "name": "createUser",
     "memberof": "src/client.js~StoreClient",
@@ -2056,7 +2089,7 @@
     "longname": "src/client.js~StoreClient.createUser",
     "access": "public",
     "description": "Create a new store user account.",
-    "lineNumber": 444,
+    "lineNumber": 459,
     "params": [
       {
         "nullable": null,
@@ -2121,7 +2154,7 @@
     }
   },
   {
-    "__docId__": 86,
+    "__docId__": 87,
     "kind": "method",
     "name": "getAuthToken",
     "memberof": "src/client.js~StoreClient",
@@ -2131,7 +2164,7 @@
     "longname": "src/client.js~StoreClient.getAuthToken",
     "access": "public",
     "description": "Get a user's login authorization token.",
-    "lineNumber": 468,
+    "lineNumber": 484,
     "params": [
       {
         "nullable": null,
@@ -2186,7 +2219,7 @@
     }
   },
   {
-    "__docId__": 87,
+    "__docId__": 88,
     "kind": "method",
     "name": "runAsyncTask",
     "memberof": "src/client.js~StoreClient",
@@ -2196,7 +2229,7 @@
     "longname": "src/client.js~StoreClient.runAsyncTask",
     "access": "public",
     "description": "Helper method to run an asynchronous task defined by a task generator function.",
-    "lineNumber": 482,
+    "lineNumber": 498,
     "params": [
       {
         "nullable": null,
@@ -2212,7 +2245,7 @@
     "return": null
   },
   {
-    "__docId__": 88,
+    "__docId__": 89,
     "kind": "method",
     "name": "getDataFromCollection",
     "memberof": "src/client.js~StoreClient",
@@ -2222,7 +2255,7 @@
     "longname": "src/client.js~StoreClient.getDataFromCollection",
     "access": "public",
     "description": "Get the data object from a collection object.",
-    "lineNumber": 493,
+    "lineNumber": 510,
     "params": [
       {
         "nullable": null,
@@ -2257,7 +2290,7 @@
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 90,
     "kind": "method",
     "name": "_fetchCollection",
     "memberof": "src/client.js~StoreClient",
@@ -2267,7 +2300,7 @@
     "longname": "src/client.js~StoreClient#_fetchCollection",
     "access": "private",
     "description": "Internal method to fetch a collection object from a resource url.",
-    "lineNumber": 520,
+    "lineNumber": 539,
     "params": [
       {
         "nullable": null,
@@ -2302,7 +2335,7 @@
     }
   },
   {
-    "__docId__": 90,
+    "__docId__": 91,
     "kind": "method",
     "name": "_getItemResourceData",
     "memberof": "src/client.js~StoreClient",
@@ -2312,7 +2345,7 @@
     "longname": "src/client.js~StoreClient#_getItemResourceData",
     "access": "private",
     "description": "Internal method to get an item resources's data (descriptors) given its ChRIS store id.",
-    "lineNumber": 533,
+    "lineNumber": 553,
     "params": [
       {
         "nullable": null,
@@ -2345,7 +2378,7 @@
     }
   },
   {
-    "__docId__": 91,
+    "__docId__": 92,
     "kind": "method",
     "name": "_removeItemResource",
     "memberof": "src/client.js~StoreClient",
@@ -2355,7 +2388,7 @@
     "longname": "src/client.js~StoreClient#_removeItemResource",
     "access": "private",
     "description": "Internal method to remove an existing item resource from the ChRIS store.",
-    "lineNumber": 552,
+    "lineNumber": 573,
     "params": [
       {
         "nullable": null,
@@ -2388,7 +2421,7 @@
     }
   },
   {
-    "__docId__": 92,
+    "__docId__": 93,
     "kind": "method",
     "name": "_getListResourceData",
     "memberof": "src/client.js~StoreClient",
@@ -2398,7 +2431,7 @@
     "longname": "src/client.js~StoreClient#_getListResourceData",
     "access": "private",
     "description": "Internal method to get a paginated list of data (descriptors) given query search\nparameters. If no search parameters is given then get the default first page.",
-    "lineNumber": 590,
+    "lineNumber": 612,
     "params": [
       {
         "nullable": null,
@@ -2433,7 +2466,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 94,
     "kind": "method",
     "name": "_getResourceRelatedListData",
     "memberof": "src/client.js~StoreClient",
@@ -2443,7 +2476,7 @@
     "longname": "src/client.js~StoreClient#_getResourceRelatedListData",
     "access": "private",
     "description": "Internal method to get a paginated list of data items related to a resource given\nby its id.",
-    "lineNumber": 608,
+    "lineNumber": 631,
     "params": [
       {
         "nullable": null,
@@ -2518,7 +2551,7 @@
     }
   },
   {
-    "__docId__": 94,
+    "__docId__": 95,
     "kind": "file",
     "name": "src/exception.js",
     "content": "/**\n * Custom exception object.\n *\n * @module exception\n */\nexport default class RequestException extends Error {\n  constructor(...args) {\n    super(...args);\n\n    /** @type {string} */\n    this.name = this.constructor.name;\n\n    /** @type {Object} */\n    this.request = null;\n\n    /** @type {Object} */\n    this.response = null;\n  }\n}\n",
@@ -2529,7 +2562,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 95,
+    "__docId__": 96,
     "kind": "class",
     "name": "RequestException",
     "memberof": "src/exception.js",
@@ -2553,7 +2586,7 @@
     ]
   },
   {
-    "__docId__": 96,
+    "__docId__": 97,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exception.js~RequestException",
@@ -2567,7 +2600,7 @@
     "undocument": true
   },
   {
-    "__docId__": 97,
+    "__docId__": 98,
     "kind": "member",
     "name": "name",
     "memberof": "src/exception.js~RequestException",
@@ -2586,7 +2619,7 @@
     }
   },
   {
-    "__docId__": 98,
+    "__docId__": 99,
     "kind": "member",
     "name": "request",
     "memberof": "src/exception.js~RequestException",
@@ -2605,7 +2638,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 100,
     "kind": "member",
     "name": "response",
     "memberof": "src/exception.js~RequestException",
@@ -2624,7 +2657,7 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 101,
     "kind": "file",
     "name": "src/index.js",
     "content": "import StoreClient from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport RequestException from './exception';\n\nexport default StoreClient;\nexport { Request };\nexport { Collection };\nexport { RequestException };\n",
@@ -2635,7 +2668,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 101,
+    "__docId__": 102,
     "kind": "file",
     "name": "src/request.js",
     "content": "/** * Imports ***/\nimport axios from 'axios';\nimport Collection from './cj';\nimport RequestException from './exception';\n\n/**\n * Http request object.\n */\nexport default class Request {\n  /**\n   * Constructor\n   *\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   * @param {string} contentType - request content type\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(auth, contentType, timeout = 30000) {\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = contentType;\n\n    /** @type {number} */\n    this.timeout = timeout;\n  }\n\n  /**\n   * Perform a GET request.\n   *\n   * @param {string} url - url of the resource\n   * @param {?Object} params - search parameters\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  get(url, params = null) {\n    const config = this._getConfig(url, 'get');\n\n    if (params) {\n      config.params = params;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Perform a POST request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  post(url, data, uploadFileObj = null) {\n    return this._postOrPut('post', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a PUT request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  put(url, data, uploadFileObj = null) {\n    return this._postOrPut('put', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a DELETE request.\n   *\n   * @param {string} url - url of the resource\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  delete(url) {\n    const config = this._getConfig(url, 'delete');\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to make either a POST or PUT request.\n   *\n   * @param {string} requestMethod - either 'post' or 'put'\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  _postOrPut(requestMethod, url, data, uploadFileObj = null) {\n    const config = this._getConfig(url, requestMethod);\n    config.data = data;\n\n    if (uploadFileObj) {\n      config['headers']['content-type'] = 'multipart/form-data';\n      const bFormData = new FormData();\n\n      for (let property in data) {\n        if (data.hasOwnProperty(property)) {\n          bFormData.set(property, data[property]);\n        }\n      }\n      for (let property in uploadFileObj) {\n        if (uploadFileObj.hasOwnProperty(property)) {\n          bFormData.set(property, uploadFileObj[property]);\n        }\n      }\n      config.data = bFormData;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to create a config file for axios.\n   *\n   * @param {string} url - url of the resource\n   * @param {string} method - request verb\n   * @return {Object} - axios configuration object\n   */\n  _getConfig(url, method) {\n    const config = {\n      url: url,\n      method: method,\n      headers: {\n        Accept: this.contentType,\n        'content-type': this.contentType,\n      },\n      timeout: this.timeout,\n    };\n\n    if (this.auth && this.auth.username && this.auth.password) {\n      config.auth = this.auth;\n    } else if (this.auth && this.auth.token) {\n      config.headers.Authorization = 'Token ' + this.auth.token;\n    }\n\n    if (this.contentType === 'application/octet-stream') {\n      config.responseType = 'blob';\n    }\n\n    return config;\n  }\n\n  /**\n   * Internal method to make an axios request.\n   *\n   * @param {Object} config - axios configuration object\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  static _callAxios(config) {\n    return axios(config)\n      .then(response => {\n        return response;\n      })\n      .catch(error => {\n        Request._handleRequestError(error);\n      });\n  }\n\n  /**\n   * Internal method to handle errors produced by HTTP requests.\n   *\n   * @param {Object} error - axios error object\n   * @throws {RequestException} throw error\n   */\n  static _handleRequestError(error) {\n    let storeError;\n\n    if (error.response) {\n      // The request was made and the server responded with a status code\n      // that falls out of the range of 2xx\n      //console.log(error.response.data);\n      //console.log(error.response.status);\n      //console.log(error.response.headers);\n      let errMsg = 'Bad server response!';\n      if (error.response.data.collection) {\n        errMsg = Collection.getErrorMessage(error.response.data.collection);\n      }\n      storeError = new RequestException(errMsg);\n      storeError.request = error.request;\n      storeError.response = error.response;\n      try {\n        storeError.response.data = JSON.parse(errMsg);\n      } catch (ex) {\n        storeError.response.data = errMsg;\n      }\n    } else if (error.request) {\n      // The request was made but no response was received\n      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of\n      // http.ClientRequest in node.js\n      //console.log(error.request);\n      storeError = new RequestException('No server response!');\n      storeError.request = error.request;\n    } else {\n      // Something happened in setting up the request that triggered an Error\n      //console.log('Error', error.message);\n      storeError = new RequestException(error.message);\n    }\n\n    throw storeError;\n    //console.log(error.config);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    // create the iterator\n    let task = taskGenerator();\n    // start the task\n    let result = task.next();\n\n    // recursive function to iterate through\n    (function step() {\n      // if there's more to do (result.value and result.done are iterator's properties)\n      if (!result.done) {\n        result.value\n          .then(resp => {\n            result = task.next(resp); // send this resp value to the yield\n            step();\n          })\n          .catch(error => {\n            result = task.throw(error); // throws error within taskGenerator generator\n            step();\n          });\n      }\n    })(); // start the recursive process by calling it immediatly\n  }\n}\n",
@@ -2646,7 +2679,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 102,
+    "__docId__": 103,
     "kind": "class",
     "name": "Request",
     "memberof": "src/request.js",
@@ -2661,7 +2694,7 @@
     "interface": false
   },
   {
-    "__docId__": 103,
+    "__docId__": 104,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/request.js~Request",
@@ -2718,7 +2751,7 @@
     ]
   },
   {
-    "__docId__": 104,
+    "__docId__": 105,
     "kind": "member",
     "name": "auth",
     "memberof": "src/request.js~Request",
@@ -2737,7 +2770,7 @@
     }
   },
   {
-    "__docId__": 105,
+    "__docId__": 106,
     "kind": "member",
     "name": "contentType",
     "memberof": "src/request.js~Request",
@@ -2756,7 +2789,7 @@
     }
   },
   {
-    "__docId__": 106,
+    "__docId__": 107,
     "kind": "member",
     "name": "timeout",
     "memberof": "src/request.js~Request",
@@ -2775,7 +2808,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 108,
     "kind": "method",
     "name": "get",
     "memberof": "src/request.js~Request",
@@ -2818,7 +2851,7 @@
     }
   },
   {
-    "__docId__": 108,
+    "__docId__": 109,
     "kind": "method",
     "name": "post",
     "memberof": "src/request.js~Request",
@@ -2871,7 +2904,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 110,
     "kind": "method",
     "name": "put",
     "memberof": "src/request.js~Request",
@@ -2924,7 +2957,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 111,
     "kind": "method",
     "name": "delete",
     "memberof": "src/request.js~Request",
@@ -2957,7 +2990,7 @@
     }
   },
   {
-    "__docId__": 111,
+    "__docId__": 112,
     "kind": "method",
     "name": "_postOrPut",
     "memberof": "src/request.js~Request",
@@ -3020,7 +3053,7 @@
     }
   },
   {
-    "__docId__": 112,
+    "__docId__": 113,
     "kind": "method",
     "name": "_getConfig",
     "memberof": "src/request.js~Request",
@@ -3063,7 +3096,7 @@
     }
   },
   {
-    "__docId__": 113,
+    "__docId__": 114,
     "kind": "method",
     "name": "_callAxios",
     "memberof": "src/request.js~Request",
@@ -3096,7 +3129,7 @@
     }
   },
   {
-    "__docId__": 114,
+    "__docId__": 115,
     "kind": "method",
     "name": "_handleRequestError",
     "memberof": "src/request.js~Request",
@@ -3130,7 +3163,7 @@
     "return": null
   },
   {
-    "__docId__": 115,
+    "__docId__": 116,
     "kind": "method",
     "name": "runAsyncTask",
     "memberof": "src/request.js~Request",
@@ -3165,7 +3198,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"1.1.9\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"1.2.0\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/package.json",
     "name": "package.json",
     "static": true,

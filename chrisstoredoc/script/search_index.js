@@ -342,6 +342,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/cj.js~collection.gettotalnumberofitems",
+    "class/src/cj.js~Collection.html#static-method-getTotalNumberOfItems",
+    "src/cj.js~Collection.getTotalNumberOfItems",
+    "method"
+  ],
+  [
     "src/cj.js~collection.geturl",
     "class/src/cj.js~Collection.html#static-method-getUrl",
     "src/cj.js~Collection.getUrl",

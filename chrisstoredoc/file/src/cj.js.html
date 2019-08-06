@@ -96,6 +96,21 @@ export default class Collection {
   }
 
   /**
+   * Get the total number of items from a collection object.
+   *
+   * @param {Object} collection - Collection+Json collection object
+   *
+   * @return {number} - total number of items or -1 if the collection objects
+   * doesn&apos;t contain that information
+   */
+  static getTotalNumberOfItems(collection) {
+    if (collection.total) {
+      return collection.total;
+    }
+    return -1;
+  }
+
+  /**
    * Get the list of descriptor names within a collection&apos;s template object.
    *
    * @param {Object} template - Collection+Json template object
