@@ -51,6 +51,7 @@ export default class StoreClient {
    * @param {string} [searchParams.title] - match plugin title containing this string
    * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date
    * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date
+   *
    * @return {Object} - JS Promise
    */
   getPlugins(searchParams = null) {
@@ -67,6 +68,7 @@ export default class StoreClient {
    * Get a plugin's information (descriptors) given its ChRIS store id.
    *
    * @param {number} id - plugin id
+   *
    * @return {Object} - JS Promise
    */
   getPlugin(id) {
@@ -80,6 +82,7 @@ export default class StoreClient {
    * @param {Object} [params=null] - page parameters
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
+   *
    * @return {Object} - JS Promise
    */
   getPluginParameters(pluginId, params = null) {
@@ -95,6 +98,7 @@ export default class StoreClient {
    * @param {string} dockImage - plugin docker image
    * @param {Object} descriptorFile - file blob
    * @param {string} publicRepo - url of the plugin public repository
+   *
    * @return {Object} - JS Promise
    */
   addPlugin(name, dockImage, descriptorFile, publicRepo) {
@@ -116,6 +120,7 @@ export default class StoreClient {
    * @param {number} id - plugin id
    * @param {string} publicRepo - url of the plugin public repository
    * @param {string} newOwner - username of a new owner for the plugin
+   *
    * @return {Object} - JS Promise
    */
   modifyPlugin(id, publicRepo = '', newOwner = '') {
@@ -167,6 +172,7 @@ export default class StoreClient {
    * Remove an existing plugin from the ChRIS store.
    *
    * @param {number} id - plugin id
+   *
    * @return {Object} - JS Promise
    */
   removePlugin(id) {
@@ -198,6 +204,7 @@ export default class StoreClient {
    * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date
    * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date
    * @param {number} [searchParams.id] - match pipeline id exactly with this number
+   *
    * @return {Object} - JS Promise
    */
   getPipelines(searchParams = null) {
@@ -221,6 +228,7 @@ export default class StoreClient {
    * Get a pipeline's information (descriptors) given its ChRIS store id.
    *
    * @param {number} id - pipeline id
+   *
    * @return {Object} - JS Promise
    */
   getPipeline(id) {
@@ -239,6 +247,7 @@ export default class StoreClient {
    * @param {Object} [params=null] - page parameters
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
+   *
    * @return {Object} - JS Promise
    */
   getPipelineDefaultParameters(pipelineId, params = null) {
@@ -267,6 +276,7 @@ export default class StoreClient {
    * @param {Object} [params=null] - page parameters
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
+   *
    * @return {Object} - JS Promise
    */
   getPipelinePipings(pipelineId, params = null) {
@@ -290,6 +300,7 @@ export default class StoreClient {
    * @param {Object} [params=null] - page parameters
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
+   *
    * @return {Object} - JS Promise
    */
   getPipelinePlugins(pipelineId, params = null) {
@@ -315,6 +326,7 @@ export default class StoreClient {
    * @param {string} data.authors - pipeline's authors
    * @param {string} data.category - pipeline's category
    * @param {string} data.description - pipeline's description
+   *
    * @return {Object} - JS Promise
    */
   modifyPipeline(id, data) {
@@ -356,6 +368,7 @@ export default class StoreClient {
    * Remove an existing pipeline from the ChRIS store.
    *
    * @param {number} id - pipeline id
+   *
    * @return {Object} - JS Promise
    */
   removePipeline(id) {
@@ -398,6 +411,7 @@ export default class StoreClient {
    * @param {Object} userInfoObj - collection object
    * @param {string} userInfoObj.email - user's email
    * @param {string} userInfoObj.password - user's password
+   *
    * @return {Object} - JS Promise
    */
   updateUser(userInfoObj) {
@@ -439,6 +453,7 @@ export default class StoreClient {
    * @param {string} password - user's password
    * @param {string} email - user's email
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise
    */
   static createUser(usersUrl, username, password, email, timeout = 30000) {
@@ -463,6 +478,7 @@ export default class StoreClient {
    * @param {string} username - user's username
    * @param {string} password - user's password
    * @param {number} [timeout=30000] - request timeout
+   *
    * @return {Object} - JS Promise
    */
   static getAuthToken(authUrl, username, password, timeout = 30000) {
@@ -488,6 +504,7 @@ export default class StoreClient {
    *
    * @param {Object} coll - collection object
    * @param {string} [collection_type='item'] - collection type, either 'list' or 'item'
+   *
    * @return {Object} - result object
    */
   static getDataFromCollection(coll, collection_type = 'item') {
@@ -516,6 +533,7 @@ export default class StoreClient {
    *
    * @param {string} url - url
    * @param {Object} [searchParams=null] - search parameters
+   *
    * @return {Object} - JS Promise
    */
   _fetchCollection(url, searchParams = null) {
@@ -529,6 +547,7 @@ export default class StoreClient {
    *
    * @param {string} resQueryUrl - query url for the resource
    * @param {number} id - plugin id
+   *
    * @return {Object} - JS Promise
    */
   _getItemResourceData(resQueryUrl, id) {
@@ -548,6 +567,7 @@ export default class StoreClient {
    *
    * @param {string} resQueryUrl - query url for the resource
    * @param {number} id - resource id
+   *
    * @return {Object} - JS Promise
    */
   _removeItemResource(resQueryUrl, id) {
@@ -586,6 +606,7 @@ export default class StoreClient {
    *
    * @param {string} resUrl -  url for the list resource
    * @param {Object} [searchParams=null] - search parameters
+   *
    * @return {Object} - JS Promise
    */
   _getListResourceData(resUrl, searchParams = null) {
@@ -604,6 +625,7 @@ export default class StoreClient {
    * @param {Object} [params=null] - page parameters
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
+   *
    * @return {Object} - JS Promise
    */
   _getResourceRelatedListData(resQueryUrl, id, listRelName, params = null) {
