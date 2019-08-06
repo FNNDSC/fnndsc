@@ -504,6 +504,7 @@ export default class StoreClient {
       result.hasNextPage = next.length ? true : false;
       const previous = Collection.getLinkRelationUrls(coll, 'previous');
       result.hasPreviousPage = previous.length ? true : false;
+      result.totalCount = Collection.getTotalNumberOfItems(coll);
     } else {
       result.data = Collection.getItemDescriptors(coll.items[0]);
     }
@@ -615,6 +616,7 @@ export default class StoreClient {
           data: [],
           hasNextPage: false,
           hasPreviousPage: false,
+          totalCount: -1,
         };
 
         try {

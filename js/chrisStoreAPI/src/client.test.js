@@ -59,6 +59,7 @@ describe('StoreClient', () => {
         expect(plugins).to.have.property('hasNextPage');
         expect(plugins).to.have.property('hasPreviousPage');
         expect(plugins.data).to.have.lengthOf.at.least(1);
+        expect(plugins.totalCount).to.be.at.least(1);
       })
       .then(done, done);
   });
@@ -88,6 +89,7 @@ describe('StoreClient', () => {
         expect(parameters).to.have.property('hasNextPage');
         expect(parameters).to.have.property('hasPreviousPage');
         expect(parameters.data).to.have.lengthOf.at.least(1);
+        expect(parameters.totalCount).to.be.at.least(1);
       })
       .then(done, done);
   });
@@ -180,6 +182,7 @@ describe('StoreClient', () => {
         expect(pipelines).to.have.property('hasNextPage');
         expect(pipelines).to.have.property('hasPreviousPage');
         expect(pipelines.data).to.have.lengthOf.at.least(1);
+        expect(pipelines.totalCount).to.be.at.least(1);
       })
       .then(done, done);
   });
@@ -200,6 +203,7 @@ describe('StoreClient', () => {
         expect(parameters).to.have.property('hasNextPage');
         expect(parameters).to.have.property('hasPreviousPage');
         expect(parameters.data).to.have.lengthOf.at.least(1);
+        expect(parameters.totalCount).to.be.at.least(1);
       })
       .then(done, done);
   });
@@ -211,6 +215,7 @@ describe('StoreClient', () => {
         expect(pipings).to.have.property('hasNextPage');
         expect(pipings).to.have.property('hasPreviousPage');
         expect(pipings.data).to.have.lengthOf.at.least(1);
+        expect(pipings.totalCount).to.be.at.least(1);
       })
       .then(done, done);
   });
@@ -223,6 +228,7 @@ describe('StoreClient', () => {
         expect(plugins).to.have.property('hasNextPage');
         expect(plugins).to.have.property('hasPreviousPage');
         expect(plugins.data).to.have.lengthOf.at.least(1);
+        expect(plugins.totalCount).to.be.at.least(1);
       })
       .then(done, done);
   });
