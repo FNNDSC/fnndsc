@@ -343,7 +343,7 @@ Now, using the system `apache2` server, the newly built viewer should be accessi
 http://yourIPaddress/rev/viewer/
 ```
 
-## Quick summary of most likely touched files duing development:
+## Quick summary of most likely touched files during development:
 
 Development will be most likely limited to the following files and variables:
 
@@ -357,8 +357,8 @@ In `index.html`:
 In `src/rev-app.html`:
 
 - `demoPrefix` This parameter is used to define the name of the file containing all the data.
-  Default : library-anon
-- `description.json` It should follow the --studyJSON parameter of pfdicom-rev. Change the end of this line:
+  Default : `library-anon`
+- `description.json` It should follow the --studyJSON parameter of `pfdicom-rev`. Change the end of this line:
 ```bash
 const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
