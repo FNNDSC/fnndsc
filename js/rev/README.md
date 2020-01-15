@@ -358,7 +358,7 @@ In `src/rev-app.html`:
 
 - `demoPrefix` This parameter is used to define the name of the file containing all the data.
   Default : `library-anon`
-- `description.json` It should follow the --studyJSON parameter of `pfdicom-rev`. Change the end of this line:
+- `description.json` It should follow the `--studyJSON` parameter of `pfdicom-rev`. Change the end of this line:
 ```bash
 const testURL = `${this.demoPrefix}/${target}/description.json`
 ```
