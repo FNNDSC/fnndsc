@@ -102,6 +102,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~pacsfile",
+    "class/src/pacsfile.js~PACSFile.html",
+    "<span>PACSFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pacsfilelist",
+    "class/src/pacsfile.js~PACSFileList.html",
+    "<span>PACSFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~pipeline",
     "class/src/pipeline.js~Pipeline.html",
     "<span>Pipeline</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -237,6 +249,18 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~resource",
     "class/src/resource.js~Resource.html",
     "<span>Resource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~servicefile",
+    "class/src/servicefile.js~ServiceFile.html",
+    "<span>ServiceFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~servicefilelist",
+    "class/src/servicefile.js~ServiceFileList.html",
+    "<span>ServiceFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -708,6 +732,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getpacsfile",
+    "class/src/client.js~Client.html#instance-method-getPACSFile",
+    "src/client.js~Client#getPACSFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpacsfiles",
+    "class/src/client.js~Client.html#instance-method-getPACSFiles",
+    "src/client.js~Client#getPACSFiles",
+    "method"
+  ],
+  [
     "src/client.js~client#getpipeline",
     "class/src/client.js~Client.html#instance-method-getPipeline",
     "src/client.js~Client#getPipeline",
@@ -756,6 +792,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getservicefile",
+    "class/src/client.js~Client.html#instance-method-getServiceFile",
+    "src/client.js~Client#getServiceFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#getservicefiles",
+    "class/src/client.js~Client.html#instance-method-getServiceFiles",
+    "src/client.js~Client#getServiceFiles",
+    "method"
+  ],
+  [
     "src/client.js~client#gettag",
     "class/src/client.js~Client.html#instance-method-getTag",
     "src/client.js~Client#getTag",
@@ -786,6 +834,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#pacsfilesurl",
+    "class/src/client.js~Client.html#instance-member-pacsFilesUrl",
+    "src/client.js~Client#pacsFilesUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#pipelineinstancesurl",
     "class/src/client.js~Client.html#instance-member-pipelineInstancesUrl",
     "src/client.js~Client#pipelineInstancesUrl",
@@ -807,6 +861,12 @@ window.esdocSearchIndex = [
     "src/client.js~client#pluginsurl",
     "class/src/client.js~Client.html#instance-member-pluginsUrl",
     "src/client.js~Client#pluginsUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#servicefilesurl",
+    "class/src/client.js~Client.html#instance-member-serviceFilesUrl",
+    "src/client.js~Client#serviceFilesUrl",
     "member"
   ],
   [
@@ -1032,6 +1092,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/feed.js~feedlist#getpacsfiles",
+    "class/src/feed.js~FeedList.html#instance-method-getPACSFiles",
+    "src/feed.js~FeedList#getPACSFiles",
+    "method"
+  ],
+  [
     "src/feed.js~feedlist#getpipelineinstances",
     "class/src/feed.js~FeedList.html#instance-method-getPipelineInstances",
     "src/feed.js~FeedList#getPipelineInstances",
@@ -1053,6 +1119,12 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#getplugins",
     "class/src/feed.js~FeedList.html#instance-method-getPlugins",
     "src/feed.js~FeedList#getPlugins",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getservicefiles",
+    "class/src/feed.js~FeedList.html#instance-method-getServiceFiles",
+    "src/feed.js~FeedList#getServiceFiles",
     "method"
   ],
   [
@@ -1180,6 +1252,36 @@ window.esdocSearchIndex = [
     "class/src/note.js~Note.html#instance-method-put",
     "src/note.js~Note#put",
     "method"
+  ],
+  [
+    "src/pacsfile.js",
+    "file/src/pacsfile.js.html",
+    "src/pacsfile.js",
+    "file"
+  ],
+  [
+    "src/pacsfile.js~pacsfile#constructor",
+    "class/src/pacsfile.js~PACSFile.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSFile#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsfile#getfileblob",
+    "class/src/pacsfile.js~PACSFile.html#instance-method-getFileBlob",
+    "src/pacsfile.js~PACSFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsfilelist#constructor",
+    "class/src/pacsfile.js~PACSFileList.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSFileList#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsfilelist#itemclass",
+    "class/src/pacsfile.js~PACSFileList.html#instance-member-itemClass",
+    "src/pacsfile.js~PACSFileList#itemClass",
+    "member"
   ],
   [
     "src/pipeline.js",
@@ -1935,6 +2037,36 @@ window.esdocSearchIndex = [
     "src/resource.js~resource#url",
     "class/src/resource.js~Resource.html#instance-member-url",
     "src/resource.js~Resource#url",
+    "member"
+  ],
+  [
+    "src/servicefile.js",
+    "file/src/servicefile.js.html",
+    "src/servicefile.js",
+    "file"
+  ],
+  [
+    "src/servicefile.js~servicefile#constructor",
+    "class/src/servicefile.js~ServiceFile.html#instance-constructor-constructor",
+    "src/servicefile.js~ServiceFile#constructor",
+    "method"
+  ],
+  [
+    "src/servicefile.js~servicefile#getfileblob",
+    "class/src/servicefile.js~ServiceFile.html#instance-method-getFileBlob",
+    "src/servicefile.js~ServiceFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/servicefile.js~servicefilelist#constructor",
+    "class/src/servicefile.js~ServiceFileList.html#instance-constructor-constructor",
+    "src/servicefile.js~ServiceFileList#constructor",
+    "method"
+  ],
+  [
+    "src/servicefile.js~servicefilelist#itemclass",
+    "class/src/servicefile.js~ServiceFileList.html#instance-member-itemClass",
+    "src/servicefile.js~ServiceFileList#itemClass",
     "member"
   ],
   [

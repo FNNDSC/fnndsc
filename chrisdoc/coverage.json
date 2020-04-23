@@ -1,7 +1,7 @@
 {
-  "coverage": "95.95%",
-  "expectCount": 297,
-  "actualCount": 285,
+  "coverage": "95.58%",
+  "expectCount": 317,
+  "actualCount": 303,
   "files": {
     "src/cj.js": {
       "expectCount": 9,
@@ -9,18 +9,20 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 41,
-      "actualCount": 32,
+      "expectCount": 47,
+      "actualCount": 36,
       "undocumentLines": [
-        37,
-        38,
         39,
         40,
         41,
         42,
         43,
         44,
-        45
+        45,
+        46,
+        47,
+        48,
+        49
       ]
     },
     "src/comment.js": {
@@ -36,8 +38,8 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 22,
-      "actualCount": 22,
+      "expectCount": 24,
+      "actualCount": 24,
       "undocumentLines": []
     },
     "src/feedfile.js": {
@@ -48,6 +50,11 @@
     "src/note.js": {
       "expectCount": 3,
       "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/pacsfile.js": {
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/pipeline.js": {
@@ -87,6 +94,11 @@
         92,
         249
       ]
+    },
+    "src/servicefile.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
     },
     "src/tag.js": {
       "expectCount": 34,

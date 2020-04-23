@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/pluginparameter.js | @fnndsc/chrisapi</title>
+  <title data-ice="title">src/servicefile.js | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -85,15 +85,17 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/pluginparameter.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/servicefile.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
+import Request from &apos;./request&apos;;
+import RequestException from &apos;./exception&apos;;
+import Collection from &apos;./cj&apos;;
 import { ItemResource, ListResource } from &apos;./resource&apos;;
-import { Plugin } from &apos;./plugin&apos;;
 
 /**
- * Plugin parameter item resource object representing a plugin parameter.
+ * Service file item resource object representing a file from an unregistered service.
  */
-export class PluginParameter extends ItemResource {
+export class ServiceFile extends ItemResource {
   /**
    * Constructor
    *
@@ -106,24 +108,28 @@ export class PluginParameter extends ItemResource {
   }
 
   /**
-   * Fetch the plugin associated to this parameter item from the REST API.
+   * Fetch the file blob associated to this file item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Object} - JS Promise, resolves to a ``Blob`` object
    */
-  getPlugin(timeout = 30000) {
-    const linkRelation = &apos;plugin&apos;;
-    const resourceClass = Plugin;
+  getFileBlob(timeout = 30000) {
+    if (this.isEmpty) {
+      throw new RequestException(&apos;Item object has not been set!&apos;);
+    }
+    const req = new Request(this.auth, &apos;application/octet-stream&apos;, timeout);
+    const item = this.collection.items[0];
+    const blobUrl = Collection.getLinkRelationUrls(item, &apos;file_resource&apos;)[0];
 
-    return this._getResource(linkRelation, resourceClass, null, timeout);
+    return req.get(blobUrl).then(resp =&gt; resp.data);
   }
 }
 
 /**
- * Plugin parameter list resource object representing a list of plugin parameters.
+ * Service file list resource object representing a list of files from an unregistered service.
  */
-export class PluginParameterList extends ListResource {
+export class ServiceFileList extends ListResource {
   /**
    * Constructor
    *
@@ -135,21 +141,7 @@ export class PluginParameterList extends ListResource {
     super(url, auth);
 
     /** @type {Object} */
-    this.itemClass = PluginParameter;
-  }
-
-  /**
-   * Fetch the plugin associated to this list of parameters from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
-   */
-  getPlugin(timeout = 30000) {
-    const linkRelation = &apos;plugin&apos;;
-    const resourceClass = Plugin;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
+    this.itemClass = ServiceFile;
   }
 }
 </code></pre>
