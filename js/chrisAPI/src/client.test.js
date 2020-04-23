@@ -169,7 +169,7 @@ describe('Client', () => {
     const pluginId = 1;
     const data = {
       title: 'Test plugin instance',
-      dir: './',
+      dir: username + '/',
     };
 
     const result = client.createPluginInstance(pluginId, data);
