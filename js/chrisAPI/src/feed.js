@@ -5,6 +5,8 @@ import { PluginList } from './plugin';
 import { PipelineList } from './pipeline';
 import { AllPipelineInstanceList } from './pipelineinstance';
 import { UploadedFileList } from './uploadedfile';
+import { PACSFileList } from './pacsfile';
+import { ServiceFileList } from './servicefile';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
@@ -314,6 +316,44 @@ export class FeedList extends ListResource {
   getUploadedFiles(searchParams = null, timeout = 30000) {
     const linkRelation = 'uploadedfiles';
     const resourceClass = UploadedFileList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of PACS files from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PACSFileList.getSearchParameters`` method can
+   * be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PACSFileList`` object
+   */
+  getPACSFiles(searchParams = null, timeout = 30000) {
+    const linkRelation = 'pacsfiles';
+    const resourceClass = PACSFileList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of files for an unregistered service from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``ServiceFileList.getSearchParameters`` method can
+   * be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ServiceFileList`` object
+   */
+  getServiceFiles(searchParams = null, timeout = 30000) {
+    const linkRelation = 'servicefiles';
+    const resourceClass = ServiceFileList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

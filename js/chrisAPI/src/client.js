@@ -10,6 +10,8 @@ import { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstanc
 import { PipelineList } from './pipeline';
 import { TagList } from './tag';
 import { UploadedFileList } from './uploadedfile';
+import { PACSFileList } from './pacsfile';
+import { ServiceFileList } from './servicefile';
 import User from './user';
 
 /**
@@ -42,6 +44,8 @@ export default class Client {
     this.pipelineInstancesUrl = '';
     this.tagsUrl = '';
     this.uploadedFilesUrl = '';
+    this.pacsFilesUrl = '';
+    this.serviceFilesUrl = '';
     this.userUrl = '';
   }
 
@@ -88,6 +92,8 @@ export default class Client {
         this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances')[0];
       this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags')[0];
       this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles')[0];
+      this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];
+      this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];
       this.userUrl = this.userUrl || getUrl(coll, 'user')[0];
 
       return feedList;
@@ -134,8 +140,8 @@ export default class Client {
    * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance
    * id exactly with this number
    * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number
-   * @param {string} [searchParams.min_creation_date] - match file creation date gte this date
-   * @param {string} [searchParams.max_creation_date] - match file creation date lte this date
+   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
+   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object
@@ -431,6 +437,8 @@ export default class Client {
    * @param {number} [searchParams.id] - match file id exactly with this number
    * @param {string} [searchParams.upload_path] - match file's upload path containing this string
    * @param {string} [searchParams.owner_username] - match file's owner username exactly with this string
+   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
+   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object
@@ -469,6 +477,76 @@ export default class Client {
       return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
     };
     return this.uploadedFilesUrl ? createRes() : this.setUrls().then(() => createRes());
+  }
+
+  /**
+   * Get a paginated list of PACS files from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file id exactly with this number
+   * @param {string} [searchParams.name] - match file's name containing this string
+   * @param {number} [searchParams.PatientID] - match file's PatientID exactly with this string
+   * @param {string} [searchParams.PatientName] - match file's PatientName containing this string
+   * @param {number} [searchParams.StudyInstanceUID] - match file's StudyInstanceUID exactly with this string
+   * @param {string} [searchParams.StudyDescription] - match file's StudyDescription containing this string
+   * @param {number} [searchParams.SeriesInstanceUID] - match file's SeriesInstanceUID exactly with this string
+   * @param {string} [searchParams.SeriesDescription] - match file's SeriesDescription containing this string
+   * @param {number} [searchParams.pacs_identifier] - match file's PACS identifier exactly with this string
+   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
+   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PACSFileList`` object
+   */
+  getPACSFiles(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pacsFilesUrl', PACSFileList, searchParams, timeout);
+  }
+
+  /**
+   * Get a PACS file resource object given its id.
+   *
+   * @param {number} id - PACS file id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PACSFile`` object
+   */
+  getPACSFile(id, timeout = 30000) {
+    return this.getPACSFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Get a paginated list of files for an unregistered service from the REST API given
+   * query search parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file id exactly with this number
+   * @param {string} [searchParams.service_identifier] - match file's service isentifier containing this string
+   * @param {number} [searchParams.service_id] - match file's service id exactly with this number
+   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
+   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ServiceFileList`` object
+   */
+  getServiceFiles(searchParams = null, timeout = 30000) {
+    return this._fetchRes('serviceFilesUrl', ServiceFileList, searchParams, timeout);
+  }
+
+  /**
+   * Get a service file resource object given its id.
+   *
+   * @param {number} id - PACS file id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ServiceFile`` object
+   */
+  getServiceFile(id, timeout = 30000) {
+    return this.getServiceFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**

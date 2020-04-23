@@ -28,6 +28,8 @@ import { User } from './user';
 import { CommentList, Comment } from './comment';
 import { AllFeedFileList, PluginInstanceFileList, FeedFileList, FeedFile } from './feedfile';
 import { UploadedFileList, UploadedFile } from './uploadedfile';
+import { PACSFileList, PACSFile } from './pacsfile';
+import { ServiceFileList, ServiceFile } from './servicefile';
 
 export default Client;
 export { Request };
@@ -51,3 +53,5 @@ export { User };
 export { CommentList, Comment };
 export { AllFeedFileList, PluginInstanceFileList, FeedFileList, FeedFile };
 export { UploadedFileList, UploadedFile };
+export { PACSFileList, PACSFile };
+export { ServiceFileList, ServiceFile };

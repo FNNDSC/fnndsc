@@ -23,12 +23,14 @@ For more information visit the [API documentation](https://fnndsc.github.io/fnnd
 These preconditions are only necessary to be able to test the client against an actual
 instance of a ChRIS server both during development and for the automated tests.
 
-#### Install latest Docker and Docker Compose. Currently tested platforms
+#### Install latest Docker and Docker Compose.
+
+Currently tested platforms:
 * ``Docker 17.04.0+``
 * ``Docker Compose 1.10.0+``
-* ``Ubuntu (16.04/17.04/17.10) and MAC OS X 10.11+``
+* ``Ubuntu 16.04+ and MAC OS X 10.11+``
 
-#### Make sure to add your computer user to the ``docker group`` in your machine
+#### On a Linux machine make sure to add your computer user to the ``docker group``
 
 #### Fire up the full set of ChRIS services:
 
@@ -37,13 +39,13 @@ Open a terminal and run the following commands in any working directory:
 ``` bash
 $> git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
 $> cd ChRIS_ultron_backEnd
-$> ./docker-make-chris_dev.sh -U -I -i
+$> ./docker-make.sh -U -I -i
 ```
 
 Check that all the services are up:
 
 ``` bash
-$> docker-compose ps
+$> docker-compose -f docker-compose_dev.yml ps
 ```
 
 #### Create a test feed by making the following POST request:
@@ -57,7 +59,7 @@ curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' 
 Using [HTTPie](https://httpie.org/) REST API client:
 
 ```bash
-http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"./"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
+http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"cube/"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
 ```
 
 #### Update the feed's files by making the following GET request:
