@@ -26,24 +26,47 @@ instance of a ChRIS Store server both during development and for the automated t
 #### Install latest Docker and Docker Compose. Currently tested platforms
 * ``Docker 17.04.0+``
 * ``Docker Compose 1.10.0+``
-* ``Ubuntu (16.04/17.04/17.10) and MAC OS X 10.11+``
+* ``Ubuntu 16.04+ and MAC OS X 10.11+``
 
-#### Make sure to add your computer user to the ``docker group`` in your machine
+#### On a Linux machine make sure to add your computer user to the ``docker`` group
 
-#### Fire up the full set of ChRIS services:
+#### Fire up the full set of ChRIS store services:
 
 Open a terminal and run the following commands in any working directory:
 
 ``` bash
-$> git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
-$> cd ChRIS_ultron_backEnd
-$> ./docker-make-chris_dev.sh -U -I -i
+$> git clone https://github.com/FNNDSC/ChRIS_store.git
+$> cd ChRIS_store
+$> ./docker-make.sh up
 ```
 
 Check that all the services are up:
 
 ``` bash
-$> docker-compose ps
+$> docker-compose -f docker-compose_dev.yml ps
+```
+
+#### GET request to the list of plugins:
+
+Using curl:
+
+```bash
+curl http://localhost:8010/api/v1/
+```
+
+Using [HTTPie](https://httpie.org/) REST API client:
+
+```bash
+http http://localhost:8010/api/v1/
+```
+
+#### Tear down the full set of ChRIS services:
+
+You can later remove all the backend containers and release storage volumes with:
+
+```bash
+$ cd ChRIS_store
+$ ./docker-make.sh down
 ```
 
 ### JavaScript package manager prerequisite
