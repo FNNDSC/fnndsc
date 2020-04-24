@@ -232,7 +232,7 @@ describe('Client', () => {
 
   it('can upload a file through the REST API', done => {
     const data = {
-      upload_path: '/test' + Date.now() + '.txt',
+      upload_path: username + '/uploads/test' + Date.now() + '.txt',
     };
     const fileContent = 'This is a test file';
     const fileData = JSON.stringify(fileContent);
@@ -243,7 +243,7 @@ describe('Client', () => {
     result
       .then(uploadedFile => {
         expect(uploadedFile).to.be.an.instanceof(UploadedFile);
-        expect(uploadedFile.data.upload_path).to.equal(data.upload_path);
+        expect(uploadedFile.data.fname).to.equal(data.upload_path);
       })
       .then(done, done);
   });

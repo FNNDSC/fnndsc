@@ -59,7 +59,7 @@ describe('Request', () => {
   it('can make authenticated multipart POST request and DELETE request', done => {
     const url = chrisUrl + 'uploadedfiles/';
     const data = {
-      upload_path: '/test' + Date.now() + '.txt',
+      upload_path: auth.username + '/uploads/test' + Date.now() + '.txt',
     };
     const fileContent = 'This is a test file';
     const fileData = JSON.stringify(fileContent);
@@ -71,7 +71,7 @@ describe('Request', () => {
     result
       .then(response => {
         const path = response.data.collection.items[0].data.filter(descriptor => {
-          return descriptor.name === 'upload_path';
+          return descriptor.name === 'fname';
         })[0].value;
 
         expect(path).to.equal(data.upload_path);

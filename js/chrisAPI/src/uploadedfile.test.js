@@ -23,7 +23,7 @@ describe('Resource', () => {
 
           // create one uploaded file item resource
           const data = {
-            upload_path: '/test' + Date.now() + '.txt',
+            upload_path: username + '/uploads/test' + Date.now() + '.txt',
           };
           const fileContent = 'This is an uploaded test file';
           const fileData = JSON.stringify(fileContent);
@@ -84,7 +84,7 @@ describe('Resource', () => {
 
     it('can create a new uploaded file item resource through a REST API POST request', done => {
       const data = {
-        upload_path: '/test' + Date.now() + '.txt',
+        upload_path: username + '/uploads/test' + Date.now() + '.txt',
       };
       const fileContent = 'This is a test file';
       const fileData = JSON.stringify(fileContent);
@@ -95,7 +95,7 @@ describe('Resource', () => {
 
       result
         .then(uploadedFileList => {
-          expect(uploadedFileList.data[0].upload_path).to.equal(data.upload_path);
+          expect(uploadedFileList.data[0].fname).to.equal(data.upload_path);
         })
         .then(done, done);
     });

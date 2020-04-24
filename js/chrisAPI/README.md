@@ -76,6 +76,17 @@ Using [HTTPie](https://httpie.org/) REST API client:
 http -a cube:cube1234 http://localhost:8000/api/v1/plugins/instances/1/
 ```
 
+Keep making this GET request until the ``"status"`` descriptor in the response becomes ``"finishedSuccessfully"``
+
+#### Tear down the full set of ChRIS services:
+
+You can later remove all the backend containers and release storage volumes with:
+
+```bash
+$ cd ChRIS_ultron_backEnd
+$ ./docker-destroy.sh
+```
+
 ### JavaScript package manager prerequisite
 
 * yarn
