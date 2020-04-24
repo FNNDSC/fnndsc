@@ -523,7 +523,8 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match file id exactly with this number
-   * @param {string} [searchParams.upload_path] - match file&apos;s upload path containing this string
+   * @param {string} [searchParams.fname] - match file&apos;s upload path containing this string
+   * @param {string} [searchParams.fname_exact] - match file&apos;s upload path exactly with this string
    * @param {string} [searchParams.owner_username] - match file&apos;s owner username exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file&apos;s creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file&apos;s creation_date lesser than this date string
@@ -575,7 +576,8 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match file id exactly with this number
-   * @param {string} [searchParams.name] - match file&apos;s name containing this string
+   * @param {string} [searchParams.fname] - match file&apos;s path containing this string
+   * @param {string} [searchParams.fname_exact] - match file&apos;s path exactly with this string
    * @param {number} [searchParams.PatientID] - match file&apos;s PatientID exactly with this string
    * @param {string} [searchParams.PatientName] - match file&apos;s PatientName containing this string
    * @param {number} [searchParams.StudyInstanceUID] - match file&apos;s StudyInstanceUID exactly with this string
@@ -613,6 +615,8 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match file id exactly with this number
+   * @param {string} [searchParams.fname] - match file&apos;s path containing this string
+   * @param {string} [searchParams.fname_exact] - match file&apos;s path exactly with this string
    * @param {string} [searchParams.service_identifier] - match file&apos;s service isentifier containing this string
    * @param {number} [searchParams.service_id] - match file&apos;s service id exactly with this number
    * @param {string} [searchParams.min_creation_date] - match file&apos;s creation_date greater than this date string
