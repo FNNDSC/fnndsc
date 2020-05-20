@@ -53,7 +53,7 @@ $> docker-compose -f docker-compose_dev.yml ps
 Using curl:
 
 ```bash
-curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"./"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
+curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
 ```
 
 Using [HTTPie](https://httpie.org/) REST API client:

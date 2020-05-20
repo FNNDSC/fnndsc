@@ -4,6 +4,7 @@ import Request from './request';
 import RequestException from './exception';
 import { FeedList } from './feed';
 import { AllFeedFileList } from './feedfile';
+import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
 import { AllPluginInstanceList, PluginInstanceList } from './plugininstance';
 import { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstance';
@@ -38,6 +39,7 @@ export default class Client {
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
     this.filesUrl = '';
+    this.computeResourcesUrl = '';
     this.pluginsUrl = '';
     this.pluginInstancesUrl = '';
     this.pipelinesUrl = '';
@@ -85,6 +87,7 @@ export default class Client {
       const getUrl = Collection.getLinkRelationUrls;
 
       this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
+      this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];
       this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances')[0];
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];
@@ -160,6 +163,39 @@ export default class Client {
    */
   getFile(id, timeout = 30000) {
     return this.getFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Get a paginated list of compute resources from the REST API given query
+   * search parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file id exactly with this number
+   * @param {string} [searchParams.name] - match compute resource's name containing this string
+   * @param {string} [searchParams.name_exact] - match compute resource's name exactly with this string
+   * @param {string} [searchParams.description] - match compute resource's description containing this string
+   * @param {string} [searchParams.plugin_id] - match plugin id exactly with this string for all the
+   * compute resources associated with the plugin
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object
+   */
+  getComputeResources(searchParams = null, timeout = 30000) {
+    return this._fetchRes('computeResourcesUrl', ComputeResourceList, searchParams, timeout);
+  }
+
+  /**
+   * Get a compute resource object given its id.
+   *
+   * @param {number} id - compute resource id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
+   */
+  getComputeResource(id, timeout = 30000) {
+    return this.getComputeResources({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**

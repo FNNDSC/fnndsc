@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import Request from './request';
 import { Plugin } from './plugin';
 import { FeedList } from './feed';
+import { PluginComputeResourceList } from './computeresource';
 import { PluginParameterList } from './pluginparameter';
 import { PluginInstanceList } from './plugininstance';
 
@@ -46,6 +47,16 @@ describe('Resource', () => {
         .then(plgParams => {
           expect(plgParams).to.be.an.instanceof(PluginParameterList);
           expect(plgParams.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch the associated compute resources from the REST API', done => {
+      const result = plugin.getPluginComputeResources();
+      result
+        .then(computeResources => {
+          expect(computeResources).to.be.an.instanceof(PluginComputeResourceList);
+          expect(computeResources.isEmpty).to.be.false;
         })
         .then(done, done);
     });

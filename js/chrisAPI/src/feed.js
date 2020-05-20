@@ -1,6 +1,7 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
 import User from './user';
+import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
 import { PipelineList } from './pipeline';
 import { AllPipelineInstanceList } from './pipelineinstance';
@@ -202,6 +203,25 @@ export class FeedList extends ListResource {
   getFiles(searchParams = null, timeout = 30000) {
     const linkRelation = 'files';
     const resourceClass = AllFeedFileList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of compute resources from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``ComputeResourceList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object
+   */
+  getComputeResources(searchParams = null, timeout = 30000) {
+    const linkRelation = 'compute_resources';
+    const resourceClass = ComputeResourceList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

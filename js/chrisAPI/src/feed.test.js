@@ -7,6 +7,7 @@ import { CommentList, Comment } from './comment';
 import { FeedFileList } from './feedfile';
 import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 import User from './user';
+import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
 import { UploadedFileList } from './uploadedfile';
 
@@ -132,6 +133,16 @@ describe('Resource', () => {
         .then(user => {
           expect(user).to.be.an.instanceof(User);
           expect(user.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch the list of compute resources from the REST API', done => {
+      const result = feedList.getComputeResources();
+      result
+        .then(computeResourceList => {
+          expect(computeResourceList).to.be.an.instanceof(ComputeResourceList);
+          expect(computeResourceList.isEmpty).to.be.false;
         })
         .then(done, done);
     });

@@ -1,5 +1,6 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
+import { ComputeResource } from './computeresource';
 import { PluginList, Plugin } from './plugin';
 import { Feed } from './feed';
 import { PluginParameter } from './pluginparameter';
@@ -51,6 +52,20 @@ export class PluginInstance extends ItemResource {
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';
     const resourceClass = Plugin;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the compute resource associated to this plugin instance item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
+   */
+  getComputeResource(timeout = 30000) {
+    const linkRelation = 'compute_resource';
+    const resourceClass = ComputeResource;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }

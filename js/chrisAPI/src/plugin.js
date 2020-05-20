@@ -2,6 +2,7 @@
 import { ItemResource, ListResource } from './resource';
 import { FeedList } from './feed';
 import { PluginParameterList } from './pluginparameter';
+import { PluginComputeResourceList } from './computeresource';
 import { PluginInstanceList } from './plugininstance';
 
 /**
@@ -32,6 +33,24 @@ export class Plugin extends ItemResource {
   getPluginParameters(params = null, timeout = 30000) {
     const linkRelation = 'parameters';
     const resourceClass = PluginParameterList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Fetch a list of compute resources registered with this plugin from the REST
+   * API.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginComputeResourceList`` object
+   */
+  getPluginComputeResources(params = null, timeout = 30000) {
+    const linkRelation = 'compute_resources';
+    const resourceClass = PluginComputeResourceList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }

@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import Collection from './cj';
 import Request from './request';
 import { FeedList, Feed } from './feed';
+import { ComputeResource } from './computeresource';
 import { Plugin } from './plugin';
 import { PluginInstanceDescendantList, PluginInstance } from './plugininstance';
 import { PluginInstanceParameterList } from './plugininstance';
@@ -75,6 +76,16 @@ describe('Resource', () => {
         .then(plugin => {
           expect(plugin).to.be.an.instanceof(Plugin);
           expect(plugin.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch the compute resource associated to the plugin instance from the REST API', done => {
+      const result = pluginInst.getComputeResource();
+      result
+        .then(cr => {
+          expect(cr).to.be.an.instanceof(ComputeResource);
+          expect(cr.isEmpty).to.be.false;
         })
         .then(done, done);
     });
