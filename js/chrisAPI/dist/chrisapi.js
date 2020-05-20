@@ -72,7 +72,7 @@
     },
     function(t, e, n) {
       'use strict';
-      var r = n(6),
+      var r = n(9),
         o = n(21),
         i = n(15),
         u = n(11),
@@ -82,7 +82,7 @@
         l = n(32),
         f = n(31),
         p = n(26),
-        h = n(7),
+        h = n(10),
         v = n(65),
         y = n(64),
         g = n(97),
@@ -94,14 +94,14 @@
         P = n(37),
         O = n(25),
         S = n(30),
-        k = n(98),
-        R = n(68),
+        R = n(98),
+        k = n(68),
         j = n(66),
         x = n(13),
         T = n(33),
-        E = R.f,
-        F = x.f,
-        C = k.f,
+        E = k.f,
+        C = x.f,
+        F = R.f,
         U = r.Symbol,
         I = r.JSON,
         A = I && I.stringify,
@@ -121,9 +121,9 @@
             return (
               7 !=
               S(
-                F({}, 'a', {
+                C({}, 'a', {
                   get: function() {
-                    return F(this, 'a', { value: 7 }).a;
+                    return C(this, 'a', { value: 7 }).a;
                   },
                 })
               ).a
@@ -131,9 +131,9 @@
           })
             ? function(t, e, n) {
                 var r = E(z, e);
-                r && delete z[e], F(t, e, n), r && t !== z && F(z, e, r);
+                r && delete z[e], C(t, e, n), r && t !== z && C(z, e, r);
               }
-            : F,
+            : C,
         K = function(t) {
           var e = (q[t] = S(U.prototype));
           return (e._k = t), e;
@@ -155,9 +155,9 @@
             o(q, e)
               ? (n.enumerable
                   ? (o(t, L) && t[L][e] && (t[L][e] = !1), (n = S(n, { enumerable: O(0, !1) })))
-                  : (o(t, L) || F(t, L, O(1, {})), (t[L][e] = !0)),
+                  : (o(t, L) || C(t, L, O(1, {})), (t[L][e] = !0)),
                 J(t, e, n))
-              : F(t, e, n)
+              : C(t, e, n)
           );
         },
         X = function(t, e) {
@@ -179,12 +179,12 @@
           }
         },
         Z = function(t) {
-          for (var e, n = C(w(t)), r = [], i = 0; n.length > i; )
+          for (var e, n = F(w(t)), r = [], i = 0; n.length > i; )
             o(q, (e = n[i++])) || e == L || e == a || r.push(e);
           return r;
         },
         tt = function(t) {
-          for (var e, n = t === z, r = C(n ? B : w(t)), i = [], u = 0; r.length > u; )
+          for (var e, n = t === z, r = F(n ? B : w(t)), i = [], u = 0; r.length > u; )
             !o(q, (e = r[u++])) || (n && !o(z, e)) || i.push(q[e]);
           return i;
         };
@@ -205,9 +205,9 @@
             return this._k;
           }
         ),
-        (R.f = Y),
+        (k.f = Y),
         (x.f = $),
-        (n(67).f = k.f = Z),
+        (n(67).f = R.f = Z),
         (n(46).f = Q),
         (j.f = tt),
         i && !n(27) && c(z, 'propertyIsEnumerable', Q, !0),
@@ -328,7 +328,7 @@
       'use strict';
       var r = n(48),
         o = {};
-      (o[n(7)('toStringTag')] = 'z'),
+      (o[n(10)('toStringTag')] = 'z'),
         o + '' != '[object z]' &&
           n(17)(
             Object.prototype,
@@ -338,24 +338,6 @@
             },
             !0
           );
-    },
-    function(t, e) {
-      var n = (t.exports =
-        'undefined' != typeof window && window.Math == Math
-          ? window
-          : 'undefined' != typeof self && self.Math == Math
-          ? self
-          : Function('return this')());
-      'number' == typeof __g && (__g = n);
-    },
-    function(t, e, n) {
-      var r = n(32)('wks'),
-        o = n(26),
-        i = n(6).Symbol,
-        u = 'function' == typeof i;
-      (t.exports = function(t) {
-        return r[t] || (r[t] = (u && i[t]) || (u ? i : o)('Symbol.' + t));
-      }).store = r;
     },
     function(t, e, n) {
       var r = n(11);
@@ -369,7 +351,7 @@
         c = n(12),
         a = n(18),
         s = n(85),
-        l = (n(6).Reflect || {}).construct,
+        l = (n(9).Reflect || {}).construct,
         f = a(function() {
           function t() {}
           return !(l(function() {}, [], t) instanceof t);
@@ -409,8 +391,26 @@
       var r = n(11);
       r(r.S, 'Object', { setPrototypeOf: n(84).set });
     },
+    function(t, e) {
+      var n = (t.exports =
+        'undefined' != typeof window && window.Math == Math
+          ? window
+          : 'undefined' != typeof self && self.Math == Math
+          ? self
+          : Function('return this')());
+      'number' == typeof __g && (__g = n);
+    },
     function(t, e, n) {
-      var r = n(6),
+      var r = n(32)('wks'),
+        o = n(26),
+        i = n(9).Symbol,
+        u = 'function' == typeof i;
+      (t.exports = function(t) {
+        return r[t] || (r[t] = (u && i[t]) || (u ? i : o)('Symbol.' + t));
+      }).store = r;
+    },
+    function(t, e, n) {
+      var r = n(9),
         o = n(22),
         i = n(20),
         u = n(17),
@@ -576,7 +576,7 @@
       };
     },
     function(t, e, n) {
-      var r = n(6),
+      var r = n(9),
         o = n(20),
         i = n(21),
         u = n(26)('src'),
@@ -730,14 +730,14 @@
     function(t, e, n) {
       var r = n(13).f,
         o = n(21),
-        i = n(7)('toStringTag');
+        i = n(10)('toStringTag');
       t.exports = function(t, e, n) {
         t && !o((t = n ? t : t.prototype), i) && r(t, i, { configurable: !0, value: e });
       };
     },
     function(t, e, n) {
       var r = n(22),
-        o = n(6),
+        o = n(9),
         i = o['__core-js_shared__'] || (o['__core-js_shared__'] = {});
       (t.exports = function(t, e) {
         return i[t] || (i[t] = void 0 !== e ? e : {});
@@ -771,7 +771,7 @@
     },
     function(t, e, n) {
       var r = n(12),
-        o = n(6).document,
+        o = n(9).document,
         i = r(o) && r(o.createElement);
       t.exports = function(t) {
         return i ? o.createElement(t) : {};
@@ -793,10 +793,10 @@
         var r = n(57),
           o = n(33),
           i = n(17),
-          u = n(6),
+          u = n(9),
           c = n(20),
           a = n(28),
-          s = n(7),
+          s = n(10),
           l = s('iterator'),
           f = s('toStringTag'),
           p = a.Array,
@@ -863,7 +863,7 @@
         a = n(93),
         s = n(31),
         l = n(96),
-        f = n(7)('iterator'),
+        f = n(10)('iterator'),
         p = !([].keys && 'next' in [].keys()),
         h = function() {
           return this;
@@ -874,7 +874,7 @@
           b,
           _,
           w = function(t) {
-            if (!p && t in k) return k[t];
+            if (!p && t in R) return R[t];
             switch (t) {
               case 'keys':
               case 'values':
@@ -889,30 +889,30 @@
           P = e + ' Iterator',
           O = 'values' == y,
           S = !1,
-          k = t.prototype,
-          R = k[f] || k['@@iterator'] || (y && k[y]),
-          j = R || w(y),
+          R = t.prototype,
+          k = R[f] || R['@@iterator'] || (y && R[y]),
+          j = k || w(y),
           x = y ? (O ? w('entries') : j) : void 0,
-          T = ('Array' == e && k.entries) || R;
+          T = ('Array' == e && R.entries) || k;
         if (
           (T &&
             (_ = l(T.call(new t()))) !== Object.prototype &&
             _.next &&
             (s(_, P, !0), r || 'function' == typeof _[f] || u(_, f, h)),
           O &&
-            R &&
-            'values' !== R.name &&
+            k &&
+            'values' !== k.name &&
             ((S = !0),
             (j = function() {
-              return R.call(this);
+              return k.call(this);
             })),
-          (r && !d) || (!p && !S && k[f]) || u(k, f, j),
+          (r && !d) || (!p && !S && R[f]) || u(R, f, j),
           (c[e] = j),
           (c[P] = h),
           y)
         )
           if (((m = { values: O ? j : w('values'), keys: g ? j : w('keys'), entries: x }), d))
-            for (b in m) b in k || i(k, b, m[b]);
+            for (b in m) b in R || i(R, b, m[b]);
           else o(o.P + o.F * (p || S), e, m);
         return m;
       };
@@ -1010,7 +1010,7 @@
     },
     function(t, e, n) {
       var r = n(29),
-        o = n(7)('toStringTag'),
+        o = n(10)('toStringTag'),
         i =
           'Arguments' ==
           r(
@@ -1039,7 +1039,7 @@
       };
     },
     function(t, e, n) {
-      var r = n(7)('iterator'),
+      var r = n(10)('iterator'),
         o = !1;
       try {
         var i = [7][r]();
@@ -1288,7 +1288,7 @@
       };
     },
     function(t, e, n) {
-      var r = n(6).document;
+      var r = n(9).document;
       t.exports = r && r.documentElement;
     },
     function(t, e, n) {
@@ -1296,7 +1296,7 @@
       r(r.S, 'Array', { isArray: n(44) });
     },
     function(t, e, n) {
-      var r = n(6),
+      var r = n(9),
         o = n(22),
         i = n(27),
         u = n(65),
@@ -1307,7 +1307,7 @@
       };
     },
     function(t, e, n) {
-      e.f = n(7);
+      e.f = n(10);
     },
     function(t, e) {
       e.f = Object.getOwnPropertySymbols;
@@ -1394,7 +1394,7 @@
     },
     function(t, e, n) {
       var r = n(28),
-        o = n(7)('iterator'),
+        o = n(10)('iterator'),
         i = Array.prototype;
       t.exports = function(t) {
         return void 0 !== t && (r.Array === t || i[o] === t);
@@ -1402,7 +1402,7 @@
     },
     function(t, e, n) {
       var r = n(48),
-        o = n(7)('iterator'),
+        o = n(10)('iterator'),
         i = n(28);
       t.exports = n(22).getIteratorMethod = function(t) {
         if (null != t) return t[o] || t['@@iterator'] || i[r(t)];
@@ -1609,10 +1609,10 @@
     },
     function(t, e, n) {
       'use strict';
-      var r = n(6),
+      var r = n(9),
         o = n(13),
         i = n(15),
-        u = n(7)('species');
+        u = n(10)('species');
       t.exports = function(t) {
         var e = r[t];
         i &&
@@ -1709,7 +1709,7 @@
         i,
         u,
         c = n(27),
-        a = n(6),
+        a = n(9),
         s = n(19),
         l = n(48),
         f = n(11),
@@ -1726,27 +1726,27 @@
         P = n(132),
         O = a.TypeError,
         S = a.process,
-        k = S && S.versions,
-        R = (k && k.v8) || '',
+        R = S && S.versions,
+        k = (R && R.v8) || '',
         j = a.Promise,
         x = 'process' == l(S),
         T = function() {},
         E = (o = b.f),
-        F = !!(function() {
+        C = !!(function() {
           try {
             var t = j.resolve(1),
-              e = ((t.constructor = {})[n(7)('species')] = function(t) {
+              e = ((t.constructor = {})[n(10)('species')] = function(t) {
                 t(T, T);
               });
             return (
               (x || 'function' == typeof PromiseRejectionEvent) &&
               t.then(T) instanceof e &&
-              0 !== R.indexOf('6.6') &&
+              0 !== k.indexOf('6.6') &&
               -1 === w.indexOf('Chrome/66')
             );
           } catch (t) {}
         })(),
-        C = function(t) {
+        F = function(t) {
           var e;
           return !(!p(t) || 'function' != typeof (e = t.then)) && e;
         },
@@ -1775,7 +1775,7 @@
                             : (l && l.enter(), (n = c(r)), l && (l.exit(), (u = !0))),
                           n === e.promise
                             ? s(O('Promise-chain cycle'))
-                            : (i = C(n))
+                            : (i = F(n))
                             ? i.call(n, a, s)
                             : a(n))
                         : s(r);
@@ -1841,7 +1841,7 @@
             (n._d = !0), (n = n._w || n);
             try {
               if (n === t) throw O("Promise can't be resolved itself");
-              (e = C(t))
+              (e = F(t))
                 ? m(function() {
                     var r = { _w: n, _d: !1 };
                     try {
@@ -1856,7 +1856,7 @@
             }
           }
         };
-      F ||
+      C ||
         ((j = function(t) {
           v(this, j, 'Promise', '_h'), h(t), r.call(this);
           try {
@@ -1897,17 +1897,17 @@
         (b.f = E = function(t) {
           return t === j || t === u ? new i(t) : o(t);
         })),
-        f(f.G + f.W + f.F * !F, { Promise: j }),
+        f(f.G + f.W + f.F * !C, { Promise: j }),
         n(31)(j, 'Promise'),
         n(82)('Promise'),
         (u = n(22).Promise),
-        f(f.S + f.F * !F, 'Promise', {
+        f(f.S + f.F * !C, 'Promise', {
           reject: function(t) {
             var e = E(this);
             return (0, e.reject)(t), e.promise;
           },
         }),
-        f(f.S + f.F * (c || !F), 'Promise', {
+        f(f.S + f.F * (c || !C), 'Promise', {
           resolve: function(t) {
             return P(c && this === u ? j : this, t);
           },
@@ -1916,7 +1916,7 @@
           f.S +
             f.F *
               !(
-                F &&
+                C &&
                 n(49)(function(t) {
                   j.all(t).catch(T);
                 })
@@ -1967,7 +1967,7 @@
         c = n(86),
         a = n(62),
         s = n(36),
-        l = n(6),
+        l = n(9),
         f = l.process,
         p = l.setImmediate,
         h = l.clearImmediate,
@@ -2049,7 +2049,7 @@
       t.exports = n(32)('native-function-to-string', Function.toString);
     },
     function(t, e, n) {
-      var r = n(7)('unscopables'),
+      var r = n(10)('unscopables'),
         o = Array.prototype;
       null == o[r] && n(20)(o, r, {}),
         (t.exports = function(t) {
@@ -2062,7 +2062,7 @@
         o = n(25),
         i = n(31),
         u = {};
-      n(20)(u, n(7)('iterator'), function() {
+      n(20)(u, n(10)('iterator'), function() {
         return this;
       }),
         (t.exports = function(t, e, n) {
@@ -2192,7 +2192,7 @@
     function(t, e, n) {
       var r = n(12),
         o = n(44),
-        i = n(7)('species');
+        i = n(10)('species');
       t.exports = function(t) {
         var e;
         return (
@@ -2828,7 +2828,7 @@
     },
     function(t, e, n) {
       'use strict';
-      var r = n(6),
+      var r = n(9),
         o = n(11),
         i = n(17),
         u = n(53),
@@ -2877,8 +2877,8 @@
               })))
         ) {
           var S = new b(),
-            k = S[_](d ? {} : -0, 1) != S,
-            R = f(function() {
+            R = S[_](d ? {} : -0, 1) != S,
+            k = f(function() {
               S.has(1);
             }),
             j = p(function(t) {
@@ -2897,8 +2897,8 @@
               return null != n && a(n, g, r[_], r), r;
             })).prototype = w),
             (w.constructor = b)),
-            (R || x) && (O('delete'), O('has'), g && O('get')),
-            (x || k) && O(_),
+            (k || x) && (O('delete'), O('has'), g && O('get')),
+            (x || R) && O(_),
             d && w.clear && delete w.clear;
         } else (b = y.getConstructor(e, t, g, _)), u(b.prototype, n), (c.NEED = !0);
         return h(b, t), (P[t] = b), o(o.G + o.W + o.F * (b != m), P), d || y.setStrong(b, t, g), b;
@@ -2940,7 +2940,7 @@
     function(t, e, n) {
       var r = n(14),
         o = n(23),
-        i = n(7)('species');
+        i = n(10)('species');
       t.exports = function(t, e) {
         var n,
           u = r(t).constructor;
@@ -2948,7 +2948,7 @@
       };
     },
     function(t, e, n) {
-      var r = n(6),
+      var r = n(9),
         o = n(88).set,
         i = r.MutationObserver || r.WebKitMutationObserver,
         u = r.process,
@@ -3008,7 +3008,7 @@
       };
     },
     function(t, e, n) {
-      var r = n(6).navigator;
+      var r = n(9).navigator;
       t.exports = (r && r.userAgent) || '';
     },
     function(t, e, n) {
@@ -3034,101 +3034,107 @@
           return d;
         }),
         n.d(e, 'ListResource', function() {
-          return A;
+          return I;
         }),
         n.d(e, 'ItemResource', function() {
-          return I;
+          return U;
         }),
         n.d(e, 'Resource', function() {}),
         n.d(e, 'FeedList', function() {
-          return $n;
-        }),
-        n.d(e, 'Feed', function() {
           return Wn;
         }),
+        n.d(e, 'Feed', function() {
+          return Kn;
+        }),
         n.d(e, 'PluginList', function() {
-          return _e;
+          return he;
         }),
         n.d(e, 'Plugin', function() {
-          return be;
+          return pe;
         }),
         n.d(e, 'PluginParameterList', function() {
-          return tt;
+          return Y;
         }),
         n.d(e, 'PluginParameter', function() {
-          return Z;
+          return Q;
+        }),
+        n.d(e, 'ComputeResourceList', function() {
+          return Se;
+        }),
+        n.d(e, 'ComputeResource', function() {
+          return Oe;
         }),
         n.d(e, 'AllPluginInstanceList', function() {
-          return re;
+          return Qt;
         }),
         n.d(e, 'PluginInstanceList', function() {
-          return ne;
+          return Xt;
         }),
         n.d(e, 'PluginInstance', function() {
-          return ee;
+          return $t;
         }),
         n.d(e, 'PluginInstanceDescendantList', function() {
-          return ue;
+          return te;
         }),
         n.d(e, 'PluginInstanceParameterList', function() {
-          return ae;
+          return ne;
         }),
         n.d(e, 'PluginInstanceParameter', function() {
-          return ce;
+          return ee;
         }),
         n.d(e, 'FeedPluginInstanceList', function() {
-          return oe;
+          return Yt;
         }),
         n.d(e, 'PipelineInstancePluginInstanceList', function() {
-          return ie;
+          return Zt;
         }),
         n.d(e, 'PipelineList', function() {
-          return Rt;
+          return Pt;
         }),
         n.d(e, 'PipelinePluginList', function() {
-          return Tt;
+          return Rt;
         }),
         n.d(e, 'PipelinePluginPipingList', function() {
-          return Et;
-        }),
-        n.d(e, 'Pipeline', function() {
           return kt;
         }),
-        n.d(e, 'PipelinePipingDefaultParameterList', function() {
-          return Ft;
+        n.d(e, 'Pipeline', function() {
+          return wt;
         }),
-        n.d(e, 'PluginPiping', function() {
+        n.d(e, 'PipelinePipingDefaultParameterList', function() {
           return jt;
         }),
+        n.d(e, 'PluginPiping', function() {
+          return Ot;
+        }),
         n.d(e, 'PipingDefaultParameter', function() {
-          return xt;
+          return St;
         }),
         n.d(e, 'AllPipelineInstanceList', function() {
-          return Gt;
+          return Mt;
         }),
         n.d(e, 'PipelineInstanceList', function() {
-          return Ht;
+          return Nt;
         }),
         n.d(e, 'PipelineInstance', function() {
-          return zt;
+          return Dt;
         }),
         n.d(e, 'TagList', function() {
-          return _n;
-        }),
-        n.d(e, 'Tag', function() {
-          return bn;
-        }),
-        n.d(e, 'TagTaggingList', function() {
-          return Pn;
-        }),
-        n.d(e, 'FeedTaggingList', function() {
-          return On;
-        }),
-        n.d(e, 'Tagging', function() {
           return wn;
         }),
-        n.d(e, 'TagFeedList', function() {
+        n.d(e, 'Tag', function() {
+          return _n;
+        }),
+        n.d(e, 'TagTaggingList', function() {
+          return On;
+        }),
+        n.d(e, 'FeedTaggingList', function() {
           return Sn;
+        }),
+        n.d(e, 'Tagging', function() {
+          return Pn;
+        }),
+        n.d(e, 'TagFeedList', function() {
+          return Rn;
         }),
         n.d(e, 'FeedTagList', function() {
           return kn;
@@ -3142,34 +3148,34 @@
           return Ln;
         }),
         n.d(e, 'AllFeedFileList', function() {
-          return ht;
+          return lt;
         }),
         n.d(e, 'PluginInstanceFileList', function() {
-          return vt;
-        }),
-        n.d(e, 'FeedFileList', function() {
-          return pt;
-        }),
-        n.d(e, 'FeedFile', function() {
           return ft;
         }),
+        n.d(e, 'FeedFileList', function() {
+          return st;
+        }),
+        n.d(e, 'FeedFile', function() {
+          return at;
+        }),
         n.d(e, 'UploadedFileList', function() {
-          return Ce;
+          return Le;
         }),
         n.d(e, 'UploadedFile', function() {
-          return Fe;
+          return Ae;
         }),
         n.d(e, 'PACSFileList', function() {
-          return He;
+          return Je;
         }),
         n.d(e, 'PACSFile', function() {
-          return ze;
+          return Ve;
         }),
         n.d(e, 'ServiceFileList', function() {
-          return tn;
+          return nn;
         }),
         n.d(e, 'ServiceFile', function() {
-          return Ze;
+          return en;
         });
       n(0), n(38), n(63), n(1), n(2), n(47), n(69), n(3), n(4), n(5), n(50), n(74), n(76);
       function r(t) {
@@ -3181,7 +3187,7 @@
               if ('string' == typeof t) return o(t, e);
               var n = Object.prototype.toString.call(t).slice(8, -1);
               'Object' === n && t.constructor && (n = t.constructor.name);
-              if ('Map' === n || 'Set' === n) return Array.from(n);
+              if ('Map' === n || 'Set' === n) return Array.from(t);
               if ('Arguments' === n || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
                 return o(t, e);
             })(t))
@@ -3334,7 +3340,7 @@
         })(),
         c = n(90),
         a = n.n(c);
-      n(8), n(57), n(122), n(126), n(9), n(127), n(10);
+      n(6), n(57), n(122), n(126), n(7), n(127), n(8);
       function s(t) {
         return (s =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
@@ -3429,31 +3435,33 @@
             constructor: { value: t, writable: !0, configurable: !0 },
           })),
             e && y(t, e);
-        })(r, t);
+        })(o, t);
         var e,
-          n =
-            ((e = r),
+          n,
+          r =
+            ((e = o),
+            (n = v()),
             function() {
               var t,
-                n = g(e);
-              if (v()) {
-                var r = g(this).constructor;
-                t = Reflect.construct(n, arguments, r);
-              } else t = n.apply(this, arguments);
+                r = g(e);
+              if (n) {
+                var o = g(this).constructor;
+                t = Reflect.construct(r, arguments, o);
+              } else t = r.apply(this, arguments);
               return f(this, t);
             });
-        function r() {
+        function o() {
           var t;
-          l(this, r);
-          for (var e = arguments.length, o = new Array(e), i = 0; i < e; i++) o[i] = arguments[i];
+          l(this, o);
+          for (var e = arguments.length, n = new Array(e), i = 0; i < e; i++) n[i] = arguments[i];
           return (
-            ((t = n.call.apply(n, [this].concat(o))).name = t.constructor.name),
+            ((t = r.call.apply(r, [this].concat(n))).name = t.constructor.name),
             (t.request = null),
             (t.response = null),
             t
           );
         }
-        return r;
+        return o;
       })(p(Error));
       function m(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
@@ -3606,7 +3614,7 @@
               if ('string' == typeof t) return P(t, e);
               var n = Object.prototype.toString.call(t).slice(8, -1);
               'Object' === n && t.constructor && (n = t.constructor.name);
-              if ('Map' === n || 'Set' === n) return Array.from(n);
+              if ('Map' === n || 'Set' === n) return Array.from(t);
               if ('Arguments' === n || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))
                 return P(t, e);
             })(t))
@@ -3672,19 +3680,29 @@
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function k(t) {
+      function R(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = x(t);
-          if (j()) {
-            var r = x(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return R(this, e);
+          var n,
+            r = j(t);
+          if (e) {
+            var o = j(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return k(this, n);
         };
       }
-      function R(t, e) {
-        return !e || ('object' !== T(e) && 'function' != typeof e)
+      function k(t, e) {
+        return !e || ('object' !== x(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -3694,25 +3712,15 @@
             })(t)
           : e;
       }
-      function j() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function x(t) {
-        return (x = Object.setPrototypeOf
+      function j(t) {
+        return (j = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      function T(t) {
-        return (T =
+      function x(t) {
+        return (x =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -3726,10 +3734,10 @@
                   : typeof t;
               })(t);
       }
-      function E(t, e) {
+      function T(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function F(t, e) {
+      function E(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -3739,11 +3747,11 @@
         }
       }
       function C(t, e, n) {
-        return e && F(t.prototype, e), n && F(t, n), t;
+        return e && E(t.prototype, e), n && E(t, n), t;
       }
-      var U = (function() {
+      var F = (function() {
           function t(e, n) {
-            if ((E(this, t), (this.url = e), !n)) throw new d('Authentication object is required');
+            if ((T(this, t), (this.url = e), !n)) throw new d('Authentication object is required');
             (this.auth = n),
               (this.contentType = 'application/vnd.collection+json'),
               (this.collection = null);
@@ -3755,7 +3763,7 @@
                 value: function() {
                   var t = Object.create(Object.getPrototypeOf(this));
                   for (var e in this)
-                    null !== this[e] && 'object' === T(this[e])
+                    null !== this[e] && 'object' === x(this[e])
                       ? (t[e] = JSON.parse(JSON.stringify(this[e])))
                       : (t[e] = this[e]);
                   return t;
@@ -3771,11 +3779,11 @@
             t
           );
         })(),
-        I = (function(t) {
+        U = (function(t) {
           O(n, t);
-          var e = k(n);
+          var e = R(n);
           function n(t, r) {
-            return E(this, n), e.call(this, t, r);
+            return T(this, n), e.call(this, t, r);
           }
           return (
             C(n, [
@@ -3860,17 +3868,17 @@
             ]),
             n
           );
-        })(U),
-        A = (function(t) {
+        })(F),
+        I = (function(t) {
           O(n, t);
-          var e = k(n);
+          var e = R(n);
           function n(t, r) {
             var o;
             return (
-              E(this, n),
+              T(this, n),
               ((o = e.call(this, t, r)).queryUrl = ''),
               (o.searchParams = null),
-              (o.itemClass = I),
+              (o.itemClass = U),
               o
             );
           }
@@ -4039,9 +4047,9 @@
             ]),
             n
           );
-        })(U);
-      function L(t) {
-        return (L =
+        })(F);
+      function A(t) {
+        return (A =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -4055,7 +4063,7 @@
                   : typeof t;
               })(t);
       }
-      function D(t, e) {
+      function L(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -4064,15 +4072,36 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function N(t, e) {
-        return (N =
+      function D(t, e) {
+        return (D =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
+      function N(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
+        return function() {
+          var n,
+            r = q(t);
+          if (e) {
+            var o = q(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return M(this, n);
+        };
+      }
       function M(t, e) {
-        return !e || ('object' !== L(e) && 'function' != typeof e)
+        return !e || ('object' !== A(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -4082,58 +4111,37 @@
             })(t)
           : e;
       }
-      function q() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function B(t) {
-        return (B = Object.setPrototypeOf
+      function q(t) {
+        return (q = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var z = (function(t) {
+      var B = (function(t) {
         !(function(t, e) {
           if ('function' != typeof e && null !== e)
             throw new TypeError('Super expression must either be null or a function');
           (t.prototype = Object.create(e && e.prototype, {
             constructor: { value: t, writable: !0, configurable: !0 },
           })),
-            e && N(t, e);
-        })(u, t);
+            e && D(t, e);
+        })(i, t);
         var e,
           n,
           r,
-          o,
-          i =
-            ((e = u),
-            function() {
-              var t,
-                n = B(e);
-              if (q()) {
-                var r = B(this).constructor;
-                t = Reflect.construct(n, arguments, r);
-              } else t = n.apply(this, arguments);
-              return M(this, t);
-            });
-        function u(t, e) {
+          o = N(i);
+        function i(t, e) {
           return (
             (function(t, e) {
               if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
-            })(this, u),
-            i.call(this, t, e)
+            })(this, i),
+            o.call(this, t, e)
           );
         }
         return (
-          (n = u),
-          (r = [
+          (e = i),
+          (n = [
             {
               key: 'put',
               value: function(t) {
@@ -4141,13 +4149,13 @@
                 return this._put(t, null, e);
               },
             },
-          ]) && D(n.prototype, r),
-          o && D(n, o),
-          u
+          ]) && L(e.prototype, n),
+          r && L(e, r),
+          i
         );
-      })(I);
-      function H(t) {
-        return (H =
+      })(U);
+      function z(t) {
+        return (z =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -4160,11 +4168,11 @@
                   ? 'symbol'
                   : typeof t;
               })(t);
+      }
+      function H(t, e) {
+        if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
       function G(t, e) {
-        if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
-      }
-      function V(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -4173,37 +4181,47 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function J(t, e, n) {
-        return e && V(t.prototype, e), n && V(t, n), t;
+      function V(t, e, n) {
+        return e && G(t.prototype, e), n && G(t, n), t;
       }
-      function K(t, e) {
+      function J(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && W(t, e);
+          e && K(t, e);
       }
-      function W(t, e) {
-        return (W =
+      function K(t, e) {
+        return (K =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function $(t) {
+      function W(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = Y(t);
-          if (Q()) {
-            var r = Y(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return X(this, e);
+          var n,
+            r = X(t);
+          if (e) {
+            var o = X(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return $(this, n);
         };
       }
-      function X(t, e) {
-        return !e || ('object' !== H(e) && 'function' != typeof e)
+      function $(t, e) {
+        return !e || ('object' !== z(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -4213,69 +4231,59 @@
             })(t)
           : e;
       }
-      function Q() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function Y(t) {
-        return (Y = Object.setPrototypeOf
+      function X(t) {
+        return (X = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var Z = (function(t) {
-          K(n, t);
-          var e = $(n);
+      var Q = (function(t) {
+          J(n, t);
+          var e = W(n);
           function n(t, r) {
-            return G(this, n), e.call(this, t, r);
+            return H(this, n), e.call(this, t, r);
           }
           return (
-            J(n, [
+            V(n, [
               {
                 key: 'getPlugin',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin',
-                    n = be;
+                    n = pe;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(I),
-        tt = (function(t) {
-          K(n, t);
-          var e = $(n);
+        })(U),
+        Y = (function(t) {
+          J(n, t);
+          var e = W(n);
           function n(t, r) {
             var o;
-            return G(this, n), ((o = e.call(this, t, r)).itemClass = Z), o;
+            return H(this, n), ((o = e.call(this, t, r)).itemClass = Q), o;
           }
           return (
-            J(n, [
+            V(n, [
               {
                 key: 'getPlugin',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin',
-                    n = be;
+                    n = pe;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(A);
+        })(I);
       n(87);
-      function et(t) {
-        return (et =
+      function Z(t) {
+        return (Z =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -4289,10 +4297,10 @@
                   : typeof t;
               })(t);
       }
-      function nt(t, e) {
+      function tt(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function rt(t, e) {
+      function et(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -4301,37 +4309,47 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function ot(t, e, n) {
-        return e && rt(t.prototype, e), n && rt(t, n), t;
+      function nt(t, e, n) {
+        return e && et(t.prototype, e), n && et(t, n), t;
       }
-      function it(t, e) {
+      function rt(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && ut(t, e);
+          e && ot(t, e);
       }
-      function ut(t, e) {
-        return (ut =
+      function ot(t, e) {
+        return (ot =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function ct(t) {
+      function it(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = lt(t);
-          if (st()) {
-            var r = lt(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return at(this, e);
+          var n,
+            r = ct(t);
+          if (e) {
+            var o = ct(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return ut(this, n);
         };
       }
-      function at(t, e) {
-        return !e || ('object' !== et(e) && 'function' != typeof e)
+      function ut(t, e) {
+        return !e || ('object' !== Z(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -4341,31 +4359,21 @@
             })(t)
           : e;
       }
-      function st() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function lt(t) {
-        return (lt = Object.setPrototypeOf
+      function ct(t) {
+        return (ct = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var ft = (function(t) {
-          it(n, t);
-          var e = ct(n);
+      var at = (function(t) {
+          rt(n, t);
+          var e = it(n);
           function n(t, r) {
-            return nt(this, n), e.call(this, t, r);
+            return tt(this, n), e.call(this, t, r);
           }
           return (
-            ot(n, [
+            nt(n, [
               {
                 key: 'getFileBlob',
                 value: function() {
@@ -4384,7 +4392,29 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin_inst',
-                    n = ee;
+                    n = $t;
+                  return this._getResource(e, n, null, t);
+                },
+              },
+            ]),
+            n
+          );
+        })(U),
+        st = (function(t) {
+          rt(n, t);
+          var e = it(n);
+          function n(t, r) {
+            var o;
+            return tt(this, n), ((o = e.call(this, t, r)).itemClass = at), o;
+          }
+          return (
+            nt(n, [
+              {
+                key: 'getFeed',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
+                    e = 'feed',
+                    n = Kn;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -4392,52 +4422,30 @@
             n
           );
         })(I),
-        pt = (function(t) {
-          it(n, t);
-          var e = ct(n);
+        lt = (function(t) {
+          rt(n, t);
+          var e = it(n);
           function n(t, r) {
             var o;
-            return nt(this, n), ((o = e.call(this, t, r)).itemClass = ft), o;
-          }
-          return (
-            ot(n, [
-              {
-                key: 'getFeed',
-                value: function() {
-                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
-                    e = 'feed',
-                    n = Wn;
-                  return this._getResource(e, n, null, t);
-                },
-              },
-            ]),
-            n
-          );
-        })(A),
-        ht = (function(t) {
-          it(n, t);
-          var e = ct(n);
-          function n(t, r) {
-            var o;
-            return nt(this, n), ((o = e.call(this, t, r)).itemClass = ft), o;
+            return tt(this, n), ((o = e.call(this, t, r)).itemClass = at), o;
           }
           return n;
-        })(A),
-        vt = (function(t) {
-          it(n, t);
-          var e = ct(n);
+        })(I),
+        ft = (function(t) {
+          rt(n, t);
+          var e = it(n);
           function n(t, r) {
             var o;
-            return nt(this, n), ((o = e.call(this, t, r)).itemClass = ft), o;
+            return tt(this, n), ((o = e.call(this, t, r)).itemClass = at), o;
           }
           return (
-            ot(n, [
+            nt(n, [
               {
                 key: 'getFeed',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'feed',
-                    n = Wn;
+                    n = Kn;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -4446,16 +4454,16 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin_inst',
-                    n = ee;
+                    n = $t;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(A);
-      function yt(t) {
-        return (yt =
+        })(I);
+      function pt(t) {
+        return (pt =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -4469,10 +4477,10 @@
                   : typeof t;
               })(t);
       }
-      function gt(t, e) {
+      function ht(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function dt(t, e) {
+      function vt(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -4481,37 +4489,47 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function mt(t, e, n) {
-        return e && dt(t.prototype, e), n && dt(t, n), t;
+      function yt(t, e, n) {
+        return e && vt(t.prototype, e), n && vt(t, n), t;
       }
-      function bt(t, e) {
+      function gt(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && _t(t, e);
+          e && dt(t, e);
       }
-      function _t(t, e) {
-        return (_t =
+      function dt(t, e) {
+        return (dt =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function wt(t) {
+      function mt(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = St(t);
-          if (Ot()) {
-            var r = St(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return Pt(this, e);
+          var n,
+            r = _t(t);
+          if (e) {
+            var o = _t(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return bt(this, n);
         };
       }
-      function Pt(t, e) {
-        return !e || ('object' !== yt(e) && 'function' != typeof e)
+      function bt(t, e) {
+        return !e || ('object' !== pt(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -4521,38 +4539,28 @@
             })(t)
           : e;
       }
-      function Ot() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function St(t) {
-        return (St = Object.setPrototypeOf
+      function _t(t) {
+        return (_t = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var kt = (function(t) {
-          bt(n, t);
-          var e = wt(n);
+      var wt = (function(t) {
+          gt(n, t);
+          var e = mt(n);
           function n(t, r) {
-            return gt(this, n), e.call(this, t, r);
+            return ht(this, n), e.call(this, t, r);
           }
           return (
-            mt(n, [
+            yt(n, [
               {
                 key: 'getPlugins',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugins',
-                    r = Tt;
+                    r = Rt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -4562,7 +4570,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugin_pipings',
-                    r = Et;
+                    r = kt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -4572,7 +4580,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'default_parameters',
-                    r = Ft;
+                    r = jt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -4582,7 +4590,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'instances',
-                    r = Ht;
+                    r = Nt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -4603,23 +4611,23 @@
             ]),
             n
           );
-        })(I),
-        Rt = (function(t) {
-          bt(n, t);
-          var e = wt(n);
+        })(U),
+        Pt = (function(t) {
+          gt(n, t);
+          var e = mt(n);
           function n(t, r) {
             var o;
-            return gt(this, n), ((o = e.call(this, t, r)).itemClass = kt), o;
+            return ht(this, n), ((o = e.call(this, t, r)).itemClass = wt), o;
           }
           return (
-            mt(n, [
+            yt(n, [
               {
                 key: 'getPlugins',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugins',
-                    r = _e;
+                    r = he;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -4633,15 +4641,15 @@
             ]),
             n
           );
-        })(A),
-        jt = (function(t) {
-          bt(n, t);
-          var e = wt(n);
+        })(I),
+        Ot = (function(t) {
+          gt(n, t);
+          var e = mt(n);
           function n(t, r) {
-            return gt(this, n), e.call(this, t, r);
+            return ht(this, n), e.call(this, t, r);
           }
           return (
-            mt(n, [
+            yt(n, [
               {
                 key: 'getPreviousPluginPiping',
                 value: function() {
@@ -4660,7 +4668,7 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin',
-                    n = be;
+                    n = pe;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -4669,28 +4677,28 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'pipeline',
-                    n = kt;
+                    n = wt;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(I),
-        xt = (function(t) {
-          bt(n, t);
-          var e = wt(n);
+        })(U),
+        St = (function(t) {
+          gt(n, t);
+          var e = mt(n);
           function n(t, r) {
-            return gt(this, n), e.call(this, t, r);
+            return ht(this, n), e.call(this, t, r);
           }
           return (
-            mt(n, [
+            yt(n, [
               {
                 key: 'getPluginPiping',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin_piping',
-                    n = jt;
+                    n = Ot;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -4699,43 +4707,43 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin_param',
-                    n = Z;
+                    n = Q;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
+        })(U),
+        Rt = (function(t) {
+          gt(n, t);
+          var e = mt(n);
+          function n(t, r) {
+            var o;
+            return ht(this, n), ((o = e.call(this, t, r)).itemClass = pe), o;
+          }
+          return n;
         })(I),
-        Tt = (function(t) {
-          bt(n, t);
-          var e = wt(n);
+        kt = (function(t) {
+          gt(n, t);
+          var e = mt(n);
           function n(t, r) {
             var o;
-            return gt(this, n), ((o = e.call(this, t, r)).itemClass = be), o;
+            return ht(this, n), ((o = e.call(this, t, r)).itemClass = Ot), o;
           }
           return n;
-        })(A),
-        Et = (function(t) {
-          bt(n, t);
-          var e = wt(n);
+        })(I),
+        jt = (function(t) {
+          gt(n, t);
+          var e = mt(n);
           function n(t, r) {
             var o;
-            return gt(this, n), ((o = e.call(this, t, r)).itemClass = jt), o;
+            return ht(this, n), ((o = e.call(this, t, r)).itemClass = Ot), o;
           }
           return n;
-        })(A),
-        Ft = (function(t) {
-          bt(n, t);
-          var e = wt(n);
-          function n(t, r) {
-            var o;
-            return gt(this, n), ((o = e.call(this, t, r)).itemClass = jt), o;
-          }
-          return n;
-        })(A);
-      function Ct(t) {
-        return (Ct =
+        })(I);
+      function xt(t) {
+        return (xt =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -4749,10 +4757,10 @@
                   : typeof t;
               })(t);
       }
-      function Ut(t, e) {
+      function Tt(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function It(t, e) {
+      function Et(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -4761,37 +4769,47 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function At(t, e, n) {
-        return e && It(t.prototype, e), n && It(t, n), t;
+      function Ct(t, e, n) {
+        return e && Et(t.prototype, e), n && Et(t, n), t;
       }
-      function Lt(t, e) {
+      function Ft(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && Dt(t, e);
+          e && Ut(t, e);
       }
-      function Dt(t, e) {
-        return (Dt =
+      function Ut(t, e) {
+        return (Ut =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function Nt(t) {
+      function It(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = Bt(t);
-          if (qt()) {
-            var r = Bt(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return Mt(this, e);
+          var n,
+            r = Lt(t);
+          if (e) {
+            var o = Lt(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return At(this, n);
         };
       }
-      function Mt(t, e) {
-        return !e || ('object' !== Ct(e) && 'function' != typeof e)
+      function At(t, e) {
+        return !e || ('object' !== xt(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -4801,37 +4819,27 @@
             })(t)
           : e;
       }
-      function qt() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function Bt(t) {
-        return (Bt = Object.setPrototypeOf
+      function Lt(t) {
+        return (Lt = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var zt = (function(t) {
-          Lt(n, t);
-          var e = Nt(n);
+      var Dt = (function(t) {
+          Ft(n, t);
+          var e = It(n);
           function n(t, r) {
-            return Ut(this, n), e.call(this, t, r);
+            return Tt(this, n), e.call(this, t, r);
           }
           return (
-            At(n, [
+            Ct(n, [
               {
                 key: 'getPipeline',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'pipeline',
-                    n = kt;
+                    n = wt;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -4841,7 +4849,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugin_instances',
-                    r = ie;
+                    r = Zt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -4862,16 +4870,16 @@
             ]),
             n
           );
-        })(I),
-        Ht = (function(t) {
-          Lt(n, t);
-          var e = Nt(n);
+        })(U),
+        Nt = (function(t) {
+          Ft(n, t);
+          var e = It(n);
           function n(t, r) {
             var o;
-            return Ut(this, n), ((o = e.call(this, t, r)).itemClass = zt), o;
+            return Tt(this, n), ((o = e.call(this, t, r)).itemClass = Dt), o;
           }
           return (
-            At(n, [
+            Ct(n, [
               {
                 key: 'post',
                 value: function(t) {
@@ -4882,32 +4890,32 @@
             ]),
             n
           );
-        })(A),
-        Gt = (function(t) {
-          Lt(n, t);
-          var e = Nt(n);
+        })(I),
+        Mt = (function(t) {
+          Ft(n, t);
+          var e = It(n);
           function n(t, r) {
             var o;
-            return Ut(this, n), ((o = e.call(this, t, r)).itemClass = zt), o;
+            return Tt(this, n), ((o = e.call(this, t, r)).itemClass = Dt), o;
           }
           return (
-            At(n, [
+            Ct(n, [
               {
                 key: 'getPipelines',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'pipelines',
-                    r = Rt;
+                    r = Pt;
                   return this._getResource(n, r, t, e);
                 },
               },
             ]),
             n
           );
-        })(A);
-      function Vt(t) {
-        return (Vt =
+        })(I);
+      function qt(t) {
+        return (qt =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -4921,10 +4929,10 @@
                   : typeof t;
               })(t);
       }
-      function Jt(t, e) {
+      function Bt(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function Kt(t, e) {
+      function zt(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -4933,37 +4941,47 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function Wt(t, e, n) {
-        return e && Kt(t.prototype, e), n && Kt(t, n), t;
+      function Ht(t, e, n) {
+        return e && zt(t.prototype, e), n && zt(t, n), t;
       }
-      function $t(t, e) {
+      function Gt(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && Xt(t, e);
+          e && Vt(t, e);
       }
-      function Xt(t, e) {
-        return (Xt =
+      function Vt(t, e) {
+        return (Vt =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function Qt(t) {
+      function Jt(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = te(t);
-          if (Zt()) {
-            var r = te(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return Yt(this, e);
+          var n,
+            r = Wt(t);
+          if (e) {
+            var o = Wt(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return Kt(this, n);
         };
       }
-      function Yt(t, e) {
-        return !e || ('object' !== Vt(e) && 'function' != typeof e)
+      function Kt(t, e) {
+        return !e || ('object' !== qt(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -4973,37 +4991,27 @@
             })(t)
           : e;
       }
-      function Zt() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function te(t) {
-        return (te = Object.setPrototypeOf
+      function Wt(t) {
+        return (Wt = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var ee = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+      var $t = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
-            return Jt(this, n), e.call(this, t, r);
+            return Bt(this, n), e.call(this, t, r);
           }
           return (
-            Wt(n, [
+            Ht(n, [
               {
                 key: 'getFeed',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'feed',
-                    n = Wn;
+                    n = Kn;
                   try {
                     return this._getResource(e, n, null, t);
                   } catch (t) {
@@ -5016,7 +5024,16 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin',
-                    n = be;
+                    n = pe;
+                  return this._getResource(e, n, null, t);
+                },
+              },
+              {
+                key: 'getComputeResource',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
+                    e = 'compute_resource',
+                    n = Oe;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -5038,7 +5055,7 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'pipeline_inst',
-                    n = zt;
+                    n = Dt;
                   try {
                     return this._getResource(e, n, null, t);
                   } catch (t) {
@@ -5052,7 +5069,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'descendants',
-                    r = ue;
+                    r = te;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -5062,7 +5079,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'parameters',
-                    r = ae;
+                    r = ne;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -5072,7 +5089,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'files',
-                    r = vt;
+                    r = ft;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -5093,22 +5110,22 @@
             ]),
             n
           );
-        })(I),
-        ne = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+        })(U),
+        Xt = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
             var o;
-            return Jt(this, n), ((o = e.call(this, t, r)).itemClass = ee), o;
+            return Bt(this, n), ((o = e.call(this, t, r)).itemClass = $t), o;
           }
           return (
-            Wt(n, [
+            Ht(n, [
               {
                 key: 'getPlugin',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin',
-                    n = be;
+                    n = pe;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -5122,84 +5139,84 @@
             ]),
             n
           );
-        })(A),
-        re = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+        })(I),
+        Qt = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
             var o;
-            return Jt(this, n), ((o = e.call(this, t, r)).itemClass = ee), o;
+            return Bt(this, n), ((o = e.call(this, t, r)).itemClass = $t), o;
           }
           return (
-            Wt(n, [
+            Ht(n, [
               {
                 key: 'getPlugins',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugins',
-                    r = _e;
+                    r = he;
                   return this._getResource(n, r, t, e);
                 },
               },
             ]),
             n
           );
-        })(A),
-        oe = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+        })(I),
+        Yt = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
             var o;
-            return Jt(this, n), ((o = e.call(this, t, r)).itemClass = ee), o;
+            return Bt(this, n), ((o = e.call(this, t, r)).itemClass = $t), o;
           }
           return (
-            Wt(n, [
+            Ht(n, [
               {
                 key: 'getFeed',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'feed',
-                    n = Wn;
+                    n = Kn;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(A),
-        ie = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+        })(I),
+        Zt = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
             var o;
-            return Jt(this, n), ((o = e.call(this, t, r)).itemClass = ee), o;
+            return Bt(this, n), ((o = e.call(this, t, r)).itemClass = $t), o;
           }
           return n;
-        })(A),
-        ue = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+        })(I),
+        te = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
             var o;
-            return Jt(this, n), ((o = e.call(this, t, r)).itemClass = ee), o;
+            return Bt(this, n), ((o = e.call(this, t, r)).itemClass = $t), o;
           }
           return n;
-        })(A),
-        ce = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+        })(I),
+        ee = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
-            return Jt(this, n), e.call(this, t, r);
+            return Bt(this, n), e.call(this, t, r);
           }
           return (
-            Wt(n, [
+            Ht(n, [
               {
                 key: 'getPluginInstance',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin_inst',
-                    n = ee;
+                    n = $t;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -5208,25 +5225,25 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'plugin_param',
-                    n = Z;
+                    n = Q;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(I),
-        ae = (function(t) {
-          $t(n, t);
-          var e = Qt(n);
+        })(U),
+        ne = (function(t) {
+          Gt(n, t);
+          var e = Jt(n);
           function n(t, r) {
             var o;
-            return Jt(this, n), ((o = e.call(this, t, r)).itemClass = ce), o;
+            return Bt(this, n), ((o = e.call(this, t, r)).itemClass = ee), o;
           }
           return n;
-        })(A);
-      function se(t) {
-        return (se =
+        })(I);
+      function re(t) {
+        return (re =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -5240,10 +5257,10 @@
                   : typeof t;
               })(t);
       }
-      function le(t, e) {
+      function oe(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function fe(t, e) {
+      function ie(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -5252,37 +5269,47 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function pe(t, e, n) {
-        return e && fe(t.prototype, e), n && fe(t, n), t;
+      function ue(t, e, n) {
+        return e && ie(t.prototype, e), n && ie(t, n), t;
       }
-      function he(t, e) {
+      function ce(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && ve(t, e);
+          e && ae(t, e);
       }
-      function ve(t, e) {
-        return (ve =
+      function ae(t, e) {
+        return (ae =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function ye(t) {
+      function se(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = me(t);
-          if (de()) {
-            var r = me(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return ge(this, e);
+          var n,
+            r = fe(t);
+          if (e) {
+            var o = fe(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return le(this, n);
         };
       }
-      function ge(t, e) {
-        return !e || ('object' !== se(e) && 'function' != typeof e)
+      function le(t, e) {
+        return !e || ('object' !== re(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -5292,38 +5319,38 @@
             })(t)
           : e;
       }
-      function de() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function me(t) {
-        return (me = Object.setPrototypeOf
+      function fe(t) {
+        return (fe = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var be = (function(t) {
-          he(n, t);
-          var e = ye(n);
+      var pe = (function(t) {
+          ce(n, t);
+          var e = se(n);
           function n(t, r) {
-            return le(this, n), e.call(this, t, r);
+            return oe(this, n), e.call(this, t, r);
           }
           return (
-            pe(n, [
+            ue(n, [
               {
                 key: 'getPluginParameters',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'parameters',
-                    r = tt;
+                    r = Y;
+                  return this._getResource(n, r, t, e);
+                },
+              },
+              {
+                key: 'getPluginComputeResources',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
+                    e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
+                    n = 'compute_resources',
+                    r = Re;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -5333,39 +5360,39 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'instances',
-                    r = ne;
+                    r = Xt;
                   return this._getResource(n, r, t, e);
                 },
               },
             ]),
             n
           );
-        })(I),
-        _e = (function(t) {
-          he(n, t);
-          var e = ye(n);
+        })(U),
+        he = (function(t) {
+          ce(n, t);
+          var e = se(n);
           function n(t, r) {
             var o;
-            return le(this, n), ((o = e.call(this, t, r)).itemClass = be), o;
+            return oe(this, n), ((o = e.call(this, t, r)).itemClass = pe), o;
           }
           return (
-            pe(n, [
+            ue(n, [
               {
                 key: 'getFeeds',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'feeds',
-                    r = $n;
+                    r = Wn;
                   return this._getResource(n, r, t, e);
                 },
               },
             ]),
             n
           );
-        })(A);
-      function we(t) {
-        return (we =
+        })(I);
+      function ve(t) {
+        return (ve =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -5379,10 +5406,7 @@
                   : typeof t;
               })(t);
       }
-      function Pe(t, e) {
-        if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
-      }
-      function Oe(t, e) {
+      function ye(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -5391,37 +5415,50 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function Se(t, e, n) {
-        return e && Oe(t.prototype, e), n && Oe(t, n), t;
+      function ge(t, e, n) {
+        return e && ye(t.prototype, e), n && ye(t, n), t;
       }
-      function ke(t, e) {
+      function de(t, e) {
+        if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
+      }
+      function me(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && Re(t, e);
+          e && be(t, e);
       }
-      function Re(t, e) {
-        return (Re =
+      function be(t, e) {
+        return (be =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function je(t) {
+      function _e(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = Ee(t);
-          if (Te()) {
-            var r = Ee(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return xe(this, e);
+          var n,
+            r = Pe(t);
+          if (e) {
+            var o = Pe(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return we(this, n);
         };
       }
-      function xe(t, e) {
-        return !e || ('object' !== we(e) && 'function' != typeof e)
+      function we(t, e) {
+        return !e || ('object' !== ve(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -5431,31 +5468,158 @@
             })(t)
           : e;
       }
-      function Te() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function Ee(t) {
-        return (Ee = Object.setPrototypeOf
+      function Pe(t) {
+        return (Pe = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var Fe = (function(t) {
-          ke(n, t);
-          var e = je(n);
+      var Oe = (function(t) {
+          me(n, t);
+          var e = _e(n);
           function n(t, r) {
-            return Pe(this, n), e.call(this, t, r);
+            return de(this, n), e.call(this, t, r);
+          }
+          return n;
+        })(U),
+        Se = (function(t) {
+          me(n, t);
+          var e = _e(n);
+          function n(t, r) {
+            var o;
+            return de(this, n), ((o = e.call(this, t, r)).itemClass = Oe), o;
           }
           return (
-            Se(n, [
+            ge(n, [
+              {
+                key: 'getFeeds',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
+                    e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
+                    n = 'feeds',
+                    r = Wn;
+                  return this._getResource(n, r, t, e);
+                },
+              },
+            ]),
+            n
+          );
+        })(I),
+        Re = (function(t) {
+          me(n, t);
+          var e = _e(n);
+          function n(t, r) {
+            var o;
+            return de(this, n), ((o = e.call(this, t, r)).itemClass = Oe), o;
+          }
+          return (
+            ge(n, [
+              {
+                key: 'getPlugin',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
+                    e = 'plugin',
+                    n = pe;
+                  return this._getResource(e, n, null, t);
+                },
+              },
+            ]),
+            n
+          );
+        })(I);
+      function ke(t) {
+        return (ke =
+          'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
+            ? function(t) {
+                return typeof t;
+              }
+            : function(t) {
+                return t &&
+                  'function' == typeof Symbol &&
+                  t.constructor === Symbol &&
+                  t !== Symbol.prototype
+                  ? 'symbol'
+                  : typeof t;
+              })(t);
+      }
+      function je(t, e) {
+        if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
+      }
+      function xe(t, e) {
+        for (var n = 0; n < e.length; n++) {
+          var r = e[n];
+          (r.enumerable = r.enumerable || !1),
+            (r.configurable = !0),
+            'value' in r && (r.writable = !0),
+            Object.defineProperty(t, r.key, r);
+        }
+      }
+      function Te(t, e, n) {
+        return e && xe(t.prototype, e), n && xe(t, n), t;
+      }
+      function Ee(t, e) {
+        if ('function' != typeof e && null !== e)
+          throw new TypeError('Super expression must either be null or a function');
+        (t.prototype = Object.create(e && e.prototype, {
+          constructor: { value: t, writable: !0, configurable: !0 },
+        })),
+          e && Ce(t, e);
+      }
+      function Ce(t, e) {
+        return (Ce =
+          Object.setPrototypeOf ||
+          function(t, e) {
+            return (t.__proto__ = e), t;
+          })(t, e);
+      }
+      function Fe(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
+        return function() {
+          var n,
+            r = Ie(t);
+          if (e) {
+            var o = Ie(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return Ue(this, n);
+        };
+      }
+      function Ue(t, e) {
+        return !e || ('object' !== ke(e) && 'function' != typeof e)
+          ? (function(t) {
+              if (void 0 === t)
+                throw new ReferenceError(
+                  "this hasn't been initialised - super() hasn't been called"
+                );
+              return t;
+            })(t)
+          : e;
+      }
+      function Ie(t) {
+        return (Ie = Object.setPrototypeOf
+          ? Object.getPrototypeOf
+          : function(t) {
+              return t.__proto__ || Object.getPrototypeOf(t);
+            })(t);
+      }
+      var Ae = (function(t) {
+          Ee(n, t);
+          var e = Fe(n);
+          function n(t, r) {
+            return je(this, n), e.call(this, t, r);
+          }
+          return (
+            Te(n, [
               {
                 key: 'getFileBlob',
                 value: function() {
@@ -5486,16 +5650,16 @@
             ]),
             n
           );
-        })(I),
-        Ce = (function(t) {
-          ke(n, t);
-          var e = je(n);
+        })(U),
+        Le = (function(t) {
+          Ee(n, t);
+          var e = Fe(n);
           function n(t, r) {
             var o;
-            return Pe(this, n), ((o = e.call(this, t, r)).itemClass = Fe), o;
+            return je(this, n), ((o = e.call(this, t, r)).itemClass = Ae), o;
           }
           return (
-            Se(n, [
+            Te(n, [
               {
                 key: 'post',
                 value: function(t, e) {
@@ -5506,9 +5670,9 @@
             ]),
             n
           );
-        })(A);
-      function Ue(t) {
-        return (Ue =
+        })(I);
+      function De(t) {
+        return (De =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -5522,130 +5686,10 @@
                   : typeof t;
               })(t);
       }
-      function Ie(t, e) {
+      function Ne(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
-      }
-      function Ae(t, e) {
-        for (var n = 0; n < e.length; n++) {
-          var r = e[n];
-          (r.enumerable = r.enumerable || !1),
-            (r.configurable = !0),
-            'value' in r && (r.writable = !0),
-            Object.defineProperty(t, r.key, r);
-        }
-      }
-      function Le(t, e) {
-        if ('function' != typeof e && null !== e)
-          throw new TypeError('Super expression must either be null or a function');
-        (t.prototype = Object.create(e && e.prototype, {
-          constructor: { value: t, writable: !0, configurable: !0 },
-        })),
-          e && De(t, e);
-      }
-      function De(t, e) {
-        return (De =
-          Object.setPrototypeOf ||
-          function(t, e) {
-            return (t.__proto__ = e), t;
-          })(t, e);
-      }
-      function Ne(t) {
-        return function() {
-          var e,
-            n = Be(t);
-          if (qe()) {
-            var r = Be(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return Me(this, e);
-        };
       }
       function Me(t, e) {
-        return !e || ('object' !== Ue(e) && 'function' != typeof e)
-          ? (function(t) {
-              if (void 0 === t)
-                throw new ReferenceError(
-                  "this hasn't been initialised - super() hasn't been called"
-                );
-              return t;
-            })(t)
-          : e;
-      }
-      function qe() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function Be(t) {
-        return (Be = Object.setPrototypeOf
-          ? Object.getPrototypeOf
-          : function(t) {
-              return t.__proto__ || Object.getPrototypeOf(t);
-            })(t);
-      }
-      var ze = (function(t) {
-          Le(i, t);
-          var e,
-            n,
-            r,
-            o = Ne(i);
-          function i(t, e) {
-            return Ie(this, i), o.call(this, t, e);
-          }
-          return (
-            (e = i),
-            (n = [
-              {
-                key: 'getFileBlob',
-                value: function() {
-                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4;
-                  if (this.isEmpty) throw new d('Item object has not been set!');
-                  var e = new _(this.auth, 'application/octet-stream', t),
-                    n = this.collection.items[0],
-                    r = u.getLinkRelationUrls(n, 'file_resource')[0];
-                  return e.get(r).then(function(t) {
-                    return t.data;
-                  });
-                },
-              },
-            ]) && Ae(e.prototype, n),
-            r && Ae(e, r),
-            i
-          );
-        })(I),
-        He = (function(t) {
-          Le(n, t);
-          var e = Ne(n);
-          function n(t, r) {
-            var o;
-            return Ie(this, n), ((o = e.call(this, t, r)).itemClass = ze), o;
-          }
-          return n;
-        })(A);
-      function Ge(t) {
-        return (Ge =
-          'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
-            ? function(t) {
-                return typeof t;
-              }
-            : function(t) {
-                return t &&
-                  'function' == typeof Symbol &&
-                  t.constructor === Symbol &&
-                  t !== Symbol.prototype
-                  ? 'symbol'
-                  : typeof t;
-              })(t);
-      }
-      function Ve(t, e) {
-        if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
-      }
-      function Je(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -5654,34 +5698,44 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function Ke(t, e) {
+      function qe(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && We(t, e);
+          e && Be(t, e);
       }
-      function We(t, e) {
-        return (We =
+      function Be(t, e) {
+        return (Be =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function $e(t) {
+      function ze(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = Ye(t);
-          if (Qe()) {
-            var r = Ye(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return Xe(this, e);
+          var n,
+            r = Ge(t);
+          if (e) {
+            var o = Ge(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return He(this, n);
         };
       }
-      function Xe(t, e) {
-        return !e || ('object' !== Ge(e) && 'function' != typeof e)
+      function He(t, e) {
+        return !e || ('object' !== De(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -5691,31 +5745,21 @@
             })(t)
           : e;
       }
-      function Qe() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function Ye(t) {
-        return (Ye = Object.setPrototypeOf
+      function Ge(t) {
+        return (Ge = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var Ze = (function(t) {
-          Ke(i, t);
+      var Ve = (function(t) {
+          qe(i, t);
           var e,
             n,
             r,
-            o = $e(i);
+            o = ze(i);
           function i(t, e) {
-            return Ve(this, i), o.call(this, t, e);
+            return Ne(this, i), o.call(this, t, e);
           }
           return (
             (e = i),
@@ -5733,22 +5777,22 @@
                   });
                 },
               },
-            ]) && Je(e.prototype, n),
-            r && Je(e, r),
+            ]) && Me(e.prototype, n),
+            r && Me(e, r),
             i
           );
-        })(I),
-        tn = (function(t) {
-          Ke(n, t);
-          var e = $e(n);
+        })(U),
+        Je = (function(t) {
+          qe(n, t);
+          var e = ze(n);
           function n(t, r) {
             var o;
-            return Ve(this, n), ((o = e.call(this, t, r)).itemClass = Ze), o;
+            return Ne(this, n), ((o = e.call(this, t, r)).itemClass = Ve), o;
           }
           return n;
-        })(A);
-      function en(t) {
-        return (en =
+        })(I);
+      function Ke(t) {
+        return (Ke =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -5762,7 +5806,10 @@
                   : typeof t;
               })(t);
       }
-      function nn(t, e) {
+      function We(t, e) {
+        if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
+      }
+      function $e(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -5771,15 +5818,44 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function rn(t, e) {
-        return (rn =
+      function Xe(t, e) {
+        if ('function' != typeof e && null !== e)
+          throw new TypeError('Super expression must either be null or a function');
+        (t.prototype = Object.create(e && e.prototype, {
+          constructor: { value: t, writable: !0, configurable: !0 },
+        })),
+          e && Qe(t, e);
+      }
+      function Qe(t, e) {
+        return (Qe =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function on(t, e) {
-        return !e || ('object' !== en(e) && 'function' != typeof e)
+      function Ye(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
+        return function() {
+          var n,
+            r = tn(t);
+          if (e) {
+            var o = tn(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return Ze(this, n);
+        };
+      }
+      function Ze(t, e) {
+        return !e || ('object' !== Ke(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -5789,58 +5865,146 @@
             })(t)
           : e;
       }
-      function un() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function cn(t) {
-        return (cn = Object.setPrototypeOf
+      function tn(t) {
+        return (tn = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var an = (function(t) {
+      var en = (function(t) {
+          Xe(i, t);
+          var e,
+            n,
+            r,
+            o = Ye(i);
+          function i(t, e) {
+            return We(this, i), o.call(this, t, e);
+          }
+          return (
+            (e = i),
+            (n = [
+              {
+                key: 'getFileBlob',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4;
+                  if (this.isEmpty) throw new d('Item object has not been set!');
+                  var e = new _(this.auth, 'application/octet-stream', t),
+                    n = this.collection.items[0],
+                    r = u.getLinkRelationUrls(n, 'file_resource')[0];
+                  return e.get(r).then(function(t) {
+                    return t.data;
+                  });
+                },
+              },
+            ]) && $e(e.prototype, n),
+            r && $e(e, r),
+            i
+          );
+        })(U),
+        nn = (function(t) {
+          Xe(n, t);
+          var e = Ye(n);
+          function n(t, r) {
+            var o;
+            return We(this, n), ((o = e.call(this, t, r)).itemClass = en), o;
+          }
+          return n;
+        })(I);
+      function rn(t) {
+        return (rn =
+          'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
+            ? function(t) {
+                return typeof t;
+              }
+            : function(t) {
+                return t &&
+                  'function' == typeof Symbol &&
+                  t.constructor === Symbol &&
+                  t !== Symbol.prototype
+                  ? 'symbol'
+                  : typeof t;
+              })(t);
+      }
+      function on(t, e) {
+        for (var n = 0; n < e.length; n++) {
+          var r = e[n];
+          (r.enumerable = r.enumerable || !1),
+            (r.configurable = !0),
+            'value' in r && (r.writable = !0),
+            Object.defineProperty(t, r.key, r);
+        }
+      }
+      function un(t, e) {
+        return (un =
+          Object.setPrototypeOf ||
+          function(t, e) {
+            return (t.__proto__ = e), t;
+          })(t, e);
+      }
+      function cn(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
+        return function() {
+          var n,
+            r = sn(t);
+          if (e) {
+            var o = sn(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return an(this, n);
+        };
+      }
+      function an(t, e) {
+        return !e || ('object' !== rn(e) && 'function' != typeof e)
+          ? (function(t) {
+              if (void 0 === t)
+                throw new ReferenceError(
+                  "this hasn't been initialised - super() hasn't been called"
+                );
+              return t;
+            })(t)
+          : e;
+      }
+      function sn(t) {
+        return (sn = Object.setPrototypeOf
+          ? Object.getPrototypeOf
+          : function(t) {
+              return t.__proto__ || Object.getPrototypeOf(t);
+            })(t);
+      }
+      var ln = (function(t) {
         !(function(t, e) {
           if ('function' != typeof e && null !== e)
             throw new TypeError('Super expression must either be null or a function');
           (t.prototype = Object.create(e && e.prototype, {
             constructor: { value: t, writable: !0, configurable: !0 },
           })),
-            e && rn(t, e);
-        })(u, t);
+            e && un(t, e);
+        })(i, t);
         var e,
           n,
           r,
-          o,
-          i =
-            ((e = u),
-            function() {
-              var t,
-                n = cn(e);
-              if (un()) {
-                var r = cn(this).constructor;
-                t = Reflect.construct(n, arguments, r);
-              } else t = n.apply(this, arguments);
-              return on(this, t);
-            });
-        function u(t, e) {
+          o = cn(i);
+        function i(t, e) {
           return (
             (function(t, e) {
               if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
-            })(this, u),
-            i.call(this, t, e)
+            })(this, i),
+            o.call(this, t, e)
           );
         }
         return (
-          (n = u),
-          (r = [
+          (e = i),
+          (n = [
             {
               key: 'put',
               value: function(t) {
@@ -5848,13 +6012,13 @@
                 return this._put(t, null, e);
               },
             },
-          ]) && nn(n.prototype, r),
-          o && nn(n, o),
-          u
+          ]) && on(e.prototype, n),
+          r && on(e, r),
+          i
         );
-      })(I);
-      function sn(t) {
-        return (sn =
+      })(U);
+      function fn(t) {
+        return (fn =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -5868,10 +6032,10 @@
                   : typeof t;
               })(t);
       }
-      function ln(t, e) {
+      function pn(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function fn(t, e) {
+      function hn(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -5880,37 +6044,47 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function pn(t, e, n) {
-        return e && fn(t.prototype, e), n && fn(t, n), t;
+      function vn(t, e, n) {
+        return e && hn(t.prototype, e), n && hn(t, n), t;
       }
-      function hn(t, e) {
+      function yn(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
           constructor: { value: t, writable: !0, configurable: !0 },
         })),
-          e && vn(t, e);
+          e && gn(t, e);
       }
-      function vn(t, e) {
-        return (vn =
+      function gn(t, e) {
+        return (gn =
           Object.setPrototypeOf ||
           function(t, e) {
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function yn(t) {
+      function dn(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = mn(t);
-          if (dn()) {
-            var r = mn(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return gn(this, e);
+          var n,
+            r = bn(t);
+          if (e) {
+            var o = bn(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return mn(this, n);
         };
       }
-      function gn(t, e) {
-        return !e || ('object' !== sn(e) && 'function' != typeof e)
+      function mn(t, e) {
+        return !e || ('object' !== fn(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -5920,38 +6094,28 @@
             })(t)
           : e;
       }
-      function dn() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function mn(t) {
-        return (mn = Object.setPrototypeOf
+      function bn(t) {
+        return (bn = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var bn = (function(t) {
-          hn(n, t);
-          var e = yn(n);
+      var _n = (function(t) {
+          yn(n, t);
+          var e = dn(n);
           function n(t, r) {
-            return ln(this, n), e.call(this, t, r);
+            return pn(this, n), e.call(this, t, r);
           }
           return (
-            pn(n, [
+            vn(n, [
               {
                 key: 'getTaggedFeeds',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'feeds',
-                    r = Sn;
+                    r = Rn;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -5961,7 +6125,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'taggings',
-                    r = Pn;
+                    r = On;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -5982,23 +6146,23 @@
             ]),
             n
           );
-        })(I),
-        _n = (function(t) {
-          hn(n, t);
-          var e = yn(n);
+        })(U),
+        wn = (function(t) {
+          yn(n, t);
+          var e = dn(n);
           function n(t, r) {
             var o;
-            return ln(this, n), ((o = e.call(this, t, r)).itemClass = bn), o;
+            return pn(this, n), ((o = e.call(this, t, r)).itemClass = _n), o;
           }
           return (
-            pn(n, [
+            vn(n, [
               {
                 key: 'getFeeds',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'feeds',
-                    r = $n;
+                    r = Wn;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6012,21 +6176,21 @@
             ]),
             n
           );
-        })(A),
-        wn = (function(t) {
-          hn(n, t);
-          var e = yn(n);
+        })(I),
+        Pn = (function(t) {
+          yn(n, t);
+          var e = dn(n);
           function n(t, r) {
-            return ln(this, n), e.call(this, t, r);
+            return pn(this, n), e.call(this, t, r);
           }
           return (
-            pn(n, [
+            vn(n, [
               {
                 key: 'getTag',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'tag',
-                    n = bn;
+                    n = _n;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -6035,7 +6199,7 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'feed',
-                    n = Wn;
+                    n = Kn;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -6049,51 +6213,22 @@
             ]),
             n
           );
-        })(I),
-        Pn = (function(t) {
-          hn(n, t);
-          var e = yn(n);
-          function n(t, r) {
-            var o;
-            return ln(this, n), ((o = e.call(this, t, r)).itemClass = wn), o;
-          }
-          return (
-            pn(n, [
-              {
-                key: 'getTag',
-                value: function() {
-                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
-                    e = 'tag',
-                    n = bn;
-                  return this._getResource(e, n, null, t);
-                },
-              },
-              {
-                key: 'post',
-                value: function(t) {
-                  var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                  return this._post(t, null, e);
-                },
-              },
-            ]),
-            n
-          );
-        })(A),
+        })(U),
         On = (function(t) {
-          hn(n, t);
-          var e = yn(n);
+          yn(n, t);
+          var e = dn(n);
           function n(t, r) {
             var o;
-            return ln(this, n), ((o = e.call(this, t, r)).itemClass = wn), o;
+            return pn(this, n), ((o = e.call(this, t, r)).itemClass = Pn), o;
           }
           return (
-            pn(n, [
+            vn(n, [
               {
-                key: 'getFeed',
+                key: 'getTag',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
-                    e = 'feed',
-                    n = Wn;
+                    e = 'tag',
+                    n = _n;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -6107,53 +6242,82 @@
             ]),
             n
           );
-        })(A),
+        })(I),
         Sn = (function(t) {
-          hn(n, t);
-          var e = yn(n);
+          yn(n, t);
+          var e = dn(n);
           function n(t, r) {
             var o;
-            return ln(this, n), ((o = e.call(this, t, r)).itemClass = Wn), o;
+            return pn(this, n), ((o = e.call(this, t, r)).itemClass = Pn), o;
           }
           return (
-            pn(n, [
-              {
-                key: 'getTag',
-                value: function() {
-                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
-                    e = 'tag',
-                    n = bn;
-                  return this._getResource(e, n, null, t);
-                },
-              },
-            ]),
-            n
-          );
-        })(A),
-        kn = (function(t) {
-          hn(n, t);
-          var e = yn(n);
-          function n(t, r) {
-            var o;
-            return ln(this, n), ((o = e.call(this, t, r)).itemClass = bn), o;
-          }
-          return (
-            pn(n, [
+            vn(n, [
               {
                 key: 'getFeed',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'feed',
-                    n = Wn;
+                    n = Kn;
+                  return this._getResource(e, n, null, t);
+                },
+              },
+              {
+                key: 'post',
+                value: function(t) {
+                  var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
+                  return this._post(t, null, e);
+                },
+              },
+            ]),
+            n
+          );
+        })(I),
+        Rn = (function(t) {
+          yn(n, t);
+          var e = dn(n);
+          function n(t, r) {
+            var o;
+            return pn(this, n), ((o = e.call(this, t, r)).itemClass = Kn), o;
+          }
+          return (
+            vn(n, [
+              {
+                key: 'getTag',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
+                    e = 'tag',
+                    n = _n;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(A);
-      function Rn(t) {
-        return (Rn =
+        })(I),
+        kn = (function(t) {
+          yn(n, t);
+          var e = dn(n);
+          function n(t, r) {
+            var o;
+            return pn(this, n), ((o = e.call(this, t, r)).itemClass = _n), o;
+          }
+          return (
+            vn(n, [
+              {
+                key: 'getFeed',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
+                    e = 'feed',
+                    n = Kn;
+                  return this._getResource(e, n, null, t);
+                },
+              },
+            ]),
+            n
+          );
+        })(I);
+      function jn(t) {
+        return (jn =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
             ? function(t) {
                 return typeof t;
@@ -6167,10 +6331,10 @@
                   : typeof t;
               })(t);
       }
-      function jn(t, e) {
+      function xn(t, e) {
         if (!(t instanceof e)) throw new TypeError('Cannot call a class as a function');
       }
-      function xn(t, e) {
+      function Tn(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -6179,10 +6343,10 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      function Tn(t, e, n) {
-        return e && xn(t.prototype, e), n && xn(t, n), t;
+      function En(t, e, n) {
+        return e && Tn(t.prototype, e), n && Tn(t, n), t;
       }
-      function En(t, e) {
+      function Cn(t, e) {
         if ('function' != typeof e && null !== e)
           throw new TypeError('Super expression must either be null or a function');
         (t.prototype = Object.create(e && e.prototype, {
@@ -6197,19 +6361,29 @@
             return (t.__proto__ = e), t;
           })(t, e);
       }
-      function Cn(t) {
+      function Un(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = An(t);
-          if (In()) {
-            var r = An(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return Un(this, e);
+          var n,
+            r = An(t);
+          if (e) {
+            var o = An(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return In(this, n);
         };
       }
-      function Un(t, e) {
-        return !e || ('object' !== Rn(e) && 'function' != typeof e)
+      function In(t, e) {
+        return !e || ('object' !== jn(e) && 'function' != typeof e)
           ? (function(t) {
               if (void 0 === t)
                 throw new ReferenceError(
@@ -6219,16 +6393,6 @@
             })(t)
           : e;
       }
-      function In() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
       function An(t) {
         return (An = Object.setPrototypeOf
           ? Object.getPrototypeOf
@@ -6237,19 +6401,19 @@
             })(t);
       }
       var Ln = (function(t) {
-          En(n, t);
-          var e = Cn(n);
+          Cn(n, t);
+          var e = Un(n);
           function n(t, r) {
-            return jn(this, n), e.call(this, t, r);
+            return xn(this, n), e.call(this, t, r);
           }
           return (
-            Tn(n, [
+            En(n, [
               {
                 key: 'getFeed',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'feed',
-                    n = Wn;
+                    n = Kn;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -6270,22 +6434,22 @@
             ]),
             n
           );
-        })(I),
+        })(U),
         Dn = (function(t) {
-          En(n, t);
-          var e = Cn(n);
+          Cn(n, t);
+          var e = Un(n);
           function n(t, r) {
             var o;
-            return jn(this, n), ((o = e.call(this, t, r)).itemClass = Ln), o;
+            return xn(this, n), ((o = e.call(this, t, r)).itemClass = Ln), o;
           }
           return (
-            Tn(n, [
+            En(n, [
               {
                 key: 'getFeed',
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'feed',
-                    n = Wn;
+                    n = Kn;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -6299,7 +6463,7 @@
             ]),
             n
           );
-        })(A);
+        })(I);
       function Nn(t) {
         return (Nn =
           'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
@@ -6346,14 +6510,24 @@
           })(t, e);
       }
       function Gn(t) {
+        var e = (function() {
+          if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
+          if (Reflect.construct.sham) return !1;
+          if ('function' == typeof Proxy) return !0;
+          try {
+            return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
+          } catch (t) {
+            return !1;
+          }
+        })();
         return function() {
-          var e,
-            n = Kn(t);
-          if (Jn()) {
-            var r = Kn(this).constructor;
-            e = Reflect.construct(n, arguments, r);
-          } else e = n.apply(this, arguments);
-          return Vn(this, e);
+          var n,
+            r = Jn(t);
+          if (e) {
+            var o = Jn(this).constructor;
+            n = Reflect.construct(r, arguments, o);
+          } else n = r.apply(this, arguments);
+          return Vn(this, n);
         };
       }
       function Vn(t, e) {
@@ -6367,24 +6541,14 @@
             })(t)
           : e;
       }
-      function Jn() {
-        if ('undefined' == typeof Reflect || !Reflect.construct) return !1;
-        if (Reflect.construct.sham) return !1;
-        if ('function' == typeof Proxy) return !0;
-        try {
-          return Date.prototype.toString.call(Reflect.construct(Date, [], function() {})), !0;
-        } catch (t) {
-          return !1;
-        }
-      }
-      function Kn(t) {
-        return (Kn = Object.setPrototypeOf
+      function Jn(t) {
+        return (Jn = Object.setPrototypeOf
           ? Object.getPrototypeOf
           : function(t) {
               return t.__proto__ || Object.getPrototypeOf(t);
             })(t);
       }
-      var Wn = (function(t) {
+      var Kn = (function(t) {
           zn(n, t);
           var e = Gn(n);
           function n() {
@@ -6397,7 +6561,7 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'note',
-                    n = an;
+                    n = ln;
                   return this._getResource(e, n, null, t);
                 },
               },
@@ -6417,7 +6581,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'taggings',
-                    r = On;
+                    r = Sn;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6446,7 +6610,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'files',
-                    r = pt;
+                    r = st;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6456,7 +6620,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugin_instances',
-                    r = oe;
+                    r = Yt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6490,13 +6654,13 @@
             ]),
             n
           );
-        })(I),
-        $n = (function(t) {
+        })(U),
+        Wn = (function(t) {
           zn(n, t);
           var e = Gn(n);
           function n(t, r) {
             var o;
-            return Mn(this, n), ((o = e.call(this, t, r)).itemClass = Wn), o;
+            return Mn(this, n), ((o = e.call(this, t, r)).itemClass = Kn), o;
           }
           return (
             Bn(n, [
@@ -6506,7 +6670,17 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'files',
-                    r = ht;
+                    r = lt;
+                  return this._getResource(n, r, t, e);
+                },
+              },
+              {
+                key: 'getComputeResources',
+                value: function() {
+                  var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
+                    e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
+                    n = 'compute_resources',
+                    r = Se;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6516,7 +6690,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugins',
-                    r = _e;
+                    r = he;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6526,7 +6700,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'plugin_instances',
-                    r = re;
+                    r = Qt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6536,7 +6710,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'pipelines',
-                    r = Rt;
+                    r = Pt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6546,7 +6720,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'pipeline_instances',
-                    r = Gt;
+                    r = Mt;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6556,7 +6730,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'tags',
-                    r = _n;
+                    r = wn;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6566,7 +6740,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'uploadedfiles',
-                    r = Ce;
+                    r = Le;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6576,7 +6750,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'pacsfiles',
-                    r = He;
+                    r = Je;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6586,7 +6760,7 @@
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     n = 'servicefiles',
-                    r = tn;
+                    r = nn;
                   return this._getResource(n, r, t, e);
                 },
               },
@@ -6595,15 +6769,15 @@
                 value: function() {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4,
                     e = 'user',
-                    n = z;
+                    n = B;
                   return this._getResource(e, n, null, t);
                 },
               },
             ]),
             n
           );
-        })(A);
-      function Xn(t, e) {
+        })(I);
+      function $n(t, e) {
         for (var n = 0; n < e.length; n++) {
           var r = e[n];
           (r.enumerable = r.enumerable || !1),
@@ -6612,7 +6786,7 @@
             Object.defineProperty(t, r.key, r);
         }
       }
-      var Qn = (function() {
+      var Xn = (function() {
         function t(e, n) {
           if (
             ((function(t, e) {
@@ -6625,6 +6799,7 @@
           (this.auth = n),
             (this.feedsUrl = this.url),
             (this.filesUrl = ''),
+            (this.computeResourcesUrl = ''),
             (this.pluginsUrl = ''),
             (this.pluginInstancesUrl = ''),
             (this.pipelinesUrl = ''),
@@ -6656,7 +6831,7 @@
                 return i.post(t, u).then(function(t) {
                   var r = t.data.collection,
                     o = r.items[0].href,
-                    i = new z(o, { username: e, password: n });
+                    i = new B(o, { username: e, password: n });
                   return (i.collection = r), i;
                 });
               },
@@ -6693,12 +6868,13 @@
                 var t = this,
                   e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
-                  r = new $n(this.feedsUrl, this.auth);
+                  r = new Wn(this.feedsUrl, this.auth);
                 return r.get(e, n).then(function(e) {
                   var n = e.collection,
                     r = u.getLinkRelationUrls;
                   return (
                     (t.filesUrl = t.filesUrl || r(n, 'files')[0]),
+                    (t.computeResourcesUrl = t.computeResourcesUrl || r(n, 'compute_resources')[0]),
                     (t.pluginsUrl = t.pluginsUrl || r(n, 'plugins')[0]),
                     (t.pluginInstancesUrl = t.pluginInstancesUrl || r(n, 'plugin_instances')[0]),
                     (t.pipelinesUrl = t.pipelinesUrl || r(n, 'pipelines')[0]),
@@ -6744,7 +6920,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('filesUrl', ht, t, e);
+                return this._fetchRes('filesUrl', lt, t, e);
               },
             },
             {
@@ -6757,11 +6933,28 @@
               },
             },
             {
+              key: 'getComputeResources',
+              value: function() {
+                var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
+                  e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
+                return this._fetchRes('computeResourcesUrl', Se, t, e);
+              },
+            },
+            {
+              key: 'getComputeResource',
+              value: function(t) {
+                var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
+                return this.getComputeResources({ id: t }, e).then(function(e) {
+                  return e.getItem(t);
+                });
+              },
+            },
+            {
               key: 'getPlugins',
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('pluginsUrl', _e, t, e);
+                return this._fetchRes('pluginsUrl', he, t, e);
               },
             },
             {
@@ -6778,7 +6971,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('pluginInstancesUrl', re, t, e);
+                return this._fetchRes('pluginInstancesUrl', Qt, t, e);
               },
             },
             {
@@ -6798,7 +6991,7 @@
                 return this.getPlugin(t, r)
                   .then(function(t) {
                     var o = u.getLinkRelationUrls(t.collection.items[0], 'instances');
-                    return new ne(o[0], n.auth).post(e, r);
+                    return new Xt(o[0], n.auth).post(e, r);
                   })
                   .then(function(t) {
                     return t.getItems()[0];
@@ -6810,7 +7003,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('pipelinesUrl', Rt, t, e);
+                return this._fetchRes('pipelinesUrl', Pt, t, e);
               },
             },
             {
@@ -6828,7 +7021,7 @@
                 var e = this,
                   n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                   r = function() {
-                    return new Rt(e.pipelinesUrl, e.auth).post(t, n).then(function(t) {
+                    return new Pt(e.pipelinesUrl, e.auth).post(t, n).then(function(t) {
                       return t.getItems()[0];
                     });
                   };
@@ -6844,7 +7037,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('pipelineInstancesUrl', Gt, t, e);
+                return this._fetchRes('pipelineInstancesUrl', Mt, t, e);
               },
             },
             {
@@ -6864,7 +7057,7 @@
                 return this.getPipeline(t, r)
                   .then(function(t) {
                     var o = u.getLinkRelationUrls(t.collection.items[0], 'instances');
-                    return new Ht(o[0], n.auth).post(e, r);
+                    return new Nt(o[0], n.auth).post(e, r);
                   })
                   .then(function(t) {
                     return t.getItems()[0];
@@ -6876,7 +7069,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('tagsUrl', _n, t, e);
+                return this._fetchRes('tagsUrl', wn, t, e);
               },
             },
             {
@@ -6894,7 +7087,7 @@
                 var e = this,
                   n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                   r = function() {
-                    return new _n(e.tagsUrl, e.auth).post(t, n).then(function(t) {
+                    return new wn(e.tagsUrl, e.auth).post(t, n).then(function(t) {
                       return t.getItems()[0];
                     });
                   };
@@ -6910,7 +7103,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('uploadedFilesUrl', Ce, t, e);
+                return this._fetchRes('uploadedFilesUrl', Le, t, e);
               },
             },
             {
@@ -6928,7 +7121,7 @@
                 var n = this,
                   r = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 3e4,
                   o = function() {
-                    return new Ce(n.uploadedFilesUrl, n.auth).post(t, e, r).then(function(t) {
+                    return new Le(n.uploadedFilesUrl, n.auth).post(t, e, r).then(function(t) {
                       return t.getItems()[0];
                     });
                   };
@@ -6944,7 +7137,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('pacsFilesUrl', He, t, e);
+                return this._fetchRes('pacsFilesUrl', Je, t, e);
               },
             },
             {
@@ -6961,7 +7154,7 @@
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                   e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this._fetchRes('serviceFilesUrl', tn, t, e);
+                return this._fetchRes('serviceFilesUrl', nn, t, e);
               },
             },
             {
@@ -6977,7 +7170,7 @@
               key: 'getUser',
               value: function() {
                 var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 3e4;
-                return this._fetchRes('userUrl', z, null, t);
+                return this._fetchRes('userUrl', B, null, t);
               },
             },
             {
@@ -6997,12 +7190,12 @@
                     });
               },
             },
-          ]) && Xn(e.prototype, n),
-          r && Xn(e, r),
+          ]) && $n(e.prototype, n),
+          r && $n(e, r),
           t
         );
       })();
-      e.default = Qn;
+      e.default = Xn;
     },
   ]);
 });
