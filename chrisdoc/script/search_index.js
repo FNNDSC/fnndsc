@@ -42,6 +42,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~computeresource",
+    "class/src/computeresource.js~ComputeResource.html",
+    "<span>ComputeResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~computeresourcelist",
+    "class/src/computeresource.js~ComputeResourceList.html",
+    "<span>ComputeResourceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~feed",
     "class/src/feed.js~Feed.html",
     "<span>Feed</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -171,6 +183,12 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~plugin",
     "class/src/plugin.js~Plugin.html",
     "<span>Plugin</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~plugincomputeresourcelist",
+    "class/src/computeresource.js~PluginComputeResourceList.html",
+    "<span>PluginComputeResourceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -666,6 +684,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/client.js~client#computeresourcesurl",
+    "class/src/client.js~Client.html#instance-member-computeResourcesUrl",
+    "src/client.js~Client#computeResourcesUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#constructor",
     "class/src/client.js~Client.html#instance-constructor-constructor",
     "src/client.js~Client#constructor",
@@ -706,6 +730,18 @@ window.esdocSearchIndex = [
     "class/src/client.js~Client.html#instance-member-filesUrl",
     "src/client.js~Client#filesUrl",
     "member"
+  ],
+  [
+    "src/client.js~client#getcomputeresource",
+    "class/src/client.js~Client.html#instance-method-getComputeResource",
+    "src/client.js~Client#getComputeResource",
+    "method"
+  ],
+  [
+    "src/client.js~client#getcomputeresources",
+    "class/src/client.js~Client.html#instance-method-getComputeResources",
+    "src/client.js~Client#getComputeResources",
+    "method"
   ],
   [
     "src/client.js~client#getfeed",
@@ -984,6 +1020,54 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/computeresource.js",
+    "file/src/computeresource.js.html",
+    "src/computeresource.js",
+    "file"
+  ],
+  [
+    "src/computeresource.js~computeresource#constructor",
+    "class/src/computeresource.js~ComputeResource.html#instance-constructor-constructor",
+    "src/computeresource.js~ComputeResource#constructor",
+    "method"
+  ],
+  [
+    "src/computeresource.js~computeresourcelist#constructor",
+    "class/src/computeresource.js~ComputeResourceList.html#instance-constructor-constructor",
+    "src/computeresource.js~ComputeResourceList#constructor",
+    "method"
+  ],
+  [
+    "src/computeresource.js~computeresourcelist#getfeeds",
+    "class/src/computeresource.js~ComputeResourceList.html#instance-method-getFeeds",
+    "src/computeresource.js~ComputeResourceList#getFeeds",
+    "method"
+  ],
+  [
+    "src/computeresource.js~computeresourcelist#itemclass",
+    "class/src/computeresource.js~ComputeResourceList.html#instance-member-itemClass",
+    "src/computeresource.js~ComputeResourceList#itemClass",
+    "member"
+  ],
+  [
+    "src/computeresource.js~plugincomputeresourcelist#constructor",
+    "class/src/computeresource.js~PluginComputeResourceList.html#instance-constructor-constructor",
+    "src/computeresource.js~PluginComputeResourceList#constructor",
+    "method"
+  ],
+  [
+    "src/computeresource.js~plugincomputeresourcelist#getplugin",
+    "class/src/computeresource.js~PluginComputeResourceList.html#instance-method-getPlugin",
+    "src/computeresource.js~PluginComputeResourceList#getPlugin",
+    "method"
+  ],
+  [
+    "src/computeresource.js~plugincomputeresourcelist#itemclass",
+    "class/src/computeresource.js~PluginComputeResourceList.html#instance-member-itemClass",
+    "src/computeresource.js~PluginComputeResourceList#itemClass",
+    "member"
+  ],
+  [
     "src/exception.js",
     "file/src/exception.js.html",
     "src/exception.js",
@@ -1083,6 +1167,12 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#constructor",
     "class/src/feed.js~FeedList.html#instance-constructor-constructor",
     "src/feed.js~FeedList#constructor",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getcomputeresources",
+    "class/src/feed.js~FeedList.html#instance-method-getComputeResources",
+    "src/feed.js~FeedList#getComputeResources",
     "method"
   ],
   [
@@ -1518,6 +1608,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/plugin.js~plugin#getplugincomputeresources",
+    "class/src/plugin.js~Plugin.html#instance-method-getPluginComputeResources",
+    "src/plugin.js~Plugin#getPluginComputeResources",
+    "method"
+  ],
+  [
     "src/plugin.js~plugin#getplugininstances",
     "class/src/plugin.js~Plugin.html#instance-method-getPluginInstances",
     "src/plugin.js~Plugin#getPluginInstances",
@@ -1611,6 +1707,12 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~plugininstance#delete",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-delete",
     "src/plugininstance.js~PluginInstance#delete",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstance#getcomputeresource",
+    "class/src/plugininstance.js~PluginInstance.html#instance-method-getComputeResource",
+    "src/plugininstance.js~PluginInstance#getComputeResource",
     "method"
   ],
   [

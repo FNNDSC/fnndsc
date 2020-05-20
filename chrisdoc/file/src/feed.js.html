@@ -33,6 +33,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResource.html">ComputeResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResourceList.html">ComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~PluginComputeResourceList.html">PluginComputeResourceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
@@ -89,6 +92,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import { ItemResource, ListResource } from &apos;./resource&apos;;
 import User from &apos;./user&apos;;
+import { ComputeResourceList } from &apos;./computeresource&apos;;
 import { PluginList } from &apos;./plugin&apos;;
 import { PipelineList } from &apos;./pipeline&apos;;
 import { AllPipelineInstanceList } from &apos;./pipelineinstance&apos;;
@@ -290,6 +294,25 @@ export class FeedList extends ListResource {
   getFiles(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;files&apos;;
     const resourceClass = AllFeedFileList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of compute resources from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``ComputeResourceList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object
+   */
+  getComputeResources(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;compute_resources&apos;;
+    const resourceClass = ComputeResourceList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

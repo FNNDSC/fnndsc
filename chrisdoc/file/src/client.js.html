@@ -33,6 +33,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResource.html">ComputeResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResourceList.html">ComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~PluginComputeResourceList.html">PluginComputeResourceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
@@ -92,6 +95,7 @@ import Request from &apos;./request&apos;;
 import RequestException from &apos;./exception&apos;;
 import { FeedList } from &apos;./feed&apos;;
 import { AllFeedFileList } from &apos;./feedfile&apos;;
+import { ComputeResourceList } from &apos;./computeresource&apos;;
 import { PluginList } from &apos;./plugin&apos;;
 import { AllPluginInstanceList, PluginInstanceList } from &apos;./plugininstance&apos;;
 import { AllPipelineInstanceList, PipelineInstanceList } from &apos;./pipelineinstance&apos;;
@@ -126,6 +130,7 @@ export default class Client {
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
     this.filesUrl = &apos;&apos;;
+    this.computeResourcesUrl = &apos;&apos;;
     this.pluginsUrl = &apos;&apos;;
     this.pluginInstancesUrl = &apos;&apos;;
     this.pipelinesUrl = &apos;&apos;;
@@ -173,6 +178,7 @@ export default class Client {
       const getUrl = Collection.getLinkRelationUrls;
 
       this.filesUrl = this.filesUrl || getUrl(coll, &apos;files&apos;)[0];
+      this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, &apos;compute_resources&apos;)[0];
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, &apos;plugins&apos;)[0];
       this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, &apos;plugin_instances&apos;)[0];
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, &apos;pipelines&apos;)[0];
@@ -248,6 +254,39 @@ export default class Client {
    */
   getFile(id, timeout = 30000) {
     return this.getFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+  }
+
+  /**
+   * Get a paginated list of compute resources from the REST API given query
+   * search parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file id exactly with this number
+   * @param {string} [searchParams.name] - match compute resource&apos;s name containing this string
+   * @param {string} [searchParams.name_exact] - match compute resource&apos;s name exactly with this string
+   * @param {string} [searchParams.description] - match compute resource&apos;s description containing this string
+   * @param {string} [searchParams.plugin_id] - match plugin id exactly with this string for all the
+   * compute resources associated with the plugin
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object
+   */
+  getComputeResources(searchParams = null, timeout = 30000) {
+    return this._fetchRes(&apos;computeResourcesUrl&apos;, ComputeResourceList, searchParams, timeout);
+  }
+
+  /**
+   * Get a compute resource object given its id.
+   *
+   * @param {number} id - compute resource id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
+   */
+  getComputeResource(id, timeout = 30000) {
+    return this.getComputeResources({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**

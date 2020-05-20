@@ -33,6 +33,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResource.html">ComputeResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResourceList.html">ComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~PluginComputeResourceList.html">PluginComputeResourceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
@@ -88,6 +91,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/plugininstance.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import { ItemResource, ListResource } from &apos;./resource&apos;;
+import { ComputeResource } from &apos;./computeresource&apos;;
 import { PluginList, Plugin } from &apos;./plugin&apos;;
 import { Feed } from &apos;./feed&apos;;
 import { PluginParameter } from &apos;./pluginparameter&apos;;
@@ -139,6 +143,20 @@ export class PluginInstance extends ItemResource {
   getPlugin(timeout = 30000) {
     const linkRelation = &apos;plugin&apos;;
     const resourceClass = Plugin;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the compute resource associated to this plugin instance item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
+   */
+  getComputeResource(timeout = 30000) {
+    const linkRelation = &apos;compute_resource&apos;;
+    const resourceClass = ComputeResource;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }

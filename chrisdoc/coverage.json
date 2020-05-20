@@ -1,7 +1,7 @@
 {
-  "coverage": "95.58%",
-  "expectCount": 317,
-  "actualCount": 303,
+  "coverage": "95.49%",
+  "expectCount": 333,
+  "actualCount": 318,
   "files": {
     "src/cj.js": {
       "expectCount": 9,
@@ -9,10 +9,9 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 47,
-      "actualCount": 36,
+      "expectCount": 50,
+      "actualCount": 38,
       "undocumentLines": [
-        39,
         40,
         41,
         42,
@@ -22,10 +21,17 @@
         46,
         47,
         48,
-        49
+        49,
+        50,
+        51
       ]
     },
     "src/comment.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
+    "src/computeresource.js": {
       "expectCount": 10,
       "actualCount": 10,
       "undocumentLines": []
@@ -38,8 +44,8 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 24,
-      "actualCount": 24,
+      "expectCount": 25,
+      "actualCount": 25,
       "undocumentLines": []
     },
     "src/feedfile.js": {
@@ -68,13 +74,13 @@
       "undocumentLines": []
     },
     "src/plugin.js": {
-      "expectCount": 8,
-      "actualCount": 8,
+      "expectCount": 9,
+      "actualCount": 9,
       "undocumentLines": []
     },
     "src/plugininstance.js": {
-      "expectCount": 37,
-      "actualCount": 37,
+      "expectCount": 38,
+      "actualCount": 38,
       "undocumentLines": []
     },
     "src/pluginparameter.js": {

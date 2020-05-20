@@ -33,6 +33,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResource.html">ComputeResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResourceList.html">ComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~PluginComputeResourceList.html">PluginComputeResourceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
@@ -90,6 +93,7 @@
 import { ItemResource, ListResource } from &apos;./resource&apos;;
 import { FeedList } from &apos;./feed&apos;;
 import { PluginParameterList } from &apos;./pluginparameter&apos;;
+import { PluginComputeResourceList } from &apos;./computeresource&apos;;
 import { PluginInstanceList } from &apos;./plugininstance&apos;;
 
 /**
@@ -120,6 +124,24 @@ export class Plugin extends ItemResource {
   getPluginParameters(params = null, timeout = 30000) {
     const linkRelation = &apos;parameters&apos;;
     const resourceClass = PluginParameterList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Fetch a list of compute resources registered with this plugin from the REST
+   * API.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginComputeResourceList`` object
+   */
+  getPluginComputeResources(params = null, timeout = 30000) {
+    const linkRelation = &apos;compute_resources&apos;;
+    const resourceClass = PluginComputeResourceList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }

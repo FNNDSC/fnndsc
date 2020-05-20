@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/uploadedfile.js | @fnndsc/chrisapi</title>
+  <title data-ice="title">src/computeresource.js | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -88,17 +88,16 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/uploadedfile.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/computeresource.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
-import Request from &apos;./request&apos;;
-import RequestException from &apos;./exception&apos;;
-import Collection from &apos;./cj&apos;;
 import { ItemResource, ListResource } from &apos;./resource&apos;;
+import { FeedList } from &apos;./feed&apos;;
+import { Plugin } from &apos;./plugin&apos;;
 
 /**
- * Uploaded file item resource object representing a user&apos;s uploaded file.
+ * Compute resource item resource object representing a compute resource.
  */
-export class UploadedFile extends ItemResource {
+export class ComputeResource extends ItemResource {
   /**
    * Constructor
    *
@@ -109,55 +108,12 @@ export class UploadedFile extends ItemResource {
   constructor(url, auth) {
     super(url, auth);
   }
-
-  /**
-   * Fetch the file blob associated to this file item from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``Blob`` object
-   */
-  getFileBlob(timeout = 30000) {
-    if (this.isEmpty) {
-      throw new RequestException(&apos;Item object has not been set!&apos;);
-    }
-    const req = new Request(this.auth, &apos;application/octet-stream&apos;, timeout);
-    const item = this.collection.items[0];
-    const blobUrl = Collection.getLinkRelationUrls(item, &apos;file_resource&apos;)[0];
-
-    return req.get(blobUrl).then(resp =&gt; resp.data);
-  }
-
-  /**
-   * Make a PUT request to modify this uploaded file item resource through the REST API.
-   *
-   * @param {Object} data - request JSON data object
-   * @param {string} data.upload_path - absolute path including file name where the file
-   * will be uploaded on the storage service
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to ``this`` object
-   */
-  put(data, timeout = 30000) {
-    return this._put(data, null, timeout);
-  }
-
-  /**
-   * Make a DELETE request to delete this uploaded file item resource through the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise
-   */
-  delete(timeout = 30000) {
-    return this._delete(timeout);
-  }
 }
 
 /**
- * Uploaded file list resource object representing a list of a user&apos;s uploaded files.
+ * Compute resource list resource object representing a list of compute resources.
  */
-export class UploadedFileList extends ListResource {
+export class ComputeResourceList extends ListResource {
   /**
    * Constructor
    *
@@ -169,24 +125,60 @@ export class UploadedFileList extends ListResource {
     super(url, auth);
 
     /** @type {Object} */
-    this.itemClass = UploadedFile;
+    this.itemClass = ComputeResource;
   }
 
   /**
-   * Make a POST request to this uploaded file list resource to create a new uploaded file
-   * item resource through the REST API.
+   * Fetch a list of feeds from the REST API.
    *
-   * @param {Object} data - request JSON data object
-   * @param {string} data.upload_path - absolute path including file name where the file
-   * will be uploaded on the storage service
-   * @param {?Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``FeedList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
-  post(data, uploadFileObj, timeout = 30000) {
-    return this._post(data, uploadFileObj, timeout);
+  getFeeds(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;feeds&apos;;
+    const resourceClass = FeedList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+}
+
+/**
+ * Plugin-specific compute resource list resource object representing a list of
+ * compute resources registered with an specific plugin.
+ */
+export class PluginComputeResourceList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = ComputeResource;
+  }
+
+  /**
+   * Fetch the plugin associated to this compute resource list from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   */
+  getPlugin(timeout = 30000) {
+    const linkRelation = &apos;plugin&apos;;
+    const resourceClass = Plugin;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 }
 </code></pre>
