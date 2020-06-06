@@ -2,29 +2,187 @@
 import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
+import { PluginList } from './plugin';
+import { PluginMetaList, UserOwnedPluginMetaList } from './pluginmeta';
+import { UserFavoritePluginMetaList } from './pluginmeta';
+import { PluginStarList } from './pluginstar';
+import { PipelineList } from './pipeline';
+import User from './user';
 
 /**
- * Chris store object.
- *
- * @module client
+ * API client object.
  */
-export default class StoreClient {
+export default class Client {
   /**
    * Constructor
    *
-   * @param {string} storeUrl - url of the ChRIS storeservice
+   * @param {string} url - url of the ChRIS store service
    * @param {Object} [auth=null] - authentication object
    * @param {string} [auth.token] - authentication token
-   * @param {number} [timeout=30000] - request timeout
    */
-  constructor(storeUrl, auth = null, timeout = 30000) {
-    this.storeUrl = storeUrl;
-    this.storeQueryUrl = storeUrl + 'search/';
-    this.pipelinesUrl = '';
-    this.pipelinesQueryUrl = '';
+  constructor(url, auth = null) {
+    /** @type {string} */
+    this.url = url;
+
+    /** @type {Object} */
     this.auth = auth;
-    this.timeout = timeout;
-    this.contentType = 'application/vnd.collection+json';
+
+    /* Urls of the high level API resources */
+    this.pluginMetasUrl = this.url;
+    this.favoritePluginMetasUrl = '';
+    this.ownedPluginMetasUrl = '';
+    this.pluginStarsUrl = '';
+    this.pluginsUrl = '';
+    this.pipelinesUrl = '';
+    this.userUrl = '';
+  }
+
+  /**
+   * Set the urls of the high level API resources.
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise
+   */
+  setUrls(timeout = 30000) {
+    return this.getPluginMetas(null, timeout);
+  }
+
+  /**
+   * Get a paginated list of plugin metas from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match plugin meta id exactly with this number
+   * @param {string} [searchParams.name] - match plugin meta name containing this string
+   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string
+   * @param {string} [searchParams.type] - match plugin meta type exactly with this string
+   * @param {string} [searchParams.category] - match plugin meta category exactly with this string
+   * @param {string} [searchParams.authors] - match plugin meta authors containing this string
+   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
+   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
+   * @param {string} [searchParams.name_author_category] - match plugin meta name, title or
+   * category containing this string
+   * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly
+   * with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object
+   */
+  getPluginMetas(searchParams = null, timeout = 30000) {
+    const plgMetaList = new PluginMetaList(this.pluginMetasUrl, this.auth);
+
+    return plgMetaList.get(searchParams, timeout).then(plgMetaList => {
+      const coll = plgMetaList.collection;
+      const getUrl = Collection.getLinkRelationUrls;
+
+      if (!this.favoritePluginMetasUrl && this.auth) {
+        this.favoritePluginMetasUrl = getUrl(coll, 'favorite_plugin_metas')[0];
+      }
+      if (!this.ownedPluginMetasUrl && this.auth) {
+        this.ownedPluginMetasUrl = getUrl(coll, 'owned_plugin_metas')[0];
+      }
+      this.pluginStarsUrl = this.pluginStarsUrl || getUrl(coll, 'plugin_stars')[0];
+      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];
+      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];
+      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];
+
+      return plgMetaList;
+    });
+  }
+
+  /**
+   * Fetch a list of authenticated user's favorite plugin metas from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object
+   */
+  getFavoritePluginMetas(params = null, timeout = 30000) {
+    if (!this.auth) {
+      throw new RequestException('Authentication is required to fetch this resource.');
+    }
+    return this._fetchRes('favoritePluginMetasUrl', UserFavoritePluginMetaList, params, timeout);
+  }
+
+  /**
+   * Fetch a list of authenticated user's owned plugin metas from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object
+   */
+  getOwnedPluginMetas(params = null, timeout = 30000) {
+    if (!this.auth) {
+      throw new RequestException('Authentication is required to fetch this resource.');
+    }
+    return this._fetchRes('ownedPluginMetasUrl', UserOwnedPluginMetaList, params, timeout);
+  }
+
+  /**
+   * Get a plugin meta resource object given its id.
+   *
+   * @param {number} id - plugin meta id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   */
+  getPluginMeta(id, timeout = 30000) {
+    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Get a paginated list of plugin star data (descriptors) given query search
+   * parameters. If no search parameters is given then get the default first
+   * page.
+   *
+   * @param {Object} [searchParams=null] - search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match plugin meta id exactly with this number
+   * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string
+   * @param {string} [searchParams.username] - match user name exactly with this string
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object
+   */
+  getPluginStars(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pluginStarsUrl', PluginStarList, searchParams, timeout);
+  }
+
+  /**
+   * Get a plugin star resource object given its id.
+   *
+   * @param {number} id - plugin id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object
+   */
+  getPluginStar(id, timeout = 30000) {
+    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Create a new plugin star resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.plugin_name - plugin's name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``PluginStar`` object
+   */
+  createPluginStar(data, timeout = 30000) {
+    const createRes = () => {
+      const res = new PluginStarList(this.pluginStarsUrl, this.auth);
+      return res.post(data, timeout).then(res => res.getItems()[0]);
+    };
+    return this.pluginStarsUrl ? createRes() : this.setUrls().then(() => createRes());
   }
 
   /**
@@ -35,158 +193,62 @@ export default class StoreClient {
    * @param {Object} [searchParams=null] - search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match plugin meta id exactly with this number
    * @param {string} [searchParams.name] - match plugin name containing this string
    * @param {string} [searchParams.name_latest] - match plugin name containing this string
    * and return only the latest version
+   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string
    * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string
    * and return only the latest version
    * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string
-   * @param {string} [searchParams.public_repo] - match plugin public repository exactly with this string
    * @param {string} [searchParams.type] - match plugin type with this string
    * @param {string} [searchParams.category] - match plugin category containing this string
    * @param {string} [searchParams.owner_username] - match plugin username containing this string
+   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date
+   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date
+   * @param {string} [searchParams.title] - match plugin title containing this string
+   * @param {string} [searchParams.version] - match plugin version exactly with this string
    * @param {string} [searchParams.description] - match plugin description containing this string
    * @param {string} [searchParams.name_title_category] - match plugin name, title or category
    * containing this string
-   * @param {string} [searchParams.title] - match plugin title containing this string
-   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date
-   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date
    *
-   * @return {Object} - JS Promise
+   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
    */
-  getPlugins(searchParams = null) {
-    let url = this.storeUrl;
-
-    if (searchParams) {
-      // then it's a query and should use the query url
-      url = this.storeQueryUrl;
-    }
-    return this._getListResourceData(url, searchParams);
+  getPlugins(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);
   }
 
   /**
-   * Get a plugin's information (descriptors) given its ChRIS store id.
+   * Get a plugin resource object given its id.
    *
    * @param {number} id - plugin id
+   * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
-  getPlugin(id) {
-    return this._getItemResourceData(this.storeQueryUrl, id);
+  getPlugin(id, timeout = 30000) {
+    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
-   * Get a plugin's paginated parameters given its ChRIS store id.
+   * Create a new plugin resource through the REST API.
    *
-   * @param {number} pluginId - plugin id
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
+   * @param {Object} data - request JSON data object
+   * @param {string} data.name - plugin name
+   * @param {string} data.dock_image - plugin docker image
+   * @param {string} data.public_repo - plugin repo
+   * @param {Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.descriptor_file - file blob
+   * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Object} - JS Promise, resolves to ``Plugin`` object
    */
-  getPluginParameters(pluginId, params = null) {
-    const url = this.storeQueryUrl;
-
-    return this._getResourceRelatedListData(url, pluginId, 'parameters', params);
-  }
-
-  /**
-   * Add a new plugin to the ChRIS store.
-   *
-   * @param {string} name - plugin name
-   * @param {string} dockImage - plugin docker image
-   * @param {Object} descriptorFile - file blob
-   * @param {string} publicRepo - url of the plugin public repository
-   *
-   * @return {Object} - JS Promise
-   */
-  addPlugin(name, dockImage, descriptorFile, publicRepo) {
-    const req = new Request(this.auth, this.contentType, this.timeout);
-    const data = {
-      name: name,
-      dock_image: dockImage,
-      public_repo: publicRepo,
+  createPlugin(data, uploadFileObj, timeout = 30000) {
+    const createRes = () => {
+      const res = new PluginList(this.pluginsUrl, this.auth);
+      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
     };
-
-    return req
-      .post(this.storeUrl, data, { descriptor_file: descriptorFile })
-      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));
-  }
-
-  /**
-   * Modify an existing plugin in the ChRIS store.
-   *
-   * @param {number} id - plugin id
-   * @param {string} publicRepo - url of the plugin public repository
-   * @param {string} newOwner - username of a new owner for the plugin
-   *
-   * @return {Object} - JS Promise
-   */
-  modifyPlugin(id, publicRepo = '', newOwner = '') {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        let resp;
-
-        try {
-          const searchParams = { id: id };
-          const coll = yield self._fetchCollection(self.storeQueryUrl, searchParams);
-
-          if (coll.items.length) {
-            const url = coll.items[0].href;
-            let data = {};
-
-            if (publicRepo) {
-              data.public_repo = publicRepo;
-            } else {
-              data.public_repo = coll.items[0].data.filter(descriptor => {
-                return descriptor.name === 'public_repo';
-              })[0].value;
-            }
-            if (newOwner) {
-              data.owner = newOwner;
-            }
-
-            if (self.contentType === 'application/vnd.collection+json') {
-              data = { template: Collection.makeTemplate(data) };
-            }
-            resp = yield req.put(url, data);
-          } else {
-            const errMsg = 'Could not find resource with id: ' + id;
-            throw new RequestException(errMsg);
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
-      });
-    });
-  }
-
-  /**
-   * Remove an existing plugin from the ChRIS store.
-   *
-   * @param {number} id - plugin id
-   *
-   * @return {Object} - JS Promise
-   */
-  removePlugin(id) {
-    return this._removeItemResource(this.storeQueryUrl, id);
-  }
-
-  /**
-   * Set the url of the pipelines.
-   */
-  setPipelinesUrls() {
-    return this._fetchCollection(this.storeUrl).then(coll => {
-      this.pipelinesUrl = Collection.getLinkRelationUrls(coll, 'pipelines');
-      this.pipelinesQueryUrl = this.pipelinesUrl + 'search/';
-    });
+    return this.pluginsUrl ? createRes() : this.setUrls().then(() => createRes());
   }
 
   /**
@@ -205,256 +267,66 @@ export default class StoreClient {
    * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date
    * @param {number} [searchParams.id] - match pipeline id exactly with this number
    *
-   * @return {Object} - JS Promise
+   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
    */
-  getPipelines(searchParams = null) {
-    if (searchParams) {
-      if (this.pipelinesQueryUrl) {
-        return this._getListResourceData(this.pipelinesQueryUrl, searchParams);
-      }
-      return this.setPipelinesUrls().then(() =>
-        this._getListResourceData(this.pipelinesQueryUrl, searchParams)
-      );
-    }
-    if (this.pipelinesUrl) {
-      return this._getListResourceData(this.pipelinesUrl);
-    }
-    return this.setPipelinesUrls().then(() =>
-      this._getListResourceData(this.pipelinesUrl, searchParams)
-    );
+  getPipelines(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);
   }
 
   /**
-   * Get a pipeline's information (descriptors) given its ChRIS store id.
+   * Get a pipeline resource object given its id.
    *
    * @param {number} id - pipeline id
-   *
-   * @return {Object} - JS Promise
-   */
-  getPipeline(id) {
-    if (this.pipelinesQueryUrl) {
-      return this._getItemResourceData(this.pipelinesQueryUrl, id);
-    }
-    return this.setPipelinesUrls().then(() =>
-      this._getItemResourceData(this.pipelinesQueryUrl, id)
-    );
-  }
-
-  /**
-   * Get a pipeline's paginated default parameters given its ChRIS store id.
-   *
-   * @param {number} pipelineId - pipeline id
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   *
-   * @return {Object} - JS Promise
-   */
-  getPipelineDefaultParameters(pipelineId, params = null) {
-    if (this.pipelinesQueryUrl) {
-      return this._getResourceRelatedListData(
-        this.pipelinesQueryUrl,
-        pipelineId,
-        'default_parameters',
-        params
-      );
-    }
-    return this.setPipelinesUrls().then(() =>
-      this._getResourceRelatedListData(
-        this.pipelinesQueryUrl,
-        pipelineId,
-        'default_parameters',
-        params
-      )
-    );
-  }
-
-  /**
-   * Get a pipeline's paginated pipings given its ChRIS store id.
-   *
-   * @param {number} pipelineId - pipeline id
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   *
-   * @return {Object} - JS Promise
-   */
-  getPipelinePipings(pipelineId, params = null) {
-    if (this.pipelinesQueryUrl) {
-      return this._getResourceRelatedListData(
-        this.pipelinesQueryUrl,
-        pipelineId,
-        'plugin_pipings',
-        params
-      );
-    }
-    return this.setPipelinesUrls().then(() =>
-      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugin_pipings', params)
-    );
-  }
-
-  /**
-   * Get a pipeline's paginated plugins given its ChRIS store id.
-   *
-   * @param {number} pipelineId - pipeline id
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   *
-   * @return {Object} - JS Promise
-   */
-  getPipelinePlugins(pipelineId, params = null) {
-    if (this.pipelinesQueryUrl) {
-      return this._getResourceRelatedListData(
-        this.pipelinesQueryUrl,
-        pipelineId,
-        'plugins',
-        params
-      );
-    }
-    return this.setPipelinesUrls().then(() =>
-      this._getResourceRelatedListData(this.pipelinesQueryUrl, pipelineId, 'plugins', params)
-    );
-  }
-
-  /**
-   * Modify an existing pipeline in the ChRIS store.
-   *
-   * @param {number} id - pipeline id
-   * @param {Object} data - data object with the values for the properties to be modified
-   * @param {string} data.name - pipeline's name
-   * @param {string} data.authors - pipeline's authors
-   * @param {string} data.category - pipeline's category
-   * @param {string} data.description - pipeline's description
-   *
-   * @return {Object} - JS Promise
-   */
-  modifyPipeline(id, data) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        let resp;
-
-        try {
-          const searchParams = { id: id };
-          if (!self.pipelinesQueryUrl) {
-            yield self.setPipelinesUrls();
-          }
-          const coll = yield self._fetchCollection(self.pipelinesQueryUrl, searchParams);
-          if (coll.items.length) {
-            const url = coll.items[0].href;
-
-            if (self.contentType === 'application/vnd.collection+json') {
-              data = { template: Collection.makeTemplate(data) };
-            }
-            resp = yield req.put(url, data);
-          } else {
-            const errMsg = 'Could not find resource with id: ' + id;
-            throw new RequestException(errMsg);
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
-      });
-    });
-  }
-
-  /**
-   * Remove an existing pipeline from the ChRIS store.
-   *
-   * @param {number} id - pipeline id
-   *
-   * @return {Object} - JS Promise
-   */
-  removePipeline(id) {
-    if (this.pipelinesQueryUrl) {
-      return this._removeItemResource(this.pipelinesQueryUrl, id);
-    }
-    return this.setPipelinesUrls().then(() => this._removeItemResource(this.pipelinesQueryUrl, id));
-  }
-
-  /**
-   * Get currently authenticated user's information.
-   *
-   * @return {Object} - JS Promise
-   */
-  getUser() {
-    const storeUrl = this.storeUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
-
-    return new Promise((resolve, reject) => {
-      StoreClient.runAsyncTask(function*() {
-        let resp;
-
-        try {
-          resp = yield req.get(storeUrl);
-          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
-          resp = yield req.get(userUrls[0]); // there is only a single user url
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
-      });
-    });
-  }
-
-  /**
-   * Update currently authenticated user's information (email and or password).
-   *
-   * @param {Object} userInfoObj - collection object
-   * @param {string} userInfoObj.email - user's email
-   * @param {string} userInfoObj.password - user's password
-   *
-   * @return {Object} - JS Promise
-   */
-  updateUser(userInfoObj) {
-    const storeUrl = this.storeUrl;
-    const req = new Request(this.auth, this.contentType, this.timeout);
-
-    const userData = {
-      template: {
-        data: [
-          { name: 'email', value: userInfoObj.email },
-          { name: 'password', value: userInfoObj.password },
-        ],
-      },
-    };
-
-    return new Promise((resolve, reject) => {
-      StoreClient.runAsyncTask(function*() {
-        let resp;
-
-        try {
-          resp = yield req.get(storeUrl);
-          let userUrls = Collection.getLinkRelationUrls(resp.data.collection, 'user');
-          resp = yield req.put(userUrls[0], userData); // there is only a single user url
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(StoreClient.getDataFromCollection(resp.data.collection, 'item'));
-      });
-    });
-  }
-
-  /**
-   * Create a new store user account.
-   *
-   * @param {string} usersUrl - url of the user accounts service
-   * @param {string} username - user's username
-   * @param {string} password - user's password
-   * @param {string} email - user's email
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
+   */
+  getPipeline(id, timeout = 30000) {
+    return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Create a new pipeline resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.name - pipeline name
+   * @param {string} data.plugin_tree - JSON string containing a plugin tree list
+   * @param {string} [data.authors] - pipeline authors
+   * @param {string} [data.category] - pipeline category
+   * @param {string} [data.description] - pipeline description
+   * @param {boolean} [data.locked=true] - pipeline status
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``Pipeline`` object
+   */
+  createPipeline(data, timeout = 30000) {
+    const createRes = () => {
+      const res = new PipelineList(this.pipelinessUrl, this.auth);
+      return res.post(data, timeout).then(res => res.getItems()[0]);
+    };
+    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());
+  }
+
+  /**
+   * Get a user resource object for the currently authenticated user.
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``User`` object
+   */
+  getUser(timeout = 30000) {
+    return this._fetchRes('userUrl', User, null, timeout);
+  }
+
+  /**
+   * Create a new user account.
+   *
+   * @param {string} usersUrl - url of the user accounts service
+   * @param {string} username - username
+   * @param {string} password - password
+   * @param {string} email - user email
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``User`` object
    */
   static createUser(usersUrl, username, password, email, timeout = 30000) {
     const req = new Request(undefined, 'application/vnd.collection+json', timeout);
@@ -467,19 +339,24 @@ export default class StoreClient {
         ],
       },
     };
-    return req
-      .post(usersUrl, userData)
-      .then(resp => StoreClient.getDataFromCollection(resp.data.collection, 'item'));
+    return req.post(usersUrl, userData).then(resp => {
+      const coll = resp.data.collection;
+      const userUrl = coll.items[0].href;
+      const auth = { username: username, password: password };
+      const user = new User(userUrl, auth);
+      user.collection = coll;
+      return user;
+    });
   }
 
   /**
-   * Get a user's login authorization token.
-   * @param {string} authUrl - url of the authentication service
-   * @param {string} username - user's username
-   * @param {string} password - user's password
+   * Fetch a user's login authorization token from the REST API.
+   * @param {string} authUrl - url of the authorization service
+   * @param {string} username - username
+   * @param {string} password - password
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Object} - JS Promise, resolves to a ``string`` value
    */
   static getAuthToken(authUrl, username, password, timeout = 30000) {
     const req = new Request(undefined, 'application/json', timeout);
@@ -500,171 +377,20 @@ export default class StoreClient {
   }
 
   /**
-   * Get the data object from a collection object.
+   * Internal method to fetch a high level resource through the REST API.
    *
-   * @param {Object} coll - collection object
-   * @param {string} [collection_type='item'] - collection type, either 'list' or 'item'
-   *
-   * @return {Object} - result object
-   */
-  static getDataFromCollection(coll, collection_type = 'item') {
-    const result = {};
-
-    if (collection_type === 'list') {
-      result.data = [];
-
-      // for each item get its data
-      for (let item of coll.items) {
-        result.data.push(Collection.getItemDescriptors(item));
-      }
-      const next = Collection.getLinkRelationUrls(coll, 'next');
-      result.hasNextPage = next.length ? true : false;
-      const previous = Collection.getLinkRelationUrls(coll, 'previous');
-      result.hasPreviousPage = previous.length ? true : false;
-      result.totalCount = Collection.getTotalNumberOfItems(coll);
-    } else {
-      result.data = Collection.getItemDescriptors(coll.items[0]);
-    }
-    return result;
-  }
-
-  /**
-   * Internal method to fetch a collection object from a resource url.
-   *
-   * @param {string} url - url
-   * @param {Object} [searchParams=null] - search parameters
+   * @param {string} resUrlProp -  property of the `this` object containing the url of the resource
+   * @param {string} ResClass - resource class
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise
    */
-  _fetchCollection(url, searchParams = null) {
-    const req = new Request(this.auth, this.contentType, this.timeout);
-
-    return req.get(url, searchParams).then(resp => resp.data.collection);
+  _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {
+    const getRes = () => {
+      const res = new ResClass(this[resUrlProp], this.auth);
+      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);
+    };
+    return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());
   }
-
-  /**
-   * Internal method to get an item resources's data (descriptors) given its ChRIS store id.
-   *
-   * @param {string} resQueryUrl - query url for the resource
-   * @param {number} id - plugin id
-   *
-   * @return {Object} - JS Promise
-   */
-  _getItemResourceData(resQueryUrl, id) {
-    const searchParams = { id: id };
-
-    return this._fetchCollection(resQueryUrl, searchParams).then(coll => {
-      if (coll.items.length) {
-        return StoreClient.getDataFromCollection(coll, 'item');
-      }
-      const errMsg = 'Could not find resource with id: ' + id;
-      throw new RequestException(errMsg);
-    });
-  }
-
-  /**
-   * Internal method to remove an existing item resource from the ChRIS store.
-   *
-   * @param {string} resQueryUrl - query url for the resource
-   * @param {number} id - resource id
-   *
-   * @return {Object} - JS Promise
-   */
-  _removeItemResource(resQueryUrl, id) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        const req = new Request(self.auth, self.contentType, self.timeout);
-        const searchParams = { id: id };
-        let resp;
-
-        try {
-          resp = yield req.get(resQueryUrl, searchParams);
-          const coll = resp.data.collection;
-
-          if (coll.items.length) {
-            const url = coll.items[0].href;
-            resp = yield req.delete(url);
-          } else {
-            const errMsg = 'Could not find resource with id: ' + id;
-            throw new RequestException(errMsg);
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve();
-      });
-    });
-  }
-
-  /**
-   * Internal method to get a paginated list of data (descriptors) given query search
-   * parameters. If no search parameters is given then get the default first page.
-   *
-   * @param {string} resUrl -  url for the list resource
-   * @param {Object} [searchParams=null] - search parameters
-   *
-   * @return {Object} - JS Promise
-   */
-  _getListResourceData(resUrl, searchParams = null) {
-    return this._fetchCollection(resUrl, searchParams).then(coll => {
-      return StoreClient.getDataFromCollection(coll, 'list');
-    });
-  }
-
-  /**
-   * Internal method to get a paginated list of data items related to a resource given
-   * by its id.
-   *
-   * @param {string} resQueryUrl - query url for the resource
-   * @param {number} id - resource id
-   * @param {string} listRelName - name of the related list link relation
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   *
-   * @return {Object} - JS Promise
-   */
-  _getResourceRelatedListData(resQueryUrl, id, listRelName, params = null) {
-    const self = this;
-
-    return new Promise(function(resolve, reject) {
-      StoreClient.runAsyncTask(function*() {
-        let coll;
-        let result = {
-          data: [],
-          hasNextPage: false,
-          hasPreviousPage: false,
-          totalCount: -1,
-        };
-
-        try {
-          coll = yield self._fetchCollection(resQueryUrl, { id: id });
-          if (coll.items.length === 0) {
-            const errMsg = 'Could not find resource with id: ' + id;
-            throw new RequestException(errMsg);
-          }
-          const listLinks = Collection.getLinkRelationUrls(coll.items[0], listRelName);
-          if (listLinks.length) {
-            coll = yield self._fetchCollection(listLinks[0], params); // there can only be a single list link
-            result = StoreClient.getDataFromCollection(coll, 'list');
-          }
-        } catch (ex) {
-          reject(ex);
-          return;
-        }
-
-        resolve(result);
-      });
-    });
-  }
-
-  /*export const login = credentials => {
-    return axios.get('https://jsonplaceholder.typicode.com/posts/1').then(response => {
-      // process response somehow
-    });
-  };*/
 }

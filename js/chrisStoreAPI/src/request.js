@@ -31,6 +31,7 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {?Object} params - search parameters
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   get(url, params = null) {
@@ -50,6 +51,7 @@ export default class Request {
    * @param {Object} data - JSON data object
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   post(url, data, uploadFileObj = null) {
@@ -63,6 +65,7 @@ export default class Request {
    * @param {Object} data - JSON data object
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   put(url, data, uploadFileObj = null) {
@@ -73,6 +76,7 @@ export default class Request {
    * Perform a DELETE request.
    *
    * @param {string} url - url of the resource
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   delete(url) {
@@ -89,6 +93,7 @@ export default class Request {
    * @param {Object} data - JSON data object
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   _postOrPut(requestMethod, url, data, uploadFileObj = null) {
@@ -120,6 +125,7 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {string} method - request verb
+   *
    * @return {Object} - axios configuration object
    */
   _getConfig(url, method) {
@@ -150,6 +156,7 @@ export default class Request {
    * Internal method to make an axios request.
    *
    * @param {Object} config - axios configuration object
+   *
    * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
    */
   static _callAxios(config) {
@@ -166,10 +173,11 @@ export default class Request {
    * Internal method to handle errors produced by HTTP requests.
    *
    * @param {Object} error - axios error object
+   *
    * @throws {RequestException} throw error
    */
   static _handleRequestError(error) {
-    let storeError;
+    let apiError;
 
     if (error.response) {
       // The request was made and the server responded with a status code
@@ -181,28 +189,28 @@ export default class Request {
       if (error.response.data.collection) {
         errMsg = Collection.getErrorMessage(error.response.data.collection);
       }
-      storeError = new RequestException(errMsg);
-      storeError.request = error.request;
-      storeError.response = error.response;
+      apiError = new RequestException(errMsg);
+      apiError.request = error.request;
+      apiError.response = error.response;
       try {
-        storeError.response.data = JSON.parse(errMsg);
+        apiError.response.data = JSON.parse(errMsg);
       } catch (ex) {
-        storeError.response.data = errMsg;
+        apiError.response.data = errMsg;
       }
     } else if (error.request) {
       // The request was made but no response was received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
       // http.ClientRequest in node.js
       //console.log(error.request);
-      storeError = new RequestException('No server response!');
-      storeError.request = error.request;
+      apiError = new RequestException('No server response!');
+      apiError.request = error.request;
     } else {
       // Something happened in setting up the request that triggered an Error
       //console.log('Error', error.message);
-      storeError = new RequestException(error.message);
+      apiError = new RequestException(error.message);
     }
 
-    throw storeError;
+    throw apiError;
     //console.log(error.config);
   }
 

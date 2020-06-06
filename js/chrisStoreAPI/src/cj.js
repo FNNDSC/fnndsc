@@ -6,6 +6,7 @@ export default class Collection {
    * Get the error message from the collection object.
    *
    * @param {Object} collection - Collection+Json collection object
+   *
    * @return {string} - error message
    */
   static getErrorMessage(collection) {
@@ -20,6 +21,7 @@ export default class Collection {
    *
    * @param {Object} obj - Collection+Json collection or item object
    * @param {string} relationName - name of the link relation
+   *
    * @return {string[]} - list of urls
    */
   static getLinkRelationUrls(obj, relationName) {
@@ -33,6 +35,7 @@ export default class Collection {
    * Get an item's data (descriptors).
    *
    * @param {Object} item - Collection+Json item object
+   *
    * @return {Object} - object whose properties and values are the item's descriptor names and values respectively
    */
   static getItemDescriptors(item) {
@@ -49,6 +52,7 @@ export default class Collection {
    * Get the url of the representation given by a collection obj.
    *
    * @param {Object} collection - Collection+Json collection object
+   *
    * @return {string} - url of the resource representation
    */
   static getUrl(collection) {
@@ -74,6 +78,7 @@ export default class Collection {
    * Get the list of descriptor names within a collection's template object.
    *
    * @param {Object} template - Collection+Json template object
+   *
    * @return {string[]} - list of descriptor names
    */
   static getTemplateDescriptorNames(template) {
@@ -84,6 +89,7 @@ export default class Collection {
    * Get the list of descriptor names within a Collection+Json query array.
    *
    * @param {Object[]} queryArr - Collection+Json query array
+   *
    * @return {string[]} - list of query parameter names
    */
   static getQueryParameters(queryArr) {
@@ -95,6 +101,7 @@ export default class Collection {
    * the item descriptors.
    *
    * @param {Object} descriptorsObj - item descriptors object
+   *
    * @return {Object} - template object
    */
   static makeTemplate(descriptorsObj) {
