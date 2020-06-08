@@ -1,8 +1,122 @@
 window.esdocSearchIndex = [
   [
+    "@fnndsc/chrisstoreapi~client",
+    "class/src/client.js~Client.html",
+    "<span>Client</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisstoreapi~collection",
     "class/src/cj.js~Collection.html",
     "<span>Collection</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~itemresource",
+    "class/src/resource.js~ItemResource.html",
+    "<span>ItemResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~listresource",
+    "class/src/resource.js~ListResource.html",
+    "<span>ListResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pipeline",
+    "class/src/pipeline.js~Pipeline.html",
+    "<span>Pipeline</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pipelinelist",
+    "class/src/pipeline.js~PipelineList.html",
+    "<span>PipelineList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pipelinepipingdefaultparameterlist",
+    "class/src/pipeline.js~PipelinePipingDefaultParameterList.html",
+    "<span>PipelinePipingDefaultParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pipelinepluginlist",
+    "class/src/pipeline.js~PipelinePluginList.html",
+    "<span>PipelinePluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pipelinepluginpipinglist",
+    "class/src/pipeline.js~PipelinePluginPipingList.html",
+    "<span>PipelinePluginPipingList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pipingdefaultparameter",
+    "class/src/pipeline.js~PipingDefaultParameter.html",
+    "<span>PipingDefaultParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~plugin",
+    "class/src/plugin.js~Plugin.html",
+    "<span>Plugin</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginlist",
+    "class/src/plugin.js~PluginList.html",
+    "<span>PluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginmeta",
+    "class/src/pluginmeta.js~PluginMeta.html",
+    "<span>PluginMeta</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginmetalist",
+    "class/src/pluginmeta.js~PluginMetaList.html",
+    "<span>PluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginmetapluginlist",
+    "class/src/plugin.js~PluginMetaPluginList.html",
+    "<span>PluginMetaPluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginparameter",
+    "class/src/pluginparameter.js~PluginParameter.html",
+    "<span>PluginParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginparameterlist",
+    "class/src/pluginparameter.js~PluginParameterList.html",
+    "<span>PluginParameterList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginpiping",
+    "class/src/pipeline.js~PluginPiping.html",
+    "<span>PluginPiping</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginstar",
+    "class/src/pluginstar.js~PluginStar.html",
+    "<span>PluginStar</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~pluginstarlist",
+    "class/src/pluginstar.js~PluginStarList.html",
+    "<span>PluginStarList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
     "class"
   ],
   [
@@ -18,9 +132,27 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@fnndsc/chrisstoreapi~storeclient",
-    "class/src/client.js~StoreClient.html",
-    "<span>StoreClient</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "@fnndsc/chrisstoreapi~resource",
+    "class/src/resource.js~Resource.html",
+    "<span>Resource</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~user",
+    "class/src/user.js~User.html",
+    "<span>User</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~userfavoritepluginmetalist",
+    "class/src/pluginmeta.js~UserFavoritePluginMetaList.html",
+    "<span>UserFavoritePluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~userownedpluginmetalist",
+    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html",
+    "<span>UserOwnedPluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
     "class"
   ],
   [
@@ -366,201 +498,177 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/client.js~storeclient#_fetchcollection",
-    "class/src/client.js~StoreClient.html#instance-method-_fetchCollection",
-    "src/client.js~StoreClient#_fetchCollection",
+    "src/client.js~client#_fetchres",
+    "class/src/client.js~Client.html#instance-method-_fetchRes",
+    "src/client.js~Client#_fetchRes",
     "method"
   ],
   [
-    "src/client.js~storeclient#_getitemresourcedata",
-    "class/src/client.js~StoreClient.html#instance-method-_getItemResourceData",
-    "src/client.js~StoreClient#_getItemResourceData",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_getlistresourcedata",
-    "class/src/client.js~StoreClient.html#instance-method-_getListResourceData",
-    "src/client.js~StoreClient#_getListResourceData",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_getresourcerelatedlistdata",
-    "class/src/client.js~StoreClient.html#instance-method-_getResourceRelatedListData",
-    "src/client.js~StoreClient#_getResourceRelatedListData",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#_removeitemresource",
-    "class/src/client.js~StoreClient.html#instance-method-_removeItemResource",
-    "src/client.js~StoreClient#_removeItemResource",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#addplugin",
-    "class/src/client.js~StoreClient.html#instance-method-addPlugin",
-    "src/client.js~StoreClient#addPlugin",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#auth",
-    "class/src/client.js~StoreClient.html#instance-member-auth",
-    "src/client.js~StoreClient#auth",
+    "src/client.js~client#auth",
+    "class/src/client.js~Client.html#instance-member-auth",
+    "src/client.js~Client#auth",
     "member"
   ],
   [
-    "src/client.js~storeclient#constructor",
-    "class/src/client.js~StoreClient.html#instance-constructor-constructor",
-    "src/client.js~StoreClient#constructor",
+    "src/client.js~client#constructor",
+    "class/src/client.js~Client.html#instance-constructor-constructor",
+    "src/client.js~Client#constructor",
     "method"
   ],
   [
-    "src/client.js~storeclient#contenttype",
-    "class/src/client.js~StoreClient.html#instance-member-contentType",
-    "src/client.js~StoreClient#contentType",
+    "src/client.js~client#createpipeline",
+    "class/src/client.js~Client.html#instance-method-createPipeline",
+    "src/client.js~Client#createPipeline",
+    "method"
+  ],
+  [
+    "src/client.js~client#createplugin",
+    "class/src/client.js~Client.html#instance-method-createPlugin",
+    "src/client.js~Client#createPlugin",
+    "method"
+  ],
+  [
+    "src/client.js~client#createpluginstar",
+    "class/src/client.js~Client.html#instance-method-createPluginStar",
+    "src/client.js~Client#createPluginStar",
+    "method"
+  ],
+  [
+    "src/client.js~client#favoritepluginmetasurl",
+    "class/src/client.js~Client.html#instance-member-favoritePluginMetasUrl",
+    "src/client.js~Client#favoritePluginMetasUrl",
     "member"
   ],
   [
-    "src/client.js~storeclient#getpipeline",
-    "class/src/client.js~StoreClient.html#instance-method-getPipeline",
-    "src/client.js~StoreClient#getPipeline",
+    "src/client.js~client#getfavoritepluginmetas",
+    "class/src/client.js~Client.html#instance-method-getFavoritePluginMetas",
+    "src/client.js~Client#getFavoritePluginMetas",
     "method"
   ],
   [
-    "src/client.js~storeclient#getpipelinedefaultparameters",
-    "class/src/client.js~StoreClient.html#instance-method-getPipelineDefaultParameters",
-    "src/client.js~StoreClient#getPipelineDefaultParameters",
+    "src/client.js~client#getownedpluginmetas",
+    "class/src/client.js~Client.html#instance-method-getOwnedPluginMetas",
+    "src/client.js~Client#getOwnedPluginMetas",
     "method"
   ],
   [
-    "src/client.js~storeclient#getpipelinepipings",
-    "class/src/client.js~StoreClient.html#instance-method-getPipelinePipings",
-    "src/client.js~StoreClient#getPipelinePipings",
+    "src/client.js~client#getpipeline",
+    "class/src/client.js~Client.html#instance-method-getPipeline",
+    "src/client.js~Client#getPipeline",
     "method"
   ],
   [
-    "src/client.js~storeclient#getpipelineplugins",
-    "class/src/client.js~StoreClient.html#instance-method-getPipelinePlugins",
-    "src/client.js~StoreClient#getPipelinePlugins",
+    "src/client.js~client#getpipelines",
+    "class/src/client.js~Client.html#instance-method-getPipelines",
+    "src/client.js~Client#getPipelines",
     "method"
   ],
   [
-    "src/client.js~storeclient#getpipelines",
-    "class/src/client.js~StoreClient.html#instance-method-getPipelines",
-    "src/client.js~StoreClient#getPipelines",
+    "src/client.js~client#getplugin",
+    "class/src/client.js~Client.html#instance-method-getPlugin",
+    "src/client.js~Client#getPlugin",
     "method"
   ],
   [
-    "src/client.js~storeclient#getplugin",
-    "class/src/client.js~StoreClient.html#instance-method-getPlugin",
-    "src/client.js~StoreClient#getPlugin",
+    "src/client.js~client#getpluginmeta",
+    "class/src/client.js~Client.html#instance-method-getPluginMeta",
+    "src/client.js~Client#getPluginMeta",
     "method"
   ],
   [
-    "src/client.js~storeclient#getpluginparameters",
-    "class/src/client.js~StoreClient.html#instance-method-getPluginParameters",
-    "src/client.js~StoreClient#getPluginParameters",
+    "src/client.js~client#getpluginmetas",
+    "class/src/client.js~Client.html#instance-method-getPluginMetas",
+    "src/client.js~Client#getPluginMetas",
     "method"
   ],
   [
-    "src/client.js~storeclient#getplugins",
-    "class/src/client.js~StoreClient.html#instance-method-getPlugins",
-    "src/client.js~StoreClient#getPlugins",
+    "src/client.js~client#getpluginstar",
+    "class/src/client.js~Client.html#instance-method-getPluginStar",
+    "src/client.js~Client#getPluginStar",
     "method"
   ],
   [
-    "src/client.js~storeclient#getuser",
-    "class/src/client.js~StoreClient.html#instance-method-getUser",
-    "src/client.js~StoreClient#getUser",
+    "src/client.js~client#getpluginstars",
+    "class/src/client.js~Client.html#instance-method-getPluginStars",
+    "src/client.js~Client#getPluginStars",
     "method"
   ],
   [
-    "src/client.js~storeclient#modifypipeline",
-    "class/src/client.js~StoreClient.html#instance-method-modifyPipeline",
-    "src/client.js~StoreClient#modifyPipeline",
+    "src/client.js~client#getplugins",
+    "class/src/client.js~Client.html#instance-method-getPlugins",
+    "src/client.js~Client#getPlugins",
     "method"
   ],
   [
-    "src/client.js~storeclient#modifyplugin",
-    "class/src/client.js~StoreClient.html#instance-method-modifyPlugin",
-    "src/client.js~StoreClient#modifyPlugin",
+    "src/client.js~client#getuser",
+    "class/src/client.js~Client.html#instance-method-getUser",
+    "src/client.js~Client#getUser",
     "method"
   ],
   [
-    "src/client.js~storeclient#pipelinesqueryurl",
-    "class/src/client.js~StoreClient.html#instance-member-pipelinesQueryUrl",
-    "src/client.js~StoreClient#pipelinesQueryUrl",
+    "src/client.js~client#ownedpluginmetasurl",
+    "class/src/client.js~Client.html#instance-member-ownedPluginMetasUrl",
+    "src/client.js~Client#ownedPluginMetasUrl",
     "member"
   ],
   [
-    "src/client.js~storeclient#pipelinesurl",
-    "class/src/client.js~StoreClient.html#instance-member-pipelinesUrl",
-    "src/client.js~StoreClient#pipelinesUrl",
+    "src/client.js~client#pipelinesurl",
+    "class/src/client.js~Client.html#instance-member-pipelinesUrl",
+    "src/client.js~Client#pipelinesUrl",
     "member"
   ],
   [
-    "src/client.js~storeclient#removepipeline",
-    "class/src/client.js~StoreClient.html#instance-method-removePipeline",
-    "src/client.js~StoreClient#removePipeline",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#removeplugin",
-    "class/src/client.js~StoreClient.html#instance-method-removePlugin",
-    "src/client.js~StoreClient#removePlugin",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#setpipelinesurls",
-    "class/src/client.js~StoreClient.html#instance-method-setPipelinesUrls",
-    "src/client.js~StoreClient#setPipelinesUrls",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient#storequeryurl",
-    "class/src/client.js~StoreClient.html#instance-member-storeQueryUrl",
-    "src/client.js~StoreClient#storeQueryUrl",
+    "src/client.js~client#pluginmetasurl",
+    "class/src/client.js~Client.html#instance-member-pluginMetasUrl",
+    "src/client.js~Client#pluginMetasUrl",
     "member"
   ],
   [
-    "src/client.js~storeclient#storeurl",
-    "class/src/client.js~StoreClient.html#instance-member-storeUrl",
-    "src/client.js~StoreClient#storeUrl",
+    "src/client.js~client#pluginstarsurl",
+    "class/src/client.js~Client.html#instance-member-pluginStarsUrl",
+    "src/client.js~Client#pluginStarsUrl",
     "member"
   ],
   [
-    "src/client.js~storeclient#timeout",
-    "class/src/client.js~StoreClient.html#instance-member-timeout",
-    "src/client.js~StoreClient#timeout",
+    "src/client.js~client#pluginsurl",
+    "class/src/client.js~Client.html#instance-member-pluginsUrl",
+    "src/client.js~Client#pluginsUrl",
     "member"
   ],
   [
-    "src/client.js~storeclient#updateuser",
-    "class/src/client.js~StoreClient.html#instance-method-updateUser",
-    "src/client.js~StoreClient#updateUser",
+    "src/client.js~client#seturls",
+    "class/src/client.js~Client.html#instance-method-setUrls",
+    "src/client.js~Client#setUrls",
     "method"
   ],
   [
-    "src/client.js~storeclient.createuser",
-    "class/src/client.js~StoreClient.html#static-method-createUser",
-    "src/client.js~StoreClient.createUser",
+    "src/client.js~client#url",
+    "class/src/client.js~Client.html#instance-member-url",
+    "src/client.js~Client#url",
+    "member"
+  ],
+  [
+    "src/client.js~client#userurl",
+    "class/src/client.js~Client.html#instance-member-userUrl",
+    "src/client.js~Client#userUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client.createuser",
+    "class/src/client.js~Client.html#static-method-createUser",
+    "src/client.js~Client.createUser",
     "method"
   ],
   [
-    "src/client.js~storeclient.getauthtoken",
-    "class/src/client.js~StoreClient.html#static-method-getAuthToken",
-    "src/client.js~StoreClient.getAuthToken",
+    "src/client.js~client.getauthtoken",
+    "class/src/client.js~Client.html#static-method-getAuthToken",
+    "src/client.js~Client.getAuthToken",
     "method"
   ],
   [
-    "src/client.js~storeclient.getdatafromcollection",
-    "class/src/client.js~StoreClient.html#static-method-getDataFromCollection",
-    "src/client.js~StoreClient.getDataFromCollection",
-    "method"
-  ],
-  [
-    "src/client.js~storeclient.runasynctask",
-    "class/src/client.js~StoreClient.html#static-method-runAsyncTask",
-    "src/client.js~StoreClient.runAsyncTask",
+    "src/client.js~client.runasynctask",
+    "class/src/client.js~Client.html#static-method-runAsyncTask",
+    "src/client.js~Client.runAsyncTask",
     "method"
   ],
   [
@@ -598,6 +706,426 @@ window.esdocSearchIndex = [
     "file/src/index.js.html",
     "src/index.js",
     "file"
+  ],
+  [
+    "src/pipeline.js",
+    "file/src/pipeline.js.html",
+    "src/pipeline.js",
+    "file"
+  ],
+  [
+    "src/pipeline.js~pipeline#constructor",
+    "class/src/pipeline.js~Pipeline.html#instance-constructor-constructor",
+    "src/pipeline.js~Pipeline#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#delete",
+    "class/src/pipeline.js~Pipeline.html#instance-method-delete",
+    "src/pipeline.js~Pipeline#delete",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getdefaultparameters",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getDefaultParameters",
+    "src/pipeline.js~Pipeline#getDefaultParameters",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getpluginpipings",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getPluginPipings",
+    "src/pipeline.js~Pipeline#getPluginPipings",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getplugins",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getPlugins",
+    "src/pipeline.js~Pipeline#getPlugins",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#put",
+    "class/src/pipeline.js~Pipeline.html#instance-method-put",
+    "src/pipeline.js~Pipeline#put",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#constructor",
+    "class/src/pipeline.js~PipelineList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelineList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#getplugins",
+    "class/src/pipeline.js~PipelineList.html#instance-method-getPlugins",
+    "src/pipeline.js~PipelineList#getPlugins",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#itemclass",
+    "class/src/pipeline.js~PipelineList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelineList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipelinelist#post",
+    "class/src/pipeline.js~PipelineList.html#instance-method-post",
+    "src/pipeline.js~PipelineList#post",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepipingdefaultparameterlist#constructor",
+    "class/src/pipeline.js~PipelinePipingDefaultParameterList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelinePipingDefaultParameterList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepipingdefaultparameterlist#itemclass",
+    "class/src/pipeline.js~PipelinePipingDefaultParameterList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelinePipingDefaultParameterList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginlist#constructor",
+    "class/src/pipeline.js~PipelinePluginList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelinePluginList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginlist#itemclass",
+    "class/src/pipeline.js~PipelinePluginList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelinePluginList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginpipinglist#constructor",
+    "class/src/pipeline.js~PipelinePluginPipingList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelinePluginPipingList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinepluginpipinglist#itemclass",
+    "class/src/pipeline.js~PipelinePluginPipingList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelinePluginPipingList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipingdefaultparameter#constructor",
+    "class/src/pipeline.js~PipingDefaultParameter.html#instance-constructor-constructor",
+    "src/pipeline.js~PipingDefaultParameter#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipingdefaultparameter#getpluginparameter",
+    "class/src/pipeline.js~PipingDefaultParameter.html#instance-method-getPluginParameter",
+    "src/pipeline.js~PipingDefaultParameter#getPluginParameter",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipingdefaultparameter#getpluginpiping",
+    "class/src/pipeline.js~PipingDefaultParameter.html#instance-method-getPluginPiping",
+    "src/pipeline.js~PipingDefaultParameter#getPluginPiping",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#constructor",
+    "class/src/pipeline.js~PluginPiping.html#instance-constructor-constructor",
+    "src/pipeline.js~PluginPiping#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#getpipeline",
+    "class/src/pipeline.js~PluginPiping.html#instance-method-getPipeline",
+    "src/pipeline.js~PluginPiping#getPipeline",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#getplugin",
+    "class/src/pipeline.js~PluginPiping.html#instance-method-getPlugin",
+    "src/pipeline.js~PluginPiping#getPlugin",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pluginpiping#getpreviouspluginpiping",
+    "class/src/pipeline.js~PluginPiping.html#instance-method-getPreviousPluginPiping",
+    "src/pipeline.js~PluginPiping#getPreviousPluginPiping",
+    "method"
+  ],
+  [
+    "src/plugin.js",
+    "file/src/plugin.js.html",
+    "src/plugin.js",
+    "file"
+  ],
+  [
+    "src/plugin.js~plugin#constructor",
+    "class/src/plugin.js~Plugin.html#instance-constructor-constructor",
+    "src/plugin.js~Plugin#constructor",
+    "method"
+  ],
+  [
+    "src/plugin.js~plugin#delete",
+    "class/src/plugin.js~Plugin.html#instance-method-delete",
+    "src/plugin.js~Plugin#delete",
+    "method"
+  ],
+  [
+    "src/plugin.js~plugin#getpluginmeta",
+    "class/src/plugin.js~Plugin.html#instance-method-getPluginMeta",
+    "src/plugin.js~Plugin#getPluginMeta",
+    "method"
+  ],
+  [
+    "src/plugin.js~plugin#getpluginparameters",
+    "class/src/plugin.js~Plugin.html#instance-method-getPluginParameters",
+    "src/plugin.js~Plugin#getPluginParameters",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginlist#constructor",
+    "class/src/plugin.js~PluginList.html#instance-constructor-constructor",
+    "src/plugin.js~PluginList#constructor",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginlist#getpipelines",
+    "class/src/plugin.js~PluginList.html#instance-method-getPipelines",
+    "src/plugin.js~PluginList#getPipelines",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginlist#getpluginstars",
+    "class/src/plugin.js~PluginList.html#instance-method-getPluginStars",
+    "src/plugin.js~PluginList#getPluginStars",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginlist#itemclass",
+    "class/src/plugin.js~PluginList.html#instance-member-itemClass",
+    "src/plugin.js~PluginList#itemClass",
+    "member"
+  ],
+  [
+    "src/plugin.js~pluginlist#post",
+    "class/src/plugin.js~PluginList.html#instance-method-post",
+    "src/plugin.js~PluginList#post",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginmetapluginlist#constructor",
+    "class/src/plugin.js~PluginMetaPluginList.html#instance-constructor-constructor",
+    "src/plugin.js~PluginMetaPluginList#constructor",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginmetapluginlist#getpluginmeta",
+    "class/src/plugin.js~PluginMetaPluginList.html#instance-method-getPluginMeta",
+    "src/plugin.js~PluginMetaPluginList#getPluginMeta",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginmetapluginlist#itemclass",
+    "class/src/plugin.js~PluginMetaPluginList.html#instance-member-itemClass",
+    "src/plugin.js~PluginMetaPluginList#itemClass",
+    "member"
+  ],
+  [
+    "src/pluginmeta.js",
+    "file/src/pluginmeta.js.html",
+    "src/pluginmeta.js",
+    "file"
+  ],
+  [
+    "src/pluginmeta.js~pluginmeta#constructor",
+    "class/src/pluginmeta.js~PluginMeta.html#instance-constructor-constructor",
+    "src/pluginmeta.js~PluginMeta#constructor",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmeta#delete",
+    "class/src/pluginmeta.js~PluginMeta.html#instance-method-delete",
+    "src/pluginmeta.js~PluginMeta#delete",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmeta#getplugins",
+    "class/src/pluginmeta.js~PluginMeta.html#instance-method-getPlugins",
+    "src/pluginmeta.js~PluginMeta#getPlugins",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmeta#put",
+    "class/src/pluginmeta.js~PluginMeta.html#instance-method-put",
+    "src/pluginmeta.js~PluginMeta#put",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#constructor",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-constructor-constructor",
+    "src/pluginmeta.js~PluginMetaList#constructor",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getfavoritepluginmetas",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getFavoritePluginMetas",
+    "src/pluginmeta.js~PluginMetaList#getFavoritePluginMetas",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getownedpluginmetas",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getOwnedPluginMetas",
+    "src/pluginmeta.js~PluginMetaList#getOwnedPluginMetas",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getpipelines",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getPipelines",
+    "src/pluginmeta.js~PluginMetaList#getPipelines",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getpluginstars",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getPluginStars",
+    "src/pluginmeta.js~PluginMetaList#getPluginStars",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getplugins",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getPlugins",
+    "src/pluginmeta.js~PluginMetaList#getPlugins",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getuser",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getUser",
+    "src/pluginmeta.js~PluginMetaList#getUser",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#itemclass",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-member-itemClass",
+    "src/pluginmeta.js~PluginMetaList#itemClass",
+    "member"
+  ],
+  [
+    "src/pluginmeta.js~userfavoritepluginmetalist#constructor",
+    "class/src/pluginmeta.js~UserFavoritePluginMetaList.html#instance-constructor-constructor",
+    "src/pluginmeta.js~UserFavoritePluginMetaList#constructor",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~userfavoritepluginmetalist#getuser",
+    "class/src/pluginmeta.js~UserFavoritePluginMetaList.html#instance-method-getUser",
+    "src/pluginmeta.js~UserFavoritePluginMetaList#getUser",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~userfavoritepluginmetalist#itemclass",
+    "class/src/pluginmeta.js~UserFavoritePluginMetaList.html#instance-member-itemClass",
+    "src/pluginmeta.js~UserFavoritePluginMetaList#itemClass",
+    "member"
+  ],
+  [
+    "src/pluginmeta.js~userownedpluginmetalist#constructor",
+    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html#instance-constructor-constructor",
+    "src/pluginmeta.js~UserOwnedPluginMetaList#constructor",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~userownedpluginmetalist#getuser",
+    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html#instance-method-getUser",
+    "src/pluginmeta.js~UserOwnedPluginMetaList#getUser",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~userownedpluginmetalist#itemclass",
+    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html#instance-member-itemClass",
+    "src/pluginmeta.js~UserOwnedPluginMetaList#itemClass",
+    "member"
+  ],
+  [
+    "src/pluginparameter.js",
+    "file/src/pluginparameter.js.html",
+    "src/pluginparameter.js",
+    "file"
+  ],
+  [
+    "src/pluginparameter.js~pluginparameter#constructor",
+    "class/src/pluginparameter.js~PluginParameter.html#instance-constructor-constructor",
+    "src/pluginparameter.js~PluginParameter#constructor",
+    "method"
+  ],
+  [
+    "src/pluginparameter.js~pluginparameter#getplugin",
+    "class/src/pluginparameter.js~PluginParameter.html#instance-method-getPlugin",
+    "src/pluginparameter.js~PluginParameter#getPlugin",
+    "method"
+  ],
+  [
+    "src/pluginparameter.js~pluginparameterlist#constructor",
+    "class/src/pluginparameter.js~PluginParameterList.html#instance-constructor-constructor",
+    "src/pluginparameter.js~PluginParameterList#constructor",
+    "method"
+  ],
+  [
+    "src/pluginparameter.js~pluginparameterlist#itemclass",
+    "class/src/pluginparameter.js~PluginParameterList.html#instance-member-itemClass",
+    "src/pluginparameter.js~PluginParameterList#itemClass",
+    "member"
+  ],
+  [
+    "src/pluginstar.js",
+    "file/src/pluginstar.js.html",
+    "src/pluginstar.js",
+    "file"
+  ],
+  [
+    "src/pluginstar.js~pluginstar#constructor",
+    "class/src/pluginstar.js~PluginStar.html#instance-constructor-constructor",
+    "src/pluginstar.js~PluginStar#constructor",
+    "method"
+  ],
+  [
+    "src/pluginstar.js~pluginstar#delete",
+    "class/src/pluginstar.js~PluginStar.html#instance-method-delete",
+    "src/pluginstar.js~PluginStar#delete",
+    "method"
+  ],
+  [
+    "src/pluginstar.js~pluginstar#getpluginmeta",
+    "class/src/pluginstar.js~PluginStar.html#instance-method-getPluginMeta",
+    "src/pluginstar.js~PluginStar#getPluginMeta",
+    "method"
+  ],
+  [
+    "src/pluginstar.js~pluginstar#getuser",
+    "class/src/pluginstar.js~PluginStar.html#instance-method-getUser",
+    "src/pluginstar.js~PluginStar#getUser",
+    "method"
+  ],
+  [
+    "src/pluginstar.js~pluginstarlist#constructor",
+    "class/src/pluginstar.js~PluginStarList.html#instance-constructor-constructor",
+    "src/pluginstar.js~PluginStarList#constructor",
+    "method"
+  ],
+  [
+    "src/pluginstar.js~pluginstarlist#getplugins",
+    "class/src/pluginstar.js~PluginStarList.html#instance-method-getPlugins",
+    "src/pluginstar.js~PluginStarList#getPlugins",
+    "method"
+  ],
+  [
+    "src/pluginstar.js~pluginstarlist#itemclass",
+    "class/src/pluginstar.js~PluginStarList.html#instance-member-itemClass",
+    "src/pluginstar.js~PluginStarList#itemClass",
+    "member"
+  ],
+  [
+    "src/pluginstar.js~pluginstarlist#post",
+    "class/src/pluginstar.js~PluginStarList.html#instance-method-post",
+    "src/pluginstar.js~PluginStarList#post",
+    "method"
   ],
   [
     "src/request.js",
@@ -681,6 +1209,216 @@ window.esdocSearchIndex = [
     "src/request.js~request.runasynctask",
     "class/src/request.js~Request.html#static-method-runAsyncTask",
     "src/request.js~Request.runAsyncTask",
+    "method"
+  ],
+  [
+    "src/resource.js",
+    "file/src/resource.js.html",
+    "src/resource.js",
+    "file"
+  ],
+  [
+    "src/resource.js~itemresource#_delete",
+    "class/src/resource.js~ItemResource.html#instance-method-_delete",
+    "src/resource.js~ItemResource#_delete",
+    "method"
+  ],
+  [
+    "src/resource.js~itemresource#_getresource",
+    "class/src/resource.js~ItemResource.html#instance-method-_getResource",
+    "src/resource.js~ItemResource#_getResource",
+    "method"
+  ],
+  [
+    "src/resource.js~itemresource#_put",
+    "class/src/resource.js~ItemResource.html#instance-method-_put",
+    "src/resource.js~ItemResource#_put",
+    "method"
+  ],
+  [
+    "src/resource.js~itemresource#collection",
+    "class/src/resource.js~ItemResource.html#instance-member-collection",
+    "src/resource.js~ItemResource#collection",
+    "member"
+  ],
+  [
+    "src/resource.js~itemresource#constructor",
+    "class/src/resource.js~ItemResource.html#instance-constructor-constructor",
+    "src/resource.js~ItemResource#constructor",
+    "method"
+  ],
+  [
+    "src/resource.js~itemresource#data",
+    "class/src/resource.js~ItemResource.html#instance-get-data",
+    "src/resource.js~ItemResource#data",
+    "member"
+  ],
+  [
+    "src/resource.js~itemresource#get",
+    "class/src/resource.js~ItemResource.html#instance-method-get",
+    "src/resource.js~ItemResource#get",
+    "method"
+  ],
+  [
+    "src/resource.js~itemresource#getputparameters",
+    "class/src/resource.js~ItemResource.html#instance-method-getPUTParameters",
+    "src/resource.js~ItemResource#getPUTParameters",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#_getresource",
+    "class/src/resource.js~ListResource.html#instance-method-_getResource",
+    "src/resource.js~ListResource#_getResource",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#_post",
+    "class/src/resource.js~ListResource.html#instance-method-_post",
+    "src/resource.js~ListResource#_post",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#collection",
+    "class/src/resource.js~ListResource.html#instance-member-collection",
+    "src/resource.js~ListResource#collection",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#constructor",
+    "class/src/resource.js~ListResource.html#instance-constructor-constructor",
+    "src/resource.js~ListResource#constructor",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#data",
+    "class/src/resource.js~ListResource.html#instance-get-data",
+    "src/resource.js~ListResource#data",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#get",
+    "class/src/resource.js~ListResource.html#instance-method-get",
+    "src/resource.js~ListResource#get",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#getitem",
+    "class/src/resource.js~ListResource.html#instance-method-getItem",
+    "src/resource.js~ListResource#getItem",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#getitems",
+    "class/src/resource.js~ListResource.html#instance-method-getItems",
+    "src/resource.js~ListResource#getItems",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#getpostparameters",
+    "class/src/resource.js~ListResource.html#instance-method-getPOSTParameters",
+    "src/resource.js~ListResource#getPOSTParameters",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#getsearchparameters",
+    "class/src/resource.js~ListResource.html#instance-method-getSearchParameters",
+    "src/resource.js~ListResource#getSearchParameters",
+    "method"
+  ],
+  [
+    "src/resource.js~listresource#hasnextpage",
+    "class/src/resource.js~ListResource.html#instance-get-hasNextPage",
+    "src/resource.js~ListResource#hasNextPage",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#haspreviouspage",
+    "class/src/resource.js~ListResource.html#instance-get-hasPreviousPage",
+    "src/resource.js~ListResource#hasPreviousPage",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#itemclass",
+    "class/src/resource.js~ListResource.html#instance-member-itemClass",
+    "src/resource.js~ListResource#itemClass",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#queryurl",
+    "class/src/resource.js~ListResource.html#instance-member-queryUrl",
+    "src/resource.js~ListResource#queryUrl",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#searchparams",
+    "class/src/resource.js~ListResource.html#instance-member-searchParams",
+    "src/resource.js~ListResource#searchParams",
+    "member"
+  ],
+  [
+    "src/resource.js~listresource#totalcount",
+    "class/src/resource.js~ListResource.html#instance-get-totalCount",
+    "src/resource.js~ListResource#totalCount",
+    "member"
+  ],
+  [
+    "src/resource.js~resource#auth",
+    "class/src/resource.js~Resource.html#instance-member-auth",
+    "src/resource.js~Resource#auth",
+    "member"
+  ],
+  [
+    "src/resource.js~resource#clone",
+    "class/src/resource.js~Resource.html#instance-method-clone",
+    "src/resource.js~Resource#clone",
+    "method"
+  ],
+  [
+    "src/resource.js~resource#collection",
+    "class/src/resource.js~Resource.html#instance-member-collection",
+    "src/resource.js~Resource#collection",
+    "member"
+  ],
+  [
+    "src/resource.js~resource#constructor",
+    "class/src/resource.js~Resource.html#instance-constructor-constructor",
+    "src/resource.js~Resource#constructor",
+    "method"
+  ],
+  [
+    "src/resource.js~resource#contenttype",
+    "class/src/resource.js~Resource.html#instance-member-contentType",
+    "src/resource.js~Resource#contentType",
+    "member"
+  ],
+  [
+    "src/resource.js~resource#isempty",
+    "class/src/resource.js~Resource.html#instance-get-isEmpty",
+    "src/resource.js~Resource#isEmpty",
+    "member"
+  ],
+  [
+    "src/resource.js~resource#url",
+    "class/src/resource.js~Resource.html#instance-member-url",
+    "src/resource.js~Resource#url",
+    "member"
+  ],
+  [
+    "src/user.js",
+    "file/src/user.js.html",
+    "src/user.js",
+    "file"
+  ],
+  [
+    "src/user.js~user#constructor",
+    "class/src/user.js~User.html#instance-constructor-constructor",
+    "src/user.js~User#constructor",
+    "method"
+  ],
+  [
+    "src/user.js~user#put",
+    "class/src/user.js~User.html#instance-method-put",
+    "src/user.js~User#put",
     "method"
   ]
 ]

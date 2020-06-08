@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/index.js | @fnndsc/chrisstoreapi</title>
+  <title data-ice="title">src/plugin.js | @fnndsc/chrisstoreapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -59,36 +59,181 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Client from &apos;./client&apos;;
-import Request from &apos;./request&apos;;
-import Collection from &apos;./cj&apos;;
-import RequestException from &apos;./exception&apos;;
-import { ListResource, ItemResource, Resource } from &apos;./resource&apos;;
-import { PluginList, PluginMetaPluginList, Plugin } from &apos;./plugin&apos;;
-import { PluginMetaList, PluginMeta } from &apos;./pluginmeta&apos;;
-import { PluginStarList, PluginStar } from &apos;./pluginstar&apos;;
-import { PluginParameterList, PluginParameter } from &apos;./pluginparameter&apos;;
-import { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline } from &apos;./pipeline&apos;;
-import {
-  PipelinePipingDefaultParameterList,
-  PluginPiping,
-  PipingDefaultParameter,
-} from &apos;./pipeline&apos;;
-import { User } from &apos;./user&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/plugin.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
+import { ItemResource, ListResource } from &apos;./resource&apos;;
+import { PipelineList } from &apos;./pipeline&apos;;
+import { PluginStarList } from &apos;./pluginstar&apos;;
+import { PluginMeta } from &apos;./pluginmeta&apos;;
+import { PluginParameterList } from &apos;./pluginparameter&apos;;
 
-export default Client;
-export { Request };
-export { Collection };
-export { RequestException };
-export { ListResource, ItemResource, Resource };
-export { PluginList, PluginMetaPluginList, Plugin };
-export { PluginMetaList, PluginMeta };
-export { PluginStarList, PluginStar };
-export { PluginParameterList, PluginParameter };
-export { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };
-export { PipelinePipingDefaultParameterList, PluginPiping, PipingDefaultParameter };
-export { User };
+/**
+ * Plugin item resource object representing a plugin.
+ */
+export class Plugin extends ItemResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   */
+  constructor(url, auth = null) {
+    super(url, auth);
+  }
+
+  /**
+   * Fetch a list of plugin parameters associated to this plugin from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object
+   */
+  getPluginParameters(params = null, timeout = 30000) {
+    const linkRelation = &apos;parameters&apos;;
+    const resourceClass = PluginParameterList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Fetch the plugin meta associated to this plugin from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   */
+  getPluginMeta(timeout = 30000) {
+    const linkRelation = &apos;meta&apos;;
+    const resourceClass = PluginMeta;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to delete this plugin item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
+}
+
+/**
+ * Plugin list resource object representing a list of plugins.
+ */
+export class PluginList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   */
+  constructor(url, auth = null) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = Plugin;
+  }
+
+  /**
+   * Fetch a list of pipelines from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PipelineList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
+   */
+  getPipelines(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;pipelines&apos;;
+    const resourceClass = PipelineList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of plugin stars from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PluginSttarList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object
+   */
+  getPluginStars(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;plugin_stars&apos;;
+    const resourceClass = PluginStarList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Make a POST request to this plugin list resource to create a new plugin
+   * item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.name - plugin name
+   * @param {string} data.dock_image - plugin docker image
+   * @param {string} data.public_repo - plugin repo
+   * @param {Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.descriptor_file - file blob
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, uploadFileObj, timeout = 30000) {
+    return this._post(data, uploadFileObj, timeout);
+  }
+}
+
+/**
+ * Plugin meta-specific plugin list resource object representing a list of
+ * plugins associated to an specific plugin meta.
+ */
+export class PluginMetaPluginList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   */
+  constructor(url, auth = null) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = Plugin;
+  }
+
+  /**
+   * Fetch the plugin meta associated to this plugin meta-specific list of
+   * plugins from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   */
+  getPluginMeta(timeout = 30000) {
+    const linkRelation = &apos;meta&apos;;
+    const resourceClass = PluginMeta;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
 </code></pre>
 
 </div>

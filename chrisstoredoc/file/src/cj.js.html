@@ -30,9 +30,31 @@
   <ul>
     
   <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~StoreClient.html">StoreClient</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelineList.html">PipelineList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePipingDefaultParameterList.html">PipelinePipingDefaultParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginList.html">PipelinePluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginPipingList.html">PipelinePluginPipingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipingDefaultParameter.html">PipingDefaultParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PluginPiping.html">PluginPiping</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginMetaPluginList.html">PluginMetaPluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserFavoritePluginMetaList.html">UserFavoritePluginMetaList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserOwnedPluginMetaList.html">UserOwnedPluginMetaList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginstar.js~PluginStar.html">PluginStar</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginstar.js~PluginStarList.html">PluginStarList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ItemResource.html">ItemResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ListResource.html">ListResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~Resource.html">Resource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -46,6 +68,7 @@ export default class Collection {
    * Get the error message from the collection object.
    *
    * @param {Object} collection - Collection+Json collection object
+   *
    * @return {string} - error message
    */
   static getErrorMessage(collection) {
@@ -60,6 +83,7 @@ export default class Collection {
    *
    * @param {Object} obj - Collection+Json collection or item object
    * @param {string} relationName - name of the link relation
+   *
    * @return {string[]} - list of urls
    */
   static getLinkRelationUrls(obj, relationName) {
@@ -73,6 +97,7 @@ export default class Collection {
    * Get an item&apos;s data (descriptors).
    *
    * @param {Object} item - Collection+Json item object
+   *
    * @return {Object} - object whose properties and values are the item&apos;s descriptor names and values respectively
    */
   static getItemDescriptors(item) {
@@ -89,6 +114,7 @@ export default class Collection {
    * Get the url of the representation given by a collection obj.
    *
    * @param {Object} collection - Collection+Json collection object
+   *
    * @return {string} - url of the resource representation
    */
   static getUrl(collection) {
@@ -114,6 +140,7 @@ export default class Collection {
    * Get the list of descriptor names within a collection&apos;s template object.
    *
    * @param {Object} template - Collection+Json template object
+   *
    * @return {string[]} - list of descriptor names
    */
   static getTemplateDescriptorNames(template) {
@@ -124,6 +151,7 @@ export default class Collection {
    * Get the list of descriptor names within a Collection+Json query array.
    *
    * @param {Object[]} queryArr - Collection+Json query array
+   *
    * @return {string[]} - list of query parameter names
    */
   static getQueryParameters(queryArr) {
@@ -135,6 +163,7 @@ export default class Collection {
    * the item descriptors.
    *
    * @param {Object} descriptorsObj - item descriptors object
+   *
    * @return {Object} - template object
    */
   static makeTemplate(descriptorsObj) {
