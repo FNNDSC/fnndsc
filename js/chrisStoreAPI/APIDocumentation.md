@@ -5,17 +5,17 @@ JavaScript6 client for the ChRIS Store API.
 ## Usage
 
 ``` javascript
-import StoreClient from '@fnndsc/chrisstoreapi';
+import Client from '@fnndsc/chrisstoreapi';
 
-const storeUrl = 'http://localhost:8010/api/v1/';
-const usersUrl = storeUrl + 'users/';
-const authUrl = storeUrl + 'auth-token/';
+const chrisStoreUrl = 'http://localhost:8010/api/v1/';
+const usersUrl = chrisStoreUrl + 'users/';
+const authUrl = chrisStoreUrl + 'auth-token/';
 let authToken;
 let resp;
 
 
 // create a new user
-resp = StoreClient.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');
+resp = Client.createUser(usersUrl, 'user1', 'user1pass', 'user1@gmail.com');
 resp
   .then(user => {
 
@@ -23,12 +23,12 @@ resp
   })
   .catch(error => {
 
-    window.console.log('Something went wrong with this request!!!: ', error);
+    window.console.log('Error!!!: ', error);
   });
 
 
 // fetch a user auth token
-resp = StoreClient.getAuthToken(authUrl, 'cubeadmin', 'cubeadmin1234');
+resp = Client.getAuthToken(authUrl, 'cube', 'cube1234');
 resp
   .then(token => {
 
@@ -37,22 +37,98 @@ resp
   })
   .catch(error => {
 
+    window.console.log('Error!!!: ', error);
+  });
+
+```
+
+The ChRIS Store Javascript client API takes an object oriented approach in which every API resource object is an instance
+of a Javascript class that inherits from either of two base classes:
+
+* ``ListResource`` (an object modeling a collection of items)
+* ``ItemResource`` (an object modeling an individual item in a collection of items)
+
+These model the two general type of REST API resources available from a ChRIS Store server.
+
+In addition to methods and properties provided by these base classes every resource object returned by
+the client API has additional methods to fetch its associated resources (item or list resources)
+from the ChRIS Store REST API. It can also have ``get``, ``post``, ``put`` and ``delete`` methods as allowed by
+the REST API. In particular every object inherits a ``get`` method that updates the internal state of the object
+with the new data fetched from the ChRIS Store server. A `clone` method is provided to cover the case when a reference
+to the previous object state is desired. This method returns a new instance of the same class as the cloned object.
+
+All methods that fetch a resource from the REST API return a JS Promise which is passed the corresponding resource
+object as an argument to the fulfillment callback.
+
+All resources can be fetched from the REST API starting with a ``client`` object as in the following examples:
+
+
+``` javascript
+
+// create a new client instance  without an auth object to make allowed unauthenticated requests
+let client = new Client(chrisStoreUrl);
+
+// fetch a subset of the plugin metas in the store corresponding to the page determined by offset and limit
+let searchParams = { limit: 20, offset:0 };
+
+resp = client.getPluginMetas(searchParams);
+resp
+  .then(plgMetas => {
+
+    window.console.log('Plugin meta list: ', plgMetas);
+
+    // the hasNextPage/hasPreviousPage property of any list resource object informs whether
+    // there is a next/previous page available from the paginated REST API
+    window.console.log('Is there a next page?: ', plgMetas.hasNextPage);
+    window.console.log('Is there a previous page?: ', plgMetas.hasPreviousPage);
+  })
+  .catch(error => {
+
     window.console.log('Something went wrong with this request!!!: ', error);
   });
 
-
-// create a new client instance  without an auth object to make allowed unauthenticated requests
-let client = new StoreClient(storeUrl);
-
-
 // fetch a subset of the plugins in the store corresponding to the page determined by offset and limit
-let searchParams = { limit: 15, offset:0 };
 resp = client.getPlugins(searchParams);
 resp
   .then(plugins => {
 
     window.console.log('Plugin list: ', plugins);
-    window.console.log('Is there a next page?: ', plugins.hasNextPage);
+
+    // the ``data`` property of any resource object can be used to get its data
+    // here we got the first page of a paginated list of data objects (plugin REST API descriptors)
+    let i = 0;
+    for (let dataObj of plugins.data) {
+        window.console.log('Data item ' + i + ' of the plugin list resource object: ', dataObj);
+        i++;
+    }
+
+    // the ``getItems`` helper method of any list resource obj can be used to create an array of
+    // the individual item resource objects in the list
+    // here we retrieve an array of ``Plugin`` item resource objects from ``plugins``
+    const pluginArray = plugins.getItems();
+    let plugin = pluginArray[0]
+    window.console.log(plugin.data);
+
+    // the ``getItem`` helper method of any list resource obj can be used to create a single item
+    // resource object given it's id as long as an item with that id is in the list
+    // here we create a ``Plugin`` item resource object from ``plugins``
+    plugin = plugins.getItem(pluginArray[0].data.id);
+
+    // the current object's state can be saved into another copy object before fetching
+    // more data if desired
+    const pluginsClone = plugins.clone();
+
+    // the ``get`` method of any list resource obj can be used to fetch any arbitrary page
+    // from the paginated REST API
+    const result = plugins.get({ limit: 20, offset: 20 });
+    result
+      .then(plugins => {
+
+        // the isEmpty property of any resource obj can be used to know if the object
+        // contains any item/list data
+        window.console.log('Does the plugin list resource object contain any data?: ', !plugins.isEmpty);
+      });
+
   })
   .catch(error => {
 
@@ -60,58 +136,14 @@ resp
   });
 
 
-// fetch a subset of the plugins in the store created by a specific user
+// fetch a subset of the plugin metas in the store created by a specific user
 let searchParams = { owner_username: 'cubeadmin', limit: 10, offset:10 };
-resp = client.getPlugins(searchParams);
+resp = client.getPluginMetas(searchParams);
 resp
-  .then(userPlugins => {
+  .then(userPluginMetas => {
 
-    window.console.log('A subset of the plugins created by the user: ', userPlugins);
-    window.console.log('Is there a next page?: ', userPlugins.hasNextPage);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// fetch a subset of the the plugins of type 'fs' from the store
-searchParams = { type: 'fs' };
-resp = client.getPlugins(searchParams);
-resp
-  .then(fsPlugins => {
-
-    window.console.log('A subset of the plugins of type fs: ', fsPlugins);
-    window.console.log('Is there a next page?: ', fsPlugins.hasNextPage);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// fetch a plugin given its id
-const pluginId = 1;
-resp = client.getPlugin(pluginId);
-resp
-  .then(plugin => {
-
-    window.console.log('Plugin: ', plugin);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// fetch a subset of the parameters for the plugin with id 1
-const params = { limit: 10, offset:0 };
-resp = client.getPluginParameters(pluginId, params);
-resp
-  .then(parameters => {
-
-    window.console.log('parameters: ', parameters);
-    window.console.log('Is there a next page?: ', parameters.hasNextPage);
+    window.console.log('A subset of the plugin metas created by the user: ', userPluginMetas);
+    window.console.log('Is there a next page?: ', userPluginMetas.hasNextPage);
   })
   .catch(error => {
 
@@ -121,104 +153,99 @@ resp
 
 // create a new client instance  with an auth object to be able to make required authenticated requests
 const auth = {token: authToken}; // or alternatively auth = {username: 'cubeadmin', password: 'cubeadmin1234'}
-client = new StoreClient(storeUrl, auth);
+const client = new Client(chrisStoreUrl, auth);
+
+// fetch a subset of the plugin metas in the store that are the authenticated user's favorite
+let params = { limit: 40, offset: 0 };
+resp = client.getFavoritePluginMetas(params);
+resp
+  .then(plgMetas => {
+
+    window.console.log('Favorite plugin meta list: ', plgMetas);
+    window.console.log('Is there a next page?: ', plgMetas.hasNextPage);
+  })
+  .catch(error => {
+
+    window.console.log('Something went wrong with this request!!!: ', error);
+  });
 
 
-// add a new plugin to the store
-const testPlgName = 'myPlugin';
-const testPlgDockImg = 'fnndsc/pl-myPlugin';
-const testPlgPublicRepo = 'https://github.com/FNNDSC/pl-myPlugin';
-const testPluginRepresentation = {
-  creation_date: '2018-05-22T15:49:52.419437Z',
-  modification_date: '2018-05-22T15:49:52.419481Z',
-  type: 'fs',
-  authors: 'FNNDSC (dev@babyMRI.org)',
-  title: 'Simple chris fs app',
-  category: '',
-  description: 'A simple chris fs app demo',
-  documentation: 'http://wiki',
-  license: 'Opensource (MIT)',
-  version: '0.1',
-  execshell: 'python3',
-  selfpath: '/usr/src/simplefsapp',
-  selfexec: 'simplefsapp.py',
-  min_number_of_workers: 1,
-  max_number_of_workers: 1,
-  min_cpu_limit: 1000,
-  max_cpu_limit: 2147483647,
-  min_memory_limit: 200,
-  max_memory_limit: 2147483647,
-  min_gpu_limit: 0,
-  max_gpu_limit: 0,
-  parameters: [
-    {
-      name: 'dir',
-      type: 'path',
-      optional: true,
-      default: './',
-      flag: '--dir',
-      action: 'store',
-      help: 'look up directory',
-    },
-  ],
+// Individual item resource objects for high-level resources can also be directly  
+// fetched from the REST API, these include ``PluginMeta`. ``PluginStar``, ``Plugin``,
+// ``Pipeline``
+// here we fetch a ``Plugin` resource object by id
+const plugin_id = 1;
+resp = client.getPlugin(plugin_id);
+resp
+  .then(plugin => {
+
+    window.console.log('Plugin resource object: ', plugin);
+    window.console.log('Data in the plugin resource object: ', plugin.data);
+
+    // resource objects have methods to fetch other related resources
+    // here we fetch the plugin-specific list of plugin parameters ``PluginParameterList``
+    // resource object from the REST API
+    const params = { limit: 40, offset: 0 };
+    const result = plugin.getPluginParameters(params);
+    result
+      .then(parameters => {
+
+        window.console.log('Plugin parameter list resource object data: ', parameters.data);
+      });    
+  })
+  .catch(error => {
+
+    window.console.log('Something went wrong with this request!!!: ', error);
+  });
+
+
+// For convenience the Client class provides a runAsyncTask static method that could
+// alternatively be used to wait for promises in Javascript 6
+// for instance iterate over all pages of the list of available 'fs' plugins
+Client.runAsyncTask(function*() {
+
+  const searchParams = { type: 'fs', limit: 20, offset: 0 };
+  let plugins = yield client.getPlugins(searchParams); // wait for response here
+
+  window.console.log('Page 1 data of plugin fs list resource object: ', plugins.data);
+
+  let i = 2;
+  while (plugins.hasNextPage) {
+
+    try {
+      searchParams.offset += searchParams.limit;
+      plugins = yield client.getPlugins(searchParams); // wait for response here
+      // alternatively, as explained above you could directly use the ``get`` method available in any resource object
+      // plugins = yield plugins.get(searchParams); // wait for response here
+
+      window.console.log('Page ' + i + ' data of plugin fs list resource object: ', plugins.data);
+
+    } catch (ex) { // errors while fetching resources can be handled
+
+      window.console.log('Something went wrong while fetching page ' + i '!!!: ', ex);
+    }
+
+    i++;
+  }
+});
+
+
+// For convenience some high-level resources can be directly created through the client object
+// Here the user gives a star to a plugin (making it a favorite) by creating a plugin star
+const data = {
+  plugin_name: 'simplefsapp'  
 };
-
-let fileData = JSON.stringify(testPluginRepresentation);
-let dfile = new Blob([fileData], { type: 'application/json' });
-
-resp = client.addPlugin(testPlgName, testPlgDockImg, dfile, testPlgPublicRepo);
+resp = client.createPluginStar(data);
 resp
-  .then(response => {
+  .then(plgStar => {
 
-      window.console.log('New plugin in the store: ', response.data);
+      window.console.log('New plugin star: ', plgStar);
   })
   .catch(error => {
 
     window.console.log('Something went wrong with this request!!!: ', error);
   });
 
-
-// modify an existing plugin's representation in the store
-const testPlgId = 1;
-const testPlgPublicRepo = 'https://github.com/FNNDSC11';
-
-resp = client.modifyPlugin(testPlgId, testPlgPublicRepo);
-resp
-  .then(response => {
-
-    window.console.log('Updated the url of the public repository for plugin with id: ', testPlgId);
-    window.console.log('New response data: ', response.data);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// share an existing plugin with another store user (who then becomes an owner of the plugin)
-resp = client.modifyPlugin(testPlgId, undefined, 'chris');
-resp
-  .then(response => {
-
-    window.console.log('User chris is now in the list of owners of plugin with id : ' + testPlgId);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
-
-
-// remove an existing plugin from the store
-resp = client.removePlugin(testPlgId);
-resp
-  .then(() => {
-
-    window.console.log('Removed plugin with id: ', testPlgId);
-  })
-  .catch(error => {
-
-    window.console.log('Something went wrong with this request!!!: ', error);
-  });
 ```
 
 
@@ -238,4 +265,4 @@ Rest Framework approach to reporting errors.
 
 ## API reference
 
-Please check the API reference links to learn more about the API resource objects and their functionality.
+Please check the API reference links to learn more about the `client` object and other API resource objects and their functionality.

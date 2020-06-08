@@ -146,7 +146,7 @@ export default class Client {
    * @param {Object} [searchParams=null] - search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
-   * @param {number} [searchParams.id] - match plugin meta id exactly with this number
+   * @param {number} [searchParams.id] - match plugin star id exactly with this number
    * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string
    * @param {string} [searchParams.username] - match user name exactly with this string
    *
@@ -157,9 +157,9 @@ export default class Client {
   }
 
   /**
-   * Get a plugin star resource object given its id.
+   * Get a plugin star resource object given its name.
    *
-   * @param {number} id - plugin id
+   * @param {string} id - plugin id
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginStar`` object
@@ -193,7 +193,7 @@ export default class Client {
    * @param {Object} [searchParams=null] - search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
-   * @param {number} [searchParams.id] - match plugin meta id exactly with this number
+   * @param {number} [searchParams.id] - match plugin id exactly with this number
    * @param {string} [searchParams.name] - match plugin name containing this string
    * @param {string} [searchParams.name_latest] - match plugin name containing this string
    * and return only the latest version
@@ -258,6 +258,7 @@ export default class Client {
    * @param {Object} [searchParams=null] - search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match pipeline id exactly with this number
    * @param {string} [searchParams.name] - match pipeline name containing this string
    * @param {string} [searchParams.category] - match pipeline category containing this string
    * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string
@@ -265,7 +266,6 @@ export default class Client {
    * @param {string} [searchParams.authors] - match pipeline authors containing this string
    * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date
    * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date
-   * @param {number} [searchParams.id] - match pipeline id exactly with this number
    *
    * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
    */
