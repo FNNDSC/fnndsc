@@ -6,7 +6,7 @@ import RequestException from './exception';
 /**
  * API abstract resource class.
  */
-class Resource {
+export class Resource {
   /**
    * Constructor
    *
