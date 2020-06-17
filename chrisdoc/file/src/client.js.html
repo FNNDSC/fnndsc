@@ -58,6 +58,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstanceList.html">PipelineInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginMetaPluginList.html">PluginMetaPluginList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~AllPluginInstanceList.html">AllPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PipelineInstancePluginInstanceList.html">PipelineInstancePluginInstanceList</a></span></span></li>
@@ -66,6 +67,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameter.html">PluginInstanceParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
@@ -96,6 +99,7 @@ import RequestException from &apos;./exception&apos;;
 import { FeedList } from &apos;./feed&apos;;
 import { AllFeedFileList } from &apos;./feedfile&apos;;
 import { ComputeResourceList } from &apos;./computeresource&apos;;
+import { PluginMetaList } from &apos;./pluginmeta&apos;;
 import { PluginList } from &apos;./plugin&apos;;
 import { AllPluginInstanceList, PluginInstanceList } from &apos;./plugininstance&apos;;
 import { AllPipelineInstanceList, PipelineInstanceList } from &apos;./pipelineinstance&apos;;
@@ -131,6 +135,7 @@ export default class Client {
     this.feedsUrl = this.url;
     this.filesUrl = &apos;&apos;;
     this.computeResourcesUrl = &apos;&apos;;
+    this.pluginMetasUrl = &apos;&apos;;
     this.pluginsUrl = &apos;&apos;;
     this.pluginInstancesUrl = &apos;&apos;;
     this.pipelinesUrl = &apos;&apos;;
@@ -179,6 +184,7 @@ export default class Client {
 
       this.filesUrl = this.filesUrl || getUrl(coll, &apos;files&apos;)[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, &apos;compute_resources&apos;)[0];
+      this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, &apos;plugin_metas&apos;)[0];
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, &apos;plugins&apos;)[0];
       this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, &apos;plugin_instances&apos;)[0];
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, &apos;pipelines&apos;)[0];
@@ -287,6 +293,45 @@ export default class Client {
    */
   getComputeResource(id, timeout = 30000) {
     return this.getComputeResources({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+  }
+
+  /**
+   * Get a paginated list of plugin metas from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match plugin meta id exactly with this number
+   * @param {string} [searchParams.name] - match plugin meta name containing this string
+   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string
+   * @param {string} [searchParams.type] - match plugin meta type exactly with this string
+   * @param {string} [searchParams.category] - match plugin meta category exactly with this string
+   * @param {string} [searchParams.authors] - match plugin meta authors containing this string
+   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
+   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
+   * @param {string} [searchParams.name_author_category] - match plugin meta name, title or
+   * category containing this string
+   * @param {string} [searchParams.owner_username] - match plugin meta owner&apos;s username exactly
+   * with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object
+   */
+  getPluginMetas(searchParams = null, timeout = 30000) {
+    return this._fetchRes(&apos;pluginMetasUrl&apos;, PluginMetaList, searchParams, timeout);
+  }
+
+  /**
+   * Get a plugin meta resource object given its id.
+   *
+   * @param {number} id - plugin meta id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   */
+  getPluginMeta(id, timeout = 30000) {
+    return this.getPluginMetas({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**

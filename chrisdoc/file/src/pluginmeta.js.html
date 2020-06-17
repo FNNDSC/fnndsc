@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/pipeline.js | @fnndsc/chrisapi</title>
+  <title data-ice="title">src/pluginmeta.js | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -91,151 +91,69 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/pipeline.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/pluginmeta.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import { ItemResource, ListResource } from &apos;./resource&apos;;
-import { PluginList, Plugin } from &apos;./plugin&apos;;
-import { PluginParameter } from &apos;./pluginparameter&apos;;
-import { PipelineInstanceList } from &apos;./pipelineinstance&apos;;
+import { PluginList, PluginMetaPluginList } from &apos;./plugin&apos;;
+import { FeedList } from &apos;./feed&apos;;
 
 /**
- * Pipeline item resource object representing a pipeline.
+ * Plugin meta item resource object representing a plugin meta.
  */
-export class Pipeline extends ItemResource {
+export class PluginMeta extends ItemResource {
   /**
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
   }
 
   /**
-   * Fetch a list of plugins associated to this pipeline from the REST API.
+   * Fetch a list of plugins associated to this plugin meta from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePluginList`` object
+   * @return {Object} - JS Promise, resolves to a ``PluginMetaPluginList`` object
    */
   getPlugins(params = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
-    const resourceClass = PipelinePluginList;
+    const resourceClass = PluginMetaPluginList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
-   * Fetch a list of plugin pipings associated to this pipeline from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters object
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
-   */
-  getPluginPipings(params = null, timeout = 30000) {
-    const linkRelation = &apos;plugin_pipings&apos;;
-    const resourceClass = PipelinePluginPipingList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
-   * Fetch a list of plugin piping default parameter values for the plugin
-   * pipings composing the pipeline from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters object
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
-   */
-  getDefaultParameters(params = null, timeout = 30000) {
-    const linkRelation = &apos;default_parameters&apos;;
-    const resourceClass = PipelinePipingDefaultParameterList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
-   * Fetch a list of pipeline instances associated to this pipeline from the
-   * REST API.
-   *
-   * @param {Object} [params=null] - page parameters object
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PipelineInstanceList`` object
-   */
-  getPipelineInstances(params = null, timeout = 30000) {
-    const linkRelation = &apos;instances&apos;;
-    const resourceClass = PipelineInstanceList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
-   * Make a PUT request to modify this pipeline resource through the REST API.
-   *
-   * @param {Object} data - request JSON data object
-   * @param {string} [data.name] - pipeline name
-   * @param {string} [data.authors] - pipeline authors
-   * @param {string} [data.category] - pipeline category
-   * @param {string} [data.description] - pipeline description
-   * @param {boolean} [data.locked] - pipeline lock status
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to ``this`` object
-   */
-  put(data, timeout = 30000) {
-    return this._put(data, null, timeout);
-  }
-
-  /**
-   * Make a DELETE request to delete this pipeline resource through the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise
-   */
-  delete(timeout = 30000) {
-    return this._delete(timeout);
   }
 }
 
 /**
- * Pipeline list resource object representing a list of pipelines.
+ * Plugin meta list resource object representing a list of plugin metas.
  */
-export class PipelineList extends ListResource {
+export class PluginMetaList extends ListResource {
   /**
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
-    this.itemClass = Pipeline;
+    this.itemClass = PluginMeta;
   }
 
   /**
    * Fetch a list of plugins from the REST API.
    *
    * @param {Object} [searchParams=null] - search parameters object which is
-   * resource-specific, the ``PluginList.getSearchParameters`` method can be
-   * used to get a list of possible search parameters
+   * resource-specific, the ``PluginList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
@@ -250,194 +168,22 @@ export class PipelineList extends ListResource {
   }
 
   /**
-   * Make a POST request to this pipeline list resource to create a new pipeline
-   * item resource through the REST API.
+   * Fetch a list of feeds from the REST API.
    *
-   * @param {Object} data - request JSON data object
-   * @param {string} data.name - pipeline name
-   * @param {string} [data.authors] - pipeline authors
-   * @param {string} [data.category] - pipeline category
-   * @param {string} [data.description] - pipeline description
-   * @param {boolean} [data.locked=true] - pipeline status
-   * @param {string} [data.plugin_tree] - JSON string containing a plugin tree list
-   * @param {number} [data.plugin_inst_id] - plugin instance id
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``FeedList.getSearchParameters`` method
+   * can be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
    */
-  post(data, timeout = 30000) {
-    return this._post(data, null, timeout);
-  }
-}
+  getFeeds(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;feeds&apos;;
+    const resourceClass = FeedList;
 
-/**
- * Plugin piping item resource object representing a plugin piping within
- * a pipeline.
- */
-export class PluginPiping extends ItemResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
-   * Fetch the parent plugin piping within the corresponding pipeline from the
-   * REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object or ``null``
-   */
-  getPreviousPluginPiping(timeout = 30000) {
-    const linkRelation = &apos;previous&apos;;
-    const resourceClass = PluginPiping;
-
-    try {
-      return this._getResource(linkRelation, resourceClass, null, timeout);
-    } catch (e) {
-      return Promise.resolve(null);
-    }
-  }
-
-  /**
-   * Fetch the corresponding plugin for this plugin piping from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
-   */
-  getPlugin(timeout = 30000) {
-    const linkRelation = &apos;plugin&apos;;
-    const resourceClass = Plugin;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-
-  /**
-   * Fetch the corresponding pipeline for this plugin piping from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
-   */
-  getPipeline(timeout = 30000) {
-    const linkRelation = &apos;pipeline&apos;;
-    const resourceClass = Pipeline;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-}
-
-/**
- * Item resource object for a plugin piping defaul parameter representing a
- * default value for a plugin parameter associated with this plugin piping.
- */
-export class PipingDefaultParameter extends ItemResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
-   * Fetch the corresponding plugin piping for this plugin piping default
-   * parameter from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object
-   */
-  getPluginPiping(timeout = 30000) {
-    const linkRelation = &apos;plugin_piping&apos;;
-    const resourceClass = PluginPiping;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-
-  /**
-   * Fetch the corresponding plugin parameter for this plugin piping default
-   * parameter from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object
-   */
-  getPluginParameter(timeout = 30000) {
-    const linkRelation = &apos;plugin_param&apos;;
-    const resourceClass = PluginParameter;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-}
-
-/**
- * Pipeline-specific plugin list resource object representing a list of plugins
- * composing the pipeline.
- */
-export class PipelinePluginList extends ListResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-
-    /** @type {Object} */
-    this.itemClass = Plugin;
-  }
-}
-
-/**
- * Pipeline-specific plugin piping list resource object representing a list of
- * plugin pipings composing the pipeline.
- */
-export class PipelinePluginPipingList extends ListResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-
-    /** @type {Object} */
-    this.itemClass = PluginPiping;
-  }
-}
-
-/**
- * List resource object representing a pipeline-specific list of plugin piping
- * default parameter values for the plugin pipings composing the pipeline.
- */
-export class PipelinePipingDefaultParameterList extends ListResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-
-    /** @type {Object} */
-    this.itemClass = PluginPiping;
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 }
 </code></pre>

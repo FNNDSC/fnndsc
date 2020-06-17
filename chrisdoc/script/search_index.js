@@ -234,6 +234,24 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~pluginmeta",
+    "class/src/pluginmeta.js~PluginMeta.html",
+    "<span>PluginMeta</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pluginmetalist",
+    "class/src/pluginmeta.js~PluginMetaList.html",
+    "<span>PluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pluginmetapluginlist",
+    "class/src/plugin.js~PluginMetaPluginList.html",
+    "<span>PluginMetaPluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~pluginparameter",
     "class/src/pluginparameter.js~PluginParameter.html",
     "<span>PluginParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -822,6 +840,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getpluginmeta",
+    "class/src/client.js~Client.html#instance-method-getPluginMeta",
+    "src/client.js~Client#getPluginMeta",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpluginmetas",
+    "class/src/client.js~Client.html#instance-method-getPluginMetas",
+    "src/client.js~Client#getPluginMetas",
+    "method"
+  ],
+  [
     "src/client.js~client#getplugins",
     "class/src/client.js~Client.html#instance-method-getPlugins",
     "src/client.js~Client#getPlugins",
@@ -891,6 +921,12 @@ window.esdocSearchIndex = [
     "src/client.js~client#plugininstancesurl",
     "class/src/client.js~Client.html#instance-member-pluginInstancesUrl",
     "src/client.js~Client#pluginInstancesUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#pluginmetasurl",
+    "class/src/client.js~Client.html#instance-member-pluginMetasUrl",
+    "src/client.js~Client#pluginMetasUrl",
     "member"
   ],
   [
@@ -1644,6 +1680,24 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/plugin.js~pluginmetapluginlist#constructor",
+    "class/src/plugin.js~PluginMetaPluginList.html#instance-constructor-constructor",
+    "src/plugin.js~PluginMetaPluginList#constructor",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginmetapluginlist#getpluginmeta",
+    "class/src/plugin.js~PluginMetaPluginList.html#instance-method-getPluginMeta",
+    "src/plugin.js~PluginMetaPluginList#getPluginMeta",
+    "method"
+  ],
+  [
+    "src/plugin.js~pluginmetapluginlist#itemclass",
+    "class/src/plugin.js~PluginMetaPluginList.html#instance-member-itemClass",
+    "src/plugin.js~PluginMetaPluginList#itemClass",
+    "member"
+  ],
+  [
     "src/plugininstance.js",
     "file/src/plugininstance.js.html",
     "src/plugininstance.js",
@@ -1827,6 +1881,48 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~plugininstanceparameterlist#itemclass",
     "class/src/plugininstance.js~PluginInstanceParameterList.html#instance-member-itemClass",
     "src/plugininstance.js~PluginInstanceParameterList#itemClass",
+    "member"
+  ],
+  [
+    "src/pluginmeta.js",
+    "file/src/pluginmeta.js.html",
+    "src/pluginmeta.js",
+    "file"
+  ],
+  [
+    "src/pluginmeta.js~pluginmeta#constructor",
+    "class/src/pluginmeta.js~PluginMeta.html#instance-constructor-constructor",
+    "src/pluginmeta.js~PluginMeta#constructor",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmeta#getplugins",
+    "class/src/pluginmeta.js~PluginMeta.html#instance-method-getPlugins",
+    "src/pluginmeta.js~PluginMeta#getPlugins",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#constructor",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-constructor-constructor",
+    "src/pluginmeta.js~PluginMetaList#constructor",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getfeeds",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getFeeds",
+    "src/pluginmeta.js~PluginMetaList#getFeeds",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#getplugins",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getPlugins",
+    "src/pluginmeta.js~PluginMetaList#getPlugins",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmetalist#itemclass",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-member-itemClass",
+    "src/pluginmeta.js~PluginMetaList#itemClass",
     "member"
   ],
   [
