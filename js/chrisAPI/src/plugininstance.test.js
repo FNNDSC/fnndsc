@@ -25,10 +25,10 @@ describe('Resource', () => {
         try {
           feedListRes = yield feedListRes.get();
           const pluginListRes = yield feedListRes.getPlugins({ limit: 20 });
-          // get the plugin with name 'simplefsapp'
+          // get the plugin with name 'pl-simplefsapp'
           const url = pluginListRes.collection.items.filter(item => {
             const data = Collection.getItemDescriptors(item);
-            return data.name === 'simplefsapp';
+            return data.name === 'pl-simplefsapp';
           })[0].href;
           let plugin = new Plugin(url, auth);
           plugin = yield plugin.get();

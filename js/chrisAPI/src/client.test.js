@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { FeedList, Feed } from './feed';
 import { AllFeedFileList, FeedFile } from './feedfile';
 import { PluginList, Plugin } from './plugin';
+import { PluginMetaList, PluginMeta } from './pluginmeta';
 import { AllPluginInstanceList, PluginInstance } from './plugininstance';
 import { PipelineList, Pipeline } from './pipeline';
 import { PipelineInstance } from './pipelineinstance';
@@ -116,6 +117,28 @@ describe('Client', () => {
       .then(feedFile => {
         expect(feedFile).to.be.an.instanceof(FeedFile);
         expect(feedFile.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of plugin metas from the REST API', done => {
+    const result = client.getPluginMetas();
+    result
+      .then(plgMetaList => {
+        //window.console.log('items', plgMetaList.getItems());
+        expect(plgMetaList).to.be.an.instanceof(PluginMetaList);
+        expect(plgMetaList.data).to.have.lengthOf.at.least(1);
+        expect(plgMetaList.totalCount).to.be.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a plugin meta by id from the REST API', done => {
+    const result = client.getPluginMeta(1);
+    result
+      .then(plgMeta => {
+        expect(plgMeta).to.be.an.instanceof(PluginMeta);
+        expect(plgMeta.isEmpty).to.be.false;
       })
       .then(done, done);
   });

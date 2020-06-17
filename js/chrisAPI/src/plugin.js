@@ -4,6 +4,7 @@ import { FeedList } from './feed';
 import { PluginParameterList } from './pluginparameter';
 import { PluginComputeResourceList } from './computeresource';
 import { PluginInstanceList } from './plugininstance';
+import { PluginMeta } from './pluginmeta';
 
 /**
  * Plugin item resource object representing a plugin.
@@ -108,5 +109,40 @@ export class PluginList extends ListResource {
     const resourceClass = FeedList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+}
+
+/**
+ * Plugin meta-specific plugin list resource object representing a list of
+ * plugins associated to an specific plugin meta.
+ */
+export class PluginMetaPluginList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   */
+  constructor(url, auth = null) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = Plugin;
+  }
+
+  /**
+   * Fetch the plugin meta associated to this plugin meta-specific list of
+   * plugins from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   */
+  getPluginMeta(timeout = 30000) {
+    const linkRelation = 'meta';
+    const resourceClass = PluginMeta;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 }

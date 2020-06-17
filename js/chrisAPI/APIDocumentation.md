@@ -182,7 +182,7 @@ Client.runAsyncTask(function*() {
 
 
 // For convenience some high-level resources can be directly created through the client object
-const pluginId = 1; // assuming that the plugin with id 1 is 'simplefsapp'
+const pluginId = 1; // assuming that the plugin with id 1 is 'pl-simplefsapp'
 const data = {
   previous_id: null,  // instances of 'fs' plugins have previous_id set to null
   title: "Test plugin instance",

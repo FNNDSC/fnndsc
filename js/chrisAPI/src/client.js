@@ -5,6 +5,7 @@ import RequestException from './exception';
 import { FeedList } from './feed';
 import { AllFeedFileList } from './feedfile';
 import { ComputeResourceList } from './computeresource';
+import { PluginMetaList } from './pluginmeta';
 import { PluginList } from './plugin';
 import { AllPluginInstanceList, PluginInstanceList } from './plugininstance';
 import { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstance';
@@ -40,6 +41,7 @@ export default class Client {
     this.feedsUrl = this.url;
     this.filesUrl = '';
     this.computeResourcesUrl = '';
+    this.pluginMetasUrl = '';
     this.pluginsUrl = '';
     this.pluginInstancesUrl = '';
     this.pipelinesUrl = '';
@@ -88,6 +90,7 @@ export default class Client {
 
       this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
+      this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];
       this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances')[0];
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];
@@ -196,6 +199,45 @@ export default class Client {
    */
   getComputeResource(id, timeout = 30000) {
     return this.getComputeResources({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Get a paginated list of plugin metas from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match plugin meta id exactly with this number
+   * @param {string} [searchParams.name] - match plugin meta name containing this string
+   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string
+   * @param {string} [searchParams.type] - match plugin meta type exactly with this string
+   * @param {string} [searchParams.category] - match plugin meta category exactly with this string
+   * @param {string} [searchParams.authors] - match plugin meta authors containing this string
+   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
+   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
+   * @param {string} [searchParams.name_author_category] - match plugin meta name, title or
+   * category containing this string
+   * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly
+   * with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object
+   */
+  getPluginMetas(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pluginMetasUrl', PluginMetaList, searchParams, timeout);
+  }
+
+  /**
+   * Get a plugin meta resource object given its id.
+   *
+   * @param {number} id - plugin meta id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   */
+  getPluginMeta(id, timeout = 30000) {
+    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
