@@ -37,7 +37,7 @@ Open a terminal and run the following commands in any working directory:
 ``` bash
 $> git clone https://github.com/FNNDSC/ChRIS_store.git
 $> cd ChRIS_store
-$> ./docker-make.sh up
+$> ./make.sh up
 ```
 
 Check that all the services are up:
@@ -46,7 +46,7 @@ Check that all the services are up:
 $> docker-compose -f docker-compose_dev.yml ps
 ```
 
-#### GET request to the list of plugins:
+#### GET request to the list of plugin metas:
 
 Using curl:
 
@@ -60,13 +60,13 @@ Using [HTTPie](https://httpie.org/) REST API client:
 http http://localhost:8010/api/v1/
 ```
 
-#### Tear down the full set of ChRIS services:
+#### Tear down the full set of ChRIS store services:
 
 You can later remove all the backend containers and release storage volumes with:
 
 ```bash
 $ cd ChRIS_store
-$ ./docker-make.sh down
+$ ./make.sh down
 ```
 
 ### JavaScript package manager prerequisite
