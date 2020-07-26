@@ -339,10 +339,10 @@ export class ListResource extends Resource {
    * @type {?Object[]}
    */
   get data() {
-    if (this.isEmpty) {
-      return null;
-    }
     const data = [];
+    if (this.isEmpty) {
+      return data;
+    }
     // for each item get its data
     for (let item of this.collection.items) {
       data.push(Collection.getItemDescriptors(item));
