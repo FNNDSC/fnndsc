@@ -140,7 +140,7 @@ describe('Client', () => {
 
   it('can make a plugin favorite through the REST API and then remove the star', done => {
     const data = {
-      plugin_name: 'simplefsapp',
+      plugin_name: 'pl-simplefsapp',
     };
     const result = client.createPluginStar(data);
     result
@@ -166,10 +166,11 @@ describe('Client', () => {
   });
 
   it('can fetch a plugin by id from the REST API', done => {
-    const client1 = new Client(chrisStoreUrl, auth);
+    const client1 = new Client(chrisStoreUrl);
     const result = client1.getPlugin(1);
     result
       .then(plugin => {
+        //console.log('plugin.data:', plugin.data);
         //window.console.log('items', feedList.getItems());
         expect(plugin).to.be.an.instanceof(Plugin);
         expect(plugin.isEmpty).to.be.false;
@@ -179,7 +180,7 @@ describe('Client', () => {
 
   it('can create a new plugin through the REST API', done => {
     const data = {
-      name: 'simplefsapp' + Date.now(),
+      name: 'pl-simplefsapp' + Date.now(),
       dock_image: 'fnndsc/pl-simplefsapp',
       public_repo: 'http://github.com',
     };

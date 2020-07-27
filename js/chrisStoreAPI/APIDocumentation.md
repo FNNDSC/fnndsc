@@ -233,7 +233,7 @@ Client.runAsyncTask(function*() {
 // For convenience some high-level resources can be directly created through the client object
 // Here the user gives a star to a plugin (making it a favorite) by creating a plugin star
 const data = {
-  plugin_name: 'simplefsapp'  
+  plugin_name: 'pl-simplefsapp'  
 };
 resp = client.createPluginStar(data);
 resp
