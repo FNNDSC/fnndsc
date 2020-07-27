@@ -7,8 +7,8 @@ services:
   - docker
 
 env:
-  DOCKER_VERSION: 18.02.0~ce-0~ubuntu
-  DOCKER_COMPOSE_VERSION: 1.18.0
+  DOCKER_VERSION: 18.06.0~ce-0~ubuntu
+  DOCKER_COMPOSE_VERSION: 1.22.0
 
 install:
   # update docker
