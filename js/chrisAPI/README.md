@@ -39,7 +39,7 @@ Open a terminal and run the following commands in any working directory:
 ``` bash
 $> git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
 $> cd ChRIS_ultron_backEnd
-$> ./docker-make.sh -U -I -i
+$> ./make.sh -U -I -i
 ```
 
 Check that all the services are up:
@@ -84,7 +84,7 @@ You can later remove all the backend containers and release storage volumes with
 
 ```bash
 $ cd ChRIS_ultron_backEnd
-$ ./docker-destroy.sh
+$ ./unmake.sh
 ```
 
 ### JavaScript package manager prerequisite

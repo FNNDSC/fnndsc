@@ -30,11 +30,12 @@ install:
   - docker-compose -v
 
 before_script:
+  - docker pull fnndsc/swarm
   - git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
   - cd ChRIS_ultron_backEnd
-  - ./docker-make-chris_dev.sh -U -I -i
+  - ./make.sh -U -I -i
   # create a test feed
-  - curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"./"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
+  - curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
   - cd $TRAVIS_BUILD_DIR
 
 script:
