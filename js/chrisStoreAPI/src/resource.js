@@ -336,16 +336,16 @@ export class ListResource extends Resource {
   /**
    * Get the list of item data objects (REST API descriptors).
    *
-   * @type {?Object[]}
+   * @type {Object[]}
    */
   get data() {
     const data = [];
-    if (this.isEmpty) {
-      return data;
-    }
-    // for each item get its data
-    for (let item of this.collection.items) {
-      data.push(Collection.getItemDescriptors(item));
+
+    if (!this.isEmpty) {
+      // for each item get its data
+      for (let item of this.collection.items) {
+        data.push(Collection.getItemDescriptors(item));
+      }
     }
     return data;
   }
