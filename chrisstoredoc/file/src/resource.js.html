@@ -68,7 +68,7 @@ import RequestException from &apos;./exception&apos;;
 /**
  * API abstract resource class.
  */
-class Resource {
+export class Resource {
   /**
    * Constructor
    *
@@ -398,16 +398,16 @@ export class ListResource extends Resource {
   /**
    * Get the list of item data objects (REST API descriptors).
    *
-   * @type {?Object[]}
+   * @type {Object[]}
    */
   get data() {
-    if (this.isEmpty) {
-      return null;
-    }
     const data = [];
-    // for each item get its data
-    for (let item of this.collection.items) {
-      data.push(Collection.getItemDescriptors(item));
+
+    if (!this.isEmpty) {
+      // for each item get its data
+      for (let item of this.collection.items) {
+        data.push(Collection.getItemDescriptors(item));
+      }
     }
     return data;
   }
