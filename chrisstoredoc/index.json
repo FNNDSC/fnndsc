@@ -867,7 +867,7 @@
     "__docId__": 58,
     "kind": "file",
     "name": "src/client.js",
-    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\nimport { PluginList } from './plugin';\nimport { PluginMetaList, UserOwnedPluginMetaList } from './pluginmeta';\nimport { UserFavoritePluginMetaList } from './pluginmeta';\nimport { PluginStarList } from './pluginstar';\nimport { PipelineList } from './pipeline';\nimport User from './user';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS store service\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    /** @type {string} */\n    this.url = url;\n\n    /** @type {Object} */\n    this.auth = auth;\n\n    /* Urls of the high level API resources */\n    this.pluginMetasUrl = this.url;\n    this.favoritePluginMetasUrl = '';\n    this.ownedPluginMetasUrl = '';\n    this.pluginStarsUrl = '';\n    this.pluginsUrl = '';\n    this.pipelinesUrl = '';\n    this.userUrl = '';\n  }\n\n  /**\n   * Set the urls of the high level API resources.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  setUrls(timeout = 30000) {\n    return this.getPluginMetas(null, timeout);\n  }\n\n  /**\n   * Get a paginated list of plugin metas from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin meta id exactly with this number\n   * @param {string} [searchParams.name] - match plugin meta name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string\n   * @param {string} [searchParams.type] - match plugin meta type exactly with this string\n   * @param {string} [searchParams.category] - match plugin meta category exactly with this string\n   * @param {string} [searchParams.authors] - match plugin meta authors containing this string\n   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date\n   * @param {string} [searchParams.name_author_category] - match plugin meta name, title or\n   * category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly\n   * with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object\n   */\n  getPluginMetas(searchParams = null, timeout = 30000) {\n    const plgMetaList = new PluginMetaList(this.pluginMetasUrl, this.auth);\n\n    return plgMetaList.get(searchParams, timeout).then(plgMetaList => {\n      const coll = plgMetaList.collection;\n      const getUrl = Collection.getLinkRelationUrls;\n\n      if (!this.favoritePluginMetasUrl && this.auth) {\n        this.favoritePluginMetasUrl = getUrl(coll, 'favorite_plugin_metas')[0];\n      }\n      if (!this.ownedPluginMetasUrl && this.auth) {\n        this.ownedPluginMetasUrl = getUrl(coll, 'owned_plugin_metas')[0];\n      }\n      this.pluginStarsUrl = this.pluginStarsUrl || getUrl(coll, 'plugin_stars')[0];\n      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];\n      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];\n      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];\n\n      return plgMetaList;\n    });\n  }\n\n  /**\n   * Fetch a list of authenticated user's favorite plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object\n   */\n  getFavoritePluginMetas(params = null, timeout = 30000) {\n    if (!this.auth) {\n      throw new RequestException('Authentication is required to fetch this resource.');\n    }\n    return this._fetchRes('favoritePluginMetasUrl', UserFavoritePluginMetaList, params, timeout);\n  }\n\n  /**\n   * Fetch a list of authenticated user's owned plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object\n   */\n  getOwnedPluginMetas(params = null, timeout = 30000) {\n    if (!this.auth) {\n      throw new RequestException('Authentication is required to fetch this resource.');\n    }\n    return this._fetchRes('ownedPluginMetasUrl', UserOwnedPluginMetaList, params, timeout);\n  }\n\n  /**\n   * Get a plugin meta resource object given its id.\n   *\n   * @param {number} id - plugin meta id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(id, timeout = 30000) {\n    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugin star data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin star id exactly with this number\n   * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string\n   * @param {string} [searchParams.username] - match user name exactly with this string\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object\n   */\n  getPluginStars(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginStarsUrl', PluginStarList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin star resource object given its name.\n   *\n   * @param {string} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   */\n  getPluginStar(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin star resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.plugin_name - plugin's name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginStar`` object\n   */\n  createPluginStar(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginStarList(this.pluginStarsUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginStarsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_latest] - match plugin name containing this string\n   * and return only the latest version\n   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string\n   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string\n   * and return only the latest version\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.type] - match plugin type with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin username containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.version] - match plugin version exactly with this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or category\n   * containing this string\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin resource object given its id.\n   *\n   * @param {number} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - plugin name\n   * @param {string} data.dock_image - plugin docker image\n   * @param {string} data.public_repo - plugin repo\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.descriptor_file - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Plugin`` object\n   */\n  createPlugin(data, uploadFileObj, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginList(this.pluginsUrl, this.auth);\n      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of pipeline data (descriptors) given query search parameters.\n   * If no search parameters is given then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match pipeline id exactly with this number\n   * @param {string} [searchParams.name] - match pipeline name containing this string\n   * @param {string} [searchParams.category] - match pipeline category containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.description] - match pipeline description containing this string\n   * @param {string} [searchParams.authors] - match pipeline authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline resource object given its id.\n   *\n   * @param {number} id - pipeline id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object\n   */\n  getPipeline(id, timeout = 30000) {\n    return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - pipeline name\n   * @param {string} data.plugin_tree - JSON string containing a plugin tree list\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked=true] - pipeline status\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Pipeline`` object\n   */\n  createPipeline(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PipelineList(this.pipelinessUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a user resource object for the currently authenticated user.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    return this._fetchRes('userUrl', User, null, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req.post(usersUrl, userData).then(resp => {\n      const coll = resp.data.collection;\n      const userUrl = coll.items[0].href;\n      const auth = { username: username, password: password };\n      const user = new User(userUrl, auth);\n      user.collection = coll;\n      return user;\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``string`` value\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then(resp => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Internal method to fetch a high level resource through the REST API.\n   *\n   * @param {string} resUrlProp -  property of the `this` object containing the url of the resource\n   * @param {string} ResClass - resource class\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {\n    const getRes = () => {\n      const res = new ResClass(this[resUrlProp], this.auth);\n      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);\n    };\n    return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\nimport { PluginList } from './plugin';\nimport { PluginMetaList, UserOwnedPluginMetaList } from './pluginmeta';\nimport { UserFavoritePluginMetaList } from './pluginmeta';\nimport { PluginStarList } from './pluginstar';\nimport { PipelineList } from './pipeline';\nimport User from './user';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS store service\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    /** @type {string} */\n    this.url = url;\n\n    /** @type {Object} */\n    this.auth = auth;\n\n    /* Urls of the high level API resources */\n    this.pluginMetasUrl = this.url;\n    this.favoritePluginMetasUrl = '';\n    this.ownedPluginMetasUrl = '';\n    this.pluginStarsUrl = '';\n    this.pluginsUrl = '';\n    this.pipelinesUrl = '';\n    this.userUrl = '';\n  }\n\n  /**\n   * Set the urls of the high level API resources.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  setUrls(timeout = 30000) {\n    return this.getPluginMetas(null, timeout);\n  }\n\n  /**\n   * Get a paginated list of plugin metas from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin meta id exactly with this number\n   * @param {string} [searchParams.name] - match plugin meta name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string\n   * @param {string} [searchParams.title] - match plugin meta title containing this string\n   * @param {string} [searchParams.type] - match plugin meta type exactly with this string\n   * @param {string} [searchParams.category] - match plugin meta category exactly with this string\n   * @param {string} [searchParams.authors] - match plugin meta authors containing this string\n   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date\n   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or\n   * category containing this string\n   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or\n   * category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly\n   * with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object\n   */\n  getPluginMetas(searchParams = null, timeout = 30000) {\n    const plgMetaList = new PluginMetaList(this.pluginMetasUrl, this.auth);\n\n    return plgMetaList.get(searchParams, timeout).then(plgMetaList => {\n      const coll = plgMetaList.collection;\n      const getUrl = Collection.getLinkRelationUrls;\n\n      if (!this.favoritePluginMetasUrl && this.auth) {\n        this.favoritePluginMetasUrl = getUrl(coll, 'favorite_plugin_metas')[0];\n      }\n      if (!this.ownedPluginMetasUrl && this.auth) {\n        this.ownedPluginMetasUrl = getUrl(coll, 'owned_plugin_metas')[0];\n      }\n      this.pluginStarsUrl = this.pluginStarsUrl || getUrl(coll, 'plugin_stars')[0];\n      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];\n      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];\n      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];\n\n      return plgMetaList;\n    });\n  }\n\n  /**\n   * Fetch a list of authenticated user's favorite plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object\n   */\n  getFavoritePluginMetas(params = null, timeout = 30000) {\n    if (!this.auth) {\n      throw new RequestException('Authentication is required to fetch this resource.');\n    }\n    return this._fetchRes('favoritePluginMetasUrl', UserFavoritePluginMetaList, params, timeout);\n  }\n\n  /**\n   * Fetch a list of authenticated user's owned plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object\n   */\n  getOwnedPluginMetas(params = null, timeout = 30000) {\n    if (!this.auth) {\n      throw new RequestException('Authentication is required to fetch this resource.');\n    }\n    return this._fetchRes('ownedPluginMetasUrl', UserOwnedPluginMetaList, params, timeout);\n  }\n\n  /**\n   * Get a plugin meta resource object given its id.\n   *\n   * @param {number} id - plugin meta id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(id, timeout = 30000) {\n    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugin star data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin star id exactly with this number\n   * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string\n   * @param {string} [searchParams.username] - match user name exactly with this string\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object\n   */\n  getPluginStars(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginStarsUrl', PluginStarList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin star resource object given its name.\n   *\n   * @param {string} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   */\n  getPluginStar(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin star resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.plugin_name - plugin's name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginStar`` object\n   */\n  createPluginStar(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginStarList(this.pluginStarsUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginStarsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_latest] - match plugin name containing this string\n   * and return only the latest version\n   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string\n   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string\n   * and return only the latest version\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.type] - match plugin type with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin username containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.version] - match plugin version exactly with this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or category\n   * containing this string\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin resource object given its id.\n   *\n   * @param {number} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - plugin name\n   * @param {string} data.dock_image - plugin docker image\n   * @param {string} data.public_repo - plugin repo\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.descriptor_file - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Plugin`` object\n   */\n  createPlugin(data, uploadFileObj, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginList(this.pluginsUrl, this.auth);\n      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of pipeline data (descriptors) given query search parameters.\n   * If no search parameters is given then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match pipeline id exactly with this number\n   * @param {string} [searchParams.name] - match pipeline name containing this string\n   * @param {string} [searchParams.category] - match pipeline category containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.description] - match pipeline description containing this string\n   * @param {string} [searchParams.authors] - match pipeline authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline resource object given its id.\n   *\n   * @param {number} id - pipeline id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object\n   */\n  getPipeline(id, timeout = 30000) {\n    return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - pipeline name\n   * @param {string} data.plugin_tree - JSON string containing a plugin tree list\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked=true] - pipeline status\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Pipeline`` object\n   */\n  createPipeline(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PipelineList(this.pipelinessUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a user resource object for the currently authenticated user.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    return this._fetchRes('userUrl', User, null, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req.post(usersUrl, userData).then(resp => {\n      const coll = resp.data.collection;\n      const userUrl = coll.items[0].href;\n      const auth = { username: username, password: password };\n      const user = new User(userUrl, auth);\n      user.collection = coll;\n      return user;\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``string`` value\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then(resp => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Internal method to fetch a high level resource through the REST API.\n   *\n   * @param {string} resUrlProp -  property of the `this` object containing the url of the resource\n   * @param {string} ResClass - resource class\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {\n    const getRes = () => {\n      const res = new ResClass(this[resUrlProp], this.auth);\n      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);\n    };\n    return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/client.js",
     "access": "public",
@@ -1139,7 +1139,7 @@
     "longname": "src/client.js~Client#getPluginMetas",
     "access": "public",
     "description": "Get a paginated list of plugin metas from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 73,
+    "lineNumber": 76,
     "params": [
       {
         "nullable": null,
@@ -1210,6 +1210,16 @@
         ],
         "spread": false,
         "optional": true,
+        "name": "searchParams.title",
+        "description": "match plugin meta title containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
         "name": "searchParams.type",
         "description": "match plugin meta type exactly with this string"
       },
@@ -1260,8 +1270,18 @@
         ],
         "spread": false,
         "optional": true,
-        "name": "searchParams.name_author_category",
+        "name": "searchParams.name_title_category",
         "description": "match plugin meta name, title or\ncategory containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.name_authors_category",
+        "description": "match plugin meta name, authors or\ncategory containing this string"
       },
       {
         "nullable": null,
@@ -1306,7 +1326,7 @@
     "longname": "src/client.js~Client#getFavoritePluginMetas",
     "access": "public",
     "description": "Fetch a list of authenticated user's favorite plugin metas from the REST API.",
-    "lineNumber": 105,
+    "lineNumber": 108,
     "params": [
       {
         "nullable": null,
@@ -1373,7 +1393,7 @@
     "longname": "src/client.js~Client#getOwnedPluginMetas",
     "access": "public",
     "description": "Fetch a list of authenticated user's owned plugin metas from the REST API.",
-    "lineNumber": 122,
+    "lineNumber": 125,
     "params": [
       {
         "nullable": null,
@@ -1440,7 +1460,7 @@
     "longname": "src/client.js~Client#getPluginMeta",
     "access": "public",
     "description": "Get a plugin meta resource object given its id.",
-    "lineNumber": 137,
+    "lineNumber": 140,
     "params": [
       {
         "nullable": null,
@@ -1485,7 +1505,7 @@
     "longname": "src/client.js~Client#getPluginStars",
     "access": "public",
     "description": "Get a paginated list of plugin star data (descriptors) given query search\nparameters. If no search parameters is given then get the default first\npage.",
-    "lineNumber": 155,
+    "lineNumber": 158,
     "params": [
       {
         "nullable": null,
@@ -1570,7 +1590,7 @@
     "longname": "src/client.js~Client#getPluginStar",
     "access": "public",
     "description": "Get a plugin star resource object given its name.",
-    "lineNumber": 167,
+    "lineNumber": 170,
     "params": [
       {
         "nullable": null,
@@ -1615,7 +1635,7 @@
     "longname": "src/client.js~Client#createPluginStar",
     "access": "public",
     "description": "Create a new plugin star resource through the REST API.",
-    "lineNumber": 180,
+    "lineNumber": 183,
     "params": [
       {
         "nullable": null,
@@ -1670,7 +1690,7 @@
     "longname": "src/client.js~Client#getPlugins",
     "access": "public",
     "description": "Get a paginated list of plugin data (descriptors) given query search\nparameters. If no search parameters is given then get the default first\npage.",
-    "lineNumber": 217,
+    "lineNumber": 220,
     "params": [
       {
         "nullable": null,
@@ -1875,7 +1895,7 @@
     "longname": "src/client.js~Client#getPlugin",
     "access": "public",
     "description": "Get a plugin resource object given its id.",
-    "lineNumber": 229,
+    "lineNumber": 232,
     "params": [
       {
         "nullable": null,
@@ -1920,7 +1940,7 @@
     "longname": "src/client.js~Client#createPlugin",
     "access": "public",
     "description": "Create a new plugin resource through the REST API.",
-    "lineNumber": 246,
+    "lineNumber": 249,
     "params": [
       {
         "nullable": null,
@@ -2015,7 +2035,7 @@
     "longname": "src/client.js~Client#getPipelines",
     "access": "public",
     "description": "Get a paginated list of pipeline data (descriptors) given query search parameters.\nIf no search parameters is given then get the default first page.",
-    "lineNumber": 272,
+    "lineNumber": 275,
     "params": [
       {
         "nullable": null,
@@ -2150,7 +2170,7 @@
     "longname": "src/client.js~Client#getPipeline",
     "access": "public",
     "description": "Get a pipeline resource object given its id.",
-    "lineNumber": 284,
+    "lineNumber": 287,
     "params": [
       {
         "nullable": null,
@@ -2195,7 +2215,7 @@
     "longname": "src/client.js~Client#createPipeline",
     "access": "public",
     "description": "Create a new pipeline resource through the REST API.",
-    "lineNumber": 302,
+    "lineNumber": 305,
     "params": [
       {
         "nullable": null,
@@ -2302,7 +2322,7 @@
     "longname": "src/client.js~Client#getUser",
     "access": "public",
     "description": "Get a user resource object for the currently authenticated user.",
-    "lineNumber": 316,
+    "lineNumber": 319,
     "params": [
       {
         "nullable": null,
@@ -2337,7 +2357,7 @@
     "longname": "src/client.js~Client.createUser",
     "access": "public",
     "description": "Create a new user account.",
-    "lineNumber": 331,
+    "lineNumber": 334,
     "params": [
       {
         "nullable": null,
@@ -2412,7 +2432,7 @@
     "longname": "src/client.js~Client.getAuthToken",
     "access": "public",
     "description": "Fetch a user's login authorization token from the REST API.",
-    "lineNumber": 361,
+    "lineNumber": 364,
     "params": [
       {
         "nullable": null,
@@ -2477,7 +2497,7 @@
     "longname": "src/client.js~Client.runAsyncTask",
     "access": "public",
     "description": "Helper method to run an asynchronous task defined by a task generator function.",
-    "lineNumber": 375,
+    "lineNumber": 378,
     "params": [
       {
         "nullable": null,
@@ -2503,7 +2523,7 @@
     "longname": "src/client.js~Client#_fetchRes",
     "access": "private",
     "description": "Internal method to fetch a high level resource through the REST API.",
-    "lineNumber": 389,
+    "lineNumber": 392,
     "params": [
       {
         "nullable": null,

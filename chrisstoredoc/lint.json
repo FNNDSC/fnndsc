@@ -4,63 +4,63 @@
     "filePath": "src/client.js",
     "lines": [
       {
-        "lineNumber": 140,
+        "lineNumber": 143,
         "line": "  /**"
       },
       {
-        "lineNumber": 141,
+        "lineNumber": 144,
         "line": "   * Get a paginated list of plugin star data (descriptors) given query search"
       },
       {
-        "lineNumber": 142,
+        "lineNumber": 145,
         "line": "   * parameters. If no search parameters is given then get the default first"
       },
       {
-        "lineNumber": 143,
+        "lineNumber": 146,
         "line": "   * page."
       },
       {
-        "lineNumber": 144,
-        "line": "   *"
-      },
-      {
-        "lineNumber": 145,
-        "line": "   * @param {Object} [searchParams=null] - search parameters"
-      },
-      {
-        "lineNumber": 146,
-        "line": "   * @param {number} [searchParams.limit] - page limit"
-      },
-      {
         "lineNumber": 147,
-        "line": "   * @param {number} [searchParams.offset] - page offset"
+        "line": "   *"
       },
       {
         "lineNumber": 148,
-        "line": "   * @param {number} [searchParams.id] - match plugin star id exactly with this number"
+        "line": "   * @param {Object} [searchParams=null] - search parameters"
       },
       {
         "lineNumber": 149,
-        "line": "   * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string"
+        "line": "   * @param {number} [searchParams.limit] - page limit"
       },
       {
         "lineNumber": 150,
-        "line": "   * @param {string} [searchParams.username] - match user name exactly with this string"
+        "line": "   * @param {number} [searchParams.offset] - page offset"
       },
       {
         "lineNumber": 151,
-        "line": "   *"
+        "line": "   * @param {number} [searchParams.id] - match plugin star id exactly with this number"
       },
       {
         "lineNumber": 152,
-        "line": "   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object"
+        "line": "   * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string"
       },
       {
         "lineNumber": 153,
-        "line": "   */"
+        "line": "   * @param {string} [searchParams.username] - match user name exactly with this string"
       },
       {
         "lineNumber": 154,
+        "line": "   *"
+      },
+      {
+        "lineNumber": 155,
+        "line": "   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object"
+      },
+      {
+        "lineNumber": 156,
+        "line": "   */"
+      },
+      {
+        "lineNumber": 157,
         "line": "  getPluginStars(searchParams = null, timeout = 30000) {"
       }
     ],
@@ -77,60 +77,48 @@
     "filePath": "src/client.js",
     "lines": [
       {
-        "lineNumber": 187,
+        "lineNumber": 190,
         "line": "  /**"
       },
       {
-        "lineNumber": 188,
+        "lineNumber": 191,
         "line": "   * Get a paginated list of plugin data (descriptors) given query search"
       },
       {
-        "lineNumber": 189,
+        "lineNumber": 192,
         "line": "   * parameters. If no search parameters is given then get the default first"
       },
       {
-        "lineNumber": 190,
+        "lineNumber": 193,
         "line": "   * page."
       },
       {
-        "lineNumber": 191,
+        "lineNumber": 194,
         "line": "   *"
       },
       {
-        "lineNumber": 192,
+        "lineNumber": 195,
         "line": "   * @param {Object} [searchParams=null] - search parameters"
       },
       {
-        "lineNumber": 193,
+        "lineNumber": 196,
         "line": "   * @param {number} [searchParams.limit] - page limit"
       },
       {
-        "lineNumber": 194,
+        "lineNumber": 197,
         "line": "   * @param {number} [searchParams.offset] - page offset"
       },
       {
-        "lineNumber": 195,
+        "lineNumber": 198,
         "line": "   * @param {number} [searchParams.id] - match plugin id exactly with this number"
       },
       {
-        "lineNumber": 196,
+        "lineNumber": 199,
         "line": "   * @param {string} [searchParams.name] - match plugin name containing this string"
       },
       {
-        "lineNumber": 197,
-        "line": "   * @param {string} [searchParams.name_latest] - match plugin name containing this string"
-      },
-      {
-        "lineNumber": 198,
-        "line": "   * and return only the latest version"
-      },
-      {
-        "lineNumber": 199,
-        "line": "   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string"
-      },
-      {
         "lineNumber": 200,
-        "line": "   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string"
+        "line": "   * @param {string} [searchParams.name_latest] - match plugin name containing this string"
       },
       {
         "lineNumber": 201,
@@ -138,62 +126,74 @@
       },
       {
         "lineNumber": 202,
-        "line": "   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string"
+        "line": "   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string"
       },
       {
         "lineNumber": 203,
-        "line": "   * @param {string} [searchParams.type] - match plugin type with this string"
+        "line": "   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string"
       },
       {
         "lineNumber": 204,
-        "line": "   * @param {string} [searchParams.category] - match plugin category containing this string"
+        "line": "   * and return only the latest version"
       },
       {
         "lineNumber": 205,
-        "line": "   * @param {string} [searchParams.owner_username] - match plugin username containing this string"
+        "line": "   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string"
       },
       {
         "lineNumber": 206,
-        "line": "   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date"
+        "line": "   * @param {string} [searchParams.type] - match plugin type with this string"
       },
       {
         "lineNumber": 207,
-        "line": "   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date"
+        "line": "   * @param {string} [searchParams.category] - match plugin category containing this string"
       },
       {
         "lineNumber": 208,
-        "line": "   * @param {string} [searchParams.title] - match plugin title containing this string"
+        "line": "   * @param {string} [searchParams.owner_username] - match plugin username containing this string"
       },
       {
         "lineNumber": 209,
-        "line": "   * @param {string} [searchParams.version] - match plugin version exactly with this string"
+        "line": "   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date"
       },
       {
         "lineNumber": 210,
-        "line": "   * @param {string} [searchParams.description] - match plugin description containing this string"
+        "line": "   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date"
       },
       {
         "lineNumber": 211,
-        "line": "   * @param {string} [searchParams.name_title_category] - match plugin name, title or category"
+        "line": "   * @param {string} [searchParams.title] - match plugin title containing this string"
       },
       {
         "lineNumber": 212,
-        "line": "   * containing this string"
+        "line": "   * @param {string} [searchParams.version] - match plugin version exactly with this string"
       },
       {
         "lineNumber": 213,
-        "line": "   *"
+        "line": "   * @param {string} [searchParams.description] - match plugin description containing this string"
       },
       {
         "lineNumber": 214,
-        "line": "   * @return {Object} - JS Promise, resolves to a ``PluginList`` object"
+        "line": "   * @param {string} [searchParams.name_title_category] - match plugin name, title or category"
       },
       {
         "lineNumber": 215,
-        "line": "   */"
+        "line": "   * containing this string"
       },
       {
         "lineNumber": 216,
+        "line": "   *"
+      },
+      {
+        "lineNumber": 217,
+        "line": "   * @return {Object} - JS Promise, resolves to a ``PluginList`` object"
+      },
+      {
+        "lineNumber": 218,
+        "line": "   */"
+      },
+      {
+        "lineNumber": 219,
         "line": "  getPlugins(searchParams = null, timeout = 30000) {"
       }
     ],
@@ -210,79 +210,79 @@
     "filePath": "src/client.js",
     "lines": [
       {
-        "lineNumber": 253,
+        "lineNumber": 256,
         "line": "  /**"
       },
       {
-        "lineNumber": 254,
+        "lineNumber": 257,
         "line": "   * Get a paginated list of pipeline data (descriptors) given query search parameters."
       },
       {
-        "lineNumber": 255,
+        "lineNumber": 258,
         "line": "   * If no search parameters is given then get the default first page."
       },
       {
-        "lineNumber": 256,
-        "line": "   *"
-      },
-      {
-        "lineNumber": 257,
-        "line": "   * @param {Object} [searchParams=null] - search parameters"
-      },
-      {
-        "lineNumber": 258,
-        "line": "   * @param {number} [searchParams.limit] - page limit"
-      },
-      {
         "lineNumber": 259,
-        "line": "   * @param {number} [searchParams.offset] - page offset"
+        "line": "   *"
       },
       {
         "lineNumber": 260,
-        "line": "   * @param {number} [searchParams.id] - match pipeline id exactly with this number"
+        "line": "   * @param {Object} [searchParams=null] - search parameters"
       },
       {
         "lineNumber": 261,
-        "line": "   * @param {string} [searchParams.name] - match pipeline name containing this string"
+        "line": "   * @param {number} [searchParams.limit] - page limit"
       },
       {
         "lineNumber": 262,
-        "line": "   * @param {string} [searchParams.category] - match pipeline category containing this string"
+        "line": "   * @param {number} [searchParams.offset] - page offset"
       },
       {
         "lineNumber": 263,
-        "line": "   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string"
+        "line": "   * @param {number} [searchParams.id] - match pipeline id exactly with this number"
       },
       {
         "lineNumber": 264,
-        "line": "   * @param {string} [searchParams.description] - match pipeline description containing this string"
+        "line": "   * @param {string} [searchParams.name] - match pipeline name containing this string"
       },
       {
         "lineNumber": 265,
-        "line": "   * @param {string} [searchParams.authors] - match pipeline authors containing this string"
+        "line": "   * @param {string} [searchParams.category] - match pipeline category containing this string"
       },
       {
         "lineNumber": 266,
-        "line": "   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date"
+        "line": "   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string"
       },
       {
         "lineNumber": 267,
-        "line": "   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date"
+        "line": "   * @param {string} [searchParams.description] - match pipeline description containing this string"
       },
       {
         "lineNumber": 268,
-        "line": "   *"
+        "line": "   * @param {string} [searchParams.authors] - match pipeline authors containing this string"
       },
       {
         "lineNumber": 269,
-        "line": "   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object"
+        "line": "   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date"
       },
       {
         "lineNumber": 270,
-        "line": "   */"
+        "line": "   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date"
       },
       {
         "lineNumber": 271,
+        "line": "   *"
+      },
+      {
+        "lineNumber": 272,
+        "line": "   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object"
+      },
+      {
+        "lineNumber": 273,
+        "line": "   */"
+      },
+      {
+        "lineNumber": 274,
         "line": "  getPipelines(searchParams = null, timeout = 30000) {"
       }
     ],

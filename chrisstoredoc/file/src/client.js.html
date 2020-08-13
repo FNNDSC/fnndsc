@@ -119,12 +119,15 @@ export default class Client {
    * @param {number} [searchParams.id] - match plugin meta id exactly with this number
    * @param {string} [searchParams.name] - match plugin meta name containing this string
    * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string
+   * @param {string} [searchParams.title] - match plugin meta title containing this string
    * @param {string} [searchParams.type] - match plugin meta type exactly with this string
    * @param {string} [searchParams.category] - match plugin meta category exactly with this string
    * @param {string} [searchParams.authors] - match plugin meta authors containing this string
    * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
    * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
-   * @param {string} [searchParams.name_author_category] - match plugin meta name, title or
+   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or
+   * category containing this string
+   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or
    * category containing this string
    * @param {string} [searchParams.owner_username] - match plugin meta owner&apos;s username exactly
    * with this string
