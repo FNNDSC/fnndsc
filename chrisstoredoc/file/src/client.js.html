@@ -204,9 +204,9 @@ export default class Client {
   }
 
   /**
-   * Get a paginated list of plugin star data (descriptors) given query search
-   * parameters. If no search parameters is given then get the default first
-   * page.
+   * Get a paginated list of authenticated-user-specific plugin star data (descriptors)
+   * given query search parameters. If no search parameters is given then get the default
+   * first page.
    *
    * @param {Object} [searchParams=null] - search parameters
    * @param {number} [searchParams.limit] - page limit
@@ -222,7 +222,7 @@ export default class Client {
   }
 
   /**
-   * Get a plugin star resource object given its id.
+   * Get an authenticated-user-specific plugin star resource object given its id.
    *
    * @param {number} id - plugin star id
    * @param {number} [timeout=30000] - request timeout
