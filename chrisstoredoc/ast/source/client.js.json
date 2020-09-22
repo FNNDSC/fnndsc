@@ -6722,7 +6722,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {string} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
+                    "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {number} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
                     "start": 6490,
                     "end": 6730,
                     "loc": {
@@ -7208,7 +7208,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {string} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
+                    "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {number} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
                     "start": 6490,
                     "end": 6730,
                     "loc": {
@@ -16405,7 +16405,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {string} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
+      "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {number} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
       "start": 6490,
       "end": 6730,
       "loc": {
@@ -29409,7 +29409,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {string} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
+      "value": "*\n   * Get a plugin star resource object given its id.\n   *\n   * @param {number} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   ",
       "start": 6490,
       "end": 6730,
       "loc": {
