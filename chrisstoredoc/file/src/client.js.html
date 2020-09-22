@@ -213,7 +213,7 @@ export default class Client {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match plugin star id exactly with this number
    * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string
-   * @param {string} [searchParams.username] - match user name exactly with this string
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object
    */
@@ -222,15 +222,15 @@ export default class Client {
   }
 
   /**
-   * Get a plugin star resource object given its name.
+   * Get a plugin star resource object given its id.
    *
-   * @param {string} id - plugin id
+   * @param {string} id - plugin star id
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginStar`` object
    */
   getPluginStar(id, timeout = 30000) {
-    return this.getPlugins({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getPluginStars({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -276,6 +276,7 @@ export default class Client {
    * @param {string} [searchParams.description] - match plugin description containing this string
    * @param {string} [searchParams.name_title_category] - match plugin name, title or category
    * containing this string
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginList`` object
    */
@@ -331,6 +332,7 @@ export default class Client {
    * @param {string} [searchParams.authors] - match pipeline authors containing this string
    * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date
    * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
    */
