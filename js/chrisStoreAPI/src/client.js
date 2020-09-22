@@ -57,12 +57,15 @@ export default class Client {
    * @param {number} [searchParams.id] - match plugin meta id exactly with this number
    * @param {string} [searchParams.name] - match plugin meta name containing this string
    * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string
+   * @param {string} [searchParams.title] - match plugin meta title containing this string
    * @param {string} [searchParams.type] - match plugin meta type exactly with this string
    * @param {string} [searchParams.category] - match plugin meta category exactly with this string
    * @param {string} [searchParams.authors] - match plugin meta authors containing this string
    * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
    * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
-   * @param {string} [searchParams.name_author_category] - match plugin meta name, title or
+   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or
+   * category containing this string
+   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or
    * category containing this string
    * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly
    * with this string
@@ -148,7 +151,6 @@ export default class Client {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match plugin star id exactly with this number
    * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string
-   * @param {string} [searchParams.username] - match user name exactly with this string
    *
    * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object
    */
@@ -157,15 +159,15 @@ export default class Client {
   }
 
   /**
-   * Get a plugin star resource object given its name.
+   * Get a plugin star resource object given its id.
    *
-   * @param {string} id - plugin id
+   * @param {string} id - plugin star id
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginStar`` object
    */
   getPluginStar(id, timeout = 30000) {
-    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPluginStars({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
