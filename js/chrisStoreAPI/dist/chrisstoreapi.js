@@ -5200,7 +5200,7 @@
               key: 'getPluginStar',
               value: function(t) {
                 var e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                return this.getPlugins({ id: t }, e).then(function(e) {
+                return this.getPluginStars({ id: t }, e).then(function(e) {
                   return e.getItem(t);
                 });
               },
