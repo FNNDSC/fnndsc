@@ -29,7 +29,8 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/chrisinstance.js~ChrisInstance.html">ChrisInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
@@ -93,6 +94,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/client.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
+import ChrisInstance from &apos;./chrisinstance&apos;;
 import Collection from &apos;./cj&apos;;
 import Request from &apos;./request&apos;;
 import RequestException from &apos;./exception&apos;;
@@ -133,6 +135,7 @@ export default class Client {
 
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
+    this.chrisInstanceUrl = &apos;&apos;;
     this.filesUrl = &apos;&apos;;
     this.computeResourcesUrl = &apos;&apos;;
     this.pluginMetasUrl = &apos;&apos;;
@@ -155,6 +158,16 @@ export default class Client {
    */
   setUrls(timeout = 30000) {
     return this.getFeeds(null, timeout);
+  }
+
+  /**
+   * Get the ChRIS instance resource object.
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ChrisInstance`` object
+   */
+  getChrisInstance(timeout = 30000) {
+    return this._fetchRes(&apos;chrisInstanceUrl&apos;, ChrisInstance, null, timeout);
   }
 
   /**
@@ -182,6 +195,7 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
+      this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, &apos;chrisinstance&apos;)[0];
       this.filesUrl = this.filesUrl || getUrl(coll, &apos;files&apos;)[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, &apos;compute_resources&apos;)[0];
       this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, &apos;plugin_metas&apos;)[0];

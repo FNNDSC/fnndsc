@@ -18,6 +18,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~chrisinstance",
+    "class/src/chrisinstance.js~ChrisInstance.html",
+    "<span>ChrisInstance</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~client",
     "class/src/client.js~Client.html",
     "<span>Client</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -630,6 +636,18 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "src/chrisinstance.js",
+    "file/src/chrisinstance.js.html",
+    "src/chrisinstance.js",
+    "file"
+  ],
+  [
+    "src/chrisinstance.js~chrisinstance#constructor",
+    "class/src/chrisinstance.js~ChrisInstance.html#instance-constructor-constructor",
+    "src/chrisinstance.js~ChrisInstance#constructor",
+    "method"
+  ],
+  [
     "src/cj.js",
     "file/src/cj.js.html",
     "src/cj.js",
@@ -702,6 +720,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/client.js~client#chrisinstanceurl",
+    "class/src/client.js~Client.html#instance-member-chrisInstanceUrl",
+    "src/client.js~Client#chrisInstanceUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#computeresourcesurl",
     "class/src/client.js~Client.html#instance-member-computeResourcesUrl",
     "src/client.js~Client#computeResourcesUrl",
@@ -748,6 +772,12 @@ window.esdocSearchIndex = [
     "class/src/client.js~Client.html#instance-member-filesUrl",
     "src/client.js~Client#filesUrl",
     "member"
+  ],
+  [
+    "src/client.js~client#getchrisinstance",
+    "class/src/client.js~Client.html#instance-method-getChrisInstance",
+    "src/client.js~Client#getChrisInstance",
+    "method"
   ],
   [
     "src/client.js~client#getcomputeresource",
