@@ -222,7 +222,8 @@
         isStandardBrowserEnv: function() {
           return (
             ('undefined' == typeof navigator || 'ReactNative' !== navigator.product) &&
-            'undefined' != typeof window && 'undefined' != typeof document
+            'undefined' != typeof window &&
+            'undefined' != typeof document
           );
         },
         forEach: s,

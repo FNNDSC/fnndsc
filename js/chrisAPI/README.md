@@ -53,13 +53,13 @@ $> docker-compose -f docker-compose_dev.yml ps
 Using curl:
 
 ```bash
-curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
+curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/uploads/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
 ```
 
 Using [HTTPie](https://httpie.org/) REST API client:
 
 ```bash
-http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"cube/"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
+http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/1/instances/ template:='{"data":[{"name":"dir","value":"cube/uploads/"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
 ```
 
 #### Update the feed's files by making the following GET request:

@@ -1,5 +1,6 @@
 import Client from './client';
 import { expect } from 'chai';
+import ChrisInstance from './chrisinstance';
 import { FeedList, Feed } from './feed';
 import { AllFeedFileList, FeedFile } from './feedfile';
 import { PluginList, Plugin } from './plugin';
@@ -60,6 +61,17 @@ describe('Client', () => {
     result
       .then(token => {
         expect(token).to.be.a('string');
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the ChRIS instance from the REST API', done => {
+    const result = client.getChrisInstance();
+    result
+      .then(instance => {
+        expect(instance).to.be.an.instanceof(ChrisInstance);
+        expect(instance.data.id).to.equal(1);
+        console.log('Chris instance: ', instance.data);
       })
       .then(done, done);
   });

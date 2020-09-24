@@ -1,4 +1,5 @@
 /** * Imports ***/
+import ChrisInstance from './chrisinstance';
 import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
@@ -39,6 +40,7 @@ export default class Client {
 
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
+    this.chrisInstanceUrl = '';
     this.filesUrl = '';
     this.computeResourcesUrl = '';
     this.pluginMetasUrl = '';
@@ -61,6 +63,16 @@ export default class Client {
    */
   setUrls(timeout = 30000) {
     return this.getFeeds(null, timeout);
+  }
+
+  /**
+   * Get the ChRIS instance resource object.
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``ChrisInstance`` object
+   */
+  getChrisInstance(timeout = 30000) {
+    return this._fetchRes('chrisInstanceUrl', ChrisInstance, null, timeout);
   }
 
   /**
@@ -88,6 +100,7 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
+      this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];
       this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
       this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];
@@ -211,15 +224,16 @@ export default class Client {
    * @param {number} [searchParams.id] - match plugin meta id exactly with this number
    * @param {string} [searchParams.name] - match plugin meta name containing this string
    * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string
-   * @param {string} [searchParams.type] - match plugin meta type exactly with this string
+   * @param {string} [searchParams.title] - match plugin meta title containing this string
    * @param {string} [searchParams.category] - match plugin meta category exactly with this string
+   * @param {string} [searchParams.type] - match plugin meta type exactly with this string
    * @param {string} [searchParams.authors] - match plugin meta authors containing this string
-   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
-   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
-   * @param {string} [searchParams.name_author_category] - match plugin meta name, title or
+   * @param {number} [searchParams.min_creation_date] - match plugin meta creation date gte this date
+   * @param {number} [searchParams.max_creation_date] - match plugin meta creation date lte this date
+   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or
    * category containing this string
-   * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly
-   * with this string
+   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or
+   * category containing this string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object
@@ -254,11 +268,14 @@ export default class Client {
    * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string
    * @param {string} [searchParams.type] - match plugin type exactly with this string
    * @param {string} [searchParams.category] - match plugin category containing this string
-   * @param {string} [searchParams.description] - match plugin description containing this string
    * @param {string} [searchParams.title] - match plugin title containing this string
-   * @param {string} [searchParams.authors] - match plugin authors containing this string
+   * @param {string} [searchParams.description] - match plugin description containing this string
    * @param {string} [searchParams.min_creation_date] - match plugin creation date gte this date
    * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date
+   * @param {string} [searchParams.name_title_category] - match plugin name, title or
+   * category containing this string
+   * @param {number} [searchParams.compute_resource_id] - match plugin's compute resource id exactly
+   * with this number
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginList`` object
@@ -513,7 +530,7 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match file id exactly with this number
-   * @param {string} [searchParams.fname] - match file's upload path containing this string
+   * @param {string} [searchParams.fname] - match file's upload path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's upload path exactly with this string
    * @param {string} [searchParams.owner_username] - match file's owner username exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
@@ -566,7 +583,7 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match file id exactly with this number
-   * @param {string} [searchParams.fname] - match file's path containing this string
+   * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {number} [searchParams.PatientID] - match file's PatientID exactly with this string
    * @param {string} [searchParams.PatientName] - match file's PatientName containing this string
@@ -605,7 +622,7 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match file id exactly with this number
-   * @param {string} [searchParams.fname] - match file's path containing this string
+   * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.service_identifier] - match file's service isentifier containing this string
    * @param {number} [searchParams.service_id] - match file's service id exactly with this number
