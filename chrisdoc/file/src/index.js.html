@@ -68,6 +68,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameter.html">PluginInstanceParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplit.html">PluginInstanceSplit</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplitList.html">PluginInstanceSplitList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
@@ -100,12 +102,16 @@ import RequestException from &apos;./exception&apos;;
 import { ListResource, ItemResource, Resource } from &apos;./resource&apos;;
 import ChrisInstance from &apos;./chrisinstance&apos;;
 import { FeedList, Feed } from &apos;./feed&apos;;
-import { PluginList,  PluginMetaPluginList, Plugin } from &apos;./plugin&apos;;
+import { PluginList, PluginMetaPluginList, Plugin } from &apos;./plugin&apos;;
 import { PluginMetaList, PluginMeta } from &apos;./pluginmeta&apos;;
 import { PluginParameterList, PluginParameter } from &apos;./pluginparameter&apos;;
 import { PluginComputeResourceList, ComputeResourceList, ComputeResource } from &apos;./computeresource&apos;;
-import { AllPluginInstanceList, PluginInstanceList, PluginInstance } from &apos;./plugininstance&apos;;
-import { PluginInstanceDescendantList } from &apos;./plugininstance&apos;;
+import { PluginInstanceDescendantList, PluginInstanceList, PluginInstance } from &apos;./plugininstance&apos;;
+import {
+  AllPluginInstanceList,
+  PluginInstanceSplitList,
+  PluginInstanceSplit,
+} from &apos;./plugininstance&apos;;
 import { PluginInstanceParameterList, PluginInstanceParameter } from &apos;./plugininstance&apos;;
 import { FeedPluginInstanceList, PipelineInstancePluginInstanceList } from &apos;./plugininstance&apos;;
 import { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline } from &apos;./pipeline&apos;;
@@ -140,8 +146,8 @@ export { PluginList, PluginMetaPluginList, Plugin };
 export { PluginMetaList, PluginMeta };
 export { PluginParameterList, PluginParameter };
 export { PluginComputeResourceList, ComputeResourceList, ComputeResource };
-export { AllPluginInstanceList, PluginInstanceList, PluginInstance };
-export { PluginInstanceDescendantList };
+export { PluginInstanceDescendantList, PluginInstanceList, PluginInstance };
+export { AllPluginInstanceList, PluginInstanceSplitList, PluginInstanceSplit };
 export { PluginInstanceParameterList, PluginInstanceParameter };
 export { FeedPluginInstanceList, PipelineInstancePluginInstanceList };
 export { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };

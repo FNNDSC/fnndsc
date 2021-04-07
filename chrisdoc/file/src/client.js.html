@@ -68,6 +68,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameter.html">PluginInstanceParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplit.html">PluginInstanceSplit</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplitList.html">PluginInstanceSplitList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
@@ -103,7 +105,11 @@ import { AllFeedFileList } from &apos;./feedfile&apos;;
 import { ComputeResourceList } from &apos;./computeresource&apos;;
 import { PluginMetaList } from &apos;./pluginmeta&apos;;
 import { PluginList } from &apos;./plugin&apos;;
-import { AllPluginInstanceList, PluginInstanceList } from &apos;./plugininstance&apos;;
+import {
+  AllPluginInstanceList,
+  PluginInstanceList,
+  PluginInstanceSplitList,
+} from &apos;./plugininstance&apos;;
 import { AllPipelineInstanceList, PipelineInstanceList } from &apos;./pipelineinstance&apos;;
 import { PipelineList } from &apos;./pipeline&apos;;
 import { TagList } from &apos;./tag&apos;;
@@ -191,7 +197,7 @@ export default class Client {
   getFeeds(searchParams = null, timeout = 30000) {
     const feedList = new FeedList(this.feedsUrl, this.auth);
 
-    return feedList.get(searchParams, timeout).then(feedList =&gt; {
+    return feedList.get(searchParams, timeout).then((feedList) =&gt; {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
@@ -223,7 +229,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(id, timeout = 30000) {
-    return this.getFeeds({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getFeeds({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -237,9 +243,9 @@ export default class Client {
    */
   tagFeed(feed_id, tag_id, timeout = 30000) {
     return this.getFeed(feed_id, timeout)
-      .then(feed =&gt; feed.getTaggings(timeout))
-      .then(listRes =&gt; listRes.post({ tag_id: tag_id }), timeout)
-      .then(listRes =&gt; listRes.getItems()[0]);
+      .then((feed) =&gt; feed.getTaggings(timeout))
+      .then((listRes) =&gt; listRes.post({ tag_id: tag_id }), timeout)
+      .then((listRes) =&gt; listRes.getItems()[0]);
   }
 
   /**
@@ -273,7 +279,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``FeedFile`` object
    */
   getFile(id, timeout = 30000) {
-    return this.getFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -306,7 +312,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
    */
   getComputeResource(id, timeout = 30000) {
-    return this.getComputeResources({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getComputeResources({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -346,7 +352,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
    */
   getPluginMeta(id, timeout = 30000) {
-    return this.getPluginMetas({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getPluginMetas({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -388,7 +394,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(id, timeout = 30000) {
-    return this.getPlugins({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getPlugins({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -425,7 +431,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(id, timeout = 30000) {
-    return this.getPluginInstances({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getPluginInstances({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -435,6 +441,7 @@ export default class Client {
    * @param {Object} data - request data object which is plugin-specific
    * @param {number} data.previous_id=null - id of the previous plugin instance
    * @param {string} [data.title] - title
+   * @param {string} [data.compute_resource_name] - remote compute resource name
    * @param {string} [data.cpu_limit] - cpu limit
    * @param {string} [data.memory_limit] - memory limit
    * @param {string} [data.number_of_workers] - number of workers
@@ -445,12 +452,36 @@ export default class Client {
    */
   createPluginInstance(pluginId, data, timeout = 30000) {
     return this.getPlugin(pluginId, timeout)
-      .then(plg =&gt; {
+      .then((plg) =&gt; {
         const instancesUrl = Collection.getLinkRelationUrls(plg.collection.items[0], &apos;instances&apos;);
         const plgInstList = new PluginInstanceList(instancesUrl[0], this.auth);
         return plgInstList.post(data, timeout);
       })
-      .then(plgInstList =&gt; plgInstList.getItems()[0]);
+      .then((plgInstList) =&gt; plgInstList.getItems()[0]);
+  }
+
+  /**
+   * Create a new plugin instance split resource through the REST API.
+   *
+   * @param {number} pluginInstanceId - plugin instance id
+   * @param {string} [filter=&apos;&apos;] - comma-separated list of regular expressions
+   * @param {string} [cr_name=&apos;&apos;] - remote compute resource name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``PluginInstanceSplit`` object
+   */
+  createPluginInstanceSplit(pluginInstanceId, filter = &apos;&apos;, cr_name = &apos;&apos;, timeout = 30000) {
+    return this.getPluginInstance(pluginInstanceId, timeout)
+      .then((plgInst) =&gt; {
+        const splitsUrl = Collection.getLinkRelationUrls(plgInst.collection.items[0], &apos;splits&apos;);
+        const plgInstSplitList = new PluginInstanceSplitList(splitsUrl[0], this.auth);
+        let data = { filter: filter };
+        if (cr_name) {
+          data = { filter: filter, compute_resource_name: cr_name };
+        }
+        return plgInstSplitList.post(data, timeout);
+      })
+      .then((plgInstSplitList) =&gt; plgInstSplitList.getItems()[0]);
   }
 
   /**
@@ -485,7 +516,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(id, timeout = 30000) {
-    return this.getPipelines({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getPipelines({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -506,7 +537,7 @@ export default class Client {
   createPipeline(data, timeout = 30000) {
     const createRes = () =&gt; {
       const res = new PipelineList(this.pipelinesUrl, this.auth);
-      return res.post(data, timeout).then(res =&gt; res.getItems()[0]);
+      return res.post(data, timeout).then((res) =&gt; res.getItems()[0]);
     };
     return this.pipelinesUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
   }
@@ -540,7 +571,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object
    */
   getPipelineInstance(id, timeout = 30000) {
-    return this.getPipelineInstances({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getPipelineInstances({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -557,7 +588,7 @@ export default class Client {
    */
   createPipelineInstance(pipelineId, data, timeout = 30000) {
     return this.getPipeline(pipelineId, timeout)
-      .then(pipeline =&gt; {
+      .then((pipeline) =&gt; {
         const instancesUrl = Collection.getLinkRelationUrls(
           pipeline.collection.items[0],
           &apos;instances&apos;
@@ -565,7 +596,7 @@ export default class Client {
         const pipInstList = new PipelineInstanceList(instancesUrl[0], this.auth);
         return pipInstList.post(data, timeout);
       })
-      .then(pipInstList =&gt; pipInstList.getItems()[0]);
+      .then((pipInstList) =&gt; pipInstList.getItems()[0]);
   }
 
   /**
@@ -596,7 +627,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``Tag`` object
    */
   getTag(id, timeout = 30000) {
-    return this.getTags({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getTags({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -612,7 +643,7 @@ export default class Client {
   createTag(data, timeout = 30000) {
     const createRes = () =&gt; {
       const res = new TagList(this.tagsUrl, this.auth);
-      return res.post(data, timeout).then(res =&gt; res.getItems()[0]);
+      return res.post(data, timeout).then((res) =&gt; res.getItems()[0]);
     };
     return this.tagsUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
   }
@@ -647,7 +678,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to an ``UploadedFile`` object
    */
   getUploadedFile(id, timeout = 30000) {
-    return this.getUploadedFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getUploadedFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -665,7 +696,7 @@ export default class Client {
   uploadFile(data, uploadFileObj, timeout = 30000) {
     const createRes = () =&gt; {
       const res = new UploadedFileList(this.uploadedFilesUrl, this.auth);
-      return res.post(data, uploadFileObj, timeout).then(res =&gt; res.getItems()[0]);
+      return res.post(data, uploadFileObj, timeout).then((res) =&gt; res.getItems()[0]);
     };
     return this.uploadedFilesUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
   }
@@ -706,7 +737,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``PACSFile`` object
    */
   getPACSFile(id, timeout = 30000) {
-    return this.getPACSFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getPACSFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -740,7 +771,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``ServiceFile`` object
    */
   getServiceFile(id, timeout = 30000) {
-    return this.getServiceFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+    return this.getServiceFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
   }
 
   /**
@@ -775,7 +806,7 @@ export default class Client {
         ],
       },
     };
-    return req.post(usersUrl, userData).then(resp =&gt; {
+    return req.post(usersUrl, userData).then((resp) =&gt; {
       const coll = resp.data.collection;
       const userUrl = coll.items[0].href;
       const auth = { username: username, password: password };
@@ -800,7 +831,7 @@ export default class Client {
       username: username,
       password: password,
     };
-    return req.post(authUrl, authData).then(resp =&gt; resp.data.token);
+    return req.post(authUrl, authData).then((resp) =&gt; resp.data.token);
   }
 
   /**

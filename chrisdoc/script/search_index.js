@@ -234,6 +234,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~plugininstancesplit",
+    "class/src/plugininstance.js~PluginInstanceSplit.html",
+    "<span>PluginInstanceSplit</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~plugininstancesplitlist",
+    "class/src/plugininstance.js~PluginInstanceSplitList.html",
+    "<span>PluginInstanceSplitList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~pluginlist",
     "class/src/plugin.js~PluginList.html",
     "<span>PluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -753,6 +765,12 @@ window.esdocSearchIndex = [
     "src/client.js~client#createplugininstance",
     "class/src/client.js~Client.html#instance-method-createPluginInstance",
     "src/client.js~Client#createPluginInstance",
+    "method"
+  ],
+  [
+    "src/client.js~client#createplugininstancesplit",
+    "class/src/client.js~Client.html#instance-method-createPluginInstanceSplit",
+    "src/client.js~Client#createPluginInstanceSplit",
     "method"
   ],
   [
@@ -1842,6 +1860,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/plugininstance.js~plugininstance#getsplits",
+    "class/src/plugininstance.js~PluginInstance.html#instance-method-getSplits",
+    "src/plugininstance.js~PluginInstance#getSplits",
+    "method"
+  ],
+  [
     "src/plugininstance.js~plugininstance#put",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-put",
     "src/plugininstance.js~PluginInstance#put",
@@ -1912,6 +1936,42 @@ window.esdocSearchIndex = [
     "class/src/plugininstance.js~PluginInstanceParameterList.html#instance-member-itemClass",
     "src/plugininstance.js~PluginInstanceParameterList#itemClass",
     "member"
+  ],
+  [
+    "src/plugininstance.js~plugininstancesplit#constructor",
+    "class/src/plugininstance.js~PluginInstanceSplit.html#instance-constructor-constructor",
+    "src/plugininstance.js~PluginInstanceSplit#constructor",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstancesplit#getplugininstance",
+    "class/src/plugininstance.js~PluginInstanceSplit.html#instance-method-getPluginInstance",
+    "src/plugininstance.js~PluginInstanceSplit#getPluginInstance",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstancesplitlist#constructor",
+    "class/src/plugininstance.js~PluginInstanceSplitList.html#instance-constructor-constructor",
+    "src/plugininstance.js~PluginInstanceSplitList#constructor",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstancesplitlist#getplugininstance",
+    "class/src/plugininstance.js~PluginInstanceSplitList.html#instance-method-getPluginInstance",
+    "src/plugininstance.js~PluginInstanceSplitList#getPluginInstance",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstancesplitlist#itemclass",
+    "class/src/plugininstance.js~PluginInstanceSplitList.html#instance-member-itemClass",
+    "src/plugininstance.js~PluginInstanceSplitList#itemClass",
+    "member"
+  ],
+  [
+    "src/plugininstance.js~plugininstancesplitlist#post",
+    "class/src/plugininstance.js~PluginInstanceSplitList.html#instance-method-post",
+    "src/plugininstance.js~PluginInstanceSplitList#post",
+    "method"
   ],
   [
     "src/pluginmeta.js",
