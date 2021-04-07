@@ -165,6 +165,24 @@ export class PluginInstance extends ItemResource {
   }
 
   /**
+   * Fetch a list of output directory splits applied to this plugin instance from the
+   * REST API.
+   *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginInstanceSplitList`` object
+   */
+  getSplits(params = null, timeout = 30000) {
+    const linkRelation = 'splits';
+    const resourceClass = PluginInstanceSplitList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
    * Make a PUT request to modify this plugin instance resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -350,6 +368,86 @@ export class PluginInstanceDescendantList extends ListResource {
 
     /** @type {Object} */
     this.itemClass = PluginInstance;
+  }
+}
+
+/**
+ * Plugin instance split item resource object representing an output directory
+ * split that has been applied to a plugin instance.
+ */
+export class PluginInstanceSplit extends ItemResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+  }
+
+  /**
+   * Fetch the plugin instance associated to this split item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   */
+  getPluginInstance(timeout = 30000) {
+    const linkRelation = 'plugin_inst';
+    const resourceClass = PluginInstance;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Plugin instance split list resource object. This is a list of all output
+ * directory splits that have been applied to a plugin instance.
+ */
+export class PluginInstanceSplitList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginInstanceSplit;
+  }
+
+  /**
+   * Fetch the plugin instance associated to this split list item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   */
+  getPluginInstance(timeout = 30000) {
+    const linkRelation = 'plugin_inst';
+    const resourceClass = PluginInstance;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Make a POST request to this plugin instance split list resource to create a
+   * new plugin instance split item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.filter] - A comma-separated list of regular expressions
+   * @param {string} [data.compute_resource_name] - remote compute resource name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
   }
 }
 

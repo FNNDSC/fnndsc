@@ -5,12 +5,16 @@ import RequestException from './exception';
 import { ListResource, ItemResource, Resource } from './resource';
 import ChrisInstance from './chrisinstance';
 import { FeedList, Feed } from './feed';
-import { PluginList,  PluginMetaPluginList, Plugin } from './plugin';
+import { PluginList, PluginMetaPluginList, Plugin } from './plugin';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
 import { PluginParameterList, PluginParameter } from './pluginparameter';
 import { PluginComputeResourceList, ComputeResourceList, ComputeResource } from './computeresource';
-import { AllPluginInstanceList, PluginInstanceList, PluginInstance } from './plugininstance';
-import { PluginInstanceDescendantList } from './plugininstance';
+import { PluginInstanceDescendantList, PluginInstanceList, PluginInstance } from './plugininstance';
+import {
+  AllPluginInstanceList,
+  PluginInstanceSplitList,
+  PluginInstanceSplit,
+} from './plugininstance';
 import { PluginInstanceParameterList, PluginInstanceParameter } from './plugininstance';
 import { FeedPluginInstanceList, PipelineInstancePluginInstanceList } from './plugininstance';
 import { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline } from './pipeline';
@@ -45,8 +49,8 @@ export { PluginList, PluginMetaPluginList, Plugin };
 export { PluginMetaList, PluginMeta };
 export { PluginParameterList, PluginParameter };
 export { PluginComputeResourceList, ComputeResourceList, ComputeResource };
-export { AllPluginInstanceList, PluginInstanceList, PluginInstance };
-export { PluginInstanceDescendantList };
+export { PluginInstanceDescendantList, PluginInstanceList, PluginInstance };
+export { AllPluginInstanceList, PluginInstanceSplitList, PluginInstanceSplit };
 export { PluginInstanceParameterList, PluginInstanceParameter };
 export { FeedPluginInstanceList, PipelineInstancePluginInstanceList };
 export { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };
