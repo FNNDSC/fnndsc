@@ -941,7 +941,7 @@
     "__docId__": 61,
     "kind": "file",
     "name": "src/client.js",
-    "content": "/** * Imports ***/\nimport ChrisInstance from './chrisinstance';\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\nimport { FeedList } from './feed';\nimport { AllFeedFileList } from './feedfile';\nimport { ComputeResourceList } from './computeresource';\nimport { PluginMetaList } from './pluginmeta';\nimport { PluginList } from './plugin';\nimport {\n  AllPluginInstanceList,\n  PluginInstanceList,\n  PluginInstanceSplitList,\n} from './plugininstance';\nimport { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstance';\nimport { PipelineList } from './pipeline';\nimport { TagList } from './tag';\nimport { UploadedFileList } from './uploadedfile';\nimport { PACSFileList } from './pacsfile';\nimport { ServiceFileList } from './servicefile';\nimport User from './user';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS service\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    /** @type {string} */\n    this.url = url;\n\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n\n    /* Urls of the high level API resources */\n    this.feedsUrl = this.url;\n    this.chrisInstanceUrl = '';\n    this.filesUrl = '';\n    this.computeResourcesUrl = '';\n    this.pluginMetasUrl = '';\n    this.pluginsUrl = '';\n    this.pluginInstancesUrl = '';\n    this.pipelinesUrl = '';\n    this.pipelineInstancesUrl = '';\n    this.tagsUrl = '';\n    this.uploadedFilesUrl = '';\n    this.pacsFilesUrl = '';\n    this.serviceFilesUrl = '';\n    this.userUrl = '';\n  }\n\n  /**\n   * Set the urls of the high level API resources.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  setUrls(timeout = 30000) {\n    return this.getFeeds(null, timeout);\n  }\n\n  /**\n   * Get the ChRIS instance resource object.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ChrisInstance`` object\n   */\n  getChrisInstance(timeout = 30000) {\n    return this._fetchRes('chrisInstanceUrl', ChrisInstance, null, timeout);\n  }\n\n  /**\n   * Get a paginated list of currently authenticated user's feeds\n   * from the REST API given query search parameters. If no search parameters\n   * then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match feed id exactly with this number\n   * @param {number} [searchParams.min_id] - match feed id gte this number\n   * @param {number} [searchParams.max_id] - match feed id lte this number\n   * @param {string} [searchParams.name] - match feed name containing this string\n   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(searchParams = null, timeout = 30000) {\n    const feedList = new FeedList(this.feedsUrl, this.auth);\n\n    return feedList.get(searchParams, timeout).then((feedList) => {\n      const coll = feedList.collection;\n      const getUrl = Collection.getLinkRelationUrls;\n\n      this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];\n      this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];\n      this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];\n      this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];\n      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];\n      this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances')[0];\n      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];\n      this.pipelineInstancesUrl =\n        this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances')[0];\n      this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags')[0];\n      this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles')[0];\n      this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];\n      this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];\n      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];\n\n      return feedList;\n    });\n  }\n\n  /**\n   * Get a feed resource object given its id.\n   *\n   * @param {number} id - feed id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(id, timeout = 30000) {\n    return this.getFeeds({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Tag a feed given its id and the id of the tag.\n   *\n   * @param {number} feed_id - feed id\n   * @param {number} tag_id - tag id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Tagging`` object\n   */\n  tagFeed(feed_id, tag_id, timeout = 30000) {\n    return this.getFeed(feed_id, timeout)\n      .then((feed) => feed.getTaggings(timeout))\n      .then((listRes) => listRes.post({ tag_id: tag_id }), timeout)\n      .then((listRes) => listRes.getItems()[0]);\n  }\n\n  /**\n   * Get a paginated list of files written to any user-owned feed from the REST\n   * API given query search parameters. If no search parameters then get the\n   * default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance\n   * id exactly with this number\n   * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object\n   */\n  getFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('filesUrl', AllFeedFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get a file resource object given its id.\n   *\n   * @param {number} id - file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``FeedFile`` object\n   */\n  getFile(id, timeout = 30000) {\n    return this.getFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of compute resources from the REST API given query\n   * search parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.name] - match compute resource's name containing this string\n   * @param {string} [searchParams.name_exact] - match compute resource's name exactly with this string\n   * @param {string} [searchParams.description] - match compute resource's description containing this string\n   * @param {string} [searchParams.plugin_id] - match plugin id exactly with this string for all the\n   * compute resources associated with the plugin\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object\n   */\n  getComputeResources(searchParams = null, timeout = 30000) {\n    return this._fetchRes('computeResourcesUrl', ComputeResourceList, searchParams, timeout);\n  }\n\n  /**\n   * Get a compute resource object given its id.\n   *\n   * @param {number} id - compute resource id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object\n   */\n  getComputeResource(id, timeout = 30000) {\n    return this.getComputeResources({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugin metas from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin meta id exactly with this number\n   * @param {string} [searchParams.name] - match plugin meta name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string\n   * @param {string} [searchParams.title] - match plugin meta title containing this string\n   * @param {string} [searchParams.category] - match plugin meta category exactly with this string\n   * @param {string} [searchParams.type] - match plugin meta type exactly with this string\n   * @param {string} [searchParams.authors] - match plugin meta authors containing this string\n   * @param {number} [searchParams.min_creation_date] - match plugin meta creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match plugin meta creation date lte this date\n   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or\n   * category containing this string\n   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or\n   * category containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object\n   */\n  getPluginMetas(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginMetasUrl', PluginMetaList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin meta resource object given its id.\n   *\n   * @param {number} id - plugin meta id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(id, timeout = 30000) {\n    return this.getPluginMetas({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugins from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string\n   * @param {string} [searchParams.version] - match plugin version exactly with this string\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.type] - match plugin type exactly with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date gte this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or\n   * category containing this string\n   * @param {number} [searchParams.compute_resource_id] - match plugin's compute resource id exactly\n   * with this number\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin resource object given its id.\n   *\n   * @param {number} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugin instances from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin instance id exactly with this number\n   * @param {string} [searchParams.title] - match plugin instance title containing this string\n   * @param {string} [searchParams.status] - match plugin instance execution status exactly with this string\n   * @param {string} [searchParams.owner_username] - match plugin instances's owner username exactly with this string\n   * @param {number} [searchParams.feed_id] - match associated feed's id exactly with this number\n   * @param {number} [searchParams.root_id] - match root plugin instance's id exactly with this number\n   * @param {number} [searchParams.plugin_id] - match associated plugin's id exactly with this number\n   * @param {number} [searchParams.plugin_name] - match associated plugin's name containing this string\n   * @param {number} [searchParams.plugin_name_exact] - match associated plugin's name exact with this string\n   * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``AllPluginInstanceList`` object\n   */\n  getPluginInstances(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginInstancesUrl', AllPluginInstanceList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin instance resource object given its id.\n   *\n   * @param {number} id - plugin instance id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(id, timeout = 30000) {\n    return this.getPluginInstances({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin instance resource through the REST API.\n   *\n   * @param {number} pluginId - plugin id\n   * @param {Object} data - request data object which is plugin-specific\n   * @param {number} data.previous_id=null - id of the previous plugin instance\n   * @param {string} [data.title] - title\n   * @param {string} [data.compute_resource_name] - remote compute resource name\n   * @param {string} [data.cpu_limit] - cpu limit\n   * @param {string} [data.memory_limit] - memory limit\n   * @param {string} [data.number_of_workers] - number of workers\n   * @param {string} [data.gpu_limit] - gpu limit\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginInstance`` object\n   */\n  createPluginInstance(pluginId, data, timeout = 30000) {\n    return this.getPlugin(pluginId, timeout)\n      .then((plg) => {\n        const instancesUrl = Collection.getLinkRelationUrls(plg.collection.items[0], 'instances');\n        const plgInstList = new PluginInstanceList(instancesUrl[0], this.auth);\n        return plgInstList.post(data, timeout);\n      })\n      .then((plgInstList) => plgInstList.getItems()[0]);\n  }\n\n  /**\n   * Create a new plugin instance split resource through the REST API.\n   *\n   * @param {number} pluginInstanceId - plugin instance id\n   * @param {string} [filter=''] - comma-separated list of regular expressions\n   * @param {string} [cr_name=''] - remote compute resource name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginInstanceSplit`` object\n   */\n  createPluginInstanceSplit(pluginInstanceId, filter = '', cr_name = '', timeout = 30000) {\n    return this.getPluginInstance(pluginInstanceId, timeout)\n      .then((plgInst) => {\n        const splitsUrl = Collection.getLinkRelationUrls(plgInst.collection.items[0], 'splits');\n        const plgInstSplitList = new PluginInstanceSplitList(splitsUrl[0], this.auth);\n        let data = { filter: filter };\n        if (cr_name) {\n          data = { filter: filter, compute_resource_name: cr_name };\n        }\n        return plgInstSplitList.post(data, timeout);\n      })\n      .then((plgInstSplitList) => plgInstSplitList.getItems()[0]);\n  }\n\n  /**\n   * Get a paginated list of pipelines from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.authors] - match plugin authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date gte this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline resource object given its id.\n   *\n   * @param {number} id - pipeline id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object\n   */\n  getPipeline(id, timeout = 30000) {\n    return this.getPipelines({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline resource through the REST API.\n   *\n   * @param {Object} data - request data object\n   * @param {string} data.name - pipeline name\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked=true] - pipeline status\n   * @param {string} [data.plugin_tree] - JSON string containing a plugin tree list\n   * @param {number} [data.plugin_inst_id] - plugin instance id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Pipeline`` object\n   */\n  createPipeline(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PipelineList(this.pipelinesUrl, this.auth);\n      return res.post(data, timeout).then((res) => res.getItems()[0]);\n    };\n    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of pipeline instances from the REST API given\n   * query search parameters. If no search parameters then get the default\n   * first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match pipeline instance id exactly with this number\n   * @param {string} [searchParams.title] - match pipeline instance title containing this string\n   * @param {string} [searchParams.description] - match pipeline instance description containing this string\n   * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``AllPipelineInstanceList`` object\n   */\n  getPipelineInstances(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelineInstancesUrl', AllPipelineInstanceList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline instance resource object given its id.\n   *\n   * @param {number} id - pipeline instance id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object\n   */\n  getPipelineInstance(id, timeout = 30000) {\n    return this.getPipelineInstances({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline instance resource through the REST API.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} data - request data object which is pipeline-specific\n   * @param {number} data.previous_plugin_inst_id - id of the previous plugin instance\n   * @param {string} [data.title] - pipeline title\n   * @param {string} [data.description] - pipeline description\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PipelineInstance`` object\n   */\n  createPipelineInstance(pipelineId, data, timeout = 30000) {\n    return this.getPipeline(pipelineId, timeout)\n      .then((pipeline) => {\n        const instancesUrl = Collection.getLinkRelationUrls(\n          pipeline.collection.items[0],\n          'instances'\n        );\n        const pipInstList = new PipelineInstanceList(instancesUrl[0], this.auth);\n        return pipInstList.post(data, timeout);\n      })\n      .then((pipInstList) => pipInstList.getItems()[0]);\n  }\n\n  /**\n   * Get a paginated list of tags from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match tag id exactly with this number\n   * @param {string} [searchParams.name] - match tag name containing this string\n   * @param {string} [searchParams.owner_username] - match tag's owner username exactly with this string\n   * @param {string} [searchParams.color] - match plugin color containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(searchParams = null, timeout = 30000) {\n    return this._fetchRes('tagsUrl', TagList, searchParams, timeout);\n  }\n\n  /**\n   * Get a tag resource object given its id.\n   *\n   * @param {number} id - tag id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(id, timeout = 30000) {\n    return this.getTags({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new tag resource through the REST API.\n   *\n   * @param {Object} data - request data object\n   * @param {string} data.color - tag color\n   * @param {string} [data.name=''] - tag name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Tag`` object\n   */\n  createTag(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new TagList(this.tagsUrl, this.auth);\n      return res.post(data, timeout).then((res) => res.getItems()[0]);\n    };\n    return this.tagsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of uploaded files from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.fname] - match file's upload path starting with this string\n   * @param {string} [searchParams.fname_exact] - match file's upload path exactly with this string\n   * @param {string} [searchParams.owner_username] - match file's owner username exactly with this string\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object\n   */\n  getUploadedFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('uploadedFilesUrl', UploadedFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get an uploaded file resource object given its id.\n   *\n   * @param {number} id - uploaded file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to an ``UploadedFile`` object\n   */\n  getUploadedFile(id, timeout = 30000) {\n    return this.getUploadedFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Upload a file and create a new uploaded file resource through the REST API.\n   *\n   * @param {Object} data - request data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``UploadedFile`` object\n   */\n  uploadFile(data, uploadFileObj, timeout = 30000) {\n    const createRes = () => {\n      const res = new UploadedFileList(this.uploadedFilesUrl, this.auth);\n      return res.post(data, uploadFileObj, timeout).then((res) => res.getItems()[0]);\n    };\n    return this.uploadedFilesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of PACS files from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.fname] - match file's path starting with this string\n   * @param {string} [searchParams.fname_exact] - match file's path exactly with this string\n   * @param {number} [searchParams.PatientID] - match file's PatientID exactly with this string\n   * @param {string} [searchParams.PatientName] - match file's PatientName containing this string\n   * @param {number} [searchParams.StudyInstanceUID] - match file's StudyInstanceUID exactly with this string\n   * @param {string} [searchParams.StudyDescription] - match file's StudyDescription containing this string\n   * @param {number} [searchParams.SeriesInstanceUID] - match file's SeriesInstanceUID exactly with this string\n   * @param {string} [searchParams.SeriesDescription] - match file's SeriesDescription containing this string\n   * @param {number} [searchParams.pacs_identifier] - match file's PACS identifier exactly with this string\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PACSFileList`` object\n   */\n  getPACSFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pacsFilesUrl', PACSFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get a PACS file resource object given its id.\n   *\n   * @param {number} id - PACS file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PACSFile`` object\n   */\n  getPACSFile(id, timeout = 30000) {\n    return this.getPACSFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of files for an unregistered service from the REST API given\n   * query search parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.fname] - match file's path starting with this string\n   * @param {string} [searchParams.fname_exact] - match file's path exactly with this string\n   * @param {string} [searchParams.service_identifier] - match file's service isentifier containing this string\n   * @param {number} [searchParams.service_id] - match file's service id exactly with this number\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ServiceFileList`` object\n   */\n  getServiceFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('serviceFilesUrl', ServiceFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get a service file resource object given its id.\n   *\n   * @param {number} id - PACS file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ServiceFile`` object\n   */\n  getServiceFile(id, timeout = 30000) {\n    return this.getServiceFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a user resource object for the currently authenticated user.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    return this._fetchRes('userUrl', User, null, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req.post(usersUrl, userData).then((resp) => {\n      const coll = resp.data.collection;\n      const userUrl = coll.items[0].href;\n      const auth = { username: username, password: password };\n      const user = new User(userUrl, auth);\n      user.collection = coll;\n      return user;\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``string`` value\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then((resp) => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Internal method to fetch a high level resource through the REST API.\n   *\n   * @param {string} resUrlProp -  property of the `this` object containing the url of the resource\n   * @param {string} ResClass - resource class\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {\n    const getRes = () => {\n      const res = new ResClass(this[resUrlProp], this.auth);\n      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);\n    };\n    return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport ChrisInstance from './chrisinstance';\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\nimport { FeedList } from './feed';\nimport { AllFeedFileList } from './feedfile';\nimport { ComputeResourceList } from './computeresource';\nimport { PluginMetaList } from './pluginmeta';\nimport { PluginList } from './plugin';\nimport {\n  AllPluginInstanceList,\n  PluginInstanceList,\n  PluginInstanceSplitList,\n} from './plugininstance';\nimport { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstance';\nimport { PipelineList } from './pipeline';\nimport { TagList } from './tag';\nimport { UploadedFileList } from './uploadedfile';\nimport { PACSFileList } from './pacsfile';\nimport { ServiceFileList } from './servicefile';\nimport User from './user';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS service\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    /** @type {string} */\n    this.url = url;\n\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n\n    /* Urls of the high level API resources */\n    this.feedsUrl = this.url;\n    this.chrisInstanceUrl = '';\n    this.filesUrl = '';\n    this.computeResourcesUrl = '';\n    this.pluginMetasUrl = '';\n    this.pluginsUrl = '';\n    this.pluginInstancesUrl = '';\n    this.pipelinesUrl = '';\n    this.pipelineInstancesUrl = '';\n    this.tagsUrl = '';\n    this.uploadedFilesUrl = '';\n    this.pacsFilesUrl = '';\n    this.serviceFilesUrl = '';\n    this.userUrl = '';\n  }\n\n  /**\n   * Set the urls of the high level API resources.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  setUrls(timeout = 30000) {\n    return this.getFeeds(null, timeout);\n  }\n\n  /**\n   * Get the ChRIS instance resource object.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ChrisInstance`` object\n   */\n  getChrisInstance(timeout = 30000) {\n    return this._fetchRes('chrisInstanceUrl', ChrisInstance, null, timeout);\n  }\n\n  /**\n   * Get a paginated list of currently authenticated user's feeds\n   * from the REST API given query search parameters. If no search parameters\n   * then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match feed id exactly with this number\n   * @param {number} [searchParams.min_id] - match feed id gte this number\n   * @param {number} [searchParams.max_id] - match feed id lte this number\n   * @param {string} [searchParams.name] - match feed name containing this string\n   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(searchParams = null, timeout = 30000) {\n    const feedList = new FeedList(this.feedsUrl, this.auth);\n\n    return feedList.get(searchParams, timeout).then((feedList) => {\n      const coll = feedList.collection;\n      const getUrl = Collection.getLinkRelationUrls;\n\n      this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];\n      this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];\n      this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];\n      this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];\n      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];\n      this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances')[0];\n      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];\n      this.pipelineInstancesUrl =\n        this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances')[0];\n      this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags')[0];\n      this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles')[0];\n      this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];\n      this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];\n      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];\n\n      return feedList;\n    });\n  }\n\n  /**\n   * Get a feed resource object given its id.\n   *\n   * @param {number} id - feed id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(id, timeout = 30000) {\n    return this.getFeeds({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Tag a feed given its id and the id of the tag.\n   *\n   * @param {number} feed_id - feed id\n   * @param {number} tag_id - tag id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Tagging`` object\n   */\n  tagFeed(feed_id, tag_id, timeout = 30000) {\n    return this.getFeed(feed_id, timeout)\n      .then((feed) => feed.getTaggings(timeout))\n      .then((listRes) => listRes.post({ tag_id: tag_id }), timeout)\n      .then((listRes) => listRes.getItems()[0]);\n  }\n\n  /**\n   * Get a paginated list of files written to any user-owned feed from the REST\n   * API given query search parameters. If no search parameters then get the\n   * default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.fname] - match file's path starting with this string\n   * @param {string} [searchParams.fname_exact] - match file's path exactly with this string\n   * @param {string} [searchParams.fname_icontains] - match file's path containing this string\n   * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance\n   * id exactly with this number\n   * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object\n   */\n  getFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('filesUrl', AllFeedFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get a file resource object given its id.\n   *\n   * @param {number} id - file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``FeedFile`` object\n   */\n  getFile(id, timeout = 30000) {\n    return this.getFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of compute resources from the REST API given query\n   * search parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.name] - match compute resource's name containing this string\n   * @param {string} [searchParams.name_exact] - match compute resource's name exactly with this string\n   * @param {string} [searchParams.description] - match compute resource's description containing this string\n   * @param {string} [searchParams.plugin_id] - match plugin id exactly with this string for all the\n   * compute resources associated with the plugin\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object\n   */\n  getComputeResources(searchParams = null, timeout = 30000) {\n    return this._fetchRes('computeResourcesUrl', ComputeResourceList, searchParams, timeout);\n  }\n\n  /**\n   * Get a compute resource object given its id.\n   *\n   * @param {number} id - compute resource id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object\n   */\n  getComputeResource(id, timeout = 30000) {\n    return this.getComputeResources({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugin metas from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin meta id exactly with this number\n   * @param {string} [searchParams.name] - match plugin meta name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string\n   * @param {string} [searchParams.title] - match plugin meta title containing this string\n   * @param {string} [searchParams.category] - match plugin meta category exactly with this string\n   * @param {string} [searchParams.type] - match plugin meta type exactly with this string\n   * @param {string} [searchParams.authors] - match plugin meta authors containing this string\n   * @param {number} [searchParams.min_creation_date] - match plugin meta creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match plugin meta creation date lte this date\n   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or\n   * category containing this string\n   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or\n   * category containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object\n   */\n  getPluginMetas(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginMetasUrl', PluginMetaList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin meta resource object given its id.\n   *\n   * @param {number} id - plugin meta id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(id, timeout = 30000) {\n    return this.getPluginMetas({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugins from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string\n   * @param {string} [searchParams.version] - match plugin version exactly with this string\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.type] - match plugin type exactly with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date gte this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or\n   * category containing this string\n   * @param {number} [searchParams.compute_resource_id] - match plugin's compute resource id exactly\n   * with this number\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin resource object given its id.\n   *\n   * @param {number} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of plugin instances from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin instance id exactly with this number\n   * @param {string} [searchParams.title] - match plugin instance title containing this string\n   * @param {string} [searchParams.status] - match plugin instance execution status exactly with this string\n   * @param {string} [searchParams.owner_username] - match plugin instances's owner username exactly with this string\n   * @param {number} [searchParams.feed_id] - match associated feed's id exactly with this number\n   * @param {number} [searchParams.root_id] - match root plugin instance's id exactly with this number\n   * @param {number} [searchParams.plugin_id] - match associated plugin's id exactly with this number\n   * @param {number} [searchParams.plugin_name] - match associated plugin's name containing this string\n   * @param {number} [searchParams.plugin_name_exact] - match associated plugin's name exact with this string\n   * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``AllPluginInstanceList`` object\n   */\n  getPluginInstances(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginInstancesUrl', AllPluginInstanceList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin instance resource object given its id.\n   *\n   * @param {number} id - plugin instance id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object\n   */\n  getPluginInstance(id, timeout = 30000) {\n    return this.getPluginInstances({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin instance resource through the REST API.\n   *\n   * @param {number} pluginId - plugin id\n   * @param {Object} data - request data object which is plugin-specific\n   * @param {number} data.previous_id=null - id of the previous plugin instance\n   * @param {string} [data.title] - title\n   * @param {string} [data.compute_resource_name] - remote compute resource name\n   * @param {string} [data.cpu_limit] - cpu limit\n   * @param {string} [data.memory_limit] - memory limit\n   * @param {string} [data.number_of_workers] - number of workers\n   * @param {string} [data.gpu_limit] - gpu limit\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginInstance`` object\n   */\n  createPluginInstance(pluginId, data, timeout = 30000) {\n    return this.getPlugin(pluginId, timeout)\n      .then((plg) => {\n        const instancesUrl = Collection.getLinkRelationUrls(plg.collection.items[0], 'instances');\n        const plgInstList = new PluginInstanceList(instancesUrl[0], this.auth);\n        return plgInstList.post(data, timeout);\n      })\n      .then((plgInstList) => plgInstList.getItems()[0]);\n  }\n\n  /**\n   * Create a new plugin instance split resource through the REST API.\n   *\n   * @param {number} pluginInstanceId - plugin instance id\n   * @param {string} [filter=''] - comma-separated list of regular expressions\n   * @param {string} [cr_name=''] - remote compute resource name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginInstanceSplit`` object\n   */\n  createPluginInstanceSplit(pluginInstanceId, filter = '', cr_name = '', timeout = 30000) {\n    return this.getPluginInstance(pluginInstanceId, timeout)\n      .then((plgInst) => {\n        const splitsUrl = Collection.getLinkRelationUrls(plgInst.collection.items[0], 'splits');\n        const plgInstSplitList = new PluginInstanceSplitList(splitsUrl[0], this.auth);\n        let data = { filter: filter };\n        if (cr_name) {\n          data = { filter: filter, compute_resource_name: cr_name };\n        }\n        return plgInstSplitList.post(data, timeout);\n      })\n      .then((plgInstSplitList) => plgInstSplitList.getItems()[0]);\n  }\n\n  /**\n   * Get a paginated list of pipelines from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.authors] - match plugin authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date gte this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline resource object given its id.\n   *\n   * @param {number} id - pipeline id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object\n   */\n  getPipeline(id, timeout = 30000) {\n    return this.getPipelines({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline resource through the REST API.\n   *\n   * @param {Object} data - request data object\n   * @param {string} data.name - pipeline name\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked=true] - pipeline status\n   * @param {string} [data.plugin_tree] - JSON string containing a plugin tree list\n   * @param {number} [data.plugin_inst_id] - plugin instance id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Pipeline`` object\n   */\n  createPipeline(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PipelineList(this.pipelinesUrl, this.auth);\n      return res.post(data, timeout).then((res) => res.getItems()[0]);\n    };\n    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of pipeline instances from the REST API given\n   * query search parameters. If no search parameters then get the default\n   * first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match pipeline instance id exactly with this number\n   * @param {string} [searchParams.title] - match pipeline instance title containing this string\n   * @param {string} [searchParams.description] - match pipeline instance description containing this string\n   * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``AllPipelineInstanceList`` object\n   */\n  getPipelineInstances(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelineInstancesUrl', AllPipelineInstanceList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline instance resource object given its id.\n   *\n   * @param {number} id - pipeline instance id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object\n   */\n  getPipelineInstance(id, timeout = 30000) {\n    return this.getPipelineInstances({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline instance resource through the REST API.\n   *\n   * @param {number} pipelineId - pipeline id\n   * @param {Object} data - request data object which is pipeline-specific\n   * @param {number} data.previous_plugin_inst_id - id of the previous plugin instance\n   * @param {string} [data.title] - pipeline title\n   * @param {string} [data.description] - pipeline description\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PipelineInstance`` object\n   */\n  createPipelineInstance(pipelineId, data, timeout = 30000) {\n    return this.getPipeline(pipelineId, timeout)\n      .then((pipeline) => {\n        const instancesUrl = Collection.getLinkRelationUrls(\n          pipeline.collection.items[0],\n          'instances'\n        );\n        const pipInstList = new PipelineInstanceList(instancesUrl[0], this.auth);\n        return pipInstList.post(data, timeout);\n      })\n      .then((pipInstList) => pipInstList.getItems()[0]);\n  }\n\n  /**\n   * Get a paginated list of tags from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match tag id exactly with this number\n   * @param {string} [searchParams.name] - match tag name containing this string\n   * @param {string} [searchParams.owner_username] - match tag's owner username exactly with this string\n   * @param {string} [searchParams.color] - match plugin color containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``TagList`` object\n   */\n  getTags(searchParams = null, timeout = 30000) {\n    return this._fetchRes('tagsUrl', TagList, searchParams, timeout);\n  }\n\n  /**\n   * Get a tag resource object given its id.\n   *\n   * @param {number} id - tag id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(id, timeout = 30000) {\n    return this.getTags({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new tag resource through the REST API.\n   *\n   * @param {Object} data - request data object\n   * @param {string} data.color - tag color\n   * @param {string} [data.name=''] - tag name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Tag`` object\n   */\n  createTag(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new TagList(this.tagsUrl, this.auth);\n      return res.post(data, timeout).then((res) => res.getItems()[0]);\n    };\n    return this.tagsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of uploaded files from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.fname] - match file's upload path starting with this string\n   * @param {string} [searchParams.fname_exact] - match file's upload path exactly with this string\n   * @param {string} [searchParams.fname_icontains] - match file's upload path containing this string\n   * @param {string} [searchParams.owner_username] - match file's owner username exactly with this string\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object\n   */\n  getUploadedFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('uploadedFilesUrl', UploadedFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get an uploaded file resource object given its id.\n   *\n   * @param {number} id - uploaded file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to an ``UploadedFile`` object\n   */\n  getUploadedFile(id, timeout = 30000) {\n    return this.getUploadedFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Upload a file and create a new uploaded file resource through the REST API.\n   *\n   * @param {Object} data - request data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``UploadedFile`` object\n   */\n  uploadFile(data, uploadFileObj, timeout = 30000) {\n    const createRes = () => {\n      const res = new UploadedFileList(this.uploadedFilesUrl, this.auth);\n      return res.post(data, uploadFileObj, timeout).then((res) => res.getItems()[0]);\n    };\n    return this.uploadedFilesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of PACS files from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.fname] - match file's path starting with this string\n   * @param {string} [searchParams.fname_exact] - match file's path exactly with this string\n   * @param {string} [searchParams.fname_icontains] - match file's path containing this string\n   * @param {number} [searchParams.PatientID] - match file's PatientID exactly with this string\n   * @param {string} [searchParams.PatientName] - match file's PatientName containing this string\n   * @param {number} [searchParams.StudyInstanceUID] - match file's StudyInstanceUID exactly with this string\n   * @param {string} [searchParams.StudyDescription] - match file's StudyDescription containing this string\n   * @param {number} [searchParams.SeriesInstanceUID] - match file's SeriesInstanceUID exactly with this string\n   * @param {string} [searchParams.SeriesDescription] - match file's SeriesDescription containing this string\n   * @param {number} [searchParams.pacs_identifier] - match file's PACS identifier exactly with this string\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PACSFileList`` object\n   */\n  getPACSFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pacsFilesUrl', PACSFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get a PACS file resource object given its id.\n   *\n   * @param {number} id - PACS file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PACSFile`` object\n   */\n  getPACSFile(id, timeout = 30000) {\n    return this.getPACSFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of files for an unregistered service from the REST API given\n   * query search parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match file id exactly with this number\n   * @param {string} [searchParams.fname] - match file's path starting with this string\n   * @param {string} [searchParams.fname_exact] - match file's path exactly with this string\n   * @param {string} [searchParams.fname_icontains] - match file's path containing this string\n   * @param {string} [searchParams.service_identifier] - match file's service isentifier containing this string\n   * @param {number} [searchParams.service_id] - match file's service id exactly with this number\n   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string\n   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ServiceFileList`` object\n   */\n  getServiceFiles(searchParams = null, timeout = 30000) {\n    return this._fetchRes('serviceFilesUrl', ServiceFileList, searchParams, timeout);\n  }\n\n  /**\n   * Get a service file resource object given its id.\n   *\n   * @param {number} id - PACS file id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ServiceFile`` object\n   */\n  getServiceFile(id, timeout = 30000) {\n    return this.getServiceFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));\n  }\n\n  /**\n   * Get a user resource object for the currently authenticated user.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    return this._fetchRes('userUrl', User, null, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req.post(usersUrl, userData).then((resp) => {\n      const coll = resp.data.collection;\n      const userUrl = coll.items[0].href;\n      const auth = { username: username, password: password };\n      const user = new User(userUrl, auth);\n      user.collection = coll;\n      return user;\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``string`` value\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then((resp) => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Internal method to fetch a high level resource through the REST API.\n   *\n   * @param {string} resUrlProp -  property of the `this` object containing the url of the resource\n   * @param {string} ResClass - resource class\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {\n    const getRes = () => {\n      const res = new ResClass(this[resUrlProp], this.auth);\n      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);\n    };\n    return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/client.js",
     "access": "public",
@@ -1592,7 +1592,7 @@
     "longname": "src/client.js~Client#getFiles",
     "access": "public",
     "description": "Get a paginated list of files written to any user-owned feed from the REST\nAPI given query search parameters. If no search parameters then get the\ndefault first page.",
-    "lineNumber": 172,
+    "lineNumber": 175,
     "params": [
       {
         "nullable": null,
@@ -1635,6 +1635,36 @@
         "optional": true,
         "name": "searchParams.id",
         "description": "match file id exactly with this number"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.fname",
+        "description": "match file's path starting with this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.fname_exact",
+        "description": "match file's path exactly with this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.fname_icontains",
+        "description": "match file's path containing this string"
       },
       {
         "nullable": null,
@@ -1709,7 +1739,7 @@
     "longname": "src/client.js~Client#getFile",
     "access": "public",
     "description": "Get a file resource object given its id.",
-    "lineNumber": 184,
+    "lineNumber": 187,
     "params": [
       {
         "nullable": null,
@@ -1754,7 +1784,7 @@
     "longname": "src/client.js~Client#getComputeResources",
     "access": "public",
     "description": "Get a paginated list of compute resources from the REST API given query\nsearch parameters. If no search parameters then get the default first page.",
-    "lineNumber": 205,
+    "lineNumber": 208,
     "params": [
       {
         "nullable": null,
@@ -1871,7 +1901,7 @@
     "longname": "src/client.js~Client#getComputeResource",
     "access": "public",
     "description": "Get a compute resource object given its id.",
-    "lineNumber": 217,
+    "lineNumber": 220,
     "params": [
       {
         "nullable": null,
@@ -1916,7 +1946,7 @@
     "longname": "src/client.js~Client#getPluginMetas",
     "access": "public",
     "description": "Get a paginated list of plugin metas from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 245,
+    "lineNumber": 248,
     "params": [
       {
         "nullable": null,
@@ -2093,7 +2123,7 @@
     "longname": "src/client.js~Client#getPluginMeta",
     "access": "public",
     "description": "Get a plugin meta resource object given its id.",
-    "lineNumber": 257,
+    "lineNumber": 260,
     "params": [
       {
         "nullable": null,
@@ -2138,7 +2168,7 @@
     "longname": "src/client.js~Client#getPlugins",
     "access": "public",
     "description": "Get a paginated list of plugins from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 287,
+    "lineNumber": 290,
     "params": [
       {
         "nullable": null,
@@ -2335,7 +2365,7 @@
     "longname": "src/client.js~Client#getPlugin",
     "access": "public",
     "description": "Get a plugin resource object given its id.",
-    "lineNumber": 299,
+    "lineNumber": 302,
     "params": [
       {
         "nullable": null,
@@ -2380,7 +2410,7 @@
     "longname": "src/client.js~Client#getPluginInstances",
     "access": "public",
     "description": "Get a paginated list of plugin instances from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 324,
+    "lineNumber": 327,
     "params": [
       {
         "nullable": null,
@@ -2547,7 +2577,7 @@
     "longname": "src/client.js~Client#getPluginInstance",
     "access": "public",
     "description": "Get a plugin instance resource object given its id.",
-    "lineNumber": 336,
+    "lineNumber": 339,
     "params": [
       {
         "nullable": null,
@@ -2592,7 +2622,7 @@
     "longname": "src/client.js~Client#createPluginInstance",
     "access": "public",
     "description": "Create a new plugin instance resource through the REST API.",
-    "lineNumber": 356,
+    "lineNumber": 359,
     "params": [
       {
         "nullable": null,
@@ -2719,7 +2749,7 @@
     "longname": "src/client.js~Client#createPluginInstanceSplit",
     "access": "public",
     "description": "Create a new plugin instance split resource through the REST API.",
-    "lineNumber": 376,
+    "lineNumber": 379,
     "params": [
       {
         "nullable": null,
@@ -2788,7 +2818,7 @@
     "longname": "src/client.js~Client#getPipelines",
     "access": "public",
     "description": "Get a paginated list of pipelines from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 409,
+    "lineNumber": 412,
     "params": [
       {
         "nullable": null,
@@ -2935,7 +2965,7 @@
     "longname": "src/client.js~Client#getPipeline",
     "access": "public",
     "description": "Get a pipeline resource object given its id.",
-    "lineNumber": 421,
+    "lineNumber": 424,
     "params": [
       {
         "nullable": null,
@@ -2980,7 +3010,7 @@
     "longname": "src/client.js~Client#createPipeline",
     "access": "public",
     "description": "Create a new pipeline resource through the REST API.",
-    "lineNumber": 440,
+    "lineNumber": 443,
     "params": [
       {
         "nullable": null,
@@ -3097,7 +3127,7 @@
     "longname": "src/client.js~Client#getPipelineInstances",
     "access": "public",
     "description": "Get a paginated list of pipeline instances from the REST API given\nquery search parameters. If no search parameters then get the default\nfirst page.",
-    "lineNumber": 464,
+    "lineNumber": 467,
     "params": [
       {
         "nullable": null,
@@ -3204,7 +3234,7 @@
     "longname": "src/client.js~Client#getPipelineInstance",
     "access": "public",
     "description": "Get a pipeline instance resource object given its id.",
-    "lineNumber": 476,
+    "lineNumber": 479,
     "params": [
       {
         "nullable": null,
@@ -3249,7 +3279,7 @@
     "longname": "src/client.js~Client#createPipelineInstance",
     "access": "public",
     "description": "Create a new pipeline instance resource through the REST API.",
-    "lineNumber": 492,
+    "lineNumber": 495,
     "params": [
       {
         "nullable": null,
@@ -3334,7 +3364,7 @@
     "longname": "src/client.js~Client#getTags",
     "access": "public",
     "description": "Get a paginated list of tags from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 520,
+    "lineNumber": 523,
     "params": [
       {
         "nullable": null,
@@ -3441,7 +3471,7 @@
     "longname": "src/client.js~Client#getTag",
     "access": "public",
     "description": "Get a tag resource object given its id.",
-    "lineNumber": 532,
+    "lineNumber": 535,
     "params": [
       {
         "nullable": null,
@@ -3486,7 +3516,7 @@
     "longname": "src/client.js~Client#createTag",
     "access": "public",
     "description": "Create a new tag resource through the REST API.",
-    "lineNumber": 546,
+    "lineNumber": 549,
     "params": [
       {
         "nullable": null,
@@ -3553,7 +3583,7 @@
     "longname": "src/client.js~Client#getUploadedFiles",
     "access": "public",
     "description": "Get a paginated list of uploaded files from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 571,
+    "lineNumber": 575,
     "params": [
       {
         "nullable": null,
@@ -3624,6 +3654,16 @@
         ],
         "spread": false,
         "optional": true,
+        "name": "searchParams.fname_icontains",
+        "description": "match file's upload path containing this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
         "name": "searchParams.owner_username",
         "description": "match file's owner username exactly with this string"
       },
@@ -3680,7 +3720,7 @@
     "longname": "src/client.js~Client#getUploadedFile",
     "access": "public",
     "description": "Get an uploaded file resource object given its id.",
-    "lineNumber": 583,
+    "lineNumber": 587,
     "params": [
       {
         "nullable": null,
@@ -3725,7 +3765,7 @@
     "longname": "src/client.js~Client#uploadFile",
     "access": "public",
     "description": "Upload a file and create a new uploaded file resource through the REST API.",
-    "lineNumber": 599,
+    "lineNumber": 603,
     "params": [
       {
         "nullable": null,
@@ -3800,7 +3840,7 @@
     "longname": "src/client.js~Client#getPACSFiles",
     "access": "public",
     "description": "Get a paginated list of PACS files from the REST API given query search\nparameters. If no search parameters then get the default first page.",
-    "lineNumber": 630,
+    "lineNumber": 635,
     "params": [
       {
         "nullable": null,
@@ -3863,6 +3903,16 @@
         "optional": true,
         "name": "searchParams.fname_exact",
         "description": "match file's path exactly with this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.fname_icontains",
+        "description": "match file's path containing this string"
       },
       {
         "nullable": null,
@@ -3987,7 +4037,7 @@
     "longname": "src/client.js~Client#getPACSFile",
     "access": "public",
     "description": "Get a PACS file resource object given its id.",
-    "lineNumber": 642,
+    "lineNumber": 647,
     "params": [
       {
         "nullable": null,
@@ -4032,7 +4082,7 @@
     "longname": "src/client.js~Client#getServiceFiles",
     "access": "public",
     "description": "Get a paginated list of files for an unregistered service from the REST API given\nquery search parameters. If no search parameters then get the default first page.",
-    "lineNumber": 664,
+    "lineNumber": 670,
     "params": [
       {
         "nullable": null,
@@ -4095,6 +4145,16 @@
         "optional": true,
         "name": "searchParams.fname_exact",
         "description": "match file's path exactly with this string"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "searchParams.fname_icontains",
+        "description": "match file's path containing this string"
       },
       {
         "nullable": null,
@@ -4169,7 +4229,7 @@
     "longname": "src/client.js~Client#getServiceFile",
     "access": "public",
     "description": "Get a service file resource object given its id.",
-    "lineNumber": 676,
+    "lineNumber": 682,
     "params": [
       {
         "nullable": null,
@@ -4214,7 +4274,7 @@
     "longname": "src/client.js~Client#getUser",
     "access": "public",
     "description": "Get a user resource object for the currently authenticated user.",
-    "lineNumber": 686,
+    "lineNumber": 692,
     "params": [
       {
         "nullable": null,
@@ -4249,7 +4309,7 @@
     "longname": "src/client.js~Client.createUser",
     "access": "public",
     "description": "Create a new user account.",
-    "lineNumber": 701,
+    "lineNumber": 707,
     "params": [
       {
         "nullable": null,
@@ -4324,7 +4384,7 @@
     "longname": "src/client.js~Client.getAuthToken",
     "access": "public",
     "description": "Fetch a user's login authorization token from the REST API.",
-    "lineNumber": 731,
+    "lineNumber": 737,
     "params": [
       {
         "nullable": null,
@@ -4389,7 +4449,7 @@
     "longname": "src/client.js~Client.runAsyncTask",
     "access": "public",
     "description": "Helper method to run an asynchronous task defined by a task generator function.",
-    "lineNumber": 745,
+    "lineNumber": 751,
     "params": [
       {
         "nullable": null,
@@ -4415,7 +4475,7 @@
     "longname": "src/client.js~Client#_fetchRes",
     "access": "private",
     "description": "Internal method to fetch a high level resource through the REST API.",
-    "lineNumber": 759,
+    "lineNumber": 765,
     "params": [
       {
         "nullable": null,
@@ -12734,7 +12794,7 @@
     "__docId__": 355,
     "kind": "file",
     "name": "src/resource.js",
-    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource class.\n */\nexport class Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} resourceUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(resourceUrl, auth) {\n    /** @type {string} */\n    this.url = resourceUrl;\n\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = 'application/vnd.collection+json';\n\n    /** @type {?Object} */\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Return true if the resource object contains any data.\n   *\n   * @type {boolean}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {Object} - clone object\n   */\n  clone() {\n    const cloneObj = Object.create(Object.getPrototypeOf(this));\n\n    for (let prop in this) {\n      if (this[prop] !== null && typeof this[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));\n      } else {\n        cloneObj[prop] = this[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\n/**\n * API abstract item resource class.\n */\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} itemUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(itemUrl, auth) {\n    super(itemUrl, auth);\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.get(this.url).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Get the item's data object (REST API descriptors).\n   *\n   * @type {?Object}\n   */\n  get data() {\n    if (this.isEmpty) {\n      return null;\n    }\n    return Collection.getItemDescriptors(this.collection.items[0]);\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in PUT requests.\n   *\n   * @return {?string[]} - array of PUT data property name or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * PUT requests.\n   */\n  getPUTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is referenced\n   * by a link relation within the item object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this item resource has not yet been\n   * fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (this.isEmpty) {\n      throw new RequestException('Item object has not been set!');\n    }\n    const item = this.collection.items[0];\n    const urls = Collection.getLinkRelationUrls(item, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a PUT request to this item resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _put(data, uploadFileObj, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let putData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      putData = { template: Collection.makeTemplate(data) };\n    }\n    return req.put(this.url, putData, uploadFileObj).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Internal helper method to make a DELETE request to this item resource through\n   * the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _delete(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.delete(this.url).then(() => {\n      // change the state of this object on successfull response\n      this.collection = null;\n    });\n  }\n}\n\n/**\n * API abstract list resource class.\n */\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} listUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(listUrl, auth) {\n    super(listUrl, auth);\n\n    /** @type {string} */\n    this.queryUrl = '';\n\n    /** @type {?Object} */\n    this.searchParams = null;\n\n    /** @type {Object} */\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters. If\n   * no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``getSearchParameters`` method can be used to get a list\n   * of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(searchParams = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const updateInternalState = resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = searchParams;\n\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n\n        if (this.collection.queries && this.collection.queries.length) {\n          this.queryUrl = this.collection.queries[0].href;\n        }\n      }\n      return this;\n    };\n\n    if (searchParams) {\n      for (let prop in searchParams) {\n        if (searchParams.hasOwnProperty(prop) && prop !== 'limit' && prop !== 'offset') {\n          // here we assume a fixed queryUrl form but API resource objecs are more flexible than this\n          this.queryUrl = this.queryUrl || this.url + 'search/';\n\n          return req.get(this.queryUrl, searchParams).then(updateInternalState);\n        }\n      }\n      return req.get(this.url, searchParams).then(updateInternalState);\n    }\n    return req.get(this.url).then(updateInternalState);\n  }\n\n  /**\n   * Get an array of search parameter names that can be used as properties of the\n   * ``searchParams`` argument to the ``get`` method.\n   *\n   * @return {?string[]} - array of search parameter names or null if this list\n   * resource's data has not been fetched from the API yet.\n   */\n  getSearchParameters() {\n    if (this.collection) {\n      if (this.collection.queries) {\n        const params = Collection.getQueryParameters(this.collection.queries);\n        params.push('limit', 'offset');\n        return params;\n      }\n      return ['limit', 'offset'];\n    }\n    return null;\n  }\n\n  /**\n   * Get an item resource object given its id from the list of items in this\n   * list resource object.\n   *\n   * @param {number} id - item id\n   *\n   * @return {Object} - an instance of ``this.itemClass``\n   */\n  getItem(id) {\n    if (this.isEmpty) {\n      return null;\n    }\n    const items = this.collection.items.filter(\n      item => Collection.getItemDescriptors(item).id === id\n    );\n    if (!items.length) {\n      return null;\n    }\n    const itemResource = new this.itemClass(items[0].href, this.auth);\n    const listRes = this.clone();\n    listRes.collection.items[0] = items[0];\n    itemResource.collection = listRes.collection;\n    return itemResource;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {?Object[]}\n   */\n  getItems() {\n    if (this.isEmpty) {\n      return [];\n    }\n    return this.collection.items.map(item => {\n      const itemResource = new this.itemClass(item.href, this.auth);\n      const listRes = this.clone();\n      listRes.collection.items[0] = item;\n      itemResource.collection = listRes.collection;\n      return itemResource;\n    });\n  }\n\n  /**\n   * Get the list of item data objects (REST API descriptors).\n   *\n   * @type {?Object[]}\n   */\n  get data() {\n    if (this.isEmpty) {\n      return null;\n    }\n    const data = [];\n    // for each item get its data\n    for (let item of this.collection.items) {\n      data.push(Collection.getItemDescriptors(item));\n    }\n    return data;\n  }\n\n  /**\n   * Get the total count of items of the entire collection across pages in the\n   * paginated REST API. Return -1 if no data has been fetched or the total\n   * number of items info is not available from the fetched data.\n   *\n   * @type {number}\n   */\n  get totalCount() {\n    if (this.collection) {\n      return Collection.getTotalNumberOfItems(this.collection);\n    }\n    return -1;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in POST requests.\n   *\n   * @return {?string[]} - array of POST data properties or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * POST requests.\n   */\n  getPOSTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is\n   * referenced by a link relation within this list resource's collection object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this list resource has not yet\n   * been fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (!this.collection) {\n      throw new RequestException('Collection object has not been set!');\n    }\n    const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a POST request to this list resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _post(data, uploadFileObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    let postData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      postData = { template: Collection.makeTemplate(data) };\n    }\n\n    return req.post(url, postData, uploadFileObj).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource class.\n */\nexport class Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} resourceUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(resourceUrl, auth) {\n    /** @type {string} */\n    this.url = resourceUrl;\n\n    if (!auth) {\n      throw new RequestException('Authentication object is required');\n    }\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = 'application/vnd.collection+json';\n\n    /** @type {?Object} */\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Return true if the resource object contains any data.\n   *\n   * @type {boolean}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {Object} - clone object\n   */\n  clone() {\n    return Resource.cloneObj(this);\n  }\n\n  /**\n   * Helper method to make a deep copy clone of the passed object resource.\n   *\n   * @param {Object} obj - object to be cloned\n   *\n   * @return {Object} - clone object\n   */\n  static cloneObj(obj) {\n    const cloneObj = Object.create(Object.getPrototypeOf(obj));\n\n    for (let prop in obj) {\n      if (obj[prop] !== null && typeof obj[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(obj[prop]));\n      } else {\n        cloneObj[prop] = obj[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\n/**\n * API abstract item resource class.\n */\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} itemUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(itemUrl, auth) {\n    super(itemUrl, auth);\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.get(this.url).then((resp) => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Get the item's data object (REST API descriptors).\n   *\n   * @type {?Object}\n   */\n  get data() {\n    if (this.isEmpty) {\n      return null;\n    }\n    return Collection.getItemDescriptors(this.collection.items[0]);\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in PUT requests.\n   *\n   * @return {?string[]} - array of PUT data property name or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * PUT requests.\n   */\n  getPUTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is referenced\n   * by a link relation within the item object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this item resource has not yet been\n   * fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (this.isEmpty) {\n      throw new RequestException('Item object has not been set!');\n    }\n    const item = this.collection.items[0];\n    const urls = Collection.getLinkRelationUrls(item, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a PUT request to this item resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _put(data, uploadFileObj, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let putData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      putData = { template: Collection.makeTemplate(data) };\n    }\n    return req.put(this.url, putData, uploadFileObj).then((resp) => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Internal helper method to make a DELETE request to this item resource through\n   * the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _delete(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.delete(this.url).then(() => {\n      // change the state of this object on successfull response\n      this.collection = null;\n    });\n  }\n}\n\n/**\n * API abstract list resource class.\n */\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} listUrl - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(listUrl, auth) {\n    super(listUrl, auth);\n\n    /** @type {string} */\n    this.queryUrl = '';\n\n    /** @type {?Object} */\n    this.searchParams = null;\n\n    /** @type {Object} */\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters. If\n   * no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``getSearchParameters`` method can be used to get a list\n   * of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(searchParams = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const updateInternalState = (resp) => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = searchParams;\n\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n\n        if (this.collection.queries && this.collection.queries.length) {\n          this.queryUrl = this.collection.queries[0].href;\n        }\n      }\n      return this;\n    };\n\n    if (searchParams) {\n      for (let prop in searchParams) {\n        if (searchParams.hasOwnProperty(prop) && prop !== 'limit' && prop !== 'offset') {\n          // here we assume a fixed queryUrl form but API resource objecs are more flexible than this\n          this.queryUrl = this.queryUrl || this.url + 'search/';\n\n          return req.get(this.queryUrl, searchParams).then(updateInternalState);\n        }\n      }\n      return req.get(this.url, searchParams).then(updateInternalState);\n    }\n    return req.get(this.url).then(updateInternalState);\n  }\n\n  /**\n   * Get an array of search parameter names that can be used as properties of the\n   * ``searchParams`` argument to the ``get`` method.\n   *\n   * @return {?string[]} - array of search parameter names or null if this list\n   * resource's data has not been fetched from the API yet.\n   */\n  getSearchParameters() {\n    if (this.collection) {\n      if (this.collection.queries) {\n        const params = Collection.getQueryParameters(this.collection.queries);\n        params.push('limit', 'offset');\n        return params;\n      }\n      return ['limit', 'offset'];\n    }\n    return null;\n  }\n\n  /**\n   * Get an item resource object given its id from the list of items in this\n   * list resource object.\n   *\n   * @param {number} id - item id\n   *\n   * @return {Object} - an instance of ``this.itemClass``\n   */\n  getItem(id) {\n    if (this.isEmpty) {\n      return null;\n    }\n    const items = this.collection.items.filter(\n      (item) => Collection.getItemDescriptors(item).id === id\n    );\n    if (!items.length) {\n      return null;\n    }\n    const collection = Resource.cloneObj(this.collection);\n    collection.items.length = 1;\n    collection.links = [];\n    delete collection.queries;\n    delete collection.total;\n\n    const itemResource = new this.itemClass(items[0].href, this.auth);\n    itemResource.collection = collection;\n    itemResource.collection.items[0] = items[0];\n    itemResource.collection.href = items[0].href;\n    return itemResource;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {?Object[]}\n   */\n  getItems() {\n    if (this.isEmpty) {\n      return [];\n    }\n    const collection = Resource.cloneObj(this.collection);\n    collection.items.length = 1;\n    collection.links = [];\n    delete collection.queries;\n    delete collection.total;\n\n    return this.collection.items.map((item) => {\n      const itemResource = new this.itemClass(item.href, this.auth);\n      itemResource.collection = Resource.cloneObj(collection);\n      itemResource.collection.items[0] = item;\n      itemResource.collection.href = item.href;\n      return itemResource;\n    });\n  }\n\n  /**\n   * Get the list of item data objects (REST API descriptors).\n   *\n   * @type {?Object[]}\n   */\n  get data() {\n    if (this.isEmpty) {\n      return null;\n    }\n    const data = [];\n    // for each item get its data\n    for (let item of this.collection.items) {\n      data.push(Collection.getItemDescriptors(item));\n    }\n    return data;\n  }\n\n  /**\n   * Get the total count of items of the entire collection across pages in the\n   * paginated REST API. Return -1 if no data has been fetched or the total\n   * number of items info is not available from the fetched data.\n   *\n   * @type {number}\n   */\n  get totalCount() {\n    if (this.collection) {\n      return Collection.getTotalNumberOfItems(this.collection);\n    }\n    return -1;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in POST requests.\n   *\n   * @return {?string[]} - array of POST data properties or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * POST requests.\n   */\n  getPOSTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is\n   * referenced by a link relation within this list resource's collection object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this list resource has not yet\n   * been fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (!this.collection) {\n      throw new RequestException('Collection object has not been set!');\n    }\n    const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a POST request to this list resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _post(data, uploadFileObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    let postData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      postData = { template: Collection.makeTemplate(data) };\n    }\n\n    return req.post(url, postData, uploadFileObj).then((resp) => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/src/resource.js",
     "access": "public",
@@ -12922,6 +12982,39 @@
   },
   {
     "__docId__": 364,
+    "kind": "method",
+    "name": "cloneObj",
+    "memberof": "src/resource.js~Resource",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/resource.js~Resource.cloneObj",
+    "access": "public",
+    "description": "Helper method to make a deep copy clone of the passed object resource.",
+    "lineNumber": 62,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "obj",
+        "description": "object to be cloned"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "clone object"
+    }
+  },
+  {
+    "__docId__": 365,
     "kind": "class",
     "name": "ItemResource",
     "memberof": "src/resource.js",
@@ -12932,14 +13025,14 @@
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{ItemResource}",
     "description": "API abstract item resource class.",
-    "lineNumber": 68,
+    "lineNumber": 79,
     "interface": false,
     "extends": [
       "Resource"
     ]
   },
   {
-    "__docId__": 365,
+    "__docId__": 366,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~ItemResource",
@@ -12949,7 +13042,7 @@
     "longname": "src/resource.js~ItemResource#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 76,
+    "lineNumber": 87,
     "params": [
       {
         "nullable": null,
@@ -12984,7 +13077,7 @@
     ]
   },
   {
-    "__docId__": 366,
+    "__docId__": 367,
     "kind": "method",
     "name": "get",
     "memberof": "src/resource.js~ItemResource",
@@ -12994,7 +13087,7 @@
     "longname": "src/resource.js~ItemResource#get",
     "access": "public",
     "description": "Fetch this item resource from the REST API.",
-    "lineNumber": 87,
+    "lineNumber": 98,
     "params": [
       {
         "nullable": null,
@@ -13019,7 +13112,7 @@
     }
   },
   {
-    "__docId__": 367,
+    "__docId__": 368,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~ItemResource",
@@ -13027,7 +13120,7 @@
     "longname": "src/resource.js~ItemResource#collection",
     "access": "public",
     "description": null,
-    "lineNumber": 92,
+    "lineNumber": 103,
     "undocument": true,
     "type": {
       "types": [
@@ -13036,7 +13129,7 @@
     }
   },
   {
-    "__docId__": 369,
+    "__docId__": 370,
     "kind": "get",
     "name": "data",
     "memberof": "src/resource.js~ItemResource",
@@ -13046,7 +13139,7 @@
     "longname": "src/resource.js~ItemResource#data",
     "access": "public",
     "description": "Get the item's data object (REST API descriptors).",
-    "lineNumber": 105,
+    "lineNumber": 116,
     "type": {
       "nullable": true,
       "types": [
@@ -13057,7 +13150,7 @@
     }
   },
   {
-    "__docId__": 370,
+    "__docId__": 371,
     "kind": "method",
     "name": "getPUTParameters",
     "memberof": "src/resource.js~ItemResource",
@@ -13067,7 +13160,7 @@
     "longname": "src/resource.js~ItemResource#getPUTParameters",
     "access": "public",
     "description": "Get an array of parameter names that can be used as properties of the data\nobject in PUT requests.",
-    "lineNumber": 120,
+    "lineNumber": 131,
     "return": {
       "nullable": true,
       "types": [
@@ -13079,7 +13172,7 @@
     "params": []
   },
   {
-    "__docId__": 371,
+    "__docId__": 372,
     "kind": "method",
     "name": "_getResource",
     "memberof": "src/resource.js~ItemResource",
@@ -13089,7 +13182,7 @@
     "longname": "src/resource.js~ItemResource#_getResource",
     "access": "private",
     "description": "Internal method to fetch a related resource from the REST API that is referenced\nby a link relation within the item object.",
-    "lineNumber": 142,
+    "lineNumber": 153,
     "params": [
       {
         "nullable": null,
@@ -13180,7 +13273,7 @@
     ]
   },
   {
-    "__docId__": 372,
+    "__docId__": 373,
     "kind": "method",
     "name": "_put",
     "memberof": "src/resource.js~ItemResource",
@@ -13190,7 +13283,7 @@
     "longname": "src/resource.js~ItemResource#_put",
     "access": "private",
     "description": "Internal helper method to make a PUT request to this item resource through\nthe REST API.",
-    "lineNumber": 172,
+    "lineNumber": 183,
     "params": [
       {
         "nullable": null,
@@ -13245,7 +13338,7 @@
     }
   },
   {
-    "__docId__": 375,
+    "__docId__": 376,
     "kind": "method",
     "name": "_delete",
     "memberof": "src/resource.js~ItemResource",
@@ -13255,7 +13348,7 @@
     "longname": "src/resource.js~ItemResource#_delete",
     "access": "private",
     "description": "Internal helper method to make a DELETE request to this item resource through\nthe REST API.",
-    "lineNumber": 197,
+    "lineNumber": 208,
     "params": [
       {
         "nullable": null,
@@ -13280,7 +13373,7 @@
     }
   },
   {
-    "__docId__": 377,
+    "__docId__": 378,
     "kind": "class",
     "name": "ListResource",
     "memberof": "src/resource.js",
@@ -13291,14 +13384,14 @@
     "importPath": "@fnndsc/chrisapi",
     "importStyle": "{ListResource}",
     "description": "API abstract list resource class.",
-    "lineNumber": 210,
+    "lineNumber": 221,
     "interface": false,
     "extends": [
       "Resource"
     ]
   },
   {
-    "__docId__": 378,
+    "__docId__": 379,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~ListResource",
@@ -13308,7 +13401,7 @@
     "longname": "src/resource.js~ListResource#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 218,
+    "lineNumber": 229,
     "params": [
       {
         "nullable": null,
@@ -13343,7 +13436,7 @@
     ]
   },
   {
-    "__docId__": 379,
+    "__docId__": 380,
     "kind": "member",
     "name": "queryUrl",
     "memberof": "src/resource.js~ListResource",
@@ -13351,7 +13444,7 @@
     "longname": "src/resource.js~ListResource#queryUrl",
     "access": "public",
     "description": null,
-    "lineNumber": 222,
+    "lineNumber": 233,
     "type": {
       "nullable": null,
       "types": [
@@ -13362,7 +13455,7 @@
     }
   },
   {
-    "__docId__": 380,
+    "__docId__": 381,
     "kind": "member",
     "name": "searchParams",
     "memberof": "src/resource.js~ListResource",
@@ -13370,7 +13463,7 @@
     "longname": "src/resource.js~ListResource#searchParams",
     "access": "public",
     "description": null,
-    "lineNumber": 225,
+    "lineNumber": 236,
     "type": {
       "nullable": true,
       "types": [
@@ -13381,7 +13474,7 @@
     }
   },
   {
-    "__docId__": 381,
+    "__docId__": 382,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/resource.js~ListResource",
@@ -13389,7 +13482,7 @@
     "longname": "src/resource.js~ListResource#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 228,
+    "lineNumber": 239,
     "type": {
       "nullable": null,
       "types": [
@@ -13400,7 +13493,7 @@
     }
   },
   {
-    "__docId__": 382,
+    "__docId__": 383,
     "kind": "method",
     "name": "get",
     "memberof": "src/resource.js~ListResource",
@@ -13410,7 +13503,7 @@
     "longname": "src/resource.js~ListResource#get",
     "access": "public",
     "description": "Fetch this list resource from the REST API based on search parameters. If\nno search parameters then get the default first page.",
-    "lineNumber": 244,
+    "lineNumber": 255,
     "params": [
       {
         "nullable": null,
@@ -13467,7 +13560,7 @@
     }
   },
   {
-    "__docId__": 383,
+    "__docId__": 384,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~ListResource",
@@ -13475,7 +13568,7 @@
     "longname": "src/resource.js~ListResource#collection",
     "access": "public",
     "description": null,
-    "lineNumber": 249,
+    "lineNumber": 260,
     "undocument": true,
     "type": {
       "types": [
@@ -13484,7 +13577,7 @@
     }
   },
   {
-    "__docId__": 388,
+    "__docId__": 389,
     "kind": "method",
     "name": "getSearchParameters",
     "memberof": "src/resource.js~ListResource",
@@ -13494,7 +13587,7 @@
     "longname": "src/resource.js~ListResource#getSearchParameters",
     "access": "public",
     "description": "Get an array of search parameter names that can be used as properties of the\n``searchParams`` argument to the ``get`` method.",
-    "lineNumber": 283,
+    "lineNumber": 294,
     "return": {
       "nullable": true,
       "types": [
@@ -13506,7 +13599,7 @@
     "params": []
   },
   {
-    "__docId__": 389,
+    "__docId__": 390,
     "kind": "method",
     "name": "getItem",
     "memberof": "src/resource.js~ListResource",
@@ -13516,7 +13609,7 @@
     "longname": "src/resource.js~ListResource#getItem",
     "access": "public",
     "description": "Get an item resource object given its id from the list of items in this\nlist resource object.",
-    "lineNumber": 303,
+    "lineNumber": 314,
     "params": [
       {
         "nullable": null,
@@ -13539,7 +13632,7 @@
     }
   },
   {
-    "__docId__": 390,
+    "__docId__": 391,
     "kind": "method",
     "name": "getItems",
     "memberof": "src/resource.js~ListResource",
@@ -13549,7 +13642,7 @@
     "longname": "src/resource.js~ListResource#getItems",
     "access": "public",
     "description": "Get an array of item resource objects corresponding to the items in this\nlist resource object.",
-    "lineNumber": 326,
+    "lineNumber": 343,
     "return": {
       "nullable": true,
       "types": [
@@ -13561,7 +13654,7 @@
     "params": []
   },
   {
-    "__docId__": 391,
+    "__docId__": 392,
     "kind": "get",
     "name": "data",
     "memberof": "src/resource.js~ListResource",
@@ -13571,7 +13664,7 @@
     "longname": "src/resource.js~ListResource#data",
     "access": "public",
     "description": "Get the list of item data objects (REST API descriptors).",
-    "lineNumber": 344,
+    "lineNumber": 367,
     "type": {
       "nullable": true,
       "types": [
@@ -13582,7 +13675,7 @@
     }
   },
   {
-    "__docId__": 392,
+    "__docId__": 393,
     "kind": "get",
     "name": "totalCount",
     "memberof": "src/resource.js~ListResource",
@@ -13592,7 +13685,7 @@
     "longname": "src/resource.js~ListResource#totalCount",
     "access": "public",
     "description": "Get the total count of items of the entire collection across pages in the\npaginated REST API. Return -1 if no data has been fetched or the total\nnumber of items info is not available from the fetched data.",
-    "lineNumber": 363,
+    "lineNumber": 386,
     "type": {
       "nullable": null,
       "types": [
@@ -13603,7 +13696,7 @@
     }
   },
   {
-    "__docId__": 393,
+    "__docId__": 394,
     "kind": "get",
     "name": "hasNextPage",
     "memberof": "src/resource.js~ListResource",
@@ -13613,28 +13706,7 @@
     "longname": "src/resource.js~ListResource#hasNextPage",
     "access": "public",
     "description": "Return true if the list resource object has a next list page in the\npaginated REST API.",
-    "lineNumber": 376,
-    "type": {
-      "nullable": null,
-      "types": [
-        "boolean"
-      ],
-      "spread": false,
-      "description": null
-    }
-  },
-  {
-    "__docId__": 394,
-    "kind": "get",
-    "name": "hasPreviousPage",
-    "memberof": "src/resource.js~ListResource",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/resource.js~ListResource#hasPreviousPage",
-    "access": "public",
-    "description": "Return true if the list resource object has a previous list page in the\npaginated REST API.",
-    "lineNumber": 392,
+    "lineNumber": 399,
     "type": {
       "nullable": null,
       "types": [
@@ -13646,6 +13718,27 @@
   },
   {
     "__docId__": 395,
+    "kind": "get",
+    "name": "hasPreviousPage",
+    "memberof": "src/resource.js~ListResource",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/resource.js~ListResource#hasPreviousPage",
+    "access": "public",
+    "description": "Return true if the list resource object has a previous list page in the\npaginated REST API.",
+    "lineNumber": 415,
+    "type": {
+      "nullable": null,
+      "types": [
+        "boolean"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 396,
     "kind": "method",
     "name": "getPOSTParameters",
     "memberof": "src/resource.js~ListResource",
@@ -13655,7 +13748,7 @@
     "longname": "src/resource.js~ListResource#getPOSTParameters",
     "access": "public",
     "description": "Get an array of parameter names that can be used as properties of the data\nobject in POST requests.",
-    "lineNumber": 410,
+    "lineNumber": 433,
     "return": {
       "nullable": true,
       "types": [
@@ -13667,7 +13760,7 @@
     "params": []
   },
   {
-    "__docId__": 396,
+    "__docId__": 397,
     "kind": "method",
     "name": "_getResource",
     "memberof": "src/resource.js~ListResource",
@@ -13677,7 +13770,7 @@
     "longname": "src/resource.js~ListResource#_getResource",
     "access": "private",
     "description": "Internal method to fetch a related resource from the REST API that is\nreferenced by a link relation within this list resource's collection object.",
-    "lineNumber": 433,
+    "lineNumber": 456,
     "params": [
       {
         "nullable": null,
@@ -13768,7 +13861,7 @@
     ]
   },
   {
-    "__docId__": 397,
+    "__docId__": 398,
     "kind": "method",
     "name": "_post",
     "memberof": "src/resource.js~ListResource",
@@ -13778,7 +13871,7 @@
     "longname": "src/resource.js~ListResource#_post",
     "access": "private",
     "description": "Internal helper method to make a POST request to this list resource through\nthe REST API.",
-    "lineNumber": 463,
+    "lineNumber": 486,
     "params": [
       {
         "nullable": null,
@@ -13833,7 +13926,7 @@
     }
   },
   {
-    "__docId__": 401,
+    "__docId__": 402,
     "kind": "file",
     "name": "src/servicefile.js",
     "content": "/** * Imports ***/\nimport Request from './request';\nimport RequestException from './exception';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\n\n/**\n * Service file item resource object representing a file from an unregistered service.\n */\nexport class ServiceFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    if (this.isEmpty) {\n      throw new RequestException('Item object has not been set!');\n    }\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const item = this.collection.items[0];\n    const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n}\n\n/**\n * Service file list resource object representing a list of files from an unregistered service.\n */\nexport class ServiceFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = ServiceFile;\n  }\n}\n",
@@ -13844,7 +13937,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 402,
+    "__docId__": 403,
     "kind": "class",
     "name": "ServiceFile",
     "memberof": "src/servicefile.js",
@@ -13862,7 +13955,7 @@
     ]
   },
   {
-    "__docId__": 403,
+    "__docId__": 404,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/servicefile.js~ServiceFile",
@@ -13907,7 +14000,7 @@
     ]
   },
   {
-    "__docId__": 404,
+    "__docId__": 405,
     "kind": "method",
     "name": "getFileBlob",
     "memberof": "src/servicefile.js~ServiceFile",
@@ -13942,7 +14035,7 @@
     }
   },
   {
-    "__docId__": 405,
+    "__docId__": 406,
     "kind": "class",
     "name": "ServiceFileList",
     "memberof": "src/servicefile.js",
@@ -13960,7 +14053,7 @@
     ]
   },
   {
-    "__docId__": 406,
+    "__docId__": 407,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/servicefile.js~ServiceFileList",
@@ -14005,7 +14098,7 @@
     ]
   },
   {
-    "__docId__": 407,
+    "__docId__": 408,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/servicefile.js~ServiceFileList",
@@ -14024,7 +14117,7 @@
     }
   },
   {
-    "__docId__": 408,
+    "__docId__": 409,
     "kind": "file",
     "name": "src/tag.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { FeedList, Feed } from './feed';\n\n/**\n * Tag item resource object representing a feed tag.\n */\nexport class Tag extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of feeds that are tagged with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``TagFeedList`` object\n   */\n  getTaggedFeeds(params = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = TagFeedList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of taggings made with this tag from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``TaggingList`` object\n   */\n  getTaggings(params = null, timeout = 30000) {\n    const linkRelation = 'taggings';\n    const resourceClass = TagTaggingList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this tag item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} [data.name] - tag name\n   * @param {string} [data.color] - tag color\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tag item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag list resource object representing a list of a feed's tags.\n */\nexport class TagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch a list of feeds from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``FeedList.getSearchParameters`` method can be\n   * used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``FeedList`` object\n   */\n  getFeeds(searchParams = null, timeout = 30000) {\n    const linkRelation = 'feeds';\n    const resourceClass = FeedList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag list resource to create a new tag item resource\n   * through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} [data.name] - tag name\n   * @param {string} [data.color] - tag color\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tagging item resource object representing a tagging of an specific feed with an\n * specific tag.\n */\nexport class Tagging extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the tag associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the feed associated to this tagging from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this tagging item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Tag-specific tagging list resource object representing a list of taggings made with an\n * specific tag.\n */\nexport class TagTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this tag-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.feed_id - id of the feed to be tagged\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tagging list resource object representing a list of taggings applied to\n * an specific feed.\n */\nexport class FeedTaggingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tagging;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of taggings from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this feed-specific tagging list resource to create a new\n   * tagging item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.tag_id - id of the tag to be used to tag the feed\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Tag-specific feed list resource object representing a list of feeds that are tagged\n * with an specific tag.\n */\nexport class TagFeedList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Feed;\n  }\n\n  /**\n   * Fetch the tag associated to this tag-specific list of feeds from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Tag`` object\n   */\n  getTag(timeout = 30000) {\n    const linkRelation = 'tag';\n    const resourceClass = Tag;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Feed-specific tag list resource object representing a list of tags that an specific\n * feed is tagged with.\n */\nexport class FeedTagList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Tag;\n  }\n\n  /**\n   * Fetch the feed associated to this feed-specific list of tags from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Feed`` object\n   */\n  getFeed(timeout = 30000) {\n    const linkRelation = 'feed';\n    const resourceClass = Feed;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
@@ -14035,7 +14128,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 409,
+    "__docId__": 410,
     "kind": "class",
     "name": "Tag",
     "memberof": "src/tag.js",
@@ -14053,7 +14146,7 @@
     ]
   },
   {
-    "__docId__": 410,
+    "__docId__": 411,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~Tag",
@@ -14098,7 +14191,7 @@
     ]
   },
   {
-    "__docId__": 411,
+    "__docId__": 412,
     "kind": "method",
     "name": "getTaggedFeeds",
     "memberof": "src/tag.js~Tag",
@@ -14165,7 +14258,7 @@
     }
   },
   {
-    "__docId__": 412,
+    "__docId__": 413,
     "kind": "method",
     "name": "getTaggings",
     "memberof": "src/tag.js~Tag",
@@ -14232,7 +14325,7 @@
     }
   },
   {
-    "__docId__": 413,
+    "__docId__": 414,
     "kind": "method",
     "name": "put",
     "memberof": "src/tag.js~Tag",
@@ -14297,7 +14390,7 @@
     }
   },
   {
-    "__docId__": 414,
+    "__docId__": 415,
     "kind": "method",
     "name": "delete",
     "memberof": "src/tag.js~Tag",
@@ -14332,7 +14425,7 @@
     }
   },
   {
-    "__docId__": 415,
+    "__docId__": 416,
     "kind": "class",
     "name": "TagList",
     "memberof": "src/tag.js",
@@ -14350,7 +14443,7 @@
     ]
   },
   {
-    "__docId__": 416,
+    "__docId__": 417,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~TagList",
@@ -14395,7 +14488,7 @@
     ]
   },
   {
-    "__docId__": 417,
+    "__docId__": 418,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~TagList",
@@ -14414,7 +14507,7 @@
     }
   },
   {
-    "__docId__": 418,
+    "__docId__": 419,
     "kind": "method",
     "name": "getFeeds",
     "memberof": "src/tag.js~TagList",
@@ -14481,7 +14574,7 @@
     }
   },
   {
-    "__docId__": 419,
+    "__docId__": 420,
     "kind": "method",
     "name": "post",
     "memberof": "src/tag.js~TagList",
@@ -14546,7 +14639,7 @@
     }
   },
   {
-    "__docId__": 420,
+    "__docId__": 421,
     "kind": "class",
     "name": "Tagging",
     "memberof": "src/tag.js",
@@ -14564,7 +14657,7 @@
     ]
   },
   {
-    "__docId__": 421,
+    "__docId__": 422,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~Tagging",
@@ -14609,7 +14702,7 @@
     ]
   },
   {
-    "__docId__": 422,
+    "__docId__": 423,
     "kind": "method",
     "name": "getTag",
     "memberof": "src/tag.js~Tagging",
@@ -14644,7 +14737,7 @@
     }
   },
   {
-    "__docId__": 423,
+    "__docId__": 424,
     "kind": "method",
     "name": "getFeed",
     "memberof": "src/tag.js~Tagging",
@@ -14679,7 +14772,7 @@
     }
   },
   {
-    "__docId__": 424,
+    "__docId__": 425,
     "kind": "method",
     "name": "delete",
     "memberof": "src/tag.js~Tagging",
@@ -14714,7 +14807,7 @@
     }
   },
   {
-    "__docId__": 425,
+    "__docId__": 426,
     "kind": "class",
     "name": "TagTaggingList",
     "memberof": "src/tag.js",
@@ -14732,7 +14825,7 @@
     ]
   },
   {
-    "__docId__": 426,
+    "__docId__": 427,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~TagTaggingList",
@@ -14777,7 +14870,7 @@
     ]
   },
   {
-    "__docId__": 427,
+    "__docId__": 428,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~TagTaggingList",
@@ -14796,7 +14889,7 @@
     }
   },
   {
-    "__docId__": 428,
+    "__docId__": 429,
     "kind": "method",
     "name": "getTag",
     "memberof": "src/tag.js~TagTaggingList",
@@ -14831,7 +14924,7 @@
     }
   },
   {
-    "__docId__": 429,
+    "__docId__": 430,
     "kind": "method",
     "name": "post",
     "memberof": "src/tag.js~TagTaggingList",
@@ -14886,7 +14979,7 @@
     }
   },
   {
-    "__docId__": 430,
+    "__docId__": 431,
     "kind": "class",
     "name": "FeedTaggingList",
     "memberof": "src/tag.js",
@@ -14904,7 +14997,7 @@
     ]
   },
   {
-    "__docId__": 431,
+    "__docId__": 432,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -14949,7 +15042,7 @@
     ]
   },
   {
-    "__docId__": 432,
+    "__docId__": 433,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -14968,7 +15061,7 @@
     }
   },
   {
-    "__docId__": 433,
+    "__docId__": 434,
     "kind": "method",
     "name": "getFeed",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -15003,7 +15096,7 @@
     }
   },
   {
-    "__docId__": 434,
+    "__docId__": 435,
     "kind": "method",
     "name": "post",
     "memberof": "src/tag.js~FeedTaggingList",
@@ -15058,7 +15151,7 @@
     }
   },
   {
-    "__docId__": 435,
+    "__docId__": 436,
     "kind": "class",
     "name": "TagFeedList",
     "memberof": "src/tag.js",
@@ -15076,7 +15169,7 @@
     ]
   },
   {
-    "__docId__": 436,
+    "__docId__": 437,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~TagFeedList",
@@ -15121,7 +15214,7 @@
     ]
   },
   {
-    "__docId__": 437,
+    "__docId__": 438,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~TagFeedList",
@@ -15140,7 +15233,7 @@
     }
   },
   {
-    "__docId__": 438,
+    "__docId__": 439,
     "kind": "method",
     "name": "getTag",
     "memberof": "src/tag.js~TagFeedList",
@@ -15175,7 +15268,7 @@
     }
   },
   {
-    "__docId__": 439,
+    "__docId__": 440,
     "kind": "class",
     "name": "FeedTagList",
     "memberof": "src/tag.js",
@@ -15193,7 +15286,7 @@
     ]
   },
   {
-    "__docId__": 440,
+    "__docId__": 441,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/tag.js~FeedTagList",
@@ -15238,7 +15331,7 @@
     ]
   },
   {
-    "__docId__": 441,
+    "__docId__": 442,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/tag.js~FeedTagList",
@@ -15257,7 +15350,7 @@
     }
   },
   {
-    "__docId__": 442,
+    "__docId__": 443,
     "kind": "method",
     "name": "getFeed",
     "memberof": "src/tag.js~FeedTagList",
@@ -15292,7 +15385,7 @@
     }
   },
   {
-    "__docId__": 443,
+    "__docId__": 444,
     "kind": "file",
     "name": "src/uploadedfile.js",
     "content": "/** * Imports ***/\nimport Request from './request';\nimport RequestException from './exception';\nimport Collection from './cj';\nimport { ItemResource, ListResource } from './resource';\n\n/**\n * Uploaded file item resource object representing a user's uploaded file.\n */\nexport class UploadedFile extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the file blob associated to this file item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Blob`` object\n   */\n  getFileBlob(timeout = 30000) {\n    if (this.isEmpty) {\n      throw new RequestException('Item object has not been set!');\n    }\n    const req = new Request(this.auth, 'application/octet-stream', timeout);\n    const item = this.collection.items[0];\n    const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];\n\n    return req.get(blobUrl).then(resp => resp.data);\n  }\n\n  /**\n   * Make a PUT request to modify this uploaded file item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this uploaded file item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Uploaded file list resource object representing a list of a user's uploaded files.\n */\nexport class UploadedFileList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = UploadedFile;\n  }\n\n  /**\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, uploadFileObj, timeout = 30000) {\n    return this._post(data, uploadFileObj, timeout);\n  }\n}\n",
@@ -15303,7 +15396,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 444,
+    "__docId__": 445,
     "kind": "class",
     "name": "UploadedFile",
     "memberof": "src/uploadedfile.js",
@@ -15321,7 +15414,7 @@
     ]
   },
   {
-    "__docId__": 445,
+    "__docId__": 446,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -15366,7 +15459,7 @@
     ]
   },
   {
-    "__docId__": 446,
+    "__docId__": 447,
     "kind": "method",
     "name": "getFileBlob",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -15401,7 +15494,7 @@
     }
   },
   {
-    "__docId__": 447,
+    "__docId__": 448,
     "kind": "method",
     "name": "put",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -15456,7 +15549,7 @@
     }
   },
   {
-    "__docId__": 448,
+    "__docId__": 449,
     "kind": "method",
     "name": "delete",
     "memberof": "src/uploadedfile.js~UploadedFile",
@@ -15491,7 +15584,7 @@
     }
   },
   {
-    "__docId__": 449,
+    "__docId__": 450,
     "kind": "class",
     "name": "UploadedFileList",
     "memberof": "src/uploadedfile.js",
@@ -15509,7 +15602,7 @@
     ]
   },
   {
-    "__docId__": 450,
+    "__docId__": 451,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/uploadedfile.js~UploadedFileList",
@@ -15554,7 +15647,7 @@
     ]
   },
   {
-    "__docId__": 451,
+    "__docId__": 452,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/uploadedfile.js~UploadedFileList",
@@ -15573,7 +15666,7 @@
     }
   },
   {
-    "__docId__": 452,
+    "__docId__": 453,
     "kind": "method",
     "name": "post",
     "memberof": "src/uploadedfile.js~UploadedFileList",
@@ -15648,7 +15741,7 @@
     }
   },
   {
-    "__docId__": 453,
+    "__docId__": 454,
     "kind": "file",
     "name": "src/user.js",
     "content": "/** * Imports ***/\nimport Request from './request';\nimport { ItemResource } from './resource';\n\n/**\n * User item resource object representing a user of the system.\n */\nexport default class User extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this user item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.password - user password\n   * @param {string} data.email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
@@ -15659,7 +15752,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 454,
+    "__docId__": 455,
     "kind": "class",
     "name": "User",
     "memberof": "src/user.js",
@@ -15677,7 +15770,7 @@
     ]
   },
   {
-    "__docId__": 455,
+    "__docId__": 456,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/user.js~User",
@@ -15722,7 +15815,7 @@
     ]
   },
   {
-    "__docId__": 456,
+    "__docId__": 457,
     "kind": "method",
     "name": "put",
     "memberof": "src/user.js~User",
@@ -15796,7 +15889,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fnndsc/chrisapi\",\n  \"version\": \"1.5.0\",\n  \"description\": \"JavaScript6 client for the ChRIS API\",\n  \"main\": \"dist/chrisapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.13.14\",\n    \"@babel/core\": \"^7.13.14\",\n    \"@babel/preset-env\": \"^7.13.12\",\n    \"@types/chai\": \"^4.2.16\",\n    \"@types/mocha\": \"^8.2.2\",\n    \"@types/sinon\": \"^9.0.11\",\n    \"babel-loader\": \"^8.2.2\",\n    \"chai\": \"^4.3.4\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"husky\": \"^6.0.0\",\n    \"karma\": \"^6.3.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^3.1.0\",\n    \"karma-cli\": \"^2.0.0\",\n    \"karma-mocha\": \"^2.0.1\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^5.0.0\",\n    \"lint-staged\": \"^10.5.4\",\n    \"mocha\": \"^8.3.2\",\n    \"prettier\": \"^2.2.1\",\n    \"sinon\": \"^10.0.0\",\n    \"webpack\": \"^5.31.0\",\n    \"webpack-cli\": \"^4.6.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.21.1\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@fnndsc/chrisapi\",\n  \"version\": \"1.5.1\",\n  \"description\": \"JavaScript6 client for the ChRIS API\",\n  \"main\": \"dist/chrisapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.13.14\",\n    \"@babel/core\": \"^7.13.14\",\n    \"@babel/preset-env\": \"^7.13.12\",\n    \"@types/chai\": \"^4.2.16\",\n    \"@types/mocha\": \"^8.2.2\",\n    \"@types/sinon\": \"^9.0.11\",\n    \"babel-loader\": \"^8.2.2\",\n    \"chai\": \"^4.3.4\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"husky\": \"^6.0.0\",\n    \"karma\": \"^6.3.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^3.1.0\",\n    \"karma-cli\": \"^2.0.0\",\n    \"karma-mocha\": \"^2.0.1\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^5.0.0\",\n    \"lint-staged\": \"^10.5.4\",\n    \"mocha\": \"^8.3.2\",\n    \"prettier\": \"^2.2.1\",\n    \"sinon\": \"^10.0.0\",\n    \"webpack\": \"^5.31.0\",\n    \"webpack-cli\": \"^4.6.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.21.1\"\n  }\n}\n",
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisAPI/package.json",
     "name": "package.json",
     "static": true,

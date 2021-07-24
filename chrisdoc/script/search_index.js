@@ -2328,6 +2328,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/resource.js~resource.cloneobj",
+    "class/src/resource.js~Resource.html#static-method-cloneObj",
+    "src/resource.js~Resource.cloneObj",
+    "method"
+  ],
+  [
     "src/servicefile.js",
     "file/src/servicefile.js.html",
     "src/servicefile.js",
