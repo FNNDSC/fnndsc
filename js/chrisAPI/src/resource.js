@@ -49,13 +49,24 @@ export class Resource {
    * @return {Object} - clone object
    */
   clone() {
-    const cloneObj = Object.create(Object.getPrototypeOf(this));
+    return Resource.cloneObj(this);
+  }
 
-    for (let prop in this) {
-      if (this[prop] !== null && typeof this[prop] === 'object') {
-        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));
+  /**
+   * Helper method to make a deep copy clone of the passed object resource.
+   *
+   * @param {Object} obj - object to be cloned
+   *
+   * @return {Object} - clone object
+   */
+  static cloneObj(obj) {
+    const cloneObj = Object.create(Object.getPrototypeOf(obj));
+
+    for (let prop in obj) {
+      if (obj[prop] !== null && typeof obj[prop] === 'object') {
+        cloneObj[prop] = JSON.parse(JSON.stringify(obj[prop]));
       } else {
-        cloneObj[prop] = this[prop];
+        cloneObj[prop] = obj[prop];
       }
     }
     return cloneObj;
@@ -87,7 +98,7 @@ export class ItemResource extends Resource {
   get(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
 
-    return req.get(this.url).then(resp => {
+    return req.get(this.url).then((resp) => {
       // change the state of this object on successfull response
       this.collection = null;
       if (resp.data && resp.data.collection) {
@@ -176,7 +187,7 @@ export class ItemResource extends Resource {
     if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {
       putData = { template: Collection.makeTemplate(data) };
     }
-    return req.put(this.url, putData, uploadFileObj).then(resp => {
+    return req.put(this.url, putData, uploadFileObj).then((resp) => {
       // change the state of this object on successfull response
       this.collection = null;
       if (resp.data && resp.data.collection) {
@@ -244,7 +255,7 @@ export class ListResource extends Resource {
   get(searchParams = null, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
 
-    const updateInternalState = resp => {
+    const updateInternalState = (resp) => {
       // change the state of this object on successfull response
       this.collection = null;
       this.searchParams = searchParams;
@@ -305,15 +316,21 @@ export class ListResource extends Resource {
       return null;
     }
     const items = this.collection.items.filter(
-      item => Collection.getItemDescriptors(item).id === id
+      (item) => Collection.getItemDescriptors(item).id === id
     );
     if (!items.length) {
       return null;
     }
+    const collection = Resource.cloneObj(this.collection);
+    collection.items.length = 1;
+    collection.links = [];
+    delete collection.queries;
+    delete collection.total;
+
     const itemResource = new this.itemClass(items[0].href, this.auth);
-    const listRes = this.clone();
-    listRes.collection.items[0] = items[0];
-    itemResource.collection = listRes.collection;
+    itemResource.collection = collection;
+    itemResource.collection.items[0] = items[0];
+    itemResource.collection.href = items[0].href;
     return itemResource;
   }
 
@@ -327,11 +344,17 @@ export class ListResource extends Resource {
     if (this.isEmpty) {
       return [];
     }
-    return this.collection.items.map(item => {
+    const collection = Resource.cloneObj(this.collection);
+    collection.items.length = 1;
+    collection.links = [];
+    delete collection.queries;
+    delete collection.total;
+
+    return this.collection.items.map((item) => {
       const itemResource = new this.itemClass(item.href, this.auth);
-      const listRes = this.clone();
-      listRes.collection.items[0] = item;
-      itemResource.collection = listRes.collection;
+      itemResource.collection = Resource.cloneObj(collection);
+      itemResource.collection.items[0] = item;
+      itemResource.collection.href = item.href;
       return itemResource;
     });
   }
@@ -469,7 +492,7 @@ export class ListResource extends Resource {
       postData = { template: Collection.makeTemplate(data) };
     }
 
-    return req.post(url, postData, uploadFileObj).then(resp => {
+    return req.post(url, postData, uploadFileObj).then((resp) => {
       // change the state of this object on successfull response
       this.collection = null;
       this.searchParams = null;
