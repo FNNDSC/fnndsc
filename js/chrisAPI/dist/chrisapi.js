@@ -2843,8 +2843,8 @@
             B = h('toPrimitive'),
             N = {}.propertyIsEnumerable,
             M = s('symbol-registry'),
-            q = s('symbols'),
-            D = s('op-symbols'),
+            D = s('symbols'),
+            q = s('op-symbols'),
             z = Object.prototype,
             H = 'function' == typeof U && !!j.f,
             G = r.QObject,
@@ -2869,7 +2869,7 @@
                   }
                 : C,
             K = function (t) {
-              var e = (q[t] = R(U.prototype));
+              var e = (D[t] = R(U.prototype));
               return (e._k = t), e;
             },
             W =
@@ -2882,11 +2882,11 @@
                   },
             $ = function (t, e, n) {
               return (
-                t === z && $(D, e, n),
+                t === z && $(q, e, n),
                 m(t),
                 (e = O(e, !0)),
                 m(n),
-                o(q, e)
+                o(D, e)
                   ? (n.enumerable
                       ? (o(t, L) && t[L][e] && (t[L][e] = !1), (n = R(n, { enumerable: P(0, !1) })))
                       : (o(t, L) || C(t, L, P(1, {})), (t[L][e] = !0)),
@@ -2902,24 +2902,24 @@
             Q = function (t) {
               var e = N.call(this, (t = O(t, !0)));
               return (
-                !(this === z && o(q, t) && !o(D, t)) &&
-                (!(e || !o(this, t) || !o(q, t) || (o(this, L) && this[L][t])) || e)
+                !(this === z && o(D, t) && !o(q, t)) &&
+                (!(e || !o(this, t) || !o(D, t) || (o(this, L) && this[L][t])) || e)
               );
             },
             Y = function (t, e) {
-              if (((t = w(t)), (e = O(e, !0)), t !== z || !o(q, e) || o(D, e))) {
+              if (((t = w(t)), (e = O(e, !0)), t !== z || !o(D, e) || o(q, e))) {
                 var n = T(t, e);
-                return !n || !o(q, e) || (o(t, L) && t[L][e]) || (n.enumerable = !0), n;
+                return !n || !o(D, e) || (o(t, L) && t[L][e]) || (n.enumerable = !0), n;
               }
             },
             Z = function (t) {
               for (var e, n = F(w(t)), r = [], i = 0; n.length > i; )
-                o(q, (e = n[i++])) || e == L || e == l || r.push(e);
+                o(D, (e = n[i++])) || e == L || e == l || r.push(e);
               return r;
             },
             tt = function (t) {
-              for (var e, n = t === z, r = F(n ? D : w(t)), i = [], u = 0; r.length > u; )
-                !o(q, (e = r[u++])) || (n && !o(z, e)) || i.push(q[e]);
+              for (var e, n = t === z, r = F(n ? q : w(t)), i = [], u = 0; r.length > u; )
+                !o(D, (e = r[u++])) || (n && !o(z, e)) || i.push(D[e]);
               return i;
             };
           H ||
@@ -2928,7 +2928,7 @@
                 if (this instanceof U) throw TypeError('Symbol is not a constructor!');
                 var t = p(arguments.length > 0 ? arguments[0] : void 0),
                   e = function (n) {
-                    this === z && e.call(D, n),
+                    this === z && e.call(q, n),
                       o(this, L) && o(this[L], t) && (this[L][t] = !1),
                       V(this, t, P(1, n));
                   };
@@ -3112,7 +3112,7 @@
         n.r(r),
           n.d(r, {
             AllFeedFileList: () => ft,
-            AllPipelineInstanceList: () => qt,
+            AllPipelineInstanceList: () => Dt,
             AllPluginInstanceList: () => Yt,
             ChrisInstance: () => L,
             Collection: () => u,
@@ -3125,7 +3125,7 @@
             FeedFileList: () => st,
             FeedList: () => lr,
             FeedPluginInstanceList: () => Zt,
-            FeedTagList: () => qn,
+            FeedTagList: () => Dn,
             FeedTaggingList: () => Nn,
             ItemResource: () => T,
             ListResource: () => C,
@@ -3142,7 +3142,7 @@
             PipelinePluginPipingList: () => jt,
             PipingDefaultParameter: () => kt,
             Plugin: () => Se,
-            PluginComputeResourceList: () => qe,
+            PluginComputeResourceList: () => De,
             PluginInstance: () => Xt,
             PluginInstanceDescendantList: () => ee,
             PluginInstanceFileList: () => pt,
@@ -3335,6 +3335,12 @@
                   return t[0].data.map(function (t) {
                     return t.name;
                   });
+                },
+              },
+              {
+                key: 'createCollectionObj',
+                value: function () {
+                  return { href: '', items: [], links: [], version: '1.0' };
                 },
               },
               {
@@ -3912,14 +3918,12 @@
                       return u.getItemDescriptors(e).id === t;
                     });
                     if (!e.length) return null;
-                    var n = E.cloneObj(this.collection);
-                    (n.items.length = 1), (n.links = []), delete n.queries, delete n.total;
-                    var r = new this.itemClass(e[0].href, this.auth);
+                    var n = new this.itemClass(e[0].href, this.auth);
                     return (
-                      (r.collection = n),
-                      (r.collection.items[0] = e[0]),
-                      (r.collection.href = e[0].href),
-                      r
+                      (n.collection = u.createCollectionObj()),
+                      n.collection.items.push(e[0]),
+                      (n.collection.href = e[0].href),
+                      n
                     );
                   },
                 },
@@ -3927,23 +3931,17 @@
                   key: 'getItems',
                   value: function () {
                     var t = this;
-                    if (this.isEmpty) return [];
-                    var e = E.cloneObj(this.collection);
-                    return (
-                      (e.items.length = 1),
-                      (e.links = []),
-                      delete e.queries,
-                      delete e.total,
-                      this.collection.items.map(function (n) {
-                        var r = new t.itemClass(n.href, t.auth);
-                        return (
-                          (r.collection = E.cloneObj(e)),
-                          (r.collection.items[0] = n),
-                          (r.collection.href = n.href),
-                          r
-                        );
-                      })
-                    );
+                    return this.isEmpty
+                      ? []
+                      : this.collection.items.map(function (e) {
+                          var n = new t.itemClass(e.href, t.auth);
+                          return (
+                            (n.collection = u.createCollectionObj()),
+                            n.collection.items.push(e),
+                            (n.collection.href = e.href),
+                            n
+                          );
+                        });
                   },
                 },
                 {
@@ -4217,7 +4215,7 @@
               return (t.__proto__ = e), t;
             })(t, e);
         }
-        function q(t, e) {
+        function D(t, e) {
           return !e || ('object' !== B(e) && 'function' != typeof e)
             ? (function (t) {
                 if (void 0 === t)
@@ -4228,8 +4226,8 @@
               })(t)
             : e;
         }
-        function D(t) {
-          return (D = Object.setPrototypeOf
+        function q(t) {
+          return (q = Object.setPrototypeOf
             ? Object.getPrototypeOf
             : function (t) {
                 return t.__proto__ || Object.getPrototypeOf(t);
@@ -4265,12 +4263,12 @@
               })()),
               function () {
                 var t,
-                  e = D(r);
+                  e = q(r);
                 if (o) {
-                  var n = D(this).constructor;
+                  var n = q(this).constructor;
                   t = Reflect.construct(e, arguments, n);
                 } else t = e.apply(this, arguments);
-                return q(this, t);
+                return D(this, t);
               });
           function u(t, e) {
             return (
@@ -5039,7 +5037,7 @@
               n
             );
           })(C),
-          qt = (function (t) {
+          Dt = (function (t) {
             Ut(n, t);
             var e = At(n);
             function n(t, r) {
@@ -5062,8 +5060,8 @@
               n
             );
           })(C);
-        function Dt(t) {
-          return (Dt =
+        function qt(t) {
+          return (qt =
             'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
               ? function (t) {
                   return typeof t;
@@ -5131,7 +5129,7 @@
           };
         }
         function Wt(t, e) {
-          return !e || ('object' !== Dt(e) && 'function' != typeof e)
+          return !e || ('object' !== qt(e) && 'function' != typeof e)
             ? (function (t) {
                 if (void 0 === t)
                   throw new ReferenceError(
@@ -5705,7 +5703,7 @@
                     var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                       e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                       n = 'compute_resources',
-                      r = qe;
+                      r = De;
                     return this._getResource(n, r, t, e);
                   },
                 },
@@ -5886,7 +5884,7 @@
               n
             );
           })(C),
-          qe = (function (t) {
+          De = (function (t) {
             Ue(n, t);
             var e = Ae(n);
             function n(t, r) {
@@ -5908,8 +5906,8 @@
               n
             );
           })(C);
-        function De(t) {
-          return (De =
+        function qe(t) {
+          return (qe =
             'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
               ? function (t) {
                   return typeof t;
@@ -5977,7 +5975,7 @@
           };
         }
         function We(t, e) {
-          return !e || ('object' !== De(e) && 'function' != typeof e)
+          return !e || ('object' !== qe(e) && 'function' != typeof e)
             ? (function (t) {
                 if (void 0 === t)
                   throw new ReferenceError(
@@ -6680,7 +6678,7 @@
               n
             );
           })(C),
-          qn = (function (t) {
+          Dn = (function (t) {
             En(n, t);
             var e = Cn(n);
             function n(t, r) {
@@ -6702,8 +6700,8 @@
               n
             );
           })(C);
-        function Dn(t) {
-          return (Dn =
+        function qn(t) {
+          return (qn =
             'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
               ? function (t) {
                   return typeof t;
@@ -6771,7 +6769,7 @@
           };
         }
         function Wn(t, e) {
-          return !e || ('object' !== Dn(e) && 'function' != typeof e)
+          return !e || ('object' !== qn(e) && 'function' != typeof e)
             ? (function (t) {
                 if (void 0 === t)
                   throw new ReferenceError(
@@ -6961,7 +6959,7 @@
                     var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                       e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                       n = 'tags',
-                      r = qn;
+                      r = Dn;
                     return this._getResource(n, r, t, e);
                   },
                 },
@@ -7110,7 +7108,7 @@
                     var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                       e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                       n = 'pipeline_instances',
-                      r = qt;
+                      r = Dt;
                     return this._getResource(n, r, t, e);
                   },
                 },
@@ -7475,7 +7473,7 @@
                 value: function () {
                   var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : null,
                     e = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4;
-                  return this._fetchRes('pipelineInstancesUrl', qt, t, e);
+                  return this._fetchRes('pipelineInstancesUrl', Dt, t, e);
                 },
               },
               {
