@@ -666,6 +666,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/cj.js~collection.createcollectionobj",
+    "class/src/cj.js~Collection.html#static-method-createCollectionObj",
+    "src/cj.js~Collection.createCollectionObj",
+    "method"
+  ],
+  [
     "src/cj.js~collection.geterrormessage",
     "class/src/cj.js~Collection.html#static-method-getErrorMessage",
     "src/cj.js~Collection.getErrorMessage",

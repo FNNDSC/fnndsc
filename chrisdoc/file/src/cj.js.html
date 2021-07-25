@@ -122,10 +122,10 @@ export default class Collection {
    * @return {string[]} - list of urls
    */
   static getLinkRelationUrls(obj, relationName) {
-    const links = obj.links.filter(link =&gt; {
+    const links = obj.links.filter((link) =&gt; {
       return link.rel === relationName;
     });
-    return links.map(link =&gt; link.href);
+    return links.map((link) =&gt; link.href);
   }
 
   /**
@@ -179,7 +179,7 @@ export default class Collection {
    * @return {string[]} - list of descriptor names
    */
   static getTemplateDescriptorNames(template) {
-    return template.data.map(descriptor =&gt; descriptor.name);
+    return template.data.map((descriptor) =&gt; descriptor.name);
   }
 
   /**
@@ -190,7 +190,22 @@ export default class Collection {
    * @return {string[]} - list of query parameter names
    */
   static getQueryParameters(queryArr) {
-    return queryArr[0].data.map(descriptor =&gt; descriptor.name);
+    return queryArr[0].data.map((descriptor) =&gt; descriptor.name);
+  }
+
+  /**
+   * Make an emmpty Collection+Json object.
+   *
+   * @return {Object} - template object
+   */
+  static createCollectionObj() {
+    const obj = {
+      href: &apos;&apos;,
+      items: [],
+      links: [],
+      version: &apos;1.0&apos;,
+    };
+    return obj;
   }
 
   /**
