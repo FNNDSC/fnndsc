@@ -1,5 +1,5 @@
 /** * Imports ***/
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import Collection from './cj';
 import RequestException from './exception';
 
@@ -126,7 +126,7 @@ export default class Request {
    * @param {string} url - url of the resource
    * @param {string} method - request verb
    *
-   * @return {Object} - axios configuration object
+   * @return {AxiosRequestConfig} - axios configuration object
    */
   _getConfig(url, method) {
     const config = {
@@ -155,7 +155,7 @@ export default class Request {
   /**
    * Internal method to make an axios request.
    *
-   * @param {Object} config - axios configuration object
+   * @param {AxiosRequestConfig} config - axios configuration object
    *
    * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
    */
