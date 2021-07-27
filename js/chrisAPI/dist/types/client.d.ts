@@ -11,9 +11,9 @@ export default class Client {
      * @param {string} email - user email
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``User`` object
+     * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
      */
-    static createUser(usersUrl: string, username: string, password: string, email: string, timeout?: number): any;
+    static createUser(usersUrl: string, username: string, password: string, email: string, timeout?: number): Promise<User>;
     /**
      * Fetch a user's login authorization token from the REST API.
      * @param {string} authUrl - url of the authorization service
@@ -21,9 +21,9 @@ export default class Client {
      * @param {string} password - password
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``string`` value
+     * @return {Promise<string>} - JS Promise, resolves to a ``string`` value
      */
-    static getAuthToken(authUrl: string, username: string, password: string, timeout?: number): any;
+    static getAuthToken(authUrl: string, username: string, password: string, timeout?: number): Promise<string>;
     /**
      * Helper method to run an asynchronous task defined by a task generator function.
      *
@@ -62,16 +62,16 @@ export default class Client {
      * Set the urls of the high level API resources.
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise
+     * @return {Promise} - JS Promise
      */
-    setUrls(timeout?: number): any;
+    setUrls(timeout?: number): Promise<any>;
     /**
      * Get the ChRIS instance resource object.
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``ChrisInstance`` object
+     * @return {Promise<ChrisInstance>} - JS Promise, resolves to a ``ChrisInstance`` object
      */
-    getChrisInstance(timeout?: number): any;
+    getChrisInstance(timeout?: number): Promise<ChrisInstance>;
     /**
      * Get a paginated list of currently authenticated user's feeds
      * from the REST API given query search parameters. If no search parameters
@@ -88,7 +88,7 @@ export default class Client {
      * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+     * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
         limit?: number;
@@ -99,16 +99,16 @@ export default class Client {
         name?: string;
         min_creation_date?: number;
         max_creation_date?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<FeedList>;
     /**
      * Get a feed resource object given its id.
      *
      * @param {number} id - feed id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Feed`` object
+     * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(id: number, timeout?: number): any;
+    getFeed(id: number, timeout?: number): Promise<any>;
     /**
      * Tag a feed given its id and the id of the tag.
      *
@@ -116,9 +116,9 @@ export default class Client {
      * @param {number} tag_id - tag id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Tagging`` object
+     * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
      */
-    tagFeed(feed_id: number, tag_id: number, timeout?: number): any;
+    tagFeed(feed_id: number, tag_id: number, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of files written to any user-owned feed from the REST
      * API given query search parameters. If no search parameters then get the
@@ -138,7 +138,7 @@ export default class Client {
      * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object
+     * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
      */
     getFiles(searchParams?: {
         limit?: number;
@@ -151,16 +151,16 @@ export default class Client {
         feed_id?: number;
         min_creation_date?: string;
         max_creation_date?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<AllFeedFileList>;
     /**
      * Get a file resource object given its id.
      *
      * @param {number} id - file id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``FeedFile`` object
+     * @return {Promise<FeedFile>} - JS Promise, resolves to a ``FeedFile`` object
      */
-    getFile(id: number, timeout?: number): any;
+    getFile(id: number, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of compute resources from the REST API given query
      * search parameters. If no search parameters then get the default first page.
@@ -176,7 +176,7 @@ export default class Client {
      * compute resources associated with the plugin
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object
+     * @return {Promise<ComputeResourceList>} - JS Promise, resolves to a ``ComputeResourceList`` object
      */
     getComputeResources(searchParams?: {
         limit?: number;
@@ -186,16 +186,16 @@ export default class Client {
         name_exact?: string;
         description?: string;
         plugin_id?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<ComputeResourceList>;
     /**
      * Get a compute resource object given its id.
      *
      * @param {number} id - compute resource id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
+     * @return {Promise<ComputeResource>} - JS Promise, resolves to a ``ComputeResource`` object
      */
-    getComputeResource(id: number, timeout?: number): any;
+    getComputeResource(id: number, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of plugin metas from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -218,7 +218,7 @@ export default class Client {
      * category containing this string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object
+     * @return {Promise<PluginMetaList>} - JS Promise, resolves to a ``PluginMetaList`` object
      */
     getPluginMetas(searchParams?: {
         limit?: number;
@@ -234,16 +234,16 @@ export default class Client {
         max_creation_date?: number;
         name_title_category?: string;
         name_authors_category?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginMetaList>;
     /**
      * Get a plugin meta resource object given its id.
      *
      * @param {number} id - plugin meta id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+     * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
      */
-    getPluginMeta(id: number, timeout?: number): any;
+    getPluginMeta(id: number, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of plugins from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -268,7 +268,7 @@ export default class Client {
      * with this number
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+     * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
         limit?: number;
@@ -286,16 +286,16 @@ export default class Client {
         max_creation_date?: string;
         name_title_category?: string;
         compute_resource_id?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginList>;
     /**
      * Get a plugin resource object given its id.
      *
      * @param {number} id - plugin id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+     * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(id: number, timeout?: number): any;
+    getPlugin(id: number, timeout?: number): Promise<Plugin>;
     /**
      * Get a paginated list of plugin instances from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -315,7 +315,7 @@ export default class Client {
      * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``AllPluginInstanceList`` object
+     * @return {Promise<AllPluginInstanceList>} - JS Promise, resolves to ``AllPluginInstanceList`` object
      */
     getPluginInstances(searchParams?: {
         limit?: number;
@@ -330,16 +330,16 @@ export default class Client {
         plugin_name?: number;
         plugin_name_exact?: number;
         plugin_version?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<AllPluginInstanceList>;
     /**
      * Get a plugin instance resource object given its id.
      *
      * @param {number} id - plugin instance id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+     * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(id: number, timeout?: number): any;
+    getPluginInstance(id: number, timeout?: number): Promise<any>;
     /**
      * Create a new plugin instance resource through the REST API.
      *
@@ -354,7 +354,7 @@ export default class Client {
      * @param {string} [data.gpu_limit] - gpu limit
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``PluginInstance`` object
+     * @return {Promise<PluginInstance>} - JS Promise, resolves to ``PluginInstance`` object
      */
     createPluginInstance(pluginId: number, data: {
         previous_id: number;
@@ -364,7 +364,7 @@ export default class Client {
         memory_limit?: string;
         number_of_workers?: string;
         gpu_limit?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<any>;
     /**
      * Create a new plugin instance split resource through the REST API.
      *
@@ -373,9 +373,9 @@ export default class Client {
      * @param {string} [cr_name=''] - remote compute resource name
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``PluginInstanceSplit`` object
+     * @return {Promise<PluginInstanceSplit>} - JS Promise, resolves to ``PluginInstanceSplit`` object
      */
-    createPluginInstanceSplit(pluginInstanceId: number, filter?: string, cr_name?: string, timeout?: number): any;
+    createPluginInstanceSplit(pluginInstanceId: number, filter?: string, cr_name?: string, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of pipelines from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -393,7 +393,7 @@ export default class Client {
      * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
+     * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
     getPipelines(searchParams?: {
         limit?: number;
@@ -406,16 +406,16 @@ export default class Client {
         authors?: string;
         min_creation_date?: string;
         max_creation_date?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PipelineList>;
     /**
      * Get a pipeline resource object given its id.
      *
      * @param {number} id - pipeline id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
+     * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(id: number, timeout?: number): any;
+    getPipeline(id: number, timeout?: number): Promise<any>;
     /**
      * Create a new pipeline resource through the REST API.
      *
@@ -429,7 +429,7 @@ export default class Client {
      * @param {number} [data.plugin_inst_id] - plugin instance id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``Pipeline`` object
+     * @return {Promise<Pipeline>} - JS Promise, resolves to ``Pipeline`` object
      */
     createPipeline(data: {
         name: string;
@@ -439,7 +439,7 @@ export default class Client {
         locked?: boolean;
         plugin_tree?: string;
         plugin_inst_id?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of pipeline instances from the REST API given
      * query search parameters. If no search parameters then get the default
@@ -454,7 +454,7 @@ export default class Client {
      * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``AllPipelineInstanceList`` object
+     * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to ``AllPipelineInstanceList`` object
      */
     getPipelineInstances(searchParams?: {
         limit?: number;
@@ -463,16 +463,16 @@ export default class Client {
         title?: string;
         description?: string;
         pipeline_name?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<AllPipelineInstanceList>;
     /**
      * Get a pipeline instance resource object given its id.
      *
      * @param {number} id - pipeline instance id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object
+     * @return {Promise<PipelineInstance>} - JS Promise, resolves to a ``PipelineInstance`` object
      */
-    getPipelineInstance(id: number, timeout?: number): any;
+    getPipelineInstance(id: number, timeout?: number): Promise<any>;
     /**
      * Create a new pipeline instance resource through the REST API.
      *
@@ -483,13 +483,13 @@ export default class Client {
      * @param {string} [data.description] - pipeline description
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``PipelineInstance`` object
+     * @return {Promise<PipelineInstance>} - JS Promise, resolves to ``PipelineInstance`` object
      */
     createPipelineInstance(pipelineId: number, data: {
         previous_plugin_inst_id: number;
         title?: string;
         description?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of tags from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -503,7 +503,7 @@ export default class Client {
      * @param {string} [searchParams.color] - match plugin color containing this string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``TagList`` object
+     * @return {Promise<TagList>} - JS Promise, resolves to a ``TagList`` object
      */
     getTags(searchParams?: {
         limit?: number;
@@ -512,16 +512,16 @@ export default class Client {
         name?: string;
         owner_username?: string;
         color?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<TagList>;
     /**
      * Get a tag resource object given its id.
      *
      * @param {number} id - tag id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Tag`` object
+     * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(id: number, timeout?: number): any;
+    getTag(id: number, timeout?: number): Promise<any>;
     /**
      * Create a new tag resource through the REST API.
      *
@@ -530,12 +530,12 @@ export default class Client {
      * @param {string} [data.name=''] - tag name
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``Tag`` object
+     * @return {Promise<Tag>} - JS Promise, resolves to ``Tag`` object
      */
     createTag(data: {
         color: string;
         name?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of uploaded files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -552,7 +552,7 @@ export default class Client {
      * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object
+     * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
      */
     getUploadedFiles(searchParams?: {
         limit?: number;
@@ -564,16 +564,16 @@ export default class Client {
         owner_username?: string;
         min_creation_date?: string;
         max_creation_date?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<UploadedFileList>;
     /**
      * Get an uploaded file resource object given its id.
      *
      * @param {number} id - uploaded file id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to an ``UploadedFile`` object
+     * @return {Promise<UploadedFile>} - JS Promise, resolves to an ``UploadedFile`` object
      */
-    getUploadedFile(id: number, timeout?: number): any;
+    getUploadedFile(id: number, timeout?: number): Promise<any>;
     /**
      * Upload a file and create a new uploaded file resource through the REST API.
      *
@@ -584,11 +584,11 @@ export default class Client {
      * @param {Object} uploadFileObj.fname - file blob
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``UploadedFile`` object
+     * @return {Promise<UploadedFile>} - JS Promise, resolves to ``UploadedFile`` object
      */
     uploadFile(data: {
         upload_path: string;
-    }, uploadFileObj: any | null, timeout?: number): any;
+    }, uploadFileObj: any | null, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of PACS files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -611,7 +611,7 @@ export default class Client {
      * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PACSFileList`` object
+     * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
      */
     getPACSFiles(searchParams?: {
         limit?: number;
@@ -629,16 +629,16 @@ export default class Client {
         pacs_identifier?: number;
         min_creation_date?: string;
         max_creation_date?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PACSFileList>;
     /**
      * Get a PACS file resource object given its id.
      *
      * @param {number} id - PACS file id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PACSFile`` object
+     * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
      */
-    getPACSFile(id: number, timeout?: number): any;
+    getPACSFile(id: number, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of files for an unregistered service from the REST API given
      * query search parameters. If no search parameters then get the default first page.
@@ -656,7 +656,7 @@ export default class Client {
      * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``ServiceFileList`` object
+     * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
      */
     getServiceFiles(searchParams?: {
         limit?: number;
@@ -669,23 +669,23 @@ export default class Client {
         service_id?: number;
         min_creation_date?: string;
         max_creation_date?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<ServiceFileList>;
     /**
      * Get a service file resource object given its id.
      *
      * @param {number} id - PACS file id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``ServiceFile`` object
+     * @return {Promise<ServiceFile>} - JS Promise, resolves to a ``ServiceFile`` object
      */
-    getServiceFile(id: number, timeout?: number): any;
+    getServiceFile(id: number, timeout?: number): Promise<any>;
     /**
      * Get a user resource object for the currently authenticated user.
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``User`` object
+     * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
      */
-    getUser(timeout?: number): any;
+    getUser(timeout?: number): Promise<User>;
     /**
      * Internal method to fetch a high level resource through the REST API.
      *
@@ -694,7 +694,21 @@ export default class Client {
      * @param {Object} [searchParams=null] - search parameters object
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise
+     * @return {Promise} - JS Promise
      */
-    _fetchRes(resUrlProp: string, ResClass: string, searchParams?: any, timeout?: number): any;
+    _fetchRes(resUrlProp: string, ResClass: string, searchParams?: any, timeout?: number): Promise<any>;
 }
+import ChrisInstance from "./chrisinstance";
+import { FeedList } from "./feed";
+import { AllFeedFileList } from "./feedfile";
+import { ComputeResourceList } from "./computeresource";
+import { PluginMetaList } from "./pluginmeta";
+import { PluginList } from "./plugin";
+import { AllPluginInstanceList } from "./plugininstance";
+import { PipelineList } from "./pipeline";
+import { AllPipelineInstanceList } from "./pipelineinstance";
+import { TagList } from "./tag";
+import { UploadedFileList } from "./uploadedfile";
+import { PACSFileList } from "./pacsfile";
+import { ServiceFileList } from "./servicefile";
+import User from "./user";

@@ -23,7 +23,7 @@ export class PipelineInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
+   * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(timeout = 30000) {
     const linkRelation = 'pipeline';
@@ -41,7 +41,7 @@ export class PipelineInstance extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelineInstancePluginInstanceList`` object
+   * @return {Promise<PipelineInstancePluginInstanceList>} - JS Promise, resolves to a ``PipelineInstancePluginInstanceList`` object
    */
   getPluginInstances(params = null, timeout = 30000) {
     const linkRelation = 'plugin_instances';
@@ -58,7 +58,7 @@ export class PipelineInstance extends ItemResource {
    * @param {string} [data.description] - pipeline instance description
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
@@ -69,7 +69,7 @@ export class PipelineInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -104,7 +104,7 @@ export class PipelineInstanceList extends ListResource {
    * resource object
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
@@ -140,7 +140,7 @@ export class AllPipelineInstanceList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
+   * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
    */
   getPipelines(searchParams = null, timeout = 30000) {
     const linkRelation = 'pipelines';

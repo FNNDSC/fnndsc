@@ -24,7 +24,7 @@ export class ServiceFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Blob`` object
+   * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
    */
   getFileBlob(timeout = 30000) {
     if (this.isEmpty) {

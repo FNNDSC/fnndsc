@@ -93,7 +93,7 @@ export class ItemResource extends Resource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   get(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -145,7 +145,7 @@ export class ItemResource extends Resource {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
-   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
+   * @return {Promise<ResourceClass>} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error if this item resource has not yet been
    * fetched from the REST API
    * @throws {RequestException} throw error when the link relation is not found
@@ -178,7 +178,7 @@ export class ItemResource extends Resource {
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   _put(data, uploadFileObj, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -203,7 +203,7 @@ export class ItemResource extends Resource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   _delete(timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -250,7 +250,7 @@ export class ListResource extends Resource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   get(searchParams = null, timeout = 30000) {
     const req = new Request(this.auth, this.contentType, timeout);
@@ -436,7 +436,7 @@ export class ListResource extends Resource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object
+   * @return {Promise<ResourceClass>} - JS Promise, resolves to a ``ResourceClass`` object
    * @throws {RequestException} throw error if this list resource has not yet
    * been fetched from the REST API
    * @throws {RequestException} throw error when the link relation is not found
@@ -469,7 +469,7 @@ export class ListResource extends Resource {
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   _post(data, uploadFileObj, timeout = 30000) {
     const url = this.url;

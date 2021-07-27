@@ -7,19 +7,19 @@ export class FeedFile extends ItemResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Blob`` object
+     * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      * @throws {RequestException} throw error if this item resource has not yet been
      * fetched from the REST API
      */
-    getFileBlob(timeout?: number): any;
+    getFileBlob(timeout?: number): Promise<Blob>;
     /**
      * Fetch the plugin instance that created this file item from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+     * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(timeout?: number): any;
+    getPluginInstance(timeout?: number): Promise<PluginInstance>;
 }
 /**
  * Feed file list resource object representing a list of files written to a feed.
@@ -30,9 +30,9 @@ export class FeedFileList extends ListResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Feed`` object
+     * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number): any;
+    getFeed(timeout?: number): Promise<Feed>;
 }
 /**
  * Feed file list resource object representing a list of all files written to
@@ -50,17 +50,19 @@ export class PluginInstanceFileList extends ListResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Feed`` object
+     * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number): any;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Fetch the plugin instance associated to this file list from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+     * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(timeout?: number): any;
+    getPluginInstance(timeout?: number): Promise<PluginInstance>;
 }
 import { ItemResource } from "./resource";
+import { PluginInstance } from "./plugininstance";
 import { ListResource } from "./resource";
+import { Feed } from "./feed";

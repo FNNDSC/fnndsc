@@ -10,12 +10,12 @@ export class Pipeline extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PipelinePluginList`` object
+     * @return {Promise<PipelinePluginList>} - JS Promise, resolves to a ``PipelinePluginList`` object
      */
     getPlugins(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PipelinePluginList>;
     /**
      * Fetch a list of plugin pipings associated to this pipeline from the REST API.
      *
@@ -24,12 +24,12 @@ export class Pipeline extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
+     * @return {Promise<PipelinePluginPipingList>} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
      */
     getPluginPipings(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PipelinePluginPipingList>;
     /**
      * Fetch a list of plugin piping default parameter values for the plugin
      * pipings composing the pipeline from the REST API.
@@ -39,12 +39,12 @@ export class Pipeline extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
+     * @return {Promise<PipelinePipingDefaultParameterList>} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
      */
     getDefaultParameters(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PipelinePipingDefaultParameterList>;
     /**
      * Fetch a list of pipeline instances associated to this pipeline from the
      * REST API.
@@ -54,12 +54,12 @@ export class Pipeline extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PipelineInstanceList`` object
+     * @return {Promise<PipelineInstanceList>} - JS Promise, resolves to a ``PipelineInstanceList`` object
      */
     getPipelineInstances(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PipelineInstanceList>;
     /**
      * Make a PUT request to modify this pipeline resource through the REST API.
      *
@@ -71,7 +71,7 @@ export class Pipeline extends ItemResource {
      * @param {boolean} [data.locked] - pipeline lock status
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``this`` object
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
         name?: string;
@@ -79,15 +79,15 @@ export class Pipeline extends ItemResource {
         category?: string;
         description?: string;
         locked?: boolean;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<Pipeline>;
     /**
      * Make a DELETE request to delete this pipeline resource through the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise
+     * @return {Promise} - JS Promise
      */
-    delete(timeout?: number): any;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Pipeline list resource object representing a list of pipelines.
@@ -103,12 +103,12 @@ export class PipelineList extends ListResource {
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+     * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginList>;
     /**
      * Make a POST request to this pipeline list resource to create a new pipeline
      * item resource through the REST API.
@@ -123,7 +123,7 @@ export class PipelineList extends ListResource {
      * @param {number} [data.plugin_inst_id] - plugin instance id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``this`` object
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
         name: string;
@@ -133,7 +133,7 @@ export class PipelineList extends ListResource {
         locked?: boolean;
         plugin_tree?: string;
         plugin_inst_id?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PipelineList>;
 }
 /**
  * Plugin piping item resource object representing a plugin piping within
@@ -146,25 +146,25 @@ export class PluginPiping extends ItemResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object or ``null``
+     * @return {Promise<PluginPiping|null>} - JS Promise, resolves to a ``PluginPiping`` object or ``null``
      */
-    getPreviousPluginPiping(timeout?: number): any;
+    getPreviousPluginPiping(timeout?: number): Promise<PluginPiping | null>;
     /**
      * Fetch the corresponding plugin for this plugin piping from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+     * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number): any;
+    getPlugin(timeout?: number): Promise<Plugin>;
     /**
      * Fetch the corresponding pipeline for this plugin piping from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
+     * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number): any;
+    getPipeline(timeout?: number): Promise<Pipeline>;
 }
 /**
  * Item resource object for a plugin piping defaul parameter representing a
@@ -177,18 +177,18 @@ export class PipingDefaultParameter extends ItemResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object
+     * @return {Promise<PluginPiping>} - JS Promise, resolves to a ``PluginPiping`` object
      */
-    getPluginPiping(timeout?: number): any;
+    getPluginPiping(timeout?: number): Promise<PluginPiping>;
     /**
      * Fetch the corresponding plugin parameter for this plugin piping default
      * parameter from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object
+     * @return {Promise<PluginParameter>} - JS Promise, resolves to a ``PluginParameter`` object
      */
-    getPluginParameter(timeout?: number): any;
+    getPluginParameter(timeout?: number): Promise<PluginParameter>;
 }
 /**
  * Pipeline-specific plugin list resource object representing a list of plugins
@@ -209,4 +209,8 @@ export class PipelinePluginPipingList extends ListResource {
 export class PipelinePipingDefaultParameterList extends ListResource {
 }
 import { ItemResource } from "./resource";
+import { PipelineInstanceList } from "./pipelineinstance";
 import { ListResource } from "./resource";
+import { PluginList } from "./plugin";
+import { Plugin } from "./plugin";
+import { PluginParameter } from "./pluginparameter";

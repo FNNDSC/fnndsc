@@ -10,11 +10,11 @@ export default class Note extends ItemResource {
      * @param {string} [data.content] - content of the comment
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``this`` object
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
         title?: string;
         content?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<Note>;
 }
 import { ItemResource } from "./resource";

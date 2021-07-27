@@ -7,9 +7,9 @@ export class PACSFile extends ItemResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Blob`` object
+     * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      */
-    getFileBlob(timeout?: number): any;
+    getFileBlob(timeout?: number): Promise<Blob>;
 }
 /**
  * PACS file list resource object representing a list of PACS files.

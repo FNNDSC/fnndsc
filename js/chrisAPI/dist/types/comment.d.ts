@@ -7,9 +7,9 @@ export class Comment extends ItemResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Feed`` object
+     * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number): any;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Make a PUT request to modify this comment item resource through the REST API.
      *
@@ -18,20 +18,20 @@ export class Comment extends ItemResource {
      * @param {string} [data.content] - content of the comment
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``this`` object
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
         title?: string;
         content?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<Comment>;
     /**
      * Make a DELETE request to delete this comment item resource through the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise
+     * @return {Promise} - JS Promise
      */
-    delete(timeout?: number): any;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Comment list resource object representing a list of feed comments.
@@ -42,9 +42,9 @@ export class CommentList extends ListResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Feed`` object
+     * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number): any;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Make a POST request to this comment list resource to create a new comment item
      * resource through the REST API.
@@ -54,12 +54,13 @@ export class CommentList extends ListResource {
      * @param {string} [data.content] - content of the comment
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``this`` object
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
         title?: string;
         content?: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<CommentList>;
 }
 import { ItemResource } from "./resource";
+import { Feed } from "./feed";
 import { ListResource } from "./resource";

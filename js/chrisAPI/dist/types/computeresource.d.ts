@@ -17,12 +17,12 @@ export class ComputeResourceList extends ListResource {
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+     * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<FeedList>;
 }
 /**
  * Plugin-specific compute resource list resource object representing a list of
@@ -34,9 +34,11 @@ export class PluginComputeResourceList extends ListResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+     * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number): any;
+    getPlugin(timeout?: number): Promise<Plugin>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";
+import { FeedList } from "./feed";
+import { Plugin } from "./plugin";

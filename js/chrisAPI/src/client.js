@@ -63,7 +63,7 @@ export default class Client {
    * Set the urls of the high level API resources.
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   setUrls(timeout = 30000) {
     return this.getFeeds(null, timeout);
@@ -73,7 +73,7 @@ export default class Client {
    * Get the ChRIS instance resource object.
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ChrisInstance`` object
+   * @return {Promise<ChrisInstance>} - JS Promise, resolves to a ``ChrisInstance`` object
    */
   getChrisInstance(timeout = 30000) {
     return this._fetchRes('chrisInstanceUrl', ChrisInstance, null, timeout);
@@ -95,7 +95,7 @@ export default class Client {
    * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+   * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(searchParams = null, timeout = 30000) {
     const feedList = new FeedList(this.feedsUrl, this.auth);
@@ -129,7 +129,7 @@ export default class Client {
    * @param {number} id - feed id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(id, timeout = 30000) {
     return this.getFeeds({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -142,7 +142,7 @@ export default class Client {
    * @param {number} tag_id - tag id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Tagging`` object
+   * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
    */
   tagFeed(feed_id, tag_id, timeout = 30000) {
     return this.getFeed(feed_id, timeout)
@@ -170,7 +170,7 @@ export default class Client {
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object
+   * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
    */
   getFiles(searchParams = null, timeout = 30000) {
     return this._fetchRes('filesUrl', AllFeedFileList, searchParams, timeout);
@@ -182,7 +182,7 @@ export default class Client {
    * @param {number} id - file id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedFile`` object
+   * @return {Promise<FeedFile>} - JS Promise, resolves to a ``FeedFile`` object
    */
   getFile(id, timeout = 30000) {
     return this.getFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -203,7 +203,7 @@ export default class Client {
    * compute resources associated with the plugin
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object
+   * @return {Promise<ComputeResourceList>} - JS Promise, resolves to a ``ComputeResourceList`` object
    */
   getComputeResources(searchParams = null, timeout = 30000) {
     return this._fetchRes('computeResourcesUrl', ComputeResourceList, searchParams, timeout);
@@ -215,7 +215,7 @@ export default class Client {
    * @param {number} id - compute resource id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
+   * @return {Promise<ComputeResource>} - JS Promise, resolves to a ``ComputeResource`` object
    */
   getComputeResource(id, timeout = 30000) {
     return this.getComputeResources({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -243,7 +243,7 @@ export default class Client {
    * category containing this string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object
+   * @return {Promise<PluginMetaList>} - JS Promise, resolves to a ``PluginMetaList`` object
    */
   getPluginMetas(searchParams = null, timeout = 30000) {
     return this._fetchRes('pluginMetasUrl', PluginMetaList, searchParams, timeout);
@@ -255,7 +255,7 @@ export default class Client {
    * @param {number} id - plugin meta id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
    */
   getPluginMeta(id, timeout = 30000) {
     return this.getPluginMetas({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -285,7 +285,7 @@ export default class Client {
    * with this number
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
    */
   getPlugins(searchParams = null, timeout = 30000) {
     return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);
@@ -297,7 +297,7 @@ export default class Client {
    * @param {number} id - plugin id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(id, timeout = 30000) {
     return this.getPlugins({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -322,7 +322,7 @@ export default class Client {
    * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``AllPluginInstanceList`` object
+   * @return {Promise<AllPluginInstanceList>} - JS Promise, resolves to ``AllPluginInstanceList`` object
    */
   getPluginInstances(searchParams = null, timeout = 30000) {
     return this._fetchRes('pluginInstancesUrl', AllPluginInstanceList, searchParams, timeout);
@@ -334,7 +334,7 @@ export default class Client {
    * @param {number} id - plugin instance id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(id, timeout = 30000) {
     return this.getPluginInstances({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -354,7 +354,7 @@ export default class Client {
    * @param {string} [data.gpu_limit] - gpu limit
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``PluginInstance`` object
+   * @return {Promise<PluginInstance>} - JS Promise, resolves to ``PluginInstance`` object
    */
   createPluginInstance(pluginId, data, timeout = 30000) {
     return this.getPlugin(pluginId, timeout)
@@ -374,7 +374,7 @@ export default class Client {
    * @param {string} [cr_name=''] - remote compute resource name
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``PluginInstanceSplit`` object
+   * @return {Promise<PluginInstanceSplit>} - JS Promise, resolves to ``PluginInstanceSplit`` object
    */
   createPluginInstanceSplit(pluginInstanceId, filter = '', cr_name = '', timeout = 30000) {
     return this.getPluginInstance(pluginInstanceId, timeout)
@@ -407,7 +407,7 @@ export default class Client {
    * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
+   * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
    */
   getPipelines(searchParams = null, timeout = 30000) {
     return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);
@@ -419,7 +419,7 @@ export default class Client {
    * @param {number} id - pipeline id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
+   * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(id, timeout = 30000) {
     return this.getPipelines({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -438,7 +438,7 @@ export default class Client {
    * @param {number} [data.plugin_inst_id] - plugin instance id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``Pipeline`` object
+   * @return {Promise<Pipeline>} - JS Promise, resolves to ``Pipeline`` object
    */
   createPipeline(data, timeout = 30000) {
     const createRes = () => {
@@ -462,7 +462,7 @@ export default class Client {
    * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``AllPipelineInstanceList`` object
+   * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to ``AllPipelineInstanceList`` object
    */
   getPipelineInstances(searchParams = null, timeout = 30000) {
     return this._fetchRes('pipelineInstancesUrl', AllPipelineInstanceList, searchParams, timeout);
@@ -474,7 +474,7 @@ export default class Client {
    * @param {number} id - pipeline instance id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object
+   * @return {Promise<PipelineInstance>} - JS Promise, resolves to a ``PipelineInstance`` object
    */
   getPipelineInstance(id, timeout = 30000) {
     return this.getPipelineInstances({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -490,7 +490,7 @@ export default class Client {
    * @param {string} [data.description] - pipeline description
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``PipelineInstance`` object
+   * @return {Promise<PipelineInstance>} - JS Promise, resolves to ``PipelineInstance`` object
    */
   createPipelineInstance(pipelineId, data, timeout = 30000) {
     return this.getPipeline(pipelineId, timeout)
@@ -518,7 +518,7 @@ export default class Client {
    * @param {string} [searchParams.color] - match plugin color containing this string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``TagList`` object
+   * @return {Promise<TagList>} - JS Promise, resolves to a ``TagList`` object
    */
   getTags(searchParams = null, timeout = 30000) {
     return this._fetchRes('tagsUrl', TagList, searchParams, timeout);
@@ -530,7 +530,7 @@ export default class Client {
    * @param {number} id - tag id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Tag`` object
+   * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
    */
   getTag(id, timeout = 30000) {
     return this.getTags({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -544,7 +544,7 @@ export default class Client {
    * @param {string} [data.name=''] - tag name
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``Tag`` object
+   * @return {Promise<Tag>} - JS Promise, resolves to ``Tag`` object
    */
   createTag(data, timeout = 30000) {
     const createRes = () => {
@@ -570,7 +570,7 @@ export default class Client {
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object
+   * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
    */
   getUploadedFiles(searchParams = null, timeout = 30000) {
     return this._fetchRes('uploadedFilesUrl', UploadedFileList, searchParams, timeout);
@@ -582,7 +582,7 @@ export default class Client {
    * @param {number} id - uploaded file id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to an ``UploadedFile`` object
+   * @return {Promise<UploadedFile>} - JS Promise, resolves to an ``UploadedFile`` object
    */
   getUploadedFile(id, timeout = 30000) {
     return this.getUploadedFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -598,7 +598,7 @@ export default class Client {
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``UploadedFile`` object
+   * @return {Promise<UploadedFile>} - JS Promise, resolves to ``UploadedFile`` object
    */
   uploadFile(data, uploadFileObj, timeout = 30000) {
     const createRes = () => {
@@ -630,7 +630,7 @@ export default class Client {
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PACSFileList`` object
+   * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
    */
   getPACSFiles(searchParams = null, timeout = 30000) {
     return this._fetchRes('pacsFilesUrl', PACSFileList, searchParams, timeout);
@@ -642,7 +642,7 @@ export default class Client {
    * @param {number} id - PACS file id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PACSFile`` object
+   * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
    */
   getPACSFile(id, timeout = 30000) {
     return this.getPACSFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -665,7 +665,7 @@ export default class Client {
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ServiceFileList`` object
+   * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
    */
   getServiceFiles(searchParams = null, timeout = 30000) {
     return this._fetchRes('serviceFilesUrl', ServiceFileList, searchParams, timeout);
@@ -677,7 +677,7 @@ export default class Client {
    * @param {number} id - PACS file id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ServiceFile`` object
+   * @return {Promise<ServiceFile>} - JS Promise, resolves to a ``ServiceFile`` object
    */
   getServiceFile(id, timeout = 30000) {
     return this.getServiceFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
@@ -687,7 +687,7 @@ export default class Client {
    * Get a user resource object for the currently authenticated user.
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``User`` object
+   * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
    */
   getUser(timeout = 30000) {
     return this._fetchRes('userUrl', User, null, timeout);
@@ -702,7 +702,7 @@ export default class Client {
    * @param {string} email - user email
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``User`` object
+   * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
    */
   static createUser(usersUrl, username, password, email, timeout = 30000) {
     const req = new Request(undefined, 'application/vnd.collection+json', timeout);
@@ -732,7 +732,7 @@ export default class Client {
    * @param {string} password - password
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``string`` value
+   * @return {Promise<string>} - JS Promise, resolves to a ``string`` value
    */
   static getAuthToken(authUrl, username, password, timeout = 30000) {
     const req = new Request(undefined, 'application/json', timeout);
@@ -760,7 +760,7 @@ export default class Client {
    * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {
     const getRes = () => {

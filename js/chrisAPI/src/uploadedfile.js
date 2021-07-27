@@ -24,7 +24,7 @@ export class UploadedFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Blob`` object
+   * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
    */
   getFileBlob(timeout = 30000) {
     if (this.isEmpty) {
@@ -45,7 +45,7 @@ export class UploadedFile extends ItemResource {
    * will be uploaded on the storage service
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
@@ -56,7 +56,7 @@ export class UploadedFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -92,7 +92,7 @@ export class UploadedFileList extends ListResource {
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   post(data, uploadFileObj, timeout = 30000) {
     return this._post(data, uploadFileObj, timeout);

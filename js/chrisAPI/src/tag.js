@@ -25,7 +25,7 @@ export class Tag extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``TagFeedList`` object
+   * @return {Promise<TagFeedList>} - JS Promise, resolves to a ``TagFeedList`` object
    */
   getTaggedFeeds(params = null, timeout = 30000) {
     const linkRelation = 'feeds';
@@ -42,7 +42,7 @@ export class Tag extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``TaggingList`` object
+   * @return {Promise<TaggingList>} - JS Promise, resolves to a ``TaggingList`` object
    */
   getTaggings(params = null, timeout = 30000) {
     const linkRelation = 'taggings';
@@ -59,7 +59,7 @@ export class Tag extends ItemResource {
    * @param {string} [data.color] - tag color
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
@@ -70,7 +70,7 @@ export class Tag extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -105,7 +105,7 @@ export class TagList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+   * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(searchParams = null, timeout = 30000) {
     const linkRelation = 'feeds';
@@ -123,7 +123,7 @@ export class TagList extends ListResource {
    * @param {string} [data.color] - tag color
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
@@ -151,7 +151,7 @@ export class Tagging extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Tag`` object
+   * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
    */
   getTag(timeout = 30000) {
     const linkRelation = 'tag';
@@ -165,7 +165,7 @@ export class Tagging extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -179,7 +179,7 @@ export class Tagging extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -210,7 +210,7 @@ export class TagTaggingList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Tag`` object
+   * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
    */
   getTag(timeout = 30000) {
     const linkRelation = 'tag';
@@ -227,7 +227,7 @@ export class TagTaggingList extends ListResource {
    * @param {string} data.feed_id - id of the feed to be tagged
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
@@ -258,7 +258,7 @@ export class FeedTaggingList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -275,7 +275,7 @@ export class FeedTaggingList extends ListResource {
    * @param {string} data.tag_id - id of the tag to be used to tag the feed
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
@@ -306,7 +306,7 @@ export class TagFeedList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Tag`` object
+   * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
    */
   getTag(timeout = 30000) {
     const linkRelation = 'tag';
@@ -340,7 +340,7 @@ export class FeedTagList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';

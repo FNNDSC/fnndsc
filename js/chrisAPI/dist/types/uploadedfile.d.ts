@@ -7,9 +7,9 @@ export class UploadedFile extends ItemResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``Blob`` object
+     * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      */
-    getFileBlob(timeout?: number): any;
+    getFileBlob(timeout?: number): Promise<Blob>;
     /**
      * Make a PUT request to modify this uploaded file item resource through the REST API.
      *
@@ -18,19 +18,19 @@ export class UploadedFile extends ItemResource {
      * will be uploaded on the storage service
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``this`` object
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
         upload_path: string;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<UploadedFile>;
     /**
      * Make a DELETE request to delete this uploaded file item resource through the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise
+     * @return {Promise} - JS Promise
      */
-    delete(timeout?: number): any;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Uploaded file list resource object representing a list of a user's uploaded files.
@@ -47,11 +47,11 @@ export class UploadedFileList extends ListResource {
      * @param {Object} uploadFileObj.fname - file blob
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to ``this`` object
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
         upload_path: string;
-    }, uploadFileObj: any | null, timeout?: number): any;
+    }, uploadFileObj: any | null, timeout?: number): Promise<UploadedFileList>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

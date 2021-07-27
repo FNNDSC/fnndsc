@@ -20,12 +20,12 @@ export class PluginMeta extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginMetaPluginList`` object
+     * @return {Promise<PluginMetaPluginList>} - JS Promise, resolves to a ``PluginMetaPluginList`` object
      */
     getPlugins(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginMetaPluginList>;
 }
 /**
  * Plugin meta list resource object representing a list of plugin metas.
@@ -51,12 +51,12 @@ export class PluginMetaList extends ListResource {
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+     * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginList>;
     /**
      * Fetch a list of feeds from the REST API.
      *
@@ -67,12 +67,15 @@ export class PluginMetaList extends ListResource {
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+     * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<FeedList>;
 }
 import { ItemResource } from "./resource";
+import { PluginMetaPluginList } from "./plugin";
 import { ListResource } from "./resource";
+import { PluginList } from "./plugin";
+import { FeedList } from "./feed";

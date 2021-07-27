@@ -10,12 +10,12 @@ export class Plugin extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object
+     * @return {Promise<PluginParameterList>} - JS Promise, resolves to a ``PluginParameterList`` object
      */
     getPluginParameters(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginParameterList>;
     /**
      * Fetch a list of compute resources registered with this plugin from the REST
      * API.
@@ -25,12 +25,12 @@ export class Plugin extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginComputeResourceList`` object
+     * @return {Promise<PluginComputeResourceList>} - JS Promise, resolves to a ``PluginComputeResourceList`` object
      */
     getPluginComputeResources(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginComputeResourceList>;
     /**
      * Fetch a list of plugin instances associated to this plugin from the REST API.
      *
@@ -39,12 +39,12 @@ export class Plugin extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object
+     * @return {Promise<PluginInstanceList>} - JS Promise, resolves to a ``PluginInstanceList`` object
      */
     getPluginInstances(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<PluginInstanceList>;
 }
 /**
  * Plugin list resource object representing a list of plugins.
@@ -60,12 +60,12 @@ export class PluginList extends ListResource {
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+     * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): any;
+    }, timeout?: number): Promise<FeedList>;
 }
 /**
  * Plugin meta-specific plugin list resource object representing a list of
@@ -88,9 +88,14 @@ export class PluginMetaPluginList extends ListResource {
      *
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+     * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
      */
-    getPluginMeta(timeout?: number): any;
+    getPluginMeta(timeout?: number): Promise<PluginMeta>;
 }
 import { ItemResource } from "./resource";
+import { PluginParameterList } from "./pluginparameter";
+import { PluginComputeResourceList } from "./computeresource";
+import { PluginInstanceList } from "./plugininstance";
 import { ListResource } from "./resource";
+import { FeedList } from "./feed";
+import { PluginMeta } from "./pluginmeta";
