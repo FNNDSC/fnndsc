@@ -5,11 +5,11 @@ export default class Request {
     /**
      * Internal method to make an axios request.
      *
-     * @param {Object} config - axios configuration object
+     * @param {AxiosRequestConfig} config - axios configuration object
      *
      * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
      */
-    static _callAxios(config: any): Promise<AxiosResponse>;
+    static _callAxios(config: AxiosRequestConfig): Promise<AxiosResponse>;
     /**
      * Internal method to handle errors produced by HTTP requests.
      *
@@ -98,8 +98,9 @@ export default class Request {
      * @param {string} url - url of the resource
      * @param {string} method - request verb
      *
-     * @return {Object} - axios configuration object
+     * @return {AxiosRequestConfig} - axios configuration object
      */
-    _getConfig(url: string, method: string): any;
+    _getConfig(url: string, method: string): AxiosRequestConfig;
 }
 import { AxiosResponse } from "axios";
+import { AxiosRequestConfig } from "axios";

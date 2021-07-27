@@ -7,7 +7,7 @@ export class Resource {
      *
      * @param {Object} obj - object to be cloned
      *
-     * @return {Object} - clone object
+     * @return {*} - clone object
      */
     static cloneObj(obj: any): any;
     /**
@@ -37,9 +37,9 @@ export class Resource {
     /**
      * Make a deep copy clone of this object resource.
      *
-     * @return {Object} - clone object
+     * @return {Resource} - clone object
      */
-    clone(): any;
+    clone(): Resource;
 }
 /**
  * API abstract item resource class.
