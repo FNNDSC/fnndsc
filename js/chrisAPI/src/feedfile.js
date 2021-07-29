@@ -26,7 +26,7 @@ export class FeedFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Blob`` object
+   * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
    * @throws {RequestException} throw error if this item resource has not yet been
    * fetched from the REST API
    */
@@ -46,7 +46,7 @@ export class FeedFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = 'plugin_inst';
@@ -79,7 +79,7 @@ export class FeedFileList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -133,7 +133,7 @@ export class PluginInstanceFileList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -147,7 +147,7 @@ export class PluginInstanceFileList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = 'plugin_inst';

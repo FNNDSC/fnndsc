@@ -1,5 +1,5 @@
 /** * Imports ***/
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 import Collection from './cj';
 import RequestException from './exception';
 
@@ -32,7 +32,7 @@ export default class Request {
    * @param {string} url - url of the resource
    * @param {?Object} params - search parameters
    *
-   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
    */
   get(url, params = null) {
     const config = this._getConfig(url, 'get');
@@ -52,7 +52,7 @@ export default class Request {
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
    *
-   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
    */
   post(url, data, uploadFileObj = null) {
     return this._postOrPut('post', url, data, uploadFileObj);
@@ -66,7 +66,7 @@ export default class Request {
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
    *
-   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
    */
   put(url, data, uploadFileObj = null) {
     return this._postOrPut('put', url, data, uploadFileObj);
@@ -77,7 +77,7 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    *
-   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
    */
   delete(url) {
     const config = this._getConfig(url, 'delete');
@@ -94,7 +94,7 @@ export default class Request {
    * @param {?Object} uploadFileObj - custom object with a property with the same name as
    * the API descriptor corresponding to the file and whose value is the file blob
    *
-   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
    */
   _postOrPut(requestMethod, url, data, uploadFileObj = null) {
     const config = this._getConfig(url, requestMethod);
@@ -126,7 +126,7 @@ export default class Request {
    * @param {string} url - url of the resource
    * @param {string} method - request verb
    *
-   * @return {Object} - axios configuration object
+   * @return {AxiosRequestConfig} - axios configuration object
    */
   _getConfig(url, method) {
     const config = {
@@ -155,9 +155,9 @@ export default class Request {
   /**
    * Internal method to make an axios request.
    *
-   * @param {Object} config - axios configuration object
+   * @param {AxiosRequestConfig} config - axios configuration object
    *
-   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
    */
   static _callAxios(config) {
     return axios(config)

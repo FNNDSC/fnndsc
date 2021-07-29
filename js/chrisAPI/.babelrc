@@ -2,7 +2,15 @@
   "presets": [
     [
       "@babel/preset-env", {
-        "useBuiltIns": "usage"
+        "useBuiltIns": "usage",
+        "corejs": "3",
+        "targets": {
+          "node": "8.10",
+          "browsers": [
+            "last 2 versions",
+            "ie >= 11"
+          ]
+        }
       }
     ]
   ]

@@ -29,7 +29,7 @@ export class Plugin extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object
+   * @return {Promise<PluginParameterList>} - JS Promise, resolves to a ``PluginParameterList`` object
    */
   getPluginParameters(params = null, timeout = 30000) {
     const linkRelation = 'parameters';
@@ -47,7 +47,7 @@ export class Plugin extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginComputeResourceList`` object
+   * @return {Promise<PluginComputeResourceList>} - JS Promise, resolves to a ``PluginComputeResourceList`` object
    */
   getPluginComputeResources(params = null, timeout = 30000) {
     const linkRelation = 'compute_resources';
@@ -64,7 +64,7 @@ export class Plugin extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstanceList`` object
+   * @return {Promise<PluginInstanceList>} - JS Promise, resolves to a ``PluginInstanceList`` object
    */
   getPluginInstances(params = null, timeout = 30000) {
     const linkRelation = 'instances';
@@ -102,7 +102,7 @@ export class PluginList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+   * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(searchParams = null, timeout = 30000) {
     const linkRelation = 'feeds';
@@ -137,7 +137,7 @@ export class PluginMetaPluginList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
+   * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
    */
   getPluginMeta(timeout = 30000) {
     const linkRelation = 'meta';

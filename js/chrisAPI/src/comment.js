@@ -22,7 +22,7 @@ export class Comment extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -39,7 +39,7 @@ export class Comment extends ItemResource {
    * @param {string} [data.content] - content of the comment
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
@@ -50,7 +50,7 @@ export class Comment extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -80,7 +80,7 @@ export class CommentList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
@@ -98,7 +98,7 @@ export class CommentList extends ListResource {
    * @param {string} [data.content] - content of the comment
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);

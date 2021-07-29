@@ -47,7 +47,7 @@ export class ComputeResourceList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+   * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(searchParams = null, timeout = 30000) {
     const linkRelation = 'feeds';
@@ -81,7 +81,7 @@ export class PluginComputeResourceList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = 'plugin';
