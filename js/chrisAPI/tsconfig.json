@@ -2,6 +2,7 @@
   "include": ["./src/**/*"],
   "exclude": ["./src/**/*.test.js"],
   "compilerOptions": {
+    "module": "CommonJS",
     // Tells TypeScript to read JS files, as
     // normally they are ignored as source files
     "allowJs": true,
@@ -12,6 +13,6 @@
     // Types should go into this directory.
     // Removing this would place the .d.ts files
     // next to the .js files
-    "outFile": "./dist/index.d.ts"
+    "outFile": "./dist/types.d.ts"
   }
 }
