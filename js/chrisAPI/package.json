@@ -5,7 +5,7 @@
   "main": "dist/chrisapi.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc && webpack",
+    "build": "tsc && sed -i -e \"s\/module \\\"index\\\"\/module \\\"\\@fnndsc\\\/chrisapi\\\"\/g\" dist/index.d.ts && webpack",
     "precommit": "lint-staged",
     "start": "karma start",
     "test": "karma start --single-run",
