@@ -3,7 +3,7 @@
   "version": "1.5.2",
   "description": "JavaScript6 client for the ChRIS API",
   "main": "dist/chrisapi.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rm -rf ./dist && tsc && webpack",
     "precommit": "lint-staged",
