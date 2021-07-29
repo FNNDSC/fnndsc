@@ -123,7 +123,7 @@ export class PluginMeta extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginMetaPluginList`` object
+   * @return {Promise&lt;PluginMetaPluginList&gt;} - JS Promise, resolves to a ``PluginMetaPluginList`` object
    */
   getPlugins(params = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
@@ -161,7 +161,7 @@ export class PluginMetaList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   * @return {Promise&lt;PluginList&gt;} - JS Promise, resolves to a ``PluginList`` object
    */
   getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
@@ -180,7 +180,7 @@ export class PluginMetaList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedList`` object
+   * @return {Promise&lt;FeedList&gt;} - JS Promise, resolves to a ``FeedList`` object
    */
   getFeeds(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;feeds&apos;;

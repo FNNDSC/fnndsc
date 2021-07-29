@@ -122,7 +122,7 @@ export default class User extends ItemResource {
    * @param {string} data.email - user email
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);

@@ -121,7 +121,7 @@ export class PACSFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Blob`` object
+   * @return {Promise&lt;Blob&gt;} - JS Promise, resolves to a ``Blob`` object
    */
   getFileBlob(timeout = 30000) {
     if (this.isEmpty) {

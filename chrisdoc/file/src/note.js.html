@@ -121,7 +121,7 @@ export default class Note extends ItemResource {
    * @param {string} [data.content] - content of the comment
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);

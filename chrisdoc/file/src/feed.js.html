@@ -120,7 +120,7 @@ export class Feed extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Note`` object
+   * @return {Promise&lt;Note&gt;} - JS Promise, resolves to a ``Note`` object
    */
   getNote(timeout = 30000) {
     const linkRelation = &apos;note&apos;;
@@ -137,7 +137,7 @@ export class Feed extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedTagList`` object
+   * @return {Promise&lt;FeedTagList&gt;} - JS Promise, resolves to a ``FeedTagList`` object
    */
   getTags(params = null, timeout = 30000) {
     const linkRelation = &apos;tags&apos;;
@@ -154,7 +154,7 @@ export class Feed extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedTaggingList`` object
+   * @return {Promise&lt;FeedTaggingList&gt;} - JS Promise, resolves to a ``FeedTaggingList`` object
    */
   getTaggings(params = null, timeout = 30000) {
     const linkRelation = &apos;taggings&apos;;
@@ -172,7 +172,7 @@ export class Feed extends ItemResource {
    * @param {number} [searchParams.id] - match comment id exactly with this number
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``CommentList`` object
+   * @return {Promise&lt;CommentList&gt;} - JS Promise, resolves to a ``CommentList`` object
    */
   getComments(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;comments&apos;;
@@ -187,7 +187,7 @@ export class Feed extends ItemResource {
    * @param {number} id - comment id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Comment`` object
+   * @return {Promise&lt;Comment&gt;} - JS Promise, resolves to a ``Comment`` object
    */
   getComment(id, timeout = 30000) {
     return this.getComments({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
@@ -201,7 +201,7 @@ export class Feed extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedFileList`` object
+   * @return {Promise&lt;FeedFileList&gt;} - JS Promise, resolves to a ``FeedFileList`` object
    */
   getFiles(params = null, timeout = 30000) {
     const linkRelation = &apos;files&apos;;
@@ -218,7 +218,7 @@ export class Feed extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``FeedPluginInstanceList`` object
+   * @return {Promise&lt;FeedPluginInstanceList&gt;} - JS Promise, resolves to a ``FeedPluginInstanceList`` object
    */
   getPluginInstances(params = null, timeout = 30000) {
     const linkRelation = &apos;plugin_instances&apos;;
@@ -233,7 +233,7 @@ export class Feed extends ItemResource {
    * @param {number} tag_id - tag id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Tagging`` object
+   * @return {Promise&lt;Tagging&gt;} - JS Promise, resolves to a ``Tagging`` object
    */
   tagFeed(tag_id, timeout = 30000) {
     return this.getTaggings(timeout)
@@ -249,7 +249,7 @@ export class Feed extends ItemResource {
    * @param {string} [data.owner] - username to be added to the list of this feed&apos;s owners
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
@@ -260,7 +260,7 @@ export class Feed extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -295,7 +295,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``AllFeedFileList`` object
+   * @return {Promise&lt;AllFeedFileList&gt;} - JS Promise, resolves to a ``AllFeedFileList`` object
    */
   getFiles(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;files&apos;;
@@ -314,7 +314,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ComputeResourceList`` object
+   * @return {Promise&lt;ComputeResourceList&gt;} - JS Promise, resolves to a ``ComputeResourceList`` object
    */
   getComputeResources(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;compute_resources&apos;;
@@ -333,7 +333,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   * @return {Promise&lt;PluginList&gt;} - JS Promise, resolves to a ``PluginList`` object
    */
   getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
@@ -352,7 +352,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``AllPluginInstanceList`` object
+   * @return {Promise&lt;AllPluginInstanceList&gt;} - JS Promise, resolves to a ``AllPluginInstanceList`` object
    */
   getPluginInstances(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;plugin_instances&apos;;
@@ -371,7 +371,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
+   * @return {Promise&lt;PipelineList&gt;} - JS Promise, resolves to a ``PipelineList`` object
    */
   getPipelines(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;pipelines&apos;;
@@ -390,7 +390,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``AllPipelineInstanceList`` object
+   * @return {Promise&lt;AllPipelineInstanceList&gt;} - JS Promise, resolves to a ``AllPipelineInstanceList`` object
    */
   getPipelineInstances(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;pipeline_instances&apos;;
@@ -409,7 +409,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``TagList`` object
+   * @return {Promise&lt;TagList&gt;} - JS Promise, resolves to a ``TagList`` object
    */
   getTags(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;tags&apos;;
@@ -428,7 +428,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``UploadedFileList`` object
+   * @return {Promise&lt;UploadedFileList&gt;} - JS Promise, resolves to a ``UploadedFileList`` object
    */
   getUploadedFiles(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;uploadedfiles&apos;;
@@ -447,7 +447,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PACSFileList`` object
+   * @return {Promise&lt;PACSFileList&gt;} - JS Promise, resolves to a ``PACSFileList`` object
    */
   getPACSFiles(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;pacsfiles&apos;;
@@ -466,7 +466,7 @@ export class FeedList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ServiceFileList`` object
+   * @return {Promise&lt;ServiceFileList&gt;} - JS Promise, resolves to a ``ServiceFileList`` object
    */
   getServiceFiles(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;servicefiles&apos;;
@@ -480,7 +480,7 @@ export class FeedList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``User`` object
+   * @return {Promise&lt;User&gt;} - JS Promise, resolves to a ``User`` object
    */
   getUser(timeout = 30000) {
     const linkRelation = &apos;user&apos;;

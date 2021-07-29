@@ -119,7 +119,7 @@ export class PluginParameter extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise&lt;Plugin&gt;} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = &apos;plugin&apos;;
@@ -152,7 +152,7 @@ export class PluginParameterList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise&lt;Plugin&gt;} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = &apos;plugin&apos;;

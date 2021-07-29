@@ -125,7 +125,7 @@ export class PluginInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object or ``null``
+   * @return {Promise&lt;Feed|null&gt;} - JS Promise, resolves to a ``Feed`` object or ``null``
    */
   getFeed(timeout = 30000) {
     const linkRelation = &apos;feed&apos;;
@@ -144,7 +144,7 @@ export class PluginInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise&lt;Plugin&gt;} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = &apos;plugin&apos;;
@@ -158,7 +158,7 @@ export class PluginInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``ComputeResource`` object
+   * @return {Promise&lt;ComputeResource&gt;} - JS Promise, resolves to a ``ComputeResource`` object
    */
   getComputeResource(timeout = 30000) {
     const linkRelation = &apos;compute_resource&apos;;
@@ -173,7 +173,7 @@ export class PluginInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object or ``null``
+   * @return {Promise&lt;PluginInstance|null&gt;} - JS Promise, resolves to a ``PluginInstance`` object or ``null``
    */
   getPreviousPluginInstance(timeout = 30000) {
     const linkRelation = &apos;previous&apos;;
@@ -193,7 +193,7 @@ export class PluginInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelineInstance`` object or ``null``
+   * @return {Promise&lt;PipelineInstance|null&gt;} - JS Promise, resolves to a ``PipelineInstance`` object or ``null``
    */
   getPipelineInstance(timeout = 30000) {
     const linkRelation = &apos;pipeline_inst&apos;;
@@ -217,7 +217,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object
+   * @return {Promise&lt;PluginInstanceDescendantList&gt;} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object
    */
   getDescendantPluginInstances(params = null, timeout = 30000) {
     const linkRelation = &apos;descendants&apos;;
@@ -235,7 +235,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstanceParameterList`` object
+   * @return {Promise&lt;PluginInstanceParameterList&gt;} - JS Promise, resolves to a ``PluginInstanceParameterList`` object
    */
   getParameters(params = null, timeout = 30000) {
     const linkRelation = &apos;parameters&apos;;
@@ -252,7 +252,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstanceFileList`` object
+   * @return {Promise&lt;PluginInstanceFileList&gt;} - JS Promise, resolves to a ``PluginInstanceFileList`` object
    */
   getFiles(params = null, timeout = 30000) {
     const linkRelation = &apos;files&apos;;
@@ -270,7 +270,7 @@ export class PluginInstance extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstanceSplitList`` object
+   * @return {Promise&lt;PluginInstanceSplitList&gt;} - JS Promise, resolves to a ``PluginInstanceSplitList`` object
    */
   getSplits(params = null, timeout = 30000) {
     const linkRelation = &apos;splits&apos;;
@@ -287,7 +287,7 @@ export class PluginInstance extends ItemResource {
    * @param {string} [data.status] - execution status of the plugin instance (eg. `cancelled`)
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
@@ -298,7 +298,7 @@ export class PluginInstance extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -329,7 +329,7 @@ export class PluginInstanceList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise&lt;Plugin&gt;} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = &apos;plugin&apos;;
@@ -347,7 +347,7 @@ export class PluginInstanceList extends ListResource {
    * resource object
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
@@ -383,7 +383,7 @@ export class AllPluginInstanceList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   * @return {Promise&lt;PluginList&gt;} - JS Promise, resolves to a ``PluginList`` object
    */
   getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
@@ -418,7 +418,7 @@ export class FeedPluginInstanceList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise&lt;Feed&gt;} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(timeout = 30000) {
     const linkRelation = &apos;feed&apos;;
@@ -489,7 +489,7 @@ export class PluginInstanceSplit extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Promise&lt;PluginInstance&gt;} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = &apos;plugin_inst&apos;;
@@ -523,7 +523,7 @@ export class PluginInstanceSplitList extends ListResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Promise&lt;PluginInstance&gt;} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = &apos;plugin_inst&apos;;
@@ -541,7 +541,7 @@ export class PluginInstanceSplitList extends ListResource {
    * @param {string} [data.compute_resource_name] - remote compute resource name
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
@@ -569,7 +569,7 @@ export class PluginInstanceParameter extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Promise&lt;PluginInstance&gt;} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(timeout = 30000) {
     const linkRelation = &apos;plugin_inst&apos;;
@@ -584,7 +584,7 @@ export class PluginInstanceParameter extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object
+   * @return {Promise&lt;PluginParameter&gt;} - JS Promise, resolves to a ``PluginParameter`` object
    */
   getPluginParameter(timeout = 30000) {
     const linkRelation = &apos;plugin_param&apos;;

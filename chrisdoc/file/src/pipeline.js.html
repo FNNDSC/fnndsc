@@ -124,7 +124,7 @@ export class Pipeline extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePluginList`` object
+   * @return {Promise&lt;PipelinePluginList&gt;} - JS Promise, resolves to a ``PipelinePluginList`` object
    */
   getPlugins(params = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
@@ -141,7 +141,7 @@ export class Pipeline extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
+   * @return {Promise&lt;PipelinePluginPipingList&gt;} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
    */
   getPluginPipings(params = null, timeout = 30000) {
     const linkRelation = &apos;plugin_pipings&apos;;
@@ -159,7 +159,7 @@ export class Pipeline extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
+   * @return {Promise&lt;PipelinePipingDefaultParameterList&gt;} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
    */
   getDefaultParameters(params = null, timeout = 30000) {
     const linkRelation = &apos;default_parameters&apos;;
@@ -177,7 +177,7 @@ export class Pipeline extends ItemResource {
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PipelineInstanceList`` object
+   * @return {Promise&lt;PipelineInstanceList&gt;} - JS Promise, resolves to a ``PipelineInstanceList`` object
    */
   getPipelineInstances(params = null, timeout = 30000) {
     const linkRelation = &apos;instances&apos;;
@@ -197,7 +197,7 @@ export class Pipeline extends ItemResource {
    * @param {boolean} [data.locked] - pipeline lock status
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
@@ -208,7 +208,7 @@ export class Pipeline extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise
+   * @return {Promise} - JS Promise
    */
   delete(timeout = 30000) {
     return this._delete(timeout);
@@ -243,7 +243,7 @@ export class PipelineList extends ListResource {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   * @return {Promise&lt;PluginList&gt;} - JS Promise, resolves to a ``PluginList`` object
    */
   getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
@@ -266,7 +266,7 @@ export class PipelineList extends ListResource {
    * @param {number} [data.plugin_inst_id] - plugin instance id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to ``this`` object
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
@@ -295,7 +295,7 @@ export class PluginPiping extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object or ``null``
+   * @return {Promise&lt;PluginPiping|null&gt;} - JS Promise, resolves to a ``PluginPiping`` object or ``null``
    */
   getPreviousPluginPiping(timeout = 30000) {
     const linkRelation = &apos;previous&apos;;
@@ -313,7 +313,7 @@ export class PluginPiping extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise&lt;Plugin&gt;} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(timeout = 30000) {
     const linkRelation = &apos;plugin&apos;;
@@ -327,7 +327,7 @@ export class PluginPiping extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
+   * @return {Promise&lt;Pipeline&gt;} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(timeout = 30000) {
     const linkRelation = &apos;pipeline&apos;;
@@ -359,7 +359,7 @@ export class PipingDefaultParameter extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object
+   * @return {Promise&lt;PluginPiping&gt;} - JS Promise, resolves to a ``PluginPiping`` object
    */
   getPluginPiping(timeout = 30000) {
     const linkRelation = &apos;plugin_piping&apos;;
@@ -374,7 +374,7 @@ export class PipingDefaultParameter extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object
+   * @return {Promise&lt;PluginParameter&gt;} - JS Promise, resolves to a ``PluginParameter`` object
    */
   getPluginParameter(timeout = 30000) {
     const linkRelation = &apos;plugin_param&apos;;
