@@ -108,7 +108,7 @@ export default class Client {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(id: number, timeout?: number): Promise<any>;
+    getFeed(id: number, timeout?: number): Promise<Feed>;
     /**
      * Tag a feed given its id and the id of the tag.
      *
@@ -118,7 +118,7 @@ export default class Client {
      *
      * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
      */
-    tagFeed(feed_id: number, tag_id: number, timeout?: number): Promise<any>;
+    tagFeed(feed_id: number, tag_id: number, timeout?: number): Promise<Tagging>;
     /**
      * Get a paginated list of files written to any user-owned feed from the REST
      * API given query search parameters. If no search parameters then get the
@@ -160,7 +160,7 @@ export default class Client {
      *
      * @return {Promise<FeedFile>} - JS Promise, resolves to a ``FeedFile`` object
      */
-    getFile(id: number, timeout?: number): Promise<any>;
+    getFile(id: number, timeout?: number): Promise<FeedFile>;
     /**
      * Get a paginated list of compute resources from the REST API given query
      * search parameters. If no search parameters then get the default first page.
@@ -195,7 +195,7 @@ export default class Client {
      *
      * @return {Promise<ComputeResource>} - JS Promise, resolves to a ``ComputeResource`` object
      */
-    getComputeResource(id: number, timeout?: number): Promise<any>;
+    getComputeResource(id: number, timeout?: number): Promise<ComputeResource>;
     /**
      * Get a paginated list of plugin metas from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -243,7 +243,7 @@ export default class Client {
      *
      * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
      */
-    getPluginMeta(id: number, timeout?: number): Promise<any>;
+    getPluginMeta(id: number, timeout?: number): Promise<PluginMeta>;
     /**
      * Get a paginated list of plugins from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -339,7 +339,7 @@ export default class Client {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(id: number, timeout?: number): Promise<any>;
+    getPluginInstance(id: number, timeout?: number): Promise<PluginInstance>;
     /**
      * Create a new plugin instance resource through the REST API.
      *
@@ -364,7 +364,7 @@ export default class Client {
         memory_limit?: string;
         number_of_workers?: string;
         gpu_limit?: string;
-    }, timeout?: number): Promise<any>;
+    }, timeout?: number): Promise<PluginInstance>;
     /**
      * Create a new plugin instance split resource through the REST API.
      *
@@ -375,7 +375,7 @@ export default class Client {
      *
      * @return {Promise<PluginInstanceSplit>} - JS Promise, resolves to ``PluginInstanceSplit`` object
      */
-    createPluginInstanceSplit(pluginInstanceId: number, filter?: string, cr_name?: string, timeout?: number): Promise<any>;
+    createPluginInstanceSplit(pluginInstanceId: number, filter?: string, cr_name?: string, timeout?: number): Promise<PluginInstanceSplit>;
     /**
      * Get a paginated list of pipelines from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -415,7 +415,7 @@ export default class Client {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(id: number, timeout?: number): Promise<any>;
+    getPipeline(id: number, timeout?: number): Promise<Pipeline>;
     /**
      * Create a new pipeline resource through the REST API.
      *
@@ -439,7 +439,7 @@ export default class Client {
         locked?: boolean;
         plugin_tree?: string;
         plugin_inst_id?: number;
-    }, timeout?: number): Promise<any>;
+    }, timeout?: number): Promise<Pipeline>;
     /**
      * Get a paginated list of pipeline instances from the REST API given
      * query search parameters. If no search parameters then get the default
@@ -472,7 +472,7 @@ export default class Client {
      *
      * @return {Promise<PipelineInstance>} - JS Promise, resolves to a ``PipelineInstance`` object
      */
-    getPipelineInstance(id: number, timeout?: number): Promise<any>;
+    getPipelineInstance(id: number, timeout?: number): Promise<PipelineInstance>;
     /**
      * Create a new pipeline instance resource through the REST API.
      *
@@ -489,7 +489,7 @@ export default class Client {
         previous_plugin_inst_id: number;
         title?: string;
         description?: string;
-    }, timeout?: number): Promise<any>;
+    }, timeout?: number): Promise<PipelineInstance>;
     /**
      * Get a paginated list of tags from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -521,7 +521,7 @@ export default class Client {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(id: number, timeout?: number): Promise<any>;
+    getTag(id: number, timeout?: number): Promise<Tag>;
     /**
      * Create a new tag resource through the REST API.
      *
@@ -535,7 +535,7 @@ export default class Client {
     createTag(data: {
         color: string;
         name?: string;
-    }, timeout?: number): Promise<any>;
+    }, timeout?: number): Promise<Tag>;
     /**
      * Get a paginated list of uploaded files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -573,7 +573,7 @@ export default class Client {
      *
      * @return {Promise<UploadedFile>} - JS Promise, resolves to an ``UploadedFile`` object
      */
-    getUploadedFile(id: number, timeout?: number): Promise<any>;
+    getUploadedFile(id: number, timeout?: number): Promise<UploadedFile>;
     /**
      * Upload a file and create a new uploaded file resource through the REST API.
      *
@@ -588,7 +588,7 @@ export default class Client {
      */
     uploadFile(data: {
         upload_path: string;
-    }, uploadFileObj: any | null, timeout?: number): Promise<any>;
+    }, uploadFileObj: any | null, timeout?: number): Promise<UploadedFile>;
     /**
      * Get a paginated list of PACS files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -638,7 +638,7 @@ export default class Client {
      *
      * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
      */
-    getPACSFile(id: number, timeout?: number): Promise<any>;
+    getPACSFile(id: number, timeout?: number): Promise<PACSFile>;
     /**
      * Get a paginated list of files for an unregistered service from the REST API given
      * query search parameters. If no search parameters then get the default first page.
@@ -678,7 +678,7 @@ export default class Client {
      *
      * @return {Promise<ServiceFile>} - JS Promise, resolves to a ``ServiceFile`` object
      */
-    getServiceFile(id: number, timeout?: number): Promise<any>;
+    getServiceFile(id: number, timeout?: number): Promise<ServiceFile>;
     /**
      * Get a user resource object for the currently authenticated user.
      * @param {number} [timeout=30000] - request timeout
@@ -700,15 +700,29 @@ export default class Client {
 }
 import ChrisInstance from "./chrisinstance";
 import { FeedList } from "./feed";
+import { Feed } from "./feed";
+import { Tagging } from "./tag";
 import { AllFeedFileList } from "./feedfile";
+import { FeedFile } from "./feedfile";
 import { ComputeResourceList } from "./computeresource";
+import { ComputeResource } from "./computeresource";
 import { PluginMetaList } from "./pluginmeta";
+import { PluginMeta } from "./pluginmeta";
 import { PluginList } from "./plugin";
+import { Plugin } from "./plugin";
 import { AllPluginInstanceList } from "./plugininstance";
+import { PluginInstance } from "./plugininstance";
+import { PluginInstanceSplit } from "./plugininstance";
 import { PipelineList } from "./pipeline";
+import { Pipeline } from "./pipeline";
 import { AllPipelineInstanceList } from "./pipelineinstance";
+import { PipelineInstance } from "./pipelineinstance";
 import { TagList } from "./tag";
+import { Tag } from "./tag";
 import { UploadedFileList } from "./uploadedfile";
+import { UploadedFile } from "./uploadedfile";
 import { PACSFileList } from "./pacsfile";
+import { PACSFile } from "./pacsfile";
 import { ServiceFileList } from "./servicefile";
+import { ServiceFile } from "./servicefile";
 import User from "./user";

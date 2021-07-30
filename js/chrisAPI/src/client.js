@@ -3,22 +3,28 @@ import ChrisInstance from './chrisinstance';
 import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
-import { FeedList } from './feed';
-import { AllFeedFileList } from './feedfile';
-import { ComputeResourceList } from './computeresource';
-import { PluginMetaList } from './pluginmeta';
-import { PluginList } from './plugin';
+import { FeedList, Feed } from './feed';
+import { AllFeedFileList, FeedFile } from './feedfile';
+import { ComputeResourceList, ComputeResource } from './computeresource';
+import { PluginMetaList, PluginMeta } from './pluginmeta';
+import { PluginList, Plugin } from './plugin';
 import {
   AllPluginInstanceList,
   PluginInstanceList,
+  PluginInstance,
   PluginInstanceSplitList,
+  PluginInstanceSplit,
 } from './plugininstance';
-import { AllPipelineInstanceList, PipelineInstanceList } from './pipelineinstance';
-import { PipelineList } from './pipeline';
-import { TagList } from './tag';
-import { UploadedFileList } from './uploadedfile';
-import { PACSFileList } from './pacsfile';
-import { ServiceFileList } from './servicefile';
+import {
+  AllPipelineInstanceList,
+  PipelineInstanceList,
+  PipelineInstance
+} from './pipelineinstance';
+import { PipelineList, Pipeline } from './pipeline';
+import { TagList, Tag, Tagging } from './tag';
+import { UploadedFileList, UploadedFile } from './uploadedfile';
+import { PACSFileList, PACSFile } from './pacsfile';
+import { ServiceFileList, ServiceFile } from './servicefile';
 import User from './user';
 
 /**
