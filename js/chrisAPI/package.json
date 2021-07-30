@@ -1,11 +1,11 @@
 {
   "name": "@fnndsc/chrisapi",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "JavaScript6 client for the ChRIS API",
   "main": "dist/chrisapi.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf ./dist && tsc && webpack",
+    "build": "tsc && webpack",
     "precommit": "lint-staged",
     "start": "karma start",
     "test": "karma start --single-run",
