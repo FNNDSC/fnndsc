@@ -7,7 +7,7 @@ import { FeedList } from './feed';
 import { AllFeedFileList } from './feedfile';
 import { ComputeResourceList } from './computeresource';
 import { PluginMetaList } from './pluginmeta';
-import { PluginList } from './plugin';
+import { PluginList, Plugin } from './plugin';
 import {
   AllPluginInstanceList,
   PluginInstanceList,
