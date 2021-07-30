@@ -24,12 +24,12 @@ export class Tag extends ItemResource {
      * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<TaggingList>} - JS Promise, resolves to a ``TaggingList`` object
+     * @return {Promise<TagTaggingList>} - JS Promise, resolves to a ``TagTaggingList`` object
      */
     getTaggings(params?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): Promise<any>;
+    }, timeout?: number): Promise<TagTaggingList>;
     /**
      * Make a PUT request to modify this tag item resource through the REST API.
      *
