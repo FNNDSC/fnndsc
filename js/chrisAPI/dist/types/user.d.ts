@@ -3,16 +3,6 @@
  */
 export default class User extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Make a PUT request to modify this user item resource through the REST API.
      *
      * @param {Object} data - request JSON data object
@@ -25,6 +15,6 @@ export default class User extends ItemResource {
     put(data: {
         password: string;
         email: string;
-    }, timeout?: number): Promise<this>;
+    }, timeout?: number): Promise<User>;
 }
 import { ItemResource } from "./resource";

@@ -91,14 +91,14 @@ export default class Client {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        min_id: number;
-        max_id: number;
-        name: string;
-        min_creation_date: number;
-        max_creation_date: number;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        min_id?: number;
+        max_id?: number;
+        name?: string;
+        min_creation_date?: number;
+        max_creation_date?: number;
     }, timeout?: number): Promise<FeedList>;
     /**
      * Get a feed resource object given its id.
@@ -141,16 +141,16 @@ export default class Client {
      * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
      */
     getFiles(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        fname: string;
-        fname_exact: string;
-        fname_icontains: string;
-        plugin_inst_id: number;
-        feed_id: number;
-        min_creation_date: string;
-        max_creation_date: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        plugin_inst_id?: number;
+        feed_id?: number;
+        min_creation_date?: string;
+        max_creation_date?: string;
     }, timeout?: number): Promise<AllFeedFileList>;
     /**
      * Get a file resource object given its id.
@@ -179,13 +179,13 @@ export default class Client {
      * @return {Promise<ComputeResourceList>} - JS Promise, resolves to a ``ComputeResourceList`` object
      */
     getComputeResources(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        name: string;
-        name_exact: string;
-        description: string;
-        plugin_id: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        name_exact?: string;
+        description?: string;
+        plugin_id?: string;
     }, timeout?: number): Promise<ComputeResourceList>;
     /**
      * Get a compute resource object given its id.
@@ -221,19 +221,19 @@ export default class Client {
      * @return {Promise<PluginMetaList>} - JS Promise, resolves to a ``PluginMetaList`` object
      */
     getPluginMetas(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        name: string;
-        name_exact: string;
-        title: string;
-        category: string;
-        type: string;
-        authors: string;
-        min_creation_date: number;
-        max_creation_date: number;
-        name_title_category: string;
-        name_authors_category: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        name_exact?: string;
+        title?: string;
+        category?: string;
+        type?: string;
+        authors?: string;
+        min_creation_date?: number;
+        max_creation_date?: number;
+        name_title_category?: string;
+        name_authors_category?: string;
     }, timeout?: number): Promise<PluginMetaList>;
     /**
      * Get a plugin meta resource object given its id.
@@ -271,21 +271,21 @@ export default class Client {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        name: string;
-        name_exact: string;
-        version: string;
-        dock_image: string;
-        type: string;
-        category: string;
-        title: string;
-        description: string;
-        min_creation_date: string;
-        max_creation_date: string;
-        name_title_category: string;
-        compute_resource_id: number;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        name_exact?: string;
+        version?: string;
+        dock_image?: string;
+        type?: string;
+        category?: string;
+        title?: string;
+        description?: string;
+        min_creation_date?: string;
+        max_creation_date?: string;
+        name_title_category?: string;
+        compute_resource_id?: number;
     }, timeout?: number): Promise<PluginList>;
     /**
      * Get a plugin resource object given its id.
@@ -318,18 +318,18 @@ export default class Client {
      * @return {Promise<AllPluginInstanceList>} - JS Promise, resolves to ``AllPluginInstanceList`` object
      */
     getPluginInstances(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        title: string;
-        status: string;
-        owner_username: string;
-        feed_id: number;
-        root_id: number;
-        plugin_id: number;
-        plugin_name: number;
-        plugin_name_exact: number;
-        plugin_version: number;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        title?: string;
+        status?: string;
+        owner_username?: string;
+        feed_id?: number;
+        root_id?: number;
+        plugin_id?: number;
+        plugin_name?: number;
+        plugin_name_exact?: number;
+        plugin_version?: number;
     }, timeout?: number): Promise<AllPluginInstanceList>;
     /**
      * Get a plugin instance resource object given its id.
@@ -358,12 +358,12 @@ export default class Client {
      */
     createPluginInstance(pluginId: number, data: {
         previous_id: number;
-        title: string;
-        compute_resource_name: string;
-        cpu_limit: string;
-        memory_limit: string;
-        number_of_workers: string;
-        gpu_limit: string;
+        title?: string;
+        compute_resource_name?: string;
+        cpu_limit?: string;
+        memory_limit?: string;
+        number_of_workers?: string;
+        gpu_limit?: string;
     }, timeout?: number): Promise<any>;
     /**
      * Create a new plugin instance split resource through the REST API.
@@ -396,16 +396,16 @@ export default class Client {
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
     getPipelines(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        name: string;
-        owner_username: string;
-        category: string;
-        description: string;
-        authors: string;
-        min_creation_date: string;
-        max_creation_date: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        owner_username?: string;
+        category?: string;
+        description?: string;
+        authors?: string;
+        min_creation_date?: string;
+        max_creation_date?: string;
     }, timeout?: number): Promise<PipelineList>;
     /**
      * Get a pipeline resource object given its id.
@@ -433,12 +433,12 @@ export default class Client {
      */
     createPipeline(data: {
         name: string;
-        authors: string;
-        category: string;
-        description: string;
-        locked: boolean;
-        plugin_tree: string;
-        plugin_inst_id: number;
+        authors?: string;
+        category?: string;
+        description?: string;
+        locked?: boolean;
+        plugin_tree?: string;
+        plugin_inst_id?: number;
     }, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of pipeline instances from the REST API given
@@ -457,12 +457,12 @@ export default class Client {
      * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to ``AllPipelineInstanceList`` object
      */
     getPipelineInstances(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        title: string;
-        description: string;
-        pipeline_name: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        title?: string;
+        description?: string;
+        pipeline_name?: string;
     }, timeout?: number): Promise<AllPipelineInstanceList>;
     /**
      * Get a pipeline instance resource object given its id.
@@ -487,8 +487,8 @@ export default class Client {
      */
     createPipelineInstance(pipelineId: number, data: {
         previous_plugin_inst_id: number;
-        title: string;
-        description: string;
+        title?: string;
+        description?: string;
     }, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of tags from the REST API given query search
@@ -506,12 +506,12 @@ export default class Client {
      * @return {Promise<TagList>} - JS Promise, resolves to a ``TagList`` object
      */
     getTags(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        name: string;
-        owner_username: string;
-        color: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        owner_username?: string;
+        color?: string;
     }, timeout?: number): Promise<TagList>;
     /**
      * Get a tag resource object given its id.
@@ -534,7 +534,7 @@ export default class Client {
      */
     createTag(data: {
         color: string;
-        name: string;
+        name?: string;
     }, timeout?: number): Promise<any>;
     /**
      * Get a paginated list of uploaded files from the REST API given query search
@@ -555,15 +555,15 @@ export default class Client {
      * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
      */
     getUploadedFiles(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        fname: string;
-        fname_exact: string;
-        fname_icontains: string;
-        owner_username: string;
-        min_creation_date: string;
-        max_creation_date: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        owner_username?: string;
+        min_creation_date?: string;
+        max_creation_date?: string;
     }, timeout?: number): Promise<UploadedFileList>;
     /**
      * Get an uploaded file resource object given its id.
@@ -614,21 +614,21 @@ export default class Client {
      * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
      */
     getPACSFiles(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        fname: string;
-        fname_exact: string;
-        fname_icontains: string;
-        PatientID: number;
-        PatientName: string;
-        StudyInstanceUID: number;
-        StudyDescription: string;
-        SeriesInstanceUID: number;
-        SeriesDescription: string;
-        pacs_identifier: number;
-        min_creation_date: string;
-        max_creation_date: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        PatientID?: number;
+        PatientName?: string;
+        StudyInstanceUID?: number;
+        StudyDescription?: string;
+        SeriesInstanceUID?: number;
+        SeriesDescription?: string;
+        pacs_identifier?: number;
+        min_creation_date?: string;
+        max_creation_date?: string;
     }, timeout?: number): Promise<PACSFileList>;
     /**
      * Get a PACS file resource object given its id.
@@ -659,16 +659,16 @@ export default class Client {
      * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
      */
     getServiceFiles(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
-        fname: string;
-        fname_exact: string;
-        fname_icontains: string;
-        service_identifier: string;
-        service_id: number;
-        min_creation_date: string;
-        max_creation_date: string;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        service_identifier?: string;
+        service_id?: number;
+        min_creation_date?: string;
+        max_creation_date?: string;
     }, timeout?: number): Promise<ServiceFileList>;
     /**
      * Get a service file resource object given its id.

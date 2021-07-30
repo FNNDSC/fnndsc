@@ -3,16 +3,6 @@
  */
 export class UploadedFile extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the file blob associated to this file item from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -32,7 +22,7 @@ export class UploadedFile extends ItemResource {
      */
     put(data: {
         upload_path: string;
-    }, timeout?: number): Promise<this>;
+    }, timeout?: number): Promise<UploadedFile>;
     /**
      * Make a DELETE request to delete this uploaded file item resource through the REST API.
      *
@@ -46,16 +36,6 @@ export class UploadedFile extends ItemResource {
  * Uploaded file list resource object representing a list of a user's uploaded files.
  */
 export class UploadedFileList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Make a POST request to this uploaded file list resource to create a new uploaded file
      * item resource through the REST API.
@@ -71,7 +51,7 @@ export class UploadedFileList extends ListResource {
      */
     post(data: {
         upload_path: string;
-    }, uploadFileObj: any | null, timeout?: number): Promise<this>;
+    }, uploadFileObj: any | null, timeout?: number): Promise<UploadedFileList>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

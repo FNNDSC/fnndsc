@@ -3,16 +3,6 @@
  */
 export class PluginInstance extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the feed created by this plugin instance from the REST API
      * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).
      *
@@ -67,8 +57,8 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceDescendantList>} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object
      */
     getDescendantPluginInstances(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginInstanceDescendantList>;
     /**
      * Fetch a list of plugin instance parameters associated to this plugin instance from
@@ -82,8 +72,8 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceParameterList>} - JS Promise, resolves to a ``PluginInstanceParameterList`` object
      */
     getParameters(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginInstanceParameterList>;
     /**
      * Fetch a list of files created by this plugin instance from the REST API.
@@ -96,8 +86,8 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceFileList>} - JS Promise, resolves to a ``PluginInstanceFileList`` object
      */
     getFiles(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginInstanceFileList>;
     /**
      * Fetch a list of output directory splits applied to this plugin instance from the
@@ -111,8 +101,8 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceSplitList>} - JS Promise, resolves to a ``PluginInstanceSplitList`` object
      */
     getSplits(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginInstanceSplitList>;
     /**
      * Make a PUT request to modify this plugin instance resource through the REST API.
@@ -125,9 +115,9 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        title: string;
-        status: string;
-    }, timeout?: number): Promise<this>;
+        title?: string;
+        status?: string;
+    }, timeout?: number): Promise<PluginInstance>;
     /**
      * Make a DELETE request to delete this plugin instance resource through the REST API.
      *
@@ -142,16 +132,6 @@ export class PluginInstance extends ItemResource {
  * instances.
  */
 export class PluginInstanceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the plugin associated to this plugin instance list from the REST API.
      *
@@ -171,23 +151,13 @@ export class PluginInstanceList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: any, timeout?: number): Promise<this>;
+    post(data: any, timeout?: number): Promise<PluginInstanceList>;
 }
 /**
  * Plugin instance list resource object representing a list of all plugin
  * instances.
  */
 export class AllPluginInstanceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch a list of plugins from the REST API.
      *
@@ -201,8 +171,8 @@ export class AllPluginInstanceList extends ListResource {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginList>;
 }
 /**
@@ -210,16 +180,6 @@ export class AllPluginInstanceList extends ListResource {
  * instances associated to an specific feed.
  */
 export class FeedPluginInstanceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the feed associated to this feed-specific list of plugin instances from
      * the REST API.
@@ -235,48 +195,18 @@ export class FeedPluginInstanceList extends ListResource {
  * a list of plugin instances associated to an specific pipeline instance.
  */
 export class PipelineInstancePluginInstanceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 /**
  * Plugin instance descendant list resource object. This is a list of all plugin
  * instances that have this plugin instance as an ancestor in a pipeline tree.
  */
 export class PluginInstanceDescendantList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 /**
  * Plugin instance split item resource object representing an output directory
  * split that has been applied to a plugin instance.
  */
 export class PluginInstanceSplit extends ItemResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the plugin instance associated to this split item from the REST API.
      *
@@ -291,16 +221,6 @@ export class PluginInstanceSplit extends ItemResource {
  * directory splits that have been applied to a plugin instance.
  */
 export class PluginInstanceSplitList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the plugin instance associated to this split list item from the REST API.
      *
@@ -321,25 +241,15 @@ export class PluginInstanceSplitList extends ListResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
-        filter: string;
-        compute_resource_name: string;
-    }, timeout?: number): Promise<this>;
+        filter?: string;
+        compute_resource_name?: string;
+    }, timeout?: number): Promise<PluginInstanceSplitList>;
 }
 /**
  * Plugin instance parameter item resource object representing a parameter that
  * the plugin instance was run with.
  */
 export class PluginInstanceParameter extends ItemResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the plugin instance associated to this parameter item from the REST API.
      *
@@ -363,16 +273,6 @@ export class PluginInstanceParameter extends ItemResource {
  * the plugin instance was run with.
  */
 export class PluginInstanceParameterList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 import { ItemResource } from "./resource";
 import { Feed } from "./feed";

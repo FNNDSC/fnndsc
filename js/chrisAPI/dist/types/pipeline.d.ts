@@ -3,16 +3,6 @@
  */
 export class Pipeline extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of plugins associated to this pipeline from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -23,8 +13,8 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelinePluginList>} - JS Promise, resolves to a ``PipelinePluginList`` object
      */
     getPlugins(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PipelinePluginList>;
     /**
      * Fetch a list of plugin pipings associated to this pipeline from the REST API.
@@ -37,8 +27,8 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelinePluginPipingList>} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
      */
     getPluginPipings(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PipelinePluginPipingList>;
     /**
      * Fetch a list of plugin piping default parameter values for the plugin
@@ -52,8 +42,8 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelinePipingDefaultParameterList>} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
      */
     getDefaultParameters(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PipelinePipingDefaultParameterList>;
     /**
      * Fetch a list of pipeline instances associated to this pipeline from the
@@ -67,8 +57,8 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelineInstanceList>} - JS Promise, resolves to a ``PipelineInstanceList`` object
      */
     getPipelineInstances(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PipelineInstanceList>;
     /**
      * Make a PUT request to modify this pipeline resource through the REST API.
@@ -84,12 +74,12 @@ export class Pipeline extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        name: string;
-        authors: string;
-        category: string;
-        description: string;
-        locked: boolean;
-    }, timeout?: number): Promise<this>;
+        name?: string;
+        authors?: string;
+        category?: string;
+        description?: string;
+        locked?: boolean;
+    }, timeout?: number): Promise<Pipeline>;
     /**
      * Make a DELETE request to delete this pipeline resource through the REST API.
      *
@@ -104,16 +94,6 @@ export class Pipeline extends ItemResource {
  */
 export class PipelineList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of plugins from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -126,8 +106,8 @@ export class PipelineList extends ListResource {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginList>;
     /**
      * Make a POST request to this pipeline list resource to create a new pipeline
@@ -147,29 +127,19 @@ export class PipelineList extends ListResource {
      */
     post(data: {
         name: string;
-        authors: string;
-        category: string;
-        description: string;
-        locked: boolean;
-        plugin_tree: string;
-        plugin_inst_id: number;
-    }, timeout?: number): Promise<this>;
+        authors?: string;
+        category?: string;
+        description?: string;
+        locked?: boolean;
+        plugin_tree?: string;
+        plugin_inst_id?: number;
+    }, timeout?: number): Promise<PipelineList>;
 }
 /**
  * Plugin piping item resource object representing a plugin piping within
  * a pipeline.
  */
 export class PluginPiping extends ItemResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the parent plugin piping within the corresponding pipeline from the
      * REST API.
@@ -202,16 +172,6 @@ export class PluginPiping extends ItemResource {
  */
 export class PipingDefaultParameter extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the corresponding plugin piping for this plugin piping default
      * parameter from the REST API.
      *
@@ -235,48 +195,18 @@ export class PipingDefaultParameter extends ItemResource {
  * composing the pipeline.
  */
 export class PipelinePluginList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 /**
  * Pipeline-specific plugin piping list resource object representing a list of
  * plugin pipings composing the pipeline.
  */
 export class PipelinePluginPipingList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 /**
  * List resource object representing a pipeline-specific list of plugin piping
  * default parameter values for the plugin pipings composing the pipeline.
  */
 export class PipelinePipingDefaultParameterList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 import { ItemResource } from "./resource";
 import { PipelineInstanceList } from "./pipelineinstance";

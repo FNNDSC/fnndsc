@@ -2,31 +2,11 @@
  * Compute resource item resource object representing a compute resource.
  */
 export class ComputeResource extends ItemResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 /**
  * Compute resource list resource object representing a list of compute resources.
  */
 export class ComputeResourceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch a list of feeds from the REST API.
      *
@@ -40,8 +20,8 @@ export class ComputeResourceList extends ListResource {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedList>;
 }
 /**
@@ -49,16 +29,6 @@ export class ComputeResourceList extends ListResource {
  * compute resources registered with an specific plugin.
  */
 export class PluginComputeResourceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the plugin associated to this compute resource list from the REST API.
      *

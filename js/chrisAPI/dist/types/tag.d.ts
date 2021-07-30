@@ -3,16 +3,6 @@
  */
 export class Tag extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of feeds that are tagged with this tag from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -23,8 +13,8 @@ export class Tag extends ItemResource {
      * @return {Promise<TagFeedList>} - JS Promise, resolves to a ``TagFeedList`` object
      */
     getTaggedFeeds(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<TagFeedList>;
     /**
      * Fetch a list of taggings made with this tag from the REST API.
@@ -37,8 +27,8 @@ export class Tag extends ItemResource {
      * @return {Promise<TaggingList>} - JS Promise, resolves to a ``TaggingList`` object
      */
     getTaggings(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<any>;
     /**
      * Make a PUT request to modify this tag item resource through the REST API.
@@ -51,9 +41,9 @@ export class Tag extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        name: string;
-        color: string;
-    }, timeout?: number): Promise<this>;
+        name?: string;
+        color?: string;
+    }, timeout?: number): Promise<Tag>;
     /**
      * Make a DELETE request to delete this tag item resource through the REST API.
      *
@@ -68,16 +58,6 @@ export class Tag extends ItemResource {
  */
 export class TagList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of feeds from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -90,8 +70,8 @@ export class TagList extends ListResource {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedList>;
     /**
      * Make a POST request to this tag list resource to create a new tag item resource
@@ -105,25 +85,15 @@ export class TagList extends ListResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
-        name: string;
-        color: string;
-    }, timeout?: number): Promise<this>;
+        name?: string;
+        color?: string;
+    }, timeout?: number): Promise<TagList>;
 }
 /**
  * Tagging item resource object representing a tagging of an specific feed with an
  * specific tag.
  */
 export class Tagging extends ItemResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the tag associated to this tagging from the REST API.
      *
@@ -155,16 +125,6 @@ export class Tagging extends ItemResource {
  */
 export class TagTaggingList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the tag associated to this tag-specific list of taggings from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -184,23 +144,13 @@ export class TagTaggingList extends ListResource {
      */
     post(data: {
         feed_id: string;
-    }, timeout?: number): Promise<this>;
+    }, timeout?: number): Promise<TagTaggingList>;
 }
 /**
  * Feed-specific tagging list resource object representing a list of taggings applied to
  * an specific feed.
  */
 export class FeedTaggingList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the feed associated to this feed-specific list of taggings from the REST API.
      *
@@ -221,23 +171,13 @@ export class FeedTaggingList extends ListResource {
      */
     post(data: {
         tag_id: string;
-    }, timeout?: number): Promise<this>;
+    }, timeout?: number): Promise<FeedTaggingList>;
 }
 /**
  * Tag-specific feed list resource object representing a list of feeds that are tagged
  * with an specific tag.
  */
 export class TagFeedList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the tag associated to this tag-specific list of feeds from the REST API.
      *
@@ -252,16 +192,6 @@ export class TagFeedList extends ListResource {
  * feed is tagged with.
  */
 export class FeedTagList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the feed associated to this feed-specific list of tags from the REST API.
      *

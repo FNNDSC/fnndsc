@@ -3,16 +3,6 @@
  */
 export class PipelineInstance extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the pipeline associated to this pipeline instance from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -32,8 +22,8 @@ export class PipelineInstance extends ItemResource {
      * @return {Promise<PipelineInstancePluginInstanceList>} - JS Promise, resolves to a ``PipelineInstancePluginInstanceList`` object
      */
     getPluginInstances(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PipelineInstancePluginInstanceList>;
     /**
      * Make a PUT request to modify this pipeline instance resource through the REST API.
@@ -46,9 +36,9 @@ export class PipelineInstance extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        title: string;
-        description: string;
-    }, timeout?: number): Promise<this>;
+        title?: string;
+        description?: string;
+    }, timeout?: number): Promise<PipelineInstance>;
     /**
      * Make a DELETE request to delete this pipeline instance resource through the REST API.
      *
@@ -64,16 +54,6 @@ export class PipelineInstance extends ItemResource {
  */
 export class PipelineInstanceList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Make a POST request to this pipeline instance list resource to create a new
      * pipeline instance item resource through the REST API.
      *
@@ -84,23 +64,13 @@ export class PipelineInstanceList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: any, timeout?: number): Promise<this>;
+    post(data: any, timeout?: number): Promise<PipelineInstanceList>;
 }
 /**
  * Pipeline instance list resource object representing a list of all pipeline
  * instances.
  */
 export class AllPipelineInstanceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch a list of pipelines from the REST API.
      *
@@ -114,8 +84,8 @@ export class AllPipelineInstanceList extends ListResource {
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
     getPipelines(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PipelineList>;
 }
 import { ItemResource } from "./resource";

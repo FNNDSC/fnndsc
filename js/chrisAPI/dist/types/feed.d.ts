@@ -2,9 +2,6 @@
  * Feed item resource object representing a feed.
  */
 export class Feed extends ItemResource {
-    constructor(itemUrl: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the note associated to this feed from the REST API.
      *
@@ -24,8 +21,8 @@ export class Feed extends ItemResource {
      * @return {Promise<FeedTagList>} - JS Promise, resolves to a ``FeedTagList`` object
      */
     getTags(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedTagList>;
     /**
      * Fetch a list of taggings associated to this feed from the REST API.
@@ -38,8 +35,8 @@ export class Feed extends ItemResource {
      * @return {Promise<FeedTaggingList>} - JS Promise, resolves to a ``FeedTaggingList`` object
      */
     getTaggings(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedTaggingList>;
     /**
      * Fetch a list of comments associated to this feed from the REST API.
@@ -53,9 +50,9 @@ export class Feed extends ItemResource {
      * @return {Promise<CommentList>} - JS Promise, resolves to a ``CommentList`` object
      */
     getComments(searchParams?: {
-        limit: number;
-        offset: number;
-        id: number;
+        limit?: number;
+        offset?: number;
+        id?: number;
     }, timeout?: number): Promise<CommentList>;
     /**
      * Get a feed comment given its id.
@@ -77,8 +74,8 @@ export class Feed extends ItemResource {
      * @return {Promise<FeedFileList>} - JS Promise, resolves to a ``FeedFileList`` object
      */
     getFiles(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedFileList>;
     /**
      * Fetch a list of plugin instances associated to this feed from the REST API.
@@ -91,8 +88,8 @@ export class Feed extends ItemResource {
      * @return {Promise<FeedPluginInstanceList>} - JS Promise, resolves to a ``FeedPluginInstanceList`` object
      */
     getPluginInstances(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedPluginInstanceList>;
     /**
      * Tag the feed given the id of the tag.
@@ -114,9 +111,9 @@ export class Feed extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        name: string;
-        owner: string;
-    }, timeout?: number): Promise<this>;
+        name?: string;
+        owner?: string;
+    }, timeout?: number): Promise<Feed>;
     /**
      * Make a DELETE request to delete this feed item resource through the REST API.
      *
@@ -131,16 +128,6 @@ export class Feed extends ItemResource {
  */
 export class FeedList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of files written to any user-owned feed.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -153,8 +140,8 @@ export class FeedList extends ListResource {
      * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
      */
     getFiles(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<AllFeedFileList>;
     /**
      * Fetch a list of compute resources from the REST API.
@@ -169,8 +156,8 @@ export class FeedList extends ListResource {
      * @return {Promise<ComputeResourceList>} - JS Promise, resolves to a ``ComputeResourceList`` object
      */
     getComputeResources(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<ComputeResourceList>;
     /**
      * Fetch a list of plugins from the REST API.
@@ -185,8 +172,8 @@ export class FeedList extends ListResource {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginList>;
     /**
      * Fetch a list of plugin instances from the REST API.
@@ -201,8 +188,8 @@ export class FeedList extends ListResource {
      * @return {Promise<AllPluginInstanceList>} - JS Promise, resolves to a ``AllPluginInstanceList`` object
      */
     getPluginInstances(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<AllPluginInstanceList>;
     /**
      * Fetch a list of pipelines from the REST API.
@@ -217,8 +204,8 @@ export class FeedList extends ListResource {
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
     getPipelines(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PipelineList>;
     /**
      * Fetch a list of pipeline instances from the REST API.
@@ -233,8 +220,8 @@ export class FeedList extends ListResource {
      * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to a ``AllPipelineInstanceList`` object
      */
     getPipelineInstances(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<AllPipelineInstanceList>;
     /**
      * Fetch a list of tags from the REST API.
@@ -249,8 +236,8 @@ export class FeedList extends ListResource {
      * @return {Promise<TagList>} - JS Promise, resolves to a ``TagList`` object
      */
     getTags(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<TagList>;
     /**
      * Fetch a list of uploaded files from the REST API.
@@ -265,8 +252,8 @@ export class FeedList extends ListResource {
      * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
      */
     getUploadedFiles(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<UploadedFileList>;
     /**
      * Fetch a list of PACS files from the REST API.
@@ -281,8 +268,8 @@ export class FeedList extends ListResource {
      * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
      */
     getPACSFiles(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PACSFileList>;
     /**
      * Fetch a list of files for an unregistered service from the REST API.
@@ -297,8 +284,8 @@ export class FeedList extends ListResource {
      * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
      */
     getServiceFiles(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<ServiceFileList>;
     /**
      * Fetch currently authenticated user's information from the REST API.

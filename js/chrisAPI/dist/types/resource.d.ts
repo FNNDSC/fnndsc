@@ -46,23 +46,13 @@ export class Resource {
  */
 export class ItemResource extends Resource {
     /**
-     * Constructor
-     *
-     * @param {string} itemUrl - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(itemUrl: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch this item resource from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    get(timeout?: number): Promise<this>;
+    get(timeout?: number): Promise<ItemResource>;
     /**
      * Get the item's data object (REST API descriptors).
      *
@@ -94,8 +84,8 @@ export class ItemResource extends Resource {
      * @throws {RequestException} throw error when the link relation is not found
      */
     _getResource(linkRelation: string, ResourceClass: any, searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<any>;
     /**
      * Internal helper method to make a PUT request to this item resource through
@@ -108,7 +98,7 @@ export class ItemResource extends Resource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    _put(data: any, uploadFileObj: any | null, timeout?: number): Promise<this>;
+    _put(data: any, uploadFileObj: any | null, timeout?: number): Promise<ItemResource>;
     /**
      * Internal helper method to make a DELETE request to this item resource through
      * the REST API.
@@ -123,16 +113,6 @@ export class ItemResource extends Resource {
  * API abstract list resource class.
  */
 export class ListResource extends Resource {
-    /**
-     * Constructor
-     *
-     * @param {string} listUrl - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(listUrl: string, auth: {
-        token: string;
-    });
     /** @type {string} */
     queryUrl: string;
     /** @type {?Object} */
@@ -153,9 +133,9 @@ export class ListResource extends Resource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     get(searchParams?: {
-        limit: number;
-        offset: number;
-    }, timeout?: number): Promise<this>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<ListResource>;
     /**
      * Get an array of search parameter names that can be used as properties of the
      * ``searchParams`` argument to the ``get`` method.
@@ -234,8 +214,8 @@ export class ListResource extends Resource {
      * @throws {RequestException} throw error when the link relation is not found
      */
     _getResource(linkRelation: string, ResourceClass: any, searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<any>;
     /**
      * Internal helper method to make a POST request to this list resource through
@@ -248,5 +228,5 @@ export class ListResource extends Resource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    _post(data: any, uploadFileObj: any | null, timeout?: number): Promise<this>;
+    _post(data: any, uploadFileObj: any | null, timeout?: number): Promise<ListResource>;
 }

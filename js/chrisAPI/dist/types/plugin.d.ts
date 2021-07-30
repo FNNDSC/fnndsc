@@ -3,16 +3,6 @@
  */
 export class Plugin extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of plugin parameters associated to this plugin from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -23,8 +13,8 @@ export class Plugin extends ItemResource {
      * @return {Promise<PluginParameterList>} - JS Promise, resolves to a ``PluginParameterList`` object
      */
     getPluginParameters(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginParameterList>;
     /**
      * Fetch a list of compute resources registered with this plugin from the REST
@@ -38,8 +28,8 @@ export class Plugin extends ItemResource {
      * @return {Promise<PluginComputeResourceList>} - JS Promise, resolves to a ``PluginComputeResourceList`` object
      */
     getPluginComputeResources(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginComputeResourceList>;
     /**
      * Fetch a list of plugin instances associated to this plugin from the REST API.
@@ -52,24 +42,14 @@ export class Plugin extends ItemResource {
      * @return {Promise<PluginInstanceList>} - JS Promise, resolves to a ``PluginInstanceList`` object
      */
     getPluginInstances(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginInstanceList>;
 }
 /**
  * Plugin list resource object representing a list of plugins.
  */
 export class PluginList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch a list of feeds from the REST API.
      *
@@ -83,8 +63,8 @@ export class PluginList extends ListResource {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedList>;
 }
 /**
@@ -100,7 +80,7 @@ export class PluginMetaPluginList extends ListResource {
      * @param {string} [auth.token] - authentication token
      */
     constructor(url: string, auth?: {
-        token: string;
+        token?: string;
     });
     /**
      * Fetch the plugin meta associated to this plugin meta-specific list of

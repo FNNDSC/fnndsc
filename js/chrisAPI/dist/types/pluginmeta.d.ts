@@ -10,7 +10,7 @@ export class PluginMeta extends ItemResource {
      * @param {string} [auth.token] - authentication token
      */
     constructor(url: string, auth?: {
-        token: string;
+        token?: string;
     });
     /**
      * Fetch a list of plugins associated to this plugin meta from the REST API.
@@ -23,8 +23,8 @@ export class PluginMeta extends ItemResource {
      * @return {Promise<PluginMetaPluginList>} - JS Promise, resolves to a ``PluginMetaPluginList`` object
      */
     getPlugins(params?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginMetaPluginList>;
 }
 /**
@@ -39,7 +39,7 @@ export class PluginMetaList extends ListResource {
      * @param {string} [auth.token] - authentication token
      */
     constructor(url: string, auth?: {
-        token: string;
+        token?: string;
     });
     /**
      * Fetch a list of plugins from the REST API.
@@ -54,8 +54,8 @@ export class PluginMetaList extends ListResource {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<PluginList>;
     /**
      * Fetch a list of feeds from the REST API.
@@ -70,8 +70,8 @@ export class PluginMetaList extends ListResource {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit: number;
-        offset: number;
+        limit?: number;
+        offset?: number;
     }, timeout?: number): Promise<FeedList>;
 }
 import { ItemResource } from "./resource";
