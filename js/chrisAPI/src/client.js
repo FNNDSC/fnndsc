@@ -169,6 +169,7 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's path containing this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
    * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance
    * id exactly with this number
    * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number
@@ -571,6 +572,7 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file's upload path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's upload path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's upload path containing this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
    * @param {string} [searchParams.owner_username] - match file's owner username exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
@@ -625,6 +627,7 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's path containing this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
    * @param {number} [searchParams.PatientID] - match file's PatientID exactly with this string
    * @param {string} [searchParams.PatientName] - match file's PatientName containing this string
    * @param {number} [searchParams.StudyInstanceUID] - match file's StudyInstanceUID exactly with this string
@@ -665,6 +668,7 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's path containing this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
    * @param {string} [searchParams.service_identifier] - match file's service isentifier containing this string
    * @param {number} [searchParams.service_id] - match file's service id exactly with this number
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
