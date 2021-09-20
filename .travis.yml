@@ -28,6 +28,7 @@ before_script:
   - cd ChRIS_ultron_backEnd
   - docker swarm init --advertise-addr 127.0.0.1
   - ./make.sh -U -I -i
+  - cd $TRAVIS_BUILD_DIR
 
 script:
   - scripts/build.sh
