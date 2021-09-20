@@ -42,10 +42,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginMetaPluginList.html">PluginMetaPluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugincollab.js~PluginCollaborator.html">PluginCollaborator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugincollab.js~PluginCollaboratorList.html">PluginCollaboratorList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserCollabPluginMetaList.html">UserCollabPluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserFavoritePluginMetaList.html">UserFavoritePluginMetaList</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserOwnedPluginMetaList.html">UserOwnedPluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginstar.js~PluginStar.html">PluginStar</a></span></span></li>
@@ -66,7 +68,8 @@ import Collection from &apos;./cj&apos;;
 import RequestException from &apos;./exception&apos;;
 import { ListResource, ItemResource, Resource } from &apos;./resource&apos;;
 import { PluginList, PluginMetaPluginList, Plugin } from &apos;./plugin&apos;;
-import { PluginMetaList, PluginMeta } from &apos;./pluginmeta&apos;;
+import { PluginMetaList, PluginMeta, UserCollabPluginMetaList, UserFavoritePluginMetaList } from &apos;./pluginmeta&apos;;
+import { PluginCollaboratorList, PluginCollaborator } from &apos;./plugincollab&apos;;
 import { PluginStarList, PluginStar } from &apos;./pluginstar&apos;;
 import { PluginParameterList, PluginParameter } from &apos;./pluginparameter&apos;;
 import { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline } from &apos;./pipeline&apos;;
@@ -83,7 +86,8 @@ export { Collection };
 export { RequestException };
 export { ListResource, ItemResource, Resource };
 export { PluginList, PluginMetaPluginList, Plugin };
-export { PluginMetaList, PluginMeta };
+export { PluginMetaList, PluginMeta, UserCollabPluginMetaList, UserFavoritePluginMetaList };
+export { PluginCollaboratorList, PluginCollaborator };
 export { PluginStarList, PluginStar };
 export { PluginParameterList, PluginParameter };
 export { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };

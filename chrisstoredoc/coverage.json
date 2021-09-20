@@ -1,16 +1,16 @@
 {
-  "coverage": "94.38%",
-  "expectCount": 178,
-  "actualCount": 168,
+  "coverage": "94.79%",
+  "expectCount": 192,
+  "actualCount": 182,
   "files": {
     "src/cj.js": {
-      "expectCount": 9,
-      "actualCount": 9,
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 30,
-      "actualCount": 23,
+      "expectCount": 31,
+      "actualCount": 24,
       "undocumentLines": [
         31,
         32,
@@ -38,9 +38,14 @@
       "actualCount": 15,
       "undocumentLines": []
     },
+    "src/plugincollab.js": {
+      "expectCount": 11,
+      "actualCount": 11,
+      "undocumentLines": []
+    },
     "src/pluginmeta.js": {
-      "expectCount": 22,
-      "actualCount": 22,
+      "expectCount": 23,
+      "actualCount": 23,
       "undocumentLines": []
     },
     "src/pluginparameter.js": {

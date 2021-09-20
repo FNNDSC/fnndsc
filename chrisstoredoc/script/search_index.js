@@ -66,6 +66,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisstoreapi~plugincollaborator",
+    "class/src/plugincollab.js~PluginCollaborator.html",
+    "<span>PluginCollaborator</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisstoreapi~plugincollaboratorlist",
+    "class/src/plugincollab.js~PluginCollaboratorList.html",
+    "<span>PluginCollaboratorList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisstoreapi~pluginlist",
     "class/src/plugin.js~PluginList.html",
     "<span>PluginList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
@@ -144,15 +156,15 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@fnndsc/chrisstoreapi~userfavoritepluginmetalist",
-    "class/src/pluginmeta.js~UserFavoritePluginMetaList.html",
-    "<span>UserFavoritePluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "@fnndsc/chrisstoreapi~usercollabpluginmetalist",
+    "class/src/pluginmeta.js~UserCollabPluginMetaList.html",
+    "<span>UserCollabPluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisstoreapi~userownedpluginmetalist",
-    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html",
-    "<span>UserOwnedPluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
+    "@fnndsc/chrisstoreapi~userfavoritepluginmetalist",
+    "class/src/pluginmeta.js~UserFavoritePluginMetaList.html",
+    "<span>UserFavoritePluginMetaList</span> <span class=\"search-result-import-path\">@fnndsc/chrisstoreapi</span>",
     "class"
   ],
   [
@@ -444,6 +456,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/cj.js~collection.createcollectionobj",
+    "class/src/cj.js~Collection.html#static-method-createCollectionObj",
+    "src/cj.js~Collection.createCollectionObj",
+    "method"
+  ],
+  [
     "src/cj.js~collection.geterrormessage",
     "class/src/cj.js~Collection.html#static-method-getErrorMessage",
     "src/cj.js~Collection.getErrorMessage",
@@ -510,6 +528,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/client.js~client#collabpluginmetasurl",
+    "class/src/client.js~Client.html#instance-member-collabPluginMetasUrl",
+    "src/client.js~Client#collabPluginMetasUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#constructor",
     "class/src/client.js~Client.html#instance-constructor-constructor",
     "src/client.js~Client#constructor",
@@ -528,6 +552,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#createplugincollaborator",
+    "class/src/client.js~Client.html#instance-method-createPluginCollaborator",
+    "src/client.js~Client#createPluginCollaborator",
+    "method"
+  ],
+  [
     "src/client.js~client#createpluginstar",
     "class/src/client.js~Client.html#instance-method-createPluginStar",
     "src/client.js~Client#createPluginStar",
@@ -540,15 +570,15 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/client.js~client#getfavoritepluginmetas",
-    "class/src/client.js~Client.html#instance-method-getFavoritePluginMetas",
-    "src/client.js~Client#getFavoritePluginMetas",
+    "src/client.js~client#getcollabpluginmetas",
+    "class/src/client.js~Client.html#instance-method-getCollabPluginMetas",
+    "src/client.js~Client#getCollabPluginMetas",
     "method"
   ],
   [
-    "src/client.js~client#getownedpluginmetas",
-    "class/src/client.js~Client.html#instance-method-getOwnedPluginMetas",
-    "src/client.js~Client#getOwnedPluginMetas",
+    "src/client.js~client#getfavoritepluginmetas",
+    "class/src/client.js~Client.html#instance-method-getFavoritePluginMetas",
+    "src/client.js~Client#getFavoritePluginMetas",
     "method"
   ],
   [
@@ -604,12 +634,6 @@ window.esdocSearchIndex = [
     "class/src/client.js~Client.html#instance-method-getUser",
     "src/client.js~Client#getUser",
     "method"
-  ],
-  [
-    "src/client.js~client#ownedpluginmetasurl",
-    "class/src/client.js~Client.html#instance-member-ownedPluginMetasUrl",
-    "src/client.js~Client#ownedPluginMetasUrl",
-    "member"
   ],
   [
     "src/client.js~client#pipelinesurl",
@@ -930,6 +954,66 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/plugincollab.js",
+    "file/src/plugincollab.js.html",
+    "src/plugincollab.js",
+    "file"
+  ],
+  [
+    "src/plugincollab.js~plugincollaborator#constructor",
+    "class/src/plugincollab.js~PluginCollaborator.html#instance-constructor-constructor",
+    "src/plugincollab.js~PluginCollaborator#constructor",
+    "method"
+  ],
+  [
+    "src/plugincollab.js~plugincollaborator#delete",
+    "class/src/plugincollab.js~PluginCollaborator.html#instance-method-delete",
+    "src/plugincollab.js~PluginCollaborator#delete",
+    "method"
+  ],
+  [
+    "src/plugincollab.js~plugincollaborator#getpluginmeta",
+    "class/src/plugincollab.js~PluginCollaborator.html#instance-method-getPluginMeta",
+    "src/plugincollab.js~PluginCollaborator#getPluginMeta",
+    "method"
+  ],
+  [
+    "src/plugincollab.js~plugincollaborator#getuser",
+    "class/src/plugincollab.js~PluginCollaborator.html#instance-method-getUser",
+    "src/plugincollab.js~PluginCollaborator#getUser",
+    "method"
+  ],
+  [
+    "src/plugincollab.js~plugincollaborator#put",
+    "class/src/plugincollab.js~PluginCollaborator.html#instance-method-put",
+    "src/plugincollab.js~PluginCollaborator#put",
+    "method"
+  ],
+  [
+    "src/plugincollab.js~plugincollaboratorlist#constructor",
+    "class/src/plugincollab.js~PluginCollaboratorList.html#instance-constructor-constructor",
+    "src/plugincollab.js~PluginCollaboratorList#constructor",
+    "method"
+  ],
+  [
+    "src/plugincollab.js~plugincollaboratorlist#getpluginmeta",
+    "class/src/plugincollab.js~PluginCollaboratorList.html#instance-method-getPluginMeta",
+    "src/plugincollab.js~PluginCollaboratorList#getPluginMeta",
+    "method"
+  ],
+  [
+    "src/plugincollab.js~plugincollaboratorlist#itemclass",
+    "class/src/plugincollab.js~PluginCollaboratorList.html#instance-member-itemClass",
+    "src/plugincollab.js~PluginCollaboratorList#itemClass",
+    "member"
+  ],
+  [
+    "src/plugincollab.js~plugincollaboratorlist#post",
+    "class/src/plugincollab.js~PluginCollaboratorList.html#instance-method-post",
+    "src/plugincollab.js~PluginCollaboratorList#post",
+    "method"
+  ],
+  [
     "src/pluginmeta.js",
     "file/src/pluginmeta.js.html",
     "src/pluginmeta.js",
@@ -945,6 +1029,12 @@ window.esdocSearchIndex = [
     "src/pluginmeta.js~pluginmeta#delete",
     "class/src/pluginmeta.js~PluginMeta.html#instance-method-delete",
     "src/pluginmeta.js~PluginMeta#delete",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~pluginmeta#getcollaborators",
+    "class/src/pluginmeta.js~PluginMeta.html#instance-method-getCollaborators",
+    "src/pluginmeta.js~PluginMeta#getCollaborators",
     "method"
   ],
   [
@@ -966,15 +1056,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/pluginmeta.js~pluginmetalist#getfavoritepluginmetas",
-    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getFavoritePluginMetas",
-    "src/pluginmeta.js~PluginMetaList#getFavoritePluginMetas",
+    "src/pluginmeta.js~pluginmetalist#getcollabpluginmetas",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getCollabPluginMetas",
+    "src/pluginmeta.js~PluginMetaList#getCollabPluginMetas",
     "method"
   ],
   [
-    "src/pluginmeta.js~pluginmetalist#getownedpluginmetas",
-    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getOwnedPluginMetas",
-    "src/pluginmeta.js~PluginMetaList#getOwnedPluginMetas",
+    "src/pluginmeta.js~pluginmetalist#getfavoritepluginmetas",
+    "class/src/pluginmeta.js~PluginMetaList.html#instance-method-getFavoritePluginMetas",
+    "src/pluginmeta.js~PluginMetaList#getFavoritePluginMetas",
     "method"
   ],
   [
@@ -1008,6 +1098,24 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/pluginmeta.js~usercollabpluginmetalist#constructor",
+    "class/src/pluginmeta.js~UserCollabPluginMetaList.html#instance-constructor-constructor",
+    "src/pluginmeta.js~UserCollabPluginMetaList#constructor",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~usercollabpluginmetalist#getuser",
+    "class/src/pluginmeta.js~UserCollabPluginMetaList.html#instance-method-getUser",
+    "src/pluginmeta.js~UserCollabPluginMetaList#getUser",
+    "method"
+  ],
+  [
+    "src/pluginmeta.js~usercollabpluginmetalist#itemclass",
+    "class/src/pluginmeta.js~UserCollabPluginMetaList.html#instance-member-itemClass",
+    "src/pluginmeta.js~UserCollabPluginMetaList#itemClass",
+    "member"
+  ],
+  [
     "src/pluginmeta.js~userfavoritepluginmetalist#constructor",
     "class/src/pluginmeta.js~UserFavoritePluginMetaList.html#instance-constructor-constructor",
     "src/pluginmeta.js~UserFavoritePluginMetaList#constructor",
@@ -1023,24 +1131,6 @@ window.esdocSearchIndex = [
     "src/pluginmeta.js~userfavoritepluginmetalist#itemclass",
     "class/src/pluginmeta.js~UserFavoritePluginMetaList.html#instance-member-itemClass",
     "src/pluginmeta.js~UserFavoritePluginMetaList#itemClass",
-    "member"
-  ],
-  [
-    "src/pluginmeta.js~userownedpluginmetalist#constructor",
-    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html#instance-constructor-constructor",
-    "src/pluginmeta.js~UserOwnedPluginMetaList#constructor",
-    "method"
-  ],
-  [
-    "src/pluginmeta.js~userownedpluginmetalist#getuser",
-    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html#instance-method-getUser",
-    "src/pluginmeta.js~UserOwnedPluginMetaList#getUser",
-    "method"
-  ],
-  [
-    "src/pluginmeta.js~userownedpluginmetalist#itemclass",
-    "class/src/pluginmeta.js~UserOwnedPluginMetaList.html#instance-member-itemClass",
-    "src/pluginmeta.js~UserOwnedPluginMetaList#itemClass",
     "member"
   ],
   [

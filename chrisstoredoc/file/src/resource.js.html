@@ -42,10 +42,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginMetaPluginList.html">PluginMetaPluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugincollab.js~PluginCollaborator.html">PluginCollaborator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugincollab.js~PluginCollaboratorList.html">PluginCollaboratorList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserCollabPluginMetaList.html">UserCollabPluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserFavoritePluginMetaList.html">UserFavoritePluginMetaList</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserOwnedPluginMetaList.html">UserOwnedPluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginstar.js~PluginStar.html">PluginStar</a></span></span></li>
@@ -370,9 +372,9 @@ export class ListResource extends Resource {
       return null;
     }
     const itemResource = new this.itemClass(items[0].href, this.auth);
-    const listRes = this.clone();
-    listRes.collection.items[0] = items[0];
-    itemResource.collection = listRes.collection;
+    itemResource.collection = Collection.createCollectionObj();
+    itemResource.collection.items.push(items[0]);
+    itemResource.collection.href = items[0].href;
     return itemResource;
   }
 
@@ -386,11 +388,11 @@ export class ListResource extends Resource {
     if (this.isEmpty) {
       return [];
     }
-    return this.collection.items.map(item =&gt; {
+    return this.collection.items.map((item) =&gt; {
       const itemResource = new this.itemClass(item.href, this.auth);
-      const listRes = this.clone();
-      listRes.collection.items[0] = item;
-      itemResource.collection = listRes.collection;
+      itemResource.collection = Collection.createCollectionObj();
+      itemResource.collection.items.push(item);
+      itemResource.collection.href = item.href;
       return itemResource;
     });
   }

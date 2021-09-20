@@ -42,10 +42,12 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginMetaPluginList.html">PluginMetaPluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugincollab.js~PluginCollaborator.html">PluginCollaborator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugincollab.js~PluginCollaboratorList.html">PluginCollaboratorList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserCollabPluginMetaList.html">UserCollabPluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserFavoritePluginMetaList.html">UserFavoritePluginMetaList</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~UserOwnedPluginMetaList.html">UserOwnedPluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginstar.js~PluginStar.html">PluginStar</a></span></span></li>
@@ -63,11 +65,11 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import Collection from &apos;./cj&apos;;
 import Request from &apos;./request&apos;;
-import RequestException from &apos;./exception&apos;;
 import { PluginList } from &apos;./plugin&apos;;
-import { PluginMetaList, UserOwnedPluginMetaList } from &apos;./pluginmeta&apos;;
+import { PluginMetaList, UserCollabPluginMetaList } from &apos;./pluginmeta&apos;;
 import { UserFavoritePluginMetaList } from &apos;./pluginmeta&apos;;
 import { PluginStarList } from &apos;./pluginstar&apos;;
+import { PluginCollaboratorList } from &apos;./plugincollab&apos;;
 import { PipelineList } from &apos;./pipeline&apos;;
 import User from &apos;./user&apos;;
 
@@ -92,7 +94,7 @@ export default class Client {
     /* Urls of the high level API resources */
     this.pluginMetasUrl = this.url;
     this.favoritePluginMetasUrl = &apos;&apos;;
-    this.ownedPluginMetasUrl = &apos;&apos;;
+    this.collabPluginMetasUrl = &apos;&apos;;
     this.pluginStarsUrl = &apos;&apos;;
     this.pluginsUrl = &apos;&apos;;
     this.pipelinesUrl = &apos;&apos;;
@@ -145,8 +147,8 @@ export default class Client {
       if (!this.favoritePluginMetasUrl &amp;&amp; this.auth) {
         this.favoritePluginMetasUrl = getUrl(coll, &apos;favorite_plugin_metas&apos;)[0];
       }
-      if (!this.ownedPluginMetasUrl &amp;&amp; this.auth) {
-        this.ownedPluginMetasUrl = getUrl(coll, &apos;owned_plugin_metas&apos;)[0];
+      if (!this.collabPluginMetasUrl &amp;&amp; this.auth) {
+        this.collabPluginMetasUrl = getUrl(coll, &apos;collab_plugin_metas&apos;)[0];
       }
       this.pluginStarsUrl = this.pluginStarsUrl || getUrl(coll, &apos;plugin_stars&apos;)[0];
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, &apos;plugins&apos;)[0];
@@ -168,27 +170,21 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object
    */
   getFavoritePluginMetas(params = null, timeout = 30000) {
-    if (!this.auth) {
-      throw new RequestException(&apos;Authentication is required to fetch this resource.&apos;);
-    }
     return this._fetchRes(&apos;favoritePluginMetasUrl&apos;, UserFavoritePluginMetaList, params, timeout);
   }
 
   /**
-   * Fetch a list of authenticated user&apos;s owned plugin metas from the REST API.
+   * Fetch a list of authenticated user&apos;s collaborated plugin metas from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object
+   * @return {Object} - JS Promise, resolves to a ``UserCollabPluginMetaList`` object
    */
-  getOwnedPluginMetas(params = null, timeout = 30000) {
-    if (!this.auth) {
-      throw new RequestException(&apos;Authentication is required to fetch this resource.&apos;);
-    }
-    return this._fetchRes(&apos;ownedPluginMetasUrl&apos;, UserOwnedPluginMetaList, params, timeout);
+  getCollabPluginMetas(params = null, timeout = 30000) {
+    return this._fetchRes(&apos;collabPluginMetasUrl&apos;, UserCollabPluginMetaList, params, timeout);
   }
 
   /**
@@ -248,6 +244,27 @@ export default class Client {
       return res.post(data, timeout).then(res =&gt; res.getItems()[0]);
     };
     return this.pluginStarsUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
+  }
+
+  /**
+   * Create a new plugin collaborator resource through the REST API.
+   *
+   * @param {number} pluginMetaId - plugin meta id
+   * @param {Object} data - request JSON data object
+   * @param {string} data.username - collaborator username
+   * @param {string} data.role - collaborator role
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``PluginCollaborator`` object
+   */
+  createPluginCollaborator(pluginMetaId, data, timeout = 30000) {
+    return this.getPluginMeta(pluginMetaId, timeout)
+      .then(plgMeta =&gt; {
+        const collaboratorsUrl = Collection.getLinkRelationUrls(plgMeta.collection.items[0], &apos;collaborators&apos;);
+        const collabList = new PluginCollaboratorList(collaboratorsUrl[0], this.auth);
+        return collabList.post(data, timeout);
+      })
+      .then(collabList =&gt; collabList.getItems()[0]);
   }
 
   /**

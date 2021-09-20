@@ -567,7 +567,7 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/cj.js",
-    "content": "/**\n * Collection+Json utility object.\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   *\n   * @return {string} - error message\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation from a collection or item object.\n   *\n   * @param {Object} obj - Collection+Json collection or item object\n   * @param {string} relationName - name of the link relation\n   *\n   * @return {string[]} - list of urls\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors).\n   *\n   * @param {Object} item - Collection+Json item object\n   *\n   * @return {Object} - object whose properties and values are the item's descriptor names and values respectively\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the url of the representation given by a collection obj.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   *\n   * @return {string} - url of the resource representation\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the total number of items from a collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   *\n   * @return {number} - total number of items or -1 if the collection objects\n   * doesn't contain that information\n   */\n  static getTotalNumberOfItems(collection) {\n    if (collection.total) {\n      return collection.total;\n    }\n    return -1;\n  }\n\n  /**\n   * Get the list of descriptor names within a collection's template object.\n   *\n   * @param {Object} template - Collection+Json template object\n   *\n   * @return {string[]} - list of descriptor names\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Get the list of descriptor names within a Collection+Json query array.\n   *\n   * @param {Object[]} queryArr - Collection+Json query array\n   *\n   * @return {string[]} - list of query parameter names\n   */\n  static getQueryParameters(queryArr) {\n    return queryArr[0].data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Make a Collection+Json template object from a regular object whose properties are\n   * the item descriptors.\n   *\n   * @param {Object} descriptorsObj - item descriptors object\n   *\n   * @return {Object} - template object\n   */\n  static makeTemplate(descriptorsObj) {\n    const template = { data: [] };\n\n    let i = 0;\n    for (let property in descriptorsObj) {\n      if (descriptorsObj.hasOwnProperty(property)) {\n        template.data[i] = { name: property, value: descriptorsObj[property] };\n      }\n      i++;\n    }\n    return template;\n  }\n}\n",
+    "content": "/**\n * Collection+Json utility object.\n */\nexport default class Collection {\n  /**\n   * Get the error message from the collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   *\n   * @return {string} - error message\n   */\n  static getErrorMessage(collection) {\n    if (collection.error) {\n      return collection.error.message;\n    }\n    return '';\n  }\n\n  /**\n   * Get the list of urls for a link relation from a collection or item object.\n   *\n   * @param {Object} obj - Collection+Json collection or item object\n   * @param {string} relationName - name of the link relation\n   *\n   * @return {string[]} - list of urls\n   */\n  static getLinkRelationUrls(obj, relationName) {\n    const links = obj.links.filter(link => {\n      return link.rel === relationName;\n    });\n    return links.map(link => link.href);\n  }\n\n  /**\n   * Get an item's data (descriptors).\n   *\n   * @param {Object} item - Collection+Json item object\n   *\n   * @return {Object} - object whose properties and values are the item's descriptor names and values respectively\n   */\n  static getItemDescriptors(item) {\n    const itemObj = {};\n\n    // collect the item's descriptors\n    for (let descriptor of item.data) {\n      itemObj[descriptor.name] = descriptor.value;\n    }\n    return itemObj;\n  }\n\n  /**\n   * Get the url of the representation given by a collection obj.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   *\n   * @return {string} - url of the resource representation\n   */\n  static getUrl(collection) {\n    return collection.href;\n  }\n\n  /**\n   * Get the total number of items from a collection object.\n   *\n   * @param {Object} collection - Collection+Json collection object\n   *\n   * @return {number} - total number of items or -1 if the collection objects\n   * doesn't contain that information\n   */\n  static getTotalNumberOfItems(collection) {\n    if (collection.total) {\n      return collection.total;\n    }\n    return -1;\n  }\n\n  /**\n   * Get the list of descriptor names within a collection's template object.\n   *\n   * @param {Object} template - Collection+Json template object\n   *\n   * @return {string[]} - list of descriptor names\n   */\n  static getTemplateDescriptorNames(template) {\n    return template.data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Get the list of descriptor names within a Collection+Json query array.\n   *\n   * @param {Object[]} queryArr - Collection+Json query array\n   *\n   * @return {string[]} - list of query parameter names\n   */\n  static getQueryParameters(queryArr) {\n    return queryArr[0].data.map(descriptor => descriptor.name);\n  }\n\n  /**\n   * Create an empty Collection+Json object.\n   *\n   * @return {Object} - template object\n   */\n  static createCollectionObj() {\n    const obj = {\n      href: '',\n      items: [],\n      links: [],\n      version: '1.0',\n    };\n    return obj;\n  }\n\n  /**\n   * Make a Collection+Json template object from a regular object whose properties are\n   * the item descriptors.\n   *\n   * @param {Object} descriptorsObj - item descriptors object\n   *\n   * @return {Object} - template object\n   */\n  static makeTemplate(descriptorsObj) {\n    const template = { data: [] };\n\n    let i = 0;\n    for (let property in descriptorsObj) {\n      if (descriptorsObj.hasOwnProperty(property)) {\n        template.data[i] = { name: property, value: descriptorsObj[property] };\n      }\n      i++;\n    }\n    return template;\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/cj.js",
     "access": "public",
@@ -833,6 +833,28 @@
   {
     "__docId__": 57,
     "kind": "method",
+    "name": "createCollectionObj",
+    "memberof": "src/cj.js~Collection",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/cj.js~Collection.createCollectionObj",
+    "access": "public",
+    "description": "Create an empty Collection+Json object.",
+    "lineNumber": 104,
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "template object"
+    },
+    "params": []
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
     "name": "makeTemplate",
     "memberof": "src/cj.js~Collection",
     "generator": false,
@@ -841,7 +863,7 @@
     "longname": "src/cj.js~Collection.makeTemplate",
     "access": "public",
     "description": "Make a Collection+Json template object from a regular object whose properties are\nthe item descriptors.",
-    "lineNumber": 107,
+    "lineNumber": 122,
     "params": [
       {
         "nullable": null,
@@ -864,10 +886,10 @@
     }
   },
   {
-    "__docId__": 58,
+    "__docId__": 59,
     "kind": "file",
     "name": "src/client.js",
-    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\nimport { PluginList } from './plugin';\nimport { PluginMetaList, UserOwnedPluginMetaList } from './pluginmeta';\nimport { UserFavoritePluginMetaList } from './pluginmeta';\nimport { PluginStarList } from './pluginstar';\nimport { PipelineList } from './pipeline';\nimport User from './user';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS store service\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    /** @type {string} */\n    this.url = url;\n\n    /** @type {Object} */\n    this.auth = auth;\n\n    /* Urls of the high level API resources */\n    this.pluginMetasUrl = this.url;\n    this.favoritePluginMetasUrl = '';\n    this.ownedPluginMetasUrl = '';\n    this.pluginStarsUrl = '';\n    this.pluginsUrl = '';\n    this.pipelinesUrl = '';\n    this.userUrl = '';\n  }\n\n  /**\n   * Set the urls of the high level API resources.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  setUrls(timeout = 30000) {\n    return this.getPluginMetas(null, timeout);\n  }\n\n  /**\n   * Get a paginated list of plugin metas from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin meta id exactly with this number\n   * @param {string} [searchParams.name] - match plugin meta name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string\n   * @param {string} [searchParams.title] - match plugin meta title containing this string\n   * @param {string} [searchParams.type] - match plugin meta type exactly with this string\n   * @param {string} [searchParams.category] - match plugin meta category exactly with this string\n   * @param {string} [searchParams.authors] - match plugin meta authors containing this string\n   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date\n   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or\n   * category containing this string\n   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or\n   * category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly\n   * with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object\n   */\n  getPluginMetas(searchParams = null, timeout = 30000) {\n    const plgMetaList = new PluginMetaList(this.pluginMetasUrl, this.auth);\n\n    return plgMetaList.get(searchParams, timeout).then(plgMetaList => {\n      const coll = plgMetaList.collection;\n      const getUrl = Collection.getLinkRelationUrls;\n\n      if (!this.favoritePluginMetasUrl && this.auth) {\n        this.favoritePluginMetasUrl = getUrl(coll, 'favorite_plugin_metas')[0];\n      }\n      if (!this.ownedPluginMetasUrl && this.auth) {\n        this.ownedPluginMetasUrl = getUrl(coll, 'owned_plugin_metas')[0];\n      }\n      this.pluginStarsUrl = this.pluginStarsUrl || getUrl(coll, 'plugin_stars')[0];\n      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];\n      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];\n      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];\n\n      return plgMetaList;\n    });\n  }\n\n  /**\n   * Fetch a list of authenticated user's favorite plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object\n   */\n  getFavoritePluginMetas(params = null, timeout = 30000) {\n    if (!this.auth) {\n      throw new RequestException('Authentication is required to fetch this resource.');\n    }\n    return this._fetchRes('favoritePluginMetasUrl', UserFavoritePluginMetaList, params, timeout);\n  }\n\n  /**\n   * Fetch a list of authenticated user's owned plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object\n   */\n  getOwnedPluginMetas(params = null, timeout = 30000) {\n    if (!this.auth) {\n      throw new RequestException('Authentication is required to fetch this resource.');\n    }\n    return this._fetchRes('ownedPluginMetasUrl', UserOwnedPluginMetaList, params, timeout);\n  }\n\n  /**\n   * Get a plugin meta resource object given its id.\n   *\n   * @param {number} id - plugin meta id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(id, timeout = 30000) {\n    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of authenticated-user-specific plugin star data (descriptors)\n   * given query search parameters. If no search parameters is given then get the default\n   * first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin star id exactly with this number\n   * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object\n   */\n  getPluginStars(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginStarsUrl', PluginStarList, searchParams, timeout);\n  }\n\n  /**\n   * Get an authenticated-user-specific plugin star resource object given its id.\n   *\n   * @param {number} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   */\n  getPluginStar(id, timeout = 30000) {\n    return this.getPluginStars({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin star resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.plugin_name - plugin's name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginStar`` object\n   */\n  createPluginStar(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginStarList(this.pluginStarsUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginStarsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_latest] - match plugin name containing this string\n   * and return only the latest version\n   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string\n   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string\n   * and return only the latest version\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.type] - match plugin type with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin username containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.version] - match plugin version exactly with this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or category\n   * containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin resource object given its id.\n   *\n   * @param {number} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - plugin name\n   * @param {string} data.dock_image - plugin docker image\n   * @param {string} data.public_repo - plugin repo\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.descriptor_file - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Plugin`` object\n   */\n  createPlugin(data, uploadFileObj, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginList(this.pluginsUrl, this.auth);\n      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of pipeline data (descriptors) given query search parameters.\n   * If no search parameters is given then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match pipeline id exactly with this number\n   * @param {string} [searchParams.name] - match pipeline name containing this string\n   * @param {string} [searchParams.category] - match pipeline category containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.description] - match pipeline description containing this string\n   * @param {string} [searchParams.authors] - match pipeline authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline resource object given its id.\n   *\n   * @param {number} id - pipeline id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object\n   */\n  getPipeline(id, timeout = 30000) {\n    return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - pipeline name\n   * @param {string} data.plugin_tree - JSON string containing a plugin tree list\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked=true] - pipeline status\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Pipeline`` object\n   */\n  createPipeline(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PipelineList(this.pipelinessUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a user resource object for the currently authenticated user.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    return this._fetchRes('userUrl', User, null, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req.post(usersUrl, userData).then(resp => {\n      const coll = resp.data.collection;\n      const userUrl = coll.items[0].href;\n      const auth = { username: username, password: password };\n      const user = new User(userUrl, auth);\n      user.collection = coll;\n      return user;\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``string`` value\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then(resp => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Internal method to fetch a high level resource through the REST API.\n   *\n   * @param {string} resUrlProp -  property of the `this` object containing the url of the resource\n   * @param {string} ResClass - resource class\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {\n    const getRes = () => {\n      const res = new ResClass(this[resUrlProp], this.auth);\n      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);\n    };\n    return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport { PluginList } from './plugin';\nimport { PluginMetaList, UserCollabPluginMetaList } from './pluginmeta';\nimport { UserFavoritePluginMetaList } from './pluginmeta';\nimport { PluginStarList } from './pluginstar';\nimport { PluginCollaboratorList } from './plugincollab';\nimport { PipelineList } from './pipeline';\nimport User from './user';\n\n/**\n * API client object.\n */\nexport default class Client {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the ChRIS store service\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    /** @type {string} */\n    this.url = url;\n\n    /** @type {Object} */\n    this.auth = auth;\n\n    /* Urls of the high level API resources */\n    this.pluginMetasUrl = this.url;\n    this.favoritePluginMetasUrl = '';\n    this.collabPluginMetasUrl = '';\n    this.pluginStarsUrl = '';\n    this.pluginsUrl = '';\n    this.pipelinesUrl = '';\n    this.userUrl = '';\n  }\n\n  /**\n   * Set the urls of the high level API resources.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  setUrls(timeout = 30000) {\n    return this.getPluginMetas(null, timeout);\n  }\n\n  /**\n   * Get a paginated list of plugin metas from the REST API given query search\n   * parameters. If no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin meta id exactly with this number\n   * @param {string} [searchParams.name] - match plugin meta name containing this string\n   * @param {string} [searchParams.name_exact] - match plugin meta name exactly with this string\n   * @param {string} [searchParams.title] - match plugin meta title containing this string\n   * @param {string} [searchParams.type] - match plugin meta type exactly with this string\n   * @param {string} [searchParams.category] - match plugin meta category exactly with this string\n   * @param {string} [searchParams.authors] - match plugin meta authors containing this string\n   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date\n   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date\n   * @param {string} [searchParams.name_title_category] - match plugin meta name, title or\n   * category containing this string\n   * @param {string} [searchParams.name_authors_category] - match plugin meta name, authors or\n   * category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin meta owner's username exactly\n   * with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaList`` object\n   */\n  getPluginMetas(searchParams = null, timeout = 30000) {\n    const plgMetaList = new PluginMetaList(this.pluginMetasUrl, this.auth);\n\n    return plgMetaList.get(searchParams, timeout).then(plgMetaList => {\n      const coll = plgMetaList.collection;\n      const getUrl = Collection.getLinkRelationUrls;\n\n      if (!this.favoritePluginMetasUrl && this.auth) {\n        this.favoritePluginMetasUrl = getUrl(coll, 'favorite_plugin_metas')[0];\n      }\n      if (!this.collabPluginMetasUrl && this.auth) {\n        this.collabPluginMetasUrl = getUrl(coll, 'collab_plugin_metas')[0];\n      }\n      this.pluginStarsUrl = this.pluginStarsUrl || getUrl(coll, 'plugin_stars')[0];\n      this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];\n      this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];\n      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];\n\n      return plgMetaList;\n    });\n  }\n\n  /**\n   * Fetch a list of authenticated user's favorite plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object\n   */\n  getFavoritePluginMetas(params = null, timeout = 30000) {\n    return this._fetchRes('favoritePluginMetasUrl', UserFavoritePluginMetaList, params, timeout);\n  }\n\n  /**\n   * Fetch a list of authenticated user's collaborated plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserCollabPluginMetaList`` object\n   */\n  getCollabPluginMetas(params = null, timeout = 30000) {\n    return this._fetchRes('collabPluginMetasUrl', UserCollabPluginMetaList, params, timeout);\n  }\n\n  /**\n   * Get a plugin meta resource object given its id.\n   *\n   * @param {number} id - plugin meta id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(id, timeout = 30000) {\n    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Get a paginated list of authenticated-user-specific plugin star data (descriptors)\n   * given query search parameters. If no search parameters is given then get the default\n   * first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin star id exactly with this number\n   * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object\n   */\n  getPluginStars(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginStarsUrl', PluginStarList, searchParams, timeout);\n  }\n\n  /**\n   * Get an authenticated-user-specific plugin star resource object given its id.\n   *\n   * @param {number} id - plugin star id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStar`` object\n   */\n  getPluginStar(id, timeout = 30000) {\n    return this.getPluginStars({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin star resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.plugin_name - plugin's name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginStar`` object\n   */\n  createPluginStar(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginStarList(this.pluginStarsUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginStarsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Create a new plugin collaborator resource through the REST API.\n   *\n   * @param {number} pluginMetaId - plugin meta id\n   * @param {Object} data - request JSON data object\n   * @param {string} data.username - collaborator username\n   * @param {string} data.role - collaborator role\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``PluginCollaborator`` object\n   */\n  createPluginCollaborator(pluginMetaId, data, timeout = 30000) {\n    return this.getPluginMeta(pluginMetaId, timeout)\n      .then(plgMeta => {\n        const collaboratorsUrl = Collection.getLinkRelationUrls(plgMeta.collection.items[0], 'collaborators');\n        const collabList = new PluginCollaboratorList(collaboratorsUrl[0], this.auth);\n        return collabList.post(data, timeout);\n      })\n      .then(collabList => collabList.getItems()[0]);\n  }\n\n  /**\n   * Get a paginated list of plugin data (descriptors) given query search\n   * parameters. If no search parameters is given then get the default first\n   * page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match plugin id exactly with this number\n   * @param {string} [searchParams.name] - match plugin name containing this string\n   * @param {string} [searchParams.name_latest] - match plugin name containing this string\n   * and return only the latest version\n   * @param {string} [searchParams.name_exact] - match plugin name exactly with this string\n   * @param {string} [searchParams.name_exact_latest] - match plugin name exactly with this string\n   * and return only the latest version\n   * @param {string} [searchParams.dock_image] - match plugin docker image exactly with this string\n   * @param {string} [searchParams.type] - match plugin type with this string\n   * @param {string} [searchParams.category] - match plugin category containing this string\n   * @param {string} [searchParams.owner_username] - match plugin username containing this string\n   * @param {string} [searchParams.min_creation_date] - match plugin creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match plugin creation date before this date\n   * @param {string} [searchParams.title] - match plugin title containing this string\n   * @param {string} [searchParams.version] - match plugin version exactly with this string\n   * @param {string} [searchParams.description] - match plugin description containing this string\n   * @param {string} [searchParams.name_title_category] - match plugin name, title or category\n   * containing this string\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pluginsUrl', PluginList, searchParams, timeout);\n  }\n\n  /**\n   * Get a plugin resource object given its id.\n   *\n   * @param {number} id - plugin id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(id, timeout = 30000) {\n    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new plugin resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - plugin name\n   * @param {string} data.dock_image - plugin docker image\n   * @param {string} data.public_repo - plugin repo\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.descriptor_file - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Plugin`` object\n   */\n  createPlugin(data, uploadFileObj, timeout = 30000) {\n    const createRes = () => {\n      const res = new PluginList(this.pluginsUrl, this.auth);\n      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pluginsUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a paginated list of pipeline data (descriptors) given query search parameters.\n   * If no search parameters is given then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [searchParams.id] - match pipeline id exactly with this number\n   * @param {string} [searchParams.name] - match pipeline name containing this string\n   * @param {string} [searchParams.category] - match pipeline category containing this string\n   * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string\n   * @param {string} [searchParams.description] - match pipeline description containing this string\n   * @param {string} [searchParams.authors] - match pipeline authors containing this string\n   * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date\n   * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    return this._fetchRes('pipelinesUrl', PipelineList, searchParams, timeout);\n  }\n\n  /**\n   * Get a pipeline resource object given its id.\n   *\n   * @param {number} id - pipeline id\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object\n   */\n  getPipeline(id, timeout = 30000) {\n    return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));\n  }\n\n  /**\n   * Create a new pipeline resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - pipeline name\n   * @param {string} data.plugin_tree - JSON string containing a plugin tree list\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked=true] - pipeline status\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``Pipeline`` object\n   */\n  createPipeline(data, timeout = 30000) {\n    const createRes = () => {\n      const res = new PipelineList(this.pipelinessUrl, this.auth);\n      return res.post(data, timeout).then(res => res.getItems()[0]);\n    };\n    return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());\n  }\n\n  /**\n   * Get a user resource object for the currently authenticated user.\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    return this._fetchRes('userUrl', User, null, timeout);\n  }\n\n  /**\n   * Create a new user account.\n   *\n   * @param {string} usersUrl - url of the user accounts service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {string} email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  static createUser(usersUrl, username, password, email, timeout = 30000) {\n    const req = new Request(undefined, 'application/vnd.collection+json', timeout);\n    const userData = {\n      template: {\n        data: [\n          { name: 'username', value: username },\n          { name: 'password', value: password },\n          { name: 'email', value: email },\n        ],\n      },\n    };\n    return req.post(usersUrl, userData).then(resp => {\n      const coll = resp.data.collection;\n      const userUrl = coll.items[0].href;\n      const auth = { username: username, password: password };\n      const user = new User(userUrl, auth);\n      user.collection = coll;\n      return user;\n    });\n  }\n\n  /**\n   * Fetch a user's login authorization token from the REST API.\n   * @param {string} authUrl - url of the authorization service\n   * @param {string} username - username\n   * @param {string} password - password\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``string`` value\n   */\n  static getAuthToken(authUrl, username, password, timeout = 30000) {\n    const req = new Request(undefined, 'application/json', timeout);\n    const authData = {\n      username: username,\n      password: password,\n    };\n    return req.post(authUrl, authData).then(resp => resp.data.token);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    Request.runAsyncTask(taskGenerator);\n  }\n\n  /**\n   * Internal method to fetch a high level resource through the REST API.\n   *\n   * @param {string} resUrlProp -  property of the `this` object containing the url of the resource\n   * @param {string} ResClass - resource class\n   * @param {Object} [searchParams=null] - search parameters object\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {\n    const getRes = () => {\n      const res = new ResClass(this[resUrlProp], this.auth);\n      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);\n    };\n    return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/client.js",
     "access": "public",
@@ -875,7 +897,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 59,
+    "__docId__": 60,
     "kind": "class",
     "name": "Client",
     "memberof": "src/client.js",
@@ -890,7 +912,7 @@
     "interface": false
   },
   {
-    "__docId__": 60,
+    "__docId__": 61,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/client.js~Client",
@@ -937,7 +959,7 @@
     ]
   },
   {
-    "__docId__": 61,
+    "__docId__": 62,
     "kind": "member",
     "name": "url",
     "memberof": "src/client.js~Client",
@@ -956,7 +978,7 @@
     }
   },
   {
-    "__docId__": 62,
+    "__docId__": 63,
     "kind": "member",
     "name": "auth",
     "memberof": "src/client.js~Client",
@@ -975,7 +997,7 @@
     }
   },
   {
-    "__docId__": 63,
+    "__docId__": 64,
     "kind": "member",
     "name": "pluginMetasUrl",
     "memberof": "src/client.js~Client",
@@ -992,7 +1014,7 @@
     }
   },
   {
-    "__docId__": 64,
+    "__docId__": 65,
     "kind": "member",
     "name": "favoritePluginMetasUrl",
     "memberof": "src/client.js~Client",
@@ -1009,12 +1031,12 @@
     }
   },
   {
-    "__docId__": 65,
+    "__docId__": 66,
     "kind": "member",
-    "name": "ownedPluginMetasUrl",
+    "name": "collabPluginMetasUrl",
     "memberof": "src/client.js~Client",
     "static": false,
-    "longname": "src/client.js~Client#ownedPluginMetasUrl",
+    "longname": "src/client.js~Client#collabPluginMetasUrl",
     "access": "public",
     "description": null,
     "lineNumber": 33,
@@ -1026,7 +1048,7 @@
     }
   },
   {
-    "__docId__": 66,
+    "__docId__": 67,
     "kind": "member",
     "name": "pluginStarsUrl",
     "memberof": "src/client.js~Client",
@@ -1043,7 +1065,7 @@
     }
   },
   {
-    "__docId__": 67,
+    "__docId__": 68,
     "kind": "member",
     "name": "pluginsUrl",
     "memberof": "src/client.js~Client",
@@ -1060,7 +1082,7 @@
     }
   },
   {
-    "__docId__": 68,
+    "__docId__": 69,
     "kind": "member",
     "name": "pipelinesUrl",
     "memberof": "src/client.js~Client",
@@ -1077,7 +1099,7 @@
     }
   },
   {
-    "__docId__": 69,
+    "__docId__": 70,
     "kind": "member",
     "name": "userUrl",
     "memberof": "src/client.js~Client",
@@ -1094,7 +1116,7 @@
     }
   },
   {
-    "__docId__": 70,
+    "__docId__": 71,
     "kind": "method",
     "name": "setUrls",
     "memberof": "src/client.js~Client",
@@ -1129,7 +1151,7 @@
     }
   },
   {
-    "__docId__": 71,
+    "__docId__": 72,
     "kind": "method",
     "name": "getPluginMetas",
     "memberof": "src/client.js~Client",
@@ -1316,7 +1338,7 @@
     }
   },
   {
-    "__docId__": 78,
+    "__docId__": 79,
     "kind": "method",
     "name": "getFavoritePluginMetas",
     "memberof": "src/client.js~Client",
@@ -1383,17 +1405,17 @@
     }
   },
   {
-    "__docId__": 79,
+    "__docId__": 80,
     "kind": "method",
-    "name": "getOwnedPluginMetas",
+    "name": "getCollabPluginMetas",
     "memberof": "src/client.js~Client",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/client.js~Client#getOwnedPluginMetas",
+    "longname": "src/client.js~Client#getCollabPluginMetas",
     "access": "public",
-    "description": "Fetch a list of authenticated user's owned plugin metas from the REST API.",
-    "lineNumber": 125,
+    "description": "Fetch a list of authenticated user's collaborated plugin metas from the REST API.",
+    "lineNumber": 122,
     "params": [
       {
         "nullable": null,
@@ -1446,11 +1468,11 @@
         "Object"
       ],
       "spread": false,
-      "description": "JS Promise, resolves to a ``UserOwnedPluginMetaList`` object"
+      "description": "JS Promise, resolves to a ``UserCollabPluginMetaList`` object"
     }
   },
   {
-    "__docId__": 80,
+    "__docId__": 81,
     "kind": "method",
     "name": "getPluginMeta",
     "memberof": "src/client.js~Client",
@@ -1460,7 +1482,7 @@
     "longname": "src/client.js~Client#getPluginMeta",
     "access": "public",
     "description": "Get a plugin meta resource object given its id.",
-    "lineNumber": 140,
+    "lineNumber": 134,
     "params": [
       {
         "nullable": null,
@@ -1495,7 +1517,7 @@
     }
   },
   {
-    "__docId__": 81,
+    "__docId__": 82,
     "kind": "method",
     "name": "getPluginStars",
     "memberof": "src/client.js~Client",
@@ -1505,7 +1527,7 @@
     "longname": "src/client.js~Client#getPluginStars",
     "access": "public",
     "description": "Get a paginated list of authenticated-user-specific plugin star data (descriptors)\ngiven query search parameters. If no search parameters is given then get the default\nfirst page.",
-    "lineNumber": 158,
+    "lineNumber": 152,
     "params": [
       {
         "nullable": null,
@@ -1582,7 +1604,7 @@
     }
   },
   {
-    "__docId__": 82,
+    "__docId__": 83,
     "kind": "method",
     "name": "getPluginStar",
     "memberof": "src/client.js~Client",
@@ -1592,7 +1614,7 @@
     "longname": "src/client.js~Client#getPluginStar",
     "access": "public",
     "description": "Get an authenticated-user-specific plugin star resource object given its id.",
-    "lineNumber": 170,
+    "lineNumber": 164,
     "params": [
       {
         "nullable": null,
@@ -1627,7 +1649,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 84,
     "kind": "method",
     "name": "createPluginStar",
     "memberof": "src/client.js~Client",
@@ -1637,7 +1659,7 @@
     "longname": "src/client.js~Client#createPluginStar",
     "access": "public",
     "description": "Create a new plugin star resource through the REST API.",
-    "lineNumber": 183,
+    "lineNumber": 177,
     "params": [
       {
         "nullable": null,
@@ -1682,7 +1704,82 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 85,
+    "kind": "method",
+    "name": "createPluginCollaborator",
+    "memberof": "src/client.js~Client",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/client.js~Client#createPluginCollaborator",
+    "access": "public",
+    "description": "Create a new plugin collaborator resource through the REST API.",
+    "lineNumber": 196,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pluginMetaId",
+        "description": "plugin meta id"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "request JSON data object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.username",
+        "description": "collaborator username"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.role",
+        "description": "collaborator role"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to ``PluginCollaborator`` object"
+    }
+  },
+  {
+    "__docId__": 86,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/client.js~Client",
@@ -1692,7 +1789,7 @@
     "longname": "src/client.js~Client#getPlugins",
     "access": "public",
     "description": "Get a paginated list of plugin data (descriptors) given query search\nparameters. If no search parameters is given then get the default first\npage.",
-    "lineNumber": 221,
+    "lineNumber": 236,
     "params": [
       {
         "nullable": null,
@@ -1899,7 +1996,7 @@
     }
   },
   {
-    "__docId__": 85,
+    "__docId__": 87,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/client.js~Client",
@@ -1909,7 +2006,7 @@
     "longname": "src/client.js~Client#getPlugin",
     "access": "public",
     "description": "Get a plugin resource object given its id.",
-    "lineNumber": 233,
+    "lineNumber": 248,
     "params": [
       {
         "nullable": null,
@@ -1944,7 +2041,7 @@
     }
   },
   {
-    "__docId__": 86,
+    "__docId__": 88,
     "kind": "method",
     "name": "createPlugin",
     "memberof": "src/client.js~Client",
@@ -1954,7 +2051,7 @@
     "longname": "src/client.js~Client#createPlugin",
     "access": "public",
     "description": "Create a new plugin resource through the REST API.",
-    "lineNumber": 250,
+    "lineNumber": 265,
     "params": [
       {
         "nullable": null,
@@ -2039,7 +2136,7 @@
     }
   },
   {
-    "__docId__": 87,
+    "__docId__": 89,
     "kind": "method",
     "name": "getPipelines",
     "memberof": "src/client.js~Client",
@@ -2049,7 +2146,7 @@
     "longname": "src/client.js~Client#getPipelines",
     "access": "public",
     "description": "Get a paginated list of pipeline data (descriptors) given query search parameters.\nIf no search parameters is given then get the default first page.",
-    "lineNumber": 277,
+    "lineNumber": 292,
     "params": [
       {
         "nullable": null,
@@ -2186,7 +2283,7 @@
     }
   },
   {
-    "__docId__": 88,
+    "__docId__": 90,
     "kind": "method",
     "name": "getPipeline",
     "memberof": "src/client.js~Client",
@@ -2196,7 +2293,7 @@
     "longname": "src/client.js~Client#getPipeline",
     "access": "public",
     "description": "Get a pipeline resource object given its id.",
-    "lineNumber": 289,
+    "lineNumber": 304,
     "params": [
       {
         "nullable": null,
@@ -2231,7 +2328,7 @@
     }
   },
   {
-    "__docId__": 89,
+    "__docId__": 91,
     "kind": "method",
     "name": "createPipeline",
     "memberof": "src/client.js~Client",
@@ -2241,7 +2338,7 @@
     "longname": "src/client.js~Client#createPipeline",
     "access": "public",
     "description": "Create a new pipeline resource through the REST API.",
-    "lineNumber": 307,
+    "lineNumber": 322,
     "params": [
       {
         "nullable": null,
@@ -2338,7 +2435,7 @@
     }
   },
   {
-    "__docId__": 90,
+    "__docId__": 92,
     "kind": "method",
     "name": "getUser",
     "memberof": "src/client.js~Client",
@@ -2348,7 +2445,7 @@
     "longname": "src/client.js~Client#getUser",
     "access": "public",
     "description": "Get a user resource object for the currently authenticated user.",
-    "lineNumber": 321,
+    "lineNumber": 336,
     "params": [
       {
         "nullable": null,
@@ -2373,7 +2470,7 @@
     }
   },
   {
-    "__docId__": 91,
+    "__docId__": 93,
     "kind": "method",
     "name": "createUser",
     "memberof": "src/client.js~Client",
@@ -2383,7 +2480,7 @@
     "longname": "src/client.js~Client.createUser",
     "access": "public",
     "description": "Create a new user account.",
-    "lineNumber": 336,
+    "lineNumber": 351,
     "params": [
       {
         "nullable": null,
@@ -2448,7 +2545,7 @@
     }
   },
   {
-    "__docId__": 92,
+    "__docId__": 94,
     "kind": "method",
     "name": "getAuthToken",
     "memberof": "src/client.js~Client",
@@ -2458,7 +2555,7 @@
     "longname": "src/client.js~Client.getAuthToken",
     "access": "public",
     "description": "Fetch a user's login authorization token from the REST API.",
-    "lineNumber": 366,
+    "lineNumber": 381,
     "params": [
       {
         "nullable": null,
@@ -2513,7 +2610,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 95,
     "kind": "method",
     "name": "runAsyncTask",
     "memberof": "src/client.js~Client",
@@ -2523,7 +2620,7 @@
     "longname": "src/client.js~Client.runAsyncTask",
     "access": "public",
     "description": "Helper method to run an asynchronous task defined by a task generator function.",
-    "lineNumber": 380,
+    "lineNumber": 395,
     "params": [
       {
         "nullable": null,
@@ -2539,7 +2636,7 @@
     "return": null
   },
   {
-    "__docId__": 94,
+    "__docId__": 96,
     "kind": "method",
     "name": "_fetchRes",
     "memberof": "src/client.js~Client",
@@ -2549,7 +2646,7 @@
     "longname": "src/client.js~Client#_fetchRes",
     "access": "private",
     "description": "Internal method to fetch a high level resource through the REST API.",
-    "lineNumber": 394,
+    "lineNumber": 409,
     "params": [
       {
         "nullable": null,
@@ -2606,7 +2703,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 97,
     "kind": "file",
     "name": "src/exception.js",
     "content": "/**\n * Custom exception object.\n *\n * @module exception\n */\nexport default class RequestException extends Error {\n  constructor(...args) {\n    super(...args);\n\n    /** @type {string} */\n    this.name = this.constructor.name;\n\n    /** @type {Object} */\n    this.request = null;\n\n    /** @type {Object} */\n    this.response = null;\n  }\n}\n",
@@ -2617,7 +2714,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 96,
+    "__docId__": 98,
     "kind": "class",
     "name": "RequestException",
     "memberof": "src/exception.js",
@@ -2641,7 +2738,7 @@
     ]
   },
   {
-    "__docId__": 97,
+    "__docId__": 99,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/exception.js~RequestException",
@@ -2655,7 +2752,7 @@
     "undocument": true
   },
   {
-    "__docId__": 98,
+    "__docId__": 100,
     "kind": "member",
     "name": "name",
     "memberof": "src/exception.js~RequestException",
@@ -2674,7 +2771,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 101,
     "kind": "member",
     "name": "request",
     "memberof": "src/exception.js~RequestException",
@@ -2693,7 +2790,7 @@
     }
   },
   {
-    "__docId__": 100,
+    "__docId__": 102,
     "kind": "member",
     "name": "response",
     "memberof": "src/exception.js~RequestException",
@@ -2712,10 +2809,10 @@
     }
   },
   {
-    "__docId__": 101,
+    "__docId__": 103,
     "kind": "file",
     "name": "src/index.js",
-    "content": "import Client from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport RequestException from './exception';\nimport { ListResource, ItemResource, Resource } from './resource';\nimport { PluginList, PluginMetaPluginList, Plugin } from './plugin';\nimport { PluginMetaList, PluginMeta } from './pluginmeta';\nimport { PluginStarList, PluginStar } from './pluginstar';\nimport { PluginParameterList, PluginParameter } from './pluginparameter';\nimport { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline } from './pipeline';\nimport {\n  PipelinePipingDefaultParameterList,\n  PluginPiping,\n  PipingDefaultParameter,\n} from './pipeline';\nimport { User } from './user';\n\nexport default Client;\nexport { Request };\nexport { Collection };\nexport { RequestException };\nexport { ListResource, ItemResource, Resource };\nexport { PluginList, PluginMetaPluginList, Plugin };\nexport { PluginMetaList, PluginMeta };\nexport { PluginStarList, PluginStar };\nexport { PluginParameterList, PluginParameter };\nexport { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };\nexport { PipelinePipingDefaultParameterList, PluginPiping, PipingDefaultParameter };\nexport { User };\n",
+    "content": "import Client from './client';\nimport Request from './request';\nimport Collection from './cj';\nimport RequestException from './exception';\nimport { ListResource, ItemResource, Resource } from './resource';\nimport { PluginList, PluginMetaPluginList, Plugin } from './plugin';\nimport { PluginMetaList, PluginMeta, UserCollabPluginMetaList, UserFavoritePluginMetaList } from './pluginmeta';\nimport { PluginCollaboratorList, PluginCollaborator } from './plugincollab';\nimport { PluginStarList, PluginStar } from './pluginstar';\nimport { PluginParameterList, PluginParameter } from './pluginparameter';\nimport { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline } from './pipeline';\nimport {\n  PipelinePipingDefaultParameterList,\n  PluginPiping,\n  PipingDefaultParameter,\n} from './pipeline';\nimport { User } from './user';\n\nexport default Client;\nexport { Request };\nexport { Collection };\nexport { RequestException };\nexport { ListResource, ItemResource, Resource };\nexport { PluginList, PluginMetaPluginList, Plugin };\nexport { PluginMetaList, PluginMeta, UserCollabPluginMetaList, UserFavoritePluginMetaList };\nexport { PluginCollaboratorList, PluginCollaborator };\nexport { PluginStarList, PluginStar };\nexport { PluginParameterList, PluginParameter };\nexport { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };\nexport { PipelinePipingDefaultParameterList, PluginPiping, PipingDefaultParameter };\nexport { User };\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/index.js",
     "access": "public",
@@ -2723,7 +2820,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 102,
+    "__docId__": 104,
     "kind": "file",
     "name": "src/pipeline.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { PluginList, Plugin } from './plugin';\nimport { PluginParameter } from './pluginparameter';\n\n/**\n * Pipeline item resource object representing a pipeline.\n */\nexport class Pipeline extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugins associated to this pipeline from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelinePluginList`` object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PipelinePluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin pipings associated to this pipeline from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelinePluginPipingList`` object\n   */\n  getPluginPipings(params = null, timeout = 30000) {\n    const linkRelation = 'plugin_pipings';\n    const resourceClass = PipelinePluginPipingList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin piping default parameter values for the plugin\n   * pipings composing the pipeline from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object\n   */\n  getDefaultParameters(params = null, timeout = 30000) {\n    const linkRelation = 'default_parameters';\n    const resourceClass = PipelinePipingDefaultParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this pipeline resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} [data.name] - pipeline name\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked] - pipeline lock status\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this pipeline resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Pipeline list resource object representing a list of pipelines.\n */\nexport class PipelineList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Pipeline;\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginList.getSearchParameters`` method can be\n   * used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Make a POST request to this pipeline list resource to create a new pipeline\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - pipeline name\n   * @param {string} data.plugin_tree - JSON string containing a plugin tree list\n   * @param {string} [data.authors] - pipeline authors\n   * @param {string} [data.category] - pipeline category\n   * @param {string} [data.description] - pipeline description\n   * @param {boolean} [data.locked=true] - pipeline status\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n\n/**\n * Plugin piping item resource object representing a plugin piping within\n * a pipeline.\n */\nexport class PluginPiping extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the parent plugin piping within the corresponding pipeline from the\n   * REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object or ``null``\n   */\n  getPreviousPluginPiping(timeout = 30000) {\n    const linkRelation = 'previous';\n    const resourceClass = PluginPiping;\n\n    try {\n      return this._getResource(linkRelation, resourceClass, null, timeout);\n    } catch (e) {\n      return Promise.resolve(null);\n    }\n  }\n\n  /**\n   * Fetch the corresponding plugin for this plugin piping from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the corresponding pipeline for this plugin piping from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Pipeline`` object\n   */\n  getPipeline(timeout = 30000) {\n    const linkRelation = 'pipeline';\n    const resourceClass = Pipeline;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Item resource object for a plugin piping defaul parameter representing a\n * default value for a plugin parameter associated with this plugin piping.\n */\nexport class PipingDefaultParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the corresponding plugin piping for this plugin piping default\n   * parameter from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginPiping`` object\n   */\n  getPluginPiping(timeout = 30000) {\n    const linkRelation = 'plugin_piping';\n    const resourceClass = PluginPiping;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the corresponding plugin parameter for this plugin piping default\n   * parameter from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginParameter`` object\n   */\n  getPluginParameter(timeout = 30000) {\n    const linkRelation = 'plugin_param';\n    const resourceClass = PluginParameter;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Pipeline-specific plugin list resource object representing a list of plugins\n * composing the pipeline.\n */\nexport class PipelinePluginList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Plugin;\n  }\n}\n\n/**\n * Pipeline-specific plugin piping list resource object representing a list of\n * plugin pipings composing the pipeline.\n */\nexport class PipelinePluginPipingList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginPiping;\n  }\n}\n\n/**\n * List resource object representing a pipeline-specific list of plugin piping\n * default parameter values for the plugin pipings composing the pipeline.\n */\nexport class PipelinePipingDefaultParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginPiping;\n  }\n}\n",
@@ -2734,7 +2831,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 103,
+    "__docId__": 105,
     "kind": "class",
     "name": "Pipeline",
     "memberof": "src/pipeline.js",
@@ -2752,7 +2849,7 @@
     ]
   },
   {
-    "__docId__": 104,
+    "__docId__": 106,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pipeline.js~Pipeline",
@@ -2799,7 +2896,7 @@
     ]
   },
   {
-    "__docId__": 105,
+    "__docId__": 107,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/pipeline.js~Pipeline",
@@ -2866,7 +2963,7 @@
     }
   },
   {
-    "__docId__": 106,
+    "__docId__": 108,
     "kind": "method",
     "name": "getPluginPipings",
     "memberof": "src/pipeline.js~Pipeline",
@@ -2933,7 +3030,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 109,
     "kind": "method",
     "name": "getDefaultParameters",
     "memberof": "src/pipeline.js~Pipeline",
@@ -3000,7 +3097,7 @@
     }
   },
   {
-    "__docId__": 108,
+    "__docId__": 110,
     "kind": "method",
     "name": "put",
     "memberof": "src/pipeline.js~Pipeline",
@@ -3095,7 +3192,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 111,
     "kind": "method",
     "name": "delete",
     "memberof": "src/pipeline.js~Pipeline",
@@ -3130,7 +3227,7 @@
     }
   },
   {
-    "__docId__": 110,
+    "__docId__": 112,
     "kind": "class",
     "name": "PipelineList",
     "memberof": "src/pipeline.js",
@@ -3148,7 +3245,7 @@
     ]
   },
   {
-    "__docId__": 111,
+    "__docId__": 113,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pipeline.js~PipelineList",
@@ -3195,7 +3292,7 @@
     ]
   },
   {
-    "__docId__": 112,
+    "__docId__": 114,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pipeline.js~PipelineList",
@@ -3214,7 +3311,7 @@
     }
   },
   {
-    "__docId__": 113,
+    "__docId__": 115,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/pipeline.js~PipelineList",
@@ -3281,7 +3378,7 @@
     }
   },
   {
-    "__docId__": 114,
+    "__docId__": 116,
     "kind": "method",
     "name": "post",
     "memberof": "src/pipeline.js~PipelineList",
@@ -3388,7 +3485,7 @@
     }
   },
   {
-    "__docId__": 115,
+    "__docId__": 117,
     "kind": "class",
     "name": "PluginPiping",
     "memberof": "src/pipeline.js",
@@ -3406,7 +3503,7 @@
     ]
   },
   {
-    "__docId__": 116,
+    "__docId__": 118,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pipeline.js~PluginPiping",
@@ -3451,7 +3548,7 @@
     ]
   },
   {
-    "__docId__": 117,
+    "__docId__": 119,
     "kind": "method",
     "name": "getPreviousPluginPiping",
     "memberof": "src/pipeline.js~PluginPiping",
@@ -3486,7 +3583,7 @@
     }
   },
   {
-    "__docId__": 118,
+    "__docId__": 120,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/pipeline.js~PluginPiping",
@@ -3521,7 +3618,7 @@
     }
   },
   {
-    "__docId__": 119,
+    "__docId__": 121,
     "kind": "method",
     "name": "getPipeline",
     "memberof": "src/pipeline.js~PluginPiping",
@@ -3556,7 +3653,7 @@
     }
   },
   {
-    "__docId__": 120,
+    "__docId__": 122,
     "kind": "class",
     "name": "PipingDefaultParameter",
     "memberof": "src/pipeline.js",
@@ -3574,7 +3671,7 @@
     ]
   },
   {
-    "__docId__": 121,
+    "__docId__": 123,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pipeline.js~PipingDefaultParameter",
@@ -3621,7 +3718,7 @@
     ]
   },
   {
-    "__docId__": 122,
+    "__docId__": 124,
     "kind": "method",
     "name": "getPluginPiping",
     "memberof": "src/pipeline.js~PipingDefaultParameter",
@@ -3656,7 +3753,7 @@
     }
   },
   {
-    "__docId__": 123,
+    "__docId__": 125,
     "kind": "method",
     "name": "getPluginParameter",
     "memberof": "src/pipeline.js~PipingDefaultParameter",
@@ -3691,7 +3788,7 @@
     }
   },
   {
-    "__docId__": 124,
+    "__docId__": 126,
     "kind": "class",
     "name": "PipelinePluginList",
     "memberof": "src/pipeline.js",
@@ -3709,7 +3806,7 @@
     ]
   },
   {
-    "__docId__": 125,
+    "__docId__": 127,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pipeline.js~PipelinePluginList",
@@ -3756,7 +3853,7 @@
     ]
   },
   {
-    "__docId__": 126,
+    "__docId__": 128,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pipeline.js~PipelinePluginList",
@@ -3775,7 +3872,7 @@
     }
   },
   {
-    "__docId__": 127,
+    "__docId__": 129,
     "kind": "class",
     "name": "PipelinePluginPipingList",
     "memberof": "src/pipeline.js",
@@ -3793,7 +3890,7 @@
     ]
   },
   {
-    "__docId__": 128,
+    "__docId__": 130,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pipeline.js~PipelinePluginPipingList",
@@ -3840,7 +3937,7 @@
     ]
   },
   {
-    "__docId__": 129,
+    "__docId__": 131,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pipeline.js~PipelinePluginPipingList",
@@ -3859,7 +3956,7 @@
     }
   },
   {
-    "__docId__": 130,
+    "__docId__": 132,
     "kind": "class",
     "name": "PipelinePipingDefaultParameterList",
     "memberof": "src/pipeline.js",
@@ -3877,7 +3974,7 @@
     ]
   },
   {
-    "__docId__": 131,
+    "__docId__": 133,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pipeline.js~PipelinePipingDefaultParameterList",
@@ -3924,7 +4021,7 @@
     ]
   },
   {
-    "__docId__": 132,
+    "__docId__": 134,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pipeline.js~PipelinePipingDefaultParameterList",
@@ -3943,7 +4040,7 @@
     }
   },
   {
-    "__docId__": 133,
+    "__docId__": 135,
     "kind": "file",
     "name": "src/plugin.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { PipelineList } from './pipeline';\nimport { PluginStarList } from './pluginstar';\nimport { PluginMeta } from './pluginmeta';\nimport { PluginParameterList } from './pluginparameter';\n\n/**\n * Plugin item resource object representing a plugin.\n */\nexport class Plugin extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugin parameters associated to this plugin from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginParameterList`` object\n   */\n  getPluginParameters(params = null, timeout = 30000) {\n    const linkRelation = 'parameters';\n    const resourceClass = PluginParameterList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the plugin meta associated to this plugin from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(timeout = 30000) {\n    const linkRelation = 'meta';\n    const resourceClass = PluginMeta;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this plugin item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Plugin list resource object representing a list of plugins.\n */\nexport class PluginList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Plugin;\n  }\n\n  /**\n   * Fetch a list of pipelines from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PipelineList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    const linkRelation = 'pipelines';\n    const resourceClass = PipelineList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin stars from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginSttarList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object\n   */\n  getPluginStars(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugin_stars';\n    const resourceClass = PluginStarList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin list resource to create a new plugin\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.name - plugin name\n   * @param {string} data.dock_image - plugin docker image\n   * @param {string} data.public_repo - plugin repo\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.descriptor_file - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, uploadFileObj, timeout = 30000) {\n    return this._post(data, uploadFileObj, timeout);\n  }\n}\n\n/**\n * Plugin meta-specific plugin list resource object representing a list of\n * plugins associated to an specific plugin meta.\n */\nexport class PluginMetaPluginList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = Plugin;\n  }\n\n  /**\n   * Fetch the plugin meta associated to this plugin meta-specific list of\n   * plugins from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(timeout = 30000) {\n    const linkRelation = 'meta';\n    const resourceClass = PluginMeta;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n",
@@ -3954,7 +4051,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 134,
+    "__docId__": 136,
     "kind": "class",
     "name": "Plugin",
     "memberof": "src/plugin.js",
@@ -3972,7 +4069,7 @@
     ]
   },
   {
-    "__docId__": 135,
+    "__docId__": 137,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugin.js~Plugin",
@@ -4019,7 +4116,7 @@
     ]
   },
   {
-    "__docId__": 136,
+    "__docId__": 138,
     "kind": "method",
     "name": "getPluginParameters",
     "memberof": "src/plugin.js~Plugin",
@@ -4086,7 +4183,7 @@
     }
   },
   {
-    "__docId__": 137,
+    "__docId__": 139,
     "kind": "method",
     "name": "getPluginMeta",
     "memberof": "src/plugin.js~Plugin",
@@ -4121,7 +4218,7 @@
     }
   },
   {
-    "__docId__": 138,
+    "__docId__": 140,
     "kind": "method",
     "name": "delete",
     "memberof": "src/plugin.js~Plugin",
@@ -4156,7 +4253,7 @@
     }
   },
   {
-    "__docId__": 139,
+    "__docId__": 141,
     "kind": "class",
     "name": "PluginList",
     "memberof": "src/plugin.js",
@@ -4174,7 +4271,7 @@
     ]
   },
   {
-    "__docId__": 140,
+    "__docId__": 142,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugin.js~PluginList",
@@ -4221,7 +4318,7 @@
     ]
   },
   {
-    "__docId__": 141,
+    "__docId__": 143,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/plugin.js~PluginList",
@@ -4240,7 +4337,7 @@
     }
   },
   {
-    "__docId__": 142,
+    "__docId__": 144,
     "kind": "method",
     "name": "getPipelines",
     "memberof": "src/plugin.js~PluginList",
@@ -4307,7 +4404,7 @@
     }
   },
   {
-    "__docId__": 143,
+    "__docId__": 145,
     "kind": "method",
     "name": "getPluginStars",
     "memberof": "src/plugin.js~PluginList",
@@ -4374,7 +4471,7 @@
     }
   },
   {
-    "__docId__": 144,
+    "__docId__": 146,
     "kind": "method",
     "name": "post",
     "memberof": "src/plugin.js~PluginList",
@@ -4469,7 +4566,7 @@
     }
   },
   {
-    "__docId__": 145,
+    "__docId__": 147,
     "kind": "class",
     "name": "PluginMetaPluginList",
     "memberof": "src/plugin.js",
@@ -4487,7 +4584,7 @@
     ]
   },
   {
-    "__docId__": 146,
+    "__docId__": 148,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/plugin.js~PluginMetaPluginList",
@@ -4534,7 +4631,7 @@
     ]
   },
   {
-    "__docId__": 147,
+    "__docId__": 149,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/plugin.js~PluginMetaPluginList",
@@ -4553,7 +4650,7 @@
     }
   },
   {
-    "__docId__": 148,
+    "__docId__": 150,
     "kind": "method",
     "name": "getPluginMeta",
     "memberof": "src/plugin.js~PluginMetaPluginList",
@@ -4588,46 +4685,46 @@
     }
   },
   {
-    "__docId__": 149,
+    "__docId__": 151,
     "kind": "file",
-    "name": "src/pluginmeta.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { PluginList, PluginMetaPluginList } from './plugin';\nimport { PipelineList } from './pipeline';\nimport { PluginStarList } from './pluginstar';\nimport User from './user';\n\n/**\n * Plugin meta item resource object representing a plugin meta.\n */\nexport class PluginMeta extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugins associated to this plugin meta from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaPluginList`` object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginMetaPluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this plugin meta item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.public_repo - public repo\n   * @param {string} [data.new_owner] - new additional owner for this plugin meta\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this plugin meta item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * User-specific plugin meta list resource object representing a list of\n * plugin metas owned by an specific user.\n */\nexport class UserOwnedPluginMetaList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    if (!this.auth) {\n      throw new RequestException('Authentication object is required');\n    }\n\n    /** @type {Object} */\n    this.itemClass = PluginMeta;\n  }\n\n  /**\n   * Fetch the owner user from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * User-specific plugin meta list resource object representing a list of\n * plugin metas favored by an specific user.\n */\nexport class UserFavoritePluginMetaList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    if (!this.auth) {\n      throw new RequestException('Authentication object is required');\n    }\n\n    /** @type {Object} */\n    this.itemClass = PluginMeta;\n  }\n\n  /**\n   * Fetch the fan user from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin meta list resource object representing a list of plugin metas.\n */\nexport class PluginMetaList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginMeta;\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Fetch a list of pipelines from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PipelineList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    const linkRelation = 'pipelines';\n    const resourceClass = PipelineList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin stars from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginStarList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object\n   */\n  getPluginStars(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugin_stars';\n    const resourceClass = PluginStarList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Fetch the authenticated user from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of authenticated user's favorite plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object\n   */\n  getFavoritePluginMetas(params = null, timeout = 30000) {\n    const linkRelation = 'favorite_plugin_metas';\n    const resourceClass = UserFavoritePluginMetaList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of authenticated user's owned plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object\n   */\n  getOwnedPluginMetas(params = null, timeout = 30000) {\n    const linkRelation = 'owned_plugin_metas';\n    const resourceClass = UserOwnedPluginMetaList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "name": "src/plugincollab.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { PluginMeta } from './pluginmeta';\nimport User from './user';\n\n/**\n * Plugin collaborator item resource object representing a plugin collaborator.\n */\nexport class PluginCollaborator extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin meta associated to this plugin collaborator from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(timeout = 30000) {\n    const linkRelation = 'meta';\n    const resourceClass = PluginMeta;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the user associated to this plugin collaborator from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this plugin collaborator item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.role - collaborator role\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this plugin collaborator item resource through the\n   * REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Plugin meta-specific plugin collaborator list resource object representing a list\n * of plugin collaborators associated to an specific plugin meta.\n */\nexport class PluginCollaboratorList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginCollaborator;\n  }\n\n  /**\n   * Fetch the plugin meta associated to this plugin meta-specific list of\n   * plugin collaborators from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(timeout = 30000) {\n    const linkRelation = 'meta';\n    const resourceClass = PluginMeta;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin collaborator list resource to create a new\n   * plugin collaborator item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.username - collaborator username\n   * @param {string} data.role - collaborator role\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n",
     "static": true,
-    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/pluginmeta.js",
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/plugincollab.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 150,
+    "__docId__": 152,
     "kind": "class",
-    "name": "PluginMeta",
-    "memberof": "src/pluginmeta.js",
+    "name": "PluginCollaborator",
+    "memberof": "src/plugincollab.js",
     "static": true,
-    "longname": "src/pluginmeta.js~PluginMeta",
+    "longname": "src/plugincollab.js~PluginCollaborator",
     "access": "public",
     "export": true,
     "importPath": "@fnndsc/chrisstoreapi",
-    "importStyle": "{PluginMeta}",
-    "description": "Plugin meta item resource object representing a plugin meta.",
-    "lineNumber": 11,
+    "importStyle": "{PluginCollaborator}",
+    "description": "Plugin collaborator item resource object representing a plugin collaborator.",
+    "lineNumber": 9,
     "interface": false,
     "extends": [
       "src/resource.js~ItemResource"
     ]
   },
   {
-    "__docId__": 151,
+    "__docId__": 153,
     "kind": "constructor",
     "name": "constructor",
-    "memberof": "src/pluginmeta.js~PluginMeta",
+    "memberof": "src/plugincollab.js~PluginCollaborator",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/pluginmeta.js~PluginMeta#constructor",
+    "longname": "src/plugincollab.js~PluginCollaborator#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 19,
+    "lineNumber": 17,
     "params": [
       {
         "nullable": null,
@@ -4664,7 +4761,427 @@
     ]
   },
   {
-    "__docId__": 152,
+    "__docId__": 154,
+    "kind": "method",
+    "name": "getPluginMeta",
+    "memberof": "src/plugincollab.js~PluginCollaborator",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaborator#getPluginMeta",
+    "access": "public",
+    "description": "Fetch the plugin meta associated to this plugin collaborator from the REST API.",
+    "lineNumber": 28,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``PluginMeta`` object"
+    }
+  },
+  {
+    "__docId__": 155,
+    "kind": "method",
+    "name": "getUser",
+    "memberof": "src/plugincollab.js~PluginCollaborator",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaborator#getUser",
+    "access": "public",
+    "description": "Fetch the user associated to this plugin collaborator from the REST API.",
+    "lineNumber": 42,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``User`` object"
+    }
+  },
+  {
+    "__docId__": 156,
+    "kind": "method",
+    "name": "put",
+    "memberof": "src/plugincollab.js~PluginCollaborator",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaborator#put",
+    "access": "public",
+    "description": "Make a PUT request to modify this plugin collaborator item resource through the REST API.",
+    "lineNumber": 58,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "request JSON data object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.role",
+        "description": "collaborator role"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to ``this`` object"
+    }
+  },
+  {
+    "__docId__": 157,
+    "kind": "method",
+    "name": "delete",
+    "memberof": "src/plugincollab.js~PluginCollaborator",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaborator#delete",
+    "access": "public",
+    "description": "Make a DELETE request to delete this plugin collaborator item resource through the\nREST API.",
+    "lineNumber": 70,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise"
+    }
+  },
+  {
+    "__docId__": 158,
+    "kind": "class",
+    "name": "PluginCollaboratorList",
+    "memberof": "src/plugincollab.js",
+    "static": true,
+    "longname": "src/plugincollab.js~PluginCollaboratorList",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisstoreapi",
+    "importStyle": "{PluginCollaboratorList}",
+    "description": "Plugin meta-specific plugin collaborator list resource object representing a list\nof plugin collaborators associated to an specific plugin meta.",
+    "lineNumber": 79,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ListResource"
+    ]
+  },
+  {
+    "__docId__": 159,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/plugincollab.js~PluginCollaboratorList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaboratorList#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 87,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "auth",
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "auth.token",
+        "description": "authentication token"
+      }
+    ]
+  },
+  {
+    "__docId__": 160,
+    "kind": "member",
+    "name": "itemClass",
+    "memberof": "src/plugincollab.js~PluginCollaboratorList",
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaboratorList#itemClass",
+    "access": "public",
+    "description": null,
+    "lineNumber": 91,
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 161,
+    "kind": "method",
+    "name": "getPluginMeta",
+    "memberof": "src/plugincollab.js~PluginCollaboratorList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaboratorList#getPluginMeta",
+    "access": "public",
+    "description": "Fetch the plugin meta associated to this plugin meta-specific list of\nplugin collaborators from the REST API.",
+    "lineNumber": 102,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``PluginMeta`` object"
+    }
+  },
+  {
+    "__docId__": 162,
+    "kind": "method",
+    "name": "post",
+    "memberof": "src/plugincollab.js~PluginCollaboratorList",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/plugincollab.js~PluginCollaboratorList#post",
+    "access": "public",
+    "description": "Make a POST request to this plugin collaborator list resource to create a new\nplugin collaborator item resource through the REST API.",
+    "lineNumber": 120,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "request JSON data object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.username",
+        "description": "collaborator username"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data.role",
+        "description": "collaborator role"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to ``this`` object"
+    }
+  },
+  {
+    "__docId__": 163,
+    "kind": "file",
+    "name": "src/pluginmeta.js",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { PluginList, PluginMetaPluginList } from './plugin';\nimport { PipelineList } from './pipeline';\nimport { PluginStarList } from './pluginstar';\nimport { PluginCollaboratorList } from './plugincollab';\nimport User from './user';\n\n/**\n * Plugin meta item resource object representing a plugin meta.\n */\nexport class PluginMeta extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch a list of plugins associated to this plugin meta from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMetaPluginList`` object\n   */\n  getPlugins(params = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginMetaPluginList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch the list of plugin meta collaborators associated to this plugin meta.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginCollaboratorList`` object\n   */\n  getCollaborators(params = null, timeout = 30000) {\n    const linkRelation = 'collaborators';\n    const resourceClass = PluginCollaboratorList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Make a PUT request to modify this plugin meta item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.public_repo - public repo\n   * @param {string} [data.new_owner] - new additional owner for this plugin meta\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this plugin meta item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * User-specific plugin meta list resource object representing a list of\n * plugin metas for which the user is a collaborator.\n */\nexport class UserCollabPluginMetaList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginMeta;\n  }\n\n  /**\n   * Fetch the collaborator user from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * User-specific plugin meta list resource object representing a list of\n * plugin metas favored by the user.\n */\nexport class UserFavoritePluginMetaList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginMeta;\n  }\n\n  /**\n   * Fetch the fan user from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin meta list resource object representing a list of plugin metas.\n */\nexport class PluginMetaList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginMeta;\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Fetch a list of pipelines from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PipelineList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PipelineList`` object\n   */\n  getPipelines(searchParams = null, timeout = 30000) {\n    const linkRelation = 'pipelines';\n    const resourceClass = PipelineList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin stars from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginStarList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object\n   */\n  getPluginStars(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugin_stars';\n    const resourceClass = PluginStarList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Fetch the authenticated user from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch a list of authenticated user's favorite plugin metas from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object\n   */\n  getFavoritePluginMetas(params = null, timeout = 30000) {\n    const linkRelation = 'favorite_plugin_metas';\n    const resourceClass = UserFavoritePluginMetaList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n\n  /**\n   * Fetch a list of plugin metas for which the authenticated user is a collaborator\n   * from the REST API.\n   *\n   * @param {Object} [params=null] - page parameters object\n   * @param {number} [params.limit] - page limit\n   * @param {number} [params.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``UserCollabPluginMetaList`` object\n   */\n  getCollabPluginMetas(params = null, timeout = 30000) {\n    const linkRelation = 'collab_plugin_metas';\n    const resourceClass = UserCollabPluginMetaList;\n\n    return this._getResource(linkRelation, resourceClass, params, timeout);\n  }\n}\n",
+    "static": true,
+    "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/pluginmeta.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 164,
+    "kind": "class",
+    "name": "PluginMeta",
+    "memberof": "src/pluginmeta.js",
+    "static": true,
+    "longname": "src/pluginmeta.js~PluginMeta",
+    "access": "public",
+    "export": true,
+    "importPath": "@fnndsc/chrisstoreapi",
+    "importStyle": "{PluginMeta}",
+    "description": "Plugin meta item resource object representing a plugin meta.",
+    "lineNumber": 12,
+    "interface": false,
+    "extends": [
+      "src/resource.js~ItemResource"
+    ]
+  },
+  {
+    "__docId__": 165,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/pluginmeta.js~PluginMeta",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/pluginmeta.js~PluginMeta#constructor",
+    "access": "public",
+    "description": "Constructor",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "url",
+        "description": "url of the resource"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "auth",
+        "description": "authentication object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "auth.token",
+        "description": "authentication token"
+      }
+    ]
+  },
+  {
+    "__docId__": 166,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/pluginmeta.js~PluginMeta",
@@ -4674,7 +5191,7 @@
     "longname": "src/pluginmeta.js~PluginMeta#getPlugins",
     "access": "public",
     "description": "Fetch a list of plugins associated to this plugin meta from the REST API.",
-    "lineNumber": 33,
+    "lineNumber": 34,
     "params": [
       {
         "nullable": null,
@@ -4731,7 +5248,74 @@
     }
   },
   {
-    "__docId__": 153,
+    "__docId__": 167,
+    "kind": "method",
+    "name": "getCollaborators",
+    "memberof": "src/pluginmeta.js~PluginMeta",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/pluginmeta.js~PluginMeta#getCollaborators",
+    "access": "public",
+    "description": "Fetch the list of plugin meta collaborators associated to this plugin meta.",
+    "lineNumber": 51,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
+        "name": "params",
+        "description": "page parameters object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.limit",
+        "description": "page limit"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "params.offset",
+        "description": "page offset"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "number"
+        ],
+        "spread": false,
+        "optional": true,
+        "defaultValue": "30000",
+        "defaultRaw": 30000,
+        "name": "timeout",
+        "description": "request timeout"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "JS Promise, resolves to a ``PluginCollaboratorList`` object"
+    }
+  },
+  {
+    "__docId__": 168,
     "kind": "method",
     "name": "put",
     "memberof": "src/pluginmeta.js~PluginMeta",
@@ -4741,7 +5325,7 @@
     "longname": "src/pluginmeta.js~PluginMeta#put",
     "access": "public",
     "description": "Make a PUT request to modify this plugin meta item resource through the REST API.",
-    "lineNumber": 50,
+    "lineNumber": 68,
     "params": [
       {
         "nullable": null,
@@ -4796,7 +5380,7 @@
     }
   },
   {
-    "__docId__": 154,
+    "__docId__": 169,
     "kind": "method",
     "name": "delete",
     "memberof": "src/pluginmeta.js~PluginMeta",
@@ -4806,7 +5390,7 @@
     "longname": "src/pluginmeta.js~PluginMeta#delete",
     "access": "public",
     "description": "Make a DELETE request to delete this plugin meta item resource through the REST API.",
-    "lineNumber": 61,
+    "lineNumber": 79,
     "params": [
       {
         "nullable": null,
@@ -4831,35 +5415,35 @@
     }
   },
   {
-    "__docId__": 155,
+    "__docId__": 170,
     "kind": "class",
-    "name": "UserOwnedPluginMetaList",
+    "name": "UserCollabPluginMetaList",
     "memberof": "src/pluginmeta.js",
     "static": true,
-    "longname": "src/pluginmeta.js~UserOwnedPluginMetaList",
+    "longname": "src/pluginmeta.js~UserCollabPluginMetaList",
     "access": "public",
     "export": true,
     "importPath": "@fnndsc/chrisstoreapi",
-    "importStyle": "{UserOwnedPluginMetaList}",
-    "description": "User-specific plugin meta list resource object representing a list of\nplugin metas owned by an specific user.",
-    "lineNumber": 70,
+    "importStyle": "{UserCollabPluginMetaList}",
+    "description": "User-specific plugin meta list resource object representing a list of\nplugin metas for which the user is a collaborator.",
+    "lineNumber": 88,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
     ]
   },
   {
-    "__docId__": 156,
+    "__docId__": 171,
     "kind": "constructor",
     "name": "constructor",
-    "memberof": "src/pluginmeta.js~UserOwnedPluginMetaList",
+    "memberof": "src/pluginmeta.js~UserCollabPluginMetaList",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/pluginmeta.js~UserOwnedPluginMetaList#constructor",
+    "longname": "src/pluginmeta.js~UserCollabPluginMetaList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 78,
+    "lineNumber": 96,
     "params": [
       {
         "nullable": null,
@@ -4894,15 +5478,15 @@
     ]
   },
   {
-    "__docId__": 157,
+    "__docId__": 172,
     "kind": "member",
     "name": "itemClass",
-    "memberof": "src/pluginmeta.js~UserOwnedPluginMetaList",
+    "memberof": "src/pluginmeta.js~UserCollabPluginMetaList",
     "static": false,
-    "longname": "src/pluginmeta.js~UserOwnedPluginMetaList#itemClass",
+    "longname": "src/pluginmeta.js~UserCollabPluginMetaList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 86,
+    "lineNumber": 100,
     "type": {
       "nullable": null,
       "types": [
@@ -4913,17 +5497,17 @@
     }
   },
   {
-    "__docId__": 158,
+    "__docId__": 173,
     "kind": "method",
     "name": "getUser",
-    "memberof": "src/pluginmeta.js~UserOwnedPluginMetaList",
+    "memberof": "src/pluginmeta.js~UserCollabPluginMetaList",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/pluginmeta.js~UserOwnedPluginMetaList#getUser",
+    "longname": "src/pluginmeta.js~UserCollabPluginMetaList#getUser",
     "access": "public",
-    "description": "Fetch the owner user from the REST API.",
-    "lineNumber": 96,
+    "description": "Fetch the collaborator user from the REST API.",
+    "lineNumber": 110,
     "params": [
       {
         "nullable": null,
@@ -4948,7 +5532,7 @@
     }
   },
   {
-    "__docId__": 159,
+    "__docId__": 174,
     "kind": "class",
     "name": "UserFavoritePluginMetaList",
     "memberof": "src/pluginmeta.js",
@@ -4958,15 +5542,15 @@
     "export": true,
     "importPath": "@fnndsc/chrisstoreapi",
     "importStyle": "{UserFavoritePluginMetaList}",
-    "description": "User-specific plugin meta list resource object representing a list of\nplugin metas favored by an specific user.",
-    "lineNumber": 108,
+    "description": "User-specific plugin meta list resource object representing a list of\nplugin metas favored by the user.",
+    "lineNumber": 122,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
     ]
   },
   {
-    "__docId__": 160,
+    "__docId__": 175,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginmeta.js~UserFavoritePluginMetaList",
@@ -4976,7 +5560,7 @@
     "longname": "src/pluginmeta.js~UserFavoritePluginMetaList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 116,
+    "lineNumber": 130,
     "params": [
       {
         "nullable": null,
@@ -5011,7 +5595,7 @@
     ]
   },
   {
-    "__docId__": 161,
+    "__docId__": 176,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pluginmeta.js~UserFavoritePluginMetaList",
@@ -5019,7 +5603,7 @@
     "longname": "src/pluginmeta.js~UserFavoritePluginMetaList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 124,
+    "lineNumber": 134,
     "type": {
       "nullable": null,
       "types": [
@@ -5030,7 +5614,7 @@
     }
   },
   {
-    "__docId__": 162,
+    "__docId__": 177,
     "kind": "method",
     "name": "getUser",
     "memberof": "src/pluginmeta.js~UserFavoritePluginMetaList",
@@ -5040,7 +5624,7 @@
     "longname": "src/pluginmeta.js~UserFavoritePluginMetaList#getUser",
     "access": "public",
     "description": "Fetch the fan user from the REST API.",
-    "lineNumber": 134,
+    "lineNumber": 144,
     "params": [
       {
         "nullable": null,
@@ -5065,7 +5649,7 @@
     }
   },
   {
-    "__docId__": 163,
+    "__docId__": 178,
     "kind": "class",
     "name": "PluginMetaList",
     "memberof": "src/pluginmeta.js",
@@ -5076,14 +5660,14 @@
     "importPath": "@fnndsc/chrisstoreapi",
     "importStyle": "{PluginMetaList}",
     "description": "Plugin meta list resource object representing a list of plugin metas.",
-    "lineNumber": 145,
+    "lineNumber": 155,
     "interface": false,
     "extends": [
       "src/resource.js~ListResource"
     ]
   },
   {
-    "__docId__": 164,
+    "__docId__": 179,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginmeta.js~PluginMetaList",
@@ -5093,7 +5677,7 @@
     "longname": "src/pluginmeta.js~PluginMetaList#constructor",
     "access": "public",
     "description": "Constructor",
-    "lineNumber": 153,
+    "lineNumber": 163,
     "params": [
       {
         "nullable": null,
@@ -5130,7 +5714,7 @@
     ]
   },
   {
-    "__docId__": 165,
+    "__docId__": 180,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pluginmeta.js~PluginMetaList",
@@ -5138,7 +5722,7 @@
     "longname": "src/pluginmeta.js~PluginMetaList#itemClass",
     "access": "public",
     "description": null,
-    "lineNumber": 157,
+    "lineNumber": 167,
     "type": {
       "nullable": null,
       "types": [
@@ -5149,7 +5733,7 @@
     }
   },
   {
-    "__docId__": 166,
+    "__docId__": 181,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/pluginmeta.js~PluginMetaList",
@@ -5159,7 +5743,7 @@
     "longname": "src/pluginmeta.js~PluginMetaList#getPlugins",
     "access": "public",
     "description": "Fetch a list of plugins from the REST API.",
-    "lineNumber": 172,
+    "lineNumber": 182,
     "params": [
       {
         "nullable": null,
@@ -5216,7 +5800,7 @@
     }
   },
   {
-    "__docId__": 167,
+    "__docId__": 182,
     "kind": "method",
     "name": "getPipelines",
     "memberof": "src/pluginmeta.js~PluginMetaList",
@@ -5226,7 +5810,7 @@
     "longname": "src/pluginmeta.js~PluginMetaList#getPipelines",
     "access": "public",
     "description": "Fetch a list of pipelines from the REST API.",
-    "lineNumber": 191,
+    "lineNumber": 201,
     "params": [
       {
         "nullable": null,
@@ -5283,7 +5867,7 @@
     }
   },
   {
-    "__docId__": 168,
+    "__docId__": 183,
     "kind": "method",
     "name": "getPluginStars",
     "memberof": "src/pluginmeta.js~PluginMetaList",
@@ -5293,7 +5877,7 @@
     "longname": "src/pluginmeta.js~PluginMetaList#getPluginStars",
     "access": "public",
     "description": "Fetch a list of plugin stars from the REST API.",
-    "lineNumber": 210,
+    "lineNumber": 220,
     "params": [
       {
         "nullable": null,
@@ -5350,7 +5934,7 @@
     }
   },
   {
-    "__docId__": 169,
+    "__docId__": 184,
     "kind": "method",
     "name": "getUser",
     "memberof": "src/pluginmeta.js~PluginMetaList",
@@ -5360,7 +5944,7 @@
     "longname": "src/pluginmeta.js~PluginMetaList#getUser",
     "access": "public",
     "description": "Fetch the authenticated user from the REST API.",
-    "lineNumber": 224,
+    "lineNumber": 234,
     "params": [
       {
         "nullable": null,
@@ -5385,7 +5969,7 @@
     }
   },
   {
-    "__docId__": 170,
+    "__docId__": 185,
     "kind": "method",
     "name": "getFavoritePluginMetas",
     "memberof": "src/pluginmeta.js~PluginMetaList",
@@ -5395,7 +5979,7 @@
     "longname": "src/pluginmeta.js~PluginMetaList#getFavoritePluginMetas",
     "access": "public",
     "description": "Fetch a list of authenticated user's favorite plugin metas from the REST API.",
-    "lineNumber": 241,
+    "lineNumber": 251,
     "params": [
       {
         "nullable": null,
@@ -5452,17 +6036,17 @@
     }
   },
   {
-    "__docId__": 171,
+    "__docId__": 186,
     "kind": "method",
-    "name": "getOwnedPluginMetas",
+    "name": "getCollabPluginMetas",
     "memberof": "src/pluginmeta.js~PluginMetaList",
     "generator": false,
     "async": false,
     "static": false,
-    "longname": "src/pluginmeta.js~PluginMetaList#getOwnedPluginMetas",
+    "longname": "src/pluginmeta.js~PluginMetaList#getCollabPluginMetas",
     "access": "public",
-    "description": "Fetch a list of authenticated user's owned plugin metas from the REST API.",
-    "lineNumber": 258,
+    "description": "Fetch a list of plugin metas for which the authenticated user is a collaborator\nfrom the REST API.",
+    "lineNumber": 269,
     "params": [
       {
         "nullable": null,
@@ -5515,11 +6099,11 @@
         "Object"
       ],
       "spread": false,
-      "description": "JS Promise, resolves to a ``UserOwnedPluginMetaList`` object"
+      "description": "JS Promise, resolves to a ``UserCollabPluginMetaList`` object"
     }
   },
   {
-    "__docId__": 172,
+    "__docId__": 187,
     "kind": "file",
     "name": "src/pluginparameter.js",
     "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { Plugin } from './plugin';\n\n/**\n * Plugin parameter item resource object representing a plugin parameter.\n */\nexport class PluginParameter extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin associated to this parameter item from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``Plugin`` object\n   */\n  getPlugin(timeout = 30000) {\n    const linkRelation = 'plugin';\n    const resourceClass = Plugin;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n}\n\n/**\n * Plugin parameter list resource object representing a list of plugin parameters.\n */\nexport class PluginParameterList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginParameter;\n  }\n}\n",
@@ -5530,7 +6114,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 173,
+    "__docId__": 188,
     "kind": "class",
     "name": "PluginParameter",
     "memberof": "src/pluginparameter.js",
@@ -5548,7 +6132,7 @@
     ]
   },
   {
-    "__docId__": 174,
+    "__docId__": 189,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginparameter.js~PluginParameter",
@@ -5595,7 +6179,7 @@
     ]
   },
   {
-    "__docId__": 175,
+    "__docId__": 190,
     "kind": "method",
     "name": "getPlugin",
     "memberof": "src/pluginparameter.js~PluginParameter",
@@ -5630,7 +6214,7 @@
     }
   },
   {
-    "__docId__": 176,
+    "__docId__": 191,
     "kind": "class",
     "name": "PluginParameterList",
     "memberof": "src/pluginparameter.js",
@@ -5648,7 +6232,7 @@
     ]
   },
   {
-    "__docId__": 177,
+    "__docId__": 192,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginparameter.js~PluginParameterList",
@@ -5695,7 +6279,7 @@
     ]
   },
   {
-    "__docId__": 178,
+    "__docId__": 193,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pluginparameter.js~PluginParameterList",
@@ -5714,10 +6298,10 @@
     }
   },
   {
-    "__docId__": 179,
+    "__docId__": 194,
     "kind": "file",
     "name": "src/pluginstar.js",
-    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { PluginMeta } from './pluginmeta';\nimport { PluginList } from './plugin';\nimport User from './user';\n\n/**\n * Plugin star item resource object representing a plugin star.\n */\nexport class PluginStar extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin meta associated to this plugin star from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(timeout = 30000) {\n    const linkRelation = 'meta';\n    const resourceClass = PluginMeta;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the user associated to this plugin star from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this plugin star item resource through the\n   * REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Plugin star list resource object representing a list of plugin stars.\n */\nexport class PluginStarList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginStar;\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin star list resource to create a new\n   * plagin star item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.plugin_name - plugin name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport { ItemResource, ListResource } from './resource';\nimport { PluginMeta } from './pluginmeta';\nimport { PluginList } from './plugin';\nimport User from './user';\n\n/**\n * Plugin star item resource object representing a plugin star.\n */\nexport class PluginStar extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n  }\n\n  /**\n   * Fetch the plugin meta associated to this plugin star from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object\n   */\n  getPluginMeta(timeout = 30000) {\n    const linkRelation = 'meta';\n    const resourceClass = PluginMeta;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Fetch the user associated to this plugin star from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``User`` object\n   */\n  getUser(timeout = 30000) {\n    const linkRelation = 'user';\n    const resourceClass = User;\n\n    return this._getResource(linkRelation, resourceClass, null, timeout);\n  }\n\n  /**\n   * Make a DELETE request to delete this plugin star item resource through the\n   * REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  delete(timeout = 30000) {\n    return this._delete(timeout);\n  }\n}\n\n/**\n * Plugin star list resource object representing a list of plugin stars.\n */\nexport class PluginStarList extends ListResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(url, auth = null) {\n    super(url, auth);\n\n    /** @type {Object} */\n    this.itemClass = PluginStar;\n  }\n\n  /**\n   * Fetch a list of plugins from the REST API.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``PluginList.getSearchParameters`` method\n   * can be used to get a list of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``PluginList`` object\n   */\n  getPlugins(searchParams = null, timeout = 30000) {\n    const linkRelation = 'plugins';\n    const resourceClass = PluginList;\n\n    return this._getResource(linkRelation, resourceClass, searchParams, timeout);\n  }\n\n  /**\n   * Make a POST request to this plugin star list resource to create a new\n   * plugin star item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.plugin_name - plugin name\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  post(data, timeout = 30000) {\n    return this._post(data, null, timeout);\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/pluginstar.js",
     "access": "public",
@@ -5725,7 +6309,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 180,
+    "__docId__": 195,
     "kind": "class",
     "name": "PluginStar",
     "memberof": "src/pluginstar.js",
@@ -5743,7 +6327,7 @@
     ]
   },
   {
-    "__docId__": 181,
+    "__docId__": 196,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginstar.js~PluginStar",
@@ -5790,7 +6374,7 @@
     ]
   },
   {
-    "__docId__": 182,
+    "__docId__": 197,
     "kind": "method",
     "name": "getPluginMeta",
     "memberof": "src/pluginstar.js~PluginStar",
@@ -5825,7 +6409,7 @@
     }
   },
   {
-    "__docId__": 183,
+    "__docId__": 198,
     "kind": "method",
     "name": "getUser",
     "memberof": "src/pluginstar.js~PluginStar",
@@ -5860,7 +6444,7 @@
     }
   },
   {
-    "__docId__": 184,
+    "__docId__": 199,
     "kind": "method",
     "name": "delete",
     "memberof": "src/pluginstar.js~PluginStar",
@@ -5895,7 +6479,7 @@
     }
   },
   {
-    "__docId__": 185,
+    "__docId__": 200,
     "kind": "class",
     "name": "PluginStarList",
     "memberof": "src/pluginstar.js",
@@ -5913,7 +6497,7 @@
     ]
   },
   {
-    "__docId__": 186,
+    "__docId__": 201,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/pluginstar.js~PluginStarList",
@@ -5960,7 +6544,7 @@
     ]
   },
   {
-    "__docId__": 187,
+    "__docId__": 202,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/pluginstar.js~PluginStarList",
@@ -5979,7 +6563,7 @@
     }
   },
   {
-    "__docId__": 188,
+    "__docId__": 203,
     "kind": "method",
     "name": "getPlugins",
     "memberof": "src/pluginstar.js~PluginStarList",
@@ -6046,7 +6630,7 @@
     }
   },
   {
-    "__docId__": 189,
+    "__docId__": 204,
     "kind": "method",
     "name": "post",
     "memberof": "src/pluginstar.js~PluginStarList",
@@ -6055,7 +6639,7 @@
     "static": false,
     "longname": "src/pluginstar.js~PluginStarList#post",
     "access": "public",
-    "description": "Make a POST request to this plugin star list resource to create a new\nplagin star item resource through the REST API.",
+    "description": "Make a POST request to this plugin star list resource to create a new\nplugin star item resource through the REST API.",
     "lineNumber": 110,
     "params": [
       {
@@ -6101,7 +6685,7 @@
     }
   },
   {
-    "__docId__": 190,
+    "__docId__": 205,
     "kind": "file",
     "name": "src/request.js",
     "content": "/** * Imports ***/\nimport axios from 'axios';\nimport Collection from './cj';\nimport RequestException from './exception';\n\n/**\n * Http request object.\n */\nexport default class Request {\n  /**\n   * Constructor\n   *\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   * @param {string} contentType - request content type\n   * @param {number} [timeout=30000] - request timeout\n   */\n  constructor(auth, contentType, timeout = 30000) {\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = contentType;\n\n    /** @type {number} */\n    this.timeout = timeout;\n  }\n\n  /**\n   * Perform a GET request.\n   *\n   * @param {string} url - url of the resource\n   * @param {?Object} params - search parameters\n   *\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  get(url, params = null) {\n    const config = this._getConfig(url, 'get');\n\n    if (params) {\n      config.params = params;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Perform a POST request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   *\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  post(url, data, uploadFileObj = null) {\n    return this._postOrPut('post', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a PUT request.\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   *\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  put(url, data, uploadFileObj = null) {\n    return this._postOrPut('put', url, data, uploadFileObj);\n  }\n\n  /**\n   * Perform a DELETE request.\n   *\n   * @param {string} url - url of the resource\n   *\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  delete(url) {\n    const config = this._getConfig(url, 'delete');\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to make either a POST or PUT request.\n   *\n   * @param {string} requestMethod - either 'post' or 'put'\n   * @param {string} url - url of the resource\n   * @param {Object} data - JSON data object\n   * @param {?Object} uploadFileObj - custom object with a property with the same name as\n   * the API descriptor corresponding to the file and whose value is the file blob\n   *\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  _postOrPut(requestMethod, url, data, uploadFileObj = null) {\n    const config = this._getConfig(url, requestMethod);\n    config.data = data;\n\n    if (uploadFileObj) {\n      config['headers']['content-type'] = 'multipart/form-data';\n      const bFormData = new FormData();\n\n      for (let property in data) {\n        if (data.hasOwnProperty(property)) {\n          bFormData.set(property, data[property]);\n        }\n      }\n      for (let property in uploadFileObj) {\n        if (uploadFileObj.hasOwnProperty(property)) {\n          bFormData.set(property, uploadFileObj[property]);\n        }\n      }\n      config.data = bFormData;\n    }\n\n    return Request._callAxios(config);\n  }\n\n  /**\n   * Internal method to create a config file for axios.\n   *\n   * @param {string} url - url of the resource\n   * @param {string} method - request verb\n   *\n   * @return {Object} - axios configuration object\n   */\n  _getConfig(url, method) {\n    const config = {\n      url: url,\n      method: method,\n      headers: {\n        Accept: this.contentType,\n        'content-type': this.contentType,\n      },\n      timeout: this.timeout,\n    };\n\n    if (this.auth && this.auth.username && this.auth.password) {\n      config.auth = this.auth;\n    } else if (this.auth && this.auth.token) {\n      config.headers.Authorization = 'Token ' + this.auth.token;\n    }\n\n    if (this.contentType === 'application/octet-stream') {\n      config.responseType = 'blob';\n    }\n\n    return config;\n  }\n\n  /**\n   * Internal method to make an axios request.\n   *\n   * @param {Object} config - axios configuration object\n   *\n   * @return {Object} - JS Promise, resolves to an ``axios reponse`` object\n   */\n  static _callAxios(config) {\n    return axios(config)\n      .then(response => {\n        return response;\n      })\n      .catch(error => {\n        Request._handleRequestError(error);\n      });\n  }\n\n  /**\n   * Internal method to handle errors produced by HTTP requests.\n   *\n   * @param {Object} error - axios error object\n   *\n   * @throws {RequestException} throw error\n   */\n  static _handleRequestError(error) {\n    let apiError;\n\n    if (error.response) {\n      // The request was made and the server responded with a status code\n      // that falls out of the range of 2xx\n      //console.log(error.response.data);\n      //console.log(error.response.status);\n      //console.log(error.response.headers);\n      let errMsg = 'Bad server response!';\n      if (error.response.data.collection) {\n        errMsg = Collection.getErrorMessage(error.response.data.collection);\n      }\n      apiError = new RequestException(errMsg);\n      apiError.request = error.request;\n      apiError.response = error.response;\n      try {\n        apiError.response.data = JSON.parse(errMsg);\n      } catch (ex) {\n        apiError.response.data = errMsg;\n      }\n    } else if (error.request) {\n      // The request was made but no response was received\n      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of\n      // http.ClientRequest in node.js\n      //console.log(error.request);\n      apiError = new RequestException('No server response!');\n      apiError.request = error.request;\n    } else {\n      // Something happened in setting up the request that triggered an Error\n      //console.log('Error', error.message);\n      apiError = new RequestException(error.message);\n    }\n\n    throw apiError;\n    //console.log(error.config);\n  }\n\n  /**\n   * Helper method to run an asynchronous task defined by a task generator function.\n   *\n   * @param {function*()} taskGenerator - generator function\n   */\n  static runAsyncTask(taskGenerator) {\n    // create the iterator\n    let task = taskGenerator();\n    // start the task\n    let result = task.next();\n\n    // recursive function to iterate through\n    (function step() {\n      // if there's more to do (result.value and result.done are iterator's properties)\n      if (!result.done) {\n        result.value\n          .then(resp => {\n            result = task.next(resp); // send this resp value to the yield\n            step();\n          })\n          .catch(error => {\n            result = task.throw(error); // throws error within taskGenerator generator\n            step();\n          });\n      }\n    })(); // start the recursive process by calling it immediatly\n  }\n}\n",
@@ -6112,7 +6696,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 191,
+    "__docId__": 206,
     "kind": "class",
     "name": "Request",
     "memberof": "src/request.js",
@@ -6127,7 +6711,7 @@
     "interface": false
   },
   {
-    "__docId__": 192,
+    "__docId__": 207,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/request.js~Request",
@@ -6184,7 +6768,7 @@
     ]
   },
   {
-    "__docId__": 193,
+    "__docId__": 208,
     "kind": "member",
     "name": "auth",
     "memberof": "src/request.js~Request",
@@ -6203,7 +6787,7 @@
     }
   },
   {
-    "__docId__": 194,
+    "__docId__": 209,
     "kind": "member",
     "name": "contentType",
     "memberof": "src/request.js~Request",
@@ -6222,7 +6806,7 @@
     }
   },
   {
-    "__docId__": 195,
+    "__docId__": 210,
     "kind": "member",
     "name": "timeout",
     "memberof": "src/request.js~Request",
@@ -6241,7 +6825,7 @@
     }
   },
   {
-    "__docId__": 196,
+    "__docId__": 211,
     "kind": "method",
     "name": "get",
     "memberof": "src/request.js~Request",
@@ -6284,7 +6868,7 @@
     }
   },
   {
-    "__docId__": 197,
+    "__docId__": 212,
     "kind": "method",
     "name": "post",
     "memberof": "src/request.js~Request",
@@ -6337,7 +6921,7 @@
     }
   },
   {
-    "__docId__": 198,
+    "__docId__": 213,
     "kind": "method",
     "name": "put",
     "memberof": "src/request.js~Request",
@@ -6390,7 +6974,7 @@
     }
   },
   {
-    "__docId__": 199,
+    "__docId__": 214,
     "kind": "method",
     "name": "delete",
     "memberof": "src/request.js~Request",
@@ -6423,7 +7007,7 @@
     }
   },
   {
-    "__docId__": 200,
+    "__docId__": 215,
     "kind": "method",
     "name": "_postOrPut",
     "memberof": "src/request.js~Request",
@@ -6486,7 +7070,7 @@
     }
   },
   {
-    "__docId__": 201,
+    "__docId__": 216,
     "kind": "method",
     "name": "_getConfig",
     "memberof": "src/request.js~Request",
@@ -6529,7 +7113,7 @@
     }
   },
   {
-    "__docId__": 202,
+    "__docId__": 217,
     "kind": "method",
     "name": "_callAxios",
     "memberof": "src/request.js~Request",
@@ -6562,7 +7146,7 @@
     }
   },
   {
-    "__docId__": 203,
+    "__docId__": 218,
     "kind": "method",
     "name": "_handleRequestError",
     "memberof": "src/request.js~Request",
@@ -6596,7 +7180,7 @@
     "return": null
   },
   {
-    "__docId__": 204,
+    "__docId__": 219,
     "kind": "method",
     "name": "runAsyncTask",
     "memberof": "src/request.js~Request",
@@ -6622,10 +7206,10 @@
     "return": null
   },
   {
-    "__docId__": 205,
+    "__docId__": 220,
     "kind": "file",
     "name": "src/resource.js",
-    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource class.\n */\nexport class Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} resourceUrl - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(resourceUrl, auth = null) {\n    /** @type {string} */\n    this.url = resourceUrl;\n\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = 'application/vnd.collection+json';\n\n    /** @type {?Object} */\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Return true if the resource object contains any data.\n   *\n   * @type {boolean}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {Object} - clone object\n   */\n  clone() {\n    const cloneObj = Object.create(Object.getPrototypeOf(this));\n\n    for (let prop in this) {\n      if (this[prop] !== null && typeof this[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));\n      } else {\n        cloneObj[prop] = this[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\n/**\n * API abstract item resource class.\n */\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} itemUrl - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(itemUrl, auth = null) {\n    super(itemUrl, auth);\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.get(this.url).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Get the item's data object (REST API descriptors).\n   *\n   * @type {?Object}\n   */\n  get data() {\n    if (this.isEmpty) {\n      return null;\n    }\n    return Collection.getItemDescriptors(this.collection.items[0]);\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in PUT requests.\n   *\n   * @return {?string[]} - array of PUT data property name or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * PUT requests.\n   */\n  getPUTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is referenced\n   * by a link relation within the item object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this item resource has not yet been\n   * fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (this.isEmpty) {\n      throw new RequestException('Item object has not been set!');\n    }\n    const item = this.collection.items[0];\n    const urls = Collection.getLinkRelationUrls(item, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a PUT request to this item resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _put(data, uploadFileObj, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let putData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      putData = { template: Collection.makeTemplate(data) };\n    }\n    return req.put(this.url, putData, uploadFileObj).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Internal helper method to make a DELETE request to this item resource through\n   * the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _delete(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.delete(this.url).then(() => {\n      // change the state of this object on successfull response\n      this.collection = null;\n    });\n  }\n}\n\n/**\n * API abstract list resource class.\n */\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} listUrl - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(listUrl, auth = null) {\n    super(listUrl, auth);\n\n    /** @type {string} */\n    this.queryUrl = '';\n\n    /** @type {?Object} */\n    this.searchParams = null;\n\n    /** @type {Object} */\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters. If\n   * no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``getSearchParameters`` method can be used to get a list\n   * of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(searchParams = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const updateInternalState = resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = searchParams;\n\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n\n        if (this.collection.queries && this.collection.queries.length) {\n          this.queryUrl = this.collection.queries[0].href;\n        }\n      }\n      return this;\n    };\n\n    if (searchParams) {\n      for (let prop in searchParams) {\n        if (searchParams.hasOwnProperty(prop) && prop !== 'limit' && prop !== 'offset') {\n          // here we assume a fixed queryUrl form but API resource objecs are more flexible than this\n          this.queryUrl = this.queryUrl || this.url + 'search/';\n\n          return req.get(this.queryUrl, searchParams).then(updateInternalState);\n        }\n      }\n      return req.get(this.url, searchParams).then(updateInternalState);\n    }\n    return req.get(this.url).then(updateInternalState);\n  }\n\n  /**\n   * Get an array of search parameter names that can be used as properties of the\n   * ``searchParams`` argument to the ``get`` method.\n   *\n   * @return {?string[]} - array of search parameter names or null if this list\n   * resource's data has not been fetched from the API yet.\n   */\n  getSearchParameters() {\n    if (this.collection) {\n      if (this.collection.queries) {\n        const params = Collection.getQueryParameters(this.collection.queries);\n        params.push('limit', 'offset');\n        return params;\n      }\n      return ['limit', 'offset'];\n    }\n    return null;\n  }\n\n  /**\n   * Get an item resource object given its id from the list of items in this\n   * list resource object.\n   *\n   * @param {number} id - item id\n   *\n   * @return {Object} - an instance of ``this.itemClass``\n   */\n  getItem(id) {\n    if (this.isEmpty) {\n      return null;\n    }\n    const items = this.collection.items.filter(\n      item => Collection.getItemDescriptors(item).id === id\n    );\n    if (!items.length) {\n      return null;\n    }\n    const itemResource = new this.itemClass(items[0].href, this.auth);\n    const listRes = this.clone();\n    listRes.collection.items[0] = items[0];\n    itemResource.collection = listRes.collection;\n    return itemResource;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {?Object[]}\n   */\n  getItems() {\n    if (this.isEmpty) {\n      return [];\n    }\n    return this.collection.items.map(item => {\n      const itemResource = new this.itemClass(item.href, this.auth);\n      const listRes = this.clone();\n      listRes.collection.items[0] = item;\n      itemResource.collection = listRes.collection;\n      return itemResource;\n    });\n  }\n\n  /**\n   * Get the list of item data objects (REST API descriptors).\n   *\n   * @type {Object[]}\n   */\n  get data() {\n    const data = [];\n\n    if (!this.isEmpty) {\n      // for each item get its data\n      for (let item of this.collection.items) {\n        data.push(Collection.getItemDescriptors(item));\n      }\n    }\n    return data;\n  }\n\n  /**\n   * Get the total count of items of the entire collection across pages in the\n   * paginated REST API. Return -1 if no data has been fetched or the total\n   * number of items info is not available from the fetched data.\n   *\n   * @type {number}\n   */\n  get totalCount() {\n    if (this.collection) {\n      return Collection.getTotalNumberOfItems(this.collection);\n    }\n    return -1;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in POST requests.\n   *\n   * @return {?string[]} - array of POST data properties or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * POST requests.\n   */\n  getPOSTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is\n   * referenced by a link relation within this list resource's collection object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this list resource has not yet\n   * been fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (!this.collection) {\n      throw new RequestException('Collection object has not been set!');\n    }\n    const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a POST request to this list resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _post(data, uploadFileObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    let postData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      postData = { template: Collection.makeTemplate(data) };\n    }\n\n    return req.post(url, postData, uploadFileObj).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n}\n",
+    "content": "/** * Imports ***/\nimport Collection from './cj';\nimport Request from './request';\nimport RequestException from './exception';\n\n/**\n * API abstract resource class.\n */\nexport class Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} resourceUrl - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(resourceUrl, auth = null) {\n    /** @type {string} */\n    this.url = resourceUrl;\n\n    /** @type {Object} */\n    this.auth = auth;\n\n    /** @type {string} */\n    this.contentType = 'application/vnd.collection+json';\n\n    /** @type {?Object} */\n    this.collection = null; // Collection+JSON collection obj\n  }\n\n  /**\n   * Return true if the resource object contains any data.\n   *\n   * @type {boolean}\n   */\n  get isEmpty() {\n    if (this.collection && this.collection.items.length) {\n      return false;\n    }\n    return true;\n  }\n\n  /**\n   * Make a deep copy clone of this object resource.\n   *\n   * @return {Object} - clone object\n   */\n  clone() {\n    const cloneObj = Object.create(Object.getPrototypeOf(this));\n\n    for (let prop in this) {\n      if (this[prop] !== null && typeof this[prop] === 'object') {\n        cloneObj[prop] = JSON.parse(JSON.stringify(this[prop]));\n      } else {\n        cloneObj[prop] = this[prop];\n      }\n    }\n    return cloneObj;\n  }\n}\n\n/**\n * API abstract item resource class.\n */\nexport class ItemResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} itemUrl - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(itemUrl, auth = null) {\n    super(itemUrl, auth);\n  }\n\n  /**\n   * Fetch this item resource from the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.get(this.url).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Get the item's data object (REST API descriptors).\n   *\n   * @type {?Object}\n   */\n  get data() {\n    if (this.isEmpty) {\n      return null;\n    }\n    return Collection.getItemDescriptors(this.collection.items[0]);\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in PUT requests.\n   *\n   * @return {?string[]} - array of PUT data property name or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * PUT requests.\n   */\n  getPUTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is referenced\n   * by a link relation within the item object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this item resource has not yet been\n   * fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (this.isEmpty) {\n      throw new RequestException('Item object has not been set!');\n    }\n    const item = this.collection.items[0];\n    const urls = Collection.getLinkRelationUrls(item, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a PUT request to this item resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _put(data, uploadFileObj, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n    let putData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      putData = { template: Collection.makeTemplate(data) };\n    }\n    return req.put(this.url, putData, uploadFileObj).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n\n  /**\n   * Internal helper method to make a DELETE request to this item resource through\n   * the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise\n   */\n  _delete(timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    return req.delete(this.url).then(() => {\n      // change the state of this object on successfull response\n      this.collection = null;\n    });\n  }\n}\n\n/**\n * API abstract list resource class.\n */\nexport class ListResource extends Resource {\n  /**\n   * Constructor\n   *\n   * @param {string} listUrl - url of the resource\n   * @param {Object} [auth=null] - authentication object\n   * @param {string} [auth.token] - authentication token\n   */\n  constructor(listUrl, auth = null) {\n    super(listUrl, auth);\n\n    /** @type {string} */\n    this.queryUrl = '';\n\n    /** @type {?Object} */\n    this.searchParams = null;\n\n    /** @type {Object} */\n    this.itemClass = ItemResource;\n  }\n\n  /**\n   * Fetch this list resource from the REST API based on search parameters. If\n   * no search parameters then get the default first page.\n   *\n   * @param {Object} [searchParams=null] - search parameters object which is\n   * resource-specific, the ``getSearchParameters`` method can be used to get a list\n   * of possible search parameters\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  get(searchParams = null, timeout = 30000) {\n    const req = new Request(this.auth, this.contentType, timeout);\n\n    const updateInternalState = resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = searchParams;\n\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n\n        if (this.collection.queries && this.collection.queries.length) {\n          this.queryUrl = this.collection.queries[0].href;\n        }\n      }\n      return this;\n    };\n\n    if (searchParams) {\n      for (let prop in searchParams) {\n        if (searchParams.hasOwnProperty(prop) && prop !== 'limit' && prop !== 'offset') {\n          // here we assume a fixed queryUrl form but API resource objecs are more flexible than this\n          this.queryUrl = this.queryUrl || this.url + 'search/';\n\n          return req.get(this.queryUrl, searchParams).then(updateInternalState);\n        }\n      }\n      return req.get(this.url, searchParams).then(updateInternalState);\n    }\n    return req.get(this.url).then(updateInternalState);\n  }\n\n  /**\n   * Get an array of search parameter names that can be used as properties of the\n   * ``searchParams`` argument to the ``get`` method.\n   *\n   * @return {?string[]} - array of search parameter names or null if this list\n   * resource's data has not been fetched from the API yet.\n   */\n  getSearchParameters() {\n    if (this.collection) {\n      if (this.collection.queries) {\n        const params = Collection.getQueryParameters(this.collection.queries);\n        params.push('limit', 'offset');\n        return params;\n      }\n      return ['limit', 'offset'];\n    }\n    return null;\n  }\n\n  /**\n   * Get an item resource object given its id from the list of items in this\n   * list resource object.\n   *\n   * @param {number} id - item id\n   *\n   * @return {Object} - an instance of ``this.itemClass``\n   */\n  getItem(id) {\n    if (this.isEmpty) {\n      return null;\n    }\n    const items = this.collection.items.filter(\n      item => Collection.getItemDescriptors(item).id === id\n    );\n    if (!items.length) {\n      return null;\n    }\n    const itemResource = new this.itemClass(items[0].href, this.auth);\n    itemResource.collection = Collection.createCollectionObj();\n    itemResource.collection.items.push(items[0]);\n    itemResource.collection.href = items[0].href;\n    return itemResource;\n  }\n\n  /**\n   * Get an array of item resource objects corresponding to the items in this\n   * list resource object.\n   *\n   * @return {?Object[]}\n   */\n  getItems() {\n    if (this.isEmpty) {\n      return [];\n    }\n    return this.collection.items.map((item) => {\n      const itemResource = new this.itemClass(item.href, this.auth);\n      itemResource.collection = Collection.createCollectionObj();\n      itemResource.collection.items.push(item);\n      itemResource.collection.href = item.href;\n      return itemResource;\n    });\n  }\n\n  /**\n   * Get the list of item data objects (REST API descriptors).\n   *\n   * @type {Object[]}\n   */\n  get data() {\n    const data = [];\n\n    if (!this.isEmpty) {\n      // for each item get its data\n      for (let item of this.collection.items) {\n        data.push(Collection.getItemDescriptors(item));\n      }\n    }\n    return data;\n  }\n\n  /**\n   * Get the total count of items of the entire collection across pages in the\n   * paginated REST API. Return -1 if no data has been fetched or the total\n   * number of items info is not available from the fetched data.\n   *\n   * @type {number}\n   */\n  get totalCount() {\n    if (this.collection) {\n      return Collection.getTotalNumberOfItems(this.collection);\n    }\n    return -1;\n  }\n\n  /**\n   * Return true if the list resource object has a next list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasNextPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'next');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Return true if the list resource object has a previous list page in the\n   * paginated REST API.\n   *\n   * @type {boolean}\n   */\n  get hasPreviousPage() {\n    if (this.collection) {\n      const urls = Collection.getLinkRelationUrls(this.collection, 'previous');\n      if (urls.length) {\n        return true;\n      }\n    }\n    return false;\n  }\n\n  /**\n   * Get an array of parameter names that can be used as properties of the data\n   * object in POST requests.\n   *\n   * @return {?string[]} - array of POST data properties or null if this list\n   * resource's data has not been fetched from the API yet or it doesn't support\n   * POST requests.\n   */\n  getPOSTParameters() {\n    if (this.collection && this.collection.template) {\n      return Collection.getTemplateDescriptorNames(this.collection.template);\n    }\n    return null;\n  }\n\n  /**\n   * Internal method to fetch a related resource from the REST API that is\n   * referenced by a link relation within this list resource's collection object.\n   *\n   * @param {string} linkRelation\n   * @param {Object} ResourceClass\n   * @param {Object} [searchParams=null] - search parameters object which is resource-specific\n   * @param {number} [searchParams.limit] - page limit\n   * @param {number} [searchParams.offset] - page offset\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to a ``ResourceClass`` object\n   * @throws {RequestException} throw error if this list resource has not yet\n   * been fetched from the REST API\n   * @throws {RequestException} throw error when the link relation is not found\n   */\n  _getResource(linkRelation, ResourceClass, searchParams = null, timeout = 30000) {\n    if (!this.collection) {\n      throw new RequestException('Collection object has not been set!');\n    }\n    const urls = Collection.getLinkRelationUrls(this.collection, linkRelation);\n\n    if (!urls.length) {\n      const errMsg = 'Missing \"' + linkRelation + '\" link relation!';\n      throw new RequestException(errMsg);\n    }\n    const resourceUrl = urls[0];\n    const resourceObj = new ResourceClass(resourceUrl, this.auth);\n\n    if (searchParams) {\n      return resourceObj.get(searchParams, timeout);\n    }\n    return resourceObj.get(timeout);\n  }\n\n  /**\n   * Internal helper method to make a POST request to this list resource through\n   * the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  _post(data, uploadFileObj, timeout = 30000) {\n    const url = this.url;\n    const req = new Request(this.auth, this.contentType, timeout);\n    let postData = data;\n\n    if (!uploadFileObj && this.contentType === 'application/vnd.collection+json') {\n      postData = { template: Collection.makeTemplate(data) };\n    }\n\n    return req.post(url, postData, uploadFileObj).then(resp => {\n      // change the state of this object on successfull response\n      this.collection = null;\n      this.searchParams = null;\n      if (resp.data && resp.data.collection) {\n        this.collection = resp.data.collection;\n      }\n      return this;\n    });\n  }\n}\n",
     "static": true,
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/src/resource.js",
     "access": "public",
@@ -6633,7 +7217,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 206,
+    "__docId__": 221,
     "kind": "class",
     "name": "Resource",
     "memberof": "src/resource.js",
@@ -6648,7 +7232,7 @@
     "interface": false
   },
   {
-    "__docId__": 207,
+    "__docId__": 222,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~Resource",
@@ -6695,7 +7279,7 @@
     ]
   },
   {
-    "__docId__": 208,
+    "__docId__": 223,
     "kind": "member",
     "name": "url",
     "memberof": "src/resource.js~Resource",
@@ -6714,7 +7298,7 @@
     }
   },
   {
-    "__docId__": 209,
+    "__docId__": 224,
     "kind": "member",
     "name": "auth",
     "memberof": "src/resource.js~Resource",
@@ -6733,7 +7317,7 @@
     }
   },
   {
-    "__docId__": 210,
+    "__docId__": 225,
     "kind": "member",
     "name": "contentType",
     "memberof": "src/resource.js~Resource",
@@ -6752,7 +7336,7 @@
     }
   },
   {
-    "__docId__": 211,
+    "__docId__": 226,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~Resource",
@@ -6771,7 +7355,7 @@
     }
   },
   {
-    "__docId__": 212,
+    "__docId__": 227,
     "kind": "get",
     "name": "isEmpty",
     "memberof": "src/resource.js~Resource",
@@ -6792,7 +7376,7 @@
     }
   },
   {
-    "__docId__": 213,
+    "__docId__": 228,
     "kind": "method",
     "name": "clone",
     "memberof": "src/resource.js~Resource",
@@ -6814,7 +7398,7 @@
     "params": []
   },
   {
-    "__docId__": 214,
+    "__docId__": 229,
     "kind": "class",
     "name": "ItemResource",
     "memberof": "src/resource.js",
@@ -6832,7 +7416,7 @@
     ]
   },
   {
-    "__docId__": 215,
+    "__docId__": 230,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~ItemResource",
@@ -6879,7 +7463,7 @@
     ]
   },
   {
-    "__docId__": 216,
+    "__docId__": 231,
     "kind": "method",
     "name": "get",
     "memberof": "src/resource.js~ItemResource",
@@ -6914,7 +7498,7 @@
     }
   },
   {
-    "__docId__": 217,
+    "__docId__": 232,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~ItemResource",
@@ -6931,7 +7515,7 @@
     }
   },
   {
-    "__docId__": 219,
+    "__docId__": 234,
     "kind": "get",
     "name": "data",
     "memberof": "src/resource.js~ItemResource",
@@ -6952,7 +7536,7 @@
     }
   },
   {
-    "__docId__": 220,
+    "__docId__": 235,
     "kind": "method",
     "name": "getPUTParameters",
     "memberof": "src/resource.js~ItemResource",
@@ -6974,7 +7558,7 @@
     "params": []
   },
   {
-    "__docId__": 221,
+    "__docId__": 236,
     "kind": "method",
     "name": "_getResource",
     "memberof": "src/resource.js~ItemResource",
@@ -7075,7 +7659,7 @@
     ]
   },
   {
-    "__docId__": 222,
+    "__docId__": 237,
     "kind": "method",
     "name": "_put",
     "memberof": "src/resource.js~ItemResource",
@@ -7140,7 +7724,7 @@
     }
   },
   {
-    "__docId__": 225,
+    "__docId__": 240,
     "kind": "method",
     "name": "_delete",
     "memberof": "src/resource.js~ItemResource",
@@ -7175,7 +7759,7 @@
     }
   },
   {
-    "__docId__": 227,
+    "__docId__": 242,
     "kind": "class",
     "name": "ListResource",
     "memberof": "src/resource.js",
@@ -7193,7 +7777,7 @@
     ]
   },
   {
-    "__docId__": 228,
+    "__docId__": 243,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/resource.js~ListResource",
@@ -7240,7 +7824,7 @@
     ]
   },
   {
-    "__docId__": 229,
+    "__docId__": 244,
     "kind": "member",
     "name": "queryUrl",
     "memberof": "src/resource.js~ListResource",
@@ -7259,7 +7843,7 @@
     }
   },
   {
-    "__docId__": 230,
+    "__docId__": 245,
     "kind": "member",
     "name": "searchParams",
     "memberof": "src/resource.js~ListResource",
@@ -7278,7 +7862,7 @@
     }
   },
   {
-    "__docId__": 231,
+    "__docId__": 246,
     "kind": "member",
     "name": "itemClass",
     "memberof": "src/resource.js~ListResource",
@@ -7297,7 +7881,7 @@
     }
   },
   {
-    "__docId__": 232,
+    "__docId__": 247,
     "kind": "method",
     "name": "get",
     "memberof": "src/resource.js~ListResource",
@@ -7364,7 +7948,7 @@
     }
   },
   {
-    "__docId__": 233,
+    "__docId__": 248,
     "kind": "member",
     "name": "collection",
     "memberof": "src/resource.js~ListResource",
@@ -7381,7 +7965,7 @@
     }
   },
   {
-    "__docId__": 238,
+    "__docId__": 253,
     "kind": "method",
     "name": "getSearchParameters",
     "memberof": "src/resource.js~ListResource",
@@ -7403,7 +7987,7 @@
     "params": []
   },
   {
-    "__docId__": 239,
+    "__docId__": 254,
     "kind": "method",
     "name": "getItem",
     "memberof": "src/resource.js~ListResource",
@@ -7436,7 +8020,7 @@
     }
   },
   {
-    "__docId__": 240,
+    "__docId__": 255,
     "kind": "method",
     "name": "getItems",
     "memberof": "src/resource.js~ListResource",
@@ -7458,7 +8042,7 @@
     "params": []
   },
   {
-    "__docId__": 241,
+    "__docId__": 256,
     "kind": "get",
     "name": "data",
     "memberof": "src/resource.js~ListResource",
@@ -7479,7 +8063,7 @@
     }
   },
   {
-    "__docId__": 242,
+    "__docId__": 257,
     "kind": "get",
     "name": "totalCount",
     "memberof": "src/resource.js~ListResource",
@@ -7500,7 +8084,7 @@
     }
   },
   {
-    "__docId__": 243,
+    "__docId__": 258,
     "kind": "get",
     "name": "hasNextPage",
     "memberof": "src/resource.js~ListResource",
@@ -7521,7 +8105,7 @@
     }
   },
   {
-    "__docId__": 244,
+    "__docId__": 259,
     "kind": "get",
     "name": "hasPreviousPage",
     "memberof": "src/resource.js~ListResource",
@@ -7542,7 +8126,7 @@
     }
   },
   {
-    "__docId__": 245,
+    "__docId__": 260,
     "kind": "method",
     "name": "getPOSTParameters",
     "memberof": "src/resource.js~ListResource",
@@ -7564,7 +8148,7 @@
     "params": []
   },
   {
-    "__docId__": 246,
+    "__docId__": 261,
     "kind": "method",
     "name": "_getResource",
     "memberof": "src/resource.js~ListResource",
@@ -7665,7 +8249,7 @@
     ]
   },
   {
-    "__docId__": 247,
+    "__docId__": 262,
     "kind": "method",
     "name": "_post",
     "memberof": "src/resource.js~ListResource",
@@ -7730,7 +8314,7 @@
     }
   },
   {
-    "__docId__": 251,
+    "__docId__": 266,
     "kind": "file",
     "name": "src/user.js",
     "content": "/** * Imports ***/\nimport Request from './request';\nimport { ItemResource } from './resource';\n\n/**\n * User item resource object representing a user of the system.\n */\nexport default class User extends ItemResource {\n  /**\n   * Constructor\n   *\n   * @param {string} url - url of the resource\n   * @param {Object} auth - authentication object\n   * @param {string} auth.token - authentication token\n   */\n  constructor(url, auth) {\n    super(url, auth);\n  }\n\n  /**\n   * Make a PUT request to modify this user item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.password - user password\n   * @param {string} data.email - user email\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Object} - JS Promise, resolves to ``this`` object\n   */\n  put(data, timeout = 30000) {\n    return this._put(data, null, timeout);\n  }\n}\n",
@@ -7741,7 +8325,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 252,
+    "__docId__": 267,
     "kind": "class",
     "name": "User",
     "memberof": "src/user.js",
@@ -7759,7 +8343,7 @@
     ]
   },
   {
-    "__docId__": 253,
+    "__docId__": 268,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/user.js~User",
@@ -7804,7 +8388,7 @@
     ]
   },
   {
-    "__docId__": 254,
+    "__docId__": 269,
     "kind": "method",
     "name": "put",
     "memberof": "src/user.js~User",
@@ -7878,7 +8462,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"2.0.2\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^5.2.1\",\n    \"@types/sinon\": \"^5.0.1\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"husky\": \"^0.14.3\",\n    \"karma\": \"^2.0.2\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^2.2.0\",\n    \"karma-cli\": \"^1.0.1\",\n    \"karma-mocha\": \"^1.3.0\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^3.0.0\",\n    \"lint-staged\": \"^7.0.0\",\n    \"mocha\": \"^5.2.0\",\n    \"prettier\": \"^1.11.1\",\n    \"sinon\": \"^5.1.0\",\n    \"webpack\": \"^4.11.1\",\n    \"webpack-cli\": \"^3.0.8\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.18.0\"\n  }\n}\n",
+    "content": "{\n  \"name\": \"@fnndsc/chrisstoreapi\",\n  \"version\": \"3.0.0\",\n  \"description\": \"\",\n  \"main\": \"dist/chrisstoreapi.js\",\n  \"scripts\": {\n    \"build\": \"webpack\",\n    \"precommit\": \"lint-staged\",\n    \"start\": \"karma start\",\n    \"test\": \"karma start --single-run\",\n    \"docs\": \"esdoc -c esdoc.json\"\n  },\n  \"lint-staged\": {\n    \"src/**/*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ],\n    \"*.{js,jsx,json,css,ts,tsx}\": [\n      \"prettier --write\",\n      \"git add\"\n    ]\n  },\n  \"prettier\": {\n    \"printWidth\": 100,\n    \"singleQuote\": true,\n    \"trailingComma\": \"es5\",\n    \"overrides\": [\n      {\n        \"files\": \"*.css\",\n        \"options\": {\n          \"useTabs\": false,\n          \"tabWidth\": 2\n        }\n      }\n    ]\n  },\n  \"author\": \"\",\n  \"license\": \"MIT\",\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.0.0-beta.49\",\n    \"@babel/core\": \"^7.0.0-beta.49\",\n    \"@babel/preset-env\": \"^7.0.0-beta.49\",\n    \"@types/chai\": \"^4.1.3\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"@types/sinon\": \"^10.0.2\",\n    \"babel-loader\": \"^8.0.0-beta.2\",\n    \"chai\": \"^4.1.2\",\n    \"esdoc\": \"^1.1.0\",\n    \"esdoc-importpath-plugin\": \"^1.0.2\",\n    \"esdoc-standard-plugin\": \"^1.0.0\",\n    \"husky\": \"^7.0.2\",\n    \"karma\": \"^6.3.4\",\n    \"karma-chai\": \"^0.1.0\",\n    \"karma-chrome-launcher\": \"^3.1.0\",\n    \"karma-cli\": \"^2.0.0\",\n    \"karma-mocha\": \"^2.0.1\",\n    \"karma-sinon\": \"^1.0.5\",\n    \"karma-webpack\": \"^5.0.0\",\n    \"lint-staged\": \"^11.1.2\",\n    \"mocha\": \"^9.1.1\",\n    \"prettier\": \"^2.4.1\",\n    \"sinon\": \"^11.1.2\",\n    \"webpack\": \"^5.53.0\",\n    \"webpack-cli\": \"^4.8.0\"\n  },\n  \"dependencies\": {\n    \"axios\": \"^0.21.4\"\n  }\n}\n",
     "longname": "/Users/jbernal/work/labsoft/javascript/fnndsc/js/chrisStoreAPI/package.json",
     "name": "package.json",
     "static": true,
