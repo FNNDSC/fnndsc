@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/request.js | @fnndsc/chrisapi</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="JavaScript6 client for the ChRIS API"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@fnndsc/chrisapi"><meta property="twitter:description" content="JavaScript6 client for the ChRIS API"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/chrisinstance.js~ChrisInstance.html">ChrisInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~CommentList.html">CommentList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResource.html">ComputeResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResourceList.html">ComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~PluginComputeResourceList.html">PluginComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~AllFeedFileList.html">AllFeedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFile.html">PACSFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFileList.html">PACSFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelineList.html">PipelineList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePipingDefaultParameterList.html">PipelinePipingDefaultParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginList.html">PipelinePluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePluginPipingList.html">PipelinePluginPipingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipingDefaultParameter.html">PipingDefaultParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PluginPiping.html">PluginPiping</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~AllPipelineInstanceList.html">AllPipelineInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstance.html">PipelineInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipelineinstance.js~PipelineInstanceList.html">PipelineInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~Plugin.html">Plugin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginList.html">PluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugin.js~PluginMetaPluginList.html">PluginMetaPluginList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~AllPluginInstanceList.html">AllPluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~FeedPluginInstanceList.html">FeedPluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PipelineInstancePluginInstanceList.html">PipelineInstancePluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstance.html">PluginInstance</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceDescendantList.html">PluginInstanceDescendantList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceList.html">PluginInstanceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameter.html">PluginInstanceParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplit.html">PluginInstanceSplit</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplitList.html">PluginInstanceSplitList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameterList.html">PluginParameterList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/request.js~Request.html">Request</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ItemResource.html">ItemResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~ListResource.html">ListResource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/resource.js~Resource.html">Resource</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/servicefile.js~ServiceFile.html">ServiceFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/servicefile.js~ServiceFileList.html">ServiceFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~FeedTagList.html">FeedTagList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~FeedTaggingList.html">FeedTaggingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~Tag.html">Tag</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagFeedList.html">TagFeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagList.html">TagList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagTaggingList.html">TagTaggingList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~Tagging.html">Tagging</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFile.html">UploadedFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFileList.html">UploadedFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/request.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
+import axios, { AxiosResponse, AxiosRequestConfig } from &apos;axios&apos;;
+import Collection from &apos;./cj&apos;;
+import RequestException from &apos;./exception&apos;;
+
+/**
+ * Http request object.
+ */
+export default class Request {
+  /**
+   * Constructor
+   *
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   * @param {string} contentType - request content type
+   * @param {number} [timeout=30000] - request timeout
+   */
+  constructor(auth, contentType, timeout = 30000) {
+    /** @type {Object} */
+    this.auth = auth;
+
+    /** @type {string} */
+    this.contentType = contentType;
+
+    /** @type {number} */
+    this.timeout = timeout;
+  }
+
+  /**
+   * Perform a GET request.
+   *
+   * @param {string} url - url of the resource
+   * @param {?Object} params - search parameters
+   *
+   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   */
+  get(url, params = null) {
+    const config = this._getConfig(url, &apos;get&apos;);
+
+    if (params) {
+      config.params = params;
+    }
+
+    return Request._callAxios(config);
+  }
+
+  /**
+   * Perform a POST request.
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
+   *
+   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   */
+  post(url, data, uploadFileObj = null) {
+    return this._postOrPut(&apos;post&apos;, url, data, uploadFileObj);
+  }
+
+  /**
+   * Perform a PUT request.
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
+   *
+   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   */
+  put(url, data, uploadFileObj = null) {
+    return this._postOrPut(&apos;put&apos;, url, data, uploadFileObj);
+  }
+
+  /**
+   * Perform a DELETE request.
+   *
+   * @param {string} url - url of the resource
+   *
+   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   */
+  delete(url) {
+    const config = this._getConfig(url, &apos;delete&apos;);
+
+    return Request._callAxios(config);
+  }
+
+  /**
+   * Internal method to make either a POST or PUT request.
+   *
+   * @param {string} requestMethod - either &apos;post&apos; or &apos;put&apos;
+   * @param {string} url - url of the resource
+   * @param {Object} data - JSON data object
+   * @param {?Object} uploadFileObj - custom object with a property with the same name as
+   * the API descriptor corresponding to the file and whose value is the file blob
+   *
+   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   */
+  _postOrPut(requestMethod, url, data, uploadFileObj = null) {
+    const config = this._getConfig(url, requestMethod);
+    config.data = data;
+
+    if (uploadFileObj) {
+      config[&apos;headers&apos;][&apos;content-type&apos;] = &apos;multipart/form-data&apos;;
+      const bFormData = new FormData();
+
+      for (let property in data) {
+        if (data.hasOwnProperty(property)) {
+          bFormData.set(property, data[property]);
+        }
+      }
+      for (let property in uploadFileObj) {
+        if (uploadFileObj.hasOwnProperty(property)) {
+          bFormData.set(property, uploadFileObj[property]);
+        }
+      }
+      config.data = bFormData;
+    }
+
+    return Request._callAxios(config);
+  }
+
+  /**
+   * Internal method to create a config file for axios.
+   *
+   * @param {string} url - url of the resource
+   * @param {string} method - request verb
+   *
+   * @return {AxiosRequestConfig} - axios configuration object
+   */
+  _getConfig(url, method) {
+    const config = {
+      url: url,
+      method: method,
+      headers: {
+        Accept: this.contentType,
+        &apos;content-type&apos;: this.contentType,
+      },
+      timeout: this.timeout,
+    };
+
+    if (this.auth &amp;&amp; this.auth.username &amp;&amp; this.auth.password) {
+      config.auth = this.auth;
+    } else if (this.auth &amp;&amp; this.auth.token) {
+      config.headers.Authorization = &apos;Token &apos; + this.auth.token;
+    }
+
+    if (this.contentType === &apos;application/octet-stream&apos;) {
+      config.responseType = &apos;blob&apos;;
+    }
+
+    return config;
+  }
+
+  /**
+   * Internal method to make an axios request.
+   *
+   * @param {AxiosRequestConfig} config - axios configuration object
+   *
+   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   */
+  static _callAxios(config) {
+    return axios(config)
+      .then(response =&gt; {
+        return response;
+      })
+      .catch(error =&gt; {
+        Request._handleRequestError(error);
+      });
+  }
+
+  /**
+   * Internal method to handle errors produced by HTTP requests.
+   *
+   * @param {Object} error - axios error object
+   *
+   * @throws {RequestException} throw error
+   */
+  static _handleRequestError(error) {
+    let apiError;
+
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      //console.log(error.response.data);
+      //console.log(error.response.status);
+      //console.log(error.response.headers);
+      let errMsg = &apos;Bad server response!&apos;;
+      if (error.response.data.collection) {
+        errMsg = Collection.getErrorMessage(error.response.data.collection);
+      }
+      apiError = new RequestException(errMsg);
+      apiError.request = error.request;
+      apiError.response = error.response;
+      try {
+        apiError.response.data = JSON.parse(errMsg);
+      } catch (ex) {
+        apiError.response.data = errMsg;
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      //console.log(error.request);
+      apiError = new RequestException(&apos;No server response!&apos;);
+      apiError.request = error.request;
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      //console.log(&apos;Error&apos;, error.message);
+      apiError = new RequestException(error.message);
+    }
+
+    throw apiError;
+    //console.log(error.config);
+  }
+
+  /**
+   * Helper method to run an asynchronous task defined by a task generator function.
+   *
+   * @param {function*()} taskGenerator - generator function
+   */
+  static runAsyncTask(taskGenerator) {
+    // create the iterator
+    let task = taskGenerator();
+    // start the task
+    let result = task.next();
+
+    // recursive function to iterate through
+    (function step() {
+      // if there&apos;s more to do (result.value and result.done are iterator&apos;s properties)
+      if (!result.done) {
+        result.value
+          .then(resp =&gt; {
+            result = task.next(resp); // send this resp value to the yield
+            step();
+          })
+          .catch(error =&gt; {
+            result = task.throw(error); // throws error within taskGenerator generator
+            step();
+          });
+      }
+    })(); // start the recursive process by calling it immediatly
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
