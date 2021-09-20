@@ -35,7 +35,7 @@ before_script:
   - docker swarm init --advertise-addr 127.0.0.1
   - ./make.sh -U -I -i
   # create a test feed
-  - curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
+  - curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
   - sleep 10
   - cd $TRAVIS_BUILD_DIR
 
