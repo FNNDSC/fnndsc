@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "10.4.0"
+  - 16
 sudo: required
 
 services:
@@ -8,7 +8,7 @@ services:
 
 env:
   DOCKER_VERSION: 18.06.0~ce-0~ubuntu
-  DOCKER_COMPOSE_VERSION: 1.22.0
+  DOCKER_COMPOSE_VERSION: 1.27.0
 
 install:
   # update docker
@@ -30,16 +30,23 @@ install:
   - docker-compose -v
 
 before_script:
-  - docker pull fnndsc/swarm
   - git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
   - cd ChRIS_ultron_backEnd
+  - docker swarm init --advertise-addr 127.0.0.1
   - ./make.sh -U -I -i
   # create a test feed
   - curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
+  - sleep 10
   - cd $TRAVIS_BUILD_DIR
 
 script:
   - scripts/build.sh
+
+after_script:
+  - cd $TRAVIS_BUILD_DIR/../ChRIS_ultron_backEnd
+  - ./unmake.sh
+  - sudo rm -fr ./CHRIS_REMOTE_FS
+  - docker swarm leave --force
 
 notifications:
 slack: fnndsc:gGPIVAOtMikWomA1EKrVYIjO

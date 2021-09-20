@@ -1,5 +1,5 @@
 # ChRIS Store API
-[![Build Status](https://travis-ci.org/FNNDSC/fnndsc.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc)
+[![Build Status](https://www.travis-ci.com/FNNDSC/fnndsc.svg?branch=main)](https://www.travis-ci.com/FNNDSC/fnndsc)
 
 JavaScript6 client for the ChRIS Store REST API.
 
