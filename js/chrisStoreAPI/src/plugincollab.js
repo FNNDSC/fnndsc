@@ -1,13 +1,12 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
 import { PluginMeta } from './pluginmeta';
-import { PluginList } from './plugin';
 import User from './user';
 
 /**
- * Plugin star item resource object representing a plugin star.
+ * Plugin collaborator item resource object representing a plugin collaborator.
  */
-export class PluginStar extends ItemResource {
+export class PluginCollaborator extends ItemResource {
   /**
    * Constructor
    *
@@ -20,7 +19,7 @@ export class PluginStar extends ItemResource {
   }
 
   /**
-   * Fetch the plugin meta associated to this plugin star from the REST API.
+   * Fetch the plugin meta associated to this plugin collaborator from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    *
@@ -34,7 +33,7 @@ export class PluginStar extends ItemResource {
   }
 
   /**
-   * Fetch the user associated to this plugin star from the REST API.
+   * Fetch the user associated to this plugin collaborator from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    *
@@ -48,7 +47,20 @@ export class PluginStar extends ItemResource {
   }
 
   /**
-   * Make a DELETE request to delete this plugin star item resource through the
+   * Make a PUT request to modify this plugin collaborator item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.role - collaborator role
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
+
+  /**
+   * Make a DELETE request to delete this plugin collaborator item resource through the
    * REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -61,9 +73,10 @@ export class PluginStar extends ItemResource {
 }
 
 /**
- * Plugin star list resource object representing a list of plugin stars.
+ * Plugin meta-specific plugin collaborator list resource object representing a list
+ * of plugin collaborators associated to an specific plugin meta.
  */
-export class PluginStarList extends ListResource {
+export class PluginCollaboratorList extends ListResource {
   /**
    * Constructor
    *
@@ -75,34 +88,31 @@ export class PluginStarList extends ListResource {
     super(url, auth);
 
     /** @type {Object} */
-    this.itemClass = PluginStar;
+    this.itemClass = PluginCollaborator;
   }
 
   /**
-   * Fetch a list of plugins from the REST API.
+   * Fetch the plugin meta associated to this plugin meta-specific list of
+   * plugin collaborators from the REST API.
    *
-   * @param {Object} [searchParams=null] - search parameters object which is
-   * resource-specific, the ``PluginList.getSearchParameters`` method
-   * can be used to get a list of possible search parameters
-   * @param {number} [searchParams.limit] - page limit
-   * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``PluginList`` object
+   * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
    */
-  getPlugins(searchParams = null, timeout = 30000) {
-    const linkRelation = 'plugins';
-    const resourceClass = PluginList;
+  getPluginMeta(timeout = 30000) {
+    const linkRelation = 'meta';
+    const resourceClass = PluginMeta;
 
-    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 
   /**
-   * Make a POST request to this plugin star list resource to create a new
-   * plugin star item resource through the REST API.
+   * Make a POST request to this plugin collaborator list resource to create a new
+   * plugin collaborator item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
-   * @param {string} data.plugin_name - plugin name
+   * @param {string} data.username - collaborator username
+   * @param {string} data.role - collaborator role
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to ``this`` object

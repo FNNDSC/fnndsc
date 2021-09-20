@@ -3,6 +3,7 @@ import { ItemResource, ListResource } from './resource';
 import { PluginList, PluginMetaPluginList } from './plugin';
 import { PipelineList } from './pipeline';
 import { PluginStarList } from './pluginstar';
+import { PluginCollaboratorList } from './plugincollab';
 import User from './user';
 
 /**
@@ -38,6 +39,23 @@ export class PluginMeta extends ItemResource {
   }
 
   /**
+   * Fetch the list of plugin meta collaborators associated to this plugin meta.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to a ``PluginCollaboratorList`` object
+   */
+  getCollaborators(params = null, timeout = 30000) {
+    const linkRelation = 'collaborators';
+    const resourceClass = PluginCollaboratorList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
    * Make a PUT request to modify this plugin meta item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -65,9 +83,9 @@ export class PluginMeta extends ItemResource {
 
 /**
  * User-specific plugin meta list resource object representing a list of
- * plugin metas owned by an specific user.
+ * plugin metas for which the user is a collaborator.
  */
-export class UserOwnedPluginMetaList extends ListResource {
+export class UserCollabPluginMetaList extends ListResource {
   /**
    * Constructor
    *
@@ -78,16 +96,12 @@ export class UserOwnedPluginMetaList extends ListResource {
   constructor(url, auth = null) {
     super(url, auth);
 
-    if (!this.auth) {
-      throw new RequestException('Authentication object is required');
-    }
-
     /** @type {Object} */
     this.itemClass = PluginMeta;
   }
 
   /**
-   * Fetch the owner user from the REST API.
+   * Fetch the collaborator user from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    *
@@ -103,7 +117,7 @@ export class UserOwnedPluginMetaList extends ListResource {
 
 /**
  * User-specific plugin meta list resource object representing a list of
- * plugin metas favored by an specific user.
+ * plugin metas favored by the user.
  */
 export class UserFavoritePluginMetaList extends ListResource {
   /**
@@ -115,10 +129,6 @@ export class UserFavoritePluginMetaList extends ListResource {
    */
   constructor(url, auth = null) {
     super(url, auth);
-
-    if (!this.auth) {
-      throw new RequestException('Authentication object is required');
-    }
 
     /** @type {Object} */
     this.itemClass = PluginMeta;
@@ -246,18 +256,19 @@ export class PluginMetaList extends ListResource {
   }
 
   /**
-   * Fetch a list of authenticated user's owned plugin metas from the REST API.
+   * Fetch a list of plugin metas for which the authenticated user is a collaborator
+   * from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object
+   * @return {Object} - JS Promise, resolves to a ``UserCollabPluginMetaList`` object
    */
-  getOwnedPluginMetas(params = null, timeout = 30000) {
-    const linkRelation = 'owned_plugin_metas';
-    const resourceClass = UserOwnedPluginMetaList;
+  getCollabPluginMetas(params = null, timeout = 30000) {
+    const linkRelation = 'collab_plugin_metas';
+    const resourceClass = UserCollabPluginMetaList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }

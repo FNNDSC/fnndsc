@@ -308,9 +308,9 @@ export class ListResource extends Resource {
       return null;
     }
     const itemResource = new this.itemClass(items[0].href, this.auth);
-    const listRes = this.clone();
-    listRes.collection.items[0] = items[0];
-    itemResource.collection = listRes.collection;
+    itemResource.collection = Collection.createCollectionObj();
+    itemResource.collection.items.push(items[0]);
+    itemResource.collection.href = items[0].href;
     return itemResource;
   }
 
@@ -324,11 +324,11 @@ export class ListResource extends Resource {
     if (this.isEmpty) {
       return [];
     }
-    return this.collection.items.map(item => {
+    return this.collection.items.map((item) => {
       const itemResource = new this.itemClass(item.href, this.auth);
-      const listRes = this.clone();
-      listRes.collection.items[0] = item;
-      itemResource.collection = listRes.collection;
+      itemResource.collection = Collection.createCollectionObj();
+      itemResource.collection.items.push(item);
+      itemResource.collection.href = item.href;
       return itemResource;
     });
   }

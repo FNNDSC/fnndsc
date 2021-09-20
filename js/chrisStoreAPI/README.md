@@ -1,7 +1,7 @@
 # ChRIS Store API
 [![Build Status](https://travis-ci.org/FNNDSC/fnndsc.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc)
 
-JavaScript6 client for the ChRIS Store API.
+JavaScript6 client for the ChRIS Store REST API.
 
 ## Installation
 
@@ -24,9 +24,9 @@ These preconditions are only necessary to be able to test the client against an 
 instance of a ChRIS Store server both during development and for the automated tests.
 
 #### Install latest Docker and Docker Compose. Currently tested platforms
-* ``Docker 17.04.0+``
-* ``Docker Compose 1.10.0+``
-* ``Ubuntu 16.04+ and MAC OS X 10.11+``
+* ``Docker 18.06.0+``
+* ``Docker Compose 1.27.0+``
+* ``Ubuntu 18.04+ and MAC OS X 10.14+``
 
 #### On a Linux machine make sure to add your computer user to the ``docker`` group
 

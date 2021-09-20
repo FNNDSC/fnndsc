@@ -97,6 +97,21 @@ export default class Collection {
   }
 
   /**
+   * Create an empty Collection+Json object.
+   *
+   * @return {Object} - template object
+   */
+  static createCollectionObj() {
+    const obj = {
+      href: '',
+      items: [],
+      links: [],
+      version: '1.0',
+    };
+    return obj;
+  }
+
+  /**
    * Make a Collection+Json template object from a regular object whose properties are
    * the item descriptors.
    *

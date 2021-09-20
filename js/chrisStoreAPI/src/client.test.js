@@ -2,8 +2,9 @@ import Client from './client';
 import { expect } from 'chai';
 import RequestException from './exception';
 import { PluginList, Plugin } from './plugin';
-import { UserFavoritePluginMetaList, UserOwnedPluginMetaList } from './pluginmeta';
+import { UserFavoritePluginMetaList, UserCollabPluginMetaList } from './pluginmeta';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
+import { PluginCollaborator } from './plugincollab';
 import { PluginStar } from './pluginstar';
 import { PipelineList, Pipeline } from './pipeline';
 import User from './user';
@@ -116,12 +117,12 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch the list of user owned plugin metas from the REST API', done => {
-    const result = client.getOwnedPluginMetas();
+  it('can fetch the list of user collaborated plugin metas from the REST API', done => {
+    const result = client.getCollabPluginMetas();
     result
       .then(plgMetaList => {
         //window.console.log('items', plgMetaList.getItems());
-        expect(plgMetaList).to.be.an.instanceof(UserOwnedPluginMetaList);
+        expect(plgMetaList).to.be.an.instanceof(UserCollabPluginMetaList);
         expect(plgMetaList.data).to.have.lengthOf.at.least(1);
         expect(plgMetaList.totalCount).to.be.at.least(1);
       })
@@ -148,6 +149,22 @@ describe('Client', () => {
         expect(plgStar).to.be.an.instanceof(PluginStar);
         expect(plgStar.data.plugin_name).to.equal(data.plugin_name);
         return plgStar.delete();
+      })
+      .then(done, done);
+  });
+
+  it('can add a collaborator to a plugin through the REST API and then remove it', done => {
+    const data = {
+      username: 'chris',
+      role: 'M'
+    };
+    const plgMetaId = 1;
+    const result = client.createPluginCollaborator(plgMetaId, data);
+    result
+      .then(plgCollaborator => {
+        expect(plgCollaborator).to.be.an.instanceof(PluginCollaborator);
+        expect(plgCollaborator.data.meta_id).to.equal(plgMetaId);
+        return plgCollaborator.delete();
       })
       .then(done, done);
   });

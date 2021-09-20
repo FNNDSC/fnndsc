@@ -1,11 +1,11 @@
 /** * Imports ***/
 import Collection from './cj';
 import Request from './request';
-import RequestException from './exception';
 import { PluginList } from './plugin';
-import { PluginMetaList, UserOwnedPluginMetaList } from './pluginmeta';
+import { PluginMetaList, UserCollabPluginMetaList } from './pluginmeta';
 import { UserFavoritePluginMetaList } from './pluginmeta';
 import { PluginStarList } from './pluginstar';
+import { PluginCollaboratorList } from './plugincollab';
 import { PipelineList } from './pipeline';
 import User from './user';
 
@@ -30,7 +30,7 @@ export default class Client {
     /* Urls of the high level API resources */
     this.pluginMetasUrl = this.url;
     this.favoritePluginMetasUrl = '';
-    this.ownedPluginMetasUrl = '';
+    this.collabPluginMetasUrl = '';
     this.pluginStarsUrl = '';
     this.pluginsUrl = '';
     this.pipelinesUrl = '';
@@ -83,8 +83,8 @@ export default class Client {
       if (!this.favoritePluginMetasUrl && this.auth) {
         this.favoritePluginMetasUrl = getUrl(coll, 'favorite_plugin_metas')[0];
       }
-      if (!this.ownedPluginMetasUrl && this.auth) {
-        this.ownedPluginMetasUrl = getUrl(coll, 'owned_plugin_metas')[0];
+      if (!this.collabPluginMetasUrl && this.auth) {
+        this.collabPluginMetasUrl = getUrl(coll, 'collab_plugin_metas')[0];
       }
       this.pluginStarsUrl = this.pluginStarsUrl || getUrl(coll, 'plugin_stars')[0];
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];
@@ -106,27 +106,21 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``UserFavoritePluginMetaList`` object
    */
   getFavoritePluginMetas(params = null, timeout = 30000) {
-    if (!this.auth) {
-      throw new RequestException('Authentication is required to fetch this resource.');
-    }
     return this._fetchRes('favoritePluginMetasUrl', UserFavoritePluginMetaList, params, timeout);
   }
 
   /**
-   * Fetch a list of authenticated user's owned plugin metas from the REST API.
+   * Fetch a list of authenticated user's collaborated plugin metas from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
    * @param {number} [params.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Object} - JS Promise, resolves to a ``UserOwnedPluginMetaList`` object
+   * @return {Object} - JS Promise, resolves to a ``UserCollabPluginMetaList`` object
    */
-  getOwnedPluginMetas(params = null, timeout = 30000) {
-    if (!this.auth) {
-      throw new RequestException('Authentication is required to fetch this resource.');
-    }
-    return this._fetchRes('ownedPluginMetasUrl', UserOwnedPluginMetaList, params, timeout);
+  getCollabPluginMetas(params = null, timeout = 30000) {
+    return this._fetchRes('collabPluginMetasUrl', UserCollabPluginMetaList, params, timeout);
   }
 
   /**
@@ -142,15 +136,16 @@ export default class Client {
   }
 
   /**
-   * Get a paginated list of plugin star data (descriptors) given query search
-   * parameters. If no search parameters is given then get the default first
-   * page.
+   * Get a paginated list of authenticated-user-specific plugin star data (descriptors)
+   * given query search parameters. If no search parameters is given then get the default
+   * first page.
    *
    * @param {Object} [searchParams=null] - search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match plugin star id exactly with this number
    * @param {string} [searchParams.plugin_name] - match plugin name exactly with this string
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginStarList`` object
    */
@@ -159,9 +154,9 @@ export default class Client {
   }
 
   /**
-   * Get a plugin star resource object given its id.
+   * Get an authenticated-user-specific plugin star resource object given its id.
    *
-   * @param {string} id - plugin star id
+   * @param {number} id - plugin star id
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginStar`` object
@@ -185,6 +180,27 @@ export default class Client {
       return res.post(data, timeout).then(res => res.getItems()[0]);
     };
     return this.pluginStarsUrl ? createRes() : this.setUrls().then(() => createRes());
+  }
+
+  /**
+   * Create a new plugin collaborator resource through the REST API.
+   *
+   * @param {number} pluginMetaId - plugin meta id
+   * @param {Object} data - request JSON data object
+   * @param {string} data.username - collaborator username
+   * @param {string} data.role - collaborator role
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Object} - JS Promise, resolves to ``PluginCollaborator`` object
+   */
+  createPluginCollaborator(pluginMetaId, data, timeout = 30000) {
+    return this.getPluginMeta(pluginMetaId, timeout)
+      .then(plgMeta => {
+        const collaboratorsUrl = Collection.getLinkRelationUrls(plgMeta.collection.items[0], 'collaborators');
+        const collabList = new PluginCollaboratorList(collaboratorsUrl[0], this.auth);
+        return collabList.post(data, timeout);
+      })
+      .then(collabList => collabList.getItems()[0]);
   }
 
   /**
@@ -213,6 +229,7 @@ export default class Client {
    * @param {string} [searchParams.description] - match plugin description containing this string
    * @param {string} [searchParams.name_title_category] - match plugin name, title or category
    * containing this string
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PluginList`` object
    */
@@ -268,6 +285,7 @@ export default class Client {
    * @param {string} [searchParams.authors] - match pipeline authors containing this string
    * @param {string} [searchParams.min_creation_date] - match pipeline creation date after this date
    * @param {string} [searchParams.max_creation_date] - match pipeline creation date before this date
+   * @param {number} [timeout=30000] - request timeout
    *
    * @return {Object} - JS Promise, resolves to a ``PipelineList`` object
    */
