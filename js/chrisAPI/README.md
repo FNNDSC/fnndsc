@@ -1,5 +1,5 @@
 # ChRIS API
-[![Build Status](https://www.travis-ci.com/FNNDSC/fnndsc.svg?branch=main)](https://www.travis-ci.com/FNNDSC/fnndsc)
+[![Build Status](https://app.travis-ci.com/FNNDSC/fnndsc.svg?branch=master)](https://app.travis-ci.com/FNNDSC/fnndsc)
 
 JavaScript 6 client for the ChRIS API.
 
