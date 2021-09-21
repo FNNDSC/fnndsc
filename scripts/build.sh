@@ -2,7 +2,7 @@
 
 # create a test feed
 - curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir","value":"cube/"}]}}' 'http://localhost:8000/api/v1/plugins/1/instances/'
-- sleep 10
+- sleep 100
 
 cd $TRAVIS_BUILD_DIR/js/chrisStoreAPI
 yarn install

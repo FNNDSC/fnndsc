@@ -34,7 +34,7 @@ script:
   - scripts/build.sh
 
 after_script:
-  - cd $TRAVIS_BUILD_DIR/../ChRIS_ultron_backEnd
+  - cd $TRAVIS_BUILD_DIR/ChRIS_ultron_backEnd
   - ./unmake.sh
   - sudo rm -fr ./CHRIS_REMOTE_FS
   - docker swarm leave --force
