@@ -76,7 +76,7 @@ export default class Client {
   getPluginMetas(searchParams = null, timeout = 30000) {
     const plgMetaList = new PluginMetaList(this.pluginMetasUrl, this.auth);
 
-    return plgMetaList.get(searchParams, timeout).then(plgMetaList => {
+    return plgMetaList.get(searchParams, timeout).then((plgMetaList) => {
       const coll = plgMetaList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
@@ -132,7 +132,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``PluginMeta`` object
    */
   getPluginMeta(id, timeout = 30000) {
-    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPluginMetas({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -162,7 +162,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``PluginStar`` object
    */
   getPluginStar(id, timeout = 30000) {
-    return this.getPluginStars({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPluginStars({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -177,7 +177,7 @@ export default class Client {
   createPluginStar(data, timeout = 30000) {
     const createRes = () => {
       const res = new PluginStarList(this.pluginStarsUrl, this.auth);
-      return res.post(data, timeout).then(res => res.getItems()[0]);
+      return res.post(data, timeout).then((res) => res.getItems()[0]);
     };
     return this.pluginStarsUrl ? createRes() : this.setUrls().then(() => createRes());
   }
@@ -195,12 +195,15 @@ export default class Client {
    */
   createPluginCollaborator(pluginMetaId, data, timeout = 30000) {
     return this.getPluginMeta(pluginMetaId, timeout)
-      .then(plgMeta => {
-        const collaboratorsUrl = Collection.getLinkRelationUrls(plgMeta.collection.items[0], 'collaborators');
+      .then((plgMeta) => {
+        const collaboratorsUrl = Collection.getLinkRelationUrls(
+          plgMeta.collection.items[0],
+          'collaborators'
+        );
         const collabList = new PluginCollaboratorList(collaboratorsUrl[0], this.auth);
         return collabList.post(data, timeout);
       })
-      .then(collabList => collabList.getItems()[0]);
+      .then((collabList) => collabList.getItems()[0]);
   }
 
   /**
@@ -246,7 +249,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(id, timeout = 30000) {
-    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPlugins({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -265,7 +268,7 @@ export default class Client {
   createPlugin(data, uploadFileObj, timeout = 30000) {
     const createRes = () => {
       const res = new PluginList(this.pluginsUrl, this.auth);
-      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
+      return res.post(data, uploadFileObj, timeout).then((res) => res.getItems()[0]);
     };
     return this.pluginsUrl ? createRes() : this.setUrls().then(() => createRes());
   }
@@ -302,7 +305,7 @@ export default class Client {
    * @return {Object} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(id, timeout = 30000) {
-    return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPipelines({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -321,8 +324,8 @@ export default class Client {
    */
   createPipeline(data, timeout = 30000) {
     const createRes = () => {
-      const res = new PipelineList(this.pipelinessUrl, this.auth);
-      return res.post(data, timeout).then(res => res.getItems()[0]);
+      const res = new PipelineList(this.pipelinesUrl, this.auth);
+      return res.post(data, timeout).then((res) => res.getItems()[0]);
     };
     return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());
   }
@@ -359,7 +362,7 @@ export default class Client {
         ],
       },
     };
-    return req.post(usersUrl, userData).then(resp => {
+    return req.post(usersUrl, userData).then((resp) => {
       const coll = resp.data.collection;
       const userUrl = coll.items[0].href;
       const auth = { username: username, password: password };
@@ -384,7 +387,7 @@ export default class Client {
       username: username,
       password: password,
     };
-    return req.post(authUrl, authData).then(resp => resp.data.token);
+    return req.post(authUrl, authData).then((resp) => resp.data.token);
   }
 
   /**

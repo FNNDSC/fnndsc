@@ -55,28 +55,28 @@ describe('Client', () => {
   //const auth = {token: "d757da9c364fdc92368b90392559e0de78f54f02"};
   const client = new Client(chrisStoreUrl, auth);
 
-  it('can create a new user through the REST API', done => {
+  it('can create a new user through the REST API', (done) => {
     const username = 'user' + Date.now();
     const password = username + 'pass';
     const email = username + '@babymri.org';
 
     const result = Client.createUser(usersUrl, username, password, email);
     result
-      .then(user => {
+      .then((user) => {
         // window.console.log('data', user.data);
         expect(user.data.username).to.equal(username);
       })
       .then(done, done);
   });
 
-  it('can report an unsuccessful atempt to create a new user through the REST API', done => {
+  it('can report an unsuccessful atempt to create a new user through the REST API', (done) => {
     const username = 'user' + Date.now();
     const password = username + 'pass';
     const email = username + '/babymri.org';
 
     const result = Client.createUser(usersUrl, username, password, email);
     result
-      .catch(error => {
+      .catch((error) => {
         expect(error).to.be.an.instanceof(RequestException);
         expect(error.message).to.be.a('string');
         expect(error.request).to.be.an.instanceof(XMLHttpRequest);
@@ -86,19 +86,19 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch a user auth token from the REST API', done => {
+  it('can fetch a user auth token from the REST API', (done) => {
     const result = Client.getAuthToken(authUrl, username, password);
     result
-      .then(token => {
+      .then((token) => {
         expect(token).to.be.a('string');
       })
       .then(done, done);
   });
 
-  it('can fetch the list of plugin metas from the REST API', done => {
+  it('can fetch the list of plugin metas from the REST API', (done) => {
     const result = client.getPluginMetas();
     result
-      .then(plgMetaList => {
+      .then((plgMetaList) => {
         //window.console.log('items', plgMetaList.getItems());
         expect(plgMetaList).to.be.an.instanceof(PluginMetaList);
         expect(plgMetaList.data).to.have.lengthOf.at.least(1);
@@ -107,20 +107,20 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch the list of user favorite plugin metas from the REST API', done => {
+  it('can fetch the list of user favorite plugin metas from the REST API', (done) => {
     const result = client.getFavoritePluginMetas();
     result
-      .then(plgMetaList => {
+      .then((plgMetaList) => {
         //window.console.log('items', plgMetaList.getItems());
         expect(plgMetaList).to.be.an.instanceof(UserFavoritePluginMetaList);
       })
       .then(done, done);
   });
 
-  it('can fetch the list of user collaborated plugin metas from the REST API', done => {
+  it('can fetch the list of user collaborated plugin metas from the REST API', (done) => {
     const result = client.getCollabPluginMetas();
     result
-      .then(plgMetaList => {
+      .then((plgMetaList) => {
         //window.console.log('items', plgMetaList.getItems());
         expect(plgMetaList).to.be.an.instanceof(UserCollabPluginMetaList);
         expect(plgMetaList.data).to.have.lengthOf.at.least(1);
@@ -129,23 +129,23 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch a plugin meta by id from the REST API', done => {
+  it('can fetch a plugin meta by id from the REST API', (done) => {
     const result = client.getPluginMeta(1);
     result
-      .then(plgMeta => {
+      .then((plgMeta) => {
         expect(plgMeta).to.be.an.instanceof(PluginMeta);
         expect(plgMeta.isEmpty).to.be.false;
       })
       .then(done, done);
   });
 
-  it('can make a plugin favorite through the REST API and then remove the star', done => {
+  it('can make a plugin favorite through the REST API and then remove the star', (done) => {
     const data = {
       plugin_name: 'pl-simplefsapp',
     };
     const result = client.createPluginStar(data);
     result
-      .then(plgStar => {
+      .then((plgStar) => {
         expect(plgStar).to.be.an.instanceof(PluginStar);
         expect(plgStar.data.plugin_name).to.equal(data.plugin_name);
         return plgStar.delete();
@@ -153,15 +153,15 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can add a collaborator to a plugin through the REST API and then remove it', done => {
+  it('can add a collaborator to a plugin through the REST API and then remove it', (done) => {
     const data = {
       username: 'chris',
-      role: 'M'
+      role: 'M',
     };
     const plgMetaId = 1;
     const result = client.createPluginCollaborator(plgMetaId, data);
     result
-      .then(plgCollaborator => {
+      .then((plgCollaborator) => {
         expect(plgCollaborator).to.be.an.instanceof(PluginCollaborator);
         expect(plgCollaborator.data.meta_id).to.equal(plgMetaId);
         return plgCollaborator.delete();
@@ -169,11 +169,11 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch the list of plugins from the REST API', done => {
+  it('can fetch the list of plugins from the REST API', (done) => {
     const client1 = new Client(chrisStoreUrl, auth);
     const result = client1.getPlugins();
     result
-      .then(pluginList => {
+      .then((pluginList) => {
         //window.console.log('pluginList.data', pluginList.data);
         //window.console.log('pluginList.hasNextPage', pluginList.hasNextPage);
         expect(pluginList).to.be.an.instanceof(PluginList);
@@ -182,11 +182,11 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch a plugin by id from the REST API', done => {
+  it('can fetch a plugin by id from the REST API', (done) => {
     const client1 = new Client(chrisStoreUrl);
     const result = client1.getPlugin(1);
     result
-      .then(plugin => {
+      .then((plugin) => {
         //console.log('plugin.data:', plugin.data);
         //window.console.log('items', feedList.getItems());
         expect(plugin).to.be.an.instanceof(Plugin);
@@ -195,7 +195,7 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can create a new plugin through the REST API', done => {
+  it('can create a new plugin through the REST API', (done) => {
     const data = {
       name: 'pl-simplefsapp' + Date.now(),
       dock_image: 'fnndsc/pl-simplefsapp',
@@ -208,37 +208,57 @@ describe('Client', () => {
 
     const result = client.createPlugin(data, uploadFileObj);
     result
-      .then(plugin => {
+      .then((plugin) => {
         expect(plugin).to.be.an.instanceof(Plugin);
         expect(plugin.data.name).to.equal(data.name);
       })
       .then(done, done);
   });
 
-  it('can fetch the list of pipelines from the REST API', done => {
+  it('can fetch the list of pipelines from the REST API', (done) => {
     const result = client.getPipelines();
     result
-      .then(pipelineList => {
+      .then((pipelineList) => {
         expect(pipelineList).to.be.an.instanceof(PipelineList);
         expect(pipelineList.data).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
 
-  it('can fetch a pipeline by id from the REST API', done => {
+  it('can fetch a pipeline by id from the REST API', (done) => {
     const result = client.getPipeline(1);
     result
-      .then(pipeline => {
+      .then((pipeline) => {
         expect(pipeline).to.be.an.instanceof(Pipeline);
         expect(pipeline.isEmpty).to.be.false;
       })
       .then(done, done);
   });
 
-  it('can fetch authenticated user from the REST API', done => {
+  it('can create a new pipeline through the REST API', (done) => {
+    const tree = [
+      { plugin_name: 'pl-simpledsapp', plugin_version: '2.0.2', previous_index: null },
+      { plugin_name: 'pl-simpledsapp', plugin_version: '2.0.2', previous_index: 0 },
+    ];
+    const data = {
+      name: 'TestPipeline' + Date.now(),
+      locked: false,
+      plugin_tree: JSON.stringify(tree),
+    };
+
+    const result = client.createPipeline(data);
+    result
+      .then((pipeline) => {
+        expect(pipeline).to.be.an.instanceof(Pipeline);
+        expect(pipeline.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can fetch authenticated user from the REST API', (done) => {
     const result = client.getUser();
     result
-      .then(user => {
+      .then((user) => {
         expect(user).to.be.an.instanceof(User);
         expect(user.data.username).to.equal('cubeadmin');
       })
