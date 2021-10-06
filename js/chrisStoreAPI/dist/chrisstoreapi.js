@@ -5751,7 +5751,7 @@
                   var e = this,
                     n = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : 3e4,
                     r = function () {
-                      return new Z(e.pipelinessUrl, e.auth).post(t, n).then(function (t) {
+                      return new Z(e.pipelinesUrl, e.auth).post(t, n).then(function (t) {
                         return t.getItems()[0];
                       });
                     };

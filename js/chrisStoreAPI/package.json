@@ -1,6 +1,6 @@
 {
   "name": "@fnndsc/chrisstoreapi",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "",
   "main": "dist/chrisstoreapi.js",
   "scripts": {
@@ -12,12 +12,10 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css,ts,tsx}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ],
     "*.{js,jsx,json,css,ts,tsx}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   },
   "prettier": {
