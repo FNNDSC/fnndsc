@@ -708,12 +708,12 @@ export default class Client {
     /**
      * Get a file browser path resource object given its path.
      *
-     * @param {number} path - file browser path
+     * @param {string} path - file browser path
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object
      */
-    getFileBrowserPath(path: number, timeout?: number): Promise<FileBrowserPath>;
+    getFileBrowserPath(path: string, timeout?: number): Promise<FileBrowserPath>;
     /**
      * Get a user resource object for the currently authenticated user.
      * @param {number} [timeout=30000] - request timeout
