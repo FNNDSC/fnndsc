@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/request.js | @fnndsc/chrisapi</title>
+  <title data-ice="title">src/filebrowser.js | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -98,249 +98,121 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/request.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/filebrowser.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
-import axios, { AxiosResponse, AxiosRequestConfig } from &apos;axios&apos;;
-import Collection from &apos;./cj&apos;;
+import Request from &apos;./request&apos;;
 import RequestException from &apos;./exception&apos;;
+import Collection from &apos;./cj&apos;;
+import { ItemResource, ListResource } from &apos;./resource&apos;;
+
 
 /**
- * Http request object.
+ * File browser path file item resource object representing a generic browser file.
  */
-export default class Request {
+ export class FileBrowserPathFile extends ItemResource {
+   /**
+    * Constructor
+    *
+    * @param {string} url - url of the resource
+    * @param {Object} auth - authentication object
+    * @param {string} auth.token - authentication token
+    */
+   constructor(url, auth) {
+     super(url, auth);
+   }
+
+   /**
+    * Fetch the file blob associated to this browser file item from the REST API.
+    *
+    * @param {number} [timeout=30000] - request timeout
+    *
+    * @return {Promise&lt;Blob&gt;} - JS Promise, resolves to a ``Blob`` object
+    * @throws {RequestException} throw error if this item resource has not yet been
+    * fetched from the REST API
+    */
+   getFileBlob(timeout = 30000) {
+     if (this.isEmpty) {
+       throw new RequestException(&apos;Item object has not been set!&apos;);
+     }
+     const req = new Request(this.auth, &apos;application/octet-stream&apos;, timeout);
+     const item = this.collection.items[0];
+     const blobUrl = Collection.getLinkRelationUrls(item, &apos;file_resource&apos;)[0];
+
+     return req.get(blobUrl).then(resp =&gt; resp.data);
+   }
+ }
+
+
+/**
+ * File browser path file list resource object representing a list of all
+ * browser files directly under a folder.
+ */
+export class FileBrowserPathFileList extends ListResource {
   /**
    * Constructor
    *
+   * @param {string} url - url of the resource
    * @param {Object} auth - authentication object
    * @param {string} auth.token - authentication token
-   * @param {string} contentType - request content type
-   * @param {number} [timeout=30000] - request timeout
    */
-  constructor(auth, contentType, timeout = 30000) {
+  constructor(url, auth) {
+    super(url, auth);
+
     /** @type {Object} */
-    this.auth = auth;
-
-    /** @type {string} */
-    this.contentType = contentType;
-
-    /** @type {number} */
-    this.timeout = timeout;
+    this.itemClass = FileBrowserPathFile;
   }
+}
 
+/**
+ * File browser path item resource object representing a file browser path.
+ */
+export class FileBrowserPath extends ItemResource {
   /**
-   * Perform a GET request.
+   * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {?Object} params - search parameters
-   *
-   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
-  get(url, params = null) {
-    const config = this._getConfig(url, &apos;get&apos;);
-
-    if (params) {
-      config.params = params;
-    }
-
-    return Request._callAxios(config);
+  constructor(url, auth) {
+    super(url, auth);
   }
 
   /**
-   * Perform a POST request.
+   * Fetch the paginated list of files directly under this file browser path from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;FileBrowserPathFileList&gt;} - JS Promise, resolves to a ``FileBrowserPathFileList`` object
+   */
+  getFiles(params = null, timeout = 30000) {
+    const linkRelation = &apos;files&apos;;
+    const resourceClass = FileBrowserPathFileList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+}
+
+/**
+ * File browser path list resource object representing the initial page of the
+ * collection of file browser paths.
+ */
+export class FileBrowserPathList extends ListResource {
+  /**
+   * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom object with a property with the same name as
-   * the API descriptor corresponding to the file and whose value is the file blob
-   *
-   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
    */
-  post(url, data, uploadFileObj = null) {
-    return this._postOrPut(&apos;post&apos;, url, data, uploadFileObj);
-  }
+  constructor(url, auth) {
+    super(url, auth);
 
-  /**
-   * Perform a PUT request.
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom object with a property with the same name as
-   * the API descriptor corresponding to the file and whose value is the file blob
-   *
-   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
-   */
-  put(url, data, uploadFileObj = null) {
-    return this._postOrPut(&apos;put&apos;, url, data, uploadFileObj);
-  }
-
-  /**
-   * Perform a DELETE request.
-   *
-   * @param {string} url - url of the resource
-   *
-   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
-   */
-  delete(url) {
-    const config = this._getConfig(url, &apos;delete&apos;);
-
-    return Request._callAxios(config);
-  }
-
-  /**
-   * Internal method to make either a POST or PUT request.
-   *
-   * @param {string} requestMethod - either &apos;post&apos; or &apos;put&apos;
-   * @param {string} url - url of the resource
-   * @param {Object} data - JSON data object
-   * @param {?Object} uploadFileObj - custom object with a property with the same name as
-   * the API descriptor corresponding to the file and whose value is the file blob
-   *
-   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
-   */
-  _postOrPut(requestMethod, url, data, uploadFileObj = null) {
-    const config = this._getConfig(url, requestMethod);
-    config.data = data;
-
-    if (uploadFileObj) {
-      config[&apos;headers&apos;][&apos;content-type&apos;] = &apos;multipart/form-data&apos;;
-      const bFormData = new FormData();
-
-      for (let property in data) {
-        if (data.hasOwnProperty(property)) {
-          bFormData.set(property, data[property]);
-        }
-      }
-      for (let property in uploadFileObj) {
-        if (uploadFileObj.hasOwnProperty(property)) {
-          bFormData.set(property, uploadFileObj[property]);
-        }
-      }
-      config.data = bFormData;
-    }
-
-    return Request._callAxios(config);
-  }
-
-  /**
-   * Internal method to create a config file for axios.
-   *
-   * @param {string} url - url of the resource
-   * @param {string} method - request verb
-   *
-   * @return {AxiosRequestConfig} - axios configuration object
-   */
-  _getConfig(url, method) {
-    const config = {
-      url: url,
-      method: method,
-      headers: {
-        Accept: this.contentType,
-        &apos;content-type&apos;: this.contentType,
-      },
-      timeout: this.timeout,
-    };
-
-    if (this.auth &amp;&amp; this.auth.username &amp;&amp; this.auth.password) {
-      config.auth = this.auth;
-    } else if (this.auth &amp;&amp; this.auth.token) {
-      config.headers.Authorization = &apos;Token &apos; + this.auth.token;
-    }
-
-    if (this.contentType === &apos;application/octet-stream&apos;) {
-      config.responseType = &apos;blob&apos;;
-    }
-
-    return config;
-  }
-
-  /**
-   * Internal method to make an axios request.
-   *
-   * @param {AxiosRequestConfig} config - axios configuration object
-   *
-   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios reponse`` object
-   */
-  static _callAxios(config) {
-    return axios(config)
-      .then(response =&gt; {
-        return response;
-      })
-      .catch(error =&gt; {
-        Request._handleRequestError(error);
-      });
-  }
-
-  /**
-   * Internal method to handle errors produced by HTTP requests.
-   *
-   * @param {Object} error - axios error object
-   *
-   * @throws {RequestException} throw error
-   */
-  static _handleRequestError(error) {
-    let apiError;
-
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      //console.log(error.response.data);
-      //console.log(error.response.status);
-      //console.log(error.response.headers);
-      let errMsg = &apos;Bad server response!&apos;;
-      if (error.response.data.collection) {
-        errMsg = Collection.getErrorMessage(error.response.data.collection);
-      }
-      apiError = new RequestException(errMsg);
-      apiError.request = error.request;
-      apiError.response = error.response;
-      try {
-        apiError.response.data = JSON.parse(errMsg);
-      } catch (ex) {
-        apiError.response.data = errMsg;
-      }
-    } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      //console.log(error.request);
-      apiError = new RequestException(&apos;No server response!&apos;);
-      apiError.request = error.request;
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      //console.log(&apos;Error&apos;, error.message);
-      apiError = new RequestException(error.message);
-    }
-
-    throw apiError;
-    //console.log(error.config);
-  }
-
-  /**
-   * Helper method to run an asynchronous task defined by a task generator function.
-   *
-   * @param {function*()} taskGenerator - generator function
-   */
-  static runAsyncTask(taskGenerator) {
-    // create the iterator
-    let task = taskGenerator();
-    // start the task
-    let result = task.next();
-
-    // recursive function to iterate through
-    (function step() {
-      // if there&apos;s more to do (result.value and result.done are iterator&apos;s properties)
-      if (!result.done) {
-        result.value
-          .then(resp =&gt; {
-            result = task.next(resp); // send this resp value to the yield
-            step();
-          })
-          .catch(error =&gt; {
-            result = task.throw(error); // throws error within taskGenerator generator
-            step();
-          });
-      }
-    })(); // start the recursive process by calling it immediatly
+    /** @type {Object} */
+    this.itemClass = FileBrowserPath;
   }
 }
 </code></pre>

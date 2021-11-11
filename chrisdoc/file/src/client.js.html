@@ -44,6 +44,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPath.html">FileBrowserPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPathFile.html">FileBrowserPathFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPathFileList.html">FileBrowserPathFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPathList.html">FileBrowserPathList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFile.html">PACSFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFileList.html">PACSFileList</a></span></span></li>
@@ -122,6 +126,7 @@ import { TagList, Tag, Tagging } from &apos;./tag&apos;;
 import { UploadedFileList, UploadedFile } from &apos;./uploadedfile&apos;;
 import { PACSFileList, PACSFile } from &apos;./pacsfile&apos;;
 import { ServiceFileList, ServiceFile } from &apos;./servicefile&apos;;
+import { FileBrowserPathList, FileBrowserPath } from &apos;./filebrowser&apos;;
 import User from &apos;./user&apos;;
 
 /**
@@ -159,6 +164,7 @@ export default class Client {
     this.uploadedFilesUrl = &apos;&apos;;
     this.pacsFilesUrl = &apos;&apos;;
     this.serviceFilesUrl = &apos;&apos;;
+    this.fileBrowserUrl = &apos;&apos;;
     this.userUrl = &apos;&apos;;
   }
 
@@ -220,6 +226,7 @@ export default class Client {
       this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, &apos;uploadedfiles&apos;)[0];
       this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, &apos;pacsfiles&apos;)[0];
       this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, &apos;servicefiles&apos;)[0];
+      this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, &apos;filebrowser&apos;)[0];
       this.userUrl = this.userUrl || getUrl(coll, &apos;user&apos;)[0];
 
       return feedList;
@@ -266,6 +273,7 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file&apos;s path starting with this string
    * @param {string} [searchParams.fname_exact] - match file&apos;s path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file&apos;s path containing this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file&apos;s upload path containing this number of slashes
    * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance
    * id exactly with this number
    * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number
@@ -668,6 +676,7 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file&apos;s upload path starting with this string
    * @param {string} [searchParams.fname_exact] - match file&apos;s upload path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file&apos;s upload path containing this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file&apos;s upload path containing this number of slashes
    * @param {string} [searchParams.owner_username] - match file&apos;s owner username exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file&apos;s creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file&apos;s creation_date lesser than this date string
@@ -722,13 +731,14 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file&apos;s path starting with this string
    * @param {string} [searchParams.fname_exact] - match file&apos;s path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file&apos;s path containing this string
-   * @param {number} [searchParams.PatientID] - match file&apos;s PatientID exactly with this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file&apos;s upload path containing this number of slashes
+   * @param {string} [searchParams.PatientID] - match file&apos;s PatientID exactly with this string
    * @param {string} [searchParams.PatientName] - match file&apos;s PatientName containing this string
-   * @param {number} [searchParams.StudyInstanceUID] - match file&apos;s StudyInstanceUID exactly with this string
+   * @param {string} [searchParams.StudyInstanceUID] - match file&apos;s StudyInstanceUID exactly with this string
    * @param {string} [searchParams.StudyDescription] - match file&apos;s StudyDescription containing this string
-   * @param {number} [searchParams.SeriesInstanceUID] - match file&apos;s SeriesInstanceUID exactly with this string
+   * @param {string} [searchParams.SeriesInstanceUID] - match file&apos;s SeriesInstanceUID exactly with this string
    * @param {string} [searchParams.SeriesDescription] - match file&apos;s SeriesDescription containing this string
-   * @param {number} [searchParams.pacs_identifier] - match file&apos;s PACS identifier exactly with this string
+   * @param {string} [searchParams.pacs_identifier] - match file&apos;s PACS identifier exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file&apos;s creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file&apos;s creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
@@ -762,6 +772,7 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file&apos;s path starting with this string
    * @param {string} [searchParams.fname_exact] - match file&apos;s path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file&apos;s path containing this string
+   * @param {string|number} [searchParams.fname_nslashes] - match file&apos;s upload path containing this number of slashes
    * @param {string} [searchParams.service_identifier] - match file&apos;s service isentifier containing this string
    * @param {number} [searchParams.service_id] - match file&apos;s service id exactly with this number
    * @param {string} [searchParams.min_creation_date] - match file&apos;s creation_date greater than this date string
@@ -784,6 +795,37 @@ export default class Client {
    */
   getServiceFile(id, timeout = 30000) {
     return this.getServiceFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+  }
+
+  /**
+   * Get a list with the matching file browser path from the REST API given query search
+   * parameters. If no search parameters then get a list with the default root path.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {string} [searchParams.path] - match file&apos;s path starting with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;FileBrowserPathList&gt;} - JS Promise, resolves to a ``FileBrowserPathList`` object
+   */
+  getFileBrowserPaths(searchParams = null, timeout = 30000) {
+    return this._fetchRes(&apos;fileBrowserUrl&apos;, FileBrowserPathList, searchParams, timeout);
+  }
+
+  /**
+   * Get a file browser path resource object given its path.
+   *
+   * @param {number} path - file browser path
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;FileBrowserPath&gt;} - JS Promise, resolves to a ``FileBrowserPath`` object
+   */
+  getFileBrowserPath(path, timeout = 30000) {
+    return this.getFileBrowserPaths({ path: path }, timeout).then(listRes =&gt; {
+      const items = listRes.getItems();
+      return items.length ? items[0] : null;
+    });
   }
 
   /**

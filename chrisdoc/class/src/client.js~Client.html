@@ -44,6 +44,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~PluginInstanceFileList.html">PluginInstanceFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPath.html">FileBrowserPath</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPathFile.html">FileBrowserPathFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPathFileList.html">FileBrowserPathFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FileBrowserPathList.html">FileBrowserPathList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFile.html">PACSFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFileList.html">PACSFileList</a></span></span></li>
@@ -95,13 +99,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber33">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber34">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber33">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber34">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -368,6 +372,34 @@
           
           
           <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-member-feedsUrl">feedsUrl</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-member-fileBrowserUrl">fileBrowserUrl</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -1038,6 +1070,65 @@ then get the default first page.</p>
         
         
         <div data-ice="description"><p>Get a file resource object given its id.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getFileBrowserPath">getFileBrowserPath</a></span></span><span class="code" data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserPath.html">FileBrowserPath</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a file browser path resource object given its path.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getFileBrowserPaths">getFileBrowserPaths</a></span></span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserPathList.html">FileBrowserPathList</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a list with the matching file browser path from the REST API given query search
+parameters.</p>
 </div>
       </div>
     </td>
@@ -1779,7 +1870,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber713">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber751">source</a></span></span>
     </span>
   </h3>
 
@@ -1882,7 +1973,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber743">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber781">source</a></span></span>
     </span>
   </h3>
 
@@ -1978,7 +2069,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber757">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber795">source</a></span></span>
     </span>
   </h3>
 
@@ -2042,7 +2133,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
@@ -2120,7 +2211,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber49">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber50">source</a></span></span>
     </span>
   </h3>
 
@@ -2163,7 +2254,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber53">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
@@ -2206,7 +2297,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber56">source</a></span></span>
     </span>
   </h3>
 
@@ -2249,7 +2340,50 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber53">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-fileBrowserUrl">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">fileBrowserUrl</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -2292,7 +2426,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
@@ -2335,7 +2469,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
@@ -2378,7 +2512,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -2421,7 +2555,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
@@ -2464,7 +2598,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
@@ -2507,7 +2641,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber57">source</a></span></span>
     </span>
   </h3>
 
@@ -2550,7 +2684,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber57">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber58">source</a></span></span>
     </span>
   </h3>
 
@@ -2593,7 +2727,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber64">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
@@ -2636,7 +2770,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -2679,7 +2813,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 
@@ -2722,7 +2856,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber43">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 
@@ -2765,7 +2899,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
@@ -2811,7 +2945,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber449">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber453">source</a></span></span>
     </span>
   </h3>
 
@@ -2943,7 +3077,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber501">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber505">source</a></span></span>
     </span>
   </h3>
 
@@ -3053,7 +3187,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber365">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber369">source</a></span></span>
     </span>
   </h3>
 
@@ -3191,7 +3325,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber385">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber389">source</a></span></span>
     </span>
   </h3>
 
@@ -3289,7 +3423,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber555">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber559">source</a></span></span>
     </span>
   </h3>
 
@@ -3386,7 +3520,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber84">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber86">source</a></span></span>
     </span>
   </h3>
 
@@ -3461,7 +3595,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber226">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber230">source</a></span></span>
     </span>
   </h3>
 
@@ -3543,7 +3677,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber214">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber218">source</a></span></span>
     </span>
   </h3>
 
@@ -3677,7 +3811,7 @@ compute resources associated with the plugin</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber140">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -3759,7 +3893,7 @@ compute resources associated with the plugin</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber106">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber108">source</a></span></span>
     </span>
   </h3>
 
@@ -3900,7 +4034,7 @@ then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber193">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber197">source</a></span></span>
     </span>
   </h3>
 
@@ -3971,6 +4105,193 @@ then get the default first page.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getFileBrowserPath">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getFileBrowserPath</span><span class="code" data-ice="signature">(path: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserPath.html">FileBrowserPath</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber723">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a file browser path resource object given its path.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">path</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>file browser path</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserPath.html">FileBrowserPath</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>FileBrowserPath</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getFileBrowserPaths">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getFileBrowserPaths</span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserPathList.html">FileBrowserPathList</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber711">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a list with the matching file browser path from the REST API given query search
+parameters. If no search parameters then get a list with the default root path.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">searchParams</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>search parameters object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.path</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file&apos;s path starting with this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserPathList.html">FileBrowserPathList</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>FileBrowserPathList</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getFiles">
     <span class="access" data-ice="access">public</span>
     
@@ -3982,7 +4303,7 @@ then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber181">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber185">source</a></span></span>
     </span>
   </h3>
 
@@ -4052,6 +4373,13 @@ default first page.</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>match file&apos;s path containing this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.fname_nslashes</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file&apos;s upload path containing this number of slashes</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
@@ -4138,7 +4466,7 @@ id exactly with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber653">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber659">source</a></span></span>
     </span>
   </h3>
 
@@ -4220,7 +4548,7 @@ id exactly with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber641">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber647">source</a></span></span>
     </span>
   </h3>
 
@@ -4292,8 +4620,15 @@ parameters. If no search parameters then get the default first page.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.fname_nslashes</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file&apos;s upload path containing this number of slashes</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
       <td data-ice="name" class="code" data-depth="1">searchParams.PatientID</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>match file&apos;s PatientID exactly with this string</p>
 </td>
@@ -4307,7 +4642,7 @@ parameters. If no search parameters then get the default first page.</p>
     </tr>
 <tr data-ice="property" data-depth="1">
       <td data-ice="name" class="code" data-depth="1">searchParams.StudyInstanceUID</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>match file&apos;s StudyInstanceUID exactly with this string</p>
 </td>
@@ -4321,7 +4656,7 @@ parameters. If no search parameters then get the default first page.</p>
     </tr>
 <tr data-ice="property" data-depth="1">
       <td data-ice="name" class="code" data-depth="1">searchParams.SeriesInstanceUID</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>match file&apos;s SeriesInstanceUID exactly with this string</p>
 </td>
@@ -4335,7 +4670,7 @@ parameters. If no search parameters then get the default first page.</p>
     </tr>
 <tr data-ice="property" data-depth="1">
       <td data-ice="name" class="code" data-depth="1">searchParams.pacs_identifier</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>match file&apos;s PACS identifier exactly with this string</p>
 </td>
@@ -4409,7 +4744,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber430">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber434">source</a></span></span>
     </span>
   </h3>
 
@@ -4491,7 +4826,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber485">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber489">source</a></span></span>
     </span>
   </h3>
 
@@ -4573,7 +4908,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber473">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber477">source</a></span></span>
     </span>
   </h3>
 
@@ -4700,7 +5035,7 @@ first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber418">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber422">source</a></span></span>
     </span>
   </h3>
 
@@ -4854,7 +5189,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber308">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber312">source</a></span></span>
     </span>
   </h3>
 
@@ -4936,7 +5271,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber345">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber349">source</a></span></span>
     </span>
   </h3>
 
@@ -5018,7 +5353,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber333">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber337">source</a></span></span>
     </span>
   </h3>
 
@@ -5186,7 +5521,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber266">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber270">source</a></span></span>
     </span>
   </h3>
 
@@ -5268,7 +5603,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber254">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber258">source</a></span></span>
     </span>
   </h3>
 
@@ -5445,7 +5780,7 @@ category containing this string</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber296">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber300">source</a></span></span>
     </span>
   </h3>
 
@@ -5636,7 +5971,7 @@ with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber688">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber695">source</a></span></span>
     </span>
   </h3>
 
@@ -5718,7 +6053,7 @@ with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber676">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber683">source</a></span></span>
     </span>
   </h3>
 
@@ -5787,6 +6122,13 @@ query search parameters. If no search parameters then get the default first page
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>match file&apos;s path containing this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.fname_nslashes</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file&apos;s upload path containing this number of slashes</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
@@ -5872,7 +6214,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber541">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber545">source</a></span></span>
     </span>
   </h3>
 
@@ -5954,7 +6296,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber529">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber533">source</a></span></span>
     </span>
   </h3>
 
@@ -6080,7 +6422,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber593">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber598">source</a></span></span>
     </span>
   </h3>
 
@@ -6162,7 +6504,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber581">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber586">source</a></span></span>
     </span>
   </h3>
 
@@ -6231,6 +6573,13 @@ parameters. If no search parameters then get the default first page.</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
       <td data-ice="description"><p>match file&apos;s upload path containing this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.fname_nslashes</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file&apos;s upload path containing this number of slashes</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
@@ -6309,7 +6658,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber698">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber736">source</a></span></span>
     </span>
   </h3>
 
@@ -6384,7 +6733,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber74">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber76">source</a></span></span>
     </span>
   </h3>
 
@@ -6459,7 +6808,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber153">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber156">source</a></span></span>
     </span>
   </h3>
 
@@ -6548,7 +6897,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber609">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber614">source</a></span></span>
     </span>
   </h3>
 
@@ -6654,7 +7003,7 @@ will be uploaded on the storage service</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber771">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber809">source</a></span></span>
     </span>
   </h3>
 

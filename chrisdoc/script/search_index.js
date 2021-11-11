@@ -102,6 +102,30 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~filebrowserpath",
+    "class/src/filebrowser.js~FileBrowserPath.html",
+    "<span>FileBrowserPath</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filebrowserpathfile",
+    "class/src/filebrowser.js~FileBrowserPathFile.html",
+    "<span>FileBrowserPathFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filebrowserpathfilelist",
+    "class/src/filebrowser.js~FileBrowserPathFileList.html",
+    "<span>FileBrowserPathFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filebrowserpathlist",
+    "class/src/filebrowser.js~FileBrowserPathList.html",
+    "<span>FileBrowserPathList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~itemresource",
     "class/src/resource.js~ItemResource.html",
     "<span>ItemResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -792,6 +816,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/client.js~client#filebrowserurl",
+    "class/src/client.js~Client.html#instance-member-fileBrowserUrl",
+    "src/client.js~Client#fileBrowserUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#filesurl",
     "class/src/client.js~Client.html#instance-member-filesUrl",
     "src/client.js~Client#filesUrl",
@@ -831,6 +861,18 @@ window.esdocSearchIndex = [
     "src/client.js~client#getfile",
     "class/src/client.js~Client.html#instance-method-getFile",
     "src/client.js~Client#getFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#getfilebrowserpath",
+    "class/src/client.js~Client.html#instance-method-getFileBrowserPath",
+    "src/client.js~Client#getFileBrowserPath",
+    "method"
+  ],
+  [
+    "src/client.js~client#getfilebrowserpaths",
+    "class/src/client.js~Client.html#instance-method-getFileBrowserPaths",
+    "src/client.js~Client#getFileBrowserPaths",
     "method"
   ],
   [
@@ -1407,6 +1449,60 @@ window.esdocSearchIndex = [
     "src/feedfile.js~plugininstancefilelist#itemclass",
     "class/src/feedfile.js~PluginInstanceFileList.html#instance-member-itemClass",
     "src/feedfile.js~PluginInstanceFileList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js",
+    "file/src/filebrowser.js.html",
+    "src/filebrowser.js",
+    "file"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpath#constructor",
+    "class/src/filebrowser.js~FileBrowserPath.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserPath#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpath#getfiles",
+    "class/src/filebrowser.js~FileBrowserPath.html#instance-method-getFiles",
+    "src/filebrowser.js~FileBrowserPath#getFiles",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpathfile#constructor",
+    "class/src/filebrowser.js~FileBrowserPathFile.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserPathFile#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpathfile#getfileblob",
+    "class/src/filebrowser.js~FileBrowserPathFile.html#instance-method-getFileBlob",
+    "src/filebrowser.js~FileBrowserPathFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpathfilelist#constructor",
+    "class/src/filebrowser.js~FileBrowserPathFileList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserPathFileList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpathfilelist#itemclass",
+    "class/src/filebrowser.js~FileBrowserPathFileList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileBrowserPathFileList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpathlist#constructor",
+    "class/src/filebrowser.js~FileBrowserPathList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserPathList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserpathlist#itemclass",
+    "class/src/filebrowser.js~FileBrowserPathList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileBrowserPathList#itemClass",
     "member"
   ],
   [
