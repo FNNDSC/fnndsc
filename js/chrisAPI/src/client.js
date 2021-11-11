@@ -715,7 +715,7 @@ export default class Client {
   /**
    * Get a file browser path resource object given its path.
    *
-   * @param {number} path - file browser path
+   * @param {string} path - file browser path
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object
