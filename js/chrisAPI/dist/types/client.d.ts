@@ -57,6 +57,7 @@ export default class Client {
     uploadedFilesUrl: string;
     pacsFilesUrl: string;
     serviceFilesUrl: string;
+    fileBrowserUrl: string;
     userUrl: string;
     /**
      * Set the urls of the high level API resources.
@@ -688,6 +689,32 @@ export default class Client {
      */
     getServiceFile(id: number, timeout?: number): Promise<ServiceFile>;
     /**
+     * Get a list with the matching file browser path from the REST API given query search
+     * parameters. If no search parameters then get a list with the default root path.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {string} [searchParams.path] - match file's path starting with this string
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserPathList>} - JS Promise, resolves to a ``FileBrowserPathList`` object
+     */
+    getFileBrowserPaths(searchParams?: {
+        limit?: number;
+        offset?: number;
+        path?: string;
+    }, timeout?: number): Promise<FileBrowserPathList>;
+    /**
+     * Get a file browser path resource object given its path.
+     *
+     * @param {number} path - file browser path
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object
+     */
+    getFileBrowserPath(path: number, timeout?: number): Promise<FileBrowserPath>;
+    /**
      * Get a user resource object for the currently authenticated user.
      * @param {number} [timeout=30000] - request timeout
      *
@@ -733,4 +760,6 @@ import { PACSFileList } from "./pacsfile";
 import { PACSFile } from "./pacsfile";
 import { ServiceFileList } from "./servicefile";
 import { ServiceFile } from "./servicefile";
+import { FileBrowserPathList } from "./filebrowser";
+import { FileBrowserPath } from "./filebrowser";
 import User from "./user";
