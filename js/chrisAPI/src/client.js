@@ -25,6 +25,7 @@ import { TagList, Tag, Tagging } from './tag';
 import { UploadedFileList, UploadedFile } from './uploadedfile';
 import { PACSFileList, PACSFile } from './pacsfile';
 import { ServiceFileList, ServiceFile } from './servicefile';
+import { FileBrowserPathList, FileBrowserPath } from './filebrowser';
 import User from './user';
 
 /**
@@ -62,6 +63,7 @@ export default class Client {
     this.uploadedFilesUrl = '';
     this.pacsFilesUrl = '';
     this.serviceFilesUrl = '';
+    this.fileBrowserUrl = '';
     this.userUrl = '';
   }
 
@@ -123,6 +125,7 @@ export default class Client {
       this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles')[0];
       this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];
       this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];
+      this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, 'filebrowser')[0];
       this.userUrl = this.userUrl || getUrl(coll, 'user')[0];
 
       return feedList;
@@ -691,6 +694,37 @@ export default class Client {
    */
   getServiceFile(id, timeout = 30000) {
     return this.getServiceFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
+  }
+
+  /**
+   * Get a list with the matching file browser path from the REST API given query search
+   * parameters. If no search parameters then get a list with the default root path.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {string} [searchParams.path] - match file's path starting with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserPathList>} - JS Promise, resolves to a ``FileBrowserPathList`` object
+   */
+  getFileBrowserPaths(searchParams = null, timeout = 30000) {
+    return this._fetchRes('fileBrowserUrl', FileBrowserPathList, searchParams, timeout);
+  }
+
+  /**
+   * Get a file browser path resource object given its path.
+   *
+   * @param {number} path - file browser path
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object
+   */
+  getFileBrowserPath(path, timeout = 30000) {
+    return this.getFileBrowserPaths({ path: path }, timeout).then(listRes => {
+      const items = listRes.getItems();
+      return items.length ? items[0] : null;
+    });
   }
 
   /**

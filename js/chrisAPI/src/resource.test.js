@@ -120,7 +120,7 @@ describe('Resource', () => {
       const result = listRes.get(); // fetch the queryUrl as part of the response
       result
         .then(() => {
-          const searchParams = { limit: 1, name: 'pl-simplefsapp' };
+          const searchParams = { limit: 1, name: 'pl-dircopy' };
           const searchResult = listRes.get(searchParams);
 
           return searchResult

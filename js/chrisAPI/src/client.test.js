@@ -10,6 +10,7 @@ import { PipelineList, Pipeline } from './pipeline';
 import { PipelineInstance } from './pipelineinstance';
 import { Tag, Tagging } from './tag';
 import { UploadedFile } from './uploadedfile';
+import { FileBrowserPath } from './filebrowser';
 import User from './user';
 import RequestException from './exception';
 
@@ -291,6 +292,16 @@ describe('Client', () => {
       .then((uploadedFile) => {
         expect(uploadedFile).to.be.an.instanceof(UploadedFile);
         expect(uploadedFile.data.fname).to.equal(data.upload_path);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a file browser path resource given the path string from the REST API', (done) => {
+    const result = client.getFileBrowserPath('cube');
+    result
+      .then(browserPath => {
+        expect(browserPath).to.be.an.instanceof(FileBrowserPath);
+        expect(browserPath.isEmpty).to.be.false;
       })
       .then(done, done);
   });

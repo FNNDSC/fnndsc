@@ -37,6 +37,8 @@ import { AllFeedFileList, PluginInstanceFileList, FeedFileList, FeedFile } from 
 import { UploadedFileList, UploadedFile } from './uploadedfile';
 import { PACSFileList, PACSFile } from './pacsfile';
 import { ServiceFileList, ServiceFile } from './servicefile';
+import { FileBrowserPathList, FileBrowserPath } from './filebrowser';
+import { FileBrowserPathFileList, FileBrowserPathFile } from './filebrowser';
 
 export default Client;
 export { Request };
@@ -65,3 +67,4 @@ export { AllFeedFileList, PluginInstanceFileList, FeedFileList, FeedFile };
 export { UploadedFileList, UploadedFile };
 export { PACSFileList, PACSFile };
 export { ServiceFileList, ServiceFile };
+export { FileBrowserPathList, FileBrowserPath, FileBrowserPathFileList, FileBrowserPathFile};
