@@ -27498,7 +27498,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {number} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
+                    "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {string} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
                     "start": 33647,
                     "end": 33923,
                     "loc": {
@@ -28182,7 +28182,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {number} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
+                    "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {string} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
                     "start": 33647,
                     "end": 33923,
                     "loc": {
@@ -33037,7 +33037,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {number} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
+      "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {string} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
       "start": 33647,
       "end": 33923,
       "loc": {
@@ -87212,7 +87212,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {number} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
+      "value": "*\n   * Get a file browser path resource object given its path.\n   *\n   * @param {string} path - file browser path\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object\n   ",
       "start": 33647,
       "end": 33923,
       "loc": {
