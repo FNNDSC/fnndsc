@@ -94,18 +94,21 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFile.html">UploadedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFileList.html">UploadedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~AllWorkflowList.html">AllWorkflowList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~WorkflowList.html">WorkflowList</a></span></span></li>
 </ul>
 </div>
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber34">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber35">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber34">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber35">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -749,6 +752,34 @@
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-member-workflowsUrl">workflowsUrl</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -893,6 +924,35 @@
         
         
         <div data-ice="description"><p>Create a new tag resource through the REST API.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-createWorkflow">createWorkflow</a></span></span><span class="code" data-ice="signature">(pipelineId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Create a new workflow resource through the REST API.</p>
 </div>
       </div>
     </td>
@@ -1741,6 +1801,65 @@ parameters.</p>
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getWorkflow">getWorkflow</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a workflow resource object given its id.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getWorkflows">getWorkflows</a></span></span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~AllWorkflowList.html">AllWorkflowList</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a paginated list of workflows from the REST API given query search
+parameters.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-setUrls">setUrls</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
@@ -1870,7 +1989,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber751">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber811">source</a></span></span>
     </span>
   </h3>
 
@@ -1973,7 +2092,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber781">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber841">source</a></span></span>
     </span>
   </h3>
 
@@ -2069,7 +2188,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber795">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber855">source</a></span></span>
     </span>
   </h3>
 
@@ -2133,7 +2252,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber43">source</a></span></span>
     </span>
   </h3>
 
@@ -2211,7 +2330,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
@@ -2254,7 +2373,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
@@ -2297,7 +2416,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber57">source</a></span></span>
     </span>
   </h3>
 
@@ -2340,7 +2459,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber53">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
@@ -2383,7 +2502,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber68">source</a></span></span>
     </span>
   </h3>
 
@@ -2426,7 +2545,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber56">source</a></span></span>
     </span>
   </h3>
 
@@ -2469,7 +2588,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber64">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -2512,7 +2631,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -2555,7 +2674,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -2598,7 +2717,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
@@ -2641,7 +2760,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber57">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber58">source</a></span></span>
     </span>
   </h3>
 
@@ -2684,7 +2803,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
@@ -2727,7 +2846,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
@@ -2770,7 +2889,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
@@ -2813,7 +2932,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
@@ -2856,7 +2975,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber45">source</a></span></span>
     </span>
   </h3>
 
@@ -2899,7 +3018,50 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber69">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-workflowsUrl">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">workflowsUrl</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 
@@ -2945,7 +3107,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber453">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber456">source</a></span></span>
     </span>
   </h3>
 
@@ -3077,7 +3239,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber505">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber508">source</a></span></span>
     </span>
   </h3>
 
@@ -3122,14 +3284,14 @@ parameters.</p>
       <td data-ice="name" class="code" data-depth="1">data.title</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>pipeline title</p>
+      <td data-ice="description"><p>pipeline instance title</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
       <td data-ice="name" class="code" data-depth="1">data.description</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>pipeline description</p>
+      <td data-ice="description"><p>pipeline instance description</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -3187,7 +3349,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber369">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber372">source</a></span></span>
     </span>
   </h3>
 
@@ -3325,7 +3487,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber389">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber392">source</a></span></span>
     </span>
   </h3>
 
@@ -3423,7 +3585,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber559">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber619">source</a></span></span>
     </span>
   </h3>
 
@@ -3509,6 +3671,112 @@ parameters.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-createWorkflow">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">createWorkflow</span><span class="code" data-ice="signature">(pipelineId: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber565">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Create a new workflow resource through the REST API.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">pipelineId</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>pipeline id</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">data</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>request data object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">data.previous_plugin_inst_id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>previous plugin instance id</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">data.nodes_info</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>pipeline-specific JSON string encoding a list of dictionaries.
+Each dictionary is a workflow node containing a <code>plugin piping_id</code>, <code>compute_resource_name</code>,
+<code>title</code> and a list of dictionaries called <code>plugin_parameter_defaults</code>. Each dictionary in
+this list has <code>name</code> and <code>default</code> keys.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to <code>Workflow</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getChrisInstance">
     <span class="access" data-ice="access">public</span>
     
@@ -3520,7 +3788,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber88">source</a></span></span>
     </span>
   </h3>
 
@@ -3595,7 +3863,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber230">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber233">source</a></span></span>
     </span>
   </h3>
 
@@ -3677,7 +3945,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber218">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber221">source</a></span></span>
     </span>
   </h3>
 
@@ -3811,7 +4079,7 @@ compute resources associated with the plugin</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber143">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber146">source</a></span></span>
     </span>
   </h3>
 
@@ -3893,7 +4161,7 @@ compute resources associated with the plugin</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber108">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber110">source</a></span></span>
     </span>
   </h3>
 
@@ -4034,7 +4302,7 @@ then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber197">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber200">source</a></span></span>
     </span>
   </h3>
 
@@ -4116,7 +4384,7 @@ then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber723">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber783">source</a></span></span>
     </span>
   </h3>
 
@@ -4198,7 +4466,7 @@ then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber711">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber771">source</a></span></span>
     </span>
   </h3>
 
@@ -4303,7 +4571,7 @@ parameters. If no search parameters then get a list with the default root path.<
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber185">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber188">source</a></span></span>
     </span>
   </h3>
 
@@ -4466,7 +4734,7 @@ id exactly with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber659">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber719">source</a></span></span>
     </span>
   </h3>
 
@@ -4548,7 +4816,7 @@ id exactly with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber647">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber707">source</a></span></span>
     </span>
   </h3>
 
@@ -4744,7 +5012,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber434">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber437">source</a></span></span>
     </span>
   </h3>
 
@@ -4826,7 +5094,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber489">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber492">source</a></span></span>
     </span>
   </h3>
 
@@ -4908,7 +5176,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber477">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber480">source</a></span></span>
     </span>
   </h3>
 
@@ -5035,7 +5303,7 @@ first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber422">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber425">source</a></span></span>
     </span>
   </h3>
 
@@ -5189,7 +5457,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber312">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber315">source</a></span></span>
     </span>
   </h3>
 
@@ -5271,7 +5539,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber349">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber352">source</a></span></span>
     </span>
   </h3>
 
@@ -5353,7 +5621,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber337">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber340">source</a></span></span>
     </span>
   </h3>
 
@@ -5521,7 +5789,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber270">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber273">source</a></span></span>
     </span>
   </h3>
 
@@ -5603,7 +5871,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber258">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber261">source</a></span></span>
     </span>
   </h3>
 
@@ -5780,7 +6048,7 @@ category containing this string</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber300">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber303">source</a></span></span>
     </span>
   </h3>
 
@@ -5971,7 +6239,7 @@ with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber695">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber755">source</a></span></span>
     </span>
   </h3>
 
@@ -6053,7 +6321,7 @@ with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber683">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber743">source</a></span></span>
     </span>
   </h3>
 
@@ -6214,7 +6482,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber545">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber605">source</a></span></span>
     </span>
   </h3>
 
@@ -6296,7 +6564,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber533">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber593">source</a></span></span>
     </span>
   </h3>
 
@@ -6422,7 +6690,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber598">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber658">source</a></span></span>
     </span>
   </h3>
 
@@ -6504,7 +6772,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber586">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber646">source</a></span></span>
     </span>
   </h3>
 
@@ -6658,7 +6926,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber736">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber796">source</a></span></span>
     </span>
   </h3>
 
@@ -6722,6 +6990,207 @@ parameters. If no search parameters then get the default first page.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getWorkflow">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getWorkflow</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber547">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a workflow resource object given its id.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>workflow id</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>Workflow</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getWorkflows">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getWorkflows</span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~AllWorkflowList.html">AllWorkflowList</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber535">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a paginated list of workflows from the REST API given query search
+parameters. If no search parameters then get the default first page.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">searchParams</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>search parameters object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match workflow id exactly with this number</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.owner_username</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match workflow&apos;s owner username exactly with this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.pipeline_name</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match associated pipeline name containing this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/workflow.js~AllWorkflowList.html">AllWorkflowList</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to <code>AllWorkflowList</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-setUrls">
     <span class="access" data-ice="access">public</span>
     
@@ -6733,7 +7202,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber78">source</a></span></span>
     </span>
   </h3>
 
@@ -6808,7 +7277,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber156">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber159">source</a></span></span>
     </span>
   </h3>
 
@@ -6897,7 +7366,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber614">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber674">source</a></span></span>
     </span>
   </h3>
 
@@ -7003,7 +7472,7 @@ will be uploaded on the storage service</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber809">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber869">source</a></span></span>
     </span>
   </h3>
 

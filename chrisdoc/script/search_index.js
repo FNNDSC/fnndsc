@@ -18,6 +18,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~allworkflowlist",
+    "class/src/workflow.js~AllWorkflowList.html",
+    "<span>AllWorkflowList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~chrisinstance",
     "class/src/chrisinstance.js~ChrisInstance.html",
     "<span>ChrisInstance</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -387,6 +393,18 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~user",
     "class/src/user.js~User.html",
     "<span>User</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~workflow",
+    "class/src/workflow.js~Workflow.html",
+    "<span>Workflow</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~workflowlist",
+    "class/src/workflow.js~WorkflowList.html",
+    "<span>WorkflowList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -810,6 +828,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#createworkflow",
+    "class/src/client.js~Client.html#instance-method-createWorkflow",
+    "src/client.js~Client#createWorkflow",
+    "method"
+  ],
+  [
     "src/client.js~client#feedsurl",
     "class/src/client.js~Client.html#instance-member-feedsUrl",
     "src/client.js~Client#feedsUrl",
@@ -996,6 +1020,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getworkflow",
+    "class/src/client.js~Client.html#instance-method-getWorkflow",
+    "src/client.js~Client#getWorkflow",
+    "method"
+  ],
+  [
+    "src/client.js~client#getworkflows",
+    "class/src/client.js~Client.html#instance-method-getWorkflows",
+    "src/client.js~Client#getWorkflows",
+    "method"
+  ],
+  [
     "src/client.js~client#pacsfilesurl",
     "class/src/client.js~Client.html#instance-member-pacsFilesUrl",
     "src/client.js~Client#pacsFilesUrl",
@@ -1077,6 +1113,12 @@ window.esdocSearchIndex = [
     "src/client.js~client#userurl",
     "class/src/client.js~Client.html#instance-member-userUrl",
     "src/client.js~Client#userUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#workflowsurl",
+    "class/src/client.js~Client.html#instance-member-workflowsUrl",
+    "src/client.js~Client#workflowsUrl",
     "member"
   ],
   [
@@ -2697,6 +2739,72 @@ window.esdocSearchIndex = [
     "src/user.js~user#put",
     "class/src/user.js~User.html#instance-method-put",
     "src/user.js~User#put",
+    "method"
+  ],
+  [
+    "src/workflow.js",
+    "file/src/workflow.js.html",
+    "src/workflow.js",
+    "file"
+  ],
+  [
+    "src/workflow.js~allworkflowlist#constructor",
+    "class/src/workflow.js~AllWorkflowList.html#instance-constructor-constructor",
+    "src/workflow.js~AllWorkflowList#constructor",
+    "method"
+  ],
+  [
+    "src/workflow.js~allworkflowlist#getpipelines",
+    "class/src/workflow.js~AllWorkflowList.html#instance-method-getPipelines",
+    "src/workflow.js~AllWorkflowList#getPipelines",
+    "method"
+  ],
+  [
+    "src/workflow.js~allworkflowlist#itemclass",
+    "class/src/workflow.js~AllWorkflowList.html#instance-member-itemClass",
+    "src/workflow.js~AllWorkflowList#itemClass",
+    "member"
+  ],
+  [
+    "src/workflow.js~workflow#constructor",
+    "class/src/workflow.js~Workflow.html#instance-constructor-constructor",
+    "src/workflow.js~Workflow#constructor",
+    "method"
+  ],
+  [
+    "src/workflow.js~workflow#delete",
+    "class/src/workflow.js~Workflow.html#instance-method-delete",
+    "src/workflow.js~Workflow#delete",
+    "method"
+  ],
+  [
+    "src/workflow.js~workflow#getpipeline",
+    "class/src/workflow.js~Workflow.html#instance-method-getPipeline",
+    "src/workflow.js~Workflow#getPipeline",
+    "method"
+  ],
+  [
+    "src/workflow.js~workflowlist#constructor",
+    "class/src/workflow.js~WorkflowList.html#instance-constructor-constructor",
+    "src/workflow.js~WorkflowList#constructor",
+    "method"
+  ],
+  [
+    "src/workflow.js~workflowlist#getpipeline",
+    "class/src/workflow.js~WorkflowList.html#instance-method-getPipeline",
+    "src/workflow.js~WorkflowList#getPipeline",
+    "method"
+  ],
+  [
+    "src/workflow.js~workflowlist#itemclass",
+    "class/src/workflow.js~WorkflowList.html#instance-member-itemClass",
+    "src/workflow.js~WorkflowList#itemClass",
+    "member"
+  ],
+  [
+    "src/workflow.js~workflowlist#post",
+    "class/src/workflow.js~WorkflowList.html#instance-method-post",
+    "src/workflow.js~WorkflowList#post",
     "method"
   ]
 ]

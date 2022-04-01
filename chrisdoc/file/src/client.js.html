@@ -94,6 +94,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFile.html">UploadedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFileList.html">UploadedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~AllWorkflowList.html">AllWorkflowList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~WorkflowList.html">WorkflowList</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -121,6 +124,7 @@ import {
   PipelineInstanceList,
   PipelineInstance
 } from &apos;./pipelineinstance&apos;;
+import { AllWorkflowList, WorkflowList, Workflow } from &apos;./workflow&apos;;
 import { PipelineList, Pipeline } from &apos;./pipeline&apos;;
 import { TagList, Tag, Tagging } from &apos;./tag&apos;;
 import { UploadedFileList, UploadedFile } from &apos;./uploadedfile&apos;;
@@ -160,6 +164,7 @@ export default class Client {
     this.pluginInstancesUrl = &apos;&apos;;
     this.pipelinesUrl = &apos;&apos;;
     this.pipelineInstancesUrl = &apos;&apos;;
+    this.workflowsUrl = &apos;&apos;;
     this.tagsUrl = &apos;&apos;;
     this.uploadedFilesUrl = &apos;&apos;;
     this.pacsFilesUrl = &apos;&apos;;
@@ -222,6 +227,7 @@ export default class Client {
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, &apos;pipelines&apos;)[0];
       this.pipelineInstancesUrl =
         this.pipelineInstancesUrl || getUrl(coll, &apos;pipeline_instances&apos;)[0];
+      this.workflowsUrl = this.workflowsUrl || getUrl(coll, &apos;workflows&apos;)[0];
       this.tagsUrl = this.tagsUrl || getUrl(coll, &apos;tags&apos;)[0];
       this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, &apos;uploadedfiles&apos;)[0];
       this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, &apos;pacsfiles&apos;)[0];
@@ -242,7 +248,7 @@ export default class Client {
    * @return {Promise&lt;Feed&gt;} - JS Promise, resolves to a ``Feed`` object
    */
   getFeed(id, timeout = 30000) {
-    return this.getFeeds({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getFeeds({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -256,9 +262,9 @@ export default class Client {
    */
   tagFeed(feed_id, tag_id, timeout = 30000) {
     return this.getFeed(feed_id, timeout)
-      .then((feed) =&gt; feed.getTaggings(timeout))
-      .then((listRes) =&gt; listRes.post({ tag_id: tag_id }), timeout)
-      .then((listRes) =&gt; listRes.getItems()[0]);
+      .then(feed =&gt; feed.getTaggings(timeout))
+      .then(listRes =&gt; listRes.post({ tag_id: tag_id }), timeout)
+      .then(listRes =&gt; listRes.getItems()[0]);
   }
 
   /**
@@ -296,7 +302,7 @@ export default class Client {
    * @return {Promise&lt;FeedFile&gt;} - JS Promise, resolves to a ``FeedFile`` object
    */
   getFile(id, timeout = 30000) {
-    return this.getFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -329,7 +335,7 @@ export default class Client {
    * @return {Promise&lt;ComputeResource&gt;} - JS Promise, resolves to a ``ComputeResource`` object
    */
   getComputeResource(id, timeout = 30000) {
-    return this.getComputeResources({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getComputeResources({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -369,7 +375,7 @@ export default class Client {
    * @return {Promise&lt;PluginMeta&gt;} - JS Promise, resolves to a ``PluginMeta`` object
    */
   getPluginMeta(id, timeout = 30000) {
-    return this.getPluginMetas({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getPluginMetas({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -411,7 +417,7 @@ export default class Client {
    * @return {Promise&lt;Plugin&gt;} - JS Promise, resolves to a ``Plugin`` object
    */
   getPlugin(id, timeout = 30000) {
-    return this.getPlugins({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getPlugins({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -448,7 +454,7 @@ export default class Client {
    * @return {Promise&lt;PluginInstance&gt;} - JS Promise, resolves to a ``PluginInstance`` object
    */
   getPluginInstance(id, timeout = 30000) {
-    return this.getPluginInstances({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getPluginInstances({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -474,7 +480,7 @@ export default class Client {
         const plgInstList = new PluginInstanceList(instancesUrl[0], this.auth);
         return plgInstList.post(data, timeout);
       })
-      .then((plgInstList) =&gt; plgInstList.getItems()[0]);
+      .then(plgInstList =&gt; plgInstList.getItems()[0]);
   }
 
   /**
@@ -498,7 +504,7 @@ export default class Client {
         }
         return plgInstSplitList.post(data, timeout);
       })
-      .then((plgInstSplitList) =&gt; plgInstSplitList.getItems()[0]);
+      .then(plgInstSplitList =&gt; plgInstSplitList.getItems()[0]);
   }
 
   /**
@@ -533,7 +539,7 @@ export default class Client {
    * @return {Promise&lt;Pipeline&gt;} - JS Promise, resolves to a ``Pipeline`` object
    */
   getPipeline(id, timeout = 30000) {
-    return this.getPipelines({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getPipelines({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -554,7 +560,7 @@ export default class Client {
   createPipeline(data, timeout = 30000) {
     const createRes = () =&gt; {
       const res = new PipelineList(this.pipelinesUrl, this.auth);
-      return res.post(data, timeout).then((res) =&gt; res.getItems()[0]);
+      return res.post(data, timeout).then(res =&gt; res.getItems()[0]);
     };
     return this.pipelinesUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
   }
@@ -588,7 +594,7 @@ export default class Client {
    * @return {Promise&lt;PipelineInstance&gt;} - JS Promise, resolves to a ``PipelineInstance`` object
    */
   getPipelineInstance(id, timeout = 30000) {
-    return this.getPipelineInstances({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getPipelineInstances({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -597,15 +603,15 @@ export default class Client {
    * @param {number} pipelineId - pipeline id
    * @param {Object} data - request data object which is pipeline-specific
    * @param {number} data.previous_plugin_inst_id - id of the previous plugin instance
-   * @param {string} [data.title] - pipeline title
-   * @param {string} [data.description] - pipeline description
+   * @param {string} [data.title] - pipeline instance title
+   * @param {string} [data.description] - pipeline instance description
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise&lt;PipelineInstance&gt;} - JS Promise, resolves to ``PipelineInstance`` object
    */
   createPipelineInstance(pipelineId, data, timeout = 30000) {
     return this.getPipeline(pipelineId, timeout)
-      .then((pipeline) =&gt; {
+      .then(pipeline =&gt; {
         const instancesUrl = Collection.getLinkRelationUrls(
           pipeline.collection.items[0],
           &apos;instances&apos;
@@ -613,7 +619,64 @@ export default class Client {
         const pipInstList = new PipelineInstanceList(instancesUrl[0], this.auth);
         return pipInstList.post(data, timeout);
       })
-      .then((pipInstList) =&gt; pipInstList.getItems()[0]);
+      .then(pipInstList =&gt; pipInstList.getItems()[0]);
+  }
+
+  /**
+   * Get a paginated list of workflows from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match workflow id exactly with this number
+   * @param {string} [searchParams.owner_username] - match workflow&apos;s owner username exactly with this string
+   * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;AllWorkflowList&gt;} - JS Promise, resolves to ``AllWorkflowList`` object
+   */
+  getWorkflows(searchParams = null, timeout = 30000) {
+    return this._fetchRes(&apos;workflowsUrl&apos;, AllWorkflowList, searchParams, timeout);
+  }
+
+  /**
+   * Get a workflow resource object given its id.
+   *
+   * @param {number} id - workflow id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;Workflow&gt;} - JS Promise, resolves to a ``Workflow`` object
+   */
+  getWorkflow(id, timeout = 30000) {
+    return this.getWorkflows({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+  }
+
+  /**
+   * Create a new workflow resource through the REST API.
+   *
+   * @param {number} pipelineId - pipeline id
+   * @param {Object} data - request data object
+   * @param {number} data.previous_plugin_inst_id - previous plugin instance id
+   * @param {string} data.nodes_info - pipeline-specific JSON string encoding a list of dictionaries.
+   * Each dictionary is a workflow node containing a ``plugin piping_id``, ``compute_resource_name``,
+   * ``title`` and a list of dictionaries called ``plugin_parameter_defaults``. Each dictionary in
+   * this list has ``name`` and ``default`` keys.
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;Workflow&gt;} - JS Promise, resolves to ``Workflow`` object
+   */
+  createWorkflow(pipelineId, data, timeout = 30000) {
+    return this.getPipeline(pipelineId, timeout)
+      .then(pipeline =&gt; {
+        const workflowsUrl = Collection.getLinkRelationUrls(
+          pipeline.collection.items[0],
+          &apos;workflows&apos;
+        );
+        const workflowList = new WorkflowList(workflowsUrl[0], this.auth);
+        return workflowList.post(data, timeout);
+      })
+      .then(workflowList =&gt; workflowList.getItems()[0]);
   }
 
   /**
@@ -644,7 +707,7 @@ export default class Client {
    * @return {Promise&lt;Tag&gt;} - JS Promise, resolves to a ``Tag`` object
    */
   getTag(id, timeout = 30000) {
-    return this.getTags({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getTags({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -660,7 +723,7 @@ export default class Client {
   createTag(data, timeout = 30000) {
     const createRes = () =&gt; {
       const res = new TagList(this.tagsUrl, this.auth);
-      return res.post(data, timeout).then((res) =&gt; res.getItems()[0]);
+      return res.post(data, timeout).then(res =&gt; res.getItems()[0]);
     };
     return this.tagsUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
   }
@@ -697,7 +760,7 @@ export default class Client {
    * @return {Promise&lt;UploadedFile&gt;} - JS Promise, resolves to an ``UploadedFile`` object
    */
   getUploadedFile(id, timeout = 30000) {
-    return this.getUploadedFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getUploadedFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -715,7 +778,7 @@ export default class Client {
   uploadFile(data, uploadFileObj, timeout = 30000) {
     const createRes = () =&gt; {
       const res = new UploadedFileList(this.uploadedFilesUrl, this.auth);
-      return res.post(data, uploadFileObj, timeout).then((res) =&gt; res.getItems()[0]);
+      return res.post(data, uploadFileObj, timeout).then(res =&gt; res.getItems()[0]);
     };
     return this.uploadedFilesUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
   }
@@ -758,7 +821,7 @@ export default class Client {
    * @return {Promise&lt;PACSFile&gt;} - JS Promise, resolves to a ``PACSFile`` object
    */
   getPACSFile(id, timeout = 30000) {
-    return this.getPACSFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getPACSFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -794,7 +857,7 @@ export default class Client {
    * @return {Promise&lt;ServiceFile&gt;} - JS Promise, resolves to a ``ServiceFile`` object
    */
   getServiceFile(id, timeout = 30000) {
-    return this.getServiceFiles({ id: id }, timeout).then((listRes) =&gt; listRes.getItem(id));
+    return this.getServiceFiles({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
   }
 
   /**
@@ -860,7 +923,7 @@ export default class Client {
         ],
       },
     };
-    return req.post(usersUrl, userData).then((resp) =&gt; {
+    return req.post(usersUrl, userData).then(resp =&gt; {
       const coll = resp.data.collection;
       const userUrl = coll.items[0].href;
       const auth = { username: username, password: password };
@@ -885,7 +948,7 @@ export default class Client {
       username: username,
       password: password,
     };
-    return req.post(authUrl, authData).then((resp) =&gt; resp.data.token);
+    return req.post(authUrl, authData).then(resp =&gt; resp.data.token);
   }
 
   /**
