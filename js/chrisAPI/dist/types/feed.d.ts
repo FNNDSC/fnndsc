@@ -99,7 +99,7 @@ export class Feed extends ItemResource {
      *
      * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
      */
-    tagFeed(tag_id: number, timeout?: number): Promise<any>;
+    tagFeed(tag_id: number, timeout?: number): Promise<Tagging>;
     /**
      * Make a PUT request to modify this feed item resource through the REST API.
      *

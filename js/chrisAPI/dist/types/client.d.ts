@@ -53,6 +53,7 @@ export default class Client {
     pluginInstancesUrl: string;
     pipelinesUrl: string;
     pipelineInstancesUrl: string;
+    workflowsUrl: string;
     tagsUrl: string;
     uploadedFilesUrl: string;
     pacsFilesUrl: string;
@@ -482,8 +483,8 @@ export default class Client {
      * @param {number} pipelineId - pipeline id
      * @param {Object} data - request data object which is pipeline-specific
      * @param {number} data.previous_plugin_inst_id - id of the previous plugin instance
-     * @param {string} [data.title] - pipeline title
-     * @param {string} [data.description] - pipeline description
+     * @param {string} [data.title] - pipeline instance title
+     * @param {string} [data.description] - pipeline instance description
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<PipelineInstance>} - JS Promise, resolves to ``PipelineInstance`` object
@@ -493,6 +494,54 @@ export default class Client {
         title?: string;
         description?: string;
     }, timeout?: number): Promise<PipelineInstance>;
+    /**
+     * Get a paginated list of workflows from the REST API given query search
+     * parameters. If no search parameters then get the default first page.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match workflow id exactly with this number
+     * @param {string} [searchParams.owner_username] - match workflow's owner username exactly with this string
+     * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<AllWorkflowList>} - JS Promise, resolves to ``AllWorkflowList`` object
+     */
+    getWorkflows(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+        owner_username?: string;
+        pipeline_name?: string;
+    }, timeout?: number): Promise<AllWorkflowList>;
+    /**
+     * Get a workflow resource object given its id.
+     *
+     * @param {number} id - workflow id
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<Workflow>} - JS Promise, resolves to a ``Workflow`` object
+     */
+    getWorkflow(id: number, timeout?: number): Promise<Workflow>;
+    /**
+     * Create a new workflow resource through the REST API.
+     *
+     * @param {number} pipelineId - pipeline id
+     * @param {Object} data - request data object
+     * @param {number} data.previous_plugin_inst_id - previous plugin instance id
+     * @param {string} data.nodes_info - pipeline-specific JSON string encoding a list of dictionaries.
+     * Each dictionary is a workflow node containing a ``plugin piping_id``, ``compute_resource_name``,
+     * ``title`` and a list of dictionaries called ``plugin_parameter_defaults``. Each dictionary in
+     * this list has ``name`` and ``default`` keys.
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<Workflow>} - JS Promise, resolves to ``Workflow`` object
+     */
+    createWorkflow(pipelineId: number, data: {
+        previous_plugin_inst_id: number;
+        nodes_info: string;
+    }, timeout?: number): Promise<Workflow>;
     /**
      * Get a paginated list of tags from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -752,6 +801,8 @@ import { PipelineList } from "./pipeline";
 import { Pipeline } from "./pipeline";
 import { AllPipelineInstanceList } from "./pipelineinstance";
 import { PipelineInstance } from "./pipelineinstance";
+import { AllWorkflowList } from "./workflow";
+import { Workflow } from "./workflow";
 import { TagList } from "./tag";
 import { Tag } from "./tag";
 import { UploadedFileList } from "./uploadedfile";
