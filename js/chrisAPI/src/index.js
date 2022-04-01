@@ -28,6 +28,7 @@ import {
   PipelineInstanceList,
   PipelineInstance,
 } from './pipelineinstance';
+import { AllWorkflowList, WorkflowList, Workflow } from './workflow';
 import { TagList, Tag, TagTaggingList, FeedTaggingList, Tagging } from './tag';
 import { TagFeedList, FeedTagList } from './tag';
 import Note from './note';
@@ -58,6 +59,7 @@ export { FeedPluginInstanceList, PipelineInstancePluginInstanceList };
 export { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };
 export { PipelinePipingDefaultParameterList, PluginPiping, PipingDefaultParameter };
 export { AllPipelineInstanceList, PipelineInstanceList, PipelineInstance };
+export { AllWorkflowList, WorkflowList, Workflow };
 export { TagList, Tag, TagTaggingList, FeedTaggingList, Tagging };
 export { TagFeedList, FeedTagList };
 export { Note };

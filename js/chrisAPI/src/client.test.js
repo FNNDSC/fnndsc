@@ -8,6 +8,7 @@ import { PluginMetaList, PluginMeta } from './pluginmeta';
 import { AllPluginInstanceList, PluginInstance, PluginInstanceSplit } from './plugininstance';
 import { PipelineList, Pipeline } from './pipeline';
 import { PipelineInstance } from './pipelineinstance';
+import { Workflow } from './workflow';
 import { Tag, Tagging } from './tag';
 import { UploadedFile } from './uploadedfile';
 import { FileBrowserPath } from './filebrowser';
@@ -260,6 +261,28 @@ describe('Client', () => {
       .then((pipelineInstance) => {
         expect(pipelineInstance).to.be.an.instanceof(PipelineInstance);
         expect(pipelineInstance.data.title).to.equal('Test pipeline instance');
+      })
+      .then(done, done);
+  });
+
+  it('can create a new workflow through the REST API', (done) => {
+    const pipelineId = 2;
+    const nodes = [
+      {piping_id: 3, compute_resource_name: "host",
+      plugin_parameter_defaults: [{name: "prefix", default: "test"},
+      {name: "dummyInt", default: 3}]},
+      {piping_id: 4, compute_resource_name: "host"},
+      {piping_id: 5, compute_resource_name: "host"}
+    ];
+    const data = {
+      nodes_info: JSON.stringify(nodes),
+      previous_plugin_inst_id: 1
+    };
+    const result = client.createWorkflow(pipelineId, data);
+    result
+      .then(workflow => {
+        expect(workflow).to.be.an.instanceof(Workflow);
+        expect(workflow.data.created_plugin_inst_ids.split(",")).to.have.length(3);
       })
       .then(done, done);
   });
