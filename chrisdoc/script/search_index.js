@@ -792,6 +792,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/client.js~client#computeworkflownodesinfo",
+    "class/src/client.js~Client.html#instance-method-computeWorkflowNodesInfo",
+    "src/client.js~Client#computeWorkflowNodesInfo",
+    "method"
+  ],
+  [
     "src/client.js~client#constructor",
     "class/src/client.js~Client.html#instance-constructor-constructor",
     "src/client.js~Client#constructor",

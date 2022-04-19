@@ -1,7 +1,7 @@
 {
-  "coverage": "95.2%",
-  "expectCount": 396,
-  "actualCount": 377,
+  "coverage": "95.21%",
+  "expectCount": 397,
+  "actualCount": 378,
   "files": {
     "src/chrisinstance.js": {
       "expectCount": 2,
@@ -14,8 +14,8 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 63,
-      "actualCount": 47,
+      "expectCount": 64,
+      "actualCount": 48,
       "undocumentLines": [
         54,
         55,
