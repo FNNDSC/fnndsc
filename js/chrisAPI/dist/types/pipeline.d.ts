@@ -167,8 +167,8 @@ export class PluginPiping extends ItemResource {
     getPipeline(timeout?: number): Promise<Pipeline>;
 }
 /**
- * Item resource object for a plugin piping defaul parameter representing a
- * default value for a plugin parameter associated with this plugin piping.
+ * Item resource object for a plugin piping default parameter which represents a default
+ * value for a plugin parameter associated with the corresponding plugin piping.
  */
 export class PipingDefaultParameter extends ItemResource {
     /**
