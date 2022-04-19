@@ -555,7 +555,7 @@ export default class Client {
    *
    * @param {Object[]} pipelineDefaultParameters - array of objects with the default parameters
    * as returned by ``Pipeline.getDefaultParameters().data``
-   * @param {Object} [includeAllDefaults=false] - if set to `true`` then non-null parameters are also included
+   * @param {boolean} [includeAllDefaults=false] - if set to `true`` then non-null parameters are also included
    * in the result
    *
    * @return {Object[]} - array of workflow node objects
