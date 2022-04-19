@@ -250,6 +250,24 @@ describe('Client', () => {
       .then(done, done);
   });
 
+  /*
+  it('can fetch a pipeline by id from the REST API', (done) => {
+    const result = client.getPipeline(3);
+    result
+      .then((pipeline) => {
+        expect(pipeline).to.be.an.instanceof(Pipeline);
+        expect(pipeline.isEmpty).to.be.false;
+
+        const resp = pipeline.getDefaultParameters();
+        return resp.then(defaultParams => {
+          const nodes = client.computeWorkflowNodesInfo(defaultParams.data);
+          console.log('workflow nodes:', nodes[0].plugin_parameter_defaults);
+        });
+      })
+      .then(done, done);
+  });
+  */
+
   it('can create a new pipeline instance through the REST API', (done) => {
     const pipelineId = 2;
     const data = {

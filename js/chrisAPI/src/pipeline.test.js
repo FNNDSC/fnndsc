@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Request from './request';
-import { PipelinePluginList, Pipeline } from './pipeline';
+import { PipelinePluginList, PipelinePipingDefaultParameterList, Pipeline } from './pipeline';
 import { FeedList } from './feed';
 import { PluginList } from './plugin';
 
@@ -37,6 +37,16 @@ describe('Resource', () => {
       const url = pipelineListRes.collection.items[0].href;
       pipeline = new Pipeline(url, auth);
       return pipeline.get();
+    });
+
+    it('can fetch the list of pipeline default parameter values from the REST API', done => {
+      const result = pipeline.getDefaultParameters();
+      result
+        .then(defaultParams => {
+          expect(defaultParams).to.be.an.instanceof(PipelinePipingDefaultParameterList);
+          expect(defaultParams.isEmpty).to.be.false;
+        })
+        .then(done, done);
     });
 
     it('can fetch the associated plugins from the REST API', done => {

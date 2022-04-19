@@ -549,15 +549,61 @@ export default class Client {
   }
 
   /**
+   * Helper method to create the ``nodes_info`` field required by ``createWorkflow`` method's
+   * ``data`` argument to create a workflow from a pipeline's default parameters data array
+   * tipically returned by ``Pipeline.getDefaultParameters().data``.
+   *
+   * @param {Object[]} pipelineDefaultParameters - array of objects with the default parameters
+   * as returned by ``Pipeline.getDefaultParameters().data``
+   * @param {Object} [includeAllDefaults=false] - if set to `true`` then non-null parameters are also included
+   * in the result
+   *
+   * @return {Object[]} - array of workflow node objects
+   */
+   computeWorkflowNodesInfo(pipelineDefaultParameters, includeAllDefaults=false) {
+     const pipings = {};
+
+     for (let defaultParam of pipelineDefaultParameters) {
+       let pipingId = defaultParam.plugin_piping_id;
+
+       if ( !(pipingId in pipings) ) {
+         pipings[pipingId] = {
+           piping_id: pipingId,
+           previous_piping_id: defaultParam.previous_plugin_piping_id,
+           compute_resource_name: 'host',
+           title: '',
+           plugin_parameter_defaults: []
+         };
+       }
+
+       if ( includeAllDefaults || defaultParam.value === null ) {
+         pipings[pipingId].plugin_parameter_defaults.push({
+           name: defaultParam.param_name,
+           default: defaultParam.value
+         });
+       }
+     }
+
+    const nodesInfo = [];
+    for (let pipingId in pipings) {
+      if ( pipings[pipingId].plugin_parameter_defaults.length === 0 ) {
+        delete pipings[pipingId].plugin_parameter_defaults;
+      }
+      nodesInfo.push(pipings[pipingId]);
+    }
+    return nodesInfo;
+  }
+
+  /**
    * Create a new workflow resource through the REST API.
    *
    * @param {number} pipelineId - pipeline id
    * @param {Object} data - request data object
    * @param {number} data.previous_plugin_inst_id - previous plugin instance id
-   * @param {string} data.nodes_info - pipeline-specific JSON string encoding a list of dictionaries.
-   * Each dictionary is a workflow node containing a ``plugin piping_id``, ``compute_resource_name``,
-   * ``title`` and a list of dictionaries called ``plugin_parameter_defaults``. Each dictionary in
-   * this list has ``name`` and ``default`` keys.
+   * @param {string} data.nodes_info - pipeline-specific JSON string encoding a list of objects.
+   * Each object is a workflow node containing a ``piping_id``, ``compute_resource_name``,
+   * ``title`` and a list of objects called ``plugin_parameter_defaults``. Each object in
+   * this list has ``name`` and ``default`` properties.
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<Workflow>} - JS Promise, resolves to ``Workflow`` object
