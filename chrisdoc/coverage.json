@@ -1,7 +1,7 @@
 {
-  "coverage": "95.21%",
-  "expectCount": 397,
-  "actualCount": 378,
+  "coverage": "95.27%",
+  "expectCount": 402,
+  "actualCount": 383,
   "files": {
     "src/chrisinstance.js": {
       "expectCount": 2,
@@ -93,8 +93,8 @@
       "undocumentLines": []
     },
     "src/plugininstance.js": {
-      "expectCount": 47,
-      "actualCount": 47,
+      "expectCount": 50,
+      "actualCount": 50,
       "undocumentLines": []
     },
     "src/pluginmeta.js": {
@@ -117,7 +117,7 @@
       "actualCount": 33,
       "undocumentLines": [
         103,
-        260
+        258
       ]
     },
     "src/servicefile.js": {
@@ -141,8 +141,8 @@
       "undocumentLines": []
     },
     "src/workflow.js": {
-      "expectCount": 13,
-      "actualCount": 13,
+      "expectCount": 15,
+      "actualCount": 15,
       "undocumentLines": []
     }
   }

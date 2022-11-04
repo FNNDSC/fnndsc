@@ -74,6 +74,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplit.html">PluginInstanceSplit</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplitList.html">PluginInstanceSplitList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~WorkflowPluginInstanceList.html">WorkflowPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
@@ -205,7 +206,7 @@ export default class Request {
     config.data = data;
 
     if (uploadFileObj) {
-      config[&apos;headers&apos;][&apos;content-type&apos;] = &apos;multipart/form-data&apos;;
+      config[&apos;headers&apos;][&apos;Content-Type&apos;] = &apos;multipart/form-data&apos;;
       const bFormData = new FormData();
 
       for (let property in data) {
@@ -238,7 +239,7 @@ export default class Request {
       method: method,
       headers: {
         Accept: this.contentType,
-        &apos;content-type&apos;: this.contentType,
+        &apos;Content-Type&apos;: this.contentType,
       },
       timeout: this.timeout,
     };

@@ -74,6 +74,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplit.html">PluginInstanceSplit</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplitList.html">PluginInstanceSplitList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~WorkflowPluginInstanceList.html">WorkflowPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
@@ -266,11 +267,9 @@ export class ItemResource extends Resource {
       throw new RequestException(errMsg);
     }
     const resourceUrl = urls[0];
-    const resourceObj = new ResourceClass(resourceUrl, this.auth);
-    if (searchParams) {
-      return resourceObj.get(searchParams, timeout);
-    }
-    return resourceObj.get(timeout);
+    const res = new ResourceClass(resourceUrl, this.auth);
+
+    return &apos;searchParams&apos; in res ? res.get(searchParams, timeout) : res.get(timeout);
   }
 
   /**
@@ -556,12 +555,9 @@ export class ListResource extends Resource {
       throw new RequestException(errMsg);
     }
     const resourceUrl = urls[0];
-    const resourceObj = new ResourceClass(resourceUrl, this.auth);
+    const res = new ResourceClass(resourceUrl, this.auth);
 
-    if (searchParams) {
-      return resourceObj.get(searchParams, timeout);
-    }
-    return resourceObj.get(timeout);
+    return &apos;searchParams&apos; in res ? res.get(searchParams, timeout) : res.get(timeout);
   }
 
   /**

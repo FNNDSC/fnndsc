@@ -74,6 +74,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplit.html">PluginInstanceSplit</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplitList.html">PluginInstanceSplitList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~WorkflowPluginInstanceList.html">WorkflowPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
@@ -105,6 +106,7 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
 import { ItemResource, ListResource } from &apos;./resource&apos;;
 import { PipelineList, Pipeline } from &apos;./pipeline&apos;;
+import { WorkflowPluginInstanceList } from &apos;./plugininstance&apos;;
 
 /**
  * Workflow item resource object representing a pipeline workflow.
@@ -133,6 +135,36 @@ export class Workflow extends ItemResource {
     const resourceClass = Pipeline;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch a list of plugin instances created by this workflow from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;WorkflowPluginInstanceList&gt;} - JS Promise, resolves to a ``WorkflowPluginInstanceList`` object
+   */
+  getPluginInstances(params = null, timeout = 30000) {
+    const linkRelation = &apos;plugin_instances&apos;;
+    const resourceClass = WorkflowPluginInstanceList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Make a PUT request to modify this workflow resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.title] - workflow title
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
   }
 
   /**

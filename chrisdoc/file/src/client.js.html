@@ -74,6 +74,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceParameterList.html">PluginInstanceParameterList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplit.html">PluginInstanceSplit</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~PluginInstanceSplitList.html">PluginInstanceSplitList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/plugininstance.js~WorkflowPluginInstanceList.html">WorkflowPluginInstanceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMeta.html">PluginMeta</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginmeta.js~PluginMetaList.html">PluginMetaList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pluginparameter.js~PluginParameter.html">PluginParameter</a></span></span></li>
@@ -205,6 +206,11 @@ export default class Client {
    * @param {number} [searchParams.min_id] - match feed id gte this number
    * @param {number} [searchParams.max_id] - match feed id lte this number
    * @param {string} [searchParams.name] - match feed name containing this string
+   * @param {string} [searchParams.name_exact] - match feed name exactly with this string
+   * @param {string} [searchParams.name_startswith] - match feed name starting with this string
+   * @param {string} [searchParams.files_fname_icontains] - match the feeds that have files containing
+   * all the substrings from the queried string (which in turn represents a white-space-separated list
+   * of query strings) case insensitive anywhere in their fname.
    * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
    * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
    * @param {number} [timeout=30000] - request timeout
@@ -262,7 +268,7 @@ export default class Client {
    */
   tagFeed(feed_id, tag_id, timeout = 30000) {
     return this.getFeed(feed_id, timeout)
-      .then(feed =&gt; feed.getTaggings(timeout))
+      .then(feed =&gt; feed.getTaggings(null, timeout))
       .then(listRes =&gt; listRes.post({ tag_id: tag_id }), timeout)
       .then(listRes =&gt; listRes.getItems()[0]);
   }
@@ -432,6 +438,7 @@ export default class Client {
    * @param {string} [searchParams.status] - match plugin instance execution status exactly with this string
    * @param {string} [searchParams.owner_username] - match plugin instances&apos;s owner username exactly with this string
    * @param {number} [searchParams.feed_id] - match associated feed&apos;s id exactly with this number
+   * @param {number} [searchParams.workflow_id] - match associated workflows&apos;s id exactly with this number
    * @param {number} [searchParams.root_id] - match root plugin instance&apos;s id exactly with this number
    * @param {number} [searchParams.plugin_id] - match associated plugin&apos;s id exactly with this number
    * @param {number} [searchParams.plugin_name] - match associated plugin&apos;s name containing this string
@@ -675,7 +682,7 @@ export default class Client {
            piping_id: pipingId,
            previous_piping_id: defaultParam.previous_plugin_piping_id,
            compute_resource_name: &apos;host&apos;,
-           title: &apos;&apos;,
+           title: defaultParam.plugin_piping_title,
            plugin_parameter_defaults: []
          };
        }
@@ -840,9 +847,22 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file&apos;s path starting with this string
    * @param {string} [searchParams.fname_exact] - match file&apos;s path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file&apos;s path containing this string
+   * @param {string} [searchParams.fname_icontains_topdir_unique] - match file&apos;s path containing all the substrings
+   * from the queried string (which in turn represents a white-space-separated list of query strings) case
+   * insensitive anywhere in their fname. But only one file is returned per toplevel directory under
+   * SERVICES/PACS/pacs_name. This is useful to efficiently determine the top level directories containing a file
+   * that matches the query.
    * @param {string|number} [searchParams.fname_nslashes] - match file&apos;s upload path containing this number of slashes
    * @param {string} [searchParams.PatientID] - match file&apos;s PatientID exactly with this string
    * @param {string} [searchParams.PatientName] - match file&apos;s PatientName containing this string
+   * @param {string} [searchParams.PatientSex] - match file&apos;s PatientSex exactly with this string
+   * @param {number} [searchParams.PatientAge] - match file&apos;s PatientAge exactly with this number
+   * @param {number} [searchParams.min_PatientAge] - match file&apos;s PatientAge greater than this number
+   * @param {number} [searchParams.max_PatientAge] - match file&apos;s PatientAge lesser than this number
+   * @param {string} [searchParams.PatientBirthDate] - match file&apos;s PatientBirthDate exactly with this date string
+   * @param {string} [searchParams.StudyDate] - match file&apos;s StudyDate exactly with this date string
+   * @param {string} [searchParams.AccessionNumber] - match file&apos;s AccessionNumber exactly with this string
+   * @param {string} [searchParams.ProtocolName] - match file&apos;s ProtocolName exactly with this string
    * @param {string} [searchParams.StudyInstanceUID] - match file&apos;s StudyInstanceUID exactly with this string
    * @param {string} [searchParams.StudyDescription] - match file&apos;s StudyDescription containing this string
    * @param {string} [searchParams.SeriesInstanceUID] - match file&apos;s SeriesInstanceUID exactly with this string
@@ -1019,7 +1039,8 @@ export default class Client {
   _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {
     const getRes = () =&gt; {
       const res = new ResClass(this[resUrlProp], this.auth);
-      return searchParams ? res.get(searchParams, timeout) : res.get(timeout);
+
+      return &apos;searchParams&apos; in res ? res.get(searchParams, timeout) : res.get(timeout);
     };
     return this[resUrlProp] ? getRes() : this.setUrls().then(() =&gt; getRes());
   }

@@ -3145,10 +3145,10 @@
                                     }
                                   },
                                   "extra": {
-                                    "rawValue": "content-type",
-                                    "raw": "'content-type'"
+                                    "rawValue": "Content-Type",
+                                    "raw": "'Content-Type'"
                                   },
-                                  "value": "content-type"
+                                  "value": "Content-Type"
                                 },
                                 "computed": true
                               },
@@ -4655,10 +4655,10 @@
                                           }
                                         },
                                         "extra": {
-                                          "rawValue": "content-type",
-                                          "raw": "'content-type'"
+                                          "rawValue": "Content-Type",
+                                          "raw": "'Content-Type'"
                                         },
-                                        "value": "content-type"
+                                        "value": "Content-Type"
                                       },
                                       "value": {
                                         "type": "MemberExpression",
@@ -16393,7 +16393,7 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "content-type",
+      "value": "Content-Type",
       "start": 3137,
       "end": 3151,
       "loc": {
@@ -19552,7 +19552,7 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "content-type",
+      "value": "Content-Type",
       "start": 4003,
       "end": 4017,
       "loc": {

@@ -408,6 +408,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~workflowplugininstancelist",
+    "class/src/plugininstance.js~WorkflowPluginInstanceList.html",
+    "<span>WorkflowPluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "src/.external-ecmascript.js~array",
     "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
     "src/.external-ecmascript.js~Array",
@@ -2124,6 +2130,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/plugininstance.js~workflowplugininstancelist#constructor",
+    "class/src/plugininstance.js~WorkflowPluginInstanceList.html#instance-constructor-constructor",
+    "src/plugininstance.js~WorkflowPluginInstanceList#constructor",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~workflowplugininstancelist#itemclass",
+    "class/src/plugininstance.js~WorkflowPluginInstanceList.html#instance-member-itemClass",
+    "src/plugininstance.js~WorkflowPluginInstanceList#itemClass",
+    "member"
+  ],
+  [
     "src/pluginmeta.js",
     "file/src/pluginmeta.js.html",
     "src/pluginmeta.js",
@@ -2787,6 +2805,18 @@ window.esdocSearchIndex = [
     "src/workflow.js~workflow#getpipeline",
     "class/src/workflow.js~Workflow.html#instance-method-getPipeline",
     "src/workflow.js~Workflow#getPipeline",
+    "method"
+  ],
+  [
+    "src/workflow.js~workflow#getplugininstances",
+    "class/src/workflow.js~Workflow.html#instance-method-getPluginInstances",
+    "src/workflow.js~Workflow#getPluginInstances",
+    "method"
+  ],
+  [
+    "src/workflow.js~workflow#put",
+    "class/src/workflow.js~Workflow.html#instance-method-put",
+    "src/workflow.js~Workflow#put",
     "method"
   ],
   [
