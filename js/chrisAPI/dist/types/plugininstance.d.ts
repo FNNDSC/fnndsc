@@ -197,6 +197,12 @@ export class FeedPluginInstanceList extends ListResource {
 export class PipelineInstancePluginInstanceList extends ListResource {
 }
 /**
+ * Workflow-specific plugin instance list resource object representing
+ * a list of plugin instances associated to a workflow.
+ */
+export class WorkflowPluginInstanceList extends ListResource {
+}
+/**
  * Plugin instance descendant list resource object. This is a list of all plugin
  * instances that have this plugin instance as an ancestor in a pipeline tree.
  */

@@ -11,6 +11,32 @@ export class Workflow extends ItemResource {
      */
     getPipeline(timeout?: number): Promise<Pipeline>;
     /**
+     * Fetch a list of plugin instances created by this workflow from the REST API.
+     *
+     * @param {Object} [params=null] - page parameters
+     * @param {number} [params.limit] - page limit
+     * @param {number} [params.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<WorkflowPluginInstanceList>} - JS Promise, resolves to a ``WorkflowPluginInstanceList`` object
+     */
+    getPluginInstances(params?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<WorkflowPluginInstanceList>;
+    /**
+     * Make a PUT request to modify this workflow resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {string} [data.title] - workflow title
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    put(data: {
+        title?: string;
+    }, timeout?: number): Promise<Workflow>;
+    /**
      * Make a DELETE request to delete this workflow resource through the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -74,5 +100,6 @@ export class AllWorkflowList extends ListResource {
 }
 import { ItemResource } from "./resource";
 import { Pipeline } from "./pipeline";
+import { WorkflowPluginInstanceList } from "./plugininstance";
 import { ListResource } from "./resource";
 import { PipelineList } from "./pipeline";
