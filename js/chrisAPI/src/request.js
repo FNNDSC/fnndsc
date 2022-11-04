@@ -101,7 +101,7 @@ export default class Request {
     config.data = data;
 
     if (uploadFileObj) {
-      config['headers']['content-type'] = 'multipart/form-data';
+      config['headers']['Content-Type'] = 'multipart/form-data';
       const bFormData = new FormData();
 
       for (let property in data) {
@@ -134,7 +134,7 @@ export default class Request {
       method: method,
       headers: {
         Accept: this.contentType,
-        'content-type': this.contentType,
+        'Content-Type': this.contentType,
       },
       timeout: this.timeout,
     };

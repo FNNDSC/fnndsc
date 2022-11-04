@@ -294,13 +294,24 @@ describe('Client', () => {
     ];
     const data = {
       nodes_info: JSON.stringify(nodes),
+      title: 'Workflow1',
       previous_plugin_inst_id: 1
     };
     const result = client.createWorkflow(pipelineId, data);
     result
       .then(workflow => {
         expect(workflow).to.be.an.instanceof(Workflow);
-        expect(workflow.data.created_plugin_inst_ids.split(",")).to.have.length(3);
+        expect(workflow.data.title).to.equal('Workflow1');
+
+        /*const resp = workflow.getPluginInstances();
+        return resp.then(plgInstances => {
+          console.log('workflow plugin instances:', plgInstances.data);
+        });*/
+
+        /*const resp = workflow.put({'title': 'Work2'});
+        return resp.then(work => {
+          console.log('workflow title:', work.data.title);
+        });*/
       })
       .then(done, done);
   });

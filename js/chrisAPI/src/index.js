@@ -16,7 +16,7 @@ import {
   PluginInstanceSplit,
 } from './plugininstance';
 import { PluginInstanceParameterList, PluginInstanceParameter } from './plugininstance';
-import { FeedPluginInstanceList, PipelineInstancePluginInstanceList } from './plugininstance';
+import { FeedPluginInstanceList, PipelineInstancePluginInstanceList, WorkflowPluginInstanceList } from './plugininstance';
 import { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline } from './pipeline';
 import {
   PipelinePipingDefaultParameterList,
@@ -55,7 +55,7 @@ export { PluginComputeResourceList, ComputeResourceList, ComputeResource };
 export { PluginInstanceDescendantList, PluginInstanceList, PluginInstance };
 export { AllPluginInstanceList, PluginInstanceSplitList, PluginInstanceSplit };
 export { PluginInstanceParameterList, PluginInstanceParameter };
-export { FeedPluginInstanceList, PipelineInstancePluginInstanceList };
+export { FeedPluginInstanceList, PipelineInstancePluginInstanceList, WorkflowPluginInstanceList };
 export { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };
 export { PipelinePipingDefaultParameterList, PluginPiping, PipingDefaultParameter };
 export { AllPipelineInstanceList, PipelineInstanceList, PipelineInstance };

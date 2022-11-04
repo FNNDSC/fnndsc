@@ -162,11 +162,9 @@ export class ItemResource extends Resource {
       throw new RequestException(errMsg);
     }
     const resourceUrl = urls[0];
-    const resourceObj = new ResourceClass(resourceUrl, this.auth);
-    if (searchParams) {
-      return resourceObj.get(searchParams, timeout);
-    }
-    return resourceObj.get(timeout);
+    const res = new ResourceClass(resourceUrl, this.auth);
+
+    return 'searchParams' in res ? res.get(searchParams, timeout) : res.get(timeout);
   }
 
   /**
@@ -452,12 +450,9 @@ export class ListResource extends Resource {
       throw new RequestException(errMsg);
     }
     const resourceUrl = urls[0];
-    const resourceObj = new ResourceClass(resourceUrl, this.auth);
+    const res = new ResourceClass(resourceUrl, this.auth);
 
-    if (searchParams) {
-      return resourceObj.get(searchParams, timeout);
-    }
-    return resourceObj.get(timeout);
+    return 'searchParams' in res ? res.get(searchParams, timeout) : res.get(timeout);
   }
 
   /**

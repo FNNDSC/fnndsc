@@ -1,6 +1,7 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
 import { PipelineList, Pipeline } from './pipeline';
+import { WorkflowPluginInstanceList } from './plugininstance';
 
 /**
  * Workflow item resource object representing a pipeline workflow.
@@ -29,6 +30,36 @@ export class Workflow extends ItemResource {
     const resourceClass = Pipeline;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch a list of plugin instances created by this workflow from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<WorkflowPluginInstanceList>} - JS Promise, resolves to a ``WorkflowPluginInstanceList`` object
+   */
+  getPluginInstances(params = null, timeout = 30000) {
+    const linkRelation = 'plugin_instances';
+    const resourceClass = WorkflowPluginInstanceList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  }
+
+  /**
+   * Make a PUT request to modify this workflow resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.title] - workflow title
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
   }
 
   /**
