@@ -11,15 +11,7 @@ let baseConfig = {
     libraryTarget: 'umd',
     umdNamedDefine: true,
   },
-  /*
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'chrisapi.js',
-    library: 'CAPI',
-    
-    globalObject: `typeof self !== 'undefined' ? self : this`,
-  },
-  */
+ 
   resolve: {
     extensions: ['.js', '.json'],
   },
