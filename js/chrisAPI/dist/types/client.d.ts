@@ -46,6 +46,7 @@ export default class Client {
     auth: any;
     feedsUrl: string;
     chrisInstanceUrl: string;
+    adminUrl: string;
     filesUrl: string;
     computeResourcesUrl: string;
     pluginMetasUrl: string;
@@ -308,6 +309,23 @@ export default class Client {
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
     getPlugin(id: number, timeout?: number): Promise<Plugin>;
+    /**
+     * Upload a plugin representation file and create a new plugin admin resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {string} data.compute_names - string representing a comma-separated
+     * list of names of already registered compute resources
+     * @param {Object} pluginFileObj - custom file object
+     * @param {Object} pluginFileObj.fname - plugin's file blob
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PluginAdmin>} - JS Promise, resolves to ``PluginAdmin`` object
+     */
+    adminUploadPlugin(data: {
+        compute_names: string;
+    }, pluginFileObj: {
+        fname: any;
+    }, timeout?: number): Promise<PluginAdmin>;
     /**
      * Get a paginated list of plugin instances from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -657,7 +675,7 @@ export default class Client {
      * @param {Object} data - request data object
      * @param {string} data.upload_path - absolute path including file name where the file
      * will be uploaded on the storage service
-     * @param {?Object} uploadFileObj - custom file object
+     * @param {Object} uploadFileObj - custom file object
      * @param {Object} uploadFileObj.fname - file blob
      * @param {number} [timeout=30000] - request timeout
      *
@@ -665,7 +683,9 @@ export default class Client {
      */
     uploadFile(data: {
         upload_path: string;
-    }, uploadFileObj: any | null, timeout?: number): Promise<UploadedFile>;
+    }, uploadFileObj: {
+        fname: any;
+    }, timeout?: number): Promise<UploadedFile>;
     /**
      * Get a paginated list of PACS files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -839,6 +859,7 @@ import { PluginMetaList } from "./pluginmeta";
 import { PluginMeta } from "./pluginmeta";
 import { PluginList } from "./plugin";
 import { Plugin } from "./plugin";
+import { PluginAdmin } from "./admin";
 import { AllPluginInstanceList } from "./plugininstance";
 import { PluginInstance } from "./plugininstance";
 import { PluginInstanceSplit } from "./plugininstance";

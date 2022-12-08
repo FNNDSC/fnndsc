@@ -43,7 +43,7 @@ export class UploadedFileList extends ListResource {
      * @param {Object} data - request JSON data object
      * @param {string} data.upload_path - absolute path including file name where the file
      * will be uploaded on the storage service
-     * @param {?Object} uploadFileObj - custom file object
+     * @param {Object} uploadFileObj - custom file object
      * @param {Object} uploadFileObj.fname - file blob
      * @param {number} [timeout=30000] - request timeout
      *
@@ -51,7 +51,9 @@ export class UploadedFileList extends ListResource {
      */
     post(data: {
         upload_path: string;
-    }, uploadFileObj: any | null, timeout?: number): Promise<UploadedFileList>;
+    }, uploadFileObj: {
+        fname: any;
+    }, timeout?: number): Promise<UploadedFileList>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

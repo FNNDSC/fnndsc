@@ -176,6 +176,20 @@ export class FeedList extends ListResource {
         offset?: number;
     }, timeout?: number): Promise<PluginList>;
     /**
+     * Fetch a list of plugin admins.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PluginAdminList>} - JS Promise, resolves to a ``PluginAdminList`` object
+     */
+    getPluginAdmins(searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginAdminList>;
+    /**
      * Fetch a list of plugin instances from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -307,6 +321,7 @@ import { ListResource } from "./resource";
 import { AllFeedFileList } from "./feedfile";
 import { ComputeResourceList } from "./computeresource";
 import { PluginList } from "./plugin";
+import { PluginAdminList } from "./admin";
 import { AllPluginInstanceList } from "./plugininstance";
 import { PipelineList } from "./pipeline";
 import { AllPipelineInstanceList } from "./pipelineinstance";
