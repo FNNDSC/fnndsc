@@ -4,6 +4,7 @@ import Collection from './cj';
 import Request from './request';
 import RequestException from './exception';
 import { FeedList, Feed } from './feed';
+import { PluginAdminList, PluginAdmin } from './admin';
 import { AllFeedFileList, FeedFile } from './feedfile';
 import { ComputeResourceList, ComputeResource } from './computeresource';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
@@ -53,6 +54,7 @@ export default class Client {
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
     this.chrisInstanceUrl = '';
+    this.adminUrl = '';
     this.filesUrl = '';
     this.computeResourcesUrl = '';
     this.pluginMetasUrl = '';
@@ -120,6 +122,7 @@ export default class Client {
       const getUrl = Collection.getLinkRelationUrls;
 
       this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];
+      this.adminUrl = this.adminUrl || getUrl(coll, 'admin')[0];
       this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
       this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];
@@ -319,6 +322,26 @@ export default class Client {
    */
   getPlugin(id, timeout = 30000) {
     return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Upload a plugin representation file and create a new plugin admin resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.compute_names - string representing a comma-separated
+   * list of names of already registered compute resources
+   * @param {Object} pluginFileObj - custom file object
+   * @param {Object} pluginFileObj.fname - plugin's file blob
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PluginAdmin>} - JS Promise, resolves to ``PluginAdmin`` object
+   */
+  adminUploadPlugin(data, pluginFileObj, timeout = 30000) {
+    const createRes = () => {
+      const res = new PluginAdminList(this.adminUrl, this.auth);
+      return res.post(data, pluginFileObj, timeout).then(res => res.getItems()[0]);
+    };
+    return this.adminUrl ? createRes() : this.setUrls().then(() => createRes());
   }
 
   /**
@@ -717,7 +740,7 @@ export default class Client {
    * @param {Object} data - request data object
    * @param {string} data.upload_path - absolute path including file name where the file
    * will be uploaded on the storage service
-   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj - custom file object
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
    *

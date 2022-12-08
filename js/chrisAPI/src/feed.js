@@ -3,6 +3,7 @@ import { ItemResource, ListResource } from './resource';
 import User from './user';
 import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
+import { PluginAdminList } from './admin';
 import { PipelineList } from './pipeline';
 import { AllPipelineInstanceList } from './pipelineinstance';
 import { UploadedFileList } from './uploadedfile';
@@ -241,6 +242,23 @@ export class FeedList extends ListResource {
   getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = 'plugins';
     const resourceClass = PluginList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of plugin admins.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PluginAdminList>} - JS Promise, resolves to a ``PluginAdminList`` object
+   */
+  getPluginAdmins(searchParams = null, timeout = 30000) {
+    const linkRelation = 'admin';
+    const resourceClass = PluginAdminList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
