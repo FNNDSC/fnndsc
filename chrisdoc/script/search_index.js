@@ -60,6 +60,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~computeresourceadmin",
+    "class/src/admin.js~ComputeResourceAdmin.html",
+    "<span>ComputeResourceAdmin</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~computeresourceadminlist",
+    "class/src/admin.js~ComputeResourceAdminList.html",
+    "<span>ComputeResourceAdminList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~computeresourcelist",
     "class/src/computeresource.js~ComputeResourceList.html",
     "<span>ComputeResourceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -219,6 +231,18 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~plugin",
     "class/src/plugin.js~Plugin.html",
     "<span>Plugin</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pluginadmin",
+    "class/src/admin.js~PluginAdmin.html",
+    "<span>PluginAdmin</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pluginadminlist",
+    "class/src/admin.js~PluginAdminList.html",
+    "<span>PluginAdminList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -696,6 +720,78 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "src/admin.js",
+    "file/src/admin.js.html",
+    "src/admin.js",
+    "file"
+  ],
+  [
+    "src/admin.js~computeresourceadmin#constructor",
+    "class/src/admin.js~ComputeResourceAdmin.html#instance-constructor-constructor",
+    "src/admin.js~ComputeResourceAdmin#constructor",
+    "method"
+  ],
+  [
+    "src/admin.js~computeresourceadmin#delete",
+    "class/src/admin.js~ComputeResourceAdmin.html#instance-method-delete",
+    "src/admin.js~ComputeResourceAdmin#delete",
+    "method"
+  ],
+  [
+    "src/admin.js~computeresourceadminlist#constructor",
+    "class/src/admin.js~ComputeResourceAdminList.html#instance-constructor-constructor",
+    "src/admin.js~ComputeResourceAdminList#constructor",
+    "method"
+  ],
+  [
+    "src/admin.js~computeresourceadminlist#itemclass",
+    "class/src/admin.js~ComputeResourceAdminList.html#instance-member-itemClass",
+    "src/admin.js~ComputeResourceAdminList#itemClass",
+    "member"
+  ],
+  [
+    "src/admin.js~computeresourceadminlist#post",
+    "class/src/admin.js~ComputeResourceAdminList.html#instance-method-post",
+    "src/admin.js~ComputeResourceAdminList#post",
+    "method"
+  ],
+  [
+    "src/admin.js~pluginadmin#constructor",
+    "class/src/admin.js~PluginAdmin.html#instance-constructor-constructor",
+    "src/admin.js~PluginAdmin#constructor",
+    "method"
+  ],
+  [
+    "src/admin.js~pluginadmin#delete",
+    "class/src/admin.js~PluginAdmin.html#instance-method-delete",
+    "src/admin.js~PluginAdmin#delete",
+    "method"
+  ],
+  [
+    "src/admin.js~pluginadminlist#constructor",
+    "class/src/admin.js~PluginAdminList.html#instance-constructor-constructor",
+    "src/admin.js~PluginAdminList#constructor",
+    "method"
+  ],
+  [
+    "src/admin.js~pluginadminlist#getcomputeresourceadmins",
+    "class/src/admin.js~PluginAdminList.html#instance-method-getComputeResourceAdmins",
+    "src/admin.js~PluginAdminList#getComputeResourceAdmins",
+    "method"
+  ],
+  [
+    "src/admin.js~pluginadminlist#itemclass",
+    "class/src/admin.js~PluginAdminList.html#instance-member-itemClass",
+    "src/admin.js~PluginAdminList#itemClass",
+    "member"
+  ],
+  [
+    "src/admin.js~pluginadminlist#post",
+    "class/src/admin.js~PluginAdminList.html#instance-method-post",
+    "src/admin.js~PluginAdminList#post",
+    "method"
+  ],
+  [
     "src/chrisinstance.js",
     "file/src/chrisinstance.js.html",
     "src/chrisinstance.js",
@@ -778,6 +874,18 @@ window.esdocSearchIndex = [
     "class/src/client.js~Client.html#instance-method-_fetchRes",
     "src/client.js~Client#_fetchRes",
     "method"
+  ],
+  [
+    "src/client.js~client#adminuploadplugin",
+    "class/src/client.js~Client.html#instance-method-adminUploadPlugin",
+    "src/client.js~Client#adminUploadPlugin",
+    "method"
+  ],
+  [
+    "src/client.js~client#adminurl",
+    "class/src/client.js~Client.html#instance-member-adminUrl",
+    "src/client.js~Client#adminUrl",
+    "member"
   ],
   [
     "src/client.js~client#auth",
@@ -1383,6 +1491,12 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#getpipelines",
     "class/src/feed.js~FeedList.html#instance-method-getPipelines",
     "src/feed.js~FeedList#getPipelines",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getpluginadmins",
+    "class/src/feed.js~FeedList.html#instance-method-getPluginAdmins",
+    "src/feed.js~FeedList#getPluginAdmins",
     "method"
   ],
   [

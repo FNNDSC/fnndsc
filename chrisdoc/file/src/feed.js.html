@@ -29,7 +29,11 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/chrisinstance.js~ChrisInstance.html">ChrisInstance</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~ComputeResourceAdmin.html">ComputeResourceAdmin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~ComputeResourceAdminList.html">ComputeResourceAdminList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~PluginAdmin.html">PluginAdmin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~PluginAdminList.html">PluginAdminList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/chrisinstance.js~ChrisInstance.html">ChrisInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
@@ -108,6 +112,7 @@ import { ItemResource, ListResource } from &apos;./resource&apos;;
 import User from &apos;./user&apos;;
 import { ComputeResourceList } from &apos;./computeresource&apos;;
 import { PluginList } from &apos;./plugin&apos;;
+import { PluginAdminList } from &apos;./admin&apos;;
 import { PipelineList } from &apos;./pipeline&apos;;
 import { AllPipelineInstanceList } from &apos;./pipelineinstance&apos;;
 import { UploadedFileList } from &apos;./uploadedfile&apos;;
@@ -346,6 +351,23 @@ export class FeedList extends ListResource {
   getPlugins(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;plugins&apos;;
     const resourceClass = PluginList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of plugin admins.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;PluginAdminList&gt;} - JS Promise, resolves to a ``PluginAdminList`` object
+   */
+  getPluginAdmins(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;admin&apos;;
+    const resourceClass = PluginAdminList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

@@ -29,7 +29,11 @@
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/chrisinstance.js~ChrisInstance.html">ChrisInstance</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~ComputeResourceAdmin.html">ComputeResourceAdmin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~ComputeResourceAdminList.html">ComputeResourceAdminList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~PluginAdmin.html">PluginAdmin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/admin.js~PluginAdminList.html">PluginAdminList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/chrisinstance.js~ChrisInstance.html">ChrisInstance</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/cj.js~Collection.html">Collection</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/client.js~Client.html">Client</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/comment.js~Comment.html">Comment</a></span></span></li>
@@ -109,6 +113,7 @@ import Collection from &apos;./cj&apos;;
 import Request from &apos;./request&apos;;
 import RequestException from &apos;./exception&apos;;
 import { FeedList, Feed } from &apos;./feed&apos;;
+import { PluginAdminList, PluginAdmin } from &apos;./admin&apos;;
 import { AllFeedFileList, FeedFile } from &apos;./feedfile&apos;;
 import { ComputeResourceList, ComputeResource } from &apos;./computeresource&apos;;
 import { PluginMetaList, PluginMeta } from &apos;./pluginmeta&apos;;
@@ -158,6 +163,7 @@ export default class Client {
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
     this.chrisInstanceUrl = &apos;&apos;;
+    this.adminUrl = &apos;&apos;;
     this.filesUrl = &apos;&apos;;
     this.computeResourcesUrl = &apos;&apos;;
     this.pluginMetasUrl = &apos;&apos;;
@@ -225,6 +231,7 @@ export default class Client {
       const getUrl = Collection.getLinkRelationUrls;
 
       this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, &apos;chrisinstance&apos;)[0];
+      this.adminUrl = this.adminUrl || getUrl(coll, &apos;admin&apos;)[0];
       this.filesUrl = this.filesUrl || getUrl(coll, &apos;files&apos;)[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, &apos;compute_resources&apos;)[0];
       this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, &apos;plugin_metas&apos;)[0];
@@ -424,6 +431,26 @@ export default class Client {
    */
   getPlugin(id, timeout = 30000) {
     return this.getPlugins({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+  }
+
+  /**
+   * Upload a plugin representation file and create a new plugin admin resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.compute_names - string representing a comma-separated
+   * list of names of already registered compute resources
+   * @param {Object} pluginFileObj - custom file object
+   * @param {Object} pluginFileObj.fname - plugin&apos;s file blob
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;PluginAdmin&gt;} - JS Promise, resolves to ``PluginAdmin`` object
+   */
+  adminUploadPlugin(data, pluginFileObj, timeout = 30000) {
+    const createRes = () =&gt; {
+      const res = new PluginAdminList(this.adminUrl, this.auth);
+      return res.post(data, pluginFileObj, timeout).then(res =&gt; res.getItems()[0]);
+    };
+    return this.adminUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
   }
 
   /**
@@ -822,7 +849,7 @@ export default class Client {
    * @param {Object} data - request data object
    * @param {string} data.upload_path - absolute path including file name where the file
    * will be uploaded on the storage service
-   * @param {?Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj - custom file object
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
    *

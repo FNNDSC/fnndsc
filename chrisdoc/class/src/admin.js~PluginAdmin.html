@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">TagFeedList | @fnndsc/chrisapi</title>
+  <title data-ice="title">PluginAdmin | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -107,23 +107,23 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {TagFeedList} from &apos;<span><a href="file/src/tag.js.html#lineNumber289">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {PluginAdmin} from &apos;<span><a href="file/src/admin.js.html#lineNumber74">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/tag.js.html#lineNumber289">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/admin.js.html#lineNumber74">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">TagFeedList</h1>
+  <h1 data-ice="name">PluginAdmin</h1>
 
   
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/resource.js~Resource.html">Resource</a></span> &#x2192; <span><a href="class/src/resource.js~ListResource.html">ListResource</a></span> &#x2192; TagFeedList</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/resource.js~Resource.html">Resource</a></span> &#x2192; <span><a href="class/src/resource.js~ItemResource.html">ItemResource</a></span> &#x2192; PluginAdmin</div></div>
   
   
   
@@ -133,8 +133,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Tag-specific feed list resource object representing a list of feeds that are tagged
-with an specific tag.</p>
+  <div class="description" data-ice="description"><p>Plugin admin item resource object representing a plugin admin.</p>
 </div>
   
 
@@ -167,7 +166,7 @@ with an specific tag.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/tag.js~TagFeedList.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/admin.js~PluginAdmin.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -185,41 +184,7 @@ with an specific tag.</p>
 </tbody>
 </table>
 </div>
-<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/tag.js~TagFeedList.html#instance-member-itemClass">itemClass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
+
 <div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
   <tbody>
@@ -238,13 +203,13 @@ with an specific tag.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/tag.js~TagFeedList.html#instance-method-getTag">getTag</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/tag.js~Tag.html">Tag</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/admin.js~PluginAdmin.html#instance-method-delete">delete</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Fetch the tag associated to this tag-specific list of feeds from the REST API.</p>
+        <div data-ice="description"><p>Make a DELETE request to delete this plugin through the REST API.</p>
 </div>
       </div>
     </td>
@@ -464,7 +429,7 @@ with an specific tag.</p>
 </table>
 
 <table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/src/resource.js~ListResource.html">ListResource</a></span></td></tr></thead>
+  <thead><tr><td data-ice="title" colspan="3"><span class="toggle closed"></span> From class <span><a href="class/src/resource.js~ItemResource.html">ItemResource</a></span></td></tr></thead>
   <tbody>
   
   <tr data-ice="target">
@@ -481,103 +446,13 @@ with an specific tag.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-get-data">data</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Get the list of item data objects (REST API descriptors).</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-get-hasNextPage">hasNextPage</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Return true if the list resource object has a next list page in the
-paginated REST API.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-get-hasPreviousPage">hasPreviousPage</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Return true if the list resource object has a previous list page in the
-paginated REST API.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      <span class="kind" data-ice="kind">get</span>
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-get-totalCount">totalCount</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get the total count of items of the entire collection across pages in the
-paginated REST API.</p>
+        <div data-ice="description"><p>Get the item&apos;s data object (REST API descriptors).</p>
 </div>
       </div>
     </td>
@@ -600,7 +475,7 @@ paginated REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-member-collection">collection</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-member-collection">collection</a></span></span><span class="code" data-ice="signature">: <span>*</span></span>
         </p>
       </div>
       <div>
@@ -628,97 +503,13 @@ paginated REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-member-itemClass">itemClass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-get">get</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-member-queryUrl">queryUrl</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-member-searchParams">searchParams</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-method-get">get</a></span></span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Fetch this list resource from the REST API based on search parameters.</p>
+        <div data-ice="description"><p>Fetch this item resource from the REST API.</p>
 </div>
       </div>
     </td>
@@ -741,104 +532,14 @@ paginated REST API.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-method-getItem">getItem</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get an item resource object given its id from the list of items in this
-list resource object.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-method-getItems">getItems</a></span></span><span class="code" data-ice="signature">(): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span><span>[]</span></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get an array of item resource objects corresponding to the items in this
-list resource object.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-method-getPOSTParameters">getPOSTParameters</a></span></span><span class="code" data-ice="signature">(): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-getPUTParameters">getPUTParameters</a></span></span><span class="code" data-ice="signature">(): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
         
         
         <div data-ice="description"><p>Get an array of parameter names that can be used as properties of the data
-object in POST requests.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-method-getSearchParameters">getSearchParameters</a></span></span><span class="code" data-ice="signature">(): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Get an array of search parameter names that can be used as properties of the
-<code>searchParams</code> argument to the <code>get</code> method.</p>
+object in PUT requests.</p>
 </div>
       </div>
     </td>
@@ -861,14 +562,14 @@ object in POST requests.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-method-_getResource">_getResource</a></span></span><span class="code" data-ice="signature">(linkRelation: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ResourceClass: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>ResourceClass</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-_delete">_delete</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Internal method to fetch a related resource from the REST API that is
-referenced by a link relation within this list resource&apos;s collection object.</p>
+        <div data-ice="description"><p>Internal helper method to make a DELETE request to this item resource through
+the REST API.</p>
 </div>
       </div>
     </td>
@@ -891,13 +592,43 @@ referenced by a link relation within this list resource&apos;s collection object
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ListResource.html#instance-method-_post">_post</a></span></span><span class="code" data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-_getResource">_getResource</a></span></span><span class="code" data-ice="signature">(linkRelation: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, ResourceClass: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>ResourceClass</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Internal helper method to make a POST request to this list resource through
+        <div data-ice="description"><p>Internal method to fetch a related resource from the REST API that is referenced
+by a link relation within the item object.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">private</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/resource.js~ItemResource.html#instance-method-_put">_put</a></span></span><span class="code" data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, uploadFileObj: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Internal helper method to make a PUT request to this item resource through
 the REST API.</p>
 </div>
       </div>
@@ -927,7 +658,7 @@ the REST API.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/tag.js.html#lineNumber297">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/admin.js.html#lineNumber82">source</a></span></span>
     </span>
   </h3>
 
@@ -937,7 +668,7 @@ the REST API.</p>
   <div data-ice="description"><p>Constructor</p>
 </div>
 
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/resource.js~ListResource.html#instance-constructor-constructor">ListResource#constructor</a></span></div>
+  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/resource.js~ItemResource.html#instance-constructor-constructor">ItemResource#constructor</a></span></div>
 
   <div data-ice="properties"><div data-ice="properties">
   <h4 data-ice="title">Params:</h4>
@@ -991,74 +722,29 @@ the REST API.</p>
   
 </div>
 </div>
-<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
 
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-itemClass">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">itemClass</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/tag.js.html#lineNumber301">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  <div data-ice="override"><h4>Override:</h4><span><a href="class/src/resource.js~ListResource.html#instance-member-itemClass">ListResource#itemClass</a></span></div>
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getTag">
+  <h3 data-ice="anchor" id="instance-method-delete">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">getTag</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/tag.js~Tag.html">Tag</a></span>&gt;</span>
+    <span class="code" data-ice="name">delete</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/tag.js.html#lineNumber311">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/admin.js.html#lineNumber93">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Fetch the tag associated to this tag-specific list of feeds from the REST API.</p>
+  <div data-ice="description"><p>Make a DELETE request to delete this plugin through the REST API.</p>
 </div>
 
   
@@ -1089,8 +775,8 @@ the REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/tag.js~Tag.html">Tag</a></span>&gt;</td>
-          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>Tag</code> object</p>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise</p>
 </td>
         </tr>
       </tbody>

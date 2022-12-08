@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 3076,
+  "end": 3075,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 3076,
+    "end": 3075,
     "loc": {
       "start": {
         "line": 1,
@@ -2365,7 +2365,7 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 2038,
-        "end": 3075,
+        "end": 3074,
         "loc": {
           "start": {
             "line": 69,
@@ -2381,7 +2381,7 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 2045,
-          "end": 3075,
+          "end": 3074,
           "loc": {
             "start": {
               "line": 69,
@@ -2430,7 +2430,7 @@
           "body": {
             "type": "ClassBody",
             "start": 2089,
-            "end": 3075,
+            "end": 3074,
             "loc": {
               "start": {
                 "line": 69,
@@ -2773,9 +2773,9 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+                    "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
                     "start": 2395,
-                    "end": 2969,
+                    "end": 2968,
                     "loc": {
                       "start": {
                         "line": 84,
@@ -2791,8 +2791,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 2972,
-                "end": 3073,
+                "start": 2971,
+                "end": 3072,
                 "loc": {
                   "start": {
                     "line": 97,
@@ -2807,8 +2807,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 2972,
-                  "end": 2976,
+                  "start": 2971,
+                  "end": 2975,
                   "loc": {
                     "start": {
                       "line": 97,
@@ -2831,8 +2831,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 2977,
-                    "end": 2981,
+                    "start": 2976,
+                    "end": 2980,
                     "loc": {
                       "start": {
                         "line": 97,
@@ -2848,8 +2848,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 2983,
-                    "end": 2996,
+                    "start": 2982,
+                    "end": 2995,
                     "loc": {
                       "start": {
                         "line": 97,
@@ -2865,8 +2865,8 @@
                   },
                   {
                     "type": "AssignmentPattern",
-                    "start": 2998,
-                    "end": 3013,
+                    "start": 2997,
+                    "end": 3012,
                     "loc": {
                       "start": {
                         "line": 97,
@@ -2879,8 +2879,8 @@
                     },
                     "left": {
                       "type": "Identifier",
-                      "start": 2998,
-                      "end": 3005,
+                      "start": 2997,
+                      "end": 3004,
                       "loc": {
                         "start": {
                           "line": 97,
@@ -2896,8 +2896,8 @@
                     },
                     "right": {
                       "type": "NumericLiteral",
-                      "start": 3008,
-                      "end": 3013,
+                      "start": 3007,
+                      "end": 3012,
                       "loc": {
                         "start": {
                           "line": 97,
@@ -2918,8 +2918,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3015,
-                  "end": 3073,
+                  "start": 3014,
+                  "end": 3072,
                   "loc": {
                     "start": {
                       "line": 97,
@@ -2933,8 +2933,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 3021,
-                      "end": 3069,
+                      "start": 3020,
+                      "end": 3068,
                       "loc": {
                         "start": {
                           "line": 98,
@@ -2947,8 +2947,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 3028,
-                        "end": 3068,
+                        "start": 3027,
+                        "end": 3067,
                         "loc": {
                           "start": {
                             "line": 98,
@@ -2961,8 +2961,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 3028,
-                          "end": 3038,
+                          "start": 3027,
+                          "end": 3037,
                           "loc": {
                             "start": {
                               "line": 98,
@@ -2975,8 +2975,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 3028,
-                            "end": 3032,
+                            "start": 3027,
+                            "end": 3031,
                             "loc": {
                               "start": {
                                 "line": 98,
@@ -2990,8 +2990,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 3033,
-                            "end": 3038,
+                            "start": 3032,
+                            "end": 3037,
                             "loc": {
                               "start": {
                                 "line": 98,
@@ -3010,8 +3010,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 3039,
-                            "end": 3043,
+                            "start": 3038,
+                            "end": 3042,
                             "loc": {
                               "start": {
                                 "line": 98,
@@ -3027,8 +3027,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 3045,
-                            "end": 3058,
+                            "start": 3044,
+                            "end": 3057,
                             "loc": {
                               "start": {
                                 "line": 98,
@@ -3044,8 +3044,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 3060,
-                            "end": 3067,
+                            "start": 3059,
+                            "end": 3066,
                             "loc": {
                               "start": {
                                 "line": 98,
@@ -3068,9 +3068,9 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+                    "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
                     "start": 2395,
-                    "end": 2969,
+                    "end": 2968,
                     "loc": {
                       "start": {
                         "line": 84,
@@ -3275,9 +3275,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+      "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
       "start": 2395,
-      "end": 2969,
+      "end": 2968,
       "loc": {
         "start": {
           "line": 84,
@@ -8487,9 +8487,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {?Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+      "value": "*\n   * Make a POST request to this uploaded file list resource to create a new uploaded file\n   * item resource through the REST API.\n   *\n   * @param {Object} data - request JSON data object\n   * @param {string} data.upload_path - absolute path including file name where the file\n   * will be uploaded on the storage service\n   * @param {Object} uploadFileObj - custom file object\n   * @param {Object} uploadFileObj.fname - file blob\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
       "start": 2395,
-      "end": 2969,
+      "end": 2968,
       "loc": {
         "start": {
           "line": 84,
@@ -8514,8 +8514,8 @@
         "binop": null
       },
       "value": "post",
-      "start": 2972,
-      "end": 2976,
+      "start": 2971,
+      "end": 2975,
       "loc": {
         "start": {
           "line": 97,
@@ -8539,8 +8539,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 2976,
-      "end": 2977,
+      "start": 2975,
+      "end": 2976,
       "loc": {
         "start": {
           "line": 97,
@@ -8565,8 +8565,8 @@
         "binop": null
       },
       "value": "data",
-      "start": 2977,
-      "end": 2981,
+      "start": 2976,
+      "end": 2980,
       "loc": {
         "start": {
           "line": 97,
@@ -8591,8 +8591,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2981,
-      "end": 2982,
+      "start": 2980,
+      "end": 2981,
       "loc": {
         "start": {
           "line": 97,
@@ -8617,8 +8617,8 @@
         "binop": null
       },
       "value": "uploadFileObj",
-      "start": 2983,
-      "end": 2996,
+      "start": 2982,
+      "end": 2995,
       "loc": {
         "start": {
           "line": 97,
@@ -8643,8 +8643,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 2996,
-      "end": 2997,
+      "start": 2995,
+      "end": 2996,
       "loc": {
         "start": {
           "line": 97,
@@ -8669,8 +8669,8 @@
         "binop": null
       },
       "value": "timeout",
-      "start": 2998,
-      "end": 3005,
+      "start": 2997,
+      "end": 3004,
       "loc": {
         "start": {
           "line": 97,
@@ -8696,8 +8696,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 3006,
-      "end": 3007,
+      "start": 3005,
+      "end": 3006,
       "loc": {
         "start": {
           "line": 97,
@@ -8723,8 +8723,8 @@
         "updateContext": null
       },
       "value": 30000,
-      "start": 3008,
-      "end": 3013,
+      "start": 3007,
+      "end": 3012,
       "loc": {
         "start": {
           "line": 97,
@@ -8748,8 +8748,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3013,
-      "end": 3014,
+      "start": 3012,
+      "end": 3013,
       "loc": {
         "start": {
           "line": 97,
@@ -8773,8 +8773,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3015,
-      "end": 3016,
+      "start": 3014,
+      "end": 3015,
       "loc": {
         "start": {
           "line": 97,
@@ -8801,8 +8801,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 3021,
-      "end": 3027,
+      "start": 3020,
+      "end": 3026,
       "loc": {
         "start": {
           "line": 98,
@@ -8829,8 +8829,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 3028,
-      "end": 3032,
+      "start": 3027,
+      "end": 3031,
       "loc": {
         "start": {
           "line": 98,
@@ -8855,8 +8855,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3032,
-      "end": 3033,
+      "start": 3031,
+      "end": 3032,
       "loc": {
         "start": {
           "line": 98,
@@ -8881,8 +8881,8 @@
         "binop": null
       },
       "value": "_post",
-      "start": 3033,
-      "end": 3038,
+      "start": 3032,
+      "end": 3037,
       "loc": {
         "start": {
           "line": 98,
@@ -8906,8 +8906,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3038,
-      "end": 3039,
+      "start": 3037,
+      "end": 3038,
       "loc": {
         "start": {
           "line": 98,
@@ -8932,8 +8932,8 @@
         "binop": null
       },
       "value": "data",
-      "start": 3039,
-      "end": 3043,
+      "start": 3038,
+      "end": 3042,
       "loc": {
         "start": {
           "line": 98,
@@ -8958,8 +8958,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3043,
-      "end": 3044,
+      "start": 3042,
+      "end": 3043,
       "loc": {
         "start": {
           "line": 98,
@@ -8984,8 +8984,8 @@
         "binop": null
       },
       "value": "uploadFileObj",
-      "start": 3045,
-      "end": 3058,
+      "start": 3044,
+      "end": 3057,
       "loc": {
         "start": {
           "line": 98,
@@ -9010,8 +9010,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3058,
-      "end": 3059,
+      "start": 3057,
+      "end": 3058,
       "loc": {
         "start": {
           "line": 98,
@@ -9036,8 +9036,8 @@
         "binop": null
       },
       "value": "timeout",
-      "start": 3060,
-      "end": 3067,
+      "start": 3059,
+      "end": 3066,
       "loc": {
         "start": {
           "line": 98,
@@ -9061,8 +9061,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3067,
-      "end": 3068,
+      "start": 3066,
+      "end": 3067,
       "loc": {
         "start": {
           "line": 98,
@@ -9087,8 +9087,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3068,
-      "end": 3069,
+      "start": 3067,
+      "end": 3068,
       "loc": {
         "start": {
           "line": 98,
@@ -9112,8 +9112,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3072,
-      "end": 3073,
+      "start": 3071,
+      "end": 3072,
       "loc": {
         "start": {
           "line": 99,
@@ -9137,8 +9137,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 3074,
-      "end": 3075,
+      "start": 3073,
+      "end": 3074,
       "loc": {
         "start": {
           "line": 100,
@@ -9163,8 +9163,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 3076,
-      "end": 3076,
+      "start": 3075,
+      "end": 3075,
       "loc": {
         "start": {
           "line": 101,

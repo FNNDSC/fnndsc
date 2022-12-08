@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/uploadedfile.js | @fnndsc/chrisapi</title>
+  <title data-ice="title">src/admin.js | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -106,17 +106,14 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/uploadedfile.js</h1>
+<div class="content" data-ice="content"><h1 data-ice="title">src/admin.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** * Imports ***/
-import Request from &apos;./request&apos;;
-import RequestException from &apos;./exception&apos;;
-import Collection from &apos;./cj&apos;;
 import { ItemResource, ListResource } from &apos;./resource&apos;;
 
 /**
- * Uploaded file item resource object representing a user&apos;s uploaded file.
+ * Compute resource admin item resource object representing a compute resource admin.
  */
-export class UploadedFile extends ItemResource {
+export class ComputeResourceAdmin extends ItemResource {
   /**
    * Constructor
    *
@@ -129,39 +126,7 @@ export class UploadedFile extends ItemResource {
   }
 
   /**
-   * Fetch the file blob associated to this file item from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise&lt;Blob&gt;} - JS Promise, resolves to a ``Blob`` object
-   */
-  getFileBlob(timeout = 30000) {
-    if (this.isEmpty) {
-      throw new RequestException(&apos;Item object has not been set!&apos;);
-    }
-    const req = new Request(this.auth, &apos;application/octet-stream&apos;, timeout);
-    const item = this.collection.items[0];
-    const blobUrl = Collection.getLinkRelationUrls(item, &apos;file_resource&apos;)[0];
-
-    return req.get(blobUrl).then(resp =&gt; resp.data);
-  }
-
-  /**
-   * Make a PUT request to modify this uploaded file item resource through the REST API.
-   *
-   * @param {Object} data - request JSON data object
-   * @param {string} data.upload_path - absolute path including file name where the file
-   * will be uploaded on the storage service
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
-   */
-  put(data, timeout = 30000) {
-    return this._put(data, null, timeout);
-  }
-
-  /**
-   * Make a DELETE request to delete this uploaded file item resource through the REST API.
+   * Make a DELETE request to delete this compute resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    *
@@ -173,9 +138,9 @@ export class UploadedFile extends ItemResource {
 }
 
 /**
- * Uploaded file list resource object representing a list of a user&apos;s uploaded files.
+ * Compute resource admin list resource object representing a list of compute resource admins.
  */
-export class UploadedFileList extends ListResource {
+export class ComputeResourceAdminList extends ListResource {
   /**
    * Constructor
    *
@@ -187,24 +152,109 @@ export class UploadedFileList extends ListResource {
     super(url, auth);
 
     /** @type {Object} */
-    this.itemClass = UploadedFile;
+    this.itemClass = ComputeResourceAdmin;
   }
 
   /**
-   * Make a POST request to this uploaded file list resource to create a new uploaded file
-   * item resource through the REST API.
+   * Make a POST request to this compute resource admin list resource to create a new
+   * compute resource admin item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
-   * @param {string} data.upload_path - absolute path including file name where the file
-   * will be uploaded on the storage service
-   * @param {Object} uploadFileObj - custom file object
-   * @param {Object} uploadFileObj.fname - file blob
+   * @param {string} data.name - compute resource name
+   * @param {string} data.compute_url - compute resource&apos;s url
+   * @param {string} data.compute_user - compute resource&apos;s user
+   * @param {string} data.compute_password - compute resource&apos;s password
+   * @param {string} [data.compute_auth_url] - compute resource&apos;s auth url
+   * @param {string} [data.compute_auth_token=&apos;initial_token&apos;] - compute resource&apos;s auth token
+   * @param {string} [data.description] - compute resource&apos;s description
+   * @param {number} [data.max_job_exec_seconds=-1] - compute resource&apos;s max job execution in seconds
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
    */
-  post(data, uploadFileObj, timeout = 30000) {
-    return this._post(data, uploadFileObj, timeout);
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
+  }
+}
+
+/**
+ * Plugin admin item resource object representing a plugin admin.
+ */
+export class PluginAdmin extends ItemResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+  }
+
+  /**
+   * Make a DELETE request to delete this plugin through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise} - JS Promise
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
+}
+
+/**
+ * Plugin admin list resource object representing a list of plugin admins.
+ */
+export class PluginAdminList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PluginAdmin;
+  }
+
+  /**
+   * Fetch a list of compute resource admins from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;ComputeResourceAdminList&gt;} - JS Promise, resolves
+   * to a ``ComputeResourceAdminList`` object
+   */
+  getComputeResourceAdmins(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;compute_resources&apos;;
+    const resourceClass = ComputeResourceAdminList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Make a POST request to this plugin admin list resource to create a new
+   * plugin admin item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.compute_names - string representing a comma-separated
+   * list of names of already registered compute resources
+   * @param {?Object} pluginFileObj - custom file object
+   * @param {Object} pluginFileObj.fname - plugin&apos;s file blob
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
+   */
+  post(data, pluginFileObj, timeout = 30000) {
+    return this._post(data, pluginFileObj, timeout);
   }
 }
 </code></pre>

@@ -1,8 +1,13 @@
 {
-  "coverage": "95.27%",
-  "expectCount": 402,
-  "actualCount": 383,
+  "coverage": "95.23%",
+  "expectCount": 420,
+  "actualCount": 400,
   "files": {
+    "src/admin.js": {
+      "expectCount": 15,
+      "actualCount": 15,
+      "undocumentLines": []
+    },
     "src/chrisinstance.js": {
       "expectCount": 2,
       "actualCount": 2,
@@ -14,10 +19,9 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 64,
-      "actualCount": 48,
+      "expectCount": 66,
+      "actualCount": 49,
       "undocumentLines": [
-        54,
         55,
         56,
         57,
@@ -32,7 +36,9 @@
         66,
         67,
         68,
-        69
+        69,
+        70,
+        71
       ]
     },
     "src/comment.js": {
@@ -53,8 +59,8 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 25,
-      "actualCount": 25,
+      "expectCount": 26,
+      "actualCount": 26,
       "undocumentLines": []
     },
     "src/feedfile.js": {
