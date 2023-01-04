@@ -203,7 +203,7 @@ describe('Client', () => {
   });
 
   it('can create a new plugin instance through the REST API', (done) => {
-    const pluginId = 1;
+    const pluginId = 2;
     const data = {
       title: 'Test plugin instance',
       dir: username + '/',

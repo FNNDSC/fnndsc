@@ -38,23 +38,19 @@ export default class Client {
    * Constructor
    *
    * @param {string} url - url of the ChRIS service
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     /** @type {string} */
     this.url = url;
 
-    if (!auth) {
-      throw new RequestException('Authentication object is required');
-    }
     /** @type {Object} */
     this.auth = auth;
 
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
     this.chrisInstanceUrl = '';
-    this.adminUrl = '';
     this.filesUrl = '';
     this.computeResourcesUrl = '';
     this.pluginMetasUrl = '';
@@ -69,6 +65,7 @@ export default class Client {
     this.serviceFilesUrl = '';
     this.fileBrowserUrl = '';
     this.userUrl = '';
+    this.adminUrl = '';
   }
 
   /**
@@ -122,7 +119,6 @@ export default class Client {
       const getUrl = Collection.getLinkRelationUrls;
 
       this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];
-      this.adminUrl = this.adminUrl || getUrl(coll, 'admin')[0];
       this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
       this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];
@@ -137,7 +133,14 @@ export default class Client {
       this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];
       this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];
       this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, 'filebrowser')[0];
-      this.userUrl = this.userUrl || getUrl(coll, 'user')[0];
+      if (!this.userUrl) {
+        this.userUrl = getUrl(coll, 'user');
+        this.userUrl = this.userUrl.length ? this.userUrl[0] : '';
+      }
+      if (!this.adminUrl) {
+        this.adminUrl = getUrl(coll, 'admin');
+        this.adminUrl = this.adminUrl.length ? this.adminUrl[0] : '';
+      }
 
       return feedList;
     });

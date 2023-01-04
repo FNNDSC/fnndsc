@@ -11,16 +11,13 @@ export class Resource {
    * Constructor
    *
    * @param {string} resourceUrl - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(resourceUrl, auth) {
+  constructor(resourceUrl, auth = null) {
     /** @type {string} */
     this.url = resourceUrl;
 
-    if (!auth) {
-      throw new RequestException('Authentication object is required');
-    }
     /** @type {Object} */
     this.auth = auth;
 
@@ -81,10 +78,10 @@ export class ItemResource extends Resource {
    * Constructor
    *
    * @param {string} itemUrl - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(itemUrl, auth) {
+  constructor(itemUrl, auth = null) {
     super(itemUrl, auth);
   }
 
@@ -221,10 +218,10 @@ export class ListResource extends Resource {
    * Constructor
    *
    * @param {string} listUrl - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(listUrl, auth) {
+  constructor(listUrl, auth = null) {
     super(listUrl, auth);
 
     /** @type {string} */

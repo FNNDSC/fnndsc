@@ -17,7 +17,18 @@ describe('Request', () => {
     req = new Request(auth, contentType);
   });
 
-  it('can make authenticated GET request', done => {
+  it('can make successfull authenticated GET request', done => {
+    const result = req.get(chrisUrl);
+
+    result
+      .then(response => {
+        expect(response.data.collection.links).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can make successfull unauthenticated GET request', done => {
+    const req = new Request(null, contentType);
     const result = req.get(chrisUrl);
 
     result
@@ -42,8 +53,8 @@ describe('Request', () => {
   });
 
   it('can report unsuccessfull unauthenticated GET request', done => {
-    const req = new Request(undefined, contentType);
-    const result = req.get(chrisUrl);
+    const req = new Request(null, contentType);
+    const result = req.get(chrisUrl + 'search/');
 
     result
       .catch(error => {
