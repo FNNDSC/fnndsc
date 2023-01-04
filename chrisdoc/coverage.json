@@ -22,6 +22,9 @@
       "expectCount": 66,
       "actualCount": 49,
       "undocumentLines": [
+        52,
+        53,
+        54,
         55,
         56,
         57,
@@ -35,10 +38,7 @@
         65,
         66,
         67,
-        68,
-        69,
-        70,
-        71
+        68
       ]
     },
     "src/comment.js": {
@@ -122,8 +122,8 @@
       "expectCount": 35,
       "actualCount": 33,
       "undocumentLines": [
-        103,
-        258
+        100,
+        255
       ]
     },
     "src/servicefile.js": {
