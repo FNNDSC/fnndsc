@@ -34,11 +34,11 @@ export default class Client {
      * Constructor
      *
      * @param {string} url - url of the ChRIS service
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
+     * @param {Object} [auth=null] - authentication object
+     * @param {string} [auth.token] - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
+    constructor(url: string, auth?: {
+        token?: string;
     });
     /** @type {string} */
     url: string;
@@ -46,7 +46,6 @@ export default class Client {
     auth: any;
     feedsUrl: string;
     chrisInstanceUrl: string;
-    adminUrl: string;
     filesUrl: string;
     computeResourcesUrl: string;
     pluginMetasUrl: string;
@@ -61,6 +60,7 @@ export default class Client {
     serviceFilesUrl: string;
     fileBrowserUrl: string;
     userUrl: string;
+    adminUrl: string;
     /**
      * Set the urls of the high level API resources.
      * @param {number} [timeout=30000] - request timeout

@@ -3,6 +3,16 @@
  */
 export class Workflow extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch the pipeline associated to this workflow from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -51,6 +61,16 @@ export class Workflow extends ItemResource {
  */
 export class WorkflowList extends ListResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch the pipeline associated to this workflow list from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -81,6 +101,16 @@ export class WorkflowList extends ListResource {
  * Workflow list resource object representing a list of all workflows.
  */
 export class AllWorkflowList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
     /**
      * Fetch a list of pipelines from the REST API.
      *

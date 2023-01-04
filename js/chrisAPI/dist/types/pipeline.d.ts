@@ -3,6 +3,16 @@
  */
 export class Pipeline extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch a list of plugins associated to this pipeline from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -94,6 +104,16 @@ export class Pipeline extends ItemResource {
  */
 export class PipelineList extends ListResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch a list of plugins from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -141,6 +161,16 @@ export class PipelineList extends ListResource {
  */
 export class PluginPiping extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch the parent plugin piping within the corresponding pipeline from the
      * REST API.
      *
@@ -172,6 +202,16 @@ export class PluginPiping extends ItemResource {
  */
 export class PipingDefaultParameter extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch the corresponding plugin piping for this plugin piping default
      * parameter from the REST API.
      *
@@ -195,18 +235,48 @@ export class PipingDefaultParameter extends ItemResource {
  * composing the pipeline.
  */
 export class PipelinePluginList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
 }
 /**
  * Pipeline-specific plugin piping list resource object representing a list of
  * plugin pipings composing the pipeline.
  */
 export class PipelinePluginPipingList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
 }
 /**
  * List resource object representing a pipeline-specific list of plugin piping
  * default parameter values for the plugin pipings composing the pipeline.
  */
 export class PipelinePipingDefaultParameterList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
 }
 import { ItemResource } from "./resource";
 import { PipelineInstanceList } from "./pipelineinstance";

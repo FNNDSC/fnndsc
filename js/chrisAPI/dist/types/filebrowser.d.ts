@@ -3,6 +3,16 @@
  */
 export class FileBrowserPathFile extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch the file blob associated to this browser file item from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -18,11 +28,31 @@ export class FileBrowserPathFile extends ItemResource {
  * browser files directly under a folder.
  */
 export class FileBrowserPathFileList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
 }
 /**
  * File browser path item resource object representing a file browser path.
  */
 export class FileBrowserPath extends ItemResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
     /**
      * Fetch the paginated list of files directly under this file browser path from the REST API.
      *
@@ -43,6 +73,16 @@ export class FileBrowserPath extends ItemResource {
  * collection of file browser paths.
  */
 export class FileBrowserPathList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

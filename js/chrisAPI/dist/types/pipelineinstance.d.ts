@@ -3,6 +3,16 @@
  */
 export class PipelineInstance extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch the pipeline associated to this pipeline instance from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -54,6 +64,16 @@ export class PipelineInstance extends ItemResource {
  */
 export class PipelineInstanceList extends ListResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Make a POST request to this pipeline instance list resource to create a new
      * pipeline instance item resource through the REST API.
      *
@@ -71,6 +91,16 @@ export class PipelineInstanceList extends ListResource {
  * instances.
  */
 export class AllPipelineInstanceList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
     /**
      * Fetch a list of pipelines from the REST API.
      *

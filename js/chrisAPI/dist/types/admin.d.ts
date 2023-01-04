@@ -3,6 +3,16 @@
  */
 export class ComputeResourceAdmin extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Make a DELETE request to delete this compute resource through the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -15,6 +25,16 @@ export class ComputeResourceAdmin extends ItemResource {
  * Compute resource admin list resource object representing a list of compute resource admins.
  */
 export class ComputeResourceAdminList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
     /**
      * Make a POST request to this compute resource admin list resource to create a new
      * compute resource admin item resource through the REST API.
@@ -48,6 +68,16 @@ export class ComputeResourceAdminList extends ListResource {
  */
 export class PluginAdmin extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Make a DELETE request to delete this plugin through the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -60,6 +90,16 @@ export class PluginAdmin extends ItemResource {
  * Plugin admin list resource object representing a list of plugin admins.
  */
 export class PluginAdminList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
     /**
      * Fetch a list of compute resource admins from the REST API.
      *

@@ -128,6 +128,16 @@ export class Feed extends ItemResource {
  */
 export class FeedList extends ListResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch a list of files written to any user-owned feed.
      *
      * @param {Object} [searchParams=null] - search parameters object which is

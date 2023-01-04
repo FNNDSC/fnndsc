@@ -3,16 +3,6 @@
  */
 export class PluginMeta extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} [auth=null] - authentication object
-     * @param {string} [auth.token] - authentication token
-     */
-    constructor(url: string, auth?: {
-        token?: string;
-    });
-    /**
      * Fetch a list of plugins associated to this plugin meta from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -31,16 +21,6 @@ export class PluginMeta extends ItemResource {
  * Plugin meta list resource object representing a list of plugin metas.
  */
 export class PluginMetaList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} [auth=null] - authentication object
-     * @param {string} [auth.token] - authentication token
-     */
-    constructor(url: string, auth?: {
-        token?: string;
-    });
     /**
      * Fetch a list of plugins from the REST API.
      *

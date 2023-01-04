@@ -3,6 +3,16 @@
  */
 export class UploadedFile extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch the file blob associated to this file item from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -36,6 +46,16 @@ export class UploadedFile extends ItemResource {
  * Uploaded file list resource object representing a list of a user's uploaded files.
  */
 export class UploadedFileList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
     /**
      * Make a POST request to this uploaded file list resource to create a new uploaded file
      * item resource through the REST API.

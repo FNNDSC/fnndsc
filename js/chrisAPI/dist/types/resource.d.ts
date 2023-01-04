@@ -14,11 +14,11 @@ export class Resource {
      * Constructor
      *
      * @param {string} resourceUrl - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
+     * @param {Object} [auth=null] - authentication object
+     * @param {string} [auth.token] - authentication token
      */
-    constructor(resourceUrl: string, auth: {
-        token: string;
+    constructor(resourceUrl: string, auth?: {
+        token?: string;
     });
     /** @type {string} */
     url: string;

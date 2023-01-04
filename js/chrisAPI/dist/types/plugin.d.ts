@@ -3,6 +3,16 @@
  */
 export class Plugin extends ItemResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch a list of plugin parameters associated to this plugin from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -51,6 +61,16 @@ export class Plugin extends ItemResource {
  */
 export class PluginList extends ListResource {
     /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
      * Fetch a list of feeds from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -72,16 +92,6 @@ export class PluginList extends ListResource {
  * plugins associated to an specific plugin meta.
  */
 export class PluginMetaPluginList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} [auth=null] - authentication object
-     * @param {string} [auth.token] - authentication token
-     */
-    constructor(url: string, auth?: {
-        token?: string;
-    });
     /**
      * Fetch the plugin meta associated to this plugin meta-specific list of
      * plugins from the REST API.
