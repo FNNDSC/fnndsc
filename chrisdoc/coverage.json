@@ -1,7 +1,7 @@
 {
-  "coverage": "95.23%",
-  "expectCount": 420,
-  "actualCount": 400,
+  "coverage": "95.05%",
+  "expectCount": 425,
+  "actualCount": 404,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -19,9 +19,10 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 66,
-      "actualCount": 49,
+      "expectCount": 68,
+      "actualCount": 50,
       "undocumentLines": [
+        51,
         52,
         53,
         54,
@@ -59,8 +60,8 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 26,
-      "actualCount": 26,
+      "expectCount": 29,
+      "actualCount": 29,
       "undocumentLines": []
     },
     "src/feedfile.js": {

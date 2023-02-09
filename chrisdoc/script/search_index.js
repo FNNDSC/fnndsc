@@ -342,6 +342,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~publicfeedlist",
+    "class/src/feed.js~PublicFeedList.html",
+    "<span>PublicFeedList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~request",
     "class/src/request.js~Request.html",
     "<span>Request</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -1098,6 +1104,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getpublicfeeds",
+    "class/src/client.js~Client.html#instance-method-getPublicFeeds",
+    "src/client.js~Client#getPublicFeeds",
+    "method"
+  ],
+  [
     "src/client.js~client#getservicefile",
     "class/src/client.js~Client.html#instance-method-getServiceFile",
     "src/client.js~Client#getServiceFile",
@@ -1185,6 +1197,12 @@ window.esdocSearchIndex = [
     "src/client.js~client#pluginsurl",
     "class/src/client.js~Client.html#instance-member-pluginsUrl",
     "src/client.js~Client#pluginsUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#publicfeedsurl",
+    "class/src/client.js~Client.html#instance-member-publicFeedsUrl",
+    "src/client.js~Client#publicFeedsUrl",
     "member"
   ],
   [
@@ -1539,6 +1557,18 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#itemclass",
     "class/src/feed.js~FeedList.html#instance-member-itemClass",
     "src/feed.js~FeedList#itemClass",
+    "member"
+  ],
+  [
+    "src/feed.js~publicfeedlist#constructor",
+    "class/src/feed.js~PublicFeedList.html#instance-constructor-constructor",
+    "src/feed.js~PublicFeedList#constructor",
+    "method"
+  ],
+  [
+    "src/feed.js~publicfeedlist#itemclass",
+    "class/src/feed.js~PublicFeedList.html#instance-member-itemClass",
+    "src/feed.js~PublicFeedList#itemClass",
     "member"
   ],
   [

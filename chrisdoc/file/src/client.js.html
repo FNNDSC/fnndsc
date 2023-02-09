@@ -44,6 +44,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~PublicFeedList.html">PublicFeedList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~AllFeedFileList.html">AllFeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
@@ -111,8 +112,7 @@
 import ChrisInstance from &apos;./chrisinstance&apos;;
 import Collection from &apos;./cj&apos;;
 import Request from &apos;./request&apos;;
-import RequestException from &apos;./exception&apos;;
-import { FeedList, Feed } from &apos;./feed&apos;;
+import { FeedList, PublicFeedList, Feed } from &apos;./feed&apos;;
 import { PluginAdminList, PluginAdmin } from &apos;./admin&apos;;
 import { AllFeedFileList, FeedFile } from &apos;./feedfile&apos;;
 import { ComputeResourceList, ComputeResource } from &apos;./computeresource&apos;;
@@ -159,6 +159,7 @@ export default class Client {
 
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
+    this.publicFeedsUrl = &apos;&apos;;
     this.chrisInstanceUrl = &apos;&apos;;
     this.filesUrl = &apos;&apos;;
     this.computeResourcesUrl = &apos;&apos;;
@@ -227,6 +228,7 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
+      this.publicFeedsUrl = this.publicFeedsUrl || getUrl(coll, &apos;public_feeds&apos;)[0];
       this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, &apos;chrisinstance&apos;)[0];
       this.filesUrl = this.filesUrl || getUrl(coll, &apos;files&apos;)[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, &apos;compute_resources&apos;)[0];
@@ -253,6 +255,32 @@ export default class Client {
 
       return feedList;
     });
+  }
+
+  /**
+   * Get a paginated list of public feeds from the REST API given query search parameters. 
+   * If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match feed id exactly with this number
+   * @param {number} [searchParams.min_id] - match feed id gte this number
+   * @param {number} [searchParams.max_id] - match feed id lte this number
+   * @param {string} [searchParams.name] - match feed name containing this string
+   * @param {string} [searchParams.name_exact] - match feed name exactly with this string
+   * @param {string} [searchParams.name_startswith] - match feed name starting with this string
+   * @param {string} [searchParams.files_fname_icontains] - match the feeds that have files containing
+   * all the substrings from the queried string (which in turn represents a white-space-separated list
+   * of query strings) case insensitive anywhere in their fname.
+   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
+   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;PublicFeedList&gt;} - JS Promise, resolves to a ``PublicFeedList`` object
+   */
+  getPublicFeeds(searchParams = null, timeout = 30000) {
+    return this._fetchRes(&apos;publicFeedsUrl&apos;, PublicFeedList, searchParams, timeout);
   }
 
   /**

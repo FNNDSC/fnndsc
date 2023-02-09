@@ -44,6 +44,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~PublicFeedList.html">PublicFeedList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~AllFeedFileList.html">AllFeedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFile.html">FeedFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feedfile.js~FeedFileList.html">FeedFileList</a></span></span></li>
@@ -107,13 +108,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber36">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber35">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber36">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber35">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -632,6 +633,34 @@
           
           
           <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-member-pluginsUrl">pluginsUrl</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-member-publicFeedsUrl">publicFeedsUrl</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -1688,6 +1717,35 @@ parameters.</p>
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getPublicFeeds">getPublicFeeds</a></span></span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~PublicFeedList.html">PublicFeedList</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a paginated list of public feeds from the REST API given query search parameters.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getServiceFile">getServiceFile</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/servicefile.js~ServiceFile.html">ServiceFile</a></span>&gt;</span>
         </p>
       </div>
@@ -2082,7 +2140,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber902">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber929">source</a></span></span>
     </span>
   </h3>
 
@@ -2185,7 +2243,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber932">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber959">source</a></span></span>
     </span>
   </h3>
 
@@ -2281,7 +2339,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber946">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber973">source</a></span></span>
     </span>
   </h3>
 
@@ -2345,7 +2403,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber43">source</a></span></span>
     </span>
   </h3>
 
@@ -2467,7 +2525,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber49">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber48">source</a></span></span>
     </span>
   </h3>
 
@@ -2596,7 +2654,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
@@ -2972,6 +3030,49 @@ parameters.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-publicFeedsUrl">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">publicFeedsUrl</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber52">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-member-serviceFilesUrl">
     <span class="access" data-ice="access">public</span>
     
@@ -3112,7 +3213,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber46">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber45">source</a></span></span>
     </span>
   </h3>
 
@@ -3244,7 +3345,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber342">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber369">source</a></span></span>
     </span>
   </h3>
 
@@ -3348,7 +3449,7 @@ list of names of already registered compute resources</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber595">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber622">source</a></span></span>
     </span>
   </h3>
 
@@ -3434,7 +3535,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber488">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber515">source</a></span></span>
     </span>
   </h3>
 
@@ -3566,7 +3667,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber540">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber567">source</a></span></span>
     </span>
   </h3>
 
@@ -3676,7 +3777,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber404">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber431">source</a></span></span>
     </span>
   </h3>
 
@@ -3814,7 +3915,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber424">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber451">source</a></span></span>
     </span>
   </h3>
 
@@ -3912,7 +4013,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber697">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber724">source</a></span></span>
     </span>
   </h3>
 
@@ -4009,7 +4110,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber643">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber670">source</a></span></span>
     </span>
   </h3>
 
@@ -4190,7 +4291,7 @@ this list has <code>name</code> and <code>default</code> properties.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber244">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber271">source</a></span></span>
     </span>
   </h3>
 
@@ -4272,7 +4373,7 @@ this list has <code>name</code> and <code>default</code> properties.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber232">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber259">source</a></span></span>
     </span>
   </h3>
 
@@ -4406,7 +4507,7 @@ compute resources associated with the plugin</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber157">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber184">source</a></span></span>
     </span>
   </h3>
 
@@ -4652,7 +4753,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber211">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber238">source</a></span></span>
     </span>
   </h3>
 
@@ -4734,7 +4835,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber874">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber901">source</a></span></span>
     </span>
   </h3>
 
@@ -4816,7 +4917,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber862">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber889">source</a></span></span>
     </span>
   </h3>
 
@@ -4921,7 +5022,7 @@ parameters. If no search parameters then get a list with the default root path.<
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber199">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber226">source</a></span></span>
     </span>
   </h3>
 
@@ -5084,7 +5185,7 @@ id exactly with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber810">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber837">source</a></span></span>
     </span>
   </h3>
 
@@ -5166,7 +5267,7 @@ id exactly with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber798">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber825">source</a></span></span>
     </span>
   </h3>
 
@@ -5429,7 +5530,7 @@ that matches the query.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber469">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber496">source</a></span></span>
     </span>
   </h3>
 
@@ -5511,7 +5612,7 @@ that matches the query.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber524">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber551">source</a></span></span>
     </span>
   </h3>
 
@@ -5593,7 +5694,7 @@ that matches the query.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber512">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber539">source</a></span></span>
     </span>
   </h3>
 
@@ -5720,7 +5821,7 @@ first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber457">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber484">source</a></span></span>
     </span>
   </h3>
 
@@ -5874,7 +5975,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber326">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber353">source</a></span></span>
     </span>
   </h3>
 
@@ -5956,7 +6057,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber384">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber411">source</a></span></span>
     </span>
   </h3>
 
@@ -6038,7 +6139,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber372">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber399">source</a></span></span>
     </span>
   </h3>
 
@@ -6213,7 +6314,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber284">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber311">source</a></span></span>
     </span>
   </h3>
 
@@ -6295,7 +6396,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber272">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber299">source</a></span></span>
     </span>
   </h3>
 
@@ -6472,7 +6573,7 @@ category containing this string</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber314">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber341">source</a></span></span>
     </span>
   </h3>
 
@@ -6652,6 +6753,169 @@ with this number</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getPublicFeeds">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getPublicFeeds</span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~PublicFeedList.html">PublicFeedList</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber172">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a paginated list of public feeds from the REST API given query search parameters. 
+If no search parameters then get the default first page.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">searchParams</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>search parameters object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed id exactly with this number</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.min_id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed id gte this number</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.max_id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed id lte this number</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.name</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed name containing this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.name_exact</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed name exactly with this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.name_startswith</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed name starting with this string</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.files_fname_icontains</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match the feeds that have files containing
+all the substrings from the queried string (which in turn represents a white-space-separated list
+of query strings) case insensitive anywhere in their fname.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.min_creation_date</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed creation date gte this date</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.max_creation_date</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match feed creation date lte this date</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~PublicFeedList.html">PublicFeedList</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>PublicFeedList</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getServiceFile">
     <span class="access" data-ice="access">public</span>
     
@@ -6663,7 +6927,7 @@ with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber846">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber873">source</a></span></span>
     </span>
   </h3>
 
@@ -6745,7 +7009,7 @@ with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber834">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber861">source</a></span></span>
     </span>
   </h3>
 
@@ -6906,7 +7170,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber683">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber710">source</a></span></span>
     </span>
   </h3>
 
@@ -6988,7 +7252,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber671">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber698">source</a></span></span>
     </span>
   </h3>
 
@@ -7114,7 +7378,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber736">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber763">source</a></span></span>
     </span>
   </h3>
 
@@ -7196,7 +7460,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber724">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber751">source</a></span></span>
     </span>
   </h3>
 
@@ -7350,7 +7614,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber887">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber914">source</a></span></span>
     </span>
   </h3>
 
@@ -7425,7 +7689,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber579">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber606">source</a></span></span>
     </span>
   </h3>
 
@@ -7507,7 +7771,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber567">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber594">source</a></span></span>
     </span>
   </h3>
 
@@ -7701,7 +7965,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber170">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber197">source</a></span></span>
     </span>
   </h3>
 
@@ -7790,7 +8054,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber752">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber779">source</a></span></span>
     </span>
   </h3>
 
@@ -7896,7 +8160,7 @@ will be uploaded on the storage service</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber960">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber987">source</a></span></span>
     </span>
   </h3>
 
