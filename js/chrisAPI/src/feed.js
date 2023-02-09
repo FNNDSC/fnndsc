@@ -178,11 +178,11 @@ export class FeedList extends ListResource {
   /**
    * Constructor
    *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {string} url - url of the ChRIS service
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -408,5 +408,24 @@ export class FeedList extends ListResource {
     const resourceClass = User;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+}
+
+/**
+ * Feed list resource object representing a list of public feeds.
+ */
+export class PublicFeedList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the ChRIS service
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   */
+  constructor(url, auth = null) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = Feed;
   }
 }

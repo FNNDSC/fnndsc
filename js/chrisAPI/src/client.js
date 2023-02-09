@@ -2,8 +2,7 @@
 import ChrisInstance from './chrisinstance';
 import Collection from './cj';
 import Request from './request';
-import RequestException from './exception';
-import { FeedList, Feed } from './feed';
+import { FeedList, PublicFeedList, Feed } from './feed';
 import { PluginAdminList, PluginAdmin } from './admin';
 import { AllFeedFileList, FeedFile } from './feedfile';
 import { ComputeResourceList, ComputeResource } from './computeresource';
@@ -50,6 +49,7 @@ export default class Client {
 
     /* Urls of the high level API resources */
     this.feedsUrl = this.url;
+    this.publicFeedsUrl = '';
     this.chrisInstanceUrl = '';
     this.filesUrl = '';
     this.computeResourcesUrl = '';
@@ -118,6 +118,7 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
+      this.publicFeedsUrl = this.publicFeedsUrl || getUrl(coll, 'public_feeds')[0];
       this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];
       this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
@@ -144,6 +145,32 @@ export default class Client {
 
       return feedList;
     });
+  }
+
+  /**
+   * Get a paginated list of public feeds from the REST API given query search parameters. 
+   * If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match feed id exactly with this number
+   * @param {number} [searchParams.min_id] - match feed id gte this number
+   * @param {number} [searchParams.max_id] - match feed id lte this number
+   * @param {string} [searchParams.name] - match feed name containing this string
+   * @param {string} [searchParams.name_exact] - match feed name exactly with this string
+   * @param {string} [searchParams.name_startswith] - match feed name starting with this string
+   * @param {string} [searchParams.files_fname_icontains] - match the feeds that have files containing
+   * all the substrings from the queried string (which in turn represents a white-space-separated list
+   * of query strings) case insensitive anywhere in their fname.
+   * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
+   * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PublicFeedList>} - JS Promise, resolves to a ``PublicFeedList`` object
+   */
+  getPublicFeeds(searchParams = null, timeout = 30000) {
+    return this._fetchRes('publicFeedsUrl', PublicFeedList, searchParams, timeout);
   }
 
   /**
