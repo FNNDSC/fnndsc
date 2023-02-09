@@ -45,6 +45,7 @@ export default class Client {
     /** @type {Object} */
     auth: any;
     feedsUrl: string;
+    publicFeedsUrl: string;
     chrisInstanceUrl: string;
     filesUrl: string;
     computeResourcesUrl: string;
@@ -111,6 +112,41 @@ export default class Client {
         min_creation_date?: number;
         max_creation_date?: number;
     }, timeout?: number): Promise<FeedList>;
+    /**
+     * Get a paginated list of public feeds from the REST API given query search parameters.
+     * If no search parameters then get the default first page.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match feed id exactly with this number
+     * @param {number} [searchParams.min_id] - match feed id gte this number
+     * @param {number} [searchParams.max_id] - match feed id lte this number
+     * @param {string} [searchParams.name] - match feed name containing this string
+     * @param {string} [searchParams.name_exact] - match feed name exactly with this string
+     * @param {string} [searchParams.name_startswith] - match feed name starting with this string
+     * @param {string} [searchParams.files_fname_icontains] - match the feeds that have files containing
+     * all the substrings from the queried string (which in turn represents a white-space-separated list
+     * of query strings) case insensitive anywhere in their fname.
+     * @param {number} [searchParams.min_creation_date] - match feed creation date gte this date
+     * @param {number} [searchParams.max_creation_date] - match feed creation date lte this date
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PublicFeedList>} - JS Promise, resolves to a ``PublicFeedList`` object
+     */
+    getPublicFeeds(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+        min_id?: number;
+        max_id?: number;
+        name?: string;
+        name_exact?: string;
+        name_startswith?: string;
+        files_fname_icontains?: string;
+        min_creation_date?: number;
+        max_creation_date?: number;
+    }, timeout?: number): Promise<PublicFeedList>;
     /**
      * Get a feed resource object given its id.
      *
@@ -849,6 +885,7 @@ export default class Client {
 }
 import ChrisInstance from "./chrisinstance";
 import { FeedList } from "./feed";
+import { PublicFeedList } from "./feed";
 import { Feed } from "./feed";
 import { Tagging } from "./tag";
 import { AllFeedFileList } from "./feedfile";
