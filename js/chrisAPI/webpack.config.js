@@ -3,15 +3,8 @@ const merge = require('webpack-merge');
 
 let baseConfig = {
   // Change to your "entry-point".
-  entry: './src/index',
+  entry: './src/index.js',
   mode: 'production',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'chrisapi.js',
-    libraryTarget: 'umd',
-    umdNamedDefine: true,
-  },
- 
   resolve: {
     extensions: ['.js', '.json'],
   },
@@ -31,7 +24,10 @@ let targets = ['web', 'node'].map((target) => {
   let base = merge(baseConfig, {
     target: target,
     output: {
-      path: path.resolve(__dirname, './dist/' + target),
+      library: 'ChRISAPI',
+      libraryTarget: 'umd',
+      filename: target === 'node' ? 'chrisapi-server.js' : 'chrisapi-client.js',
+      path: path.resolve(__dirname, './dist'),
     },
   });
   return base;
