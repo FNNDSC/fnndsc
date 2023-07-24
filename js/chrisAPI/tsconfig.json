@@ -2,17 +2,34 @@
   "include": ["./src/**/*"],
   "exclude": ["./src/**/*.test.js"],
   "compilerOptions": {
-    "module": "CommonJS",
-    // Tells TypeScript to read JS files, as
-    // normally they are ignored as source files
+    // build
     "allowJs": true,
-    // Generate d.ts files
+    "lib": ["es2020", "dom"],
+    "target": "ESNext",
+    "outDir": "dist/types",
+    "types": ["node"],
+    "module": "commonjs",
+
+    // build settings
+    "sourceMap": false,
+    "pretty": true,
     "declaration": true,
-    // This compiler run should only output d.ts files
-    "emitDeclarationOnly": true,
-    // Types should go into this directory.
-    // Removing this would place the .d.ts files
-    // next to the .js files
-    "outDir": "dist/types"
+    "preserveConstEnums": true,
+    "allowSyntheticDefaultImports": true,
+
+    // strict
+    "strict": true,
+    "alwaysStrict": true,
+    "strictPropertyInitialization": false,
+    "noEmit": false,
+    "importHelpers": false,
+    "noEmitHelpers": false,
+    "noEmitOnError": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noImplicitAny": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true
   }
 }
