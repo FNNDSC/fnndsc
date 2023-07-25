@@ -23,9 +23,9 @@ export class Tag extends ItemResource {
      * @return {Promise<TagFeedList>} - JS Promise, resolves to a ``TagFeedList`` object
      */
     getTaggedFeeds(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<TagFeedList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<TagFeedList>;
     /**
      * Fetch a list of taggings made with this tag from the REST API.
      *
@@ -37,9 +37,9 @@ export class Tag extends ItemResource {
      * @return {Promise<TagTaggingList>} - JS Promise, resolves to a ``TagTaggingList`` object
      */
     getTaggings(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<TagTaggingList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<TagTaggingList>;
     /**
      * Make a PUT request to modify this tag item resource through the REST API.
      *
@@ -51,9 +51,9 @@ export class Tag extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        name?: string | undefined;
-        color?: string | undefined;
-    }, timeout?: number | undefined): Promise<Tag>;
+        name?: string;
+        color?: string;
+    }, timeout?: number): Promise<Tag>;
     /**
      * Make a DELETE request to delete this tag item resource through the REST API.
      *
@@ -61,7 +61,7 @@ export class Tag extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Tag list resource object representing a list of a feed's tags.
@@ -90,9 +90,9 @@ export class TagList extends ListResource {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FeedList>;
     /**
      * Make a POST request to this tag list resource to create a new tag item resource
      * through the REST API.
@@ -105,9 +105,9 @@ export class TagList extends ListResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
-        name?: string | undefined;
-        color?: string | undefined;
-    }, timeout?: number | undefined): Promise<TagList>;
+        name?: string;
+        color?: string;
+    }, timeout?: number): Promise<TagList>;
 }
 /**
  * Tagging item resource object representing a tagging of an specific feed with an
@@ -131,7 +131,7 @@ export class Tagging extends ItemResource {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(timeout?: number | undefined): Promise<Tag>;
+    getTag(timeout?: number): Promise<Tag>;
     /**
      * Fetch the feed associated to this tagging from the REST API.
      *
@@ -139,7 +139,7 @@ export class Tagging extends ItemResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Make a DELETE request to delete this tagging item resource through the REST API.
      *
@@ -147,7 +147,7 @@ export class Tagging extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Tag-specific tagging list resource object representing a list of taggings made with an
@@ -171,7 +171,7 @@ export class TagTaggingList extends ListResource {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(timeout?: number | undefined): Promise<Tag>;
+    getTag(timeout?: number): Promise<Tag>;
     /**
      * Make a POST request to this tag-specific tagging list resource to create a new
      * tagging item resource through the REST API.
@@ -184,7 +184,7 @@ export class TagTaggingList extends ListResource {
      */
     post(data: {
         feed_id: string;
-    }, timeout?: number | undefined): Promise<TagTaggingList>;
+    }, timeout?: number): Promise<TagTaggingList>;
 }
 /**
  * Feed-specific tagging list resource object representing a list of taggings applied to
@@ -208,7 +208,7 @@ export class FeedTaggingList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Make a POST request to this feed-specific tagging list resource to create a new
      * tagging item resource through the REST API.
@@ -221,7 +221,7 @@ export class FeedTaggingList extends ListResource {
      */
     post(data: {
         tag_id: string;
-    }, timeout?: number | undefined): Promise<FeedTaggingList>;
+    }, timeout?: number): Promise<FeedTaggingList>;
 }
 /**
  * Tag-specific feed list resource object representing a list of feeds that are tagged
@@ -245,7 +245,7 @@ export class TagFeedList extends ListResource {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(timeout?: number | undefined): Promise<Tag>;
+    getTag(timeout?: number): Promise<Tag>;
 }
 /**
  * Feed-specific tag list resource object representing a list of tags that an specific
@@ -269,7 +269,7 @@ export class FeedTagList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

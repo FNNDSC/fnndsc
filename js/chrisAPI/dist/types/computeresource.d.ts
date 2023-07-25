@@ -40,9 +40,9 @@ export class ComputeResourceList extends ListResource {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FeedList>;
 }
 /**
  * Plugin-specific compute resource list resource object representing a list of
@@ -66,7 +66,7 @@ export class PluginComputeResourceList extends ListResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout?: number): Promise<Plugin>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

@@ -9,7 +9,7 @@ export class Resource {
      *
      * @return {*} - clone object
      */
-    static cloneObj(obj: Object): any;
+    static cloneObj(obj: any): any;
     /**
      * Constructor
      *
@@ -18,16 +18,16 @@ export class Resource {
      * @param {string} [auth.token] - authentication token
      */
     constructor(resourceUrl: string, auth?: {
-        token?: string | undefined;
-    } | undefined);
+        token?: string;
+    });
     /** @type {string} */
     url: string;
     /** @type {Object} */
-    auth: Object;
+    auth: any;
     /** @type {string} */
     contentType: string;
     /** @type {?Object} */
-    collection: Object | null;
+    collection: any | null;
     /**
      * Return true if the resource object contains any data.
      *
@@ -52,13 +52,13 @@ export class ItemResource extends Resource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    get(timeout?: number | undefined): Promise<ItemResource>;
+    get(timeout?: number): Promise<ItemResource>;
     /**
      * Get the item's data object (REST API descriptors).
      *
      * @type {?Object}
      */
-    get data(): Object | null;
+    get data(): any;
     /**
      * Get an array of parameter names that can be used as properties of the data
      * object in PUT requests.
@@ -83,10 +83,10 @@ export class ItemResource extends Resource {
      * fetched from the REST API
      * @throws {RequestException} throw error when the link relation is not found
      */
-    _getResource(linkRelation: string, ResourceClass: Object, searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<Object>;
+    _getResource(linkRelation: string, ResourceClass: any, searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<any>;
     /**
      * Internal helper method to make a PUT request to this item resource through
      * the REST API.
@@ -98,7 +98,7 @@ export class ItemResource extends Resource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    _put(data: Object, uploadFileObj: Object | null, timeout?: number | undefined): Promise<ItemResource>;
+    _put(data: any, uploadFileObj: any | null, timeout?: number): Promise<ItemResource>;
     /**
      * Internal helper method to make a DELETE request to this item resource through
      * the REST API.
@@ -107,7 +107,7 @@ export class ItemResource extends Resource {
      *
      * @return {Promise} - JS Promise
      */
-    _delete(timeout?: number | undefined): Promise<any>;
+    _delete(timeout?: number): Promise<any>;
 }
 /**
  * API abstract list resource class.
@@ -116,9 +116,9 @@ export class ListResource extends Resource {
     /** @type {string} */
     queryUrl: string;
     /** @type {?Object} */
-    searchParams: Object | null;
+    searchParams: any | null;
     /** @type {Object} */
-    itemClass: Object;
+    itemClass: any;
     /**
      * Fetch this list resource from the REST API based on search parameters. If
      * no search parameters then get the default first page.
@@ -133,9 +133,9 @@ export class ListResource extends Resource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     get(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<ListResource>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<ListResource>;
     /**
      * Get an array of search parameter names that can be used as properties of the
      * ``searchParams`` argument to the ``get`` method.
@@ -152,20 +152,20 @@ export class ListResource extends Resource {
      *
      * @return {Object} - an instance of ``this.itemClass``
      */
-    getItem(id: number): Object;
+    getItem(id: number): any;
     /**
      * Get an array of item resource objects corresponding to the items in this
      * list resource object.
      *
      * @return {?Object[]}
      */
-    getItems(): Object[] | null;
+    getItems(): any[] | null;
     /**
      * Get the list of item data objects (REST API descriptors).
      *
      * @type {?Object[]}
      */
-    get data(): Object[] | null;
+    get data(): any[];
     /**
      * Get the total count of items of the entire collection across pages in the
      * paginated REST API. Return -1 if no data has been fetched or the total
@@ -213,10 +213,10 @@ export class ListResource extends Resource {
      * been fetched from the REST API
      * @throws {RequestException} throw error when the link relation is not found
      */
-    _getResource(linkRelation: string, ResourceClass: Object, searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<Object>;
+    _getResource(linkRelation: string, ResourceClass: any, searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<any>;
     /**
      * Internal helper method to make a POST request to this list resource through
      * the REST API.
@@ -228,5 +228,5 @@ export class ListResource extends Resource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    _post(data: Object, uploadFileObj: Object | null, timeout?: number | undefined): Promise<ListResource>;
+    _post(data: any, uploadFileObj: any | null, timeout?: number): Promise<ListResource>;
 }

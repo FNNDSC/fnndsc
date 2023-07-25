@@ -25,6 +25,6 @@ export default class User extends ItemResource {
     put(data: {
         password: string;
         email: string;
-    }, timeout?: number | undefined): Promise<User>;
+    }, timeout?: number): Promise<User>;
 }
 import { ItemResource } from "./resource";

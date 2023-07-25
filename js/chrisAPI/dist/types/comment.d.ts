@@ -19,7 +19,7 @@ export class Comment extends ItemResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Make a PUT request to modify this comment item resource through the REST API.
      *
@@ -31,9 +31,9 @@ export class Comment extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        title?: string | undefined;
-        content?: string | undefined;
-    }, timeout?: number | undefined): Promise<Comment>;
+        title?: string;
+        content?: string;
+    }, timeout?: number): Promise<Comment>;
     /**
      * Make a DELETE request to delete this comment item resource through the REST API.
      *
@@ -41,7 +41,7 @@ export class Comment extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Comment list resource object representing a list of feed comments.
@@ -64,7 +64,7 @@ export class CommentList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Make a POST request to this comment list resource to create a new comment item
      * resource through the REST API.
@@ -77,9 +77,9 @@ export class CommentList extends ListResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
-        title?: string | undefined;
-        content?: string | undefined;
-    }, timeout?: number | undefined): Promise<CommentList>;
+        title?: string;
+        content?: string;
+    }, timeout?: number): Promise<CommentList>;
 }
 import { ItemResource } from "./resource";
 import { Feed } from "./feed";

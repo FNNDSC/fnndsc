@@ -23,8 +23,8 @@ export default class Note extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        title?: string | undefined;
-        content?: string | undefined;
-    }, timeout?: number | undefined): Promise<Note>;
+        title?: string;
+        content?: string;
+    }, timeout?: number): Promise<Note>;
 }
 import { ItemResource } from "./resource";

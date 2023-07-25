@@ -19,7 +19,7 @@ export class Workflow extends ItemResource {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(timeout?: number): Promise<Pipeline>;
     /**
      * Fetch a list of plugin instances created by this workflow from the REST API.
      *
@@ -31,9 +31,9 @@ export class Workflow extends ItemResource {
      * @return {Promise<WorkflowPluginInstanceList>} - JS Promise, resolves to a ``WorkflowPluginInstanceList`` object
      */
     getPluginInstances(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<WorkflowPluginInstanceList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<WorkflowPluginInstanceList>;
     /**
      * Make a PUT request to modify this workflow resource through the REST API.
      *
@@ -44,8 +44,8 @@ export class Workflow extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        title?: string | undefined;
-    }, timeout?: number | undefined): Promise<Workflow>;
+        title?: string;
+    }, timeout?: number): Promise<Workflow>;
     /**
      * Make a DELETE request to delete this workflow resource through the REST API.
      *
@@ -53,7 +53,7 @@ export class Workflow extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Workflow list resource object representing a list of pipeline-specific
@@ -77,7 +77,7 @@ export class WorkflowList extends ListResource {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(timeout?: number): Promise<Pipeline>;
     /**
      * Make a POST request to this workflow list resource to create a new
      * workflow item resource through the REST API.
@@ -95,7 +95,7 @@ export class WorkflowList extends ListResource {
     post(data: {
         previous_plugin_inst_id: number;
         nodes_info: string;
-    }, timeout?: number | undefined): Promise<WorkflowList>;
+    }, timeout?: number): Promise<WorkflowList>;
 }
 /**
  * Workflow list resource object representing a list of all workflows.
@@ -124,9 +124,9 @@ export class AllWorkflowList extends ListResource {
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
     getPipelines(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelineList>;
 }
 import { ItemResource } from "./resource";
 import { Pipeline } from "./pipeline";

@@ -19,7 +19,7 @@ export class ComputeResourceAdmin extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Compute resource admin list resource object representing a list of compute resource admins.
@@ -57,11 +57,11 @@ export class ComputeResourceAdminList extends ListResource {
         compute_url: string;
         compute_user: string;
         compute_password: string;
-        compute_auth_url?: string | undefined;
-        compute_auth_token?: string | undefined;
-        description?: string | undefined;
-        max_job_exec_seconds?: number | undefined;
-    }, timeout?: number | undefined): Promise<ComputeResourceAdminList>;
+        compute_auth_url?: string;
+        compute_auth_token?: string;
+        description?: string;
+        max_job_exec_seconds?: number;
+    }, timeout?: number): Promise<ComputeResourceAdminList>;
 }
 /**
  * Plugin admin item resource object representing a plugin admin.
@@ -84,7 +84,7 @@ export class PluginAdmin extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Plugin admin list resource object representing a list of plugin admins.
@@ -112,9 +112,9 @@ export class PluginAdminList extends ListResource {
      * to a ``ComputeResourceAdminList`` object
      */
     getComputeResourceAdmins(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<ComputeResourceAdminList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<ComputeResourceAdminList>;
     /**
      * Make a POST request to this plugin admin list resource to create a new
      * plugin admin item resource through the REST API.
@@ -130,7 +130,7 @@ export class PluginAdminList extends ListResource {
      */
     post(data: {
         compute_names: string;
-    }, pluginFileObj: Object | null, timeout?: number | undefined): Promise<PluginAdminList>;
+    }, pluginFileObj: any | null, timeout?: number): Promise<PluginAdminList>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

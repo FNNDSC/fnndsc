@@ -21,7 +21,7 @@ export class FileBrowserPathFile extends ItemResource {
      * @throws {RequestException} throw error if this item resource has not yet been
      * fetched from the REST API
      */
-    getFileBlob(timeout?: number | undefined): Promise<Blob>;
+    getFileBlob(timeout?: number): Promise<Blob>;
 }
 /**
  * File browser path file list resource object representing a list of all
@@ -64,9 +64,9 @@ export class FileBrowserPath extends ItemResource {
      * @return {Promise<FileBrowserPathFileList>} - JS Promise, resolves to a ``FileBrowserPathFileList`` object
      */
     getFiles(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FileBrowserPathFileList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FileBrowserPathFileList>;
 }
 /**
  * File browser path list resource object representing the initial page of the

@@ -19,7 +19,7 @@ export class UploadedFile extends ItemResource {
      *
      * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      */
-    getFileBlob(timeout?: number | undefined): Promise<Blob>;
+    getFileBlob(timeout?: number): Promise<Blob>;
     /**
      * Make a PUT request to modify this uploaded file item resource through the REST API.
      *
@@ -32,7 +32,7 @@ export class UploadedFile extends ItemResource {
      */
     put(data: {
         upload_path: string;
-    }, timeout?: number | undefined): Promise<UploadedFile>;
+    }, timeout?: number): Promise<UploadedFile>;
     /**
      * Make a DELETE request to delete this uploaded file item resource through the REST API.
      *
@@ -40,7 +40,7 @@ export class UploadedFile extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Uploaded file list resource object representing a list of a user's uploaded files.
@@ -72,8 +72,8 @@ export class UploadedFileList extends ListResource {
     post(data: {
         upload_path: string;
     }, uploadFileObj: {
-        fname: Object;
-    }, timeout?: number | undefined): Promise<UploadedFileList>;
+        fname: any;
+    }, timeout?: number): Promise<UploadedFileList>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

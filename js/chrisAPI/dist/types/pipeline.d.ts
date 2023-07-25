@@ -23,9 +23,9 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelinePluginList>} - JS Promise, resolves to a ``PipelinePluginList`` object
      */
     getPlugins(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelinePluginList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelinePluginList>;
     /**
      * Fetch a list of plugin pipings associated to this pipeline from the REST API.
      *
@@ -37,9 +37,9 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelinePluginPipingList>} - JS Promise, resolves to a ``PipelinePluginPipingList`` object
      */
     getPluginPipings(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelinePluginPipingList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelinePluginPipingList>;
     /**
      * Fetch a list of plugin piping default parameter values for the plugin
      * pipings composing the pipeline from the REST API.
@@ -52,9 +52,9 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelinePipingDefaultParameterList>} - JS Promise, resolves to a ``PipelinePipingDefaultParameterList`` object
      */
     getDefaultParameters(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelinePipingDefaultParameterList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelinePipingDefaultParameterList>;
     /**
      * Fetch a list of pipeline instances associated to this pipeline from the
      * REST API.
@@ -67,9 +67,9 @@ export class Pipeline extends ItemResource {
      * @return {Promise<PipelineInstanceList>} - JS Promise, resolves to a ``PipelineInstanceList`` object
      */
     getPipelineInstances(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineInstanceList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelineInstanceList>;
     /**
      * Make a PUT request to modify this pipeline resource through the REST API.
      *
@@ -84,12 +84,12 @@ export class Pipeline extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        name?: string | undefined;
-        authors?: string | undefined;
-        category?: string | undefined;
-        description?: string | undefined;
-        locked?: boolean | undefined;
-    }, timeout?: number | undefined): Promise<Pipeline>;
+        name?: string;
+        authors?: string;
+        category?: string;
+        description?: string;
+        locked?: boolean;
+    }, timeout?: number): Promise<Pipeline>;
     /**
      * Make a DELETE request to delete this pipeline resource through the REST API.
      *
@@ -97,7 +97,7 @@ export class Pipeline extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Pipeline list resource object representing a list of pipelines.
@@ -126,9 +126,9 @@ export class PipelineList extends ListResource {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginList>;
     /**
      * Make a POST request to this pipeline list resource to create a new pipeline
      * item resource through the REST API.
@@ -147,13 +147,13 @@ export class PipelineList extends ListResource {
      */
     post(data: {
         name: string;
-        authors?: string | undefined;
-        category?: string | undefined;
-        description?: string | undefined;
-        locked?: boolean | undefined;
-        plugin_tree?: string | undefined;
-        plugin_inst_id?: number | undefined;
-    }, timeout?: number | undefined): Promise<PipelineList>;
+        authors?: string;
+        category?: string;
+        description?: string;
+        locked?: boolean;
+        plugin_tree?: string;
+        plugin_inst_id?: number;
+    }, timeout?: number): Promise<PipelineList>;
 }
 /**
  * Plugin piping item resource object representing a plugin piping within
@@ -178,7 +178,7 @@ export class PluginPiping extends ItemResource {
      *
      * @return {Promise<PluginPiping|null>} - JS Promise, resolves to a ``PluginPiping`` object or ``null``
      */
-    getPreviousPluginPiping(timeout?: number | undefined): Promise<PluginPiping | null>;
+    getPreviousPluginPiping(timeout?: number): Promise<PluginPiping | null>;
     /**
      * Fetch the corresponding plugin for this plugin piping from the REST API.
      *
@@ -186,7 +186,7 @@ export class PluginPiping extends ItemResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout?: number): Promise<Plugin>;
     /**
      * Fetch the corresponding pipeline for this plugin piping from the REST API.
      *
@@ -194,7 +194,7 @@ export class PluginPiping extends ItemResource {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(timeout?: number): Promise<Pipeline>;
 }
 /**
  * Item resource object for a plugin piping default parameter which represents a default
@@ -219,7 +219,7 @@ export class PipingDefaultParameter extends ItemResource {
      *
      * @return {Promise<PluginPiping>} - JS Promise, resolves to a ``PluginPiping`` object
      */
-    getPluginPiping(timeout?: number | undefined): Promise<PluginPiping>;
+    getPluginPiping(timeout?: number): Promise<PluginPiping>;
     /**
      * Fetch the corresponding plugin parameter for this plugin piping default
      * parameter from the REST API.
@@ -228,7 +228,7 @@ export class PipingDefaultParameter extends ItemResource {
      *
      * @return {Promise<PluginParameter>} - JS Promise, resolves to a ``PluginParameter`` object
      */
-    getPluginParameter(timeout?: number | undefined): Promise<PluginParameter>;
+    getPluginParameter(timeout?: number): Promise<PluginParameter>;
 }
 /**
  * Pipeline-specific plugin list resource object representing a list of plugins

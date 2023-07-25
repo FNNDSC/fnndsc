@@ -6,7 +6,7 @@
 export default class RequestException extends Error {
     constructor(...args: any[]);
     /** @type {Object} */
-    request: Object;
+    request: any;
     /** @type {Object} */
-    response: Object;
+    response: any;
 }

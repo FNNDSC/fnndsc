@@ -9,7 +9,7 @@ export default class Collection {
      *
      * @return {string} - error message
      */
-    static getErrorMessage(collection: Object): string;
+    static getErrorMessage(collection: any): string;
     /**
      * Get the list of urls for a link relation from a collection or item object.
      *
@@ -18,7 +18,7 @@ export default class Collection {
      *
      * @return {string[]} - list of urls
      */
-    static getLinkRelationUrls(obj: Object, relationName: string): string[];
+    static getLinkRelationUrls(obj: any, relationName: string): string[];
     /**
      * Get an item's data (descriptors).
      *
@@ -26,7 +26,7 @@ export default class Collection {
      *
      * @return {Object} - object whose properties and values are the item's descriptor names and values respectively
      */
-    static getItemDescriptors(item: Object): Object;
+    static getItemDescriptors(item: any): any;
     /**
      * Get the url of the representation given by a collection obj.
      *
@@ -34,7 +34,7 @@ export default class Collection {
      *
      * @return {string} - url of the resource representation
      */
-    static getUrl(collection: Object): string;
+    static getUrl(collection: any): string;
     /**
      * Get the total number of items from a collection object.
      *
@@ -43,7 +43,7 @@ export default class Collection {
      * @return {number} - total number of items or -1 if the collection objects
      * doesn't contain that information
      */
-    static getTotalNumberOfItems(collection: Object): number;
+    static getTotalNumberOfItems(collection: any): number;
     /**
      * Get the list of descriptor names within a collection's template object.
      *
@@ -51,7 +51,7 @@ export default class Collection {
      *
      * @return {string[]} - list of descriptor names
      */
-    static getTemplateDescriptorNames(template: Object): string[];
+    static getTemplateDescriptorNames(template: any): string[];
     /**
      * Get the list of descriptor names within a Collection+Json query array.
      *
@@ -59,13 +59,13 @@ export default class Collection {
      *
      * @return {string[]} - list of query parameter names
      */
-    static getQueryParameters(queryArr: Object[]): string[];
+    static getQueryParameters(queryArr: any[]): string[];
     /**
      * Create an empty Collection+Json object.
      *
      * @return {Object} - template object
      */
-    static createCollectionObj(): Object;
+    static createCollectionObj(): any;
     /**
      * Make a Collection+Json template object from a regular object whose properties are
      * the item descriptors.
@@ -74,5 +74,5 @@ export default class Collection {
      *
      * @return {Object} - template object
      */
-    static makeTemplate(descriptorsObj: Object): Object;
+    static makeTemplate(descriptorsObj: any): any;
 }

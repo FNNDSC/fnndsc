@@ -13,7 +13,7 @@ export default class Client {
      *
      * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
      */
-    static createUser(usersUrl: string, username: string, password: string, email: string, timeout?: number | undefined): Promise<User>;
+    static createUser(usersUrl: string, username: string, password: string, email: string, timeout?: number): Promise<User>;
     /**
      * Fetch a user's login authorization token from the REST API.
      * @param {string} authUrl - url of the authorization service
@@ -23,7 +23,7 @@ export default class Client {
      *
      * @return {Promise<string>} - JS Promise, resolves to a ``string`` value
      */
-    static getAuthToken(authUrl: string, username: string, password: string, timeout?: number | undefined): Promise<string>;
+    static getAuthToken(authUrl: string, username: string, password: string, timeout?: number): Promise<string>;
     /**
      * Helper method to run an asynchronous task defined by a task generator function.
      *
@@ -38,12 +38,12 @@ export default class Client {
      * @param {string} [auth.token] - authentication token
      */
     constructor(url: string, auth?: {
-        token?: string | undefined;
-    } | undefined);
+        token?: string;
+    });
     /** @type {string} */
     url: string;
     /** @type {Object} */
-    auth: Object;
+    auth: any;
     feedsUrl: string;
     publicFeedsUrl: string;
     chrisInstanceUrl: string;
@@ -68,14 +68,14 @@ export default class Client {
      *
      * @return {Promise} - JS Promise
      */
-    setUrls(timeout?: number | undefined): Promise<any>;
+    setUrls(timeout?: number): Promise<any>;
     /**
      * Get the ChRIS instance resource object.
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<ChrisInstance>} - JS Promise, resolves to a ``ChrisInstance`` object
      */
-    getChrisInstance(timeout?: number | undefined): Promise<ChrisInstance>;
+    getChrisInstance(timeout?: number): Promise<ChrisInstance>;
     /**
      * Get a paginated list of currently authenticated user's feeds
      * from the REST API given query search parameters. If no search parameters
@@ -100,18 +100,18 @@ export default class Client {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        min_id?: number | undefined;
-        max_id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        name_startswith?: string | undefined;
-        files_fname_icontains?: string | undefined;
-        min_creation_date?: number | undefined;
-        max_creation_date?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        min_id?: number;
+        max_id?: number;
+        name?: string;
+        name_exact?: string;
+        name_startswith?: string;
+        files_fname_icontains?: string;
+        min_creation_date?: number;
+        max_creation_date?: number;
+    }, timeout?: number): Promise<FeedList>;
     /**
      * Get a paginated list of public feeds from the REST API given query search parameters.
      * If no search parameters then get the default first page.
@@ -135,18 +135,18 @@ export default class Client {
      * @return {Promise<PublicFeedList>} - JS Promise, resolves to a ``PublicFeedList`` object
      */
     getPublicFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        min_id?: number | undefined;
-        max_id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        name_startswith?: string | undefined;
-        files_fname_icontains?: string | undefined;
-        min_creation_date?: number | undefined;
-        max_creation_date?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PublicFeedList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        min_id?: number;
+        max_id?: number;
+        name?: string;
+        name_exact?: string;
+        name_startswith?: string;
+        files_fname_icontains?: string;
+        min_creation_date?: number;
+        max_creation_date?: number;
+    }, timeout?: number): Promise<PublicFeedList>;
     /**
      * Get a feed resource object given its id.
      *
@@ -155,7 +155,7 @@ export default class Client {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(id: number, timeout?: number | undefined): Promise<Feed>;
+    getFeed(id: number, timeout?: number): Promise<Feed>;
     /**
      * Tag a feed given its id and the id of the tag.
      *
@@ -165,7 +165,7 @@ export default class Client {
      *
      * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
      */
-    tagFeed(feed_id: number, tag_id: number, timeout?: number | undefined): Promise<Tagging>;
+    tagFeed(feed_id: number, tag_id: number, timeout?: number): Promise<Tagging>;
     /**
      * Get a paginated list of files written to any user-owned feed from the REST
      * API given query search parameters. If no search parameters then get the
@@ -189,18 +189,18 @@ export default class Client {
      * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
      */
     getFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        plugin_inst_id?: number | undefined;
-        feed_id?: number | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllFeedFileList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        fname_nslashes?: string | number;
+        plugin_inst_id?: number;
+        feed_id?: number;
+        min_creation_date?: string;
+        max_creation_date?: string;
+    }, timeout?: number): Promise<AllFeedFileList>;
     /**
      * Get a file resource object given its id.
      *
@@ -209,7 +209,7 @@ export default class Client {
      *
      * @return {Promise<FeedFile>} - JS Promise, resolves to a ``FeedFile`` object
      */
-    getFile(id: number, timeout?: number | undefined): Promise<FeedFile>;
+    getFile(id: number, timeout?: number): Promise<FeedFile>;
     /**
      * Get a paginated list of compute resources from the REST API given query
      * search parameters. If no search parameters then get the default first page.
@@ -228,14 +228,14 @@ export default class Client {
      * @return {Promise<ComputeResourceList>} - JS Promise, resolves to a ``ComputeResourceList`` object
      */
     getComputeResources(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        description?: string | undefined;
-        plugin_id?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<ComputeResourceList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        name_exact?: string;
+        description?: string;
+        plugin_id?: string;
+    }, timeout?: number): Promise<ComputeResourceList>;
     /**
      * Get a compute resource object given its id.
      *
@@ -244,7 +244,7 @@ export default class Client {
      *
      * @return {Promise<ComputeResource>} - JS Promise, resolves to a ``ComputeResource`` object
      */
-    getComputeResource(id: number, timeout?: number | undefined): Promise<ComputeResource>;
+    getComputeResource(id: number, timeout?: number): Promise<ComputeResource>;
     /**
      * Get a paginated list of plugin metas from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -270,20 +270,20 @@ export default class Client {
      * @return {Promise<PluginMetaList>} - JS Promise, resolves to a ``PluginMetaList`` object
      */
     getPluginMetas(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        title?: string | undefined;
-        category?: string | undefined;
-        type?: string | undefined;
-        authors?: string | undefined;
-        min_creation_date?: number | undefined;
-        max_creation_date?: number | undefined;
-        name_title_category?: string | undefined;
-        name_authors_category?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginMetaList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        name_exact?: string;
+        title?: string;
+        category?: string;
+        type?: string;
+        authors?: string;
+        min_creation_date?: number;
+        max_creation_date?: number;
+        name_title_category?: string;
+        name_authors_category?: string;
+    }, timeout?: number): Promise<PluginMetaList>;
     /**
      * Get a plugin meta resource object given its id.
      *
@@ -292,7 +292,7 @@ export default class Client {
      *
      * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
      */
-    getPluginMeta(id: number, timeout?: number | undefined): Promise<PluginMeta>;
+    getPluginMeta(id: number, timeout?: number): Promise<PluginMeta>;
     /**
      * Get a paginated list of plugins from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -320,22 +320,22 @@ export default class Client {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        version?: string | undefined;
-        dock_image?: string | undefined;
-        type?: string | undefined;
-        category?: string | undefined;
-        title?: string | undefined;
-        description?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-        name_title_category?: string | undefined;
-        compute_resource_id?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        name_exact?: string;
+        version?: string;
+        dock_image?: string;
+        type?: string;
+        category?: string;
+        title?: string;
+        description?: string;
+        min_creation_date?: string;
+        max_creation_date?: string;
+        name_title_category?: string;
+        compute_resource_id?: number;
+    }, timeout?: number): Promise<PluginList>;
     /**
      * Get a plugin resource object given its id.
      *
@@ -344,7 +344,7 @@ export default class Client {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(id: number, timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(id: number, timeout?: number): Promise<Plugin>;
     /**
      * Upload a plugin representation file and create a new plugin admin resource through the REST API.
      *
@@ -360,8 +360,8 @@ export default class Client {
     adminUploadPlugin(data: {
         compute_names: string;
     }, pluginFileObj: {
-        fname: Object;
-    }, timeout?: number | undefined): Promise<PluginAdmin>;
+        fname: any;
+    }, timeout?: number): Promise<PluginAdmin>;
     /**
      * Get a paginated list of plugin instances from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -385,20 +385,20 @@ export default class Client {
      * @return {Promise<AllPluginInstanceList>} - JS Promise, resolves to ``AllPluginInstanceList`` object
      */
     getPluginInstances(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        title?: string | undefined;
-        status?: string | undefined;
-        owner_username?: string | undefined;
-        feed_id?: number | undefined;
-        workflow_id?: number | undefined;
-        root_id?: number | undefined;
-        plugin_id?: number | undefined;
-        plugin_name?: number | undefined;
-        plugin_name_exact?: number | undefined;
-        plugin_version?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllPluginInstanceList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        title?: string;
+        status?: string;
+        owner_username?: string;
+        feed_id?: number;
+        workflow_id?: number;
+        root_id?: number;
+        plugin_id?: number;
+        plugin_name?: number;
+        plugin_name_exact?: number;
+        plugin_version?: number;
+    }, timeout?: number): Promise<AllPluginInstanceList>;
     /**
      * Get a plugin instance resource object given its id.
      *
@@ -407,7 +407,7 @@ export default class Client {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(id: number, timeout?: number | undefined): Promise<PluginInstance>;
+    getPluginInstance(id: number, timeout?: number): Promise<PluginInstance>;
     /**
      * Create a new plugin instance resource through the REST API.
      *
@@ -426,13 +426,13 @@ export default class Client {
      */
     createPluginInstance(pluginId: number, data: {
         previous_id: number;
-        title?: string | undefined;
-        compute_resource_name?: string | undefined;
-        cpu_limit?: string | undefined;
-        memory_limit?: string | undefined;
-        number_of_workers?: string | undefined;
-        gpu_limit?: string | undefined;
-    }, timeout?: number | undefined): Promise<PluginInstance>;
+        title?: string;
+        compute_resource_name?: string;
+        cpu_limit?: string;
+        memory_limit?: string;
+        number_of_workers?: string;
+        gpu_limit?: string;
+    }, timeout?: number): Promise<PluginInstance>;
     /**
      * Create a new plugin instance split resource through the REST API.
      *
@@ -443,7 +443,7 @@ export default class Client {
      *
      * @return {Promise<PluginInstanceSplit>} - JS Promise, resolves to ``PluginInstanceSplit`` object
      */
-    createPluginInstanceSplit(pluginInstanceId: number, filter?: string | undefined, cr_name?: string | undefined, timeout?: number | undefined): Promise<PluginInstanceSplit>;
+    createPluginInstanceSplit(pluginInstanceId: number, filter?: string, cr_name?: string, timeout?: number): Promise<PluginInstanceSplit>;
     /**
      * Get a paginated list of pipelines from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -464,17 +464,17 @@ export default class Client {
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
     getPipelines(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        owner_username?: string | undefined;
-        category?: string | undefined;
-        description?: string | undefined;
-        authors?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        owner_username?: string;
+        category?: string;
+        description?: string;
+        authors?: string;
+        min_creation_date?: string;
+        max_creation_date?: string;
+    }, timeout?: number): Promise<PipelineList>;
     /**
      * Get a pipeline resource object given its id.
      *
@@ -483,7 +483,7 @@ export default class Client {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(id: number, timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(id: number, timeout?: number): Promise<Pipeline>;
     /**
      * Create a new pipeline resource through the REST API.
      *
@@ -501,13 +501,13 @@ export default class Client {
      */
     createPipeline(data: {
         name: string;
-        authors?: string | undefined;
-        category?: string | undefined;
-        description?: string | undefined;
-        locked?: boolean | undefined;
-        plugin_tree?: string | undefined;
-        plugin_inst_id?: number | undefined;
-    }, timeout?: number | undefined): Promise<Pipeline>;
+        authors?: string;
+        category?: string;
+        description?: string;
+        locked?: boolean;
+        plugin_tree?: string;
+        plugin_inst_id?: number;
+    }, timeout?: number): Promise<Pipeline>;
     /**
      * Get a paginated list of pipeline instances from the REST API given
      * query search parameters. If no search parameters then get the default
@@ -525,13 +525,13 @@ export default class Client {
      * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to ``AllPipelineInstanceList`` object
      */
     getPipelineInstances(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        title?: string | undefined;
-        description?: string | undefined;
-        pipeline_name?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllPipelineInstanceList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        title?: string;
+        description?: string;
+        pipeline_name?: string;
+    }, timeout?: number): Promise<AllPipelineInstanceList>;
     /**
      * Get a pipeline instance resource object given its id.
      *
@@ -540,7 +540,7 @@ export default class Client {
      *
      * @return {Promise<PipelineInstance>} - JS Promise, resolves to a ``PipelineInstance`` object
      */
-    getPipelineInstance(id: number, timeout?: number | undefined): Promise<PipelineInstance>;
+    getPipelineInstance(id: number, timeout?: number): Promise<PipelineInstance>;
     /**
      * Create a new pipeline instance resource through the REST API.
      *
@@ -555,9 +555,9 @@ export default class Client {
      */
     createPipelineInstance(pipelineId: number, data: {
         previous_plugin_inst_id: number;
-        title?: string | undefined;
-        description?: string | undefined;
-    }, timeout?: number | undefined): Promise<PipelineInstance>;
+        title?: string;
+        description?: string;
+    }, timeout?: number): Promise<PipelineInstance>;
     /**
      * Get a paginated list of workflows from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -573,12 +573,12 @@ export default class Client {
      * @return {Promise<AllWorkflowList>} - JS Promise, resolves to ``AllWorkflowList`` object
      */
     getWorkflows(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        owner_username?: string | undefined;
-        pipeline_name?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllWorkflowList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        owner_username?: string;
+        pipeline_name?: string;
+    }, timeout?: number): Promise<AllWorkflowList>;
     /**
      * Get a workflow resource object given its id.
      *
@@ -587,7 +587,7 @@ export default class Client {
      *
      * @return {Promise<Workflow>} - JS Promise, resolves to a ``Workflow`` object
      */
-    getWorkflow(id: number, timeout?: number | undefined): Promise<Workflow>;
+    getWorkflow(id: number, timeout?: number): Promise<Workflow>;
     /**
      * Helper method to create the ``nodes_info`` field required by ``createWorkflow`` method's
      * ``data`` argument to create a workflow from a pipeline's default parameters data array
@@ -600,7 +600,7 @@ export default class Client {
      *
      * @return {Object[]} - array of workflow node objects
      */
-    computeWorkflowNodesInfo(pipelineDefaultParameters: Object[], includeAllDefaults?: boolean | undefined): Object[];
+    computeWorkflowNodesInfo(pipelineDefaultParameters: any[], includeAllDefaults?: boolean): any[];
     /**
      * Create a new workflow resource through the REST API.
      *
@@ -618,7 +618,7 @@ export default class Client {
     createWorkflow(pipelineId: number, data: {
         previous_plugin_inst_id: number;
         nodes_info: string;
-    }, timeout?: number | undefined): Promise<Workflow>;
+    }, timeout?: number): Promise<Workflow>;
     /**
      * Get a paginated list of tags from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -635,13 +635,13 @@ export default class Client {
      * @return {Promise<TagList>} - JS Promise, resolves to a ``TagList`` object
      */
     getTags(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        owner_username?: string | undefined;
-        color?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<TagList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        name?: string;
+        owner_username?: string;
+        color?: string;
+    }, timeout?: number): Promise<TagList>;
     /**
      * Get a tag resource object given its id.
      *
@@ -650,7 +650,7 @@ export default class Client {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(id: number, timeout?: number | undefined): Promise<Tag>;
+    getTag(id: number, timeout?: number): Promise<Tag>;
     /**
      * Create a new tag resource through the REST API.
      *
@@ -663,8 +663,8 @@ export default class Client {
      */
     createTag(data: {
         color: string;
-        name?: string | undefined;
-    }, timeout?: number | undefined): Promise<Tag>;
+        name?: string;
+    }, timeout?: number): Promise<Tag>;
     /**
      * Get a paginated list of uploaded files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -685,17 +685,17 @@ export default class Client {
      * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
      */
     getUploadedFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        owner_username?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<UploadedFileList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        fname_nslashes?: string | number;
+        owner_username?: string;
+        min_creation_date?: string;
+        max_creation_date?: string;
+    }, timeout?: number): Promise<UploadedFileList>;
     /**
      * Get an uploaded file resource object given its id.
      *
@@ -704,7 +704,7 @@ export default class Client {
      *
      * @return {Promise<UploadedFile>} - JS Promise, resolves to an ``UploadedFile`` object
      */
-    getUploadedFile(id: number, timeout?: number | undefined): Promise<UploadedFile>;
+    getUploadedFile(id: number, timeout?: number): Promise<UploadedFile>;
     /**
      * Upload a file and create a new uploaded file resource through the REST API.
      *
@@ -720,8 +720,8 @@ export default class Client {
     uploadFile(data: {
         upload_path: string;
     }, uploadFileObj: {
-        fname: Object;
-    }, timeout?: number | undefined): Promise<UploadedFile>;
+        fname: any;
+    }, timeout?: number): Promise<UploadedFile>;
     /**
      * Get a paginated list of PACS files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -761,32 +761,32 @@ export default class Client {
      * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
      */
     getPACSFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_icontains_topdir_unique?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        PatientID?: string | undefined;
-        PatientName?: string | undefined;
-        PatientSex?: string | undefined;
-        PatientAge?: number | undefined;
-        min_PatientAge?: number | undefined;
-        max_PatientAge?: number | undefined;
-        PatientBirthDate?: string | undefined;
-        StudyDate?: string | undefined;
-        AccessionNumber?: string | undefined;
-        ProtocolName?: string | undefined;
-        StudyInstanceUID?: string | undefined;
-        StudyDescription?: string | undefined;
-        SeriesInstanceUID?: string | undefined;
-        SeriesDescription?: string | undefined;
-        pacs_identifier?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PACSFileList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        fname_icontains_topdir_unique?: string;
+        fname_nslashes?: string | number;
+        PatientID?: string;
+        PatientName?: string;
+        PatientSex?: string;
+        PatientAge?: number;
+        min_PatientAge?: number;
+        max_PatientAge?: number;
+        PatientBirthDate?: string;
+        StudyDate?: string;
+        AccessionNumber?: string;
+        ProtocolName?: string;
+        StudyInstanceUID?: string;
+        StudyDescription?: string;
+        SeriesInstanceUID?: string;
+        SeriesDescription?: string;
+        pacs_identifier?: string;
+        min_creation_date?: string;
+        max_creation_date?: string;
+    }, timeout?: number): Promise<PACSFileList>;
     /**
      * Get a PACS file resource object given its id.
      *
@@ -795,7 +795,7 @@ export default class Client {
      *
      * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
      */
-    getPACSFile(id: number, timeout?: number | undefined): Promise<PACSFile>;
+    getPACSFile(id: number, timeout?: number): Promise<PACSFile>;
     /**
      * Get a paginated list of files for an unregistered service from the REST API given
      * query search parameters. If no search parameters then get the default first page.
@@ -817,18 +817,18 @@ export default class Client {
      * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
      */
     getServiceFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        service_identifier?: string | undefined;
-        service_id?: number | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<ServiceFileList>;
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        fname_nslashes?: string | number;
+        service_identifier?: string;
+        service_id?: number;
+        min_creation_date?: string;
+        max_creation_date?: string;
+    }, timeout?: number): Promise<ServiceFileList>;
     /**
      * Get a service file resource object given its id.
      *
@@ -837,7 +837,7 @@ export default class Client {
      *
      * @return {Promise<ServiceFile>} - JS Promise, resolves to a ``ServiceFile`` object
      */
-    getServiceFile(id: number, timeout?: number | undefined): Promise<ServiceFile>;
+    getServiceFile(id: number, timeout?: number): Promise<ServiceFile>;
     /**
      * Get a list with the matching file browser path from the REST API given query search
      * parameters. If no search parameters then get a list with the default root path.
@@ -851,10 +851,10 @@ export default class Client {
      * @return {Promise<FileBrowserPathList>} - JS Promise, resolves to a ``FileBrowserPathList`` object
      */
     getFileBrowserPaths(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        path?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FileBrowserPathList>;
+        limit?: number;
+        offset?: number;
+        path?: string;
+    }, timeout?: number): Promise<FileBrowserPathList>;
     /**
      * Get a file browser path resource object given its path.
      *
@@ -863,14 +863,14 @@ export default class Client {
      *
      * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object
      */
-    getFileBrowserPath(path: string, timeout?: number | undefined): Promise<FileBrowserPath>;
+    getFileBrowserPath(path: string, timeout?: number): Promise<FileBrowserPath>;
     /**
      * Get a user resource object for the currently authenticated user.
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
      */
-    getUser(timeout?: number | undefined): Promise<User>;
+    getUser(timeout?: number): Promise<User>;
     /**
      * Internal method to fetch a high level resource through the REST API.
      *
@@ -881,7 +881,7 @@ export default class Client {
      *
      * @return {Promise} - JS Promise
      */
-    _fetchRes(resUrlProp: string, ResClass: string, searchParams?: Object | undefined, timeout?: number | undefined): Promise<any>;
+    _fetchRes(resUrlProp: string, ResClass: string, searchParams?: any, timeout?: number): Promise<any>;
 }
 import ChrisInstance from "./chrisinstance";
 import { FeedList } from "./feed";

@@ -13,9 +13,9 @@ export class PluginMeta extends ItemResource {
      * @return {Promise<PluginMetaPluginList>} - JS Promise, resolves to a ``PluginMetaPluginList`` object
      */
     getPlugins(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginMetaPluginList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginMetaPluginList>;
 }
 /**
  * Plugin meta list resource object representing a list of plugin metas.
@@ -34,9 +34,9 @@ export class PluginMetaList extends ListResource {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginList>;
     /**
      * Fetch a list of feeds from the REST API.
      *
@@ -50,9 +50,9 @@ export class PluginMetaList extends ListResource {
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
     getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FeedList>;
 }
 import { ItemResource } from "./resource";
 import { PluginMetaPluginList } from "./plugin";

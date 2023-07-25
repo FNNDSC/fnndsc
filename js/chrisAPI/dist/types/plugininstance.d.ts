@@ -20,7 +20,7 @@ export class PluginInstance extends ItemResource {
      *
      * @return {Promise<Feed|null>} - JS Promise, resolves to a ``Feed`` object or ``null``
      */
-    getFeed(timeout?: number | undefined): Promise<Feed | null>;
+    getFeed(timeout?: number): Promise<Feed | null>;
     /**
      * Fetch the plugin associated to this plugin instance item from the REST API.
      *
@@ -28,7 +28,7 @@ export class PluginInstance extends ItemResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout?: number): Promise<Plugin>;
     /**
      * Fetch the compute resource associated to this plugin instance item from the REST API.
      *
@@ -36,7 +36,7 @@ export class PluginInstance extends ItemResource {
      *
      * @return {Promise<ComputeResource>} - JS Promise, resolves to a ``ComputeResource`` object
      */
-    getComputeResource(timeout?: number | undefined): Promise<ComputeResource>;
+    getComputeResource(timeout?: number): Promise<ComputeResource>;
     /**
      * Fetch the parent plugin instance of this plugin instance from the REST API
      * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).
@@ -45,7 +45,7 @@ export class PluginInstance extends ItemResource {
      *
      * @return {Promise<PluginInstance|null>} - JS Promise, resolves to a ``PluginInstance`` object or ``null``
      */
-    getPreviousPluginInstance(timeout?: number | undefined): Promise<PluginInstance | null>;
+    getPreviousPluginInstance(timeout?: number): Promise<PluginInstance | null>;
     /**
      * Fetch the pipeline instance (if any) that created this plugin instance from
      * the REST API.
@@ -54,7 +54,7 @@ export class PluginInstance extends ItemResource {
      *
      * @return {Promise<PipelineInstance|null>} - JS Promise, resolves to a ``PipelineInstance`` object or ``null``
      */
-    getPipelineInstance(timeout?: number | undefined): Promise<PipelineInstance | null>;
+    getPipelineInstance(timeout?: number): Promise<PipelineInstance | null>;
     /**
      * Fetch a list of plugin instances that are descendents of this plugin instance from the
      * REST API.
@@ -67,9 +67,9 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceDescendantList>} - JS Promise, resolves to a ``PluginInstanceDescendantList`` object
      */
     getDescendantPluginInstances(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginInstanceDescendantList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginInstanceDescendantList>;
     /**
      * Fetch a list of plugin instance parameters associated to this plugin instance from
      * the REST API.
@@ -82,9 +82,9 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceParameterList>} - JS Promise, resolves to a ``PluginInstanceParameterList`` object
      */
     getParameters(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginInstanceParameterList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginInstanceParameterList>;
     /**
      * Fetch a list of files created by this plugin instance from the REST API.
      *
@@ -96,9 +96,9 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceFileList>} - JS Promise, resolves to a ``PluginInstanceFileList`` object
      */
     getFiles(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginInstanceFileList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginInstanceFileList>;
     /**
      * Fetch a list of output directory splits applied to this plugin instance from the
      * REST API.
@@ -111,9 +111,9 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<PluginInstanceSplitList>} - JS Promise, resolves to a ``PluginInstanceSplitList`` object
      */
     getSplits(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginInstanceSplitList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginInstanceSplitList>;
     /**
      * Make a PUT request to modify this plugin instance resource through the REST API.
      *
@@ -125,9 +125,9 @@ export class PluginInstance extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        title?: string | undefined;
-        status?: string | undefined;
-    }, timeout?: number | undefined): Promise<PluginInstance>;
+        title?: string;
+        status?: string;
+    }, timeout?: number): Promise<PluginInstance>;
     /**
      * Make a DELETE request to delete this plugin instance resource through the REST API.
      *
@@ -135,7 +135,7 @@ export class PluginInstance extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Plugin instance list resource object representing a list of plugin-specific
@@ -159,7 +159,7 @@ export class PluginInstanceList extends ListResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout?: number): Promise<Plugin>;
     /**
      * Make a POST request to this plugin instance list resource to create a new plugin
      * instance item resource through the REST API.
@@ -171,7 +171,7 @@ export class PluginInstanceList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: Object, timeout?: number | undefined): Promise<PluginInstanceList>;
+    post(data: any, timeout?: number): Promise<PluginInstanceList>;
 }
 /**
  * Plugin instance list resource object representing a list of all plugin
@@ -201,9 +201,9 @@ export class AllPluginInstanceList extends ListResource {
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
     getPlugins(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginList>;
 }
 /**
  * Feed-specific plugin instance list resource object representing a list of plugin
@@ -228,7 +228,7 @@ export class FeedPluginInstanceList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
 }
 /**
  * Pipeline instance-specific plugin instance list resource object representing
@@ -300,7 +300,7 @@ export class PluginInstanceSplit extends ItemResource {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(timeout?: number | undefined): Promise<PluginInstance>;
+    getPluginInstance(timeout?: number): Promise<PluginInstance>;
 }
 /**
  * Plugin instance split list resource object. This is a list of all output
@@ -324,7 +324,7 @@ export class PluginInstanceSplitList extends ListResource {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(timeout?: number | undefined): Promise<PluginInstance>;
+    getPluginInstance(timeout?: number): Promise<PluginInstance>;
     /**
      * Make a POST request to this plugin instance split list resource to create a
      * new plugin instance split item resource through the REST API.
@@ -337,9 +337,9 @@ export class PluginInstanceSplitList extends ListResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     post(data: {
-        filter?: string | undefined;
-        compute_resource_name?: string | undefined;
-    }, timeout?: number | undefined): Promise<PluginInstanceSplitList>;
+        filter?: string;
+        compute_resource_name?: string;
+    }, timeout?: number): Promise<PluginInstanceSplitList>;
 }
 /**
  * Plugin instance parameter item resource object representing a parameter that
@@ -363,7 +363,7 @@ export class PluginInstanceParameter extends ItemResource {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(timeout?: number | undefined): Promise<PluginInstance>;
+    getPluginInstance(timeout?: number): Promise<PluginInstance>;
     /**
      * Fetch the plugin parameter definition associated to this plugin instance item
      * from the REST API.
@@ -372,7 +372,7 @@ export class PluginInstanceParameter extends ItemResource {
      *
      * @return {Promise<PluginParameter>} - JS Promise, resolves to a ``PluginParameter`` object
      */
-    getPluginParameter(timeout?: number | undefined): Promise<PluginParameter>;
+    getPluginParameter(timeout?: number): Promise<PluginParameter>;
 }
 /**
  * Plugin instance parameter list resource object representing a list of parameters that

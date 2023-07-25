@@ -21,7 +21,7 @@ export class FeedFile extends ItemResource {
      * @throws {RequestException} throw error if this item resource has not yet been
      * fetched from the REST API
      */
-    getFileBlob(timeout?: number | undefined): Promise<Blob>;
+    getFileBlob(timeout?: number): Promise<Blob>;
     /**
      * Fetch the plugin instance that created this file item from the REST API.
      *
@@ -29,7 +29,7 @@ export class FeedFile extends ItemResource {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(timeout?: number | undefined): Promise<PluginInstance>;
+    getPluginInstance(timeout?: number): Promise<PluginInstance>;
 }
 /**
  * Feed file list resource object representing a list of files written to a feed.
@@ -52,7 +52,7 @@ export class FeedFileList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
 }
 /**
  * Feed file list resource object representing a list of all files written to
@@ -92,7 +92,7 @@ export class PluginInstanceFileList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout?: number): Promise<Feed>;
     /**
      * Fetch the plugin instance associated to this file list from the REST API.
      *
@@ -100,7 +100,7 @@ export class PluginInstanceFileList extends ListResource {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(timeout?: number | undefined): Promise<PluginInstance>;
+    getPluginInstance(timeout?: number): Promise<PluginInstance>;
 }
 import { ItemResource } from "./resource";
 import { PluginInstance } from "./plugininstance";

@@ -19,7 +19,7 @@ export class PipelineInstance extends ItemResource {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(timeout?: number): Promise<Pipeline>;
     /**
      * Fetch a list of plugin instances associated to this pipeline instance from
      * the REST API.
@@ -32,9 +32,9 @@ export class PipelineInstance extends ItemResource {
      * @return {Promise<PipelineInstancePluginInstanceList>} - JS Promise, resolves to a ``PipelineInstancePluginInstanceList`` object
      */
     getPluginInstances(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineInstancePluginInstanceList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelineInstancePluginInstanceList>;
     /**
      * Make a PUT request to modify this pipeline instance resource through the REST API.
      *
@@ -46,9 +46,9 @@ export class PipelineInstance extends ItemResource {
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
     put(data: {
-        title?: string | undefined;
-        description?: string | undefined;
-    }, timeout?: number | undefined): Promise<PipelineInstance>;
+        title?: string;
+        description?: string;
+    }, timeout?: number): Promise<PipelineInstance>;
     /**
      * Make a DELETE request to delete this pipeline instance resource through the REST API.
      *
@@ -56,7 +56,7 @@ export class PipelineInstance extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * Pipeline instance list resource object representing a list of pipeline-specific
@@ -84,7 +84,7 @@ export class PipelineInstanceList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: Object, timeout?: number | undefined): Promise<PipelineInstanceList>;
+    post(data: any, timeout?: number): Promise<PipelineInstanceList>;
 }
 /**
  * Pipeline instance list resource object representing a list of all pipeline
@@ -114,9 +114,9 @@ export class AllPipelineInstanceList extends ListResource {
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
     getPipelines(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineList>;
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelineList>;
 }
 import { ItemResource } from "./resource";
 import { Pipeline } from "./pipeline";

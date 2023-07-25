@@ -19,7 +19,7 @@ export class PluginParameter extends ItemResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout?: number): Promise<Plugin>;
 }
 /**
  * Plugin parameter list resource object representing a list of plugin parameters.
@@ -42,7 +42,7 @@ export class PluginParameterList extends ListResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout?: number): Promise<Plugin>;
 }
 import { ItemResource } from "./resource";
 import { Plugin } from "./plugin";
