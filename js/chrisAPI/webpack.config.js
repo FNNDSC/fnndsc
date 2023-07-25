@@ -7,23 +7,12 @@ let baseConfig = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'chrisapi.js',
     libraryTarget: 'umd',
     umdNamedDefine: true,
+    globalObject: "typeof self !== 'undefined' ? self : this",
   },
- 
   resolve: {
     extensions: ['.js', '.json'],
-  },
-  module: {
-    rules: [
-      {
-        // Include ts, tsx, and js files.
-        test: /\.(tsx?)|(js)$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-      },
-    ],
   },
 };
 
