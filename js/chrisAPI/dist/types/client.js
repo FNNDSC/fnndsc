@@ -1,35 +1,29 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/** * Imports ***/
+const chrisinstance_1 = require("./chrisinstance");
+const cj_1 = require("./cj");
+const request_1 = require("./request");
+const feed_1 = require("./feed");
+const admin_1 = require("./admin");
+const feedfile_1 = require("./feedfile");
+const computeresource_1 = require("./computeresource");
+const pluginmeta_1 = require("./pluginmeta");
+const plugin_1 = require("./plugin");
+const plugininstance_1 = require("./plugininstance");
+const pipelineinstance_1 = require("./pipelineinstance");
+const workflow_1 = require("./workflow");
+const pipeline_1 = require("./pipeline");
+const tag_1 = require("./tag");
+const uploadedfile_1 = require("./uploadedfile");
+const pacsfile_1 = require("./pacsfile");
+const servicefile_1 = require("./servicefile");
+const filebrowser_1 = require("./filebrowser");
+const user_1 = require("./user");
 /**
  * API client object.
  */
-export default class Client {
-    /**
-     * Create a new user account.
-     *
-     * @param {string} usersUrl - url of the user accounts service
-     * @param {string} username - username
-     * @param {string} password - password
-     * @param {string} email - user email
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
-     */
-    static createUser(usersUrl: string, username: string, password: string, email: string, timeout?: number | undefined): Promise<User>;
-    /**
-     * Fetch a user's login authorization token from the REST API.
-     * @param {string} authUrl - url of the authorization service
-     * @param {string} username - username
-     * @param {string} password - password
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<string>} - JS Promise, resolves to a ``string`` value
-     */
-    static getAuthToken(authUrl: string, username: string, password: string, timeout?: number | undefined): Promise<string>;
-    /**
-     * Helper method to run an asynchronous task defined by a task generator function.
-     *
-     * @param {function*()} taskGenerator - generator function
-     */
-    static runAsyncTask(taskGenerator: any): void;
+class Client {
     /**
      * Constructor
      *
@@ -37,45 +31,49 @@ export default class Client {
      * @param {Object} [auth=null] - authentication object
      * @param {string} [auth.token] - authentication token
      */
-    constructor(url: string, auth?: {
-        token?: string | undefined;
-    } | undefined);
-    /** @type {string} */
-    url: string;
-    /** @type {Object} */
-    auth: Object;
-    feedsUrl: string;
-    publicFeedsUrl: string;
-    chrisInstanceUrl: string;
-    filesUrl: string;
-    computeResourcesUrl: string;
-    pluginMetasUrl: string;
-    pluginsUrl: string;
-    pluginInstancesUrl: string;
-    pipelinesUrl: string;
-    pipelineInstancesUrl: string;
-    workflowsUrl: string;
-    tagsUrl: string;
-    uploadedFilesUrl: string;
-    pacsFilesUrl: string;
-    serviceFilesUrl: string;
-    fileBrowserUrl: string;
-    userUrl: string;
-    adminUrl: string;
+    constructor(url, auth = null) {
+        /** @type {string} */
+        this.url = url;
+        /** @type {Object} */
+        this.auth = auth;
+        /* Urls of the high level API resources */
+        this.feedsUrl = this.url;
+        this.publicFeedsUrl = '';
+        this.chrisInstanceUrl = '';
+        this.filesUrl = '';
+        this.computeResourcesUrl = '';
+        this.pluginMetasUrl = '';
+        this.pluginsUrl = '';
+        this.pluginInstancesUrl = '';
+        this.pipelinesUrl = '';
+        this.pipelineInstancesUrl = '';
+        this.workflowsUrl = '';
+        this.tagsUrl = '';
+        this.uploadedFilesUrl = '';
+        this.pacsFilesUrl = '';
+        this.serviceFilesUrl = '';
+        this.fileBrowserUrl = '';
+        this.userUrl = '';
+        this.adminUrl = '';
+    }
     /**
      * Set the urls of the high level API resources.
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise} - JS Promise
      */
-    setUrls(timeout?: number | undefined): Promise<any>;
+    setUrls(timeout = 30000) {
+        return this.getFeeds(null, timeout);
+    }
     /**
      * Get the ChRIS instance resource object.
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<ChrisInstance>} - JS Promise, resolves to a ``ChrisInstance`` object
      */
-    getChrisInstance(timeout?: number | undefined): Promise<ChrisInstance>;
+    getChrisInstance(timeout = 30000) {
+        return this._fetchRes('chrisInstanceUrl', chrisinstance_1.default, null, timeout);
+    }
     /**
      * Get a paginated list of currently authenticated user's feeds
      * from the REST API given query search parameters. If no search parameters
@@ -99,19 +97,38 @@ export default class Client {
      *
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
-    getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        min_id?: number | undefined;
-        max_id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        name_startswith?: string | undefined;
-        files_fname_icontains?: string | undefined;
-        min_creation_date?: number | undefined;
-        max_creation_date?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+    getFeeds(searchParams = null, timeout = 30000) {
+        const feedList = new feed_1.FeedList(this.feedsUrl, this.auth);
+        return feedList.get(searchParams, timeout).then((feedList) => {
+            const coll = feedList.collection;
+            const getUrl = cj_1.default.getLinkRelationUrls;
+            this.publicFeedsUrl = this.publicFeedsUrl || getUrl(coll, 'public_feeds')[0];
+            this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];
+            this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
+            this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
+            this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];
+            this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];
+            this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances')[0];
+            this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];
+            this.pipelineInstancesUrl =
+                this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances')[0];
+            this.workflowsUrl = this.workflowsUrl || getUrl(coll, 'workflows')[0];
+            this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags')[0];
+            this.uploadedFilesUrl = this.uploadedFilesUrl || getUrl(coll, 'uploadedfiles')[0];
+            this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];
+            this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];
+            this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, 'filebrowser')[0];
+            if (!this.userUrl) {
+                this.userUrl = getUrl(coll, 'user');
+                this.userUrl = this.userUrl.length ? this.userUrl[0] : '';
+            }
+            if (!this.adminUrl) {
+                this.adminUrl = getUrl(coll, 'admin');
+                this.adminUrl = this.adminUrl.length ? this.adminUrl[0] : '';
+            }
+            return feedList;
+        });
+    }
     /**
      * Get a paginated list of public feeds from the REST API given query search parameters.
      * If no search parameters then get the default first page.
@@ -134,19 +151,9 @@ export default class Client {
      *
      * @return {Promise<PublicFeedList>} - JS Promise, resolves to a ``PublicFeedList`` object
      */
-    getPublicFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        min_id?: number | undefined;
-        max_id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        name_startswith?: string | undefined;
-        files_fname_icontains?: string | undefined;
-        min_creation_date?: number | undefined;
-        max_creation_date?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PublicFeedList>;
+    getPublicFeeds(searchParams = null, timeout = 30000) {
+        return this._fetchRes('publicFeedsUrl', feed_1.PublicFeedList, searchParams, timeout);
+    }
     /**
      * Get a feed resource object given its id.
      *
@@ -155,7 +162,9 @@ export default class Client {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(id: number, timeout?: number | undefined): Promise<Feed>;
+    getFeed(id, timeout = 30000) {
+        return this.getFeeds({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Tag a feed given its id and the id of the tag.
      *
@@ -165,7 +174,12 @@ export default class Client {
      *
      * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
      */
-    tagFeed(feed_id: number, tag_id: number, timeout?: number | undefined): Promise<Tagging>;
+    tagFeed(feed_id, tag_id, timeout = 30000) {
+        return this.getFeed(feed_id, timeout)
+            .then(feed => feed.getTaggings(null, timeout))
+            .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
+            .then(listRes => listRes.getItems()[0]);
+    }
     /**
      * Get a paginated list of files written to any user-owned feed from the REST
      * API given query search parameters. If no search parameters then get the
@@ -188,19 +202,9 @@ export default class Client {
      *
      * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
      */
-    getFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        plugin_inst_id?: number | undefined;
-        feed_id?: number | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllFeedFileList>;
+    getFiles(searchParams = null, timeout = 30000) {
+        return this._fetchRes('filesUrl', feedfile_1.AllFeedFileList, searchParams, timeout);
+    }
     /**
      * Get a file resource object given its id.
      *
@@ -209,7 +213,9 @@ export default class Client {
      *
      * @return {Promise<FeedFile>} - JS Promise, resolves to a ``FeedFile`` object
      */
-    getFile(id: number, timeout?: number | undefined): Promise<FeedFile>;
+    getFile(id, timeout = 30000) {
+        return this.getFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Get a paginated list of compute resources from the REST API given query
      * search parameters. If no search parameters then get the default first page.
@@ -227,15 +233,9 @@ export default class Client {
      *
      * @return {Promise<ComputeResourceList>} - JS Promise, resolves to a ``ComputeResourceList`` object
      */
-    getComputeResources(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        description?: string | undefined;
-        plugin_id?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<ComputeResourceList>;
+    getComputeResources(searchParams = null, timeout = 30000) {
+        return this._fetchRes('computeResourcesUrl', computeresource_1.ComputeResourceList, searchParams, timeout);
+    }
     /**
      * Get a compute resource object given its id.
      *
@@ -244,7 +244,9 @@ export default class Client {
      *
      * @return {Promise<ComputeResource>} - JS Promise, resolves to a ``ComputeResource`` object
      */
-    getComputeResource(id: number, timeout?: number | undefined): Promise<ComputeResource>;
+    getComputeResource(id, timeout = 30000) {
+        return this.getComputeResources({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Get a paginated list of plugin metas from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -269,21 +271,9 @@ export default class Client {
      *
      * @return {Promise<PluginMetaList>} - JS Promise, resolves to a ``PluginMetaList`` object
      */
-    getPluginMetas(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        title?: string | undefined;
-        category?: string | undefined;
-        type?: string | undefined;
-        authors?: string | undefined;
-        min_creation_date?: number | undefined;
-        max_creation_date?: number | undefined;
-        name_title_category?: string | undefined;
-        name_authors_category?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginMetaList>;
+    getPluginMetas(searchParams = null, timeout = 30000) {
+        return this._fetchRes('pluginMetasUrl', pluginmeta_1.PluginMetaList, searchParams, timeout);
+    }
     /**
      * Get a plugin meta resource object given its id.
      *
@@ -292,7 +282,9 @@ export default class Client {
      *
      * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
      */
-    getPluginMeta(id: number, timeout?: number | undefined): Promise<PluginMeta>;
+    getPluginMeta(id, timeout = 30000) {
+        return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Get a paginated list of plugins from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -319,23 +311,9 @@ export default class Client {
      *
      * @return {Promise<PluginList>} - JS Promise, resolves to a ``PluginList`` object
      */
-    getPlugins(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        name_exact?: string | undefined;
-        version?: string | undefined;
-        dock_image?: string | undefined;
-        type?: string | undefined;
-        category?: string | undefined;
-        title?: string | undefined;
-        description?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-        name_title_category?: string | undefined;
-        compute_resource_id?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginList>;
+    getPlugins(searchParams = null, timeout = 30000) {
+        return this._fetchRes('pluginsUrl', plugin_1.PluginList, searchParams, timeout);
+    }
     /**
      * Get a plugin resource object given its id.
      *
@@ -344,7 +322,9 @@ export default class Client {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(id: number, timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(id, timeout = 30000) {
+        return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Upload a plugin representation file and create a new plugin admin resource through the REST API.
      *
@@ -357,11 +337,13 @@ export default class Client {
      *
      * @return {Promise<PluginAdmin>} - JS Promise, resolves to ``PluginAdmin`` object
      */
-    adminUploadPlugin(data: {
-        compute_names: string;
-    }, pluginFileObj: {
-        fname: Object;
-    }, timeout?: number | undefined): Promise<PluginAdmin>;
+    adminUploadPlugin(data, pluginFileObj, timeout = 30000) {
+        const createRes = () => {
+            const res = new admin_1.PluginAdminList(this.adminUrl, this.auth);
+            return res.post(data, pluginFileObj, timeout).then(res => res.getItems()[0]);
+        };
+        return this.adminUrl ? createRes() : this.setUrls().then(() => createRes());
+    }
     /**
      * Get a paginated list of plugin instances from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -384,21 +366,9 @@ export default class Client {
      *
      * @return {Promise<AllPluginInstanceList>} - JS Promise, resolves to ``AllPluginInstanceList`` object
      */
-    getPluginInstances(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        title?: string | undefined;
-        status?: string | undefined;
-        owner_username?: string | undefined;
-        feed_id?: number | undefined;
-        workflow_id?: number | undefined;
-        root_id?: number | undefined;
-        plugin_id?: number | undefined;
-        plugin_name?: number | undefined;
-        plugin_name_exact?: number | undefined;
-        plugin_version?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllPluginInstanceList>;
+    getPluginInstances(searchParams = null, timeout = 30000) {
+        return this._fetchRes('pluginInstancesUrl', plugininstance_1.AllPluginInstanceList, searchParams, timeout);
+    }
     /**
      * Get a plugin instance resource object given its id.
      *
@@ -407,7 +377,9 @@ export default class Client {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
-    getPluginInstance(id: number, timeout?: number | undefined): Promise<PluginInstance>;
+    getPluginInstance(id, timeout = 30000) {
+        return this.getPluginInstances({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Create a new plugin instance resource through the REST API.
      *
@@ -424,15 +396,15 @@ export default class Client {
      *
      * @return {Promise<PluginInstance>} - JS Promise, resolves to ``PluginInstance`` object
      */
-    createPluginInstance(pluginId: number, data: {
-        previous_id: number;
-        title?: string | undefined;
-        compute_resource_name?: string | undefined;
-        cpu_limit?: string | undefined;
-        memory_limit?: string | undefined;
-        number_of_workers?: string | undefined;
-        gpu_limit?: string | undefined;
-    }, timeout?: number | undefined): Promise<PluginInstance>;
+    createPluginInstance(pluginId, data, timeout = 30000) {
+        return this.getPlugin(pluginId, timeout)
+            .then((plg) => {
+            const instancesUrl = cj_1.default.getLinkRelationUrls(plg.collection.items[0], 'instances');
+            const plgInstList = new plugininstance_1.PluginInstanceList(instancesUrl[0], this.auth);
+            return plgInstList.post(data, timeout);
+        })
+            .then(plgInstList => plgInstList.getItems()[0]);
+    }
     /**
      * Create a new plugin instance split resource through the REST API.
      *
@@ -443,7 +415,19 @@ export default class Client {
      *
      * @return {Promise<PluginInstanceSplit>} - JS Promise, resolves to ``PluginInstanceSplit`` object
      */
-    createPluginInstanceSplit(pluginInstanceId: number, filter?: string | undefined, cr_name?: string | undefined, timeout?: number | undefined): Promise<PluginInstanceSplit>;
+    createPluginInstanceSplit(pluginInstanceId, filter = '', cr_name = '', timeout = 30000) {
+        return this.getPluginInstance(pluginInstanceId, timeout)
+            .then((plgInst) => {
+            const splitsUrl = cj_1.default.getLinkRelationUrls(plgInst.collection.items[0], 'splits');
+            const plgInstSplitList = new plugininstance_1.PluginInstanceSplitList(splitsUrl[0], this.auth);
+            let data = { filter: filter };
+            if (cr_name) {
+                data = { filter: filter, compute_resource_name: cr_name };
+            }
+            return plgInstSplitList.post(data, timeout);
+        })
+            .then(plgInstSplitList => plgInstSplitList.getItems()[0]);
+    }
     /**
      * Get a paginated list of pipelines from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -463,18 +447,9 @@ export default class Client {
      *
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
-    getPipelines(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        owner_username?: string | undefined;
-        category?: string | undefined;
-        description?: string | undefined;
-        authors?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineList>;
+    getPipelines(searchParams = null, timeout = 30000) {
+        return this._fetchRes('pipelinesUrl', pipeline_1.PipelineList, searchParams, timeout);
+    }
     /**
      * Get a pipeline resource object given its id.
      *
@@ -483,7 +458,9 @@ export default class Client {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(id: number, timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(id, timeout = 30000) {
+        return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Create a new pipeline resource through the REST API.
      *
@@ -499,15 +476,13 @@ export default class Client {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to ``Pipeline`` object
      */
-    createPipeline(data: {
-        name: string;
-        authors?: string | undefined;
-        category?: string | undefined;
-        description?: string | undefined;
-        locked?: boolean | undefined;
-        plugin_tree?: string | undefined;
-        plugin_inst_id?: number | undefined;
-    }, timeout?: number | undefined): Promise<Pipeline>;
+    createPipeline(data, timeout = 30000) {
+        const createRes = () => {
+            const res = new pipeline_1.PipelineList(this.pipelinesUrl, this.auth);
+            return res.post(data, timeout).then(res => res.getItems()[0]);
+        };
+        return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());
+    }
     /**
      * Get a paginated list of pipeline instances from the REST API given
      * query search parameters. If no search parameters then get the default
@@ -524,14 +499,9 @@ export default class Client {
      *
      * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to ``AllPipelineInstanceList`` object
      */
-    getPipelineInstances(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        title?: string | undefined;
-        description?: string | undefined;
-        pipeline_name?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllPipelineInstanceList>;
+    getPipelineInstances(searchParams = null, timeout = 30000) {
+        return this._fetchRes('pipelineInstancesUrl', pipelineinstance_1.AllPipelineInstanceList, searchParams, timeout);
+    }
     /**
      * Get a pipeline instance resource object given its id.
      *
@@ -540,7 +510,9 @@ export default class Client {
      *
      * @return {Promise<PipelineInstance>} - JS Promise, resolves to a ``PipelineInstance`` object
      */
-    getPipelineInstance(id: number, timeout?: number | undefined): Promise<PipelineInstance>;
+    getPipelineInstance(id, timeout = 30000) {
+        return this.getPipelineInstances({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Create a new pipeline instance resource through the REST API.
      *
@@ -553,11 +525,15 @@ export default class Client {
      *
      * @return {Promise<PipelineInstance>} - JS Promise, resolves to ``PipelineInstance`` object
      */
-    createPipelineInstance(pipelineId: number, data: {
-        previous_plugin_inst_id: number;
-        title?: string | undefined;
-        description?: string | undefined;
-    }, timeout?: number | undefined): Promise<PipelineInstance>;
+    createPipelineInstance(pipelineId, data, timeout = 30000) {
+        return this.getPipeline(pipelineId, timeout)
+            .then(pipeline => {
+            const instancesUrl = cj_1.default.getLinkRelationUrls(pipeline.collection.items[0], 'instances');
+            const pipInstList = new pipelineinstance_1.PipelineInstanceList(instancesUrl[0], this.auth);
+            return pipInstList.post(data, timeout);
+        })
+            .then(pipInstList => pipInstList.getItems()[0]);
+    }
     /**
      * Get a paginated list of workflows from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -572,13 +548,9 @@ export default class Client {
      *
      * @return {Promise<AllWorkflowList>} - JS Promise, resolves to ``AllWorkflowList`` object
      */
-    getWorkflows(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        owner_username?: string | undefined;
-        pipeline_name?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<AllWorkflowList>;
+    getWorkflows(searchParams = null, timeout = 30000) {
+        return this._fetchRes('workflowsUrl', workflow_1.AllWorkflowList, searchParams, timeout);
+    }
     /**
      * Get a workflow resource object given its id.
      *
@@ -587,7 +559,9 @@ export default class Client {
      *
      * @return {Promise<Workflow>} - JS Promise, resolves to a ``Workflow`` object
      */
-    getWorkflow(id: number, timeout?: number | undefined): Promise<Workflow>;
+    getWorkflow(id, timeout = 30000) {
+        return this.getWorkflows({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Helper method to create the ``nodes_info`` field required by ``createWorkflow`` method's
      * ``data`` argument to create a workflow from a pipeline's default parameters data array
@@ -600,7 +574,35 @@ export default class Client {
      *
      * @return {Object[]} - array of workflow node objects
      */
-    computeWorkflowNodesInfo(pipelineDefaultParameters: Object[], includeAllDefaults?: boolean | undefined): Object[];
+    computeWorkflowNodesInfo(pipelineDefaultParameters, includeAllDefaults = false) {
+        const pipings = {};
+        for (let defaultParam of pipelineDefaultParameters) {
+            let pipingId = defaultParam.plugin_piping_id;
+            if (!(pipingId in pipings)) {
+                pipings[pipingId] = {
+                    piping_id: pipingId,
+                    previous_piping_id: defaultParam.previous_plugin_piping_id,
+                    compute_resource_name: 'host',
+                    title: defaultParam.plugin_piping_title,
+                    plugin_parameter_defaults: []
+                };
+            }
+            if (includeAllDefaults || defaultParam.value === null) {
+                pipings[pipingId].plugin_parameter_defaults.push({
+                    name: defaultParam.param_name,
+                    default: defaultParam.value
+                });
+            }
+        }
+        const nodesInfo = [];
+        for (let pipingId in pipings) {
+            if (pipings[pipingId].plugin_parameter_defaults.length === 0) {
+                delete pipings[pipingId].plugin_parameter_defaults;
+            }
+            nodesInfo.push(pipings[pipingId]);
+        }
+        return nodesInfo;
+    }
     /**
      * Create a new workflow resource through the REST API.
      *
@@ -615,10 +617,15 @@ export default class Client {
      *
      * @return {Promise<Workflow>} - JS Promise, resolves to ``Workflow`` object
      */
-    createWorkflow(pipelineId: number, data: {
-        previous_plugin_inst_id: number;
-        nodes_info: string;
-    }, timeout?: number | undefined): Promise<Workflow>;
+    createWorkflow(pipelineId, data, timeout = 30000) {
+        return this.getPipeline(pipelineId, timeout)
+            .then(pipeline => {
+            const workflowsUrl = cj_1.default.getLinkRelationUrls(pipeline.collection.items[0], 'workflows');
+            const workflowList = new workflow_1.WorkflowList(workflowsUrl[0], this.auth);
+            return workflowList.post(data, timeout);
+        })
+            .then(workflowList => workflowList.getItems()[0]);
+    }
     /**
      * Get a paginated list of tags from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -634,14 +641,9 @@ export default class Client {
      *
      * @return {Promise<TagList>} - JS Promise, resolves to a ``TagList`` object
      */
-    getTags(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        name?: string | undefined;
-        owner_username?: string | undefined;
-        color?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<TagList>;
+    getTags(searchParams = null, timeout = 30000) {
+        return this._fetchRes('tagsUrl', tag_1.TagList, searchParams, timeout);
+    }
     /**
      * Get a tag resource object given its id.
      *
@@ -650,7 +652,9 @@ export default class Client {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(id: number, timeout?: number | undefined): Promise<Tag>;
+    getTag(id, timeout = 30000) {
+        return this.getTags({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Create a new tag resource through the REST API.
      *
@@ -661,10 +665,13 @@ export default class Client {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to ``Tag`` object
      */
-    createTag(data: {
-        color: string;
-        name?: string | undefined;
-    }, timeout?: number | undefined): Promise<Tag>;
+    createTag(data, timeout = 30000) {
+        const createRes = () => {
+            const res = new tag_1.TagList(this.tagsUrl, this.auth);
+            return res.post(data, timeout).then(res => res.getItems()[0]);
+        };
+        return this.tagsUrl ? createRes() : this.setUrls().then(() => createRes());
+    }
     /**
      * Get a paginated list of uploaded files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -684,18 +691,9 @@ export default class Client {
      *
      * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
      */
-    getUploadedFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        owner_username?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<UploadedFileList>;
+    getUploadedFiles(searchParams = null, timeout = 30000) {
+        return this._fetchRes('uploadedFilesUrl', uploadedfile_1.UploadedFileList, searchParams, timeout);
+    }
     /**
      * Get an uploaded file resource object given its id.
      *
@@ -704,7 +702,9 @@ export default class Client {
      *
      * @return {Promise<UploadedFile>} - JS Promise, resolves to an ``UploadedFile`` object
      */
-    getUploadedFile(id: number, timeout?: number | undefined): Promise<UploadedFile>;
+    getUploadedFile(id, timeout = 30000) {
+        return this.getUploadedFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Upload a file and create a new uploaded file resource through the REST API.
      *
@@ -717,11 +717,13 @@ export default class Client {
      *
      * @return {Promise<UploadedFile>} - JS Promise, resolves to ``UploadedFile`` object
      */
-    uploadFile(data: {
-        upload_path: string;
-    }, uploadFileObj: {
-        fname: Object;
-    }, timeout?: number | undefined): Promise<UploadedFile>;
+    uploadFile(data, uploadFileObj, timeout = 30000) {
+        const createRes = () => {
+            const res = new uploadedfile_1.UploadedFileList(this.uploadedFilesUrl, this.auth);
+            return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
+        };
+        return this.uploadedFilesUrl ? createRes() : this.setUrls().then(() => createRes());
+    }
     /**
      * Get a paginated list of PACS files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -760,33 +762,9 @@ export default class Client {
      *
      * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
      */
-    getPACSFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_icontains_topdir_unique?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        PatientID?: string | undefined;
-        PatientName?: string | undefined;
-        PatientSex?: string | undefined;
-        PatientAge?: number | undefined;
-        min_PatientAge?: number | undefined;
-        max_PatientAge?: number | undefined;
-        PatientBirthDate?: string | undefined;
-        StudyDate?: string | undefined;
-        AccessionNumber?: string | undefined;
-        ProtocolName?: string | undefined;
-        StudyInstanceUID?: string | undefined;
-        StudyDescription?: string | undefined;
-        SeriesInstanceUID?: string | undefined;
-        SeriesDescription?: string | undefined;
-        pacs_identifier?: string | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PACSFileList>;
+    getPACSFiles(searchParams = null, timeout = 30000) {
+        return this._fetchRes('pacsFilesUrl', pacsfile_1.PACSFileList, searchParams, timeout);
+    }
     /**
      * Get a PACS file resource object given its id.
      *
@@ -795,7 +773,9 @@ export default class Client {
      *
      * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
      */
-    getPACSFile(id: number, timeout?: number | undefined): Promise<PACSFile>;
+    getPACSFile(id, timeout = 30000) {
+        return this.getPACSFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Get a paginated list of files for an unregistered service from the REST API given
      * query search parameters. If no search parameters then get the default first page.
@@ -816,19 +796,9 @@ export default class Client {
      *
      * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
      */
-    getServiceFiles(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        id?: number | undefined;
-        fname?: string | undefined;
-        fname_exact?: string | undefined;
-        fname_icontains?: string | undefined;
-        fname_nslashes?: string | number | undefined;
-        service_identifier?: string | undefined;
-        service_id?: number | undefined;
-        min_creation_date?: string | undefined;
-        max_creation_date?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<ServiceFileList>;
+    getServiceFiles(searchParams = null, timeout = 30000) {
+        return this._fetchRes('serviceFilesUrl', servicefile_1.ServiceFileList, searchParams, timeout);
+    }
     /**
      * Get a service file resource object given its id.
      *
@@ -837,7 +807,9 @@ export default class Client {
      *
      * @return {Promise<ServiceFile>} - JS Promise, resolves to a ``ServiceFile`` object
      */
-    getServiceFile(id: number, timeout?: number | undefined): Promise<ServiceFile>;
+    getServiceFile(id, timeout = 30000) {
+        return this.getServiceFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
     /**
      * Get a list with the matching file browser path from the REST API given query search
      * parameters. If no search parameters then get a list with the default root path.
@@ -850,11 +822,9 @@ export default class Client {
      *
      * @return {Promise<FileBrowserPathList>} - JS Promise, resolves to a ``FileBrowserPathList`` object
      */
-    getFileBrowserPaths(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-        path?: string | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FileBrowserPathList>;
+    getFileBrowserPaths(searchParams = null, timeout = 30000) {
+        return this._fetchRes('fileBrowserUrl', filebrowser_1.FileBrowserPathList, searchParams, timeout);
+    }
     /**
      * Get a file browser path resource object given its path.
      *
@@ -863,14 +833,77 @@ export default class Client {
      *
      * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object
      */
-    getFileBrowserPath(path: string, timeout?: number | undefined): Promise<FileBrowserPath>;
+    getFileBrowserPath(path, timeout = 30000) {
+        return this.getFileBrowserPaths({ path: path }, timeout).then(listRes => {
+            const items = listRes.getItems();
+            return items.length ? items[0] : null;
+        });
+    }
     /**
      * Get a user resource object for the currently authenticated user.
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
      */
-    getUser(timeout?: number | undefined): Promise<User>;
+    getUser(timeout = 30000) {
+        return this._fetchRes('userUrl', user_1.default, null, timeout);
+    }
+    /**
+     * Create a new user account.
+     *
+     * @param {string} usersUrl - url of the user accounts service
+     * @param {string} username - username
+     * @param {string} password - password
+     * @param {string} email - user email
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
+     */
+    static createUser(usersUrl, username, password, email, timeout = 30000) {
+        const req = new request_1.default(undefined, 'application/vnd.collection+json', timeout);
+        const userData = {
+            template: {
+                data: [
+                    { name: 'username', value: username },
+                    { name: 'password', value: password },
+                    { name: 'email', value: email },
+                ],
+            },
+        };
+        return req.post(usersUrl, userData).then(resp => {
+            const coll = resp.data.collection;
+            const userUrl = coll.items[0].href;
+            const auth = { username: username, password: password };
+            const user = new user_1.default(userUrl, auth);
+            user.collection = coll;
+            return user;
+        });
+    }
+    /**
+     * Fetch a user's login authorization token from the REST API.
+     * @param {string} authUrl - url of the authorization service
+     * @param {string} username - username
+     * @param {string} password - password
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<string>} - JS Promise, resolves to a ``string`` value
+     */
+    static getAuthToken(authUrl, username, password, timeout = 30000) {
+        const req = new request_1.default(undefined, 'application/json', timeout);
+        const authData = {
+            username: username,
+            password: password,
+        };
+        return req.post(authUrl, authData).then(resp => resp.data.token);
+    }
+    /**
+     * Helper method to run an asynchronous task defined by a task generator function.
+     *
+     * @param {function*()} taskGenerator - generator function
+     */
+    static runAsyncTask(taskGenerator) {
+        request_1.default.runAsyncTask(taskGenerator);
+    }
     /**
      * Internal method to fetch a high level resource through the REST API.
      *
@@ -881,39 +914,12 @@ export default class Client {
      *
      * @return {Promise} - JS Promise
      */
-    _fetchRes(resUrlProp: string, ResClass: string, searchParams?: Object | undefined, timeout?: number | undefined): Promise<any>;
+    _fetchRes(resUrlProp, ResClass, searchParams = null, timeout = 30000) {
+        const getRes = () => {
+            const res = new ResClass(this[resUrlProp], this.auth);
+            return 'searchParams' in res ? res.get(searchParams, timeout) : res.get(timeout);
+        };
+        return this[resUrlProp] ? getRes() : this.setUrls().then(() => getRes());
+    }
 }
-import ChrisInstance from "./chrisinstance";
-import { FeedList } from "./feed";
-import { PublicFeedList } from "./feed";
-import { Feed } from "./feed";
-import { Tagging } from "./tag";
-import { AllFeedFileList } from "./feedfile";
-import { FeedFile } from "./feedfile";
-import { ComputeResourceList } from "./computeresource";
-import { ComputeResource } from "./computeresource";
-import { PluginMetaList } from "./pluginmeta";
-import { PluginMeta } from "./pluginmeta";
-import { PluginList } from "./plugin";
-import { Plugin } from "./plugin";
-import { PluginAdmin } from "./admin";
-import { AllPluginInstanceList } from "./plugininstance";
-import { PluginInstance } from "./plugininstance";
-import { PluginInstanceSplit } from "./plugininstance";
-import { PipelineList } from "./pipeline";
-import { Pipeline } from "./pipeline";
-import { AllPipelineInstanceList } from "./pipelineinstance";
-import { PipelineInstance } from "./pipelineinstance";
-import { AllWorkflowList } from "./workflow";
-import { Workflow } from "./workflow";
-import { TagList } from "./tag";
-import { Tag } from "./tag";
-import { UploadedFileList } from "./uploadedfile";
-import { UploadedFile } from "./uploadedfile";
-import { PACSFileList } from "./pacsfile";
-import { PACSFile } from "./pacsfile";
-import { ServiceFileList } from "./servicefile";
-import { ServiceFile } from "./servicefile";
-import { FileBrowserPathList } from "./filebrowser";
-import { FileBrowserPath } from "./filebrowser";
-import User from "./user";
+exports.default = Client;

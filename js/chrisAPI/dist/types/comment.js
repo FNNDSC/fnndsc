@@ -1,7 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CommentList = exports.Comment = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
+const feed_1 = require("./feed");
 /**
  * Comment item resource object representing a feed comment.
  */
-export class Comment extends ItemResource {
+class Comment extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +15,9 @@ export class Comment extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Fetch the feed associated to the comment item from the REST API.
      *
@@ -19,7 +25,11 @@ export class Comment extends ItemResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout = 30000) {
+        const linkRelation = 'feed';
+        const resourceClass = feed_1.Feed;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Make a PUT request to modify this comment item resource through the REST API.
      *
@@ -30,10 +40,9 @@ export class Comment extends ItemResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    put(data: {
-        title?: string | undefined;
-        content?: string | undefined;
-    }, timeout?: number | undefined): Promise<Comment>;
+    put(data, timeout = 30000) {
+        return this._put(data, null, timeout);
+    }
     /**
      * Make a DELETE request to delete this comment item resource through the REST API.
      *
@@ -41,12 +50,15 @@ export class Comment extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout = 30000) {
+        return this._delete(timeout);
+    }
 }
+exports.Comment = Comment;
 /**
  * Comment list resource object representing a list of feed comments.
  */
-export class CommentList extends ListResource {
+class CommentList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -54,9 +66,11 @@ export class CommentList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Comment;
+    }
     /**
      * Fetch the feed associated to the comment list from the REST API.
      *
@@ -64,7 +78,11 @@ export class CommentList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout = 30000) {
+        const linkRelation = 'feed';
+        const resourceClass = feed_1.Feed;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Make a POST request to this comment list resource to create a new comment item
      * resource through the REST API.
@@ -76,11 +94,8 @@ export class CommentList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: {
-        title?: string | undefined;
-        content?: string | undefined;
-    }, timeout?: number | undefined): Promise<CommentList>;
+    post(data, timeout = 30000) {
+        return this._post(data, null, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { Feed } from "./feed";
-import { ListResource } from "./resource";
+exports.CommentList = CommentList;

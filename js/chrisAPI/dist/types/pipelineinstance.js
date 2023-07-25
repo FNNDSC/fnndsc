@@ -1,7 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AllPipelineInstanceList = exports.PipelineInstanceList = exports.PipelineInstance = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
+const pipeline_1 = require("./pipeline");
+const plugininstance_1 = require("./plugininstance");
 /**
  * Pipeline instance item resource object representing a pipeline instance.
  */
-export class PipelineInstance extends ItemResource {
+class PipelineInstance extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +16,9 @@ export class PipelineInstance extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Fetch the pipeline associated to this pipeline instance from the REST API.
      *
@@ -19,7 +26,11 @@ export class PipelineInstance extends ItemResource {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(timeout = 30000) {
+        const linkRelation = 'pipeline';
+        const resourceClass = pipeline_1.Pipeline;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Fetch a list of plugin instances associated to this pipeline instance from
      * the REST API.
@@ -31,10 +42,11 @@ export class PipelineInstance extends ItemResource {
      *
      * @return {Promise<PipelineInstancePluginInstanceList>} - JS Promise, resolves to a ``PipelineInstancePluginInstanceList`` object
      */
-    getPluginInstances(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineInstancePluginInstanceList>;
+    getPluginInstances(params = null, timeout = 30000) {
+        const linkRelation = 'plugin_instances';
+        const resourceClass = plugininstance_1.PipelineInstancePluginInstanceList;
+        return this._getResource(linkRelation, resourceClass, params, timeout);
+    }
     /**
      * Make a PUT request to modify this pipeline instance resource through the REST API.
      *
@@ -45,10 +57,9 @@ export class PipelineInstance extends ItemResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    put(data: {
-        title?: string | undefined;
-        description?: string | undefined;
-    }, timeout?: number | undefined): Promise<PipelineInstance>;
+    put(data, timeout = 30000) {
+        return this._put(data, null, timeout);
+    }
     /**
      * Make a DELETE request to delete this pipeline instance resource through the REST API.
      *
@@ -56,13 +67,16 @@ export class PipelineInstance extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout = 30000) {
+        return this._delete(timeout);
+    }
 }
+exports.PipelineInstance = PipelineInstance;
 /**
  * Pipeline instance list resource object representing a list of pipeline-specific
  * instances.
  */
-export class PipelineInstanceList extends ListResource {
+class PipelineInstanceList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -70,9 +84,11 @@ export class PipelineInstanceList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = PipelineInstance;
+    }
     /**
      * Make a POST request to this pipeline instance list resource to create a new
      * pipeline instance item resource through the REST API.
@@ -84,13 +100,16 @@ export class PipelineInstanceList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: Object, timeout?: number | undefined): Promise<PipelineInstanceList>;
+    post(data, timeout = 30000) {
+        return this._post(data, null, timeout);
+    }
 }
+exports.PipelineInstanceList = PipelineInstanceList;
 /**
  * Pipeline instance list resource object representing a list of all pipeline
  * instances.
  */
-export class AllPipelineInstanceList extends ListResource {
+class AllPipelineInstanceList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -98,9 +117,11 @@ export class AllPipelineInstanceList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = PipelineInstance;
+    }
     /**
      * Fetch a list of pipelines from the REST API.
      *
@@ -113,13 +134,10 @@ export class AllPipelineInstanceList extends ListResource {
      *
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
-    getPipelines(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineList>;
+    getPipelines(searchParams = null, timeout = 30000) {
+        const linkRelation = 'pipelines';
+        const resourceClass = pipeline_1.PipelineList;
+        return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { Pipeline } from "./pipeline";
-import { PipelineInstancePluginInstanceList } from "./plugininstance";
-import { ListResource } from "./resource";
-import { PipelineList } from "./pipeline";
+exports.AllPipelineInstanceList = AllPipelineInstanceList;

@@ -1,7 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.FeedTagList = exports.TagFeedList = exports.FeedTaggingList = exports.TagTaggingList = exports.Tagging = exports.TagList = exports.Tag = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
+const feed_1 = require("./feed");
 /**
  * Tag item resource object representing a feed tag.
  */
-export class Tag extends ItemResource {
+class Tag extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +15,9 @@ export class Tag extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Fetch a list of feeds that are tagged with this tag from the REST API.
      *
@@ -22,10 +28,11 @@ export class Tag extends ItemResource {
      *
      * @return {Promise<TagFeedList>} - JS Promise, resolves to a ``TagFeedList`` object
      */
-    getTaggedFeeds(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<TagFeedList>;
+    getTaggedFeeds(params = null, timeout = 30000) {
+        const linkRelation = 'feeds';
+        const resourceClass = TagFeedList;
+        return this._getResource(linkRelation, resourceClass, params, timeout);
+    }
     /**
      * Fetch a list of taggings made with this tag from the REST API.
      *
@@ -36,10 +43,11 @@ export class Tag extends ItemResource {
      *
      * @return {Promise<TagTaggingList>} - JS Promise, resolves to a ``TagTaggingList`` object
      */
-    getTaggings(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<TagTaggingList>;
+    getTaggings(params = null, timeout = 30000) {
+        const linkRelation = 'taggings';
+        const resourceClass = TagTaggingList;
+        return this._getResource(linkRelation, resourceClass, params, timeout);
+    }
     /**
      * Make a PUT request to modify this tag item resource through the REST API.
      *
@@ -50,10 +58,9 @@ export class Tag extends ItemResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    put(data: {
-        name?: string | undefined;
-        color?: string | undefined;
-    }, timeout?: number | undefined): Promise<Tag>;
+    put(data, timeout = 30000) {
+        return this._put(data, null, timeout);
+    }
     /**
      * Make a DELETE request to delete this tag item resource through the REST API.
      *
@@ -61,12 +68,15 @@ export class Tag extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout = 30000) {
+        return this._delete(timeout);
+    }
 }
+exports.Tag = Tag;
 /**
  * Tag list resource object representing a list of a feed's tags.
  */
-export class TagList extends ListResource {
+class TagList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -74,9 +84,11 @@ export class TagList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Tag;
+    }
     /**
      * Fetch a list of feeds from the REST API.
      *
@@ -89,10 +101,11 @@ export class TagList extends ListResource {
      *
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
-    getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+    getFeeds(searchParams = null, timeout = 30000) {
+        const linkRelation = 'feeds';
+        const resourceClass = feed_1.FeedList;
+        return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    }
     /**
      * Make a POST request to this tag list resource to create a new tag item resource
      * through the REST API.
@@ -104,16 +117,16 @@ export class TagList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: {
-        name?: string | undefined;
-        color?: string | undefined;
-    }, timeout?: number | undefined): Promise<TagList>;
+    post(data, timeout = 30000) {
+        return this._post(data, null, timeout);
+    }
 }
+exports.TagList = TagList;
 /**
  * Tagging item resource object representing a tagging of an specific feed with an
  * specific tag.
  */
-export class Tagging extends ItemResource {
+class Tagging extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -121,9 +134,9 @@ export class Tagging extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Fetch the tag associated to this tagging from the REST API.
      *
@@ -131,7 +144,11 @@ export class Tagging extends ItemResource {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(timeout?: number | undefined): Promise<Tag>;
+    getTag(timeout = 30000) {
+        const linkRelation = 'tag';
+        const resourceClass = Tag;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Fetch the feed associated to this tagging from the REST API.
      *
@@ -139,7 +156,11 @@ export class Tagging extends ItemResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout = 30000) {
+        const linkRelation = 'feed';
+        const resourceClass = feed_1.Feed;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Make a DELETE request to delete this tagging item resource through the REST API.
      *
@@ -147,13 +168,16 @@ export class Tagging extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout = 30000) {
+        return this._delete(timeout);
+    }
 }
+exports.Tagging = Tagging;
 /**
  * Tag-specific tagging list resource object representing a list of taggings made with an
  * specific tag.
  */
-export class TagTaggingList extends ListResource {
+class TagTaggingList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -161,9 +185,11 @@ export class TagTaggingList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Tagging;
+    }
     /**
      * Fetch the tag associated to this tag-specific list of taggings from the REST API.
      *
@@ -171,7 +197,11 @@ export class TagTaggingList extends ListResource {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(timeout?: number | undefined): Promise<Tag>;
+    getTag(timeout = 30000) {
+        const linkRelation = 'tag';
+        const resourceClass = Tag;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Make a POST request to this tag-specific tagging list resource to create a new
      * tagging item resource through the REST API.
@@ -182,15 +212,16 @@ export class TagTaggingList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: {
-        feed_id: string;
-    }, timeout?: number | undefined): Promise<TagTaggingList>;
+    post(data, timeout = 30000) {
+        return this._post(data, null, timeout);
+    }
 }
+exports.TagTaggingList = TagTaggingList;
 /**
  * Feed-specific tagging list resource object representing a list of taggings applied to
  * an specific feed.
  */
-export class FeedTaggingList extends ListResource {
+class FeedTaggingList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -198,9 +229,11 @@ export class FeedTaggingList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Tagging;
+    }
     /**
      * Fetch the feed associated to this feed-specific list of taggings from the REST API.
      *
@@ -208,7 +241,11 @@ export class FeedTaggingList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout = 30000) {
+        const linkRelation = 'feed';
+        const resourceClass = feed_1.Feed;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Make a POST request to this feed-specific tagging list resource to create a new
      * tagging item resource through the REST API.
@@ -219,15 +256,16 @@ export class FeedTaggingList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: {
-        tag_id: string;
-    }, timeout?: number | undefined): Promise<FeedTaggingList>;
+    post(data, timeout = 30000) {
+        return this._post(data, null, timeout);
+    }
 }
+exports.FeedTaggingList = FeedTaggingList;
 /**
  * Tag-specific feed list resource object representing a list of feeds that are tagged
  * with an specific tag.
  */
-export class TagFeedList extends ListResource {
+class TagFeedList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -235,9 +273,11 @@ export class TagFeedList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = feed_1.Feed;
+    }
     /**
      * Fetch the tag associated to this tag-specific list of feeds from the REST API.
      *
@@ -245,13 +285,18 @@ export class TagFeedList extends ListResource {
      *
      * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
-    getTag(timeout?: number | undefined): Promise<Tag>;
+    getTag(timeout = 30000) {
+        const linkRelation = 'tag';
+        const resourceClass = Tag;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
 }
+exports.TagFeedList = TagFeedList;
 /**
  * Feed-specific tag list resource object representing a list of tags that an specific
  * feed is tagged with.
  */
-export class FeedTagList extends ListResource {
+class FeedTagList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -259,9 +304,11 @@ export class FeedTagList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Tag;
+    }
     /**
      * Fetch the feed associated to this feed-specific list of tags from the REST API.
      *
@@ -269,9 +316,10 @@ export class FeedTagList extends ListResource {
      *
      * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
      */
-    getFeed(timeout?: number | undefined): Promise<Feed>;
+    getFeed(timeout = 30000) {
+        const linkRelation = 'feed';
+        const resourceClass = feed_1.Feed;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { ListResource } from "./resource";
-import { FeedList } from "./feed";
-import { Feed } from "./feed";
+exports.FeedTagList = FeedTagList;

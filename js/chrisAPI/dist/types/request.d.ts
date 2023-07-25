@@ -17,7 +17,7 @@ export default class Request {
      *
      * @throws {RequestException} throw error
      */
-    static _handleRequestError(error: any): void;
+    static _handleRequestError(error: Object): void;
     /**
      * Helper method to run an asynchronous task defined by a task generator function.
      *
@@ -34,9 +34,9 @@ export default class Request {
      */
     constructor(auth: {
         token: string;
-    }, contentType: string, timeout?: number);
+    }, contentType: string, timeout?: number | undefined);
     /** @type {Object} */
-    auth: any;
+    auth: Object;
     /** @type {string} */
     contentType: string;
     /** @type {number} */
@@ -49,7 +49,7 @@ export default class Request {
      *
      * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
      */
-    get(url: string, params?: any | null): Promise<AxiosResponse>;
+    get(url: string, params?: Object | null): Promise<AxiosResponse>;
     /**
      * Perform a POST request.
      *
@@ -60,7 +60,7 @@ export default class Request {
      *
      * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
      */
-    post(url: string, data: any, uploadFileObj?: any | null): Promise<AxiosResponse>;
+    post(url: string, data: Object, uploadFileObj?: Object | null): Promise<AxiosResponse>;
     /**
      * Perform a PUT request.
      *
@@ -71,7 +71,7 @@ export default class Request {
      *
      * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
      */
-    put(url: string, data: any, uploadFileObj?: any | null): Promise<AxiosResponse>;
+    put(url: string, data: Object, uploadFileObj?: Object | null): Promise<AxiosResponse>;
     /**
      * Perform a DELETE request.
      *
@@ -91,7 +91,7 @@ export default class Request {
      *
      * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios reponse`` object
      */
-    _postOrPut(requestMethod: string, url: string, data: any, uploadFileObj?: any | null): Promise<AxiosResponse>;
+    _postOrPut(requestMethod: string, url: string, data: Object, uploadFileObj?: Object | null): Promise<AxiosResponse>;
     /**
      * Internal method to create a config file for axios.
      *

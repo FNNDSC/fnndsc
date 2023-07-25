@@ -1,7 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Collection+Json utility object.
  */
-export default class Collection {
+class Collection {
     /**
      * Get the error message from the collection object.
      *
@@ -9,7 +11,12 @@ export default class Collection {
      *
      * @return {string} - error message
      */
-    static getErrorMessage(collection: Object): string;
+    static getErrorMessage(collection) {
+        if (collection.error) {
+            return collection.error.message;
+        }
+        return '';
+    }
     /**
      * Get the list of urls for a link relation from a collection or item object.
      *
@@ -18,7 +25,12 @@ export default class Collection {
      *
      * @return {string[]} - list of urls
      */
-    static getLinkRelationUrls(obj: Object, relationName: string): string[];
+    static getLinkRelationUrls(obj, relationName) {
+        const links = obj.links.filter((link) => {
+            return link.rel === relationName;
+        });
+        return links.map((link) => link.href);
+    }
     /**
      * Get an item's data (descriptors).
      *
@@ -26,7 +38,14 @@ export default class Collection {
      *
      * @return {Object} - object whose properties and values are the item's descriptor names and values respectively
      */
-    static getItemDescriptors(item: Object): Object;
+    static getItemDescriptors(item) {
+        const itemObj = {};
+        // collect the item's descriptors
+        for (let descriptor of item.data) {
+            itemObj[descriptor.name] = descriptor.value;
+        }
+        return itemObj;
+    }
     /**
      * Get the url of the representation given by a collection obj.
      *
@@ -34,7 +53,9 @@ export default class Collection {
      *
      * @return {string} - url of the resource representation
      */
-    static getUrl(collection: Object): string;
+    static getUrl(collection) {
+        return collection.href;
+    }
     /**
      * Get the total number of items from a collection object.
      *
@@ -43,7 +64,12 @@ export default class Collection {
      * @return {number} - total number of items or -1 if the collection objects
      * doesn't contain that information
      */
-    static getTotalNumberOfItems(collection: Object): number;
+    static getTotalNumberOfItems(collection) {
+        if (collection.total) {
+            return collection.total;
+        }
+        return -1;
+    }
     /**
      * Get the list of descriptor names within a collection's template object.
      *
@@ -51,7 +77,9 @@ export default class Collection {
      *
      * @return {string[]} - list of descriptor names
      */
-    static getTemplateDescriptorNames(template: Object): string[];
+    static getTemplateDescriptorNames(template) {
+        return template.data.map((descriptor) => descriptor.name);
+    }
     /**
      * Get the list of descriptor names within a Collection+Json query array.
      *
@@ -59,13 +87,23 @@ export default class Collection {
      *
      * @return {string[]} - list of query parameter names
      */
-    static getQueryParameters(queryArr: Object[]): string[];
+    static getQueryParameters(queryArr) {
+        return queryArr[0].data.map((descriptor) => descriptor.name);
+    }
     /**
      * Create an empty Collection+Json object.
      *
      * @return {Object} - template object
      */
-    static createCollectionObj(): Object;
+    static createCollectionObj() {
+        const obj = {
+            href: '',
+            items: [],
+            links: [],
+            version: '1.0',
+        };
+        return obj;
+    }
     /**
      * Make a Collection+Json template object from a regular object whose properties are
      * the item descriptors.
@@ -74,5 +112,16 @@ export default class Collection {
      *
      * @return {Object} - template object
      */
-    static makeTemplate(descriptorsObj: Object): Object;
+    static makeTemplate(descriptorsObj) {
+        const template = { data: [] };
+        let i = 0;
+        for (let property in descriptorsObj) {
+            if (descriptorsObj.hasOwnProperty(property)) {
+                template.data[i] = { name: property, value: descriptorsObj[property] };
+            }
+            i++;
+        }
+        return template;
+    }
 }
+exports.default = Collection;

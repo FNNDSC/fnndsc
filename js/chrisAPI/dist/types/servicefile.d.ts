@@ -19,7 +19,7 @@ export class ServiceFile extends ItemResource {
      *
      * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      */
-    getFileBlob(timeout?: number): Promise<Blob>;
+    getFileBlob(timeout?: number | undefined): Promise<Blob>;
 }
 /**
  * Service file list resource object representing a list of files from an unregistered service.

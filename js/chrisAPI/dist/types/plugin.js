@@ -1,7 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PluginMetaPluginList = exports.PluginList = exports.Plugin = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
+const feed_1 = require("./feed");
+const pluginparameter_1 = require("./pluginparameter");
+const computeresource_1 = require("./computeresource");
+const plugininstance_1 = require("./plugininstance");
+const pluginmeta_1 = require("./pluginmeta");
 /**
  * Plugin item resource object representing a plugin.
  */
-export class Plugin extends ItemResource {
+class Plugin extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +19,9 @@ export class Plugin extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Fetch a list of plugin parameters associated to this plugin from the REST API.
      *
@@ -22,10 +32,11 @@ export class Plugin extends ItemResource {
      *
      * @return {Promise<PluginParameterList>} - JS Promise, resolves to a ``PluginParameterList`` object
      */
-    getPluginParameters(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginParameterList>;
+    getPluginParameters(params = null, timeout = 30000) {
+        const linkRelation = 'parameters';
+        const resourceClass = pluginparameter_1.PluginParameterList;
+        return this._getResource(linkRelation, resourceClass, params, timeout);
+    }
     /**
      * Fetch a list of compute resources registered with this plugin from the REST
      * API.
@@ -37,10 +48,11 @@ export class Plugin extends ItemResource {
      *
      * @return {Promise<PluginComputeResourceList>} - JS Promise, resolves to a ``PluginComputeResourceList`` object
      */
-    getPluginComputeResources(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginComputeResourceList>;
+    getPluginComputeResources(params = null, timeout = 30000) {
+        const linkRelation = 'compute_resources';
+        const resourceClass = computeresource_1.PluginComputeResourceList;
+        return this._getResource(linkRelation, resourceClass, params, timeout);
+    }
     /**
      * Fetch a list of plugin instances associated to this plugin from the REST API.
      *
@@ -51,15 +63,17 @@ export class Plugin extends ItemResource {
      *
      * @return {Promise<PluginInstanceList>} - JS Promise, resolves to a ``PluginInstanceList`` object
      */
-    getPluginInstances(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PluginInstanceList>;
+    getPluginInstances(params = null, timeout = 30000) {
+        const linkRelation = 'instances';
+        const resourceClass = plugininstance_1.PluginInstanceList;
+        return this._getResource(linkRelation, resourceClass, params, timeout);
+    }
 }
+exports.Plugin = Plugin;
 /**
  * Plugin list resource object representing a list of plugins.
  */
-export class PluginList extends ListResource {
+class PluginList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -67,9 +81,11 @@ export class PluginList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Plugin;
+    }
     /**
      * Fetch a list of feeds from the REST API.
      *
@@ -82,16 +98,30 @@ export class PluginList extends ListResource {
      *
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
-    getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+    getFeeds(searchParams = null, timeout = 30000) {
+        const linkRelation = 'feeds';
+        const resourceClass = feed_1.FeedList;
+        return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    }
 }
+exports.PluginList = PluginList;
 /**
  * Plugin meta-specific plugin list resource object representing a list of
  * plugins associated to an specific plugin meta.
  */
-export class PluginMetaPluginList extends ListResource {
+class PluginMetaPluginList extends resource_1.ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} [auth=null] - authentication object
+     * @param {string} [auth.token] - authentication token
+     */
+    constructor(url, auth = null) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Plugin;
+    }
     /**
      * Fetch the plugin meta associated to this plugin meta-specific list of
      * plugins from the REST API.
@@ -100,12 +130,10 @@ export class PluginMetaPluginList extends ListResource {
      *
      * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
      */
-    getPluginMeta(timeout?: number | undefined): Promise<PluginMeta>;
+    getPluginMeta(timeout = 30000) {
+        const linkRelation = 'meta';
+        const resourceClass = pluginmeta_1.PluginMeta;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { PluginParameterList } from "./pluginparameter";
-import { PluginComputeResourceList } from "./computeresource";
-import { PluginInstanceList } from "./plugininstance";
-import { ListResource } from "./resource";
-import { FeedList } from "./feed";
-import { PluginMeta } from "./pluginmeta";
+exports.PluginMetaPluginList = PluginMetaPluginList;

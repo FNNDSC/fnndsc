@@ -1,7 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/** * Imports ***/
+const resource_1 = require("./resource");
 /**
  * Note item resource object representing a feed's note.
  */
-export default class Note extends ItemResource {
+class Note extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +13,9 @@ export default class Note extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Make a PUT request to modify this note item resource through the REST API.
      *
@@ -22,9 +26,8 @@ export default class Note extends ItemResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    put(data: {
-        title?: string | undefined;
-        content?: string | undefined;
-    }, timeout?: number | undefined): Promise<Note>;
+    put(data, timeout = 30000) {
+        return this._put(data, null, timeout);
+    }
 }
-import { ItemResource } from "./resource";
+exports.default = Note;

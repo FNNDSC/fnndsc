@@ -1,7 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PluginParameterList = exports.PluginParameter = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
+const plugin_1 = require("./plugin");
 /**
  * Plugin parameter item resource object representing a plugin parameter.
  */
-export class PluginParameter extends ItemResource {
+class PluginParameter extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +15,9 @@ export class PluginParameter extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Fetch the plugin associated to this parameter item from the REST API.
      *
@@ -19,12 +25,17 @@ export class PluginParameter extends ItemResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout = 30000) {
+        const linkRelation = 'plugin';
+        const resourceClass = plugin_1.Plugin;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
 }
+exports.PluginParameter = PluginParameter;
 /**
  * Plugin parameter list resource object representing a list of plugin parameters.
  */
-export class PluginParameterList extends ListResource {
+class PluginParameterList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -32,9 +43,11 @@ export class PluginParameterList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = PluginParameter;
+    }
     /**
      * Fetch the plugin associated to this list of parameters from the REST API.
      *
@@ -42,8 +55,10 @@ export class PluginParameterList extends ListResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout = 30000) {
+        const linkRelation = 'plugin';
+        const resourceClass = plugin_1.Plugin;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { Plugin } from "./plugin";
-import { ListResource } from "./resource";
+exports.PluginParameterList = PluginParameterList;

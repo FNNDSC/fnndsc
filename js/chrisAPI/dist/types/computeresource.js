@@ -1,7 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PluginComputeResourceList = exports.ComputeResourceList = exports.ComputeResource = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
+const feed_1 = require("./feed");
+const plugin_1 = require("./plugin");
 /**
  * Compute resource item resource object representing a compute resource.
  */
-export class ComputeResource extends ItemResource {
+class ComputeResource extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,14 +16,15 @@ export class ComputeResource extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
 }
+exports.ComputeResource = ComputeResource;
 /**
  * Compute resource list resource object representing a list of compute resources.
  */
-export class ComputeResourceList extends ListResource {
+class ComputeResourceList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -24,9 +32,11 @@ export class ComputeResourceList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = ComputeResource;
+    }
     /**
      * Fetch a list of feeds from the REST API.
      *
@@ -39,16 +49,18 @@ export class ComputeResourceList extends ListResource {
      *
      * @return {Promise<FeedList>} - JS Promise, resolves to a ``FeedList`` object
      */
-    getFeeds(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<FeedList>;
+    getFeeds(searchParams = null, timeout = 30000) {
+        const linkRelation = 'feeds';
+        const resourceClass = feed_1.FeedList;
+        return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    }
 }
+exports.ComputeResourceList = ComputeResourceList;
 /**
  * Plugin-specific compute resource list resource object representing a list of
  * compute resources registered with an specific plugin.
  */
-export class PluginComputeResourceList extends ListResource {
+class PluginComputeResourceList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -56,9 +68,11 @@ export class PluginComputeResourceList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = ComputeResource;
+    }
     /**
      * Fetch the plugin associated to this compute resource list from the REST API.
      *
@@ -66,9 +80,10 @@ export class PluginComputeResourceList extends ListResource {
      *
      * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
      */
-    getPlugin(timeout?: number | undefined): Promise<Plugin>;
+    getPlugin(timeout = 30000) {
+        const linkRelation = 'plugin';
+        const resourceClass = plugin_1.Plugin;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { ListResource } from "./resource";
-import { FeedList } from "./feed";
-import { Plugin } from "./plugin";
+exports.PluginComputeResourceList = PluginComputeResourceList;

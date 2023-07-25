@@ -1,7 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/** * Imports ***/
+const request_1 = require("./request");
+const resource_1 = require("./resource");
 /**
  * User item resource object representing a user of the system.
  */
-export default class User extends ItemResource {
+class User extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +14,9 @@ export default class User extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Make a PUT request to modify this user item resource through the REST API.
      *
@@ -22,9 +27,8 @@ export default class User extends ItemResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    put(data: {
-        password: string;
-        email: string;
-    }, timeout?: number | undefined): Promise<User>;
+    put(data, timeout = 30000) {
+        return this._put(data, null, timeout);
+    }
 }
-import { ItemResource } from "./resource";
+exports.default = User;

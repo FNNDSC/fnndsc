@@ -1,7 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AllWorkflowList = exports.WorkflowList = exports.Workflow = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
+const pipeline_1 = require("./pipeline");
+const plugininstance_1 = require("./plugininstance");
 /**
  * Workflow item resource object representing a pipeline workflow.
  */
-export class Workflow extends ItemResource {
+class Workflow extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +16,9 @@ export class Workflow extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Fetch the pipeline associated to this workflow from the REST API.
      *
@@ -19,7 +26,11 @@ export class Workflow extends ItemResource {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(timeout = 30000) {
+        const linkRelation = 'pipeline';
+        const resourceClass = pipeline_1.Pipeline;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Fetch a list of plugin instances created by this workflow from the REST API.
      *
@@ -30,10 +41,11 @@ export class Workflow extends ItemResource {
      *
      * @return {Promise<WorkflowPluginInstanceList>} - JS Promise, resolves to a ``WorkflowPluginInstanceList`` object
      */
-    getPluginInstances(params?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<WorkflowPluginInstanceList>;
+    getPluginInstances(params = null, timeout = 30000) {
+        const linkRelation = 'plugin_instances';
+        const resourceClass = plugininstance_1.WorkflowPluginInstanceList;
+        return this._getResource(linkRelation, resourceClass, params, timeout);
+    }
     /**
      * Make a PUT request to modify this workflow resource through the REST API.
      *
@@ -43,9 +55,9 @@ export class Workflow extends ItemResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    put(data: {
-        title?: string | undefined;
-    }, timeout?: number | undefined): Promise<Workflow>;
+    put(data, timeout = 30000) {
+        return this._put(data, null, timeout);
+    }
     /**
      * Make a DELETE request to delete this workflow resource through the REST API.
      *
@@ -53,13 +65,16 @@ export class Workflow extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout = 30000) {
+        return this._delete(timeout);
+    }
 }
+exports.Workflow = Workflow;
 /**
  * Workflow list resource object representing a list of pipeline-specific
  * workflows.
  */
-export class WorkflowList extends ListResource {
+class WorkflowList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -67,9 +82,11 @@ export class WorkflowList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Workflow;
+    }
     /**
      * Fetch the pipeline associated to this workflow list from the REST API.
      *
@@ -77,7 +94,11 @@ export class WorkflowList extends ListResource {
      *
      * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
-    getPipeline(timeout?: number | undefined): Promise<Pipeline>;
+    getPipeline(timeout = 30000) {
+        const linkRelation = 'pipeline';
+        const resourceClass = pipeline_1.Pipeline;
+        return this._getResource(linkRelation, resourceClass, null, timeout);
+    }
     /**
      * Make a POST request to this workflow list resource to create a new
      * workflow item resource through the REST API.
@@ -92,15 +113,15 @@ export class WorkflowList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: {
-        previous_plugin_inst_id: number;
-        nodes_info: string;
-    }, timeout?: number | undefined): Promise<WorkflowList>;
+    post(data, timeout = 30000) {
+        return this._post(data, null, timeout);
+    }
 }
+exports.WorkflowList = WorkflowList;
 /**
  * Workflow list resource object representing a list of all workflows.
  */
-export class AllWorkflowList extends ListResource {
+class AllWorkflowList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -108,9 +129,11 @@ export class AllWorkflowList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = Workflow;
+    }
     /**
      * Fetch a list of pipelines from the REST API.
      *
@@ -123,13 +146,10 @@ export class AllWorkflowList extends ListResource {
      *
      * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
      */
-    getPipelines(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<PipelineList>;
+    getPipelines(searchParams = null, timeout = 30000) {
+        const linkRelation = 'pipelines';
+        const resourceClass = pipeline_1.PipelineList;
+        return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { Pipeline } from "./pipeline";
-import { WorkflowPluginInstanceList } from "./plugininstance";
-import { ListResource } from "./resource";
-import { PipelineList } from "./pipeline";
+exports.AllWorkflowList = AllWorkflowList;

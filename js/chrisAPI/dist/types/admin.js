@@ -1,7 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PluginAdminList = exports.PluginAdmin = exports.ComputeResourceAdminList = exports.ComputeResourceAdmin = void 0;
+/** * Imports ***/
+const resource_1 = require("./resource");
 /**
  * Compute resource admin item resource object representing a compute resource admin.
  */
-export class ComputeResourceAdmin extends ItemResource {
+class ComputeResourceAdmin extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -9,9 +14,9 @@ export class ComputeResourceAdmin extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Make a DELETE request to delete this compute resource through the REST API.
      *
@@ -19,12 +24,15 @@ export class ComputeResourceAdmin extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout = 30000) {
+        return this._delete(timeout);
+    }
 }
+exports.ComputeResourceAdmin = ComputeResourceAdmin;
 /**
  * Compute resource admin list resource object representing a list of compute resource admins.
  */
-export class ComputeResourceAdminList extends ListResource {
+class ComputeResourceAdminList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -32,9 +40,11 @@ export class ComputeResourceAdminList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = ComputeResourceAdmin;
+    }
     /**
      * Make a POST request to this compute resource admin list resource to create a new
      * compute resource admin item resource through the REST API.
@@ -52,21 +62,15 @@ export class ComputeResourceAdminList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: {
-        name: string;
-        compute_url: string;
-        compute_user: string;
-        compute_password: string;
-        compute_auth_url?: string | undefined;
-        compute_auth_token?: string | undefined;
-        description?: string | undefined;
-        max_job_exec_seconds?: number | undefined;
-    }, timeout?: number | undefined): Promise<ComputeResourceAdminList>;
+    post(data, timeout = 30000) {
+        return this._post(data, null, timeout);
+    }
 }
+exports.ComputeResourceAdminList = ComputeResourceAdminList;
 /**
  * Plugin admin item resource object representing a plugin admin.
  */
-export class PluginAdmin extends ItemResource {
+class PluginAdmin extends resource_1.ItemResource {
     /**
      * Constructor
      *
@@ -74,9 +78,9 @@ export class PluginAdmin extends ItemResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+    }
     /**
      * Make a DELETE request to delete this plugin through the REST API.
      *
@@ -84,12 +88,15 @@ export class PluginAdmin extends ItemResource {
      *
      * @return {Promise} - JS Promise
      */
-    delete(timeout?: number | undefined): Promise<any>;
+    delete(timeout = 30000) {
+        return this._delete(timeout);
+    }
 }
+exports.PluginAdmin = PluginAdmin;
 /**
  * Plugin admin list resource object representing a list of plugin admins.
  */
-export class PluginAdminList extends ListResource {
+class PluginAdminList extends resource_1.ListResource {
     /**
      * Constructor
      *
@@ -97,9 +104,11 @@ export class PluginAdminList extends ListResource {
      * @param {Object} auth - authentication object
      * @param {string} auth.token - authentication token
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    constructor(url, auth) {
+        super(url, auth);
+        /** @type {Object} */
+        this.itemClass = PluginAdmin;
+    }
     /**
      * Fetch a list of compute resource admins from the REST API.
      *
@@ -111,10 +120,11 @@ export class PluginAdminList extends ListResource {
      * @return {Promise<ComputeResourceAdminList>} - JS Promise, resolves
      * to a ``ComputeResourceAdminList`` object
      */
-    getComputeResourceAdmins(searchParams?: {
-        limit?: number | undefined;
-        offset?: number | undefined;
-    } | undefined, timeout?: number | undefined): Promise<ComputeResourceAdminList>;
+    getComputeResourceAdmins(searchParams = null, timeout = 30000) {
+        const linkRelation = 'compute_resources';
+        const resourceClass = ComputeResourceAdminList;
+        return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    }
     /**
      * Make a POST request to this plugin admin list resource to create a new
      * plugin admin item resource through the REST API.
@@ -128,9 +138,8 @@ export class PluginAdminList extends ListResource {
      *
      * @return {Promise<this>} - JS Promise, resolves to ``this`` object
      */
-    post(data: {
-        compute_names: string;
-    }, pluginFileObj: Object | null, timeout?: number | undefined): Promise<PluginAdminList>;
+    post(data, pluginFileObj, timeout = 30000) {
+        return this._post(data, pluginFileObj, timeout);
+    }
 }
-import { ItemResource } from "./resource";
-import { ListResource } from "./resource";
+exports.PluginAdminList = PluginAdminList;
