@@ -5,9 +5,9 @@ import Collection from './cj';
 import { ItemResource, ListResource } from './resource';
 
 /**
- * Uploaded file item resource object representing a user's uploaded file.
+ * User file item resource object representing a user's file.
  */
-export class UploadedFile extends ItemResource {
+export class UserFile extends ItemResource {
   /**
    * Constructor
    *
@@ -38,7 +38,7 @@ export class UploadedFile extends ItemResource {
   }
 
   /**
-   * Make a PUT request to modify this uploaded file item resource through the REST API.
+   * Make a PUT request to modify this user file item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
    * @param {string} data.upload_path - absolute path including file name where the file
@@ -52,7 +52,7 @@ export class UploadedFile extends ItemResource {
   }
 
   /**
-   * Make a DELETE request to delete this uploaded file item resource through the REST API.
+   * Make a DELETE request to delete this user file item resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    *
@@ -64,9 +64,9 @@ export class UploadedFile extends ItemResource {
 }
 
 /**
- * Uploaded file list resource object representing a list of a user's uploaded files.
+ * User file list resource object representing a list of a user's files.
  */
-export class UploadedFileList extends ListResource {
+export class UserFileList extends ListResource {
   /**
    * Constructor
    *
@@ -78,11 +78,11 @@ export class UploadedFileList extends ListResource {
     super(url, auth);
 
     /** @type {Object} */
-    this.itemClass = UploadedFile;
+    this.itemClass = UserFile;
   }
 
   /**
-   * Make a POST request to this uploaded file list resource to create a new uploaded file
+   * Make a POST request to this user file list resource to create a new user file
    * item resource through the REST API.
    *
    * @param {Object} data - request JSON data object

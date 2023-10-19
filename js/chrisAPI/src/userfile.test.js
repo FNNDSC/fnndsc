@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Request from './request';
 import { FeedList } from './feed';
-import { UploadedFile } from './uploadedfile';
+import { UserFile } from './userfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -11,7 +11,7 @@ describe('Resource', () => {
   const chrisUrl = 'http://localhost:8000/api/v1/';
   const auth = { username: username, password: password };
   //const auth = {token: "d757da9c364fdc92368b90392559e0de78f54f02"};
-  let uploadedFileListRes;
+  let userFileListRes;
 
   before(() => {
     return new Promise(function(resolve, reject) {
@@ -19,38 +19,38 @@ describe('Resource', () => {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
-          uploadedFileListRes = yield feedListRes.getUploadedFiles();
+          userFileListRes = yield feedListRes.getUserFiles();
 
-          // create one uploaded file item resource
+          // create one user file item resource
           const data = {
-            upload_path: username + '/uploads/test' + Date.now() + '.txt',
+            upload_path: 'home/' + username + '/uploads/test' + Date.now() + '.txt',
           };
           const fileContent = 'This is an uploaded test file';
           const fileData = JSON.stringify(fileContent);
           const uploadFile = new Blob([fileData], { type: 'application/json' });
           const uploadFileObj = { fname: uploadFile };
-          uploadedFileListRes = yield uploadedFileListRes.post(data, uploadFileObj);
+          userFileListRes = yield userFileListRes.post(data, uploadFileObj);
         } catch (ex) {
           reject(ex);
           return;
         }
-        resolve(uploadedFileListRes);
+        resolve(userFileListRes);
       });
     });
   });
 
-  describe('UploadedFile', () => {
-    let uploadedFile;
+  describe('UserFile', () => {
+    let userFile;
 
     beforeEach(() => {
       // get the plugin instance with id 1
-      const url = uploadedFileListRes.collection.items[0].href;
-      uploadedFile = new UploadedFile(url, auth);
-      return uploadedFile.get();
+      const url = userFileListRes.collection.items[0].href;
+      userFile = new UserFile(url, auth);
+      return userFile.get();
     });
 
     it('can fetch the associated file blob from the REST API', done => {
-      const result = uploadedFile.getFileBlob();
+      const result = userFile.getFileBlob();
       result
         .then(fileBlob => {
           return new Promise(function(resolve, reject) {
@@ -75,27 +75,27 @@ describe('Resource', () => {
     });
   });
 
-  describe('UploadedFileList', () => {
-    let uploadedFileList;
+  describe('UserFileList', () => {
+    let userFileList;
 
     beforeEach(() => {
-      uploadedFileList = uploadedFileListRes.clone();
+      userFileList = userFileListRes.clone();
     });
 
-    it('can create a new uploaded file item resource through a REST API POST request', done => {
+    it('can create a new user file item resource through a REST API POST request', done => {
       const data = {
-        upload_path: username + '/uploads/test' + Date.now() + '.txt',
+        upload_path: 'home/' + username + '/uploads/test' + Date.now() + '.txt',
       };
       const fileContent = 'This is a test file';
       const fileData = JSON.stringify(fileContent);
       const uploadFile = new Blob([fileData], { type: 'application/json' });
       const uploadFileObj = { fname: uploadFile };
 
-      const result = uploadedFileList.post(data, uploadFileObj);
+      const result = userFileList.post(data, uploadFileObj);
 
       result
-        .then(uploadedFileList => {
-          expect(uploadedFileList.data[0].fname).to.equal(data.upload_path);
+        .then(userFileList => {
+          expect(userFileList.data[0].fname).to.equal(data.upload_path);
         })
         .then(done, done);
     });

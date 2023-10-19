@@ -6,7 +6,7 @@ import { PluginList } from './plugin';
 import { PluginAdminList } from './admin';
 import { PipelineList } from './pipeline';
 import { AllPipelineInstanceList } from './pipelineinstance';
-import { UploadedFileList } from './uploadedfile';
+import { UserFileList } from './userfile';
 import { PACSFileList } from './pacsfile';
 import { ServiceFileList } from './servicefile';
 import Note from './note';
@@ -340,20 +340,20 @@ export class FeedList extends ListResource {
   }
 
   /**
-   * Fetch a list of uploaded files from the REST API.
+   * Fetch a list of user files from the REST API.
    *
    * @param {Object} [searchParams=null] - search parameters object which is
-   * resource-specific, the ``UploadedFileList.getSearchParameters`` method can
+   * resource-specific, the ``UserFileList.getSearchParameters`` method can
    * be used to get a list of possible search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
+   * @return {Promise<UserFileList>} - JS Promise, resolves to a ``UserFileList`` object
    */
-  getUploadedFiles(searchParams = null, timeout = 30000) {
-    const linkRelation = 'uploadedfiles';
-    const resourceClass = UploadedFileList;
+  getUserFiles(searchParams = null, timeout = 30000) {
+    const linkRelation = 'userfiles';
+    const resourceClass = UserFileList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

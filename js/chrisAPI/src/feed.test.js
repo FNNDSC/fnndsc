@@ -9,7 +9,7 @@ import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance'
 import User from './user';
 import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
-import { UploadedFileList } from './uploadedfile';
+import { UserFileList } from './userfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -176,11 +176,11 @@ describe('Resource', () => {
         .then(done, done);
     });
 
-    it('can fetch the list of all uploaded files from the REST API', done => {
-      const result = feedList.getUploadedFiles();
+    it('can fetch the list of all user files from the REST API', done => {
+      const result = feedList.getUserFiles();
       result
-        .then(uploadedFileList => {
-          expect(uploadedFileList).to.be.an.instanceof(UploadedFileList);
+        .then(userFileList => {
+          expect(userFileList).to.be.an.instanceof(UserFileList);
         })
         .then(done, done);
     });

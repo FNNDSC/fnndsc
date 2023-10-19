@@ -68,9 +68,9 @@ describe('Request', () => {
   });
 
   it('can make authenticated multipart POST request and DELETE request', done => {
-    const url = chrisUrl + 'uploadedfiles/';
+    const url = chrisUrl + 'userfiles/';
     const data = {
-      upload_path: auth.username + '/uploads/test' + Date.now() + '.txt',
+      upload_path: 'home/' + auth.username + '/uploads/test' + Date.now() + '.txt',
     };
     const fileContent = 'This is a test file';
     const fileData = JSON.stringify(fileContent);

@@ -10,7 +10,7 @@ import { PipelineList, Pipeline } from './pipeline';
 import { PipelineInstance } from './pipelineinstance';
 import { Workflow } from './workflow';
 import { Tag, Tagging } from './tag';
-import { UploadedFile } from './uploadedfile';
+import { UserFile } from './userfile';
 import { FileBrowserPath } from './filebrowser';
 import User from './user';
 import RequestException from './exception';
@@ -203,10 +203,10 @@ describe('Client', () => {
   });
 
   it('can create a new plugin instance through the REST API', (done) => {
-    const pluginId = 2;
+    const pluginId = 1;
     const data = {
       title: 'Test plugin instance',
-      dir: username + '/',
+      dir: 'home/' + username + '/',
     };
 
     const result = client.createPluginInstance(pluginId, data);
@@ -332,7 +332,7 @@ describe('Client', () => {
 
   it('can upload a file through the REST API', (done) => {
     const data = {
-      upload_path: username + '/uploads/test' + Date.now() + '.txt',
+      upload_path: 'home/' + username + '/uploads/test' + Date.now() + '.txt',
     };
     const fileContent = 'This is a test file';
     const fileData = JSON.stringify(fileContent);
@@ -341,15 +341,15 @@ describe('Client', () => {
 
     const result = client.uploadFile(data, uploadFileObj);
     result
-      .then((uploadedFile) => {
-        expect(uploadedFile).to.be.an.instanceof(UploadedFile);
-        expect(uploadedFile.data.fname).to.equal(data.upload_path);
+      .then((userFile) => {
+        expect(userFile).to.be.an.instanceof(UserFile);
+        expect(userFile.data.fname).to.equal(data.upload_path);
       })
       .then(done, done);
   });
 
   it('can fetch a file browser path resource given the path string from the REST API', (done) => {
-    const result = client.getFileBrowserPath('cube');
+    const result = client.getFileBrowserPath('home/cube');
     result
       .then(browserPath => {
         expect(browserPath).to.be.an.instanceof(FileBrowserPath);
