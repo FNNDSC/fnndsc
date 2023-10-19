@@ -56,7 +56,7 @@ export default class Client {
     pipelineInstancesUrl: string;
     workflowsUrl: string;
     tagsUrl: string;
-    uploadedFilesUrl: string;
+    userFilesUrl: string;
     pacsFilesUrl: string;
     serviceFilesUrl: string;
     fileBrowserUrl: string;
@@ -178,7 +178,7 @@ export default class Client {
      * @param {string} [searchParams.fname] - match file's path starting with this string
      * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
      * @param {string} [searchParams.fname_icontains] - match file's path containing this string
-     * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
+     * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
      * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance
      * id exactly with this number
      * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number
@@ -666,25 +666,25 @@ export default class Client {
         name?: string;
     }, timeout?: number): Promise<Tag>;
     /**
-     * Get a paginated list of uploaded files from the REST API given query search
+     * Get a paginated list of user files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
      *
      * @param {Object} [searchParams=null] - search parameters object
      * @param {number} [searchParams.limit] - page limit
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [searchParams.id] - match file id exactly with this number
-     * @param {string} [searchParams.fname] - match file's upload path starting with this string
-     * @param {string} [searchParams.fname_exact] - match file's upload path exactly with this string
-     * @param {string} [searchParams.fname_icontains] - match file's upload path containing this string
-     * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
+     * @param {string} [searchParams.fname] - match file's path starting with this string
+     * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
+     * @param {string} [searchParams.fname_icontains] - match file's path containing this string
+     * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
      * @param {string} [searchParams.owner_username] - match file's owner username exactly with this string
      * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
      * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
+     * @return {Promise<UserFileList>} - JS Promise, resolves to a ``UserFileList`` object
      */
-    getUploadedFiles(searchParams?: {
+    getUserFiles(searchParams?: {
         limit?: number;
         offset?: number;
         id?: number;
@@ -695,18 +695,18 @@ export default class Client {
         owner_username?: string;
         min_creation_date?: string;
         max_creation_date?: string;
-    }, timeout?: number): Promise<UploadedFileList>;
+    }, timeout?: number): Promise<UserFileList>;
     /**
-     * Get an uploaded file resource object given its id.
+     * Get an user file resource object given its id.
      *
-     * @param {number} id - uploaded file id
+     * @param {number} id - user file id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<UploadedFile>} - JS Promise, resolves to an ``UploadedFile`` object
+     * @return {Promise<UserFile>} - JS Promise, resolves to an ``UserFile`` object
      */
-    getUploadedFile(id: number, timeout?: number): Promise<UploadedFile>;
+    getUserFile(id: number, timeout?: number): Promise<UserFile>;
     /**
-     * Upload a file and create a new uploaded file resource through the REST API.
+     * Upload a file and create a new userfile resource through the REST API.
      *
      * @param {Object} data - request data object
      * @param {string} data.upload_path - absolute path including file name where the file
@@ -715,13 +715,13 @@ export default class Client {
      * @param {Object} uploadFileObj.fname - file blob
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<UploadedFile>} - JS Promise, resolves to ``UploadedFile`` object
+     * @return {Promise<UserFile>} - JS Promise, resolves to ``UserFile`` object
      */
     uploadFile(data: {
         upload_path: string;
     }, uploadFileObj: {
         fname: any;
-    }, timeout?: number): Promise<UploadedFile>;
+    }, timeout?: number): Promise<UserFile>;
     /**
      * Get a paginated list of PACS files from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -738,7 +738,7 @@ export default class Client {
      * insensitive anywhere in their fname. But only one file is returned per toplevel directory under
      * SERVICES/PACS/pacs_name. This is useful to efficiently determine the top level directories containing a file
      * that matches the query.
-     * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
+     * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
      * @param {string} [searchParams.PatientID] - match file's PatientID exactly with this string
      * @param {string} [searchParams.PatientName] - match file's PatientName containing this string
      * @param {string} [searchParams.PatientSex] - match file's PatientSex exactly with this string
@@ -807,7 +807,7 @@ export default class Client {
      * @param {string} [searchParams.fname] - match file's path starting with this string
      * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
      * @param {string} [searchParams.fname_icontains] - match file's path containing this string
-     * @param {string|number} [searchParams.fname_nslashes] - match file's upload path containing this number of slashes
+     * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
      * @param {string} [searchParams.service_identifier] - match file's service isentifier containing this string
      * @param {number} [searchParams.service_id] - match file's service id exactly with this number
      * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
@@ -908,8 +908,8 @@ import { AllWorkflowList } from "./workflow";
 import { Workflow } from "./workflow";
 import { TagList } from "./tag";
 import { Tag } from "./tag";
-import { UploadedFileList } from "./uploadedfile";
-import { UploadedFile } from "./uploadedfile";
+import { UserFileList } from "./userfile";
+import { UserFile } from "./userfile";
 import { PACSFileList } from "./pacsfile";
 import { PACSFile } from "./pacsfile";
 import { ServiceFileList } from "./servicefile";

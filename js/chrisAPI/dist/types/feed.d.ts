@@ -254,21 +254,21 @@ export class FeedList extends ListResource {
         offset?: number;
     }, timeout?: number): Promise<TagList>;
     /**
-     * Fetch a list of uploaded files from the REST API.
+     * Fetch a list of user files from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
-     * resource-specific, the ``UploadedFileList.getSearchParameters`` method can
+     * resource-specific, the ``UserFileList.getSearchParameters`` method can
      * be used to get a list of possible search parameters
      * @param {number} [searchParams.limit] - page limit
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<UploadedFileList>} - JS Promise, resolves to a ``UploadedFileList`` object
+     * @return {Promise<UserFileList>} - JS Promise, resolves to a ``UserFileList`` object
      */
-    getUploadedFiles(searchParams?: {
+    getUserFiles(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): Promise<UploadedFileList>;
+    }, timeout?: number): Promise<UserFileList>;
     /**
      * Fetch a list of PACS files from the REST API.
      *
@@ -331,7 +331,7 @@ import { AllPluginInstanceList } from "./plugininstance";
 import { PipelineList } from "./pipeline";
 import { AllPipelineInstanceList } from "./pipelineinstance";
 import { TagList } from "./tag";
-import { UploadedFileList } from "./uploadedfile";
+import { UserFileList } from "./userfile";
 import { PACSFileList } from "./pacsfile";
 import { ServiceFileList } from "./servicefile";
 import User from "./user";
