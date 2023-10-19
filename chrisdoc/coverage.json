@@ -137,14 +137,14 @@
       "actualCount": 34,
       "undocumentLines": []
     },
-    "src/uploadedfile.js": {
-      "expectCount": 9,
-      "actualCount": 9,
-      "undocumentLines": []
-    },
     "src/user.js": {
       "expectCount": 3,
       "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/userfile.js": {
+      "expectCount": 9,
+      "actualCount": 9,
       "undocumentLines": []
     },
     "src/workflow.js": {

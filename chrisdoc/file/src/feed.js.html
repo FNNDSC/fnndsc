@@ -97,9 +97,9 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagList.html">TagList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~TagTaggingList.html">TagTaggingList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/tag.js~Tagging.html">Tagging</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFile.html">UploadedFile</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/uploadedfile.js~UploadedFileList.html">UploadedFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/user.js~User.html">User</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/userfile.js~UserFile.html">UserFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/userfile.js~UserFileList.html">UserFileList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~AllWorkflowList.html">AllWorkflowList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~Workflow.html">Workflow</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/workflow.js~WorkflowList.html">WorkflowList</a></span></span></li>
@@ -116,7 +116,7 @@ import { PluginList } from &apos;./plugin&apos;;
 import { PluginAdminList } from &apos;./admin&apos;;
 import { PipelineList } from &apos;./pipeline&apos;;
 import { AllPipelineInstanceList } from &apos;./pipelineinstance&apos;;
-import { UploadedFileList } from &apos;./uploadedfile&apos;;
+import { UserFileList } from &apos;./userfile&apos;;
 import { PACSFileList } from &apos;./pacsfile&apos;;
 import { ServiceFileList } from &apos;./servicefile&apos;;
 import Note from &apos;./note&apos;;
@@ -450,20 +450,20 @@ export class FeedList extends ListResource {
   }
 
   /**
-   * Fetch a list of uploaded files from the REST API.
+   * Fetch a list of user files from the REST API.
    *
    * @param {Object} [searchParams=null] - search parameters object which is
-   * resource-specific, the ``UploadedFileList.getSearchParameters`` method can
+   * resource-specific, the ``UserFileList.getSearchParameters`` method can
    * be used to get a list of possible search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise&lt;UploadedFileList&gt;} - JS Promise, resolves to a ``UploadedFileList`` object
+   * @return {Promise&lt;UserFileList&gt;} - JS Promise, resolves to a ``UserFileList`` object
    */
-  getUploadedFiles(searchParams = null, timeout = 30000) {
-    const linkRelation = &apos;uploadedfiles&apos;;
-    const resourceClass = UploadedFileList;
+  getUserFiles(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;userfiles&apos;;
+    const resourceClass = UserFileList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

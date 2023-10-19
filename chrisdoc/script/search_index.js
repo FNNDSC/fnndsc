@@ -408,21 +408,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@fnndsc/chrisapi~uploadedfile",
-    "class/src/uploadedfile.js~UploadedFile.html",
-    "<span>UploadedFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~uploadedfilelist",
-    "class/src/uploadedfile.js~UploadedFileList.html",
-    "<span>UploadedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
     "@fnndsc/chrisapi~user",
     "class/src/user.js~User.html",
     "<span>User</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~userfile",
+    "class/src/userfile.js~UserFile.html",
+    "<span>UserFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~userfilelist",
+    "class/src/userfile.js~UserFileList.html",
+    "<span>UserFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -1134,21 +1134,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/client.js~client#getuploadedfile",
-    "class/src/client.js~Client.html#instance-method-getUploadedFile",
-    "src/client.js~Client#getUploadedFile",
-    "method"
-  ],
-  [
-    "src/client.js~client#getuploadedfiles",
-    "class/src/client.js~Client.html#instance-method-getUploadedFiles",
-    "src/client.js~Client#getUploadedFiles",
-    "method"
-  ],
-  [
     "src/client.js~client#getuser",
     "class/src/client.js~Client.html#instance-method-getUser",
     "src/client.js~Client#getUser",
+    "method"
+  ],
+  [
+    "src/client.js~client#getuserfile",
+    "class/src/client.js~Client.html#instance-method-getUserFile",
+    "src/client.js~Client#getUserFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#getuserfiles",
+    "class/src/client.js~Client.html#instance-method-getUserFiles",
+    "src/client.js~Client#getUserFiles",
     "method"
   ],
   [
@@ -1236,15 +1236,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/client.js~client#uploadedfilesurl",
-    "class/src/client.js~Client.html#instance-member-uploadedFilesUrl",
-    "src/client.js~Client#uploadedFilesUrl",
-    "member"
-  ],
-  [
     "src/client.js~client#url",
     "class/src/client.js~Client.html#instance-member-url",
     "src/client.js~Client#url",
+    "member"
+  ],
+  [
+    "src/client.js~client#userfilesurl",
+    "class/src/client.js~Client.html#instance-member-userFilesUrl",
+    "src/client.js~Client#userFilesUrl",
     "member"
   ],
   [
@@ -1542,15 +1542,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/feed.js~feedlist#getuploadedfiles",
-    "class/src/feed.js~FeedList.html#instance-method-getUploadedFiles",
-    "src/feed.js~FeedList#getUploadedFiles",
-    "method"
-  ],
-  [
     "src/feed.js~feedlist#getuser",
     "class/src/feed.js~FeedList.html#instance-method-getUser",
     "src/feed.js~FeedList#getUser",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getuserfiles",
+    "class/src/feed.js~FeedList.html#instance-method-getUserFiles",
+    "src/feed.js~FeedList#getUserFiles",
     "method"
   ],
   [
@@ -2844,54 +2844,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/uploadedfile.js",
-    "file/src/uploadedfile.js.html",
-    "src/uploadedfile.js",
-    "file"
-  ],
-  [
-    "src/uploadedfile.js~uploadedfile#constructor",
-    "class/src/uploadedfile.js~UploadedFile.html#instance-constructor-constructor",
-    "src/uploadedfile.js~UploadedFile#constructor",
-    "method"
-  ],
-  [
-    "src/uploadedfile.js~uploadedfile#delete",
-    "class/src/uploadedfile.js~UploadedFile.html#instance-method-delete",
-    "src/uploadedfile.js~UploadedFile#delete",
-    "method"
-  ],
-  [
-    "src/uploadedfile.js~uploadedfile#getfileblob",
-    "class/src/uploadedfile.js~UploadedFile.html#instance-method-getFileBlob",
-    "src/uploadedfile.js~UploadedFile#getFileBlob",
-    "method"
-  ],
-  [
-    "src/uploadedfile.js~uploadedfile#put",
-    "class/src/uploadedfile.js~UploadedFile.html#instance-method-put",
-    "src/uploadedfile.js~UploadedFile#put",
-    "method"
-  ],
-  [
-    "src/uploadedfile.js~uploadedfilelist#constructor",
-    "class/src/uploadedfile.js~UploadedFileList.html#instance-constructor-constructor",
-    "src/uploadedfile.js~UploadedFileList#constructor",
-    "method"
-  ],
-  [
-    "src/uploadedfile.js~uploadedfilelist#itemclass",
-    "class/src/uploadedfile.js~UploadedFileList.html#instance-member-itemClass",
-    "src/uploadedfile.js~UploadedFileList#itemClass",
-    "member"
-  ],
-  [
-    "src/uploadedfile.js~uploadedfilelist#post",
-    "class/src/uploadedfile.js~UploadedFileList.html#instance-method-post",
-    "src/uploadedfile.js~UploadedFileList#post",
-    "method"
-  ],
-  [
     "src/user.js",
     "file/src/user.js.html",
     "src/user.js",
@@ -2907,6 +2859,54 @@ window.esdocSearchIndex = [
     "src/user.js~user#put",
     "class/src/user.js~User.html#instance-method-put",
     "src/user.js~User#put",
+    "method"
+  ],
+  [
+    "src/userfile.js",
+    "file/src/userfile.js.html",
+    "src/userfile.js",
+    "file"
+  ],
+  [
+    "src/userfile.js~userfile#constructor",
+    "class/src/userfile.js~UserFile.html#instance-constructor-constructor",
+    "src/userfile.js~UserFile#constructor",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#delete",
+    "class/src/userfile.js~UserFile.html#instance-method-delete",
+    "src/userfile.js~UserFile#delete",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#getfileblob",
+    "class/src/userfile.js~UserFile.html#instance-method-getFileBlob",
+    "src/userfile.js~UserFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#put",
+    "class/src/userfile.js~UserFile.html#instance-method-put",
+    "src/userfile.js~UserFile#put",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfilelist#constructor",
+    "class/src/userfile.js~UserFileList.html#instance-constructor-constructor",
+    "src/userfile.js~UserFileList#constructor",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfilelist#itemclass",
+    "class/src/userfile.js~UserFileList.html#instance-member-itemClass",
+    "src/userfile.js~UserFileList#itemClass",
+    "member"
+  ],
+  [
+    "src/userfile.js~userfilelist#post",
+    "class/src/userfile.js~UserFileList.html#instance-method-post",
+    "src/userfile.js~UserFileList#post",
     "method"
   ],
   [
