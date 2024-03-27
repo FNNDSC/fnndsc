@@ -3,16 +3,6 @@
  */
 export class Pipeline extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of plugins associated to this pipeline from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -56,8 +46,7 @@ export class Pipeline extends ItemResource {
         offset?: number;
     }, timeout?: number): Promise<PipelinePipingDefaultParameterList>;
     /**
-     * Fetch a list of pipeline instances associated to this pipeline from the
-     * REST API.
+     * Fetch a list of pipeline instances associated to this pipeline from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
      * @param {number} [params.limit] - page limit
@@ -70,6 +59,28 @@ export class Pipeline extends ItemResource {
         limit?: number;
         offset?: number;
     }, timeout?: number): Promise<PipelineInstanceList>;
+    /**
+     * Fetch a list of workflows associated to this pipeline from the REST API.
+     *
+     * @param {Object} [params=null] - page parameters object
+     * @param {number} [params.limit] - page limit
+     * @param {number} [params.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<WorkflowList>} - JS Promise, resolves to a ``WorkflowList`` object
+     */
+    getWorkflows(params?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<WorkflowList>;
+    /**
+     * Fetch the source fle associated to this pipeline from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
+     */
+    getPipelineSourceFile(timeout?: number): Promise<PipelineSourceFile>;
     /**
      * Make a PUT request to modify this pipeline resource through the REST API.
      *
@@ -103,16 +114,6 @@ export class Pipeline extends ItemResource {
  * Pipeline list resource object representing a list of pipelines.
  */
 export class PipelineList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch a list of plugins from the REST API.
      *
@@ -161,16 +162,6 @@ export class PipelineList extends ListResource {
  */
 export class PluginPiping extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the parent plugin piping within the corresponding pipeline from the
      * REST API.
      *
@@ -202,16 +193,6 @@ export class PluginPiping extends ItemResource {
  */
 export class PipingDefaultParameter extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the corresponding plugin piping for this plugin piping default
      * parameter from the REST API.
      *
@@ -235,52 +216,75 @@ export class PipingDefaultParameter extends ItemResource {
  * composing the pipeline.
  */
 export class PipelinePluginList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 /**
  * Pipeline-specific plugin piping list resource object representing a list of
  * plugin pipings composing the pipeline.
  */
 export class PipelinePluginPipingList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
 }
 /**
  * List resource object representing a pipeline-specific list of plugin piping
  * default parameter values for the plugin pipings composing the pipeline.
  */
 export class PipelinePipingDefaultParameterList extends ListResource {
+}
+/**
+ * Pipeline source file item resource object representing a pipeline source file.
+ */
+export class PipelineSourceFile extends ItemResource {
     /**
-     * Constructor
+     * Fetch the file blob associated to this file item from the REST API.
      *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    getFileBlob(timeout?: number): Promise<Blob>;
+    /**
+     * Fetch the pipeline associated to this source file from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
+     */
+    getPipeline(timeout?: number): Promise<Pipeline>;
+    /**
+     * Fetch the parent folder of this file from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getParentFolder(timeout?: number): Promise<FileBrowserFolder>;
+}
+/**
+ * Pipeline source file list resource object representing a list of pipeline source files.
+ */
+export class PipelineSourceFileList extends ListResource {
+    /**
+     * Make a POST request to this pipeline source file list resource to create a new
+     * pipeline source file item resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {string} data.type - pipeline source file type
+     * @param {Object} uploadFileObj - custom file object
+     * @param {Object} uploadFileObj.fname - file blob
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    post(data: {
+        type: string;
+    }, uploadFileObj: {
+        fname: any;
+    }, timeout?: number): Promise<PipelineSourceFileList>;
 }
 import { ItemResource } from "./resource";
 import { PipelineInstanceList } from "./pipelineinstance";
+import { WorkflowList } from "./workflow";
 import { ListResource } from "./resource";
 import { PluginList } from "./plugin";
 import { Plugin } from "./plugin";
 import { PluginParameter } from "./pluginparameter";
+import { FileBrowserFolder } from "./filebrowser";

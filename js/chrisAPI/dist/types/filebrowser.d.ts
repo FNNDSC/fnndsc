@@ -1,88 +1,131 @@
 /**
- * File browser path file item resource object representing a generic browser file.
+ * File browser folder item resource object representing a folder.
  */
-export class FileBrowserPathFile extends ItemResource {
+export class FileBrowserFolder extends ItemResource {
     /**
-     * Constructor
+     * Fetch the parent folder of this folder from the REST API.
      *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    getParent(timeout?: number): Promise<FileBrowserFolder>;
+    /**
+     * Fetch a list of folders that are the children of this folder from the REST API.
+     *
+     * @param {Object} [params=null] - page parameters object
+     * @param {number} [params.limit] - page limit
+     * @param {number} [params.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderChildList>} - JS Promise, resolves to a ``FileBrowserFolderChildList`` object
+     */
+    getChildren(params?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FileBrowserFolderChildList>;
+    /**
+     * Fetch a list of files directly under this folder from the REST API.
+     *
+     * @param {Object} [params=null] - page parameters object
+     * @param {number} [params.limit] - page limit
+     * @param {number} [params.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderFileList>} - JS Promise, resolves to a ``FileBrowserFolderFileList`` object
+     */
+    getFiles(params?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FileBrowserFolderFileList>;
+    /**
+     * Fetch a list of link files directly under this folder from the REST API.
+     *
+     * @param {Object} [params=null] - page parameters object
+     * @param {number} [params.limit] - page limit
+     * @param {number} [params.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderLinkFileList>} - JS Promise, resolves to a ``FileBrowserFolderLinkFileList`` object
+     */
+    getLinkFiles(params?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FileBrowserFolderLinkFileList>;
+}
+/**
+ * File browser folder list resource object representing a list of folders.
+ */
+export class FileBrowserFolderList extends ListResource {
+}
+/**
+ * File browser folder child list resource object representing a list of all
+ * folders directly under a folder.
+ */
+export class FileBrowserFolderChildList extends ListResource {
+}
+/**
+ * File browser folder file item resource object representing a generic browser file.
+ */
+export class FileBrowserFolderFile extends ItemResource {
     /**
      * Fetch the file blob associated to this browser file item from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
-     * @throws {RequestException} throw error if this item resource has not yet been
-     * fetched from the REST API
      */
     getFileBlob(timeout?: number): Promise<Blob>;
-}
-/**
- * File browser path file list resource object representing a list of all
- * browser files directly under a folder.
- */
-export class FileBrowserPathFileList extends ListResource {
     /**
-     * Constructor
+     * Fetch the parent folder of this file from the REST API.
      *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-}
-/**
- * File browser path item resource object representing a file browser path.
- */
-export class FileBrowserPath extends ItemResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
-     * Fetch the paginated list of files directly under this file browser path from the REST API.
-     *
-     * @param {Object} [params=null] - page parameters
-     * @param {number} [params.limit] - page limit
-     * @param {number} [params.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<FileBrowserPathFileList>} - JS Promise, resolves to a ``FileBrowserPathFileList`` object
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
      */
-    getFiles(params?: {
-        limit?: number;
-        offset?: number;
-    }, timeout?: number): Promise<FileBrowserPathFileList>;
+    getParentFolder(timeout?: number): Promise<FileBrowserFolder>;
 }
 /**
- * File browser path list resource object representing the initial page of the
- * collection of file browser paths.
+ * File browser folder file list resource object representing a list of all
+ * files directly under a folder.
  */
-export class FileBrowserPathList extends ListResource {
+export class FileBrowserFolderFileList extends ListResource {
+}
+/**
+ * File browser folder link file item resource object representing a link file.
+ */
+export class FileBrowserFolderLinkFile extends ItemResource {
     /**
-     * Constructor
+     * Fetch the file blob associated to this file item from the REST API.
      *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    getFileBlob(timeout?: number): Promise<Blob>;
+    /**
+     * Fetch the parent folder of this link file from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getParentFolder(timeout?: number): Promise<FileBrowserFolder>;
+    /**
+     * Fetch the linked resource (file or folder) from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder|FileBrowserFolderFile|null>} - JS Promise, resolves to either a
+     * ``FileBrowserFolder`` object or a ``FileBrowserFolderFileobject`` or ``null`` if the link is broken.
+     */
+    getLinkedResource(timeout?: number): Promise<FileBrowserFolder | FileBrowserFolderFile | null>;
+}
+/**
+ * File browser folder link file list resource object representing a list of all
+ * link files directly under a folder.
+ */
+export class FileBrowserFolderLinkFileList extends ListResource {
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

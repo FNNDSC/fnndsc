@@ -1,10 +1,11 @@
 /** * Imports ***/
 import { ItemResource, ListResource } from './resource';
+import ChrisInstance from './chrisinstance';
 import User from './user';
 import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
 import { PluginAdminList } from './admin';
-import { PipelineList } from './pipeline';
+import { PipelineList, PipelineSourceFileList } from './pipeline';
 import { AllPipelineInstanceList } from './pipelineinstance';
 import { UserFileList } from './userfile';
 import { PACSFileList } from './pacsfile';
@@ -12,8 +13,8 @@ import { ServiceFileList } from './servicefile';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
-import { AllFeedFileList, FeedFileList } from './feedfile';
 import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
+import { FileBrowserFolderList } from './filebrowser';
 
 /**
  * Feed item resource object representing a feed.
@@ -98,23 +99,6 @@ export class Feed extends ItemResource {
   }
 
   /**
-   * Fetch a list of files associated to this feed from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters object
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<FeedFileList>} - JS Promise, resolves to a ``FeedFileList`` object
-   */
-  getFiles(params = null, timeout = 30000) {
-    const linkRelation = 'files';
-    const resourceClass = FeedFileList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
    * Fetch a list of plugin instances associated to this feed from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
@@ -150,6 +134,7 @@ export class Feed extends ItemResource {
    *
    * @param {Object} data - request JSON data object
    * @param {string} [data.name] - name of the feed
+   * @param {boolean} [data.public] - public status of the feed
    * @param {string} [data.owner] - username to be added to the list of this feed's owners
    * @param {number} [timeout=30000] - request timeout
    *
@@ -190,23 +175,37 @@ export class FeedList extends ListResource {
   }
 
   /**
-   * Fetch a list of files written to any user-owned feed.
+   * Fetch the ChRIS instance information from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<User>} - JS Promise, resolves to a ``ChrisInstance`` object
+   */
+  getChrisInstance(timeout = 30000) {
+    const linkRelation = 'chrisinstance';
+    const resourceClass = ChrisInstance;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+   /**
+   * Fetch a list of public feeds from the REST API.
    *
    * @param {Object} [searchParams=null] - search parameters object which is
-   * resource-specific, the ``AllFeedFileList.getSearchParameters`` method can be
+   * resource-specific, the ``PublicFeedList.getSearchParameters`` method can be
    * used to get a list of possible search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
+   * @return {Promise<PublicFeedList>} - JS Promise, resolves to a ``PublicFeedList`` object
    */
-  getFiles(searchParams = null, timeout = 30000) {
-    const linkRelation = 'files';
-    const resourceClass = AllFeedFileList;
+   getPublicFeeds(searchParams = null, timeout = 30000) {
+    const linkRelation = 'public_feeds';
+    const resourceClass = PublicFeedList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  }
+  } 
 
   /**
    * Fetch a list of compute resources from the REST API.
@@ -340,6 +339,25 @@ export class FeedList extends ListResource {
   }
 
   /**
+   * Fetch a list of pipeline source files from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PipelineSourceFileList.getSearchParameters`` method can
+   * be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PipelineSourceFileList>} - JS Promise, resolves to a ``PipelineSourceFileList`` object
+   */
+    getPipelineSourceFiles(searchParams = null, timeout = 30000) {
+      const linkRelation = 'pipelinesourcefiles';
+      const resourceClass = PipelineSourceFileList;
+  
+      return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+    }
+
+  /**
    * Fetch a list of user files from the REST API.
    *
    * @param {Object} [searchParams=null] - search parameters object which is
@@ -396,6 +414,25 @@ export class FeedList extends ListResource {
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 
+  /**
+   * Fetch a list of file browser folders (the returned list only has at most one element) from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``FileBrowserFolderList.getSearchParameters`` method can
+   * be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolderList>} - JS Promise, resolves to a ``FileBrowserFolderList`` object
+   */
+  getFileBrowserFolders(searchParams = null, timeout = 30000) {
+    const linkRelation = 'filebrowser';
+    const resourceClass = FileBrowserFolderList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+  
   /**
    * Fetch currently authenticated user's information from the REST API.
    *

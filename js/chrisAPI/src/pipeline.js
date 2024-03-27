@@ -1,24 +1,18 @@
 /** * Imports ***/
+import Request from './request';
+import RequestException from './exception';
+import Collection from './cj';
 import { ItemResource, ListResource } from './resource';
 import { PluginList, Plugin } from './plugin';
 import { PluginParameter } from './pluginparameter';
 import { PipelineInstanceList } from './pipelineinstance';
+import { WorkflowList } from './workflow';
+import { FileBrowserFolder } from './filebrowser';
 
 /**
  * Pipeline item resource object representing a pipeline.
  */
 export class Pipeline extends ItemResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
   /**
    * Fetch a list of plugins associated to this pipeline from the REST API.
    *
@@ -72,8 +66,7 @@ export class Pipeline extends ItemResource {
   }
 
   /**
-   * Fetch a list of pipeline instances associated to this pipeline from the
-   * REST API.
+   * Fetch a list of pipeline instances associated to this pipeline from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
    * @param {number} [params.limit] - page limit
@@ -88,6 +81,37 @@ export class Pipeline extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
+
+  /**
+   * Fetch a list of workflows associated to this pipeline from the REST API.
+   *
+   * @param {Object} [params=null] - page parameters object
+   * @param {number} [params.limit] - page limit
+   * @param {number} [params.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<WorkflowList>} - JS Promise, resolves to a ``WorkflowList`` object
+   */
+   getWorkflows(params = null, timeout = 30000) {
+    const linkRelation = 'workflows';
+    const resourceClass = WorkflowList;
+
+    return this._getResource(linkRelation, resourceClass, params, timeout);
+  } 
+
+  /**
+   * Fetch the source fle associated to this pipeline from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
+   */
+   getPipelineSourceFile(timeout = 30000) {
+    const linkRelation = 'source_file';
+    const resourceClass = PipelineSourceFile;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
 
   /**
    * Make a PUT request to modify this pipeline resource through the REST API.
@@ -126,10 +150,10 @@ export class PipelineList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -181,17 +205,6 @@ export class PipelineList extends ListResource {
  * a pipeline.
  */
 export class PluginPiping extends ItemResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
   /**
    * Fetch the parent plugin piping within the corresponding pipeline from the
    * REST API.
@@ -246,17 +259,6 @@ export class PluginPiping extends ItemResource {
  */
 export class PipingDefaultParameter extends ItemResource {
   /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
    * Fetch the corresponding plugin piping for this plugin piping default
    * parameter from the REST API.
    *
@@ -296,10 +298,10 @@ export class PipelinePluginList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -316,10 +318,10 @@ export class PipelinePluginPipingList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -336,13 +338,99 @@ export class PipelinePipingDefaultParameterList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
     this.itemClass = PipingDefaultParameter;
+  }
+}
+
+/**
+ * Pipeline source file item resource object representing a pipeline source file.
+ */
+export class PipelineSourceFile extends ItemResource {
+  /**
+   * Fetch the file blob associated to this file item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
+   */
+  getFileBlob(timeout = 30000) {
+    if (this.isEmpty) {
+      throw new RequestException('Item object has not been set!');
+    }
+    const req = new Request(this.auth, 'application/octet-stream', timeout);
+    const item = this.collection.items[0];
+    const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];
+
+    return req.get(blobUrl).then(resp => resp.data);
+  }
+
+  /**
+   * Fetch the pipeline associated to this source file from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
+   */
+   getPipeline(timeout = 30000) {
+    const linkRelation = 'pipeline';
+    const resourceClass = Pipeline;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
+  
+  /**
+   * Fetch the parent folder of this file from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   */
+   getParentFolder(timeout = 30000) {
+    const linkRelation = 'parent_folder';
+    const resourceClass = FileBrowserFolder;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }  
+}
+
+/**
+ * Pipeline source file list resource object representing a list of pipeline source files.
+ */
+export class PipelineSourceFileList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
+   */
+  constructor(url, auth = null) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PipelineSourceFile;
+  }
+
+  /**
+   * Make a POST request to this pipeline source file list resource to create a new 
+   * pipeline source file item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} data.type - pipeline source file type
+   * @param {Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+  post(data, uploadFileObj, timeout = 30000) {
+    return this._post(data, uploadFileObj, timeout);
   }
 }

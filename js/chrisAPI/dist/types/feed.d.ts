@@ -64,20 +64,6 @@ export class Feed extends ItemResource {
      */
     getComment(id: number, timeout?: number): Promise<Comment>;
     /**
-     * Fetch a list of files associated to this feed from the REST API.
-     *
-     * @param {Object} [params=null] - page parameters object
-     * @param {number} [params.limit] - page limit
-     * @param {number} [params.offset] - page offset
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<FeedFileList>} - JS Promise, resolves to a ``FeedFileList`` object
-     */
-    getFiles(params?: {
-        limit?: number;
-        offset?: number;
-    }, timeout?: number): Promise<FeedFileList>;
-    /**
      * Fetch a list of plugin instances associated to this feed from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -105,6 +91,7 @@ export class Feed extends ItemResource {
      *
      * @param {Object} data - request JSON data object
      * @param {string} [data.name] - name of the feed
+     * @param {boolean} [data.public] - public status of the feed
      * @param {string} [data.owner] - username to be added to the list of this feed's owners
      * @param {number} [timeout=30000] - request timeout
      *
@@ -112,6 +99,7 @@ export class Feed extends ItemResource {
      */
     put(data: {
         name?: string;
+        public?: boolean;
         owner?: string;
     }, timeout?: number): Promise<Feed>;
     /**
@@ -128,21 +116,29 @@ export class Feed extends ItemResource {
  */
 export class FeedList extends ListResource {
     /**
-     * Fetch a list of files written to any user-owned feed.
+     * Fetch the ChRIS instance information from the REST API.
      *
-     * @param {Object} [searchParams=null] - search parameters object which is
-     * resource-specific, the ``AllFeedFileList.getSearchParameters`` method can be
-     * used to get a list of possible search parameters
-     * @param {number} [searchParams.limit] - page limit
-     * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
+     * @return {Promise<User>} - JS Promise, resolves to a ``ChrisInstance`` object
      */
-    getFiles(searchParams?: {
+    getChrisInstance(timeout?: number): Promise<User>;
+    /**
+    * Fetch a list of public feeds from the REST API.
+    *
+    * @param {Object} [searchParams=null] - search parameters object which is
+    * resource-specific, the ``PublicFeedList.getSearchParameters`` method can be
+    * used to get a list of possible search parameters
+    * @param {number} [searchParams.limit] - page limit
+    * @param {number} [searchParams.offset] - page offset
+    * @param {number} [timeout=30000] - request timeout
+    *
+    * @return {Promise<PublicFeedList>} - JS Promise, resolves to a ``PublicFeedList`` object
+    */
+    getPublicFeeds(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): Promise<AllFeedFileList>;
+    }, timeout?: number): Promise<PublicFeedList>;
     /**
      * Fetch a list of compute resources from the REST API.
      *
@@ -254,6 +250,22 @@ export class FeedList extends ListResource {
         offset?: number;
     }, timeout?: number): Promise<TagList>;
     /**
+     * Fetch a list of pipeline source files from the REST API.
+     *
+     * @param {Object} [searchParams=null] - search parameters object which is
+     * resource-specific, the ``PipelineSourceFileList.getSearchParameters`` method can
+     * be used to get a list of possible search parameters
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PipelineSourceFileList>} - JS Promise, resolves to a ``PipelineSourceFileList`` object
+     */
+    getPipelineSourceFiles(searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PipelineSourceFileList>;
+    /**
      * Fetch a list of user files from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -302,6 +314,22 @@ export class FeedList extends ListResource {
         offset?: number;
     }, timeout?: number): Promise<ServiceFileList>;
     /**
+     * Fetch a list of file browser folders (the returned list only has at most one element) from the REST API.
+     *
+     * @param {Object} [searchParams=null] - search parameters object which is
+     * resource-specific, the ``FileBrowserFolderList.getSearchParameters`` method can
+     * be used to get a list of possible search parameters
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderList>} - JS Promise, resolves to a ``FileBrowserFolderList`` object
+     */
+    getFileBrowserFolders(searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<FileBrowserFolderList>;
+    /**
      * Fetch currently authenticated user's information from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -320,10 +348,9 @@ import Note from "./note";
 import { FeedTagList } from "./tag";
 import { FeedTaggingList } from "./tag";
 import { CommentList } from "./comment";
-import { FeedFileList } from "./feedfile";
 import { FeedPluginInstanceList } from "./plugininstance";
 import { ListResource } from "./resource";
-import { AllFeedFileList } from "./feedfile";
+import User from "./user";
 import { ComputeResourceList } from "./computeresource";
 import { PluginList } from "./plugin";
 import { PluginAdminList } from "./admin";
@@ -331,7 +358,8 @@ import { AllPluginInstanceList } from "./plugininstance";
 import { PipelineList } from "./pipeline";
 import { AllPipelineInstanceList } from "./pipelineinstance";
 import { TagList } from "./tag";
+import { PipelineSourceFileList } from "./pipeline";
 import { UserFileList } from "./userfile";
 import { PACSFileList } from "./pacsfile";
 import { ServiceFileList } from "./servicefile";
-import User from "./user";
+import { FileBrowserFolderList } from "./filebrowser";

@@ -3,15 +3,13 @@
  */
 export class Plugin extends ItemResource {
     /**
-     * Constructor
+     * Fetch the plugin meta associated to this plugin from the REST API.
      *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
      */
-    constructor(url: string, auth: {
-        token: string;
-    });
+    getPluginMeta(timeout?: number): Promise<PluginMeta>;
     /**
      * Fetch a list of plugin parameters associated to this plugin from the REST API.
      *
@@ -61,16 +59,6 @@ export class Plugin extends ItemResource {
  */
 export class PluginList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of feeds from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -103,9 +91,9 @@ export class PluginMetaPluginList extends ListResource {
     getPluginMeta(timeout?: number): Promise<PluginMeta>;
 }
 import { ItemResource } from "./resource";
+import { PluginMeta } from "./pluginmeta";
 import { PluginParameterList } from "./pluginparameter";
 import { PluginComputeResourceList } from "./computeresource";
 import { PluginInstanceList } from "./plugininstance";
 import { ListResource } from "./resource";
 import { FeedList } from "./feed";
-import { PluginMeta } from "./pluginmeta";

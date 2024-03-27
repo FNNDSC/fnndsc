@@ -8,17 +8,6 @@ import { FeedList } from './feed';
  */
 export class PluginMeta extends ItemResource {
   /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} [auth=null] - authentication object
-   * @param {string} [auth.token] - authentication token
-   */
-  constructor(url, auth = null) {
-    super(url, auth);
-  }
-
-  /**
    * Fetch a list of plugins associated to this plugin meta from the REST API.
    *
    * @param {Object} [params=null] - page parameters object

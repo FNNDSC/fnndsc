@@ -5,7 +5,7 @@ import { UserFile } from './userfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
-describe('Resource', () => {
+describe('User file resources', () => {
   const username = 'cube';
   const password = 'cube1234';
   const chrisUrl = 'http://localhost:8000/api/v1/';

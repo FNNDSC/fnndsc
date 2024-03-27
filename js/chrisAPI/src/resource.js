@@ -10,13 +10,13 @@ export class Resource {
   /**
    * Constructor
    *
-   * @param {string} resourceUrl - url of the resource
+   * @param {string} url - url of the resource
    * @param {Object} [auth=null] - authentication object
    * @param {string} [auth.token] - authentication token
    */
-  constructor(resourceUrl, auth = null) {
+  constructor(url, auth = null) {
     /** @type {string} */
-    this.url = resourceUrl;
+    this.url = url;
 
     /** @type {Object} */
     this.auth = auth;
@@ -77,12 +77,12 @@ export class ItemResource extends Resource {
   /**
    * Constructor
    *
-   * @param {string} itemUrl - url of the resource
+   * @param {string} url - url of the item resource
    * @param {Object} [auth=null] - authentication object
    * @param {string} [auth.token] - authentication token
    */
-  constructor(itemUrl, auth = null) {
-    super(itemUrl, auth);
+  constructor(url, auth = null) {
+    super(url, auth);
   }
 
   /**
@@ -217,12 +217,12 @@ export class ListResource extends Resource {
   /**
    * Constructor
    *
-   * @param {string} listUrl - url of the resource
+   * @param {string} url - url of the list resource
    * @param {Object} [auth=null] - authentication object
    * @param {string} [auth.token] - authentication token
    */
-  constructor(listUrl, auth = null) {
-    super(listUrl, auth);
+  constructor(url, auth = null) {
+    super(url, auth);
 
     /** @type {string} */
     this.queryUrl = '';

@@ -11,15 +11,18 @@ import { PluginMeta } from './pluginmeta';
  */
 export class Plugin extends ItemResource {
   /**
-   * Constructor
+   * Fetch the plugin meta associated to this plugin from the REST API.
    *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
    */
-  constructor(url, auth) {
-    super(url, auth);
-  }
+   getPluginMeta(timeout = 30000) {
+    const linkRelation = 'meta';
+    const resourceClass = PluginMeta;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
 
   /**
    * Fetch a list of plugin parameters associated to this plugin from the REST API.
@@ -82,10 +85,10 @@ export class PluginList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */

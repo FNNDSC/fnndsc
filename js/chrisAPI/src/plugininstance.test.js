@@ -6,11 +6,11 @@ import { ComputeResource } from './computeresource';
 import { Plugin } from './plugin';
 import { PluginInstanceDescendantList, PluginInstance } from './plugininstance';
 import { PluginInstanceParameterList } from './plugininstance';
-import { PluginInstanceFileList } from './feedfile';
+import { FileBrowserFolder } from './filebrowser';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
-describe('Resource', () => {
+describe('Plugin instance resources', () => {
   const username = 'cube';
   const password = 'cube1234';
   const chrisUrl = 'http://localhost:8000/api/v1/';
@@ -124,12 +124,12 @@ describe('Resource', () => {
         .then(done, done);
     });
 
-    it('can fetch the list of files created by the plugin instance from the REST API', done => {
-      const result = pluginInst.getFiles();
+    it('can fetch the output folder of the plugin instance from the REST API', done => {
+      const result = pluginInst.getOutputFolder();
       result
-        .then(fileList => {
-          expect(fileList).to.be.an.instanceof(PluginInstanceFileList);
-          expect(fileList.isEmpty).to.be.false;
+        .then(folder => {
+          expect(folder).to.be.an.instanceof(FileBrowserFolder);
+          expect(folder.isEmpty).to.be.false;
         })
         .then(done, done);
     });

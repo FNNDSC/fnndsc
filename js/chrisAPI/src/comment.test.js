@@ -6,7 +6,9 @@ import { Comment } from './comment';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
-describe('Resource', () => {
+describe('Comment resources', function () {
+  this.timeout(10000);
+
   const username = 'cube';
   const password = 'cube1234';
   const chrisUrl = 'http://localhost:8000/api/v1/';
@@ -27,11 +29,12 @@ describe('Resource', () => {
           let feedItem = new Feed(feedItemURl, auth);
           feedItem = yield feedItem.get();
           commentListRes = yield feedItem.getComments();
-          commentListRes = yield commentListRes.post({
+          const data = {
             title: 'Test comment',
             content: 'Test comment content',
-          });
-          commentListRes = yield commentListRes.get();
+          };
+          commentListRes = yield commentListRes.post(data);
+          // commentListRes = yield commentListRes.get();
         } catch (ex) {
           reject(ex);
           return;
@@ -48,6 +51,7 @@ describe('Resource', () => {
       // get the first comment item
       const commentItemURl = commentListRes.collection.items[0].href;
       commentItem = new Comment(commentItemURl, auth);
+      return commentItem.get();
     });
 
     it('can modify this comment item resource through a REST API PUT request', done => {

@@ -3,6 +3,7 @@ import Request from './request';
 import RequestException from './exception';
 import Collection from './cj';
 import { ItemResource, ListResource } from './resource';
+import { FileBrowserFolder } from './filebrowser';
 
 /**
  * PACS file item resource object representing a PACS file.
@@ -36,6 +37,20 @@ export class PACSFile extends ItemResource {
 
     return req.get(blobUrl).then(resp => resp.data);
   }
+
+  /**
+   * Fetch the parent folder of this file from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   */
+   getParentFolder(timeout = 30000) {
+    const linkRelation = 'parent_folder';
+    const resourceClass = FileBrowserFolder;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
 }
 
 /**

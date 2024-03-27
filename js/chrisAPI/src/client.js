@@ -4,7 +4,6 @@ import Collection from './cj';
 import Request from './request';
 import { FeedList, PublicFeedList, Feed } from './feed';
 import { PluginAdminList, PluginAdmin } from './admin';
-import { AllFeedFileList, FeedFile } from './feedfile';
 import { ComputeResourceList, ComputeResource } from './computeresource';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
 import { PluginList, Plugin } from './plugin';
@@ -21,12 +20,12 @@ import {
   PipelineInstance
 } from './pipelineinstance';
 import { AllWorkflowList, WorkflowList, Workflow } from './workflow';
-import { PipelineList, Pipeline } from './pipeline';
+import { PipelineList, Pipeline, PipelineSourceFileList, PipelineSourceFile } from './pipeline';
 import { TagList, Tag, Tagging } from './tag';
 import { UserFileList, UserFile } from './userfile';
 import { PACSFileList, PACSFile } from './pacsfile';
 import { ServiceFileList, ServiceFile } from './servicefile';
-import { FileBrowserPathList, FileBrowserPath } from './filebrowser';
+import { FileBrowserFolderList, FileBrowserFolder } from './filebrowser';
 import User from './user';
 
 /**
@@ -51,7 +50,6 @@ export default class Client {
     this.feedsUrl = this.url;
     this.publicFeedsUrl = '';
     this.chrisInstanceUrl = '';
-    this.filesUrl = '';
     this.computeResourcesUrl = '';
     this.pluginMetasUrl = '';
     this.pluginsUrl = '';
@@ -60,6 +58,7 @@ export default class Client {
     this.pipelineInstancesUrl = '';
     this.workflowsUrl = '';
     this.tagsUrl = '';
+    this.pipelineSourceFilesUrl = '';
     this.userFilesUrl = '';
     this.pacsFilesUrl = '';
     this.serviceFilesUrl = '';
@@ -102,6 +101,7 @@ export default class Client {
    * @param {string} [searchParams.name] - match feed name containing this string
    * @param {string} [searchParams.name_exact] - match feed name exactly with this string
    * @param {string} [searchParams.name_startswith] - match feed name starting with this string
+   * @param {boolean} [searchParams.public] - match feed public status
    * @param {string} [searchParams.files_fname_icontains] - match the feeds that have files containing
    * all the substrings from the queried string (which in turn represents a white-space-separated list
    * of query strings) case insensitive anywhere in their fname.
@@ -118,22 +118,22 @@ export default class Client {
       const coll = feedList.collection;
       const getUrl = Collection.getLinkRelationUrls;
 
-      this.publicFeedsUrl = this.publicFeedsUrl || getUrl(coll, 'public_feeds')[0];
       this.chrisInstanceUrl = this.chrisInstanceUrl || getUrl(coll, 'chrisinstance')[0];
-      this.filesUrl = this.filesUrl || getUrl(coll, 'files')[0];
+      this.publicFeedsUrl = this.publicFeedsUrl || getUrl(coll, 'public_feeds')[0];
       this.computeResourcesUrl = this.computeResourcesUrl || getUrl(coll, 'compute_resources')[0];
       this.pluginMetasUrl = this.pluginMetasUrl || getUrl(coll, 'plugin_metas')[0];
       this.pluginsUrl = this.pluginsUrl || getUrl(coll, 'plugins')[0];
       this.pluginInstancesUrl = this.pluginInstancesUrl || getUrl(coll, 'plugin_instances')[0];
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];
-      this.pipelineInstancesUrl =
-        this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances')[0];
+      this.pipelineInstancesUrl = this.pipelineInstancesUrl || getUrl(coll, 'pipeline_instances')[0];
       this.workflowsUrl = this.workflowsUrl || getUrl(coll, 'workflows')[0];
       this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags')[0];
+      this.pipelineSourceFilesUrl = this.pipelineSourceFilesUrl || getUrl(coll, 'pipelinesourcefiles')[0];
       this.userFilesUrl = this.userFilesUrl || getUrl(coll, 'userfiles')[0];
       this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];
       this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];
       this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, 'filebrowser')[0];
+
       if (!this.userUrl) {
         this.userUrl = getUrl(coll, 'user');
         this.userUrl = this.userUrl.length ? this.userUrl[0] : '';
@@ -199,44 +199,6 @@ export default class Client {
       .then(feed => feed.getTaggings(null, timeout))
       .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
       .then(listRes => listRes.getItems()[0]);
-  }
-
-  /**
-   * Get a paginated list of files written to any user-owned feed from the REST
-   * API given query search parameters. If no search parameters then get the
-   * default first page.
-   *
-   * @param {Object} [searchParams=null] - search parameters object
-   * @param {number} [searchParams.limit] - page limit
-   * @param {number} [searchParams.offset] - page offset
-   * @param {number} [searchParams.id] - match file id exactly with this number
-   * @param {string} [searchParams.fname] - match file's path starting with this string
-   * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
-   * @param {string} [searchParams.fname_icontains] - match file's path containing this string
-   * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
-   * @param {number} [searchParams.plugin_inst_id] - match the associated plugin instance
-   * id exactly with this number
-   * @param {number} [searchParams.feed_id] - match the associated feed id exactly with this number
-   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
-   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<AllFeedFileList>} - JS Promise, resolves to a ``AllFeedFileList`` object
-   */
-  getFiles(searchParams = null, timeout = 30000) {
-    return this._fetchRes('filesUrl', AllFeedFileList, searchParams, timeout);
-  }
-
-  /**
-   * Get a file resource object given its id.
-   *
-   * @param {number} id - file id
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<FeedFile>} - JS Promise, resolves to a ``FeedFile`` object
-   */
-  getFile(id, timeout = 30000) {
-    return this.getFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
@@ -382,16 +344,21 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match plugin instance id exactly with this number
+   * @param {number} [searchParams.root_id] - match root plugin instance's id exactly with this number
+   * @param {number} [searchParams.previous_id] - match previous plugin instance's id exactly with this number
    * @param {string} [searchParams.title] - match plugin instance title containing this string
    * @param {string} [searchParams.status] - match plugin instance execution status exactly with this string
    * @param {string} [searchParams.owner_username] - match plugin instances's owner username exactly with this string
    * @param {number} [searchParams.feed_id] - match associated feed's id exactly with this number
    * @param {number} [searchParams.workflow_id] - match associated workflows's id exactly with this number
-   * @param {number} [searchParams.root_id] - match root plugin instance's id exactly with this number
    * @param {number} [searchParams.plugin_id] - match associated plugin's id exactly with this number
    * @param {number} [searchParams.plugin_name] - match associated plugin's name containing this string
    * @param {number} [searchParams.plugin_name_exact] - match associated plugin's name exact with this string
    * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string
+   * @param {string} [searchParams.min_start_date] - match plugin instance's start date gte this date
+   * @param {string} [searchParams.max_start_date] - match plugin instance's start date lte this date
+   * @param {string} [searchParams.min_end_date] - match plugin instance's end date gte this date
+   * @param {string} [searchParams.max_end_date] - match plugin instance's end date lte this date
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<AllPluginInstanceList>} - JS Promise, resolves to ``AllPluginInstanceList`` object
@@ -585,6 +552,7 @@ export default class Client {
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match workflow id exactly with this number
+   * @param {string} [searchParams.title] - match workflow title containing this string
    * @param {string} [searchParams.owner_username] - match workflow's owner username exactly with this string
    * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string
    * @param {number} [timeout=30000] - request timeout
@@ -729,6 +697,61 @@ export default class Client {
     return this.tagsUrl ? createRes() : this.setUrls().then(() => createRes());
   }
 
+    /**
+   * Get a paginated list of pipeline source files from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file id exactly with this number
+   * @param {string} [searchParams.fname] - match file's path starting with this string
+   * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
+   * @param {string} [searchParams.fname_icontains] - match file's path containing this string
+   * @param {string} [searchParams.type] - match pipeline source file type exactly with this string
+   * @param {string} [searchParams.uploader_username] - match file's uploader username exactly with this string
+   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
+   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PipelineSourceFileList>} - JS Promise, resolves to a ``PipelineSourceFileList`` object
+   */
+    getPipelineSourceFiles(searchParams = null, timeout = 30000) {
+      return this._fetchRes('pipelineSourceFilesUrl', PipelineSourceFileList, searchParams, timeout);
+    }
+  
+    /**
+     * Get a pipeline source file resource object given its id.
+     *
+     * @param {number} id - pipeline source file id
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
+     */
+    getPipelineSourceFile(id, timeout = 30000) {
+      return this.getPipelineSourceFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    }
+  
+    /**
+     * Upload a pipeline source file and create a new pipeline source file resource through the REST API.
+     * In addition, this creates a new pipeline resource based on the source of the uploaded file.
+     *
+     * @param {Object} data - request data object
+     * @param {string} data.type - pipeline source file type
+     * @param {Object} uploadFileObj - custom file object
+     * @param {Object} uploadFileObj.fname - file blob
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
+     */
+    uploadPipelineSourceFile(data, uploadFileObj, timeout = 30000) {
+      const createRes = () => {
+        const res = new PipelineSourceFileList(this.pipelineSourceFilesUrl, this.auth);
+        return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
+      };
+      return this.pipelineSourceFilesUrl ? createRes() : this.setUrls().then(() => createRes());
+    }
+  
   /**
    * Get a paginated list of user files from the REST API given query search
    * parameters. If no search parameters then get the default first page.
@@ -753,19 +776,19 @@ export default class Client {
   }
 
   /**
-   * Get an user file resource object given its id.
+   * Get a user file resource object given its id.
    *
    * @param {number} id - user file id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<UserFile>} - JS Promise, resolves to an ``UserFile`` object
+   * @return {Promise<UserFile>} - JS Promise, resolves to a ``UserFile`` object
    */
   getUserFile(id, timeout = 30000) {
     return this.getUserFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
   /**
-   * Upload a file and create a new userfile resource through the REST API.
+   * Upload a file and create a new user file resource through the REST API.
    *
    * @param {Object} data - request data object
    * @param {string} data.upload_path - absolute path including file name where the file
@@ -774,7 +797,7 @@ export default class Client {
    * @param {Object} uploadFileObj.fname - file blob
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<UserFile>} - JS Promise, resolves to ``UserFile`` object
+   * @return {Promise<UserFile>} - JS Promise, resolves to a ``UserFile`` object
    */
   uploadFile(data, uploadFileObj, timeout = 30000) {
     const createRes = () => {
@@ -815,7 +838,6 @@ export default class Client {
    * @param {string} [searchParams.StudyDescription] - match file's StudyDescription containing this string
    * @param {string} [searchParams.SeriesInstanceUID] - match file's SeriesInstanceUID exactly with this string
    * @param {string} [searchParams.SeriesDescription] - match file's SeriesDescription containing this string
-   * @param {string} [searchParams.pacs_identifier] - match file's PACS identifier exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
@@ -850,8 +872,6 @@ export default class Client {
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's path containing this string
    * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
-   * @param {string} [searchParams.service_identifier] - match file's service isentifier containing this string
-   * @param {number} [searchParams.service_id] - match file's service id exactly with this number
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
@@ -875,35 +895,49 @@ export default class Client {
   }
 
   /**
-   * Get a list with the matching file browser path from the REST API given query search
-   * parameters. If no search parameters then get a list with the default root path.
+   * Get a list with the matching file browser folder (the returned list only has at most one element) 
+   * from the REST API given query search parameters. If no search parameters then get a list with the 
+   * default root folder.
    *
    * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
-   * @param {string} [searchParams.path] - match file's path starting with this string
+   * @param {number} [searchParams.id] - match folder id exactly with this number
+   * @param {string} [searchParams.path] - match folder's path exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<FileBrowserPathList>} - JS Promise, resolves to a ``FileBrowserPathList`` object
+   * @return {Promise<FileBrowserFolderList>} - JS Promise, resolves to a ``FileBrowserFolderList`` object
    */
-  getFileBrowserPaths(searchParams = null, timeout = 30000) {
-    return this._fetchRes('fileBrowserUrl', FileBrowserPathList, searchParams, timeout);
+  getFileBrowserFolders(searchParams = null, timeout = 30000) {
+    return this._fetchRes('fileBrowserUrl', FileBrowserFolderList, searchParams, timeout);
   }
 
   /**
-   * Get a file browser path resource object given its path.
+   * Get a file browser folder resource object given its id.
    *
-   * @param {string} path - file browser path
+   * @param {number} id - file browser folder id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<FileBrowserPath>} - JS Promise, resolves to a ``FileBrowserPath`` object
+   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
    */
-  getFileBrowserPath(path, timeout = 30000) {
-    return this.getFileBrowserPaths({ path: path }, timeout).then(listRes => {
+  getFileBrowserFolder(id, timeout = 30000) {
+    return this.getFileBrowserFolders({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Get a file browser folder resource object given its path.
+   *
+   * @param {string} path - file browser folder path
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
+   */
+   getFileBrowserFolderByPath(path, timeout = 30000) {
+    return this.getFileBrowserFolders({ path: path }, timeout).then(listRes => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  }
+  } 
 
   /**
    * Get a user resource object for the currently authenticated user.

@@ -3,22 +3,12 @@ import Request from './request';
 import RequestException from './exception';
 import Collection from './cj';
 import { ItemResource, ListResource } from './resource';
+import { FileBrowserFolder } from './filebrowser';
 
 /**
  * User file item resource object representing a user's file.
  */
 export class UserFile extends ItemResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
   /**
    * Fetch the file blob associated to this file item from the REST API.
    *
@@ -36,6 +26,20 @@ export class UserFile extends ItemResource {
 
     return req.get(blobUrl).then(resp => resp.data);
   }
+
+  /**
+   * Fetch the parent folder of this file from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   */
+   getParentFolder(timeout = 30000) {
+    const linkRelation = 'parent_folder';
+    const resourceClass = FileBrowserFolder;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }  
 
   /**
    * Make a PUT request to modify this user file item resource through the REST API.

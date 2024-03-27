@@ -7,17 +7,6 @@ import { Plugin } from './plugin';
  */
 export class PluginParameter extends ItemResource {
   /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
    * Fetch the plugin associated to this parameter item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -40,10 +29,10 @@ export class PluginParameterList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */

@@ -24,6 +24,7 @@ import {
   PluginPiping,
   PipingDefaultParameter,
 } from './pipeline';
+import { PipelineSourceFileList, PipelineSourceFile } from './pipeline';
 import {
   AllPipelineInstanceList,
   PipelineInstanceList,
@@ -35,12 +36,12 @@ import { TagFeedList, FeedTagList } from './tag';
 import Note from './note';
 import User from './user';
 import { CommentList, Comment } from './comment';
-import { AllFeedFileList, PluginInstanceFileList, FeedFileList, FeedFile } from './feedfile';
 import { UserFileList, UserFile } from './userfile';
 import { PACSFileList, PACSFile } from './pacsfile';
 import { ServiceFileList, ServiceFile } from './servicefile';
-import { FileBrowserPathList, FileBrowserPath } from './filebrowser';
-import { FileBrowserPathFileList, FileBrowserPathFile } from './filebrowser';
+import { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder } from './filebrowser';
+import { FileBrowserFolderFileList, FileBrowserFolderFile } from './filebrowser';
+import { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile } from './filebrowser';
 
 export default Client;
 export { Request };
@@ -60,6 +61,7 @@ export { PluginInstanceParameterList, PluginInstanceParameter };
 export { FeedPluginInstanceList, PipelineInstancePluginInstanceList, WorkflowPluginInstanceList };
 export { PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline };
 export { PipelinePipingDefaultParameterList, PluginPiping, PipingDefaultParameter };
+export { PipelineSourceFileList, PipelineSourceFile };
 export { AllPipelineInstanceList, PipelineInstanceList, PipelineInstance };
 export { AllWorkflowList, WorkflowList, Workflow };
 export { TagList, Tag, TagTaggingList, FeedTaggingList, Tagging };
@@ -67,8 +69,9 @@ export { TagFeedList, FeedTagList };
 export { Note };
 export { User };
 export { CommentList, Comment };
-export { AllFeedFileList, PluginInstanceFileList, FeedFileList, FeedFile };
 export { UserFileList, UserFile };
 export { PACSFileList, PACSFile };
 export { ServiceFileList, ServiceFile };
-export { FileBrowserPathList, FileBrowserPath, FileBrowserPathFileList, FileBrowserPathFile};
+export { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder };
+export { FileBrowserFolderFileList, FileBrowserFolderFile };
+export { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile };

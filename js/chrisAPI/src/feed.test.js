@@ -4,7 +4,6 @@ import { FeedList, Feed } from './feed';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList, Comment } from './comment';
-import { FeedFileList } from './feedfile';
 import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 import User from './user';
 import { ComputeResourceList } from './computeresource';
@@ -13,7 +12,7 @@ import { UserFileList } from './userfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
-describe('Resource', () => {
+describe('Feed resources', () => {
   const username = 'cube';
   const password = 'cube1234';
   const chrisUrl = 'http://localhost:8000/api/v1/';
@@ -96,15 +95,6 @@ describe('Resource', () => {
         .then(comment => {
           expect(comment).to.be.an.instanceof(Comment);
           expect(comment.data.title).to.equal('Test Comment');
-        })
-        .then(done, done);
-    });
-
-    it('can fetch the associated files from the REST API', done => {
-      const result = feed.getFiles();
-      result
-        .then(fileList => {
-          expect(fileList).to.be.an.instanceof(FeedFileList);
         })
         .then(done, done);
     });

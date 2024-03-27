@@ -4,24 +4,14 @@ import { ComputeResource } from './computeresource';
 import { PluginList, Plugin } from './plugin';
 import { Feed } from './feed';
 import { PluginParameter } from './pluginparameter';
-import { PluginInstanceFileList } from './feedfile';
 import { PipelineInstance } from './pipelineinstance';
+import { Workflow } from './workflow';
+import { FileBrowserFolder } from './filebrowser';
 
 /**
  * Plugin instance item resource object representing a plugin instance.
  */
 export class PluginInstance extends ItemResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
   /**
    * Fetch the feed created by this plugin instance from the REST API
    * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).
@@ -55,6 +45,20 @@ export class PluginInstance extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Fetch the output folder associated to this plugin instance item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   */
+   getOutputFolder(timeout = 30000) {
+    const linkRelation = 'output_folder';
+    const resourceClass = FileBrowserFolder;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
 
   /**
    * Fetch the compute resource associated to this plugin instance item from the REST API.
@@ -91,8 +95,7 @@ export class PluginInstance extends ItemResource {
   }
 
   /**
-   * Fetch the pipeline instance (if any) that created this plugin instance from
-   * the REST API.
+   * Fetch the pipeline instance (if any) that created this plugin instance from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
    *
@@ -110,6 +113,26 @@ export class PluginInstance extends ItemResource {
       return Promise.resolve(null);
     }
   }
+
+  /**
+   * Fetch the workflow (if any) that created this plugin instance from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Workflow|null>} - JS Promise, resolves to a ``Workflow`` object or ``null``
+   */
+   getWorkflow(timeout = 30000) {
+    const linkRelation = 'workflow';
+    const resourceClass = Workflow;
+
+    try {
+      // 'workflow' link relation only exists for plugin instances that were
+      // created as part of a workflow
+      return this._getResource(linkRelation, resourceClass, null, timeout);
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  } 
 
   /**
    * Fetch a list of plugin instances that are descendents of this plugin instance from the
@@ -143,23 +166,6 @@ export class PluginInstance extends ItemResource {
   getParameters(params = null, timeout = 30000) {
     const linkRelation = 'parameters';
     const resourceClass = PluginInstanceParameterList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
-   * Fetch a list of files created by this plugin instance from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<PluginInstanceFileList>} - JS Promise, resolves to a ``PluginInstanceFileList`` object
-   */
-  getFiles(params = null, timeout = 30000) {
-    const linkRelation = 'files';
-    const resourceClass = PluginInstanceFileList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
@@ -298,17 +304,17 @@ export class AllPluginInstanceList extends ListResource {
 
 /**
  * Feed-specific plugin instance list resource object representing a list of plugin
- * instances associated to an specific feed.
+ * instances belonging to an specific feed.
  */
 export class FeedPluginInstanceList extends ListResource {
   /**
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -380,10 +386,10 @@ export class PluginInstanceDescendantList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -477,17 +483,6 @@ export class PluginInstanceSplitList extends ListResource {
  */
 export class PluginInstanceParameter extends ItemResource {
   /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
    * Fetch the plugin instance associated to this parameter item from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -526,10 +521,10 @@ export class PluginInstanceParameterList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */

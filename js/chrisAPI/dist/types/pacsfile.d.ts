@@ -20,6 +20,14 @@ export class PACSFile extends ItemResource {
      * @return {Promise<Blob>} - JS Promise, resolves to a ``Blob`` object
      */
     getFileBlob(timeout?: number): Promise<Blob>;
+    /**
+     * Fetch the parent folder of this file from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getParentFolder(timeout?: number): Promise<FileBrowserFolder>;
 }
 /**
  * PACS file list resource object representing a list of PACS files.
@@ -37,4 +45,5 @@ export class PACSFileList extends ListResource {
     });
 }
 import { ItemResource } from "./resource";
+import { FileBrowserFolder } from "./filebrowser";
 import { ListResource } from "./resource";

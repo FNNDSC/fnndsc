@@ -124,8 +124,10 @@ resp
 
 
 // Individual item resource objects for high-level resources can also be directly  
-// fetched from the REST API, these include ``Feed``. ``FeedFile``, ``Plugin``, ``PluginInstance``,
-// ``Pipeline``, ``PipelineInstance``, ``UploadedFile`` and ``Tag``
+// fetched from the REST API, these include ``ChrisInstance``, ``Feed``, ``Plugin``, 
+// ``PluginMeta``, ``ComputeResource``, ``PluginInstance``, ``Pipeline``, ``Workflow``. 
+// ``FileBrowserFolder``, ``UserFile``, ``PACSFile``, ``ServiceFile``, ``PipelineSourceFile``
+// and ``Tag``
 // here we fetch a ``Feed`` resource object by id
 const feed_id = 1;
 resp = client.getFeed(feed_id);
@@ -182,11 +184,11 @@ Client.runAsyncTask(function*() {
 
 
 // For convenience some high-level resources can be directly created through the client object
-const pluginId = 1; // assuming that the plugin with id 1 is 'pl-simplefsapp'
+const pluginId = 1; // assuming that the plugin with id 1 is 'pl-dircopy'
 const data = {
   previous_id: null,  // instances of 'fs' plugins have previous_id set to null
   title: "Test plugin instance",
-  dir: "./"  
+  dir: "home/cube/uploads"  
 };
 resp = client.createPluginInstance(pluginId, data);
 resp

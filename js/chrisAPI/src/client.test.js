@@ -2,7 +2,6 @@ import Client from './client';
 import { expect } from 'chai';
 import ChrisInstance from './chrisinstance';
 import { FeedList, Feed } from './feed';
-import { AllFeedFileList, FeedFile } from './feedfile';
 import { PluginList, Plugin } from './plugin';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
 import { AllPluginInstanceList, PluginInstance, PluginInstanceSplit } from './plugininstance';
@@ -11,7 +10,7 @@ import { PipelineInstance } from './pipelineinstance';
 import { Workflow } from './workflow';
 import { Tag, Tagging } from './tag';
 import { UserFile } from './userfile';
-import { FileBrowserPath } from './filebrowser';
+import { FileBrowserFolder } from './filebrowser';
 import User from './user';
 import RequestException from './exception';
 
@@ -115,22 +114,12 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch the list of files for all user-owned feeds from the REST API', (done) => {
-    const result = client.getFiles();
+  it('can fetch a user file by id from the REST API', (done) => {
+    const result = client.getUserFile(1);
     result
-      .then((fileList) => {
-        expect(fileList).to.be.an.instanceof(AllFeedFileList);
-        expect(fileList.data).to.have.lengthOf.at.least(1);
-      })
-      .then(done, done);
-  });
-
-  it('can fetch a feed file by id from the REST API', (done) => {
-    const result = client.getFile(1);
-    result
-      .then((feedFile) => {
-        expect(feedFile).to.be.an.instanceof(FeedFile);
-        expect(feedFile.isEmpty).to.be.false;
+      .then((userFile) => {
+        expect(userFile).to.be.an.instanceof(UserFile);
+        expect(userFile.isEmpty).to.be.false;
       })
       .then(done, done);
   });
@@ -203,7 +192,7 @@ describe('Client', () => {
   });
 
   it('can create a new plugin instance through the REST API', (done) => {
-    const pluginId = 1;
+    const pluginId = 2;
     const data = {
       title: 'Test plugin instance',
       dir: 'home/' + username + '/',
@@ -348,12 +337,12 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch a file browser path resource given the path string from the REST API', (done) => {
-    const result = client.getFileBrowserPath('home/cube');
+  it('can fetch a file browser folder resource given its path string from the REST API', (done) => {
+    const result = client.getFileBrowserFolderByPath('home/cube');
     result
-      .then(browserPath => {
-        expect(browserPath).to.be.an.instanceof(FileBrowserPath);
-        expect(browserPath.isEmpty).to.be.false;
+      .then(browserFolder => {
+        expect(browserFolder).to.be.an.instanceof(FileBrowserFolder);
+        expect(browserFolder.isEmpty).to.be.false;
       })
       .then(done, done);
   });

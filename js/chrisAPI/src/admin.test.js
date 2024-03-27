@@ -4,7 +4,7 @@ import { FeedList } from './feed';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
-describe('Resource', () => {
+describe('Admin resources', () => {
   const username = 'chris';
   const password = 'chris1234';
   const chrisUrl = 'http://localhost:8000/api/v1/';

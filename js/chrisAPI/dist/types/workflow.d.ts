@@ -84,7 +84,8 @@ export class WorkflowList extends ListResource {
      *
      * @param {Object} data - request JSON data object
      * @param {number} data.previous_plugin_inst_id - previous plugin instance id
-     * @param {string} data.nodes_info - pipeline-specific JSON string encoding a list of dictionaries.
+     * @param {string} [data.title] - workflow's title
+     * @param {string} [data.nodes_info] - pipeline-specific JSON string encoding a list of dictionaries.
      * Each dictionary is a workflow node containing a ``plugin piping_id``, ``compute_resource_name``,
      * ``title`` and a list of dictionaries called ``plugin_parameter_defaults``. Each dictionary in
      * this list has ``name`` and ``default`` keys.
@@ -94,7 +95,8 @@ export class WorkflowList extends ListResource {
      */
     post(data: {
         previous_plugin_inst_id: number;
-        nodes_info: string;
+        title?: string;
+        nodes_info?: string;
     }, timeout?: number): Promise<WorkflowList>;
 }
 /**
