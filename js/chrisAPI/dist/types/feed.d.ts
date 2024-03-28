@@ -11,6 +11,14 @@ export class Feed extends ItemResource {
      */
     getNote(timeout?: number): Promise<Note>;
     /**
+     * Fetch the folder associated to this feed from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getFolder(timeout?: number): Promise<FileBrowserFolder>;
+    /**
      * Fetch a list of tags associated to this feed from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -345,6 +353,7 @@ export class PublicFeedList extends ListResource {
 }
 import { ItemResource } from "./resource";
 import Note from "./note";
+import { FileBrowserFolder } from "./filebrowser";
 import { FeedTagList } from "./tag";
 import { FeedTaggingList } from "./tag";
 import { CommentList } from "./comment";
