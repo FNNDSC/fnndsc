@@ -1452,6 +1452,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/feed.js~feed#getfolder",
+    "class/src/feed.js~Feed.html#instance-method-getFolder",
+    "src/feed.js~Feed#getFolder",
+    "method"
+  ],
+  [
     "src/feed.js~feed#getnote",
     "class/src/feed.js~Feed.html#instance-method-getNote",
     "src/feed.js~Feed#getNote",

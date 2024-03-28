@@ -125,7 +125,7 @@ import Note from &apos;./note&apos;;
 import { FeedTagList, FeedTaggingList, TagList } from &apos;./tag&apos;;
 import { CommentList } from &apos;./comment&apos;;
 import { AllPluginInstanceList, FeedPluginInstanceList } from &apos;./plugininstance&apos;;
-import { FileBrowserFolderList } from &apos;./filebrowser&apos;;
+import { FileBrowserFolderList, FileBrowserFolder } from &apos;./filebrowser&apos;;
 
 /**
  * Feed item resource object representing a feed.
@@ -141,6 +141,20 @@ export class Feed extends ItemResource {
   getNote(timeout = 30000) {
     const linkRelation = &apos;note&apos;;
     const resourceClass = Note;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the folder associated to this feed from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;FileBrowserFolder&gt;} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   */
+  getFolder(timeout = 30000) {
+    const linkRelation = &apos;folder&apos;;
+    const resourceClass = FileBrowserFolder;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
