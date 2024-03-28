@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "@fnndsc/chrisapi~allfeedfilelist",
-    "class/src/feedfile.js~AllFeedFileList.html",
-    "<span>AllFeedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
     "@fnndsc/chrisapi~allpipelineinstancelist",
     "class/src/pipelineinstance.js~AllPipelineInstanceList.html",
     "<span>AllPipelineInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -84,18 +78,6 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@fnndsc/chrisapi~feedfile",
-    "class/src/feedfile.js~FeedFile.html",
-    "<span>FeedFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~feedfilelist",
-    "class/src/feedfile.js~FeedFileList.html",
-    "<span>FeedFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
     "@fnndsc/chrisapi~feedlist",
     "class/src/feed.js~FeedList.html",
     "<span>FeedList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -120,27 +102,45 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "@fnndsc/chrisapi~filebrowserpath",
-    "class/src/filebrowser.js~FileBrowserPath.html",
-    "<span>FileBrowserPath</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "@fnndsc/chrisapi~filebrowserfolder",
+    "class/src/filebrowser.js~FileBrowserFolder.html",
+    "<span>FileBrowserFolder</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi~filebrowserpathfile",
-    "class/src/filebrowser.js~FileBrowserPathFile.html",
-    "<span>FileBrowserPathFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "@fnndsc/chrisapi~filebrowserfolderchildlist",
+    "class/src/filebrowser.js~FileBrowserFolderChildList.html",
+    "<span>FileBrowserFolderChildList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi~filebrowserpathfilelist",
-    "class/src/filebrowser.js~FileBrowserPathFileList.html",
-    "<span>FileBrowserPathFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "@fnndsc/chrisapi~filebrowserfolderfile",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html",
+    "<span>FileBrowserFolderFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
-    "@fnndsc/chrisapi~filebrowserpathlist",
-    "class/src/filebrowser.js~FileBrowserPathList.html",
-    "<span>FileBrowserPathList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "@fnndsc/chrisapi~filebrowserfolderfilelist",
+    "class/src/filebrowser.js~FileBrowserFolderFileList.html",
+    "<span>FileBrowserFolderFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filebrowserfolderlinkfile",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html",
+    "<span>FileBrowserFolderLinkFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filebrowserfolderlinkfilelist",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFileList.html",
+    "<span>FileBrowserFolderLinkFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filebrowserfolderlist",
+    "class/src/filebrowser.js~FileBrowserFolderList.html",
+    "<span>FileBrowserFolderList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -222,6 +222,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~pipelinesourcefile",
+    "class/src/pipeline.js~PipelineSourceFile.html",
+    "<span>PipelineSourceFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pipelinesourcefilelist",
+    "class/src/pipeline.js~PipelineSourceFileList.html",
+    "<span>PipelineSourceFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~pipingdefaultparameter",
     "class/src/pipeline.js~PipingDefaultParameter.html",
     "<span>PipingDefaultParameter</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -261,12 +273,6 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~plugininstancedescendantlist",
     "class/src/plugininstance.js~PluginInstanceDescendantList.html",
     "<span>PluginInstanceDescendantList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~plugininstancefilelist",
-    "class/src/feedfile.js~PluginInstanceFileList.html",
-    "<span>PluginInstanceFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -972,12 +978,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/client.js~client#filesurl",
-    "class/src/client.js~Client.html#instance-member-filesUrl",
-    "src/client.js~Client#filesUrl",
-    "member"
-  ],
-  [
     "src/client.js~client#getchrisinstance",
     "class/src/client.js~Client.html#instance-method-getChrisInstance",
     "src/client.js~Client#getChrisInstance",
@@ -1008,27 +1008,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/client.js~client#getfile",
-    "class/src/client.js~Client.html#instance-method-getFile",
-    "src/client.js~Client#getFile",
+    "src/client.js~client#getfilebrowserfolder",
+    "class/src/client.js~Client.html#instance-method-getFileBrowserFolder",
+    "src/client.js~Client#getFileBrowserFolder",
     "method"
   ],
   [
-    "src/client.js~client#getfilebrowserpath",
-    "class/src/client.js~Client.html#instance-method-getFileBrowserPath",
-    "src/client.js~Client#getFileBrowserPath",
+    "src/client.js~client#getfilebrowserfolderbypath",
+    "class/src/client.js~Client.html#instance-method-getFileBrowserFolderByPath",
+    "src/client.js~Client#getFileBrowserFolderByPath",
     "method"
   ],
   [
-    "src/client.js~client#getfilebrowserpaths",
-    "class/src/client.js~Client.html#instance-method-getFileBrowserPaths",
-    "src/client.js~Client#getFileBrowserPaths",
-    "method"
-  ],
-  [
-    "src/client.js~client#getfiles",
-    "class/src/client.js~Client.html#instance-method-getFiles",
-    "src/client.js~Client#getFiles",
+    "src/client.js~client#getfilebrowserfolders",
+    "class/src/client.js~Client.html#instance-method-getFileBrowserFolders",
+    "src/client.js~Client#getFileBrowserFolders",
     "method"
   ],
   [
@@ -1059,6 +1053,18 @@ window.esdocSearchIndex = [
     "src/client.js~client#getpipelineinstances",
     "class/src/client.js~Client.html#instance-method-getPipelineInstances",
     "src/client.js~Client#getPipelineInstances",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpipelinesourcefile",
+    "class/src/client.js~Client.html#instance-method-getPipelineSourceFile",
+    "src/client.js~Client#getPipelineSourceFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpipelinesourcefiles",
+    "class/src/client.js~Client.html#instance-method-getPipelineSourceFiles",
+    "src/client.js~Client#getPipelineSourceFiles",
     "method"
   ],
   [
@@ -1176,6 +1182,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/client.js~client#pipelinesourcefilesurl",
+    "class/src/client.js~Client.html#instance-member-pipelineSourceFilesUrl",
+    "src/client.js~Client#pipelineSourceFilesUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#pipelinesurl",
     "class/src/client.js~Client.html#instance-member-pipelinesUrl",
     "src/client.js~Client#pipelinesUrl",
@@ -1233,6 +1245,12 @@ window.esdocSearchIndex = [
     "src/client.js~client#uploadfile",
     "class/src/client.js~Client.html#instance-method-uploadFile",
     "src/client.js~Client#uploadFile",
+    "method"
+  ],
+  [
+    "src/client.js~client#uploadpipelinesourcefile",
+    "class/src/client.js~Client.html#instance-method-uploadPipelineSourceFile",
+    "src/client.js~Client#uploadPipelineSourceFile",
     "method"
   ],
   [
@@ -1434,12 +1452,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/feed.js~feed#getfiles",
-    "class/src/feed.js~Feed.html#instance-method-getFiles",
-    "src/feed.js~Feed#getFiles",
-    "method"
-  ],
-  [
     "src/feed.js~feed#getnote",
     "class/src/feed.js~Feed.html#instance-method-getNote",
     "src/feed.js~Feed#getNote",
@@ -1482,15 +1494,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/feed.js~feedlist#getchrisinstance",
+    "class/src/feed.js~FeedList.html#instance-method-getChrisInstance",
+    "src/feed.js~FeedList#getChrisInstance",
+    "method"
+  ],
+  [
     "src/feed.js~feedlist#getcomputeresources",
     "class/src/feed.js~FeedList.html#instance-method-getComputeResources",
     "src/feed.js~FeedList#getComputeResources",
     "method"
   ],
   [
-    "src/feed.js~feedlist#getfiles",
-    "class/src/feed.js~FeedList.html#instance-method-getFiles",
-    "src/feed.js~FeedList#getFiles",
+    "src/feed.js~feedlist#getfilebrowserfolders",
+    "class/src/feed.js~FeedList.html#instance-method-getFileBrowserFolders",
+    "src/feed.js~FeedList#getFileBrowserFolders",
     "method"
   ],
   [
@@ -1503,6 +1521,12 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#getpipelineinstances",
     "class/src/feed.js~FeedList.html#instance-method-getPipelineInstances",
     "src/feed.js~FeedList#getPipelineInstances",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getpipelinesourcefiles",
+    "class/src/feed.js~FeedList.html#instance-method-getPipelineSourceFiles",
+    "src/feed.js~FeedList#getPipelineSourceFiles",
     "method"
   ],
   [
@@ -1527,6 +1551,12 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#getplugins",
     "class/src/feed.js~FeedList.html#instance-method-getPlugins",
     "src/feed.js~FeedList#getPlugins",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getpublicfeeds",
+    "class/src/feed.js~FeedList.html#instance-method-getPublicFeeds",
+    "src/feed.js~FeedList#getPublicFeeds",
     "method"
   ],
   [
@@ -1572,135 +1602,111 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/feedfile.js",
-    "file/src/feedfile.js.html",
-    "src/feedfile.js",
-    "file"
-  ],
-  [
-    "src/feedfile.js~allfeedfilelist#constructor",
-    "class/src/feedfile.js~AllFeedFileList.html#instance-constructor-constructor",
-    "src/feedfile.js~AllFeedFileList#constructor",
-    "method"
-  ],
-  [
-    "src/feedfile.js~allfeedfilelist#itemclass",
-    "class/src/feedfile.js~AllFeedFileList.html#instance-member-itemClass",
-    "src/feedfile.js~AllFeedFileList#itemClass",
-    "member"
-  ],
-  [
-    "src/feedfile.js~feedfile#constructor",
-    "class/src/feedfile.js~FeedFile.html#instance-constructor-constructor",
-    "src/feedfile.js~FeedFile#constructor",
-    "method"
-  ],
-  [
-    "src/feedfile.js~feedfile#getfileblob",
-    "class/src/feedfile.js~FeedFile.html#instance-method-getFileBlob",
-    "src/feedfile.js~FeedFile#getFileBlob",
-    "method"
-  ],
-  [
-    "src/feedfile.js~feedfile#getplugininstance",
-    "class/src/feedfile.js~FeedFile.html#instance-method-getPluginInstance",
-    "src/feedfile.js~FeedFile#getPluginInstance",
-    "method"
-  ],
-  [
-    "src/feedfile.js~feedfilelist#constructor",
-    "class/src/feedfile.js~FeedFileList.html#instance-constructor-constructor",
-    "src/feedfile.js~FeedFileList#constructor",
-    "method"
-  ],
-  [
-    "src/feedfile.js~feedfilelist#getfeed",
-    "class/src/feedfile.js~FeedFileList.html#instance-method-getFeed",
-    "src/feedfile.js~FeedFileList#getFeed",
-    "method"
-  ],
-  [
-    "src/feedfile.js~feedfilelist#itemclass",
-    "class/src/feedfile.js~FeedFileList.html#instance-member-itemClass",
-    "src/feedfile.js~FeedFileList#itemClass",
-    "member"
-  ],
-  [
-    "src/feedfile.js~plugininstancefilelist#constructor",
-    "class/src/feedfile.js~PluginInstanceFileList.html#instance-constructor-constructor",
-    "src/feedfile.js~PluginInstanceFileList#constructor",
-    "method"
-  ],
-  [
-    "src/feedfile.js~plugininstancefilelist#getfeed",
-    "class/src/feedfile.js~PluginInstanceFileList.html#instance-method-getFeed",
-    "src/feedfile.js~PluginInstanceFileList#getFeed",
-    "method"
-  ],
-  [
-    "src/feedfile.js~plugininstancefilelist#getplugininstance",
-    "class/src/feedfile.js~PluginInstanceFileList.html#instance-method-getPluginInstance",
-    "src/feedfile.js~PluginInstanceFileList#getPluginInstance",
-    "method"
-  ],
-  [
-    "src/feedfile.js~plugininstancefilelist#itemclass",
-    "class/src/feedfile.js~PluginInstanceFileList.html#instance-member-itemClass",
-    "src/feedfile.js~PluginInstanceFileList#itemClass",
-    "member"
-  ],
-  [
     "src/filebrowser.js",
     "file/src/filebrowser.js.html",
     "src/filebrowser.js",
     "file"
   ],
   [
-    "src/filebrowser.js~filebrowserpath#constructor",
-    "class/src/filebrowser.js~FileBrowserPath.html#instance-constructor-constructor",
-    "src/filebrowser.js~FileBrowserPath#constructor",
+    "src/filebrowser.js~filebrowserfolder#getchildren",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getChildren",
+    "src/filebrowser.js~FileBrowserFolder#getChildren",
     "method"
   ],
   [
-    "src/filebrowser.js~filebrowserpath#getfiles",
-    "class/src/filebrowser.js~FileBrowserPath.html#instance-method-getFiles",
-    "src/filebrowser.js~FileBrowserPath#getFiles",
+    "src/filebrowser.js~filebrowserfolder#getfiles",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getFiles",
+    "src/filebrowser.js~FileBrowserFolder#getFiles",
     "method"
   ],
   [
-    "src/filebrowser.js~filebrowserpathfile#constructor",
-    "class/src/filebrowser.js~FileBrowserPathFile.html#instance-constructor-constructor",
-    "src/filebrowser.js~FileBrowserPathFile#constructor",
+    "src/filebrowser.js~filebrowserfolder#getlinkfiles",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getLinkFiles",
+    "src/filebrowser.js~FileBrowserFolder#getLinkFiles",
     "method"
   ],
   [
-    "src/filebrowser.js~filebrowserpathfile#getfileblob",
-    "class/src/filebrowser.js~FileBrowserPathFile.html#instance-method-getFileBlob",
-    "src/filebrowser.js~FileBrowserPathFile#getFileBlob",
+    "src/filebrowser.js~filebrowserfolder#getparent",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getParent",
+    "src/filebrowser.js~FileBrowserFolder#getParent",
     "method"
   ],
   [
-    "src/filebrowser.js~filebrowserpathfilelist#constructor",
-    "class/src/filebrowser.js~FileBrowserPathFileList.html#instance-constructor-constructor",
-    "src/filebrowser.js~FileBrowserPathFileList#constructor",
+    "src/filebrowser.js~filebrowserfolderchildlist#constructor",
+    "class/src/filebrowser.js~FileBrowserFolderChildList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserFolderChildList#constructor",
     "method"
   ],
   [
-    "src/filebrowser.js~filebrowserpathfilelist#itemclass",
-    "class/src/filebrowser.js~FileBrowserPathFileList.html#instance-member-itemClass",
-    "src/filebrowser.js~FileBrowserPathFileList#itemClass",
+    "src/filebrowser.js~filebrowserfolderchildlist#itemclass",
+    "class/src/filebrowser.js~FileBrowserFolderChildList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileBrowserFolderChildList#itemClass",
     "member"
   ],
   [
-    "src/filebrowser.js~filebrowserpathlist#constructor",
-    "class/src/filebrowser.js~FileBrowserPathList.html#instance-constructor-constructor",
-    "src/filebrowser.js~FileBrowserPathList#constructor",
+    "src/filebrowser.js~filebrowserfolderfile#getfileblob",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getFileBlob",
+    "src/filebrowser.js~FileBrowserFolderFile#getFileBlob",
     "method"
   ],
   [
-    "src/filebrowser.js~filebrowserpathlist#itemclass",
-    "class/src/filebrowser.js~FileBrowserPathList.html#instance-member-itemClass",
-    "src/filebrowser.js~FileBrowserPathList#itemClass",
+    "src/filebrowser.js~filebrowserfolderfile#getparentfolder",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getParentFolder",
+    "src/filebrowser.js~FileBrowserFolderFile#getParentFolder",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfilelist#constructor",
+    "class/src/filebrowser.js~FileBrowserFolderFileList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserFolderFileList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfilelist#itemclass",
+    "class/src/filebrowser.js~FileBrowserFolderFileList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileBrowserFolderFileList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#getfileblob",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getFileBlob",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#getlinkedresource",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getLinkedResource",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#getLinkedResource",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#getparentfolder",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getParentFolder",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#getParentFolder",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfilelist#constructor",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFileList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserFolderLinkFileList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfilelist#itemclass",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFileList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileBrowserFolderLinkFileList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlist#constructor",
+    "class/src/filebrowser.js~FileBrowserFolderList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileBrowserFolderList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlist#itemclass",
+    "class/src/filebrowser.js~FileBrowserFolderList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileBrowserFolderList#itemClass",
     "member"
   ],
   [
@@ -1714,12 +1720,6 @@ window.esdocSearchIndex = [
     "file/src/note.js.html",
     "src/note.js",
     "file"
-  ],
-  [
-    "src/note.js~note#constructor",
-    "class/src/note.js~Note.html#instance-constructor-constructor",
-    "src/note.js~Note#constructor",
-    "method"
   ],
   [
     "src/note.js~note#put",
@@ -1746,6 +1746,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/pacsfile.js~pacsfile#getparentfolder",
+    "class/src/pacsfile.js~PACSFile.html#instance-method-getParentFolder",
+    "src/pacsfile.js~PACSFile#getParentFolder",
+    "method"
+  ],
+  [
     "src/pacsfile.js~pacsfilelist#constructor",
     "class/src/pacsfile.js~PACSFileList.html#instance-constructor-constructor",
     "src/pacsfile.js~PACSFileList#constructor",
@@ -1762,12 +1768,6 @@ window.esdocSearchIndex = [
     "file/src/pipeline.js.html",
     "src/pipeline.js",
     "file"
-  ],
-  [
-    "src/pipeline.js~pipeline#constructor",
-    "class/src/pipeline.js~Pipeline.html#instance-constructor-constructor",
-    "src/pipeline.js~Pipeline#constructor",
-    "method"
   ],
   [
     "src/pipeline.js~pipeline#delete",
@@ -1788,6 +1788,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/pipeline.js~pipeline#getpipelinesourcefile",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getPipelineSourceFile",
+    "src/pipeline.js~Pipeline#getPipelineSourceFile",
+    "method"
+  ],
+  [
     "src/pipeline.js~pipeline#getpluginpipings",
     "class/src/pipeline.js~Pipeline.html#instance-method-getPluginPipings",
     "src/pipeline.js~Pipeline#getPluginPipings",
@@ -1797,6 +1803,12 @@ window.esdocSearchIndex = [
     "src/pipeline.js~pipeline#getplugins",
     "class/src/pipeline.js~Pipeline.html#instance-method-getPlugins",
     "src/pipeline.js~Pipeline#getPlugins",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipeline#getworkflows",
+    "class/src/pipeline.js~Pipeline.html#instance-method-getWorkflows",
+    "src/pipeline.js~Pipeline#getWorkflows",
     "method"
   ],
   [
@@ -1866,9 +1878,39 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/pipeline.js~pipingdefaultparameter#constructor",
-    "class/src/pipeline.js~PipingDefaultParameter.html#instance-constructor-constructor",
-    "src/pipeline.js~PipingDefaultParameter#constructor",
+    "src/pipeline.js~pipelinesourcefile#getfileblob",
+    "class/src/pipeline.js~PipelineSourceFile.html#instance-method-getFileBlob",
+    "src/pipeline.js~PipelineSourceFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinesourcefile#getparentfolder",
+    "class/src/pipeline.js~PipelineSourceFile.html#instance-method-getParentFolder",
+    "src/pipeline.js~PipelineSourceFile#getParentFolder",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinesourcefile#getpipeline",
+    "class/src/pipeline.js~PipelineSourceFile.html#instance-method-getPipeline",
+    "src/pipeline.js~PipelineSourceFile#getPipeline",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinesourcefilelist#constructor",
+    "class/src/pipeline.js~PipelineSourceFileList.html#instance-constructor-constructor",
+    "src/pipeline.js~PipelineSourceFileList#constructor",
+    "method"
+  ],
+  [
+    "src/pipeline.js~pipelinesourcefilelist#itemclass",
+    "class/src/pipeline.js~PipelineSourceFileList.html#instance-member-itemClass",
+    "src/pipeline.js~PipelineSourceFileList#itemClass",
+    "member"
+  ],
+  [
+    "src/pipeline.js~pipelinesourcefilelist#post",
+    "class/src/pipeline.js~PipelineSourceFileList.html#instance-method-post",
+    "src/pipeline.js~PipelineSourceFileList#post",
     "method"
   ],
   [
@@ -1881,12 +1923,6 @@ window.esdocSearchIndex = [
     "src/pipeline.js~pipingdefaultparameter#getpluginpiping",
     "class/src/pipeline.js~PipingDefaultParameter.html#instance-method-getPluginPiping",
     "src/pipeline.js~PipingDefaultParameter#getPluginPiping",
-    "method"
-  ],
-  [
-    "src/pipeline.js~pluginpiping#constructor",
-    "class/src/pipeline.js~PluginPiping.html#instance-constructor-constructor",
-    "src/pipeline.js~PluginPiping#constructor",
     "method"
   ],
   [
@@ -1986,12 +2022,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/plugin.js~plugin#constructor",
-    "class/src/plugin.js~Plugin.html#instance-constructor-constructor",
-    "src/plugin.js~Plugin#constructor",
-    "method"
-  ],
-  [
     "src/plugin.js~plugin#getplugincomputeresources",
     "class/src/plugin.js~Plugin.html#instance-method-getPluginComputeResources",
     "src/plugin.js~Plugin#getPluginComputeResources",
@@ -2001,6 +2031,12 @@ window.esdocSearchIndex = [
     "src/plugin.js~plugin#getplugininstances",
     "class/src/plugin.js~Plugin.html#instance-method-getPluginInstances",
     "src/plugin.js~Plugin#getPluginInstances",
+    "method"
+  ],
+  [
+    "src/plugin.js~plugin#getpluginmeta",
+    "class/src/plugin.js~Plugin.html#instance-method-getPluginMeta",
+    "src/plugin.js~Plugin#getPluginMeta",
     "method"
   ],
   [
@@ -2100,12 +2136,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugininstance.js~plugininstance#constructor",
-    "class/src/plugininstance.js~PluginInstance.html#instance-constructor-constructor",
-    "src/plugininstance.js~PluginInstance#constructor",
-    "method"
-  ],
-  [
     "src/plugininstance.js~plugininstance#delete",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-delete",
     "src/plugininstance.js~PluginInstance#delete",
@@ -2130,9 +2160,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/plugininstance.js~plugininstance#getfiles",
-    "class/src/plugininstance.js~PluginInstance.html#instance-method-getFiles",
-    "src/plugininstance.js~PluginInstance#getFiles",
+    "src/plugininstance.js~plugininstance#getoutputfolder",
+    "class/src/plugininstance.js~PluginInstance.html#instance-method-getOutputFolder",
+    "src/plugininstance.js~PluginInstance#getOutputFolder",
     "method"
   ],
   [
@@ -2163,6 +2193,12 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~plugininstance#getsplits",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-getSplits",
     "src/plugininstance.js~PluginInstance#getSplits",
+    "method"
+  ],
+  [
+    "src/plugininstance.js~plugininstance#getworkflow",
+    "class/src/plugininstance.js~PluginInstance.html#instance-method-getWorkflow",
+    "src/plugininstance.js~PluginInstance#getWorkflow",
     "method"
   ],
   [
@@ -2205,12 +2241,6 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~plugininstancelist#post",
     "class/src/plugininstance.js~PluginInstanceList.html#instance-method-post",
     "src/plugininstance.js~PluginInstanceList#post",
-    "method"
-  ],
-  [
-    "src/plugininstance.js~plugininstanceparameter#constructor",
-    "class/src/plugininstance.js~PluginInstanceParameter.html#instance-constructor-constructor",
-    "src/plugininstance.js~PluginInstanceParameter#constructor",
     "method"
   ],
   [
@@ -2292,12 +2322,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/pluginmeta.js~pluginmeta#constructor",
-    "class/src/pluginmeta.js~PluginMeta.html#instance-constructor-constructor",
-    "src/pluginmeta.js~PluginMeta#constructor",
-    "method"
-  ],
-  [
     "src/pluginmeta.js~pluginmeta#getplugins",
     "class/src/pluginmeta.js~PluginMeta.html#instance-method-getPlugins",
     "src/pluginmeta.js~PluginMeta#getPlugins",
@@ -2332,12 +2356,6 @@ window.esdocSearchIndex = [
     "file/src/pluginparameter.js.html",
     "src/pluginparameter.js",
     "file"
-  ],
-  [
-    "src/pluginparameter.js~pluginparameter#constructor",
-    "class/src/pluginparameter.js~PluginParameter.html#instance-constructor-constructor",
-    "src/pluginparameter.js~PluginParameter#constructor",
-    "method"
   ],
   [
     "src/pluginparameter.js~pluginparameter#getplugin",
@@ -2664,6 +2682,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/servicefile.js~servicefile#getparentfolder",
+    "class/src/servicefile.js~ServiceFile.html#instance-method-getParentFolder",
+    "src/servicefile.js~ServiceFile#getParentFolder",
+    "method"
+  ],
+  [
     "src/servicefile.js~servicefilelist#constructor",
     "class/src/servicefile.js~ServiceFileList.html#instance-constructor-constructor",
     "src/servicefile.js~ServiceFileList#constructor",
@@ -2868,12 +2892,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/userfile.js~userfile#constructor",
-    "class/src/userfile.js~UserFile.html#instance-constructor-constructor",
-    "src/userfile.js~UserFile#constructor",
-    "method"
-  ],
-  [
     "src/userfile.js~userfile#delete",
     "class/src/userfile.js~UserFile.html#instance-method-delete",
     "src/userfile.js~UserFile#delete",
@@ -2883,6 +2901,12 @@ window.esdocSearchIndex = [
     "src/userfile.js~userfile#getfileblob",
     "class/src/userfile.js~UserFile.html#instance-method-getFileBlob",
     "src/userfile.js~UserFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#getparentfolder",
+    "class/src/userfile.js~UserFile.html#instance-method-getParentFolder",
+    "src/userfile.js~UserFile#getParentFolder",
     "method"
   ],
   [

@@ -1,7 +1,7 @@
 {
-  "coverage": "95.05%",
-  "expectCount": 425,
-  "actualCount": 404,
+  "coverage": "95.11%",
+  "expectCount": 430,
+  "actualCount": 409,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -19,9 +19,10 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 68,
-      "actualCount": 50,
+      "expectCount": 70,
+      "actualCount": 52,
       "undocumentLines": [
+        50,
         51,
         52,
         53,
@@ -38,8 +39,7 @@
         64,
         65,
         66,
-        67,
-        68
+        67
       ]
     },
     "src/comment.js": {
@@ -60,33 +60,28 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 29,
-      "actualCount": 29,
-      "undocumentLines": []
-    },
-    "src/feedfile.js": {
-      "expectCount": 16,
-      "actualCount": 16,
+      "expectCount": 31,
+      "actualCount": 31,
       "undocumentLines": []
     },
     "src/filebrowser.js": {
-      "expectCount": 12,
-      "actualCount": 12,
+      "expectCount": 24,
+      "actualCount": 24,
       "undocumentLines": []
     },
     "src/note.js": {
-      "expectCount": 3,
-      "actualCount": 3,
+      "expectCount": 2,
+      "actualCount": 2,
       "undocumentLines": []
     },
     "src/pacsfile.js": {
-      "expectCount": 6,
-      "actualCount": 6,
+      "expectCount": 7,
+      "actualCount": 7,
       "undocumentLines": []
     },
     "src/pipeline.js": {
-      "expectCount": 31,
-      "actualCount": 31,
+      "expectCount": 38,
+      "actualCount": 38,
       "undocumentLines": []
     },
     "src/pipelineinstance.js": {
@@ -100,18 +95,18 @@
       "undocumentLines": []
     },
     "src/plugininstance.js": {
-      "expectCount": 50,
-      "actualCount": 50,
+      "expectCount": 49,
+      "actualCount": 49,
       "undocumentLines": []
     },
     "src/pluginmeta.js": {
-      "expectCount": 8,
-      "actualCount": 8,
+      "expectCount": 7,
+      "actualCount": 7,
       "undocumentLines": []
     },
     "src/pluginparameter.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/request.js": {
@@ -128,8 +123,8 @@
       ]
     },
     "src/servicefile.js": {
-      "expectCount": 6,
-      "actualCount": 6,
+      "expectCount": 7,
+      "actualCount": 7,
       "undocumentLines": []
     },
     "src/tag.js": {
