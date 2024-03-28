@@ -9,6 +9,7 @@ import User from './user';
 import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
 import { UserFileList } from './userfile';
+import { FileBrowserFolder } from './filebrowser';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -41,6 +42,16 @@ describe('Feed resources', () => {
         .then(note => {
           expect(note).to.be.an.instanceof(Note);
           expect(note.isEmpty).to.be.false;
+        })
+        .then(done, done);
+    });
+
+    it('can fetch the associated folder from the REST API', done => {
+      const result = feed.getFolder();
+      result
+        .then(folder => {
+          expect(folder).to.be.an.instanceof(FileBrowserFolder);
+          expect(folder.isEmpty).to.be.false;
         })
         .then(done, done);
     });
