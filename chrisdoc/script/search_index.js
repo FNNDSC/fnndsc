@@ -72,6 +72,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~downloadtoken",
+    "class/src/downloadtoken.js~DownloadToken.html",
+    "<span>DownloadToken</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~downloadtokenlist",
+    "class/src/downloadtoken.js~DownloadTokenList.html",
+    "<span>DownloadTokenList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~feed",
     "class/src/feed.js~Feed.html",
     "<span>Feed</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -930,6 +942,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#createdownloadtoken",
+    "class/src/client.js~Client.html#instance-method-createDownloadToken",
+    "src/client.js~Client#createDownloadToken",
+    "method"
+  ],
+  [
     "src/client.js~client#createpipeline",
     "class/src/client.js~Client.html#instance-method-createPipeline",
     "src/client.js~Client#createPipeline",
@@ -966,6 +984,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#downloadtokensurl",
+    "class/src/client.js~Client.html#instance-member-downloadTokensUrl",
+    "src/client.js~Client#downloadTokensUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#feedsurl",
     "class/src/client.js~Client.html#instance-member-feedsUrl",
     "src/client.js~Client#feedsUrl",
@@ -993,6 +1017,18 @@ window.esdocSearchIndex = [
     "src/client.js~client#getcomputeresources",
     "class/src/client.js~Client.html#instance-method-getComputeResources",
     "src/client.js~Client#getComputeResources",
+    "method"
+  ],
+  [
+    "src/client.js~client#getdownloadtoken",
+    "class/src/client.js~Client.html#instance-method-getDownloadToken",
+    "src/client.js~Client#getDownloadToken",
+    "method"
+  ],
+  [
+    "src/client.js~client#getdownloadtokens",
+    "class/src/client.js~Client.html#instance-method-getDownloadTokens",
+    "src/client.js~Client#getDownloadTokens",
     "method"
   ],
   [
@@ -1398,6 +1434,36 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/downloadtoken.js",
+    "file/src/downloadtoken.js.html",
+    "src/downloadtoken.js",
+    "file"
+  ],
+  [
+    "src/downloadtoken.js~downloadtoken#constructor",
+    "class/src/downloadtoken.js~DownloadToken.html#instance-constructor-constructor",
+    "src/downloadtoken.js~DownloadToken#constructor",
+    "method"
+  ],
+  [
+    "src/downloadtoken.js~downloadtokenlist#constructor",
+    "class/src/downloadtoken.js~DownloadTokenList.html#instance-constructor-constructor",
+    "src/downloadtoken.js~DownloadTokenList#constructor",
+    "method"
+  ],
+  [
+    "src/downloadtoken.js~downloadtokenlist#itemclass",
+    "class/src/downloadtoken.js~DownloadTokenList.html#instance-member-itemClass",
+    "src/downloadtoken.js~DownloadTokenList#itemClass",
+    "member"
+  ],
+  [
+    "src/downloadtoken.js~downloadtokenlist#post",
+    "class/src/downloadtoken.js~DownloadTokenList.html#instance-method-post",
+    "src/downloadtoken.js~DownloadTokenList#post",
+    "method"
+  ],
+  [
     "src/exception.js",
     "file/src/exception.js.html",
     "src/exception.js",
@@ -1612,6 +1678,12 @@ window.esdocSearchIndex = [
     "file/src/filebrowser.js.html",
     "src/filebrowser.js",
     "file"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#delete",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-delete",
+    "src/filebrowser.js~FileBrowserFolder#delete",
+    "method"
   ],
   [
     "src/filebrowser.js~filebrowserfolder#getchildren",

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">PluginList | @fnndsc/chrisapi</title>
+  <title data-ice="title">DownloadTokenList | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -111,23 +111,23 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {PluginList} from &apos;<span><a href="file/src/plugin.js.html#lineNumber83">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {DownloadTokenList} from &apos;<span><a href="file/src/downloadtoken.js.html#lineNumber23">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/plugin.js.html#lineNumber83">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/downloadtoken.js.html#lineNumber23">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">PluginList</h1>
+  <h1 data-ice="name">DownloadTokenList</h1>
 
   
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/resource.js~Resource.html">Resource</a></span> &#x2192; <span><a href="class/src/resource.js~ListResource.html">ListResource</a></span> &#x2192; PluginList</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/resource.js~Resource.html">Resource</a></span> &#x2192; <span><a href="class/src/resource.js~ListResource.html">ListResource</a></span> &#x2192; DownloadTokenList</div></div>
   
   
   
@@ -137,7 +137,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Plugin list resource object representing a list of plugins.</p>
+  <div class="description" data-ice="description"><p>Download token list resource object representing a list of a user&apos;s file download tokens.</p>
 </div>
   
 
@@ -170,7 +170,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~PluginList.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/downloadtoken.js~DownloadTokenList.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -206,7 +206,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~PluginList.html#instance-member-itemClass">itemClass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/downloadtoken.js~DownloadTokenList.html#instance-member-itemClass">itemClass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -241,13 +241,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/plugin.js~PluginList.html#instance-method-getFeeds">getFeeds</a></span></span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~FeedList.html">FeedList</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/downloadtoken.js~DownloadTokenList.html#instance-method-post">post</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Fetch a list of feeds from the REST API.</p>
+        <div data-ice="description"><p>Make a POST request to this download token list resource to create a new file download token 
+item resource through the REST API.</p>
 </div>
       </div>
     </td>
@@ -930,7 +931,7 @@ the REST API.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber91">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/downloadtoken.js.html#lineNumber31">source</a></span></span>
     </span>
   </h3>
 
@@ -960,15 +961,14 @@ the REST API.</p>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">auth</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: null</li></ul></td>
+      <td data-ice="appendix"></td>
       <td data-ice="description"><p>authentication object</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
       <td data-ice="name" class="code" data-depth="1">auth.token</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="appendix"></td>
       <td data-ice="description"><p>authentication token</p>
 </td>
     </tr>
@@ -1009,7 +1009,7 @@ the REST API.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber95">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/downloadtoken.js.html#lineNumber35">source</a></span></span>
     </span>
   </h3>
 
@@ -1044,25 +1044,26 @@ the REST API.</p>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getFeeds">
+  <h3 data-ice="anchor" id="instance-method-post">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">getFeeds</span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~FeedList.html">FeedList</a></span>&gt;</span>
+    <span class="code" data-ice="name">post</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/plugin.js.html#lineNumber110">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/downloadtoken.js.html#lineNumber46">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Fetch a list of feeds from the REST API.</p>
+  <div data-ice="description"><p>Make a POST request to this download token list resource to create a new file download token 
+item resource through the REST API.</p>
 </div>
 
   
@@ -1076,30 +1077,6 @@ the REST API.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">searchParams</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li>
-<li>default: null</li></ul></td>
-      <td data-ice="description"><p>search parameters object which is
-resource-specific, the <code>FeedList.getSearchParameters</code> method
-can be used to get a list of possible search parameters</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" class="code" data-depth="1">searchParams.limit</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>page limit</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="1">
-      <td data-ice="name" class="code" data-depth="1">searchParams.offset</td>
-      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>page offset</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
@@ -1117,8 +1094,8 @@ can be used to get a list of possible search parameters</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~FeedList.html">FeedList</a></span>&gt;</td>
-          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>FeedList</code> object</p>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to <code>this</code> object</p>
 </td>
         </tr>
       </tbody>

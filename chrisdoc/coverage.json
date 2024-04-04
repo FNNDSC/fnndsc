@@ -1,7 +1,7 @@
 {
-  "coverage": "95.12%",
-  "expectCount": 431,
-  "actualCount": 410,
+  "coverage": "95.02%",
+  "expectCount": 442,
+  "actualCount": 420,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -19,10 +19,9 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 70,
-      "actualCount": 52,
+      "expectCount": 74,
+      "actualCount": 55,
       "undocumentLines": [
-        50,
         51,
         52,
         53,
@@ -39,7 +38,9 @@
         64,
         65,
         66,
-        67
+        67,
+        68,
+        69
       ]
     },
     "src/comment.js": {
@@ -50,6 +51,11 @@
     "src/computeresource.js": {
       "expectCount": 10,
       "actualCount": 10,
+      "undocumentLines": []
+    },
+    "src/downloadtoken.js": {
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/exception.js": {
@@ -65,8 +71,8 @@
       "undocumentLines": []
     },
     "src/filebrowser.js": {
-      "expectCount": 24,
-      "actualCount": 24,
+      "expectCount": 25,
+      "actualCount": 25,
       "undocumentLines": []
     },
     "src/note.js": {

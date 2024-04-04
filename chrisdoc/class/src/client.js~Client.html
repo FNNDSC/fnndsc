@@ -41,6 +41,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResource.html">ComputeResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResourceList.html">ComputeResourceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~PluginComputeResourceList.html">PluginComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/downloadtoken.js~DownloadTokenList.html">DownloadTokenList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
@@ -109,13 +111,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber34">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import Client from &apos;<span><a href="file/src/client.js.html#lineNumber35">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber34">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/client.js.html#lineNumber35">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -382,6 +384,34 @@
           
           
           <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-member-computeResourcesUrl">computeResourcesUrl</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-member-downloadTokensUrl">downloadTokensUrl</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
         </p>
       </div>
       <div>
@@ -924,6 +954,35 @@ tipically returned by <code>Pipeline.getDefaultParameters().data</code>.</p>
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-createDownloadToken">createDownloadToken</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Create a new file download token resource through the REST API.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-createPipeline">createPipeline</a></span></span><span class="code" data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span>&gt;</span>
         </p>
       </div>
@@ -1164,6 +1223,65 @@ tipically returned by <code>Pipeline.getDefaultParameters().data</code>.</p>
         
         <div data-ice="description"><p>Get a paginated list of compute resources from the REST API given query
 search parameters.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getDownloadToken">getDownloadToken</a></span></span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a download token resource object given its id.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/client.js~Client.html#instance-method-getDownloadTokens">getDownloadTokens</a></span></span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadTokenList.html">DownloadTokenList</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Get a paginated list of file download tokens for the authenticated user from the REST API 
+given query search parameters.</p>
 </div>
       </div>
     </td>
@@ -2199,7 +2317,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber963">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber1014">source</a></span></span>
     </span>
   </h3>
 
@@ -2302,7 +2420,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber993">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber1044">source</a></span></span>
     </span>
   </h3>
 
@@ -2398,7 +2516,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber1007">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber1058">source</a></span></span>
     </span>
   </h3>
 
@@ -2462,7 +2580,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber42">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber43">source</a></span></span>
     </span>
   </h3>
 
@@ -2541,7 +2659,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber67">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber69">source</a></span></span>
     </span>
   </h3>
 
@@ -2584,7 +2702,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber47">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber48">source</a></span></span>
     </span>
   </h3>
 
@@ -2627,7 +2745,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber53">source</a></span></span>
     </span>
   </h3>
 
@@ -2670,7 +2788,50 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber53">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber54">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-downloadTokensUrl">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">downloadTokensUrl</span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber67">source</a></span></span>
     </span>
   </h3>
 
@@ -2713,7 +2874,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
@@ -2756,7 +2917,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -2799,7 +2960,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
@@ -2842,7 +3003,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber58">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
@@ -2885,7 +3046,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber62">source</a></span></span>
     </span>
   </h3>
 
@@ -2928,7 +3089,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber57">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber58">source</a></span></span>
     </span>
   </h3>
 
@@ -2971,7 +3132,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber57">source</a></span></span>
     </span>
   </h3>
 
@@ -3014,7 +3175,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
@@ -3057,7 +3218,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber56">source</a></span></span>
     </span>
   </h3>
 
@@ -3100,7 +3261,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber51">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber52">source</a></span></span>
     </span>
   </h3>
 
@@ -3143,7 +3304,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber64">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber65">source</a></span></span>
     </span>
   </h3>
 
@@ -3186,7 +3347,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -3229,7 +3390,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber45">source</a></span></span>
     </span>
   </h3>
 
@@ -3272,7 +3433,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber62">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber63">source</a></span></span>
     </span>
   </h3>
 
@@ -3315,7 +3476,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber68">source</a></span></span>
     </span>
   </h3>
 
@@ -3358,7 +3519,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
@@ -3404,7 +3565,7 @@ parameters.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber331">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber337">source</a></span></span>
     </span>
   </h3>
 
@@ -3508,7 +3669,7 @@ list of names of already registered compute resources</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber590">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber596">source</a></span></span>
     </span>
   </h3>
 
@@ -3583,6 +3744,81 @@ in the result</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-createDownloadToken">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">createDownloadToken</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber985">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Create a new file download token resource through the REST API.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>DownloadToken</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-createPipeline">
     <span class="access" data-ice="access">public</span>
     
@@ -3594,7 +3830,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber482">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber488">source</a></span></span>
     </span>
   </h3>
 
@@ -3726,7 +3962,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber534">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber540">source</a></span></span>
     </span>
   </h3>
 
@@ -3836,7 +4072,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber398">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber404">source</a></span></span>
     </span>
   </h3>
 
@@ -3974,7 +4210,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber418">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber424">source</a></span></span>
     </span>
   </h3>
 
@@ -4072,7 +4308,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber692">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber698">source</a></span></span>
     </span>
   </h3>
 
@@ -4169,7 +4405,7 @@ in the result</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber638">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber644">source</a></span></span>
     </span>
   </h3>
 
@@ -4275,7 +4511,7 @@ this list has <code>name</code> and <code>default</code> properties.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber88">source</a></span></span>
     </span>
   </h3>
 
@@ -4350,7 +4586,7 @@ this list has <code>name</code> and <code>default</code> properties.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber233">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber239">source</a></span></span>
     </span>
   </h3>
 
@@ -4432,7 +4668,7 @@ this list has <code>name</code> and <code>default</code> properties.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber221">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber227">source</a></span></span>
     </span>
   </h3>
 
@@ -4555,6 +4791,193 @@ compute resources associated with the plugin</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getDownloadToken">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getDownloadToken</span><span class="code" data-ice="signature">(id: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber974">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a download token resource object given its id.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>file download token id</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>DownloadToken</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getDownloadTokens">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getDownloadTokens</span><span class="code" data-ice="signature">(searchParams: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadTokenList.html">DownloadTokenList</a></span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber962">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Get a paginated list of file download tokens for the authenticated user from the REST API 
+given query search parameters. If no search parameters then get the default first page.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">searchParams</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>search parameters object</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.limit</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page limit</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.offset</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>page offset</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.id</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file download token id exactly with this number</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">timeout</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: 30000</li></ul></td>
+      <td data-ice="description"><p>request timeout</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/downloadtoken.js~DownloadTokenList.html">DownloadTokenList</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>DownloadTokenList</code> object</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getFeed">
     <span class="access" data-ice="access">public</span>
     
@@ -4566,7 +4989,7 @@ compute resources associated with the plugin</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber184">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber190">source</a></span></span>
     </span>
   </h3>
 
@@ -4648,7 +5071,7 @@ compute resources associated with the plugin</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber114">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
@@ -4819,7 +5242,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber923">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber931">source</a></span></span>
     </span>
   </h3>
 
@@ -4901,7 +5324,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber935">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber943">source</a></span></span>
     </span>
   </h3>
 
@@ -4983,7 +5406,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber911">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber919">source</a></span></span>
     </span>
   </h3>
 
@@ -5096,7 +5519,7 @@ default root folder.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber859">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber866">source</a></span></span>
     </span>
   </h3>
 
@@ -5178,7 +5601,7 @@ default root folder.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber847">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber854">source</a></span></span>
     </span>
   </h3>
 
@@ -5379,6 +5802,13 @@ that matches the query.</p>
       <td data-ice="description"><p>match file&apos;s creation_date lesser than this date string</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.pacs_identifier</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file&apos;s PACS exactly with this string</p>
+</td>
+    </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
@@ -5434,7 +5864,7 @@ that matches the query.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber463">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber469">source</a></span></span>
     </span>
   </h3>
 
@@ -5516,7 +5946,7 @@ that matches the query.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber518">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber524">source</a></span></span>
     </span>
   </h3>
 
@@ -5598,7 +6028,7 @@ that matches the query.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber506">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber512">source</a></span></span>
     </span>
   </h3>
 
@@ -5725,7 +6155,7 @@ first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber731">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber737">source</a></span></span>
     </span>
   </h3>
 
@@ -5807,7 +6237,7 @@ first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber719">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber725">source</a></span></span>
     </span>
   </h3>
 
@@ -5961,7 +6391,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber451">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber457">source</a></span></span>
     </span>
   </h3>
 
@@ -6115,7 +6545,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber315">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber321">source</a></span></span>
     </span>
   </h3>
 
@@ -6197,7 +6627,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber378">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber384">source</a></span></span>
     </span>
   </h3>
 
@@ -6279,7 +6709,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber366">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber372">source</a></span></span>
     </span>
   </h3>
 
@@ -6489,7 +6919,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber273">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber279">source</a></span></span>
     </span>
   </h3>
 
@@ -6571,7 +7001,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber261">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber267">source</a></span></span>
     </span>
   </h3>
 
@@ -6748,7 +7178,7 @@ category containing this string</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber303">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber309">source</a></span></span>
     </span>
   </h3>
 
@@ -6939,7 +7369,7 @@ with this number</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber172">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber178">source</a></span></span>
     </span>
   </h3>
 
@@ -7102,7 +7532,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber893">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber901">source</a></span></span>
     </span>
   </h3>
 
@@ -7184,7 +7614,7 @@ of query strings) case insensitive anywhere in their fname.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber881">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber889">source</a></span></span>
     </span>
   </h3>
 
@@ -7276,6 +7706,13 @@ query search parameters. If no search parameters then get the default first page
       <td data-ice="description"><p>match file&apos;s creation_date lesser than this date string</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">searchParams.service_identifier</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>match file&apos;s service exactly with this string</p>
+</td>
+    </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">timeout</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
@@ -7331,7 +7768,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber678">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber684">source</a></span></span>
     </span>
   </h3>
 
@@ -7413,7 +7850,7 @@ query search parameters. If no search parameters then get the default first page
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber666">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber672">source</a></span></span>
     </span>
   </h3>
 
@@ -7539,7 +7976,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber948">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber999">source</a></span></span>
     </span>
   </h3>
 
@@ -7614,7 +8051,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber786">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber792">source</a></span></span>
     </span>
   </h3>
 
@@ -7696,7 +8133,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber774">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber780">source</a></span></span>
     </span>
   </h3>
 
@@ -7850,7 +8287,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber574">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber580">source</a></span></span>
     </span>
   </h3>
 
@@ -7932,7 +8369,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber562">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber568">source</a></span></span>
     </span>
   </h3>
 
@@ -8058,7 +8495,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber78">source</a></span></span>
     </span>
   </h3>
 
@@ -8133,7 +8570,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber197">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber203">source</a></span></span>
     </span>
   </h3>
 
@@ -8222,7 +8659,7 @@ parameters. If no search parameters then get the default first page.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber802">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber808">source</a></span></span>
     </span>
   </h3>
 
@@ -8326,7 +8763,7 @@ will be uploaded on the storage service</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber747">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber753">source</a></span></span>
     </span>
   </h3>
 
@@ -8432,7 +8869,7 @@ In addition, this creates a new pipeline resource based on the source of the upl
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber1021">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/client.js.html#lineNumber1072">source</a></span></span>
     </span>
   </h3>
 

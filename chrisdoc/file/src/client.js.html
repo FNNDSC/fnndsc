@@ -41,6 +41,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResource.html">ComputeResource</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~ComputeResourceList.html">ComputeResourceList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/computeresource.js~PluginComputeResourceList.html">PluginComputeResourceList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/downloadtoken.js~DownloadToken.html">DownloadToken</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/downloadtoken.js~DownloadTokenList.html">DownloadTokenList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/exception.js~RequestException.html">RequestException</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~Feed.html">Feed</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/feed.js~FeedList.html">FeedList</a></span></span></li>
@@ -137,6 +139,7 @@ import { UserFileList, UserFile } from &apos;./userfile&apos;;
 import { PACSFileList, PACSFile } from &apos;./pacsfile&apos;;
 import { ServiceFileList, ServiceFile } from &apos;./servicefile&apos;;
 import { FileBrowserFolderList, FileBrowserFolder } from &apos;./filebrowser&apos;;
+import { DownloadTokenList, DownloadToken } from &apos;./downloadtoken&apos;;
 import User from &apos;./user&apos;;
 
 /**
@@ -174,6 +177,7 @@ export default class Client {
     this.pacsFilesUrl = &apos;&apos;;
     this.serviceFilesUrl = &apos;&apos;;
     this.fileBrowserUrl = &apos;&apos;;
+    this.downloadTokensUrl = &apos;&apos;;
     this.userUrl = &apos;&apos;;
     this.adminUrl = &apos;&apos;;
   }
@@ -245,6 +249,10 @@ export default class Client {
       this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, &apos;servicefiles&apos;)[0];
       this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, &apos;filebrowser&apos;)[0];
 
+      if (!this.downloadTokensUrl) {
+        this.downloadTokensUrl = getUrl(coll, &apos;download_tokens&apos;);
+        this.downloadTokensUrl = this.downloadTokensUrl.length ? this.downloadTokensUrl[0] : &apos;&apos;;
+      }
       if (!this.userUrl) {
         this.userUrl = getUrl(coll, &apos;user&apos;);
         this.userUrl = this.userUrl.length ? this.userUrl[0] : &apos;&apos;;
@@ -951,6 +959,7 @@ export default class Client {
    * @param {string} [searchParams.SeriesDescription] - match file&apos;s SeriesDescription containing this string
    * @param {string} [searchParams.min_creation_date] - match file&apos;s creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file&apos;s creation_date lesser than this date string
+   * @param {string} [searchParams.pacs_identifier] - match file&apos;s PACS exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise&lt;PACSFileList&gt;} - JS Promise, resolves to a ``PACSFileList`` object
@@ -985,6 +994,7 @@ export default class Client {
    * @param {string|number} [searchParams.fname_nslashes] - match file&apos;s path containing this number of slashes
    * @param {string} [searchParams.min_creation_date] - match file&apos;s creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file&apos;s creation_date lesser than this date string
+   * @param {string} [searchParams.service_identifier] - match file&apos;s service exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise&lt;ServiceFileList&gt;} - JS Promise, resolves to a ``ServiceFileList`` object
@@ -1049,6 +1059,49 @@ export default class Client {
       return items.length ? items[0] : null;
     });
   } 
+
+  /**
+   * Get a paginated list of file download tokens for the authenticated user from the REST API 
+   * given query search parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file download token id exactly with this number
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;DownloadTokenList&gt;} - JS Promise, resolves to a ``DownloadTokenList`` object
+   */
+  getDownloadTokens(searchParams = null, timeout = 30000) {
+    return this._fetchRes(&apos;downloadTokensUrl&apos;, DownloadTokenList, searchParams, timeout);
+  }
+
+  /**
+   * Get a download token resource object given its id.
+   *
+   * @param {number} id - file download token id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;DownloadToken&gt;} - JS Promise, resolves to a ``DownloadToken`` object
+   */
+  getDownloadToken(id, timeout = 30000) {
+    return this.getDownloadTokens({ id: id }, timeout).then(listRes =&gt; listRes.getItem(id));
+  }
+
+  /**
+   * Create a new file download token resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;DownloadToken&gt;} - JS Promise, resolves to a ``DownloadToken`` object
+   */
+  createDownloadToken(timeout = 30000) {
+    const createRes = () =&gt; {
+      const res = new DownloadTokenList(this.downloadTokensUrl, this.auth);
+      return res.post(timeout).then(res =&gt; res.getItems()[0]);
+    };
+    return this.downloadTokensUrl ? createRes() : this.setUrls().then(() =&gt; createRes());
+  }  
 
   /**
    * Get a user resource object for the currently authenticated user.
