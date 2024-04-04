@@ -42,6 +42,7 @@ import { ServiceFileList, ServiceFile } from './servicefile';
 import { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder } from './filebrowser';
 import { FileBrowserFolderFileList, FileBrowserFolderFile } from './filebrowser';
 import { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile } from './filebrowser';
+import { DownloadTokenList, DownloadToken } from './downloadtoken';
 
 export default Client;
 export { Request };
@@ -75,3 +76,4 @@ export { ServiceFileList, ServiceFile };
 export { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder };
 export { FileBrowserFolderFileList, FileBrowserFolderFile };
 export { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile };
+export { DownloadTokenList, DownloadToken };

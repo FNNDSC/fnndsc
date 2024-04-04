@@ -72,6 +72,17 @@ export class FileBrowserFolder extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   } 
+
+  /**
+   * Make a DELETE request to delete this file browser folder item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise} - JS Promise
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
 }
 
 /**

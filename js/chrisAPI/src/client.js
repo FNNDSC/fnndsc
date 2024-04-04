@@ -26,6 +26,7 @@ import { UserFileList, UserFile } from './userfile';
 import { PACSFileList, PACSFile } from './pacsfile';
 import { ServiceFileList, ServiceFile } from './servicefile';
 import { FileBrowserFolderList, FileBrowserFolder } from './filebrowser';
+import { DownloadTokenList, DownloadToken } from './downloadtoken';
 import User from './user';
 
 /**
@@ -63,6 +64,7 @@ export default class Client {
     this.pacsFilesUrl = '';
     this.serviceFilesUrl = '';
     this.fileBrowserUrl = '';
+    this.downloadTokensUrl = '';
     this.userUrl = '';
     this.adminUrl = '';
   }
@@ -134,6 +136,10 @@ export default class Client {
       this.serviceFilesUrl = this.serviceFilesUrl || getUrl(coll, 'servicefiles')[0];
       this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, 'filebrowser')[0];
 
+      if (!this.downloadTokensUrl) {
+        this.downloadTokensUrl = getUrl(coll, 'download_tokens');
+        this.downloadTokensUrl = this.downloadTokensUrl.length ? this.downloadTokensUrl[0] : '';
+      }
       if (!this.userUrl) {
         this.userUrl = getUrl(coll, 'user');
         this.userUrl = this.userUrl.length ? this.userUrl[0] : '';
@@ -840,6 +846,7 @@ export default class Client {
    * @param {string} [searchParams.SeriesDescription] - match file's SeriesDescription containing this string
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+   * @param {string} [searchParams.pacs_identifier] - match file's PACS exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
@@ -874,6 +881,7 @@ export default class Client {
    * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+   * @param {string} [searchParams.service_identifier] - match file's service exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
@@ -938,6 +946,49 @@ export default class Client {
       return items.length ? items[0] : null;
     });
   } 
+
+  /**
+   * Get a paginated list of file download tokens for the authenticated user from the REST API 
+   * given query search parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match file download token id exactly with this number
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<DownloadTokenList>} - JS Promise, resolves to a ``DownloadTokenList`` object
+   */
+  getDownloadTokens(searchParams = null, timeout = 30000) {
+    return this._fetchRes('downloadTokensUrl', DownloadTokenList, searchParams, timeout);
+  }
+
+  /**
+   * Get a download token resource object given its id.
+   *
+   * @param {number} id - file download token id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<DownloadToken>} - JS Promise, resolves to a ``DownloadToken`` object
+   */
+  getDownloadToken(id, timeout = 30000) {
+    return this.getDownloadTokens({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Create a new file download token resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<DownloadToken>} - JS Promise, resolves to a ``DownloadToken`` object
+   */
+  createDownloadToken(timeout = 30000) {
+    const createRes = () => {
+      const res = new DownloadTokenList(this.downloadTokensUrl, this.auth);
+      return res.post(timeout).then(res => res.getItems()[0]);
+    };
+    return this.downloadTokensUrl ? createRes() : this.setUrls().then(() => createRes());
+  }  
 
   /**
    * Get a user resource object for the currently authenticated user.

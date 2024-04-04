@@ -11,6 +11,7 @@ import { Workflow } from './workflow';
 import { Tag, Tagging } from './tag';
 import { UserFile } from './userfile';
 import { FileBrowserFolder } from './filebrowser';
+import { DownloadToken } from './downloadtoken';
 import User from './user';
 import RequestException from './exception';
 
@@ -343,6 +344,16 @@ describe('Client', () => {
       .then(browserFolder => {
         expect(browserFolder).to.be.an.instanceof(FileBrowserFolder);
         expect(browserFolder.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can create a new file download token through the REST API', (done) => {
+    const result = client.createDownloadToken();
+    result
+      .then(downloadToken => {
+        expect(downloadToken).to.be.an.instanceof(DownloadToken);
+        expect(downloadToken.data.owner_username).to.equal(username);
       })
       .then(done, done);
   });
