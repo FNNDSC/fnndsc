@@ -52,6 +52,14 @@ export class FileBrowserFolder extends ItemResource {
         limit?: number;
         offset?: number;
     }, timeout?: number): Promise<FileBrowserFolderLinkFileList>;
+    /**
+     * Make a DELETE request to delete this file browser folder item resource through the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise} - JS Promise
+     */
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * File browser folder list resource object representing a list of folders.

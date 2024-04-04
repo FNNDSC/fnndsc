@@ -60,6 +60,7 @@ export default class Client {
     pacsFilesUrl: string;
     serviceFilesUrl: string;
     fileBrowserUrl: string;
+    downloadTokensUrl: string;
     userUrl: string;
     adminUrl: string;
     /**
@@ -782,6 +783,7 @@ export default class Client {
      * @param {string} [searchParams.SeriesDescription] - match file's SeriesDescription containing this string
      * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
      * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+     * @param {string} [searchParams.pacs_identifier] - match file's PACS exactly with this string
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
@@ -811,6 +813,7 @@ export default class Client {
         SeriesDescription?: string;
         min_creation_date?: string;
         max_creation_date?: string;
+        pacs_identifier?: string;
     }, timeout?: number): Promise<PACSFileList>;
     /**
      * Get a PACS file resource object given its id.
@@ -835,6 +838,7 @@ export default class Client {
      * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
      * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
      * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+     * @param {string} [searchParams.service_identifier] - match file's service exactly with this string
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
@@ -849,6 +853,7 @@ export default class Client {
         fname_nslashes?: string | number;
         min_creation_date?: string;
         max_creation_date?: string;
+        service_identifier?: string;
     }, timeout?: number): Promise<ServiceFileList>;
     /**
      * Get a service file resource object given its id.
@@ -897,6 +902,40 @@ export default class Client {
      * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
      */
     getFileBrowserFolderByPath(path: string, timeout?: number): Promise<FileBrowserFolder | null>;
+    /**
+     * Get a paginated list of file download tokens for the authenticated user from the REST API
+     * given query search parameters. If no search parameters then get the default first page.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match file download token id exactly with this number
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<DownloadTokenList>} - JS Promise, resolves to a ``DownloadTokenList`` object
+     */
+    getDownloadTokens(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+    }, timeout?: number): Promise<DownloadTokenList>;
+    /**
+     * Get a download token resource object given its id.
+     *
+     * @param {number} id - file download token id
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<DownloadToken>} - JS Promise, resolves to a ``DownloadToken`` object
+     */
+    getDownloadToken(id: number, timeout?: number): Promise<DownloadToken>;
+    /**
+     * Create a new file download token resource through the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<DownloadToken>} - JS Promise, resolves to a ``DownloadToken`` object
+     */
+    createDownloadToken(timeout?: number): Promise<DownloadToken>;
     /**
      * Get a user resource object for the currently authenticated user.
      * @param {number} [timeout=30000] - request timeout
@@ -949,4 +988,6 @@ import { ServiceFileList } from "./servicefile";
 import { ServiceFile } from "./servicefile";
 import { FileBrowserFolderList } from "./filebrowser";
 import { FileBrowserFolder } from "./filebrowser";
+import { DownloadTokenList } from "./downloadtoken";
+import { DownloadToken } from "./downloadtoken";
 import User from "./user";
