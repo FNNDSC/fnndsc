@@ -52,13 +52,12 @@ export default class Client {
     pluginsUrl: string;
     pluginInstancesUrl: string;
     pipelinesUrl: string;
-    pipelineInstancesUrl: string;
     workflowsUrl: string;
     tagsUrl: string;
     pipelineSourceFilesUrl: string;
     userFilesUrl: string;
     pacsFilesUrl: string;
-    serviceFilesUrl: string;
+    pacsSeriesUrl: string;
     fileBrowserUrl: string;
     downloadTokensUrl: string;
     userUrl: string;
@@ -314,7 +313,7 @@ export default class Client {
      * @param {Object} pluginFileObj.fname - plugin's file blob
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<PluginAdmin>} - JS Promise, resolves to ``PluginAdmin`` object
+     * @return {Promise<PluginAdmin>} - JS Promise, resolves to a ``PluginAdmin`` object
      */
     adminUploadPlugin(data: {
         compute_names: string;
@@ -391,7 +390,7 @@ export default class Client {
      * @param {string} [data.gpu_limit] - gpu limit
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<PluginInstance>} - JS Promise, resolves to ``PluginInstance`` object
+     * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
      */
     createPluginInstance(pluginId: number, data: {
         previous_id: number;
@@ -410,7 +409,7 @@ export default class Client {
      * @param {string} [cr_name=''] - remote compute resource name
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<PluginInstanceSplit>} - JS Promise, resolves to ``PluginInstanceSplit`` object
+     * @return {Promise<PluginInstanceSplit>} - JS Promise, resolves to a ``PluginInstanceSplit`` object
      */
     createPluginInstanceSplit(pluginInstanceId: number, filter?: string, cr_name?: string, timeout?: number): Promise<PluginInstanceSplit>;
     /**
@@ -466,7 +465,7 @@ export default class Client {
      * @param {number} [data.plugin_inst_id] - plugin instance id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<Pipeline>} - JS Promise, resolves to ``Pipeline`` object
+     * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
      */
     createPipeline(data: {
         name: string;
@@ -477,56 +476,6 @@ export default class Client {
         plugin_tree?: string;
         plugin_inst_id?: number;
     }, timeout?: number): Promise<Pipeline>;
-    /**
-     * Get a paginated list of pipeline instances from the REST API given
-     * query search parameters. If no search parameters then get the default
-     * first page.
-     *
-     * @param {Object} [searchParams=null] - search parameters object
-     * @param {number} [searchParams.limit] - page limit
-     * @param {number} [searchParams.offset] - page offset
-     * @param {number} [searchParams.id] - match pipeline instance id exactly with this number
-     * @param {string} [searchParams.title] - match pipeline instance title containing this string
-     * @param {string} [searchParams.description] - match pipeline instance description containing this string
-     * @param {string} [searchParams.pipeline_name] - match associated pipeline name containing this string
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to ``AllPipelineInstanceList`` object
-     */
-    getPipelineInstances(searchParams?: {
-        limit?: number;
-        offset?: number;
-        id?: number;
-        title?: string;
-        description?: string;
-        pipeline_name?: string;
-    }, timeout?: number): Promise<AllPipelineInstanceList>;
-    /**
-     * Get a pipeline instance resource object given its id.
-     *
-     * @param {number} id - pipeline instance id
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<PipelineInstance>} - JS Promise, resolves to a ``PipelineInstance`` object
-     */
-    getPipelineInstance(id: number, timeout?: number): Promise<PipelineInstance>;
-    /**
-     * Create a new pipeline instance resource through the REST API.
-     *
-     * @param {number} pipelineId - pipeline id
-     * @param {Object} data - request data object which is pipeline-specific
-     * @param {number} data.previous_plugin_inst_id - id of the previous plugin instance
-     * @param {string} [data.title] - pipeline instance title
-     * @param {string} [data.description] - pipeline instance description
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<PipelineInstance>} - JS Promise, resolves to ``PipelineInstance`` object
-     */
-    createPipelineInstance(pipelineId: number, data: {
-        previous_plugin_inst_id: number;
-        title?: string;
-        description?: string;
-    }, timeout?: number): Promise<PipelineInstance>;
     /**
      * Get a paginated list of workflows from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -584,7 +533,7 @@ export default class Client {
      * this list has ``name`` and ``default`` properties.
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<Workflow>} - JS Promise, resolves to ``Workflow`` object
+     * @return {Promise<Workflow>} - JS Promise, resolves to a ``Workflow`` object
      */
     createWorkflow(pipelineId: number, data: {
         previous_plugin_inst_id: number;
@@ -630,7 +579,7 @@ export default class Client {
      * @param {string} [data.name=''] - tag name
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<Tag>} - JS Promise, resolves to ``Tag`` object
+     * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
      */
     createTag(data: {
         color: string;
@@ -767,6 +716,41 @@ export default class Client {
      * SERVICES/PACS/pacs_name. This is useful to efficiently determine the top level directories containing a file
      * that matches the query.
      * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
+     * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
+     * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
+     */
+    getPACSFiles(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+        fname?: string;
+        fname_exact?: string;
+        fname_icontains?: string;
+        fname_icontains_topdir_unique?: string;
+        fname_nslashes?: string | number;
+        min_creation_date?: string;
+        max_creation_date?: string;
+    }, timeout?: number): Promise<PACSFileList>;
+    /**
+     * Get a PACS file resource object given its id.
+     *
+     * @param {number} id - PACS file id
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
+     */
+    getPACSFile(id: number, timeout?: number): Promise<PACSFile>;
+    /**
+     * Get a paginated list of PACS series from the REST API given query search
+     * parameters. If no search parameters then get the default first page.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match file id exactly with this number
      * @param {string} [searchParams.PatientID] - match file's PatientID exactly with this string
      * @param {string} [searchParams.PatientName] - match file's PatientName containing this string
      * @param {string} [searchParams.PatientSex] - match file's PatientSex exactly with this string
@@ -786,17 +770,12 @@ export default class Client {
      * @param {string} [searchParams.pacs_identifier] - match file's PACS exactly with this string
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<PACSFileList>} - JS Promise, resolves to a ``PACSFileList`` object
+     * @return {Promise<PACSSeriesList>} - JS Promise, resolves to a ``PACSSeriesList`` object
      */
-    getPACSFiles(searchParams?: {
+    getPACSSeriesList(searchParams?: {
         limit?: number;
         offset?: number;
         id?: number;
-        fname?: string;
-        fname_exact?: string;
-        fname_icontains?: string;
-        fname_icontains_topdir_unique?: string;
-        fname_nslashes?: string | number;
         PatientID?: string;
         PatientName?: string;
         PatientSex?: string;
@@ -814,56 +793,16 @@ export default class Client {
         min_creation_date?: string;
         max_creation_date?: string;
         pacs_identifier?: string;
-    }, timeout?: number): Promise<PACSFileList>;
+    }, timeout?: number): Promise<PACSSeriesList>;
     /**
-     * Get a PACS file resource object given its id.
+     * Get a PACS series resource object given its id.
      *
-     * @param {number} id - PACS file id
+     * @param {number} id - PACS series id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
+     * @return {Promise<PACSSeries>} - JS Promise, resolves to a ``PACSSeries`` object
      */
-    getPACSFile(id: number, timeout?: number): Promise<PACSFile>;
-    /**
-     * Get a paginated list of files for an unregistered service from the REST API given
-     * query search parameters. If no search parameters then get the default first page.
-     *
-     * @param {Object} [searchParams=null] - search parameters object
-     * @param {number} [searchParams.limit] - page limit
-     * @param {number} [searchParams.offset] - page offset
-     * @param {number} [searchParams.id] - match file id exactly with this number
-     * @param {string} [searchParams.fname] - match file's path starting with this string
-     * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
-     * @param {string} [searchParams.fname_icontains] - match file's path containing this string
-     * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
-     * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
-     * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
-     * @param {string} [searchParams.service_identifier] - match file's service exactly with this string
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
-     */
-    getServiceFiles(searchParams?: {
-        limit?: number;
-        offset?: number;
-        id?: number;
-        fname?: string;
-        fname_exact?: string;
-        fname_icontains?: string;
-        fname_nslashes?: string | number;
-        min_creation_date?: string;
-        max_creation_date?: string;
-        service_identifier?: string;
-    }, timeout?: number): Promise<ServiceFileList>;
-    /**
-     * Get a service file resource object given its id.
-     *
-     * @param {number} id - PACS file id
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<ServiceFile>} - JS Promise, resolves to a ``ServiceFile`` object
-     */
-    getServiceFile(id: number, timeout?: number): Promise<ServiceFile>;
+    getPACSSeries(id: number, timeout?: number): Promise<PACSSeries>;
     /**
      * Get a list with the matching file browser folder (the returned list only has at most one element)
      * from the REST API given query search parameters. If no search parameters then get a list with the
@@ -902,6 +841,18 @@ export default class Client {
      * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
      */
     getFileBrowserFolderByPath(path: string, timeout?: number): Promise<FileBrowserFolder | null>;
+    /**
+     * Create a new file browser folder resource through the REST API.
+     *
+     * @param {Object} data - request data object
+     * @param {string} data.path - folder path
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    createFileBrowserFolder(data: {
+        path: string;
+    }, timeout?: number): Promise<FileBrowserFolder>;
     /**
      * Get a paginated list of file download tokens for the authenticated user from the REST API
      * given query search parameters. If no search parameters then get the default first page.
@@ -972,8 +923,6 @@ import { PluginInstance } from "./plugininstance";
 import { PluginInstanceSplit } from "./plugininstance";
 import { PipelineList } from "./pipeline";
 import { Pipeline } from "./pipeline";
-import { AllPipelineInstanceList } from "./pipelineinstance";
-import { PipelineInstance } from "./pipelineinstance";
 import { AllWorkflowList } from "./workflow";
 import { Workflow } from "./workflow";
 import { TagList } from "./tag";
@@ -984,8 +933,8 @@ import { UserFileList } from "./userfile";
 import { UserFile } from "./userfile";
 import { PACSFileList } from "./pacsfile";
 import { PACSFile } from "./pacsfile";
-import { ServiceFileList } from "./servicefile";
-import { ServiceFile } from "./servicefile";
+import { PACSSeriesList } from "./pacsfile";
+import { PACSSeries } from "./pacsfile";
 import { FileBrowserFolderList } from "./filebrowser";
 import { FileBrowserFolder } from "./filebrowser";
 import { DownloadTokenList } from "./downloadtoken";

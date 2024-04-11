@@ -45,14 +45,6 @@ export class PluginInstance extends ItemResource {
      */
     getPreviousPluginInstance(timeout?: number): Promise<PluginInstance | null>;
     /**
-     * Fetch the pipeline instance (if any) that created this plugin instance from the REST API.
-     *
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<PipelineInstance|null>} - JS Promise, resolves to a ``PipelineInstance`` object or ``null``
-     */
-    getPipelineInstance(timeout?: number): Promise<PipelineInstance | null>;
-    /**
      * Fetch the workflow (if any) that created this plugin instance from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -212,22 +204,6 @@ export class FeedPluginInstanceList extends ListResource {
     getFeed(timeout?: number): Promise<Feed>;
 }
 /**
- * Pipeline instance-specific plugin instance list resource object representing
- * a list of plugin instances associated to an specific pipeline instance.
- */
-export class PipelineInstancePluginInstanceList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-}
-/**
  * Workflow-specific plugin instance list resource object representing
  * a list of plugin instances associated to a workflow.
  */
@@ -346,7 +322,6 @@ import { Feed } from "./feed";
 import { Plugin } from "./plugin";
 import { FileBrowserFolder } from "./filebrowser";
 import { ComputeResource } from "./computeresource";
-import { PipelineInstance } from "./pipelineinstance";
 import { Workflow } from "./workflow";
 import { ListResource } from "./resource";
 import { PluginList } from "./plugin";

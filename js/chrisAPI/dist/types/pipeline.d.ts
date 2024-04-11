@@ -46,20 +46,6 @@ export class Pipeline extends ItemResource {
         offset?: number;
     }, timeout?: number): Promise<PipelinePipingDefaultParameterList>;
     /**
-     * Fetch a list of pipeline instances associated to this pipeline from the REST API.
-     *
-     * @param {Object} [params=null] - page parameters object
-     * @param {number} [params.limit] - page limit
-     * @param {number} [params.offset] - page offset
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<PipelineInstanceList>} - JS Promise, resolves to a ``PipelineInstanceList`` object
-     */
-    getPipelineInstances(params?: {
-        limit?: number;
-        offset?: number;
-    }, timeout?: number): Promise<PipelineInstanceList>;
-    /**
      * Fetch a list of workflows associated to this pipeline from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -73,14 +59,6 @@ export class Pipeline extends ItemResource {
         limit?: number;
         offset?: number;
     }, timeout?: number): Promise<WorkflowList>;
-    /**
-     * Fetch the source fle associated to this pipeline from the REST API.
-     *
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
-     */
-    getPipelineSourceFile(timeout?: number): Promise<PipelineSourceFile>;
     /**
      * Make a PUT request to modify this pipeline resource through the REST API.
      *
@@ -242,14 +220,6 @@ export class PipelineSourceFile extends ItemResource {
      */
     getFileBlob(timeout?: number): Promise<Blob>;
     /**
-     * Fetch the pipeline associated to this source file from the REST API.
-     *
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
-     */
-    getPipeline(timeout?: number): Promise<Pipeline>;
-    /**
      * Fetch the parent folder of this file from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -281,7 +251,6 @@ export class PipelineSourceFileList extends ListResource {
     }, timeout?: number): Promise<PipelineSourceFileList>;
 }
 import { ItemResource } from "./resource";
-import { PipelineInstanceList } from "./pipelineinstance";
 import { WorkflowList } from "./workflow";
 import { ListResource } from "./resource";
 import { PluginList } from "./plugin";

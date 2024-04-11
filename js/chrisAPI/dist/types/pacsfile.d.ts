@@ -1,4 +1,42 @@
 /**
+ * PACS series item resource object representing a PACS series.
+ */
+export class PACSSeries extends ItemResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
+     * Fetch the folder associated with this PACS series from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getFolder(timeout?: number): Promise<FileBrowserFolder>;
+}
+/**
+ * PACS series list resource object representing a list of PACS series.
+ */
+export class PACSSeriesList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+}
+/**
  * PACS file item resource object representing a PACS file.
  */
 export class PACSFile extends ItemResource {

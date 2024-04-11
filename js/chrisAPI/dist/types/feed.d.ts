@@ -164,6 +164,22 @@ export class FeedList extends ListResource {
         offset?: number;
     }, timeout?: number): Promise<ComputeResourceList>;
     /**
+    * Fetch a list of plugin metas from the REST API.
+    *
+    * @param {Object} [searchParams=null] - search parameters object which is
+    * resource-specific, the ``PluginMetaList.getSearchParameters`` method can be
+    * used to get a list of possible search parameters
+    * @param {number} [searchParams.limit] - page limit
+    * @param {number} [searchParams.offset] - page offset
+    * @param {number} [timeout=30000] - request timeout
+    *
+    * @return {Promise<PluginMetaList>} - JS Promise, resolves to a ``PluginMetaList`` object
+    */
+    getPluginMetas(searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PluginMetaList>;
+    /**
      * Fetch a list of plugins from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -225,22 +241,6 @@ export class FeedList extends ListResource {
         limit?: number;
         offset?: number;
     }, timeout?: number): Promise<PipelineList>;
-    /**
-     * Fetch a list of pipeline instances from the REST API.
-     *
-     * @param {Object} [searchParams=null] - search parameters object which is
-     * resource-specific, the ``AllPipelineInstanceList.getSearchParameters`` method
-     * can be used to get a list of possible search parameters
-     * @param {number} [searchParams.limit] - page limit
-     * @param {number} [searchParams.offset] - page offset
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to a ``AllPipelineInstanceList`` object
-     */
-    getPipelineInstances(searchParams?: {
-        limit?: number;
-        offset?: number;
-    }, timeout?: number): Promise<AllPipelineInstanceList>;
     /**
      * Fetch a list of tags from the REST API.
      *
@@ -306,21 +306,21 @@ export class FeedList extends ListResource {
         offset?: number;
     }, timeout?: number): Promise<PACSFileList>;
     /**
-     * Fetch a list of files for an unregistered service from the REST API.
+     * Fetch a list of PACS series from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
-     * resource-specific, the ``ServiceFileList.getSearchParameters`` method can
+     * resource-specific, the ``PACSSeriesList.getSearchParameters`` method can
      * be used to get a list of possible search parameters
      * @param {number} [searchParams.limit] - page limit
      * @param {number} [searchParams.offset] - page offset
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
+     * @return {Promise<PACSSeriesList>} - JS Promise, resolves to a ``PACSSeriesList`` object
      */
-    getServiceFiles(searchParams?: {
+    getPACSSeriesList(searchParams?: {
         limit?: number;
         offset?: number;
-    }, timeout?: number): Promise<ServiceFileList>;
+    }, timeout?: number): Promise<PACSSeriesList>;
     /**
      * Fetch a list of file browser folders (the returned list only has at most one element) from the REST API.
      *
@@ -361,14 +361,14 @@ import { FeedPluginInstanceList } from "./plugininstance";
 import { ListResource } from "./resource";
 import User from "./user";
 import { ComputeResourceList } from "./computeresource";
+import { PluginMetaList } from "./pluginmeta";
 import { PluginList } from "./plugin";
 import { PluginAdminList } from "./admin";
 import { AllPluginInstanceList } from "./plugininstance";
 import { PipelineList } from "./pipeline";
-import { AllPipelineInstanceList } from "./pipelineinstance";
 import { TagList } from "./tag";
 import { PipelineSourceFileList } from "./pipeline";
 import { UserFileList } from "./userfile";
 import { PACSFileList } from "./pacsfile";
-import { ServiceFileList } from "./servicefile";
+import { PACSSeriesList } from "./pacsfile";
 import { FileBrowserFolderList } from "./filebrowser";
