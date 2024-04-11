@@ -5,7 +5,6 @@ import Collection from './cj';
 import { ItemResource, ListResource } from './resource';
 import { PluginList, Plugin } from './plugin';
 import { PluginParameter } from './pluginparameter';
-import { PipelineInstanceList } from './pipelineinstance';
 import { WorkflowList } from './workflow';
 import { FileBrowserFolder } from './filebrowser';
 
@@ -66,23 +65,6 @@ export class Pipeline extends ItemResource {
   }
 
   /**
-   * Fetch a list of pipeline instances associated to this pipeline from the REST API.
-   *
-   * @param {Object} [params=null] - page parameters object
-   * @param {number} [params.limit] - page limit
-   * @param {number} [params.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<PipelineInstanceList>} - JS Promise, resolves to a ``PipelineInstanceList`` object
-   */
-  getPipelineInstances(params = null, timeout = 30000) {
-    const linkRelation = 'instances';
-    const resourceClass = PipelineInstanceList;
-
-    return this._getResource(linkRelation, resourceClass, params, timeout);
-  }
-
-  /**
    * Fetch a list of workflows associated to this pipeline from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
@@ -97,20 +79,6 @@ export class Pipeline extends ItemResource {
     const resourceClass = WorkflowList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  } 
-
-  /**
-   * Fetch the source fle associated to this pipeline from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
-   */
-   getPipelineSourceFile(timeout = 30000) {
-    const linkRelation = 'source_file';
-    const resourceClass = PipelineSourceFile;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
   } 
 
   /**
@@ -370,20 +338,6 @@ export class PipelineSourceFile extends ItemResource {
 
     return req.get(blobUrl).then(resp => resp.data);
   }
-
-  /**
-   * Fetch the pipeline associated to this source file from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
-   */
-   getPipeline(timeout = 30000) {
-    const linkRelation = 'pipeline';
-    const resourceClass = Pipeline;
-
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
   
   /**
    * Fetch the parent folder of this file from the REST API.

@@ -4,12 +4,11 @@ import ChrisInstance from './chrisinstance';
 import User from './user';
 import { ComputeResourceList } from './computeresource';
 import { PluginList } from './plugin';
+import { PluginMetaList } from './pluginmeta';
 import { PluginAdminList } from './admin';
 import { PipelineList, PipelineSourceFileList } from './pipeline';
-import { AllPipelineInstanceList } from './pipelineinstance';
 import { UserFileList } from './userfile';
-import { PACSFileList } from './pacsfile';
-import { ServiceFileList } from './servicefile';
+import { PACSFileList, PACSSeriesList } from './pacsfile';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList } from './comment';
@@ -240,6 +239,25 @@ export class FeedList extends ListResource {
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
 
+   /**
+   * Fetch a list of plugin metas from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PluginMetaList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PluginMetaList>} - JS Promise, resolves to a ``PluginMetaList`` object
+   */
+   getPluginMetas(searchParams = null, timeout = 30000) {
+    const linkRelation = 'plugin_metas';
+    const resourceClass = PluginMetaList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
   /**
    * Fetch a list of plugins from the REST API.
    *
@@ -310,25 +328,6 @@ export class FeedList extends ListResource {
   getPipelines(searchParams = null, timeout = 30000) {
     const linkRelation = 'pipelines';
     const resourceClass = PipelineList;
-
-    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  }
-
-  /**
-   * Fetch a list of pipeline instances from the REST API.
-   *
-   * @param {Object} [searchParams=null] - search parameters object which is
-   * resource-specific, the ``AllPipelineInstanceList.getSearchParameters`` method
-   * can be used to get a list of possible search parameters
-   * @param {number} [searchParams.limit] - page limit
-   * @param {number} [searchParams.offset] - page offset
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<AllPipelineInstanceList>} - JS Promise, resolves to a ``AllPipelineInstanceList`` object
-   */
-  getPipelineInstances(searchParams = null, timeout = 30000) {
-    const linkRelation = 'pipeline_instances';
-    const resourceClass = AllPipelineInstanceList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
@@ -410,20 +409,20 @@ export class FeedList extends ListResource {
   }
 
   /**
-   * Fetch a list of files for an unregistered service from the REST API.
+   * Fetch a list of PACS series from the REST API.
    *
    * @param {Object} [searchParams=null] - search parameters object which is
-   * resource-specific, the ``ServiceFileList.getSearchParameters`` method can
+   * resource-specific, the ``PACSSeriesList.getSearchParameters`` method can
    * be used to get a list of possible search parameters
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<ServiceFileList>} - JS Promise, resolves to a ``ServiceFileList`` object
+   * @return {Promise<PACSSeriesList>} - JS Promise, resolves to a ``PACSSeriesList`` object
    */
-  getServiceFiles(searchParams = null, timeout = 30000) {
-    const linkRelation = 'servicefiles';
-    const resourceClass = ServiceFileList;
+  getPACSSeriesList(searchParams = null, timeout = 30000) {
+    const linkRelation = 'pacsseries';
+    const resourceClass = PACSSeriesList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

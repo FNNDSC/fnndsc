@@ -102,6 +102,20 @@ export class FileBrowserFolderList extends ListResource {
     /** @type {Object} */
     this.itemClass = FileBrowserFolder;
   }
+
+  /**
+   * Make a POST request to this file browser folder list resource to create a new file browser 
+   * folder item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.path] - folder path
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
+  }  
 }
 
 

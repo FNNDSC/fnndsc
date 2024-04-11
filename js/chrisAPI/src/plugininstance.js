@@ -4,7 +4,6 @@ import { ComputeResource } from './computeresource';
 import { PluginList, Plugin } from './plugin';
 import { Feed } from './feed';
 import { PluginParameter } from './pluginparameter';
-import { PipelineInstance } from './pipelineinstance';
 import { Workflow } from './workflow';
 import { FileBrowserFolder } from './filebrowser';
 
@@ -88,26 +87,6 @@ export class PluginInstance extends ItemResource {
 
     try {
       // 'previous' link relation only exists for 'ds' plugin instances
-      return this._getResource(linkRelation, resourceClass, null, timeout);
-    } catch (e) {
-      return Promise.resolve(null);
-    }
-  }
-
-  /**
-   * Fetch the pipeline instance (if any) that created this plugin instance from the REST API.
-   *
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<PipelineInstance|null>} - JS Promise, resolves to a ``PipelineInstance`` object or ``null``
-   */
-  getPipelineInstance(timeout = 30000) {
-    const linkRelation = 'pipeline_inst';
-    const resourceClass = PipelineInstance;
-
-    try {
-      // 'pipeline_inst' link relation only exists for plugin instances that were
-      // created as part of a pipeline instance
       return this._getResource(linkRelation, resourceClass, null, timeout);
     } catch (e) {
       return Promise.resolve(null);
@@ -334,26 +313,6 @@ export class FeedPluginInstanceList extends ListResource {
     const resourceClass = Feed;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
-}
-
-/**
- * Pipeline instance-specific plugin instance list resource object representing
- * a list of plugin instances associated to an specific pipeline instance.
- */
-export class PipelineInstancePluginInstanceList extends ListResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-
-    /** @type {Object} */
-    this.itemClass = PluginInstance;
   }
 }
 

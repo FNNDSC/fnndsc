@@ -6,7 +6,6 @@ import { PluginList, Plugin } from './plugin';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
 import { AllPluginInstanceList, PluginInstance, PluginInstanceSplit } from './plugininstance';
 import { PipelineList, Pipeline } from './pipeline';
-import { PipelineInstance } from './pipelineinstance';
 import { Workflow } from './workflow';
 import { Tag, Tagging } from './tag';
 import { UserFile } from './userfile';
@@ -258,21 +257,6 @@ describe('Client', () => {
   });
   */
 
-  it('can create a new pipeline instance through the REST API', (done) => {
-    const pipelineId = 2;
-    const data = {
-      title: 'Test pipeline instance',
-      previous_plugin_inst_id: 1,
-    };
-    const result = client.createPipelineInstance(pipelineId, data);
-    result
-      .then((pipelineInstance) => {
-        expect(pipelineInstance).to.be.an.instanceof(PipelineInstance);
-        expect(pipelineInstance.data.title).to.equal('Test pipeline instance');
-      })
-      .then(done, done);
-  });
-
   it('can create a new workflow through the REST API', (done) => {
     const pipelineId = 2;
     const nodes = [
@@ -344,6 +328,20 @@ describe('Client', () => {
       .then(browserFolder => {
         expect(browserFolder).to.be.an.instanceof(FileBrowserFolder);
         expect(browserFolder.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can create a new filebrowser folder through the REST API', (done) => {
+    const data = {
+      path: 'home/' + username + '/uploads/test-' + Date.now(),
+    };
+
+    const result = client.createFileBrowserFolder(data);
+    result
+      .then((folder) => {
+        expect(folder).to.be.an.instanceof(FileBrowserFolder);
+        expect(folder.data.path).to.equal(data.path);
       })
       .then(done, done);
   });

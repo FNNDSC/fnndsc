@@ -6,6 +6,56 @@ import { ItemResource, ListResource } from './resource';
 import { FileBrowserFolder } from './filebrowser';
 
 /**
+ * PACS series item resource object representing a PACS series.
+ */
+export class PACSSeries extends ItemResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+  }
+
+  /**
+   * Fetch the folder associated with this PACS series from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   */
+   getFolder(timeout = 30000) {
+    const linkRelation = 'folder';
+    const resourceClass = FileBrowserFolder;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
+}
+
+/**
+ * PACS series list resource object representing a list of PACS series.
+ */
+export class PACSSeriesList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = PACSSeries;
+  }
+}
+
+
+/**
  * PACS file item resource object representing a PACS file.
  */
 export class PACSFile extends ItemResource {
