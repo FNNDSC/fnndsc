@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "@fnndsc/chrisapi~allpipelineinstancelist",
-    "class/src/pipelineinstance.js~AllPipelineInstanceList.html",
-    "<span>AllPipelineInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
     "@fnndsc/chrisapi~allplugininstancelist",
     "class/src/plugininstance.js~AllPluginInstanceList.html",
     "<span>AllPluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -186,27 +180,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~pacsseries",
+    "class/src/pacsfile.js~PACSSeries.html",
+    "<span>PACSSeries</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pacsserieslist",
+    "class/src/pacsfile.js~PACSSeriesList.html",
+    "<span>PACSSeriesList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~pipeline",
     "class/src/pipeline.js~Pipeline.html",
     "<span>Pipeline</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~pipelineinstance",
-    "class/src/pipelineinstance.js~PipelineInstance.html",
-    "<span>PipelineInstance</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~pipelineinstancelist",
-    "class/src/pipelineinstance.js~PipelineInstanceList.html",
-    "<span>PipelineInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~pipelineinstanceplugininstancelist",
-    "class/src/plugininstance.js~PipelineInstancePluginInstanceList.html",
-    "<span>PipelineInstancePluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -381,18 +369,6 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~resource",
     "class/src/resource.js~Resource.html",
     "<span>Resource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~servicefile",
-    "class/src/servicefile.js~ServiceFile.html",
-    "<span>ServiceFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
-    "class"
-  ],
-  [
-    "@fnndsc/chrisapi~servicefilelist",
-    "class/src/servicefile.js~ServiceFileList.html",
-    "<span>ServiceFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -948,15 +924,15 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/client.js~client#createpipeline",
-    "class/src/client.js~Client.html#instance-method-createPipeline",
-    "src/client.js~Client#createPipeline",
+    "src/client.js~client#createfilebrowserfolder",
+    "class/src/client.js~Client.html#instance-method-createFileBrowserFolder",
+    "src/client.js~Client#createFileBrowserFolder",
     "method"
   ],
   [
-    "src/client.js~client#createpipelineinstance",
-    "class/src/client.js~Client.html#instance-method-createPipelineInstance",
-    "src/client.js~Client#createPipelineInstance",
+    "src/client.js~client#createpipeline",
+    "class/src/client.js~Client.html#instance-method-createPipeline",
+    "src/client.js~Client#createPipeline",
     "method"
   ],
   [
@@ -1074,21 +1050,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getpacsseries",
+    "class/src/client.js~Client.html#instance-method-getPACSSeries",
+    "src/client.js~Client#getPACSSeries",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpacsserieslist",
+    "class/src/client.js~Client.html#instance-method-getPACSSeriesList",
+    "src/client.js~Client#getPACSSeriesList",
+    "method"
+  ],
+  [
     "src/client.js~client#getpipeline",
     "class/src/client.js~Client.html#instance-method-getPipeline",
     "src/client.js~Client#getPipeline",
-    "method"
-  ],
-  [
-    "src/client.js~client#getpipelineinstance",
-    "class/src/client.js~Client.html#instance-method-getPipelineInstance",
-    "src/client.js~Client#getPipelineInstance",
-    "method"
-  ],
-  [
-    "src/client.js~client#getpipelineinstances",
-    "class/src/client.js~Client.html#instance-method-getPipelineInstances",
-    "src/client.js~Client#getPipelineInstances",
     "method"
   ],
   [
@@ -1152,18 +1128,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/client.js~client#getservicefile",
-    "class/src/client.js~Client.html#instance-method-getServiceFile",
-    "src/client.js~Client#getServiceFile",
-    "method"
-  ],
-  [
-    "src/client.js~client#getservicefiles",
-    "class/src/client.js~Client.html#instance-method-getServiceFiles",
-    "src/client.js~Client#getServiceFiles",
-    "method"
-  ],
-  [
     "src/client.js~client#gettag",
     "class/src/client.js~Client.html#instance-method-getTag",
     "src/client.js~Client#getTag",
@@ -1212,9 +1176,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/client.js~client#pipelineinstancesurl",
-    "class/src/client.js~Client.html#instance-member-pipelineInstancesUrl",
-    "src/client.js~Client#pipelineInstancesUrl",
+    "src/client.js~client#pacsseriesurl",
+    "class/src/client.js~Client.html#instance-member-pacsSeriesUrl",
+    "src/client.js~Client#pacsSeriesUrl",
     "member"
   ],
   [
@@ -1251,12 +1215,6 @@ window.esdocSearchIndex = [
     "src/client.js~client#publicfeedsurl",
     "class/src/client.js~Client.html#instance-member-publicFeedsUrl",
     "src/client.js~Client#publicFeedsUrl",
-    "member"
-  ],
-  [
-    "src/client.js~client#servicefilesurl",
-    "class/src/client.js~Client.html#instance-member-serviceFilesUrl",
-    "src/client.js~Client#serviceFilesUrl",
     "member"
   ],
   [
@@ -1590,9 +1548,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/feed.js~feedlist#getpipelineinstances",
-    "class/src/feed.js~FeedList.html#instance-method-getPipelineInstances",
-    "src/feed.js~FeedList#getPipelineInstances",
+    "src/feed.js~feedlist#getpacsserieslist",
+    "class/src/feed.js~FeedList.html#instance-method-getPACSSeriesList",
+    "src/feed.js~FeedList#getPACSSeriesList",
     "method"
   ],
   [
@@ -1620,6 +1578,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/feed.js~feedlist#getpluginmetas",
+    "class/src/feed.js~FeedList.html#instance-method-getPluginMetas",
+    "src/feed.js~FeedList#getPluginMetas",
+    "method"
+  ],
+  [
     "src/feed.js~feedlist#getplugins",
     "class/src/feed.js~FeedList.html#instance-method-getPlugins",
     "src/feed.js~FeedList#getPlugins",
@@ -1629,12 +1593,6 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#getpublicfeeds",
     "class/src/feed.js~FeedList.html#instance-method-getPublicFeeds",
     "src/feed.js~FeedList#getPublicFeeds",
-    "method"
-  ],
-  [
-    "src/feed.js~feedlist#getservicefiles",
-    "class/src/feed.js~FeedList.html#instance-method-getServiceFiles",
-    "src/feed.js~FeedList#getServiceFiles",
     "method"
   ],
   [
@@ -1788,6 +1746,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/filebrowser.js~filebrowserfolderlist#post",
+    "class/src/filebrowser.js~FileBrowserFolderList.html#instance-method-post",
+    "src/filebrowser.js~FileBrowserFolderList#post",
+    "method"
+  ],
+  [
     "src/index.js",
     "file/src/index.js.html",
     "src/index.js",
@@ -1842,6 +1806,30 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/pacsfile.js~pacsseries#constructor",
+    "class/src/pacsfile.js~PACSSeries.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSSeries#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsseries#getfolder",
+    "class/src/pacsfile.js~PACSSeries.html#instance-method-getFolder",
+    "src/pacsfile.js~PACSSeries#getFolder",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsserieslist#constructor",
+    "class/src/pacsfile.js~PACSSeriesList.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSSeriesList#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsserieslist#itemclass",
+    "class/src/pacsfile.js~PACSSeriesList.html#instance-member-itemClass",
+    "src/pacsfile.js~PACSSeriesList#itemClass",
+    "member"
+  ],
+  [
     "src/pipeline.js",
     "file/src/pipeline.js.html",
     "src/pipeline.js",
@@ -1857,18 +1845,6 @@ window.esdocSearchIndex = [
     "src/pipeline.js~pipeline#getdefaultparameters",
     "class/src/pipeline.js~Pipeline.html#instance-method-getDefaultParameters",
     "src/pipeline.js~Pipeline#getDefaultParameters",
-    "method"
-  ],
-  [
-    "src/pipeline.js~pipeline#getpipelineinstances",
-    "class/src/pipeline.js~Pipeline.html#instance-method-getPipelineInstances",
-    "src/pipeline.js~Pipeline#getPipelineInstances",
-    "method"
-  ],
-  [
-    "src/pipeline.js~pipeline#getpipelinesourcefile",
-    "class/src/pipeline.js~Pipeline.html#instance-method-getPipelineSourceFile",
-    "src/pipeline.js~Pipeline#getPipelineSourceFile",
     "method"
   ],
   [
@@ -1968,12 +1944,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/pipeline.js~pipelinesourcefile#getpipeline",
-    "class/src/pipeline.js~PipelineSourceFile.html#instance-method-getPipeline",
-    "src/pipeline.js~PipelineSourceFile#getPipeline",
-    "method"
-  ],
-  [
     "src/pipeline.js~pipelinesourcefilelist#constructor",
     "class/src/pipeline.js~PipelineSourceFileList.html#instance-constructor-constructor",
     "src/pipeline.js~PipelineSourceFileList#constructor",
@@ -2019,78 +1989,6 @@ window.esdocSearchIndex = [
     "src/pipeline.js~pluginpiping#getpreviouspluginpiping",
     "class/src/pipeline.js~PluginPiping.html#instance-method-getPreviousPluginPiping",
     "src/pipeline.js~PluginPiping#getPreviousPluginPiping",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js",
-    "file/src/pipelineinstance.js.html",
-    "src/pipelineinstance.js",
-    "file"
-  ],
-  [
-    "src/pipelineinstance.js~allpipelineinstancelist#constructor",
-    "class/src/pipelineinstance.js~AllPipelineInstanceList.html#instance-constructor-constructor",
-    "src/pipelineinstance.js~AllPipelineInstanceList#constructor",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~allpipelineinstancelist#getpipelines",
-    "class/src/pipelineinstance.js~AllPipelineInstanceList.html#instance-method-getPipelines",
-    "src/pipelineinstance.js~AllPipelineInstanceList#getPipelines",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~allpipelineinstancelist#itemclass",
-    "class/src/pipelineinstance.js~AllPipelineInstanceList.html#instance-member-itemClass",
-    "src/pipelineinstance.js~AllPipelineInstanceList#itemClass",
-    "member"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstance#constructor",
-    "class/src/pipelineinstance.js~PipelineInstance.html#instance-constructor-constructor",
-    "src/pipelineinstance.js~PipelineInstance#constructor",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstance#delete",
-    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-delete",
-    "src/pipelineinstance.js~PipelineInstance#delete",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstance#getpipeline",
-    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-getPipeline",
-    "src/pipelineinstance.js~PipelineInstance#getPipeline",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstance#getplugininstances",
-    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-getPluginInstances",
-    "src/pipelineinstance.js~PipelineInstance#getPluginInstances",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstance#put",
-    "class/src/pipelineinstance.js~PipelineInstance.html#instance-method-put",
-    "src/pipelineinstance.js~PipelineInstance#put",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstancelist#constructor",
-    "class/src/pipelineinstance.js~PipelineInstanceList.html#instance-constructor-constructor",
-    "src/pipelineinstance.js~PipelineInstanceList#constructor",
-    "method"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstancelist#itemclass",
-    "class/src/pipelineinstance.js~PipelineInstanceList.html#instance-member-itemClass",
-    "src/pipelineinstance.js~PipelineInstanceList#itemClass",
-    "member"
-  ],
-  [
-    "src/pipelineinstance.js~pipelineinstancelist#post",
-    "class/src/pipelineinstance.js~PipelineInstanceList.html#instance-method-post",
-    "src/pipelineinstance.js~PipelineInstanceList#post",
     "method"
   ],
   [
@@ -2202,18 +2100,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/plugininstance.js~pipelineinstanceplugininstancelist#constructor",
-    "class/src/plugininstance.js~PipelineInstancePluginInstanceList.html#instance-constructor-constructor",
-    "src/plugininstance.js~PipelineInstancePluginInstanceList#constructor",
-    "method"
-  ],
-  [
-    "src/plugininstance.js~pipelineinstanceplugininstancelist#itemclass",
-    "class/src/plugininstance.js~PipelineInstancePluginInstanceList.html#instance-member-itemClass",
-    "src/plugininstance.js~PipelineInstancePluginInstanceList#itemClass",
-    "member"
-  ],
-  [
     "src/plugininstance.js~plugininstance#delete",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-delete",
     "src/plugininstance.js~PluginInstance#delete",
@@ -2247,12 +2133,6 @@ window.esdocSearchIndex = [
     "src/plugininstance.js~plugininstance#getparameters",
     "class/src/plugininstance.js~PluginInstance.html#instance-method-getParameters",
     "src/plugininstance.js~PluginInstance#getParameters",
-    "method"
-  ],
-  [
-    "src/plugininstance.js~plugininstance#getpipelineinstance",
-    "class/src/plugininstance.js~PluginInstance.html#instance-method-getPipelineInstance",
-    "src/plugininstance.js~PluginInstance#getPipelineInstance",
     "method"
   ],
   [
@@ -2740,42 +2620,6 @@ window.esdocSearchIndex = [
     "class/src/resource.js~Resource.html#static-method-cloneObj",
     "src/resource.js~Resource.cloneObj",
     "method"
-  ],
-  [
-    "src/servicefile.js",
-    "file/src/servicefile.js.html",
-    "src/servicefile.js",
-    "file"
-  ],
-  [
-    "src/servicefile.js~servicefile#constructor",
-    "class/src/servicefile.js~ServiceFile.html#instance-constructor-constructor",
-    "src/servicefile.js~ServiceFile#constructor",
-    "method"
-  ],
-  [
-    "src/servicefile.js~servicefile#getfileblob",
-    "class/src/servicefile.js~ServiceFile.html#instance-method-getFileBlob",
-    "src/servicefile.js~ServiceFile#getFileBlob",
-    "method"
-  ],
-  [
-    "src/servicefile.js~servicefile#getparentfolder",
-    "class/src/servicefile.js~ServiceFile.html#instance-method-getParentFolder",
-    "src/servicefile.js~ServiceFile#getParentFolder",
-    "method"
-  ],
-  [
-    "src/servicefile.js~servicefilelist#constructor",
-    "class/src/servicefile.js~ServiceFileList.html#instance-constructor-constructor",
-    "src/servicefile.js~ServiceFileList#constructor",
-    "method"
-  ],
-  [
-    "src/servicefile.js~servicefilelist#itemclass",
-    "class/src/servicefile.js~ServiceFileList.html#instance-member-itemClass",
-    "src/servicefile.js~ServiceFileList#itemClass",
-    "member"
   ],
   [
     "src/tag.js",

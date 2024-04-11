@@ -1,7 +1,7 @@
 {
-  "coverage": "95.02%",
-  "expectCount": 442,
-  "actualCount": 420,
+  "coverage": "94.97%",
+  "expectCount": 418,
+  "actualCount": 397,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -19,9 +19,15 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 74,
-      "actualCount": 55,
+      "expectCount": 71,
+      "actualCount": 53,
       "undocumentLines": [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
         51,
         52,
         53,
@@ -33,14 +39,7 @@
         59,
         60,
         61,
-        62,
-        63,
-        64,
-        65,
-        66,
-        67,
-        68,
-        69
+        62
       ]
     },
     "src/comment.js": {
@@ -71,8 +70,8 @@
       "undocumentLines": []
     },
     "src/filebrowser.js": {
-      "expectCount": 25,
-      "actualCount": 25,
+      "expectCount": 26,
+      "actualCount": 26,
       "undocumentLines": []
     },
     "src/note.js": {
@@ -81,18 +80,13 @@
       "undocumentLines": []
     },
     "src/pacsfile.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 13,
+      "actualCount": 13,
       "undocumentLines": []
     },
     "src/pipeline.js": {
-      "expectCount": 38,
-      "actualCount": 38,
-      "undocumentLines": []
-    },
-    "src/pipelineinstance.js": {
-      "expectCount": 14,
-      "actualCount": 14,
+      "expectCount": 35,
+      "actualCount": 35,
       "undocumentLines": []
     },
     "src/plugin.js": {
@@ -101,8 +95,8 @@
       "undocumentLines": []
     },
     "src/plugininstance.js": {
-      "expectCount": 49,
-      "actualCount": 49,
+      "expectCount": 45,
+      "actualCount": 45,
       "undocumentLines": []
     },
     "src/pluginmeta.js": {
@@ -127,11 +121,6 @@
         100,
         255
       ]
-    },
-    "src/servicefile.js": {
-      "expectCount": 7,
-      "actualCount": 7,
-      "undocumentLines": []
     },
     "src/tag.js": {
       "expectCount": 34,
