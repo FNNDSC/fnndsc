@@ -7,17 +7,6 @@ import { FeedList, Feed } from './feed';
  */
 export class Tag extends ItemResource {
   /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
-  /**
    * Fetch a list of feeds that are tagged with this tag from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
@@ -85,10 +74,10 @@ export class TagList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -135,17 +124,6 @@ export class TagList extends ListResource {
  * specific tag.
  */
 export class Tagging extends ItemResource {
-  /**
-   * Constructor
-   *
-   * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
-   */
-  constructor(url, auth) {
-    super(url, auth);
-  }
-
   /**
    * Fetch the tag associated to this tagging from the REST API.
    *
@@ -195,10 +173,10 @@ export class TagTaggingList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -243,10 +221,10 @@ export class FeedTaggingList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -291,10 +269,10 @@ export class TagFeedList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */
@@ -325,10 +303,10 @@ export class FeedTagList extends ListResource {
    * Constructor
    *
    * @param {string} url - url of the resource
-   * @param {Object} auth - authentication object
-   * @param {string} auth.token - authentication token
+   * @param {Object} [auth=null] - authentication object
+   * @param {string} [auth.token] - authentication token
    */
-  constructor(url, auth) {
+  constructor(url, auth = null) {
     super(url, auth);
 
     /** @type {Object} */

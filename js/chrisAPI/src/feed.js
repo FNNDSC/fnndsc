@@ -11,14 +11,29 @@ import { UserFileList } from './userfile';
 import { PACSFileList, PACSSeriesList } from './pacsfile';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
-import { CommentList } from './comment';
+import { CommentList, Comment } from './comment';
 import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 import { FileBrowserFolderList, FileBrowserFolder } from './filebrowser';
+import { Group } from './group';
 
 /**
  * Feed item resource object representing a feed.
  */
 export class Feed extends ItemResource {
+  /**
+   * Fetch the folder associated to this feed from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   */
+   getFolder(timeout = 30000) {
+    const linkRelation = 'folder';
+    const resourceClass = FileBrowserFolder;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
   /**
    * Fetch the note associated to this feed from the REST API.
    *
@@ -34,18 +49,72 @@ export class Feed extends ItemResource {
   }
 
   /**
-   * Fetch the folder associated to this feed from the REST API.
+   * Fetch a list of group permissions associated to this feed from the REST API.
    *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match feed group permission id exactly with this number
+   * @param {string} [searchParams.group_name] - match group name exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   * @return {Promise<FeedGroupPermissionList>} - JS Promise, resolves to a ``FeedGroupPermissionList`` object
    */
-  getFolder(timeout = 30000) {
-    const linkRelation = 'folder';
-    const resourceClass = FileBrowserFolder;
+   getGroupPermissions(searchParams = null, timeout = 30000) {
+    const linkRelation = 'group_permissions';
+    const resourceClass = FeedGroupPermissionList;
 
-    return this._getResource(linkRelation, resourceClass, null, timeout);
-  }
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  } 
+
+  /**
+   * Get a feed group permission given the name of the group.
+   *
+   * @param {string} group_name - feed group permission's group name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FeedGroupPermission|null>} - JS Promise, resolves to a ``FeedGroupPermission`` object or ``null``
+   */
+  getGroupPermission(group_name, timeout = 30000) {
+    return this.getGroupPermissions({ group_name: group_name }, timeout).then(listRes => {
+      const items = listRes.getItems();
+      return items.length ? items[0] : null;
+    });
+  } 
+
+  /**
+   * Fetch a list of user permissions associated to this feed from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match feed user permission id exactly with this number
+   * @param {string} [searchParams.username] - match username exactly with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FeedUserPermissionList>} - JS Promise, resolves to a ``FeedUserPermissionList`` object
+   */
+   getUserPermissions(searchParams = null, timeout = 30000) {
+    const linkRelation = 'user_permissions';
+    const resourceClass = FeedUserPermissionList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  } 
+
+  /**
+   * Get a feed user permission given the username of the user.
+   *
+   * @param {number} username - feed user permission's username
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FeedUserPermission|null>} - JS Promise, resolves to a ``FeedUserPermission`` object or ``null``
+   */
+   getUserPermission(username, timeout = 30000) {
+    return this.getUserPermissions({ username: username }, timeout).then(listRes => {
+      const items = listRes.getItems();
+      return items.length ? items[0] : null;
+    });
+  } 
 
   /**
    * Fetch a list of tags associated to this feed from the REST API.
@@ -148,7 +217,6 @@ export class Feed extends ItemResource {
    * @param {Object} data - request JSON data object
    * @param {string} [data.name] - name of the feed
    * @param {boolean} [data.public] - public status of the feed
-   * @param {string} [data.owner] - username to be added to the list of this feed's owners
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
@@ -477,5 +545,209 @@ export class PublicFeedList extends ListResource {
 
     /** @type {Object} */
     this.itemClass = Feed;
+  }
+}
+
+/**
+ * Feed group permission item resource object representing a feed group permission.
+ */
+export class FeedGroupPermission extends ItemResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+  }
+
+  /**
+   * Fetch the feed associated to the group permission item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the group associated to the group permission item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
+   */
+   getGroup(timeout = 30000) {
+    const linkRelation = 'group';
+    const resourceClass = Group;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
+
+  /**
+   * Make a DELETE request to delete this feed group permission item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise} - JS Promise
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
+}
+
+/**
+ * Feed group permission list resource object representing a list of feed group permissions.
+ */
+export class FeedGroupPermissionList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = FeedGroupPermission;
+  }
+
+  /**
+   * Fetch the feed associated to the group permission list from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Make a POST request to this feed group permission list resource to create a new 
+   * feed group permission item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.grp_name] - group name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
+  }
+}
+
+/**
+ * Feed user permission item resource object representing a feed user permission.
+ */
+export class FeedUserPermission extends ItemResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+  }
+
+  /**
+   * Fetch the feed associated to the user permission item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Fetch the user associated to the user permission item from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
+   */
+   getUser(timeout = 30000) {
+    const linkRelation = 'user';
+    const resourceClass = User;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  } 
+
+  /**
+   * Make a DELETE request to delete this feed user permission item resource through the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise} - JS Promise
+   */
+  delete(timeout = 30000) {
+    return this._delete(timeout);
+  }
+}
+
+/**
+ * Feed user permission list resource object representing a list of feed user permissions.
+ */
+export class FeedUserPermissionList extends ListResource {
+  /**
+   * Constructor
+   *
+   * @param {string} url - url of the resource
+   * @param {Object} auth - authentication object
+   * @param {string} auth.token - authentication token
+   */
+  constructor(url, auth) {
+    super(url, auth);
+
+    /** @type {Object} */
+    this.itemClass = FeedUserPermission;
+  }
+
+  /**
+   * Fetch the feed associated to the user permission list from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
+   */
+  getFeed(timeout = 30000) {
+    const linkRelation = 'feed';
+    const resourceClass = Feed;
+
+    return this._getResource(linkRelation, resourceClass, null, timeout);
+  }
+
+  /**
+   * Make a POST request to this feed user permission list resource to create a new 
+   * feed user permission item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {string} [data.username] - user's  username
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+  post(data, timeout = 30000) {
+    return this._post(data, null, timeout);
   }
 }

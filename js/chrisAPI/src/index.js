@@ -37,6 +37,7 @@ import { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder } 
 import { FileBrowserFolderFileList, FileBrowserFolderFile } from './filebrowser';
 import { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile } from './filebrowser';
 import { DownloadTokenList, DownloadToken } from './downloadtoken';
+import { GroupList, Group, GroupUserList, GroupUser, UserGroupList } from './group';
 
 export default Client;
 export { Request };
@@ -69,3 +70,4 @@ export { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder };
 export { FileBrowserFolderFileList, FileBrowserFolderFile };
 export { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile };
 export { DownloadTokenList, DownloadToken };
+export { GroupList, Group, GroupUserList, GroupUser, UserGroupList };

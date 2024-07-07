@@ -21,6 +21,7 @@ import { UserFileList, UserFile } from './userfile';
 import { PACSFileList, PACSSeriesList, PACSFile , PACSSeries } from './pacsfile';
 import { FileBrowserFolderList, FileBrowserFolder } from './filebrowser';
 import { DownloadTokenList, DownloadToken } from './downloadtoken';
+import { GroupList, Group } from './group';
 import User from './user';
 
 /**
@@ -58,6 +59,7 @@ export default class Client {
     this.pacsSeriesUrl = '';
     this.fileBrowserUrl = '';
     this.downloadTokensUrl = '';
+    this.groupsUrl = '';
     this.userUrl = '';
     this.adminUrl = '';
   }
@@ -96,7 +98,6 @@ export default class Client {
    * @param {string} [searchParams.name] - match feed name containing this string
    * @param {string} [searchParams.name_exact] - match feed name exactly with this string
    * @param {string} [searchParams.name_startswith] - match feed name starting with this string
-   * @param {boolean} [searchParams.public] - match feed public status
    * @param {string} [searchParams.files_fname_icontains] - match the feeds that have files containing
    * all the substrings from the queried string (which in turn represents a white-space-separated list
    * of query strings) case insensitive anywhere in their fname.
@@ -131,6 +132,10 @@ export default class Client {
       if (!this.downloadTokensUrl) {
         this.downloadTokensUrl = getUrl(coll, 'download_tokens');
         this.downloadTokensUrl = this.downloadTokensUrl.length ? this.downloadTokensUrl[0] : '';
+      }
+      if (!this.groupsUrl) {
+        this.groupsUrl = getUrl(coll, 'groups');
+        this.groupsUrl = this.groupsUrl.length ? this.groupsUrl[0] : '';
       }
       if (!this.userUrl) {
         this.userUrl = getUrl(coll, 'user');
@@ -936,6 +941,53 @@ export default class Client {
     };
     return this.downloadTokensUrl ? createRes() : this.setUrls().then(() => createRes());
   }  
+
+  /**
+   * Get a paginated list of groups from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match group id exactly with this number
+   * @param {string} [searchParams.name] - match group name exactly with this string
+   * @param {string} [searchParams.name_icontains] - match group name containing this string 
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<GroupList>} - JS Promise, resolves to a ``GroupList`` object
+   */
+   getGroups(searchParams = null, timeout = 30000) {
+    return this._fetchRes('groupsUrl', GroupList, searchParams, timeout);
+  }
+
+  /**
+   * Get a group resource object given its id.
+   *
+   * @param {number} id - group id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
+   */
+  getGroup(id, timeout = 30000) {
+    return this.getGroups({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Create a new group resource through the REST API.
+   *
+   * @param {Object} data - request data object
+   * @param {string} data.name - group name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
+   */
+  adminCreateGroup(data, timeout = 30000) {
+    const createRes = () => {
+      const res = new GroupList(this.groupsUrl, this.auth);
+      return res.post(data, timeout).then(res => res.getItems()[0]);
+    };
+    return this.groupsUrl ? createRes() : this.setUrls().then(() => createRes());
+  }
 
   /**
    * Get a user resource object for the currently authenticated user.
