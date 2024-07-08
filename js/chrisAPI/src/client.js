@@ -182,7 +182,7 @@ export default class Client {
    * @param {number} id - feed id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<Feed>} - JS Promise, resolves to a ``Feed`` object
+   * @return {Promise<Feed|null>} - JS Promise, resolves to a ``Feed`` object or ``null``
    */
   getFeed(id, timeout = 30000) {
     return this.getFeeds({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -231,7 +231,7 @@ export default class Client {
    * @param {number} id - compute resource id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<ComputeResource>} - JS Promise, resolves to a ``ComputeResource`` object
+   * @return {Promise<ComputeResource|null>} - JS Promise, resolves to a ``ComputeResource`` object or ``null``
    */
   getComputeResource(id, timeout = 30000) {
     return this.getComputeResources({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -271,7 +271,7 @@ export default class Client {
    * @param {number} id - plugin meta id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
+   * @return {Promise<PluginMeta|null>} - JS Promise, resolves to a ``PluginMeta`` object or ``null``
    */
   getPluginMeta(id, timeout = 30000) {
     return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -313,7 +313,7 @@ export default class Client {
    * @param {number} id - plugin id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<Plugin>} - JS Promise, resolves to a ``Plugin`` object
+   * @return {Promise<Plugin|null>} - JS Promise, resolves to a ``Plugin`` object or ``null``
    */
   getPlugin(id, timeout = 30000) {
     return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -376,7 +376,7 @@ export default class Client {
    * @param {number} id - plugin instance id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<PluginInstance>} - JS Promise, resolves to a ``PluginInstance`` object
+   * @return {Promise<PluginInstance|null>} - JS Promise, resolves to a ``PluginInstance`` object or ``null``
    */
   getPluginInstance(id, timeout = 30000) {
     return this.getPluginInstances({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -461,7 +461,7 @@ export default class Client {
    * @param {number} id - pipeline id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<Pipeline>} - JS Promise, resolves to a ``Pipeline`` object
+   * @return {Promise<Pipeline|null>} - JS Promise, resolves to a ``Pipeline`` object or ``null``
    */
   getPipeline(id, timeout = 30000) {
     return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -515,7 +515,7 @@ export default class Client {
    * @param {number} id - workflow id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<Workflow>} - JS Promise, resolves to a ``Workflow`` object
+   * @return {Promise<Workflow>|null} - JS Promise, resolves to a ``Workflow`` object or ``null``
    */
   getWorkflow(id, timeout = 30000) {
     return this.getWorkflows({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -619,7 +619,7 @@ export default class Client {
    * @param {number} id - tag id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<Tag>} - JS Promise, resolves to a ``Tag`` object
+   * @return {Promise<Tag|null>} - JS Promise, resolves to a ``Tag`` object or ``null``
    */
   getTag(id, timeout = 30000) {
     return this.getTags({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -672,7 +672,7 @@ export default class Client {
      * @param {number} id - pipeline source file id
      * @param {number} [timeout=30000] - request timeout
      *
-     * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
+     * @return {Promise<PipelineSourceFile|null>} - JS Promise, resolves to a ``PipelineSourceFile`` object or ``null`
      */
     getPipelineSourceFile(id, timeout = 30000) {
       return this.getPipelineSourceFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -727,7 +727,7 @@ export default class Client {
    * @param {number} id - user file id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<UserFile>} - JS Promise, resolves to a ``UserFile`` object
+   * @return {Promise<UserFile|null>} - JS Promise, resolves to a ``UserFile`` object or ``null``
    */
   getUserFile(id, timeout = 30000) {
     return this.getUserFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -786,7 +786,7 @@ export default class Client {
    * @param {number} id - PACS file id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<PACSFile>} - JS Promise, resolves to a ``PACSFile`` object
+   * @return {Promise<PACSFile|null>} - JS Promise, resolves to a ``PACSFile`` object or ``null`
    */
   getPACSFile(id, timeout = 30000) {
     return this.getPACSFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -831,7 +831,7 @@ export default class Client {
    * @param {number} id - PACS series id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<PACSSeries>} - JS Promise, resolves to a ``PACSSeries`` object
+   * @return {Promise<PACSSeries|null>} - JS Promise, resolves to a ``PACSSeries`` object or ``null``
    */
   getPACSSeries(id, timeout = 30000) {
     return this.getPACSSeriesList({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -861,7 +861,7 @@ export default class Client {
    * @param {number} id - file browser folder id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+   * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
    */
   getFileBrowserFolder(id, timeout = 30000) {
     return this.getFileBrowserFolders({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -921,7 +921,7 @@ export default class Client {
    * @param {number} id - file download token id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<DownloadToken>} - JS Promise, resolves to a ``DownloadToken`` object
+   * @return {Promise<DownloadToken|null>} - JS Promise, resolves to a ``DownloadToken`` object or ``null``
    */
   getDownloadToken(id, timeout = 30000) {
     return this.getDownloadTokens({ id: id }, timeout).then(listRes => listRes.getItem(id));
@@ -966,7 +966,7 @@ export default class Client {
    * @param {number} id - group id
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
+   * @return {Promise<Group|null>} - JS Promise, resolves to a ``Group`` object or ``null``
    */
   getGroup(id, timeout = 30000) {
     return this.getGroups({ id: id }, timeout).then(listRes => listRes.getItem(id));

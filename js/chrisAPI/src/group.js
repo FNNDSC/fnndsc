@@ -47,6 +47,7 @@ export class Group extends ItemResource {
   getUser(username, timeout = 30000) {
     return this.getUsers({ username: username }, timeout).then(listRes => {
       const items = listRes.getItems();
+      
       return items.length ? items[0] : null;
     });
   } 
@@ -60,7 +61,7 @@ export class Group extends ItemResource {
    * @return {Promise<GroupUser>} - JS Promise, resolves to a ``GroupUser`` object
    */
   adminAddUser(username, timeout = 30000) {
-    return this.getUsers(timeout)
+    return this.getUsers(null, timeout)
       .then(listRes => listRes.post({ username: username }), timeout)
       .then(listRes => listRes.getItems()[0]);
   }
@@ -76,6 +77,7 @@ export class Group extends ItemResource {
    adminRemoveUser(username, timeout = 30000) {
     return this.getUsers({ username: username }, timeout).then(listRes => {
       const items = listRes.getItems();
+
       return items.length ? items[0].delete(timeout) : null;
     });
   } 

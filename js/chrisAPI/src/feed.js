@@ -206,10 +206,92 @@ export class Feed extends ItemResource {
    * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
    */
   tagFeed(tag_id, timeout = 30000) {
-    return this.getTaggings(timeout)
+    return this.getTaggings(null, timeout)
       .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
       .then(listRes => listRes.getItems()[0]);
   }
+
+  /**
+   * Make the feed public.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+   makePublic(timeout = 30000) {
+    return this.put({ public: true }, timeout);
+  } 
+
+  /**
+   * Make the feed unpublic.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+   makeUnpublic(timeout = 30000) {
+    return this.put({ public: false }, timeout);
+  } 
+  
+  /**
+   * Grant a group permission to access the feed.
+   *
+   * @param {number} group_name - group's name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FeedGroupPermission>} - JS Promise, resolves to a ``FeedGroupPermission`` object
+   */
+   grantGroupPermission(group_name, timeout = 30000) {
+    return this.getGroupPermissions(null, timeout)
+      .then(listRes => listRes.post({ grp_name: group_name }), timeout)
+      .then(listRes => listRes.getItems()[0]);
+  } 
+
+  /**
+   * Remove a group permission to access the feed.
+   *
+   * @param {number} group_name - group's name
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise} - JS Promise
+   */
+   removeGroupPermission(group_name, timeout = 30000) {
+    return this.getGroupPermissions({ group_name: group_name }, timeout).then(listRes => {
+      const items = listRes.getItems();
+
+      return items.length ? items[0].delete(timeout) : null;
+    });
+  }  
+
+  /**
+   * Grant a user permission to access the feed.
+   *
+   * @param {number} username - user's username
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<FeedUserPermission>} - JS Promise, resolves to a ``FeedUserPermission`` object
+   */
+   grantUserPermission(username, timeout = 30000) {
+    return this.getUserPermissions(null, timeout)
+      .then(listRes => listRes.post({ username: username }), timeout)
+      .then(listRes => listRes.getItems()[0]);
+  } 
+
+  /**
+   * Remove a user permission to access the feed.
+   *
+   * @param {number} username - user's username
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise} - JS Promise
+   */
+   removeUserPermission(username, timeout = 30000) {
+    return this.getUserPermissions({ username: username }, timeout).then(listRes => {
+      const items = listRes.getItems();
+
+      return items.length ? items[0].delete(timeout) : null;
+    });
+  }  
 
   /**
    * Make a PUT request to modify this feed item resource through the REST API.
