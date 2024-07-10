@@ -100,20 +100,6 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can tag a feed through the REST API', (done) => {
-    const data = {
-      name: 'Test feed tag',
-      color: 'red',
-    };
-    const result = client.createTag(data).then((tag) => client.tagFeed(1, tag.data.id));
-    result
-      .then((tagging) => {
-        expect(tagging).to.be.an.instanceof(Tagging);
-        expect(tagging.data.feed_id).to.equal(1);
-      })
-      .then(done, done);
-  });
-
   it('can fetch a user file by id from the REST API', (done) => {
     const result = client.getUserFile(1);
     result

@@ -39,7 +39,7 @@ export class Group extends ItemResource {
   /**
    * Get a group user given the username.
    *
-   * @param {number} username - group user username
+   * @param {string} username - group user username
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<GroupUser|null>} - JS Promise, resolves to a ``GroupUser`` object or ``null``
@@ -55,7 +55,7 @@ export class Group extends ItemResource {
   /**
    * Add a user to the group given the user's username.
    *
-   * @param {number} username - user's username
+   * @param {string} username - user's username
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<GroupUser>} - JS Promise, resolves to a ``GroupUser`` object
@@ -65,22 +65,6 @@ export class Group extends ItemResource {
       .then(listRes => listRes.post({ username: username }), timeout)
       .then(listRes => listRes.getItems()[0]);
   }
-
-  /**
-   * Remove a user from the group given the user's username.
-   *
-   * @param {number} username - user's username
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise} - JS Promise
-   */
-   adminRemoveUser(username, timeout = 30000) {
-    return this.getUsers({ username: username }, timeout).then(listRes => {
-      const items = listRes.getItems();
-
-      return items.length ? items[0].delete(timeout) : null;
-    });
-  } 
 
   /**
    * Make a DELETE request to delete this group item resource through the REST API.

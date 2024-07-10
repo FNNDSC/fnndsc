@@ -104,7 +104,7 @@ export class Feed extends ItemResource {
   /**
    * Get a feed user permission given the username of the user.
    *
-   * @param {number} username - feed user permission's username
+   * @param {string} username - feed user permission's username
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<FeedUserPermission|null>} - JS Promise, resolves to a ``FeedUserPermission`` object or ``null``
@@ -198,18 +198,33 @@ export class Feed extends ItemResource {
   }
 
   /**
-   * Tag the feed given the id of the tag.
+   * Add a tag to the feed given the id of the tag.
    *
    * @param {number} tag_id - tag id
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
    */
-  tagFeed(tag_id, timeout = 30000) {
+   addTag(tag_id, timeout = 30000) {
     return this.getTaggings(null, timeout)
       .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
       .then(listRes => listRes.getItems()[0]);
   }
+
+  /**
+   * Add a new comment to the feed.
+   *
+   * @param {string} [title] - title of the comment
+   * @param {string} [content] - content of the comment
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<Comment>} - JS Promise, resolves to a ``Comment`` object
+   */
+   addComment(title='', content='', timeout = 30000) {
+    return this.getComments(null, timeout)
+      .then(listRes => listRes.post({ title: title, content: content }), timeout)
+      .then(listRes => listRes.getItems()[0]);
+  }  
 
   /**
    * Make the feed public.
@@ -234,64 +249,32 @@ export class Feed extends ItemResource {
   } 
   
   /**
-   * Grant a group permission to access the feed.
+   * Add a group permission to access the feed.
    *
-   * @param {number} group_name - group's name
+   * @param {string} group_name - group's name
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<FeedGroupPermission>} - JS Promise, resolves to a ``FeedGroupPermission`` object
    */
-   grantGroupPermission(group_name, timeout = 30000) {
+   addGroupPermission(group_name, timeout = 30000) {
     return this.getGroupPermissions(null, timeout)
       .then(listRes => listRes.post({ grp_name: group_name }), timeout)
       .then(listRes => listRes.getItems()[0]);
   } 
 
   /**
-   * Remove a group permission to access the feed.
+   * Add a user permission to access the feed.
    *
-   * @param {number} group_name - group's name
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise} - JS Promise
-   */
-   removeGroupPermission(group_name, timeout = 30000) {
-    return this.getGroupPermissions({ group_name: group_name }, timeout).then(listRes => {
-      const items = listRes.getItems();
-
-      return items.length ? items[0].delete(timeout) : null;
-    });
-  }  
-
-  /**
-   * Grant a user permission to access the feed.
-   *
-   * @param {number} username - user's username
+   * @param {string} username - user's username
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<FeedUserPermission>} - JS Promise, resolves to a ``FeedUserPermission`` object
    */
-   grantUserPermission(username, timeout = 30000) {
+   addUserPermission(username, timeout = 30000) {
     return this.getUserPermissions(null, timeout)
       .then(listRes => listRes.post({ username: username }), timeout)
       .then(listRes => listRes.getItems()[0]);
   } 
-
-  /**
-   * Remove a user permission to access the feed.
-   *
-   * @param {number} username - user's username
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise} - JS Promise
-   */
-   removeUserPermission(username, timeout = 30000) {
-    return this.getUserPermissions({ username: username }, timeout).then(listRes => {
-      const items = listRes.getItems();
-
-      return items.length ? items[0].delete(timeout) : null;
-    });
-  }  
 
   /**
    * Make a PUT request to modify this feed item resource through the REST API.

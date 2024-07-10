@@ -189,22 +189,6 @@ export default class Client {
   }
 
   /**
-   * Tag a feed given its id and the id of the tag.
-   *
-   * @param {number} feed_id - feed id
-   * @param {number} tag_id - tag id
-   * @param {number} [timeout=30000] - request timeout
-   *
-   * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
-   */
-  tagFeed(feed_id, tag_id, timeout = 30000) {
-    return this.getFeed(feed_id, timeout)
-      .then(feed => feed.getTaggings(null, timeout))
-      .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
-      .then(listRes => listRes.getItems()[0]);
-  }
-
-  /**
    * Get a paginated list of compute resources from the REST API given query
    * search parameters. If no search parameters then get the default first page.
    *
