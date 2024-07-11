@@ -4,7 +4,15 @@ import Collection from './cj';
 import RequestException from './exception';
 import { ListResource, ItemResource, Resource } from './resource';
 import ChrisInstance from './chrisinstance';
-import { FeedList, PublicFeedList, Feed } from './feed';
+import {
+  FeedList, 
+  PublicFeedList, 
+  Feed,
+  FeedGroupPermissionList, 
+  FeedUserPermissionList, 
+  FeedGroupPermission, 
+  FeedUserPermission
+} from './feed';
 import { ComputeResourceAdminList, ComputeResourceAdmin, PluginAdminList, PluginAdmin } from './admin';
 import { PluginList, PluginMetaPluginList, Plugin } from './plugin';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
@@ -33,8 +41,23 @@ import User from './user';
 import { CommentList, Comment } from './comment';
 import { UserFileList, UserFile } from './userfile';
 import { PACSFileList, PACSSeriesList, PACSFile , PACSSeries } from './pacsfile';
-import { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder } from './filebrowser';
-import { FileBrowserFolderFileList, FileBrowserFolderFile } from './filebrowser';
+import {
+  FileBrowserFolderList, 
+  FileBrowserFolderChildList, 
+  FileBrowserFolder,
+  FolderGroupPermissionList, 
+  FolderUserPermissionList, 
+  FolderGroupPermission, 
+  FolderUserPermission
+} from './filebrowser';
+import { 
+  FileBrowserFolderFileList, 
+  FileBrowserFolderFile,
+  FileGroupPermissionList, 
+  FileUserPermissionList, 
+  FileGroupPermission, 
+  FileUserPermission 
+} from './filebrowser';
 import { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile } from './filebrowser';
 import { DownloadTokenList, DownloadToken } from './downloadtoken';
 import { GroupList, Group, GroupUserList, GroupUser, UserGroupList } from './group';
@@ -45,7 +68,7 @@ export { Collection };
 export { RequestException };
 export { ListResource, ItemResource, Resource };
 export { ChrisInstance };
-export { FeedList, PublicFeedList, Feed };
+export { FeedList, PublicFeedList, Feed, FeedGroupPermissionList, FeedUserPermissionList, FeedGroupPermission, FeedUserPermission };
 export { ComputeResourceAdminList, ComputeResourceAdmin, PluginAdminList, PluginAdmin };
 export { PluginList, PluginMetaPluginList, Plugin };
 export { PluginMetaList, PluginMeta };
@@ -66,8 +89,23 @@ export { User };
 export { CommentList, Comment };
 export { UserFileList, UserFile };
 export { PACSFileList, PACSSeriesList, PACSFile , PACSSeries };
-export { FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder };
-export { FileBrowserFolderFileList, FileBrowserFolderFile };
+export { 
+  FileBrowserFolderList, 
+  FileBrowserFolderChildList, 
+  FileBrowserFolder, 
+  FolderGroupPermissionList, 
+  FolderUserPermissionList, 
+  FolderGroupPermission, 
+  FolderUserPermission 
+};
+export { 
+  FileBrowserFolderFileList, 
+  FileBrowserFolderFile,
+  FileGroupPermissionList, 
+  FileUserPermissionList, 
+  FileGroupPermission, 
+  FileUserPermission 
+};
 export { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile };
 export { DownloadTokenList, DownloadToken };
 export { GroupList, Group, GroupUserList, GroupUser, UserGroupList };

@@ -54,7 +54,7 @@ describe('Request', () => {
 
   it('can report unsuccessfull unauthenticated GET request', done => {
     const req = new Request(null, contentType);
-    const result = req.get(chrisUrl + 'search/');
+    const result = req.get(chrisUrl + 'groups/');
 
     result
       .catch(error => {

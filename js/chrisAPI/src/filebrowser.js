@@ -432,8 +432,9 @@ export class FileBrowserFolderFile extends ItemResource {
    * Make a PUT request to modify this file item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
-   * @param {boolean} [data.public] - new path to move the file to
-   * @param {string} [data.new_file_path] - authentication token
+   * @param {boolean} [data.public] - public status of the file
+   * @param {string} [data.new_file_path] - absolute path including file name where the file
+   * will be uploaded on the storage service
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object

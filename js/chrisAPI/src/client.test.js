@@ -11,6 +11,7 @@ import { Tag, Tagging } from './tag';
 import { UserFile } from './userfile';
 import { FileBrowserFolder } from './filebrowser';
 import { DownloadToken } from './downloadtoken';
+import { GroupList, Group } from './group';
 import User from './user';
 import RequestException from './exception';
 
@@ -133,8 +134,7 @@ describe('Client', () => {
   });
 
   it('can fetch the list of plugins from the REST API', (done) => {
-    const client1 = new Client(chrisUrl, auth);
-    const result = client1.getPlugins();
+    const result = client.getPlugins();
     result
       .then((pluginList) => {
         //window.console.log('pluginList.data', pluginList.data);
@@ -146,8 +146,7 @@ describe('Client', () => {
   });
 
   it('can fetch a plugin by id from the REST API', (done) => {
-    const client1 = new Client(chrisUrl, auth);
-    const result = client1.getPlugin(1);
+    const result = client.getPlugin(1);
     result
       .then((plugin) => {
         //window.console.log('items', feedList.getItems());
@@ -181,7 +180,7 @@ describe('Client', () => {
     const pluginId = 2;
     const data = {
       title: 'Test plugin instance',
-      dir: 'home/' + username + '/',
+      dir: 'home/' + username + '/uploads',
     };
 
     const result = client.createPluginInstance(pluginId, data);
@@ -348,6 +347,41 @@ describe('Client', () => {
       .then((user) => {
         expect(user).to.be.an.instanceof(User);
         expect(user.data.username).to.equal('cube');
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of groups from the REST API', (done) => {
+    const result = client.getGroups();
+    result
+      .then((groupList) => {
+        expect(groupList).to.be.an.instanceof(GroupList);
+        expect(groupList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a group by id from the REST API', (done) => {
+    const result = client.getGroup(1);
+    result
+      .then((group) => {
+        expect(group).to.be.an.instanceof(Group);
+        expect(group.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  }); 
+
+  it('can create a new group through the REST API', (done) => {
+    const data = {
+      name: 'group' + Date.now(),
+    };
+    const auth = { username: 'chris', password: 'chris1234' };
+    const client1 = new Client(chrisUrl, auth);
+    const result = client1.adminCreateGroup(data);
+    result
+      .then((group) => {
+        expect(group).to.be.an.instanceof(Group);
+        expect(group.data.name).to.equal(data.name);
       })
       .then(done, done);
   });

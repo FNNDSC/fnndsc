@@ -638,7 +638,6 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's path containing this string
-   * @param {string} [searchParams.type] - match pipeline source file type exactly with this string
    * @param {string} [searchParams.uploader_username] - match file's uploader username exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
@@ -753,7 +752,6 @@ export default class Client {
    * insensitive anywhere in their fname. But only one file is returned per toplevel directory under
    * SERVICES/PACS/pacs_name. This is useful to efficiently determine the top level directories containing a file
    * that matches the query.
-   * @param {string|number} [searchParams.fname_nslashes] - match file's path containing this number of slashes
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
    * @param {number} [timeout=30000] - request timeout
