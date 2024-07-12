@@ -1,7 +1,7 @@
 {
-  "coverage": "94.97%",
-  "expectCount": 418,
-  "actualCount": 397,
+  "coverage": "95.97%",
+  "expectCount": 546,
+  "actualCount": 524,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -19,10 +19,9 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 71,
-      "actualCount": 53,
+      "expectCount": 74,
+      "actualCount": 55,
       "undocumentLines": [
-        45,
         46,
         47,
         48,
@@ -39,7 +38,9 @@
         59,
         60,
         61,
-        62
+        62,
+        63,
+        64
       ]
     },
     "src/comment.js": {
@@ -65,13 +66,18 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 32,
-      "actualCount": 32,
+      "expectCount": 62,
+      "actualCount": 62,
       "undocumentLines": []
     },
     "src/filebrowser.js": {
-      "expectCount": 26,
-      "actualCount": 26,
+      "expectCount": 89,
+      "actualCount": 89,
+      "undocumentLines": []
+    },
+    "src/group.js": {
+      "expectCount": 24,
+      "actualCount": 24,
       "undocumentLines": []
     },
     "src/note.js": {
@@ -123,18 +129,18 @@
       ]
     },
     "src/tag.js": {
-      "expectCount": 34,
-      "actualCount": 34,
+      "expectCount": 32,
+      "actualCount": 32,
       "undocumentLines": []
     },
     "src/user.js": {
-      "expectCount": 3,
-      "actualCount": 3,
+      "expectCount": 4,
+      "actualCount": 4,
       "undocumentLines": []
     },
     "src/userfile.js": {
-      "expectCount": 9,
-      "actualCount": 9,
+      "expectCount": 18,
+      "actualCount": 18,
       "undocumentLines": []
     },
     "src/workflow.js": {

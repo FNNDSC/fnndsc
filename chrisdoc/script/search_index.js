@@ -84,6 +84,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~feedgrouppermission",
+    "class/src/feed.js~FeedGroupPermission.html",
+    "<span>FeedGroupPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~feedgrouppermissionlist",
+    "class/src/feed.js~FeedGroupPermissionList.html",
+    "<span>FeedGroupPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~feedlist",
     "class/src/feed.js~FeedList.html",
     "<span>FeedList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -105,6 +117,18 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~feedtagginglist",
     "class/src/tag.js~FeedTaggingList.html",
     "<span>FeedTaggingList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~feeduserpermission",
+    "class/src/feed.js~FeedUserPermission.html",
+    "<span>FeedUserPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~feeduserpermissionlist",
+    "class/src/feed.js~FeedUserPermissionList.html",
+    "<span>FeedUserPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -147,6 +171,78 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~filebrowserfolderlist",
     "class/src/filebrowser.js~FileBrowserFolderList.html",
     "<span>FileBrowserFolderList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filegrouppermission",
+    "class/src/filebrowser.js~FileGroupPermission.html",
+    "<span>FileGroupPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~filegrouppermissionlist",
+    "class/src/filebrowser.js~FileGroupPermissionList.html",
+    "<span>FileGroupPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~fileuserpermission",
+    "class/src/filebrowser.js~FileUserPermission.html",
+    "<span>FileUserPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~fileuserpermissionlist",
+    "class/src/filebrowser.js~FileUserPermissionList.html",
+    "<span>FileUserPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~foldergrouppermission",
+    "class/src/filebrowser.js~FolderGroupPermission.html",
+    "<span>FolderGroupPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~foldergrouppermissionlist",
+    "class/src/filebrowser.js~FolderGroupPermissionList.html",
+    "<span>FolderGroupPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~folderuserpermission",
+    "class/src/filebrowser.js~FolderUserPermission.html",
+    "<span>FolderUserPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~folderuserpermissionlist",
+    "class/src/filebrowser.js~FolderUserPermissionList.html",
+    "<span>FolderUserPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~group",
+    "class/src/group.js~Group.html",
+    "<span>Group</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~grouplist",
+    "class/src/group.js~GroupList.html",
+    "<span>GroupList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~groupuser",
+    "class/src/group.js~GroupUser.html",
+    "<span>GroupUser</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~groupuserlist",
+    "class/src/group.js~GroupUserList.html",
+    "<span>GroupUserList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -417,6 +513,12 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~userfilelist",
     "class/src/userfile.js~UserFileList.html",
     "<span>UserFileList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~usergrouplist",
+    "class/src/group.js~UserGroupList.html",
+    "<span>UserGroupList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -876,6 +978,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#admincreategroup",
+    "class/src/client.js~Client.html#instance-method-adminCreateGroup",
+    "src/client.js~Client#adminCreateGroup",
+    "method"
+  ],
+  [
     "src/client.js~client#adminuploadplugin",
     "class/src/client.js~Client.html#instance-method-adminUploadPlugin",
     "src/client.js~Client#adminUploadPlugin",
@@ -1038,6 +1146,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getgroup",
+    "class/src/client.js~Client.html#instance-method-getGroup",
+    "src/client.js~Client#getGroup",
+    "method"
+  ],
+  [
+    "src/client.js~client#getgroups",
+    "class/src/client.js~Client.html#instance-method-getGroups",
+    "src/client.js~Client#getGroups",
+    "method"
+  ],
+  [
     "src/client.js~client#getpacsfile",
     "class/src/client.js~Client.html#instance-method-getPACSFile",
     "src/client.js~Client#getPACSFile",
@@ -1170,6 +1290,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#groupsurl",
+    "class/src/client.js~Client.html#instance-member-groupsUrl",
+    "src/client.js~Client#groupsUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#pacsfilesurl",
     "class/src/client.js~Client.html#instance-member-pacsFilesUrl",
     "src/client.js~Client#pacsFilesUrl",
@@ -1221,12 +1347,6 @@ window.esdocSearchIndex = [
     "src/client.js~client#seturls",
     "class/src/client.js~Client.html#instance-method-setUrls",
     "src/client.js~Client#setUrls",
-    "method"
-  ],
-  [
-    "src/client.js~client#tagfeed",
-    "class/src/client.js~Client.html#instance-method-tagFeed",
-    "src/client.js~Client#tagFeed",
     "method"
   ],
   [
@@ -1458,6 +1578,30 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/feed.js~feed#addcomment",
+    "class/src/feed.js~Feed.html#instance-method-addComment",
+    "src/feed.js~Feed#addComment",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#addgrouppermission",
+    "class/src/feed.js~Feed.html#instance-method-addGroupPermission",
+    "src/feed.js~Feed#addGroupPermission",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#addtag",
+    "class/src/feed.js~Feed.html#instance-method-addTag",
+    "src/feed.js~Feed#addTag",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#adduserpermission",
+    "class/src/feed.js~Feed.html#instance-method-addUserPermission",
+    "src/feed.js~Feed#addUserPermission",
+    "method"
+  ],
+  [
     "src/feed.js~feed#delete",
     "class/src/feed.js~Feed.html#instance-method-delete",
     "src/feed.js~Feed#delete",
@@ -1479,6 +1623,18 @@ window.esdocSearchIndex = [
     "src/feed.js~feed#getfolder",
     "class/src/feed.js~Feed.html#instance-method-getFolder",
     "src/feed.js~Feed#getFolder",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#getgrouppermission",
+    "class/src/feed.js~Feed.html#instance-method-getGroupPermission",
+    "src/feed.js~Feed#getGroupPermission",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#getgrouppermissions",
+    "class/src/feed.js~Feed.html#instance-method-getGroupPermissions",
+    "src/feed.js~Feed#getGroupPermissions",
     "method"
   ],
   [
@@ -1506,15 +1662,81 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/feed.js~feed#getuserpermission",
+    "class/src/feed.js~Feed.html#instance-method-getUserPermission",
+    "src/feed.js~Feed#getUserPermission",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#getuserpermissions",
+    "class/src/feed.js~Feed.html#instance-method-getUserPermissions",
+    "src/feed.js~Feed#getUserPermissions",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#makepublic",
+    "class/src/feed.js~Feed.html#instance-method-makePublic",
+    "src/feed.js~Feed#makePublic",
+    "method"
+  ],
+  [
+    "src/feed.js~feed#makeunpublic",
+    "class/src/feed.js~Feed.html#instance-method-makeUnpublic",
+    "src/feed.js~Feed#makeUnpublic",
+    "method"
+  ],
+  [
     "src/feed.js~feed#put",
     "class/src/feed.js~Feed.html#instance-method-put",
     "src/feed.js~Feed#put",
     "method"
   ],
   [
-    "src/feed.js~feed#tagfeed",
-    "class/src/feed.js~Feed.html#instance-method-tagFeed",
-    "src/feed.js~Feed#tagFeed",
+    "src/feed.js~feedgrouppermission#constructor",
+    "class/src/feed.js~FeedGroupPermission.html#instance-constructor-constructor",
+    "src/feed.js~FeedGroupPermission#constructor",
+    "method"
+  ],
+  [
+    "src/feed.js~feedgrouppermission#delete",
+    "class/src/feed.js~FeedGroupPermission.html#instance-method-delete",
+    "src/feed.js~FeedGroupPermission#delete",
+    "method"
+  ],
+  [
+    "src/feed.js~feedgrouppermission#getfeed",
+    "class/src/feed.js~FeedGroupPermission.html#instance-method-getFeed",
+    "src/feed.js~FeedGroupPermission#getFeed",
+    "method"
+  ],
+  [
+    "src/feed.js~feedgrouppermission#getgroup",
+    "class/src/feed.js~FeedGroupPermission.html#instance-method-getGroup",
+    "src/feed.js~FeedGroupPermission#getGroup",
+    "method"
+  ],
+  [
+    "src/feed.js~feedgrouppermissionlist#constructor",
+    "class/src/feed.js~FeedGroupPermissionList.html#instance-constructor-constructor",
+    "src/feed.js~FeedGroupPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/feed.js~feedgrouppermissionlist#getfeed",
+    "class/src/feed.js~FeedGroupPermissionList.html#instance-method-getFeed",
+    "src/feed.js~FeedGroupPermissionList#getFeed",
+    "method"
+  ],
+  [
+    "src/feed.js~feedgrouppermissionlist#itemclass",
+    "class/src/feed.js~FeedGroupPermissionList.html#instance-member-itemClass",
+    "src/feed.js~FeedGroupPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/feed.js~feedgrouppermissionlist#post",
+    "class/src/feed.js~FeedGroupPermissionList.html#instance-method-post",
+    "src/feed.js~FeedGroupPermissionList#post",
     "method"
   ],
   [
@@ -1539,6 +1761,12 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#getfilebrowserfolders",
     "class/src/feed.js~FeedList.html#instance-method-getFileBrowserFolders",
     "src/feed.js~FeedList#getFileBrowserFolders",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getgroups",
+    "class/src/feed.js~FeedList.html#instance-method-getGroups",
+    "src/feed.js~FeedList#getGroups",
     "method"
   ],
   [
@@ -1620,6 +1848,54 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/feed.js~feeduserpermission#constructor",
+    "class/src/feed.js~FeedUserPermission.html#instance-constructor-constructor",
+    "src/feed.js~FeedUserPermission#constructor",
+    "method"
+  ],
+  [
+    "src/feed.js~feeduserpermission#delete",
+    "class/src/feed.js~FeedUserPermission.html#instance-method-delete",
+    "src/feed.js~FeedUserPermission#delete",
+    "method"
+  ],
+  [
+    "src/feed.js~feeduserpermission#getfeed",
+    "class/src/feed.js~FeedUserPermission.html#instance-method-getFeed",
+    "src/feed.js~FeedUserPermission#getFeed",
+    "method"
+  ],
+  [
+    "src/feed.js~feeduserpermission#getuser",
+    "class/src/feed.js~FeedUserPermission.html#instance-method-getUser",
+    "src/feed.js~FeedUserPermission#getUser",
+    "method"
+  ],
+  [
+    "src/feed.js~feeduserpermissionlist#constructor",
+    "class/src/feed.js~FeedUserPermissionList.html#instance-constructor-constructor",
+    "src/feed.js~FeedUserPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/feed.js~feeduserpermissionlist#getfeed",
+    "class/src/feed.js~FeedUserPermissionList.html#instance-method-getFeed",
+    "src/feed.js~FeedUserPermissionList#getFeed",
+    "method"
+  ],
+  [
+    "src/feed.js~feeduserpermissionlist#itemclass",
+    "class/src/feed.js~FeedUserPermissionList.html#instance-member-itemClass",
+    "src/feed.js~FeedUserPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/feed.js~feeduserpermissionlist#post",
+    "class/src/feed.js~FeedUserPermissionList.html#instance-method-post",
+    "src/feed.js~FeedUserPermissionList#post",
+    "method"
+  ],
+  [
     "src/feed.js~publicfeedlist#constructor",
     "class/src/feed.js~PublicFeedList.html#instance-constructor-constructor",
     "src/feed.js~PublicFeedList#constructor",
@@ -1636,6 +1912,18 @@ window.esdocSearchIndex = [
     "file/src/filebrowser.js.html",
     "src/filebrowser.js",
     "file"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#addgrouppermission",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-addGroupPermission",
+    "src/filebrowser.js~FileBrowserFolder#addGroupPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#adduserpermission",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-addUserPermission",
+    "src/filebrowser.js~FileBrowserFolder#addUserPermission",
+    "method"
   ],
   [
     "src/filebrowser.js~filebrowserfolder#delete",
@@ -1656,6 +1944,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/filebrowser.js~filebrowserfolder#getgrouppermission",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getGroupPermission",
+    "src/filebrowser.js~FileBrowserFolder#getGroupPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#getgrouppermissions",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getGroupPermissions",
+    "src/filebrowser.js~FileBrowserFolder#getGroupPermissions",
+    "method"
+  ],
+  [
     "src/filebrowser.js~filebrowserfolder#getlinkfiles",
     "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getLinkFiles",
     "src/filebrowser.js~FileBrowserFolder#getLinkFiles",
@@ -1665,6 +1965,36 @@ window.esdocSearchIndex = [
     "src/filebrowser.js~filebrowserfolder#getparent",
     "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getParent",
     "src/filebrowser.js~FileBrowserFolder#getParent",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#getuserpermission",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getUserPermission",
+    "src/filebrowser.js~FileBrowserFolder#getUserPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#getuserpermissions",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-getUserPermissions",
+    "src/filebrowser.js~FileBrowserFolder#getUserPermissions",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#makepublic",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-makePublic",
+    "src/filebrowser.js~FileBrowserFolder#makePublic",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#makeunpublic",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-makeUnpublic",
+    "src/filebrowser.js~FileBrowserFolder#makeUnpublic",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolder#put",
+    "class/src/filebrowser.js~FileBrowserFolder.html#instance-method-put",
+    "src/filebrowser.js~FileBrowserFolder#put",
     "method"
   ],
   [
@@ -1680,15 +2010,75 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/filebrowser.js~filebrowserfolderfile#addgrouppermission",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-addGroupPermission",
+    "src/filebrowser.js~FileBrowserFolderFile#addGroupPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#adduserpermission",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-addUserPermission",
+    "src/filebrowser.js~FileBrowserFolderFile#addUserPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#delete",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-delete",
+    "src/filebrowser.js~FileBrowserFolderFile#delete",
+    "method"
+  ],
+  [
     "src/filebrowser.js~filebrowserfolderfile#getfileblob",
     "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getFileBlob",
     "src/filebrowser.js~FileBrowserFolderFile#getFileBlob",
     "method"
   ],
   [
+    "src/filebrowser.js~filebrowserfolderfile#getgrouppermission",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getGroupPermission",
+    "src/filebrowser.js~FileBrowserFolderFile#getGroupPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#getgrouppermissions",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getGroupPermissions",
+    "src/filebrowser.js~FileBrowserFolderFile#getGroupPermissions",
+    "method"
+  ],
+  [
     "src/filebrowser.js~filebrowserfolderfile#getparentfolder",
     "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getParentFolder",
     "src/filebrowser.js~FileBrowserFolderFile#getParentFolder",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#getuserpermission",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getUserPermission",
+    "src/filebrowser.js~FileBrowserFolderFile#getUserPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#getuserpermissions",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-getUserPermissions",
+    "src/filebrowser.js~FileBrowserFolderFile#getUserPermissions",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#makepublic",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-makePublic",
+    "src/filebrowser.js~FileBrowserFolderFile#makePublic",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#makeunpublic",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-makeUnpublic",
+    "src/filebrowser.js~FileBrowserFolderFile#makeUnpublic",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderfile#put",
+    "class/src/filebrowser.js~FileBrowserFolderFile.html#instance-method-put",
+    "src/filebrowser.js~FileBrowserFolderFile#put",
     "method"
   ],
   [
@@ -1750,6 +2140,342 @@ window.esdocSearchIndex = [
     "class/src/filebrowser.js~FileBrowserFolderList.html#instance-method-post",
     "src/filebrowser.js~FileBrowserFolderList#post",
     "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermission#constructor",
+    "class/src/filebrowser.js~FileGroupPermission.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileGroupPermission#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermission#delete",
+    "class/src/filebrowser.js~FileGroupPermission.html#instance-method-delete",
+    "src/filebrowser.js~FileGroupPermission#delete",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermission#getfile",
+    "class/src/filebrowser.js~FileGroupPermission.html#instance-method-getFile",
+    "src/filebrowser.js~FileGroupPermission#getFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermission#getgroup",
+    "class/src/filebrowser.js~FileGroupPermission.html#instance-method-getGroup",
+    "src/filebrowser.js~FileGroupPermission#getGroup",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermission#put",
+    "class/src/filebrowser.js~FileGroupPermission.html#instance-method-put",
+    "src/filebrowser.js~FileGroupPermission#put",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermissionlist#constructor",
+    "class/src/filebrowser.js~FileGroupPermissionList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileGroupPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermissionlist#getfile",
+    "class/src/filebrowser.js~FileGroupPermissionList.html#instance-method-getFile",
+    "src/filebrowser.js~FileGroupPermissionList#getFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermissionlist#itemclass",
+    "class/src/filebrowser.js~FileGroupPermissionList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileGroupPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~filegrouppermissionlist#post",
+    "class/src/filebrowser.js~FileGroupPermissionList.html#instance-method-post",
+    "src/filebrowser.js~FileGroupPermissionList#post",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermission#constructor",
+    "class/src/filebrowser.js~FileUserPermission.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileUserPermission#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermission#delete",
+    "class/src/filebrowser.js~FileUserPermission.html#instance-method-delete",
+    "src/filebrowser.js~FileUserPermission#delete",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermission#getfile",
+    "class/src/filebrowser.js~FileUserPermission.html#instance-method-getFile",
+    "src/filebrowser.js~FileUserPermission#getFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermission#getuser",
+    "class/src/filebrowser.js~FileUserPermission.html#instance-method-getUser",
+    "src/filebrowser.js~FileUserPermission#getUser",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermission#put",
+    "class/src/filebrowser.js~FileUserPermission.html#instance-method-put",
+    "src/filebrowser.js~FileUserPermission#put",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermissionlist#constructor",
+    "class/src/filebrowser.js~FileUserPermissionList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FileUserPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermissionlist#getfile",
+    "class/src/filebrowser.js~FileUserPermissionList.html#instance-method-getFile",
+    "src/filebrowser.js~FileUserPermissionList#getFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermissionlist#itemclass",
+    "class/src/filebrowser.js~FileUserPermissionList.html#instance-member-itemClass",
+    "src/filebrowser.js~FileUserPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~fileuserpermissionlist#post",
+    "class/src/filebrowser.js~FileUserPermissionList.html#instance-method-post",
+    "src/filebrowser.js~FileUserPermissionList#post",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermission#constructor",
+    "class/src/filebrowser.js~FolderGroupPermission.html#instance-constructor-constructor",
+    "src/filebrowser.js~FolderGroupPermission#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermission#delete",
+    "class/src/filebrowser.js~FolderGroupPermission.html#instance-method-delete",
+    "src/filebrowser.js~FolderGroupPermission#delete",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermission#getfolder",
+    "class/src/filebrowser.js~FolderGroupPermission.html#instance-method-getFolder",
+    "src/filebrowser.js~FolderGroupPermission#getFolder",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermission#getgroup",
+    "class/src/filebrowser.js~FolderGroupPermission.html#instance-method-getGroup",
+    "src/filebrowser.js~FolderGroupPermission#getGroup",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermission#put",
+    "class/src/filebrowser.js~FolderGroupPermission.html#instance-method-put",
+    "src/filebrowser.js~FolderGroupPermission#put",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermissionlist#constructor",
+    "class/src/filebrowser.js~FolderGroupPermissionList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FolderGroupPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermissionlist#getfolder",
+    "class/src/filebrowser.js~FolderGroupPermissionList.html#instance-method-getFolder",
+    "src/filebrowser.js~FolderGroupPermissionList#getFolder",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermissionlist#itemclass",
+    "class/src/filebrowser.js~FolderGroupPermissionList.html#instance-member-itemClass",
+    "src/filebrowser.js~FolderGroupPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~foldergrouppermissionlist#post",
+    "class/src/filebrowser.js~FolderGroupPermissionList.html#instance-method-post",
+    "src/filebrowser.js~FolderGroupPermissionList#post",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermission#constructor",
+    "class/src/filebrowser.js~FolderUserPermission.html#instance-constructor-constructor",
+    "src/filebrowser.js~FolderUserPermission#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermission#delete",
+    "class/src/filebrowser.js~FolderUserPermission.html#instance-method-delete",
+    "src/filebrowser.js~FolderUserPermission#delete",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermission#getfolder",
+    "class/src/filebrowser.js~FolderUserPermission.html#instance-method-getFolder",
+    "src/filebrowser.js~FolderUserPermission#getFolder",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermission#getuser",
+    "class/src/filebrowser.js~FolderUserPermission.html#instance-method-getUser",
+    "src/filebrowser.js~FolderUserPermission#getUser",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermission#put",
+    "class/src/filebrowser.js~FolderUserPermission.html#instance-method-put",
+    "src/filebrowser.js~FolderUserPermission#put",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermissionlist#constructor",
+    "class/src/filebrowser.js~FolderUserPermissionList.html#instance-constructor-constructor",
+    "src/filebrowser.js~FolderUserPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermissionlist#getfolder",
+    "class/src/filebrowser.js~FolderUserPermissionList.html#instance-method-getFolder",
+    "src/filebrowser.js~FolderUserPermissionList#getFolder",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermissionlist#itemclass",
+    "class/src/filebrowser.js~FolderUserPermissionList.html#instance-member-itemClass",
+    "src/filebrowser.js~FolderUserPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~folderuserpermissionlist#post",
+    "class/src/filebrowser.js~FolderUserPermissionList.html#instance-method-post",
+    "src/filebrowser.js~FolderUserPermissionList#post",
+    "method"
+  ],
+  [
+    "src/group.js",
+    "file/src/group.js.html",
+    "src/group.js",
+    "file"
+  ],
+  [
+    "src/group.js~group#adminadduser",
+    "class/src/group.js~Group.html#instance-method-adminAddUser",
+    "src/group.js~Group#adminAddUser",
+    "method"
+  ],
+  [
+    "src/group.js~group#constructor",
+    "class/src/group.js~Group.html#instance-constructor-constructor",
+    "src/group.js~Group#constructor",
+    "method"
+  ],
+  [
+    "src/group.js~group#delete",
+    "class/src/group.js~Group.html#instance-method-delete",
+    "src/group.js~Group#delete",
+    "method"
+  ],
+  [
+    "src/group.js~group#getuser",
+    "class/src/group.js~Group.html#instance-method-getUser",
+    "src/group.js~Group#getUser",
+    "method"
+  ],
+  [
+    "src/group.js~group#getusers",
+    "class/src/group.js~Group.html#instance-method-getUsers",
+    "src/group.js~Group#getUsers",
+    "method"
+  ],
+  [
+    "src/group.js~grouplist#constructor",
+    "class/src/group.js~GroupList.html#instance-constructor-constructor",
+    "src/group.js~GroupList#constructor",
+    "method"
+  ],
+  [
+    "src/group.js~grouplist#itemclass",
+    "class/src/group.js~GroupList.html#instance-member-itemClass",
+    "src/group.js~GroupList#itemClass",
+    "member"
+  ],
+  [
+    "src/group.js~grouplist#post",
+    "class/src/group.js~GroupList.html#instance-method-post",
+    "src/group.js~GroupList#post",
+    "method"
+  ],
+  [
+    "src/group.js~groupuser#constructor",
+    "class/src/group.js~GroupUser.html#instance-constructor-constructor",
+    "src/group.js~GroupUser#constructor",
+    "method"
+  ],
+  [
+    "src/group.js~groupuser#delete",
+    "class/src/group.js~GroupUser.html#instance-method-delete",
+    "src/group.js~GroupUser#delete",
+    "method"
+  ],
+  [
+    "src/group.js~groupuser#getgroup",
+    "class/src/group.js~GroupUser.html#instance-method-getGroup",
+    "src/group.js~GroupUser#getGroup",
+    "method"
+  ],
+  [
+    "src/group.js~groupuser#getuser",
+    "class/src/group.js~GroupUser.html#instance-method-getUser",
+    "src/group.js~GroupUser#getUser",
+    "method"
+  ],
+  [
+    "src/group.js~groupuserlist#constructor",
+    "class/src/group.js~GroupUserList.html#instance-constructor-constructor",
+    "src/group.js~GroupUserList#constructor",
+    "method"
+  ],
+  [
+    "src/group.js~groupuserlist#getgroup",
+    "class/src/group.js~GroupUserList.html#instance-method-getGroup",
+    "src/group.js~GroupUserList#getGroup",
+    "method"
+  ],
+  [
+    "src/group.js~groupuserlist#itemclass",
+    "class/src/group.js~GroupUserList.html#instance-member-itemClass",
+    "src/group.js~GroupUserList#itemClass",
+    "member"
+  ],
+  [
+    "src/group.js~groupuserlist#post",
+    "class/src/group.js~GroupUserList.html#instance-method-post",
+    "src/group.js~GroupUserList#post",
+    "method"
+  ],
+  [
+    "src/group.js~usergrouplist#constructor",
+    "class/src/group.js~UserGroupList.html#instance-constructor-constructor",
+    "src/group.js~UserGroupList#constructor",
+    "method"
+  ],
+  [
+    "src/group.js~usergrouplist#getuser",
+    "class/src/group.js~UserGroupList.html#instance-method-getUser",
+    "src/group.js~UserGroupList#getUser",
+    "method"
+  ],
+  [
+    "src/group.js~usergrouplist#itemclass",
+    "class/src/group.js~UserGroupList.html#instance-member-itemClass",
+    "src/group.js~UserGroupList#itemClass",
+    "member"
   ],
   [
     "src/index.js",
@@ -2670,12 +3396,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/tag.js~tag#constructor",
-    "class/src/tag.js~Tag.html#instance-constructor-constructor",
-    "src/tag.js~Tag#constructor",
-    "method"
-  ],
-  [
     "src/tag.js~tag#delete",
     "class/src/tag.js~Tag.html#instance-method-delete",
     "src/tag.js~Tag#delete",
@@ -2766,12 +3486,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/tag.js~tagging#constructor",
-    "class/src/tag.js~Tagging.html#instance-constructor-constructor",
-    "src/tag.js~Tagging#constructor",
-    "method"
-  ],
-  [
     "src/tag.js~tagging#delete",
     "class/src/tag.js~Tagging.html#instance-method-delete",
     "src/tag.js~Tagging#delete",
@@ -2802,6 +3516,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/user.js~user#getgroups",
+    "class/src/user.js~User.html#instance-method-getGroups",
+    "src/user.js~User#getGroups",
+    "method"
+  ],
+  [
     "src/user.js~user#put",
     "class/src/user.js~User.html#instance-method-put",
     "src/user.js~User#put",
@@ -2812,6 +3532,24 @@ window.esdocSearchIndex = [
     "file/src/userfile.js.html",
     "src/userfile.js",
     "file"
+  ],
+  [
+    "src/userfile.js~userfile#addgrouppermission",
+    "class/src/userfile.js~UserFile.html#instance-method-addGroupPermission",
+    "src/userfile.js~UserFile#addGroupPermission",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#adduserpermission",
+    "class/src/userfile.js~UserFile.html#instance-method-addUserPermission",
+    "src/userfile.js~UserFile#addUserPermission",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#constructor",
+    "class/src/userfile.js~UserFile.html#instance-constructor-constructor",
+    "src/userfile.js~UserFile#constructor",
+    "method"
   ],
   [
     "src/userfile.js~userfile#delete",
@@ -2826,9 +3564,45 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/userfile.js~userfile#getgrouppermission",
+    "class/src/userfile.js~UserFile.html#instance-method-getGroupPermission",
+    "src/userfile.js~UserFile#getGroupPermission",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#getgrouppermissions",
+    "class/src/userfile.js~UserFile.html#instance-method-getGroupPermissions",
+    "src/userfile.js~UserFile#getGroupPermissions",
+    "method"
+  ],
+  [
     "src/userfile.js~userfile#getparentfolder",
     "class/src/userfile.js~UserFile.html#instance-method-getParentFolder",
     "src/userfile.js~UserFile#getParentFolder",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#getuserpermission",
+    "class/src/userfile.js~UserFile.html#instance-method-getUserPermission",
+    "src/userfile.js~UserFile#getUserPermission",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#getuserpermissions",
+    "class/src/userfile.js~UserFile.html#instance-method-getUserPermissions",
+    "src/userfile.js~UserFile#getUserPermissions",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#makepublic",
+    "class/src/userfile.js~UserFile.html#instance-method-makePublic",
+    "src/userfile.js~UserFile#makePublic",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#makeunpublic",
+    "class/src/userfile.js~UserFile.html#instance-method-makeUnpublic",
+    "src/userfile.js~UserFile#makeUnpublic",
     "method"
   ],
   [
