@@ -3,16 +3,6 @@
  */
 export class Tag extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of feeds that are tagged with this tag from the REST API.
      *
      * @param {Object} [params=null] - page parameters object
@@ -68,16 +58,6 @@ export class Tag extends ItemResource {
  */
 export class TagList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch a list of feeds from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -115,16 +95,6 @@ export class TagList extends ListResource {
  */
 export class Tagging extends ItemResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the tag associated to this tagging from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -155,16 +125,6 @@ export class Tagging extends ItemResource {
  */
 export class TagTaggingList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the tag associated to this tag-specific list of taggings from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -191,16 +151,6 @@ export class TagTaggingList extends ListResource {
  * an specific feed.
  */
 export class FeedTaggingList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the feed associated to this feed-specific list of taggings from the REST API.
      *
@@ -229,16 +179,6 @@ export class FeedTaggingList extends ListResource {
  */
 export class TagFeedList extends ListResource {
     /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
-    /**
      * Fetch the tag associated to this tag-specific list of feeds from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
@@ -252,16 +192,6 @@ export class TagFeedList extends ListResource {
  * feed is tagged with.
  */
 export class FeedTagList extends ListResource {
-    /**
-     * Constructor
-     *
-     * @param {string} url - url of the resource
-     * @param {Object} auth - authentication object
-     * @param {string} auth.token - authentication token
-     */
-    constructor(url: string, auth: {
-        token: string;
-    });
     /**
      * Fetch the feed associated to this feed-specific list of tags from the REST API.
      *

@@ -13,6 +13,20 @@ export default class User extends ItemResource {
         token: string;
     });
     /**
+    * Fetch the list of user's groups from the REST API.
+    *
+    * @param {Object} [params=null] - page parameters object
+    * @param {number} [params.limit] - page limit
+    * @param {number} [params.offset] - page offset
+    * @param {number} [timeout=30000] - request timeout
+    *
+    * @return {Promise<UserGroupList>} - JS Promise, resolves to a ``UserGroupList`` object
+    */
+    getGroups(params?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<UserGroupList>;
+    /**
      * Make a PUT request to modify this user item resource through the REST API.
      *
      * @param {Object} data - request JSON data object
@@ -28,3 +42,4 @@ export default class User extends ItemResource {
     }, timeout?: number): Promise<User>;
 }
 import { ItemResource } from "./resource";
+import { UserGroupList } from "./group";

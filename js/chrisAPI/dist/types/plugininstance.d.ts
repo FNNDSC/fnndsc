@@ -3,8 +3,7 @@
  */
 export class PluginInstance extends ItemResource {
     /**
-     * Fetch the feed created by this plugin instance from the REST API
-     * (only for fs plugins, 'ds' plugins pass null to the resultant Promise).
+     * Fetch the feed associated to this plugin instance from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
      *
@@ -37,7 +36,7 @@ export class PluginInstance extends ItemResource {
     getComputeResource(timeout?: number): Promise<ComputeResource>;
     /**
      * Fetch the parent plugin instance of this plugin instance from the REST API
-     * (only for 'ds' plugins, 'fs' plugins pass null to the resultant Promise).
+     * (only for 'ds' and 'ts' plugins, 'fs' plugins pass null to the resultant Promise).
      *
      * @param {number} [timeout=30000] - request timeout
      *
