@@ -4,7 +4,16 @@ import Request from './request';
 import { FeedList, Feed } from './feed';
 import { Plugin } from './plugin';
 import { PluginInstance } from './plugininstance';
-import { FileBrowserFolderFileList, FileBrowserFolderLinkFileList, FileBrowserFolder, FileBrowserFolderLinkFile } from './filebrowser';
+import { 
+  FileBrowserFolderFileList, 
+  FileBrowserFolderLinkFileList, 
+  FileBrowserFolder, 
+  FileBrowserFolderLinkFile,
+  FolderGroupPermission,
+  FolderUserPermission,
+  FileGroupPermission,
+  FileUserPermission
+} from './filebrowser';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
@@ -55,14 +64,18 @@ describe('File browser resources', function () {
   });
 
   describe('FileBrowserFolder', () => {
+    let uploads_folder;
     let folder;
 
     beforeEach(() => {
       return new Promise(function(resolve, reject) {
         Request.runAsyncTask(function*() {
           try {
-            fileBrowserFolderListRes = yield fileBrowserFolderListRes.get({ path: 'home/cube/uploads'});
+            const path = 'home/cube/uploads/' +  Date.now()
+            fileBrowserFolderListRes = yield fileBrowserFolderListRes.post({ path:  path });
             folder = fileBrowserFolderListRes.getItems()[0];
+            fileBrowserFolderListRes = yield fileBrowserFolderListRes.get({ path: 'home/cube/uploads'});
+            uploads_folder = fileBrowserFolderListRes.getItems()[0];
           } catch (ex) {
             reject(ex);
             return;
@@ -83,7 +96,7 @@ describe('File browser resources', function () {
     });
 
     it('can fetch the files inside the user uploads folder from the REST API', done => {
-      const result = folder.getFiles();
+      const result = uploads_folder.getFiles();
       result
         .then(fileList => {
           expect(fileList).to.be.an.instanceof(FileBrowserFolderFileList);
@@ -91,6 +104,55 @@ describe('File browser resources', function () {
         })
         .then(done, done);
     });
+
+    it('can become public through the REST API', done => {
+      const result = folder.makePublic();
+      result
+        .then(folder => {
+          expect(folder.data.public).to.be.true;
+        })
+        .then(done, done);
+    });
+
+    it('can become unpublic through the REST API', done => {
+      const result = folder.makeUnpublic();
+      result
+        .then(folder => {
+          expect(folder.data.public).to.be.false;
+        })
+        .then(done, done);
+    });   
+
+    it('can grant a group permission through the REST API', done => {
+      let permission;
+      const result = folder.addGroupPermission('all_users', 'r');
+      result
+        .then(grp_permission => {
+          expect(grp_permission).to.be.an.instanceof(FolderGroupPermission);
+          expect(grp_permission.data.group_name).to.equal('all_users');
+        })
+        .then( () => folder.getGroupPermission('all_users') )
+        .then(grp_permission => {
+          expect(grp_permission).to.be.an.instanceof(FolderGroupPermission);
+          expect(grp_permission.data.group_name).to.equal('all_users');
+        })
+        .then(done, done);
+    });
+
+    it('can grant a user permission through the REST API', done => {
+      const result = folder.addUserPermission('chris', 'r');
+      result
+        .then(user_permission => {
+          expect(user_permission).to.be.an.instanceof(FolderUserPermission);
+          expect(user_permission.data.user_username).to.equal('chris');
+        })
+        .then( () => folder.getUserPermission('chris') )
+        .then(user_permission => {
+          expect(user_permission).to.be.an.instanceof(FolderUserPermission);
+          expect(user_permission.data.user_username).to.equal('chris');
+        })
+        .then(done, done);
+    });  
 
   });
 
@@ -195,6 +257,24 @@ describe('File browser resources', function () {
         })
         .then(done, done);
     });
-    
+
+    it('can become public through the REST API', done => {
+      const result = file.makePublic();
+      result
+        .then(file => {
+          expect(file.data.public).to.be.true;
+        })
+        .then(done, done);
+    });
+
+    it('can become unpublic through the REST API', done => {
+      const result = file.makeUnpublic();
+      result
+        .then(file => {
+          expect(file.data.public).to.be.false;
+        })
+        .then(done, done);
+    });    
+
   });
 });

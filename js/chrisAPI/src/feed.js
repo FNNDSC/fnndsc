@@ -14,7 +14,7 @@ import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList, Comment } from './comment';
 import { AllPluginInstanceList, FeedPluginInstanceList } from './plugininstance';
 import { FileBrowserFolderList, FileBrowserFolder } from './filebrowser';
-import { Group } from './group';
+import { GroupList, Group } from './group';
 
 /**
  * Feed item resource object representing a feed.
@@ -575,6 +575,25 @@ export class FeedList extends ListResource {
   getFileBrowserFolders(searchParams = null, timeout = 30000) {
     const linkRelation = 'filebrowser';
     const resourceClass = FileBrowserFolderList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+  
+  /**
+   * Fetch a list of groups from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``GroupList.getSearchParameters`` method can be
+   * used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<GroupList>} - JS Promise, resolves to a ``GroupList`` object
+   */
+  getGroups(searchParams = null, timeout = 30000) {
+    const linkRelation = 'groups';
+    const resourceClass = GroupList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }

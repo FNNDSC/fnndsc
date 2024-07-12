@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Collection from './cj';
-import { FeedList, Feed } from './feed';
+import { FeedList, Feed , FeedGroupPermission, FeedUserPermission } from './feed';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList, Comment } from './comment';
@@ -119,6 +119,44 @@ describe('Feed resources', () => {
         })
         .then(done, done);
     });
+
+    it('can become public through the REST API', done => {
+      const result = feed.makePublic();
+      result
+        .then(feed => {
+          expect(feed.data.public).to.be.true;
+        })
+        .then(done, done);
+    });
+
+    it('can become unpublic through the REST API', done => {
+      const result = feed.makeUnpublic();
+      result
+        .then(feed => {
+          expect(feed.data.public).to.be.false;
+        })
+        .then(done, done);
+    }); 
+
+    it('can grant a group permission through the REST API', done => {
+      const result = feed.addGroupPermission('all_users');
+      result
+        .then(grp_permission => {
+          expect(grp_permission).to.be.an.instanceof(FeedGroupPermission);
+          expect(grp_permission.data.group_name).to.equal('all_users');
+        })
+        .then(done, done);
+    });
+
+    it('can grant a user permission through the REST API', done => {
+      const result = feed.addUserPermission('chris');
+      result
+        .then(user_permission => {
+          expect(user_permission).to.be.an.instanceof(FeedUserPermission);
+          expect(user_permission.data.user_username).to.equal('chris');
+        })
+        .then(done, done);
+    });  
   });
 
   describe('FeedList', () => {

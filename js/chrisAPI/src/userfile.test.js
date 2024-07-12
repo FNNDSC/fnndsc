@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import Request from './request';
 import { FeedList } from './feed';
+import { FileGroupPermission, FileUserPermission } from './filebrowser';
 import { UserFile } from './userfile';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
@@ -73,6 +74,54 @@ describe('User file resources', () => {
         })
         .then(done, done);
     });
+
+    it('can become public through the REST API', done => {
+      const result = userFile.makePublic();
+      result
+        .then(userFile => {
+          expect(userFile.data.public).to.be.true;
+        })
+        .then(done, done);
+    });
+
+    it('can become unpublic through the REST API', done => {
+      const result = userFile.makeUnpublic();
+      result
+        .then(userFile => {
+          expect(userFile.data.public).to.be.false;
+        })
+        .then(done, done);
+    });   
+
+    it('can grant a group permission through the REST API', done => {
+      const result = userFile.addGroupPermission('all_users', 'r');
+      result
+        .then(grp_permission => {
+          expect(grp_permission).to.be.an.instanceof(FileGroupPermission);
+          expect(grp_permission.data.group_name).to.equal('all_users');
+        })
+        .then( () => userFile.getGroupPermission('all_users') )
+        .then(grp_permission => {
+          expect(grp_permission).to.be.an.instanceof(FileGroupPermission);
+          expect(grp_permission.data.group_name).to.equal('all_users');
+        })
+        .then(done, done);
+    });
+
+    it('can grant a user permission through the REST API', done => {
+      const result = userFile.addUserPermission('chris', 'r');
+      result
+        .then(user_permission => {
+          expect(user_permission).to.be.an.instanceof(FileUserPermission);
+          expect(user_permission.data.user_username).to.equal('chris');
+        })
+        .then( () => userFile.getUserPermission('chris') )
+        .then(user_permission => {
+          expect(user_permission).to.be.an.instanceof(FileUserPermission);
+          expect(user_permission.data.user_username).to.equal('chris');
+        })
+        .then(done, done);
+    }); 
   });
 
   describe('UserFileList', () => {
