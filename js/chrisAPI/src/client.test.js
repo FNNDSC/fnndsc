@@ -317,6 +317,17 @@ describe('Client', () => {
       .then(done, done);
   });
 
+  it('can fetch the file browser root folder resource from the REST API', (done) => {
+    const result = client.getFileBrowserFolderByPath();
+    result
+      .then(browserFolder => {
+        //window.console.log('browserFolder.data', browserFolder.data);
+        expect(browserFolder).to.be.an.instanceof(FileBrowserFolder);
+        expect(browserFolder.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
   it('can create a new filebrowser folder through the REST API', (done) => {
     const data = {
       path: 'home/' + username + '/uploads/test-' + Date.now(),

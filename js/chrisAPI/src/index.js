@@ -58,7 +58,14 @@ import {
   FileGroupPermission, 
   FileUserPermission 
 } from './filebrowser';
-import { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile } from './filebrowser';
+import { 
+  FileBrowserFolderLinkFileList, 
+  FileBrowserFolderLinkFile,
+  LinkFileGroupPermissionList, 
+  LinkFileUserPermissionList, 
+  LinkFileGroupPermission, 
+  LinkFileUserPermission 
+} from './filebrowser';
 import { DownloadTokenList, DownloadToken } from './downloadtoken';
 import { GroupList, Group, GroupUserList, GroupUser, UserGroupList } from './group';
 
@@ -106,6 +113,13 @@ export {
   FileGroupPermission, 
   FileUserPermission 
 };
-export { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile };
+export { 
+  FileBrowserFolderLinkFileList, 
+  FileBrowserFolderLinkFile,
+  LinkFileGroupPermissionList, 
+  LinkFileUserPermissionList, 
+  LinkFileGroupPermission, 
+  LinkFileUserPermission 
+};
 export { DownloadTokenList, DownloadToken };
 export { GroupList, Group, GroupUserList, GroupUser, UserGroupList };

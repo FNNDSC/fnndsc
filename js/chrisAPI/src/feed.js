@@ -198,14 +198,14 @@ export class Feed extends ItemResource {
   }
 
   /**
-   * Add a tag to the feed given the id of the tag.
+   * Add a new tagging to the feed (tag the feed) given the id of the tag.
    *
    * @param {number} tag_id - tag id
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
    */
-   addTag(tag_id, timeout = 30000) {
+   addTagging(tag_id, timeout = 30000) {
     return this.getTaggings(null, timeout)
       .then(listRes => listRes.post({ tag_id: tag_id }), timeout)
       .then(listRes => listRes.getItems()[0]);

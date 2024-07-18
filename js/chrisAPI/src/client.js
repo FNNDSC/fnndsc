@@ -852,12 +852,12 @@ export default class Client {
   /**
    * Get a file browser folder resource object given its path.
    *
-   * @param {string} path - file browser folder path
+   * @param {string} [path=''] - file browser folder path
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
    */
-   getFileBrowserFolderByPath(path, timeout = 30000) {
+   getFileBrowserFolderByPath(path = '', timeout = 30000) {
     return this.getFileBrowserFolders({ path: path }, timeout).then(listRes => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;

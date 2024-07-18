@@ -12,7 +12,9 @@ import {
   FolderGroupPermission,
   FolderUserPermission,
   FileGroupPermission,
-  FileUserPermission
+  FileUserPermission,
+  LinkFileGroupPermission,
+  LinkFileUserPermission
 } from './filebrowser';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
@@ -210,6 +212,24 @@ describe('File browser resources', function () {
         })
         .then(done, done);
     });
+
+    it('can become public through the REST API', done => {
+      const result = linkFile.makePublic();
+      result
+        .then(lf => {
+          expect(lf.data.public).to.be.true;
+        })
+        .then(done, done);
+    });
+
+    it('can become unpublic through the REST API', done => {
+      const result = linkFile.makeUnpublic();
+      result
+        .then(lf => {
+          expect(lf.data.public).to.be.false;
+        })
+        .then(done, done);
+    });   
     
   });
 
