@@ -186,6 +186,14 @@ export class FileBrowserFolderList extends ListResource {
  * folders directly under a folder.
  */
 export class FileBrowserFolderChildList extends ListResource {
+    /**
+     * Fetch the parent folder associated to the list of child folders from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getFolder(timeout?: number): Promise<FileBrowserFolder>;
 }
 /**
  * File browser folder file item resource object representing a generic browser file.
@@ -326,6 +334,14 @@ export class FileBrowserFolderFile extends ItemResource {
  * files directly under a folder.
  */
 export class FileBrowserFolderFileList extends ListResource {
+    /**
+     * Fetch the parent folder associated to the list of files from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getFolder(timeout?: number): Promise<FileBrowserFolder>;
 }
 /**
  * File browser folder link file item resource object representing a link file.
@@ -356,12 +372,133 @@ export class FileBrowserFolderLinkFile extends ItemResource {
      * ``FileBrowserFolder`` object or a ``FileBrowserFolderFileobject`` or ``null`` if the link is broken.
      */
     getLinkedResource(timeout?: number): Promise<FileBrowserFolder | FileBrowserFolderFile | null>;
+    /**
+     * Fetch a list of group permissions associated to this link file from the REST API.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match link file group permission id exactly with this number
+     * @param {string} [searchParams.group_name] - match group name exactly with this string
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<LinkFileGroupPermissionList>} - JS Promise, resolves to a ``LinkFileGroupPermissionList`` object
+     */
+    getGroupPermissions(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+        group_name?: string;
+    }, timeout?: number): Promise<LinkFileGroupPermissionList>;
+    /**
+     * Get a link file group permission given the name of the group.
+     *
+     * @param {string} group_name - link file group permission's group name
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<LinkFileGroupPermission|null>} - JS Promise, resolves to a ``LinkFileGroupPermission`` object or ``null``
+     */
+    getGroupPermission(group_name: string, timeout?: number): Promise<LinkFileGroupPermission | null>;
+    /**
+     * Fetch a list of user permissions associated to this link file from the REST API.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match link file user permission id exactly with this number
+     * @param {string} [searchParams.username] - match username exactly with this string
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<LinkFileUserPermissionList>} - JS Promise, resolves to a ``LinkFileUserPermissionList`` object
+     */
+    getUserPermissions(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+        username?: string;
+    }, timeout?: number): Promise<LinkFileUserPermissionList>;
+    /**
+     * Get a link file user permission given the username of the user.
+     *
+     * @param {string} username - link file user permission's username
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<LinkFileUserPermission|null>} - JS Promise, resolves to a ``LinkFileUserPermission`` object or ``null``
+     */
+    getUserPermission(username: string, timeout?: number): Promise<LinkFileUserPermission | null>;
+    /**
+    * Make the link file public.
+    *
+    * @param {number} [timeout=30000] - request timeout
+    *
+    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+    */
+    makePublic(timeout?: number): Promise<FileBrowserFolderLinkFile>;
+    /**
+     * Make the link file unpublic.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    makeUnpublic(timeout?: number): Promise<FileBrowserFolderLinkFile>;
+    /**
+     * Add a group permission to access the link file.
+     *
+     * @param {string} group_name - group's name
+     * @param {string} permission - permission, can be 'r' or 'w'
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<LinkFileGroupPermission>} - JS Promise, resolves to a ``LinkFileGroupPermission`` object
+     */
+    addGroupPermission(group_name: string, permission: string, timeout?: number): Promise<LinkFileGroupPermission>;
+    /**
+     * Add a user permission to access the link file.
+     *
+     * @param {string} username - user's username
+     * @param {string} permission - permission, can be 'r' or 'w'
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<LinkFileUserPermission>} - JS Promise, resolves to a ``LinkFileUserPermission`` object
+     */
+    addUserPermission(username: string, permission: string, timeout?: number): Promise<LinkFileUserPermission>;
+    /**
+     * Make a PUT request to modify this link file item resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {boolean} [data.public] - public status of the link file
+     * @param {string} [data.new_link_file_path] - absolute path including file name where the link file
+     * will be uploaded on the storage service
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    put(data: {
+        public?: boolean;
+        new_link_file_path?: string;
+    }, timeout?: number): Promise<FileBrowserFolderLinkFile>;
+    /**
+     * Make a DELETE request to delete this link file item resource through the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise} - JS Promise
+     */
+    delete(timeout?: number): Promise<any>;
 }
 /**
  * File browser folder link file list resource object representing a list of all
  * link files directly under a folder.
  */
 export class FileBrowserFolderLinkFileList extends ListResource {
+    /**
+     * Fetch the parent folder associated to the list of link files from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
+     */
+    getFolder(timeout?: number): Promise<FileBrowserFolder>;
 }
 /**
  * Folder group permission item resource object representing a folder group permission.
@@ -718,6 +855,184 @@ export class FileUserPermissionList extends ListResource {
         username: string;
         permission: string;
     }, timeout?: number): Promise<FileUserPermissionList>;
+}
+/**
+ * Link file group permission item resource object representing a link file group permission.
+ */
+export class LinkFileGroupPermission extends ItemResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
+     * Fetch the link file associated to the group permission item from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderLinkFile>} - JS Promise, resolves to a ``FileBrowserFolderLinkFile`` object
+     */
+    getLinkFile(timeout?: number): Promise<FileBrowserFolderLinkFile>;
+    /**
+     * Fetch the group associated to the group permission item from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
+     */
+    getGroup(timeout?: number): Promise<Group>;
+    /**
+     * Make a PUT request to modify this link file group permission item resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {boolean} data.permission - permission, can be 'r' or 'w'
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    put(data: {
+        permission: boolean;
+    }, timeout?: number): Promise<LinkFileGroupPermission>;
+    /**
+     * Make a DELETE request to delete this link file group permission item resource through the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise} - JS Promise
+     */
+    delete(timeout?: number): Promise<any>;
+}
+/**
+ * Link file group permission list resource object representing a list of link file group permissions.
+ */
+export class LinkFileGroupPermissionList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
+     * Fetch the link file associated to the group permission list from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderLinkFile>} - JS Promise, resolves to a ``FileBrowserFolderLinkFile`` object
+     */
+    getLinkFile(timeout?: number): Promise<FileBrowserFolderLinkFile>;
+    /**
+     * Make a POST request to this link file group permission list resource to create a new
+     * link file group permission item resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {string} data.grp_name - group name
+     * @param {string} data.permission - permission, can be 'r' or 'w'
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    post(data: {
+        grp_name: string;
+        permission: string;
+    }, timeout?: number): Promise<LinkFileGroupPermissionList>;
+}
+/**
+ * Link file user permission item resource object representing a link file user permission.
+ */
+export class LinkFileUserPermission extends ItemResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
+     * Fetch the link file associated to the user permission item from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderLinkFile>} - JS Promise, resolves to a ``FileBrowserFolderLinkFile`` object
+     */
+    getLinkFile(timeout?: number): Promise<FileBrowserFolderLinkFile>;
+    /**
+     * Fetch the user associated to the user permission item from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
+     */
+    getUser(timeout?: number): Promise<User>;
+    /**
+     * Make a PUT request to modify this link file user permission item resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {boolean} data.permission - permission, can be 'r' or 'w'
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    put(data: {
+        permission: boolean;
+    }, timeout?: number): Promise<LinkFileUserPermission>;
+    /**
+     * Make a DELETE request to delete this link file user permission item resource through the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise} - JS Promise
+     */
+    delete(timeout?: number): Promise<any>;
+}
+/**
+ * Link file user permission list resource object representing a list of link file user permissions.
+ */
+export class LinkFileUserPermissionList extends ListResource {
+    /**
+     * Constructor
+     *
+     * @param {string} url - url of the resource
+     * @param {Object} auth - authentication object
+     * @param {string} auth.token - authentication token
+     */
+    constructor(url: string, auth: {
+        token: string;
+    });
+    /**
+     * Fetch the link file associated to the user permission list from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<FileBrowserFolderLinkFile>} - JS Promise, resolves to a ``FileBrowserFolderLinkFile`` object
+     */
+    getLinkFile(timeout?: number): Promise<FileBrowserFolderLinkFile>;
+    /**
+     * Make a POST request to this link file user permission list resource to create a new
+     * link file user permission item resource through the REST API.
+     *
+     * @param {Object} data - request JSON data object
+     * @param {string} data.username - user's username
+     * @param {string} data.permission - permission, can be 'r' or 'w'
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+     */
+    post(data: {
+        username: string;
+        permission: string;
+    }, timeout?: number): Promise<LinkFileUserPermissionList>;
 }
 import { ItemResource } from "./resource";
 import { ListResource } from "./resource";

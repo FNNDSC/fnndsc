@@ -140,14 +140,14 @@ export class Feed extends ItemResource {
         offset?: number;
     }, timeout?: number): Promise<FeedPluginInstanceList>;
     /**
-     * Add a tag to the feed given the id of the tag.
+     * Add a new tagging to the feed (tag the feed) given the id of the tag.
      *
      * @param {number} tag_id - tag id
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<Tagging>} - JS Promise, resolves to a ``Tagging`` object
      */
-    addTag(tag_id: number, timeout?: number): Promise<Tagging>;
+    addTagging(tag_id: number, timeout?: number): Promise<Tagging>;
     /**
      * Add a new comment to the feed.
      *

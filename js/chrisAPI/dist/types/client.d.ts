@@ -820,12 +820,12 @@ export default class Client {
     /**
      * Get a file browser folder resource object given its path.
      *
-     * @param {string} path - file browser folder path
+     * @param {string} [path=''] - file browser folder path
      * @param {number} [timeout=30000] - request timeout
      *
      * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
      */
-    getFileBrowserFolderByPath(path: string, timeout?: number): Promise<FileBrowserFolder | null>;
+    getFileBrowserFolderByPath(path?: string, timeout?: number): Promise<FileBrowserFolder | null>;
     /**
      * Create a new file browser folder resource through the REST API.
      *
