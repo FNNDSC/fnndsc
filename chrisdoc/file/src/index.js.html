@@ -66,6 +66,10 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FolderGroupPermissionList.html">FolderGroupPermissionList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FolderUserPermission.html">FolderUserPermission</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~FolderUserPermissionList.html">FolderUserPermissionList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileGroupPermission.html">LinkFileGroupPermission</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileGroupPermissionList.html">LinkFileGroupPermissionList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileUserPermission.html">LinkFileUserPermission</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileUserPermissionList.html">LinkFileUserPermissionList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/group.js~Group.html">Group</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/group.js~GroupList.html">GroupList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/group.js~GroupUser.html">GroupUser</a></span></span></li>
@@ -184,7 +188,14 @@ import {
   FileGroupPermission, 
   FileUserPermission 
 } from &apos;./filebrowser&apos;;
-import { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile } from &apos;./filebrowser&apos;;
+import { 
+  FileBrowserFolderLinkFileList, 
+  FileBrowserFolderLinkFile,
+  LinkFileGroupPermissionList, 
+  LinkFileUserPermissionList, 
+  LinkFileGroupPermission, 
+  LinkFileUserPermission 
+} from &apos;./filebrowser&apos;;
 import { DownloadTokenList, DownloadToken } from &apos;./downloadtoken&apos;;
 import { GroupList, Group, GroupUserList, GroupUser, UserGroupList } from &apos;./group&apos;;
 
@@ -232,7 +243,14 @@ export {
   FileGroupPermission, 
   FileUserPermission 
 };
-export { FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile };
+export { 
+  FileBrowserFolderLinkFileList, 
+  FileBrowserFolderLinkFile,
+  LinkFileGroupPermissionList, 
+  LinkFileUserPermissionList, 
+  LinkFileGroupPermission, 
+  LinkFileUserPermission 
+};
 export { DownloadTokenList, DownloadToken };
 export { GroupList, Group, GroupUserList, GroupUser, UserGroupList };
 </code></pre>

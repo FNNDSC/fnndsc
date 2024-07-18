@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">FeedUserPermissionList | @fnndsc/chrisapi</title>
+  <title data-ice="title">LinkFileGroupPermissionList | @fnndsc/chrisapi</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -128,23 +128,23 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {FeedUserPermissionList} from &apos;<span><a href="file/src/feed.js.html#lineNumber795">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {LinkFileGroupPermissionList} from &apos;<span><a href="file/src/filebrowser.js.html#lineNumber1291">@fnndsc/chrisapi</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/feed.js.html#lineNumber795">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/filebrowser.js.html#lineNumber1291">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
-  <h1 data-ice="name">FeedUserPermissionList</h1>
+  <h1 data-ice="name">LinkFileGroupPermissionList</h1>
 
   
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/resource.js~Resource.html">Resource</a></span> &#x2192; <span><a href="class/src/resource.js~ListResource.html">ListResource</a></span> &#x2192; FeedUserPermissionList</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="class/src/resource.js~Resource.html">Resource</a></span> &#x2192; <span><a href="class/src/resource.js~ListResource.html">ListResource</a></span> &#x2192; LinkFileGroupPermissionList</div></div>
   
   
   
@@ -154,7 +154,7 @@
 
   
   
-  <div class="description" data-ice="description"><p>Feed user permission list resource object representing a list of feed user permissions.</p>
+  <div class="description" data-ice="description"><p>Link file group permission list resource object representing a list of link file group permissions.</p>
 </div>
   
 
@@ -187,7 +187,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/feed.js~FeedUserPermissionList.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(url: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, auth: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
         </p>
       </div>
       <div>
@@ -223,7 +223,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/feed.js~FeedUserPermissionList.html#instance-member-itemClass">itemClass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-member-itemClass">itemClass</a></span></span><span class="code" data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
         </p>
       </div>
       <div>
@@ -258,13 +258,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/feed.js~FeedUserPermissionList.html#instance-method-getFeed">getFeed</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~Feed.html">Feed</a></span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-method-getLinkFile">getLinkFile</a></span></span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserFolderLinkFile.html">FileBrowserFolderLinkFile</a></span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Fetch the feed associated to the user permission list from the REST API.</p>
+        <div data-ice="description"><p>Fetch the link file associated to the group permission list from the REST API.</p>
 </div>
       </div>
     </td>
@@ -287,14 +287,14 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/feed.js~FeedUserPermissionList.html#instance-method-post">post</a></span></span><span class="code" data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-method-post">post</a></span></span><span class="code" data-ice="signature">(data: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span>this</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Make a POST request to this feed user permission list resource to create a new 
-feed user permission item resource through the REST API.</p>
+        <div data-ice="description"><p>Make a POST request to this link file group permission list resource to create a new 
+link file group permission item resource through the REST API.</p>
 </div>
       </div>
     </td>
@@ -977,7 +977,7 @@ the REST API.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/feed.js.html#lineNumber803">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/filebrowser.js.html#lineNumber1299">source</a></span></span>
     </span>
   </h3>
 
@@ -1055,7 +1055,7 @@ the REST API.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/feed.js.html#lineNumber807">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/filebrowser.js.html#lineNumber1303">source</a></span></span>
     </span>
   </h3>
 
@@ -1090,25 +1090,25 @@ the REST API.</p>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-getFeed">
+  <h3 data-ice="anchor" id="instance-method-getLinkFile">
     <span class="access" data-ice="access">public</span>
     
     
     
     
     
-    <span class="code" data-ice="name">getFeed</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~Feed.html">Feed</a></span>&gt;</span>
+    <span class="code" data-ice="name">getLinkFile</span><span class="code" data-ice="signature">(timeout: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserFolderLinkFile.html">FileBrowserFolderLinkFile</a></span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/feed.js.html#lineNumber817">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/filebrowser.js.html#lineNumber1313">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Fetch the feed associated to the user permission list from the REST API.</p>
+  <div data-ice="description"><p>Fetch the link file associated to the group permission list from the REST API.</p>
 </div>
 
   
@@ -1139,8 +1139,8 @@ the REST API.</p>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/feed.js~Feed.html">Feed</a></span>&gt;</td>
-          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>Feed</code> object</p>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="class/src/filebrowser.js~FileBrowserFolderLinkFile.html">FileBrowserFolderLinkFile</a></span>&gt;</td>
+          <td class="return-desc" data-ice="returnDescription"><p>JS Promise, resolves to a <code>FileBrowserFolderLinkFile</code> object</p>
 </td>
         </tr>
       </tbody>
@@ -1176,15 +1176,15 @@ the REST API.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/feed.js.html#lineNumber834">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/filebrowser.js.html#lineNumber1331">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Make a POST request to this feed user permission list resource to create a new 
-feed user permission item resource through the REST API.</p>
+  <div data-ice="description"><p>Make a POST request to this link file group permission list resource to create a new 
+link file group permission item resource through the REST API.</p>
 </div>
 
   
@@ -1205,10 +1205,17 @@ feed user permission item resource through the REST API.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="1">
-      <td data-ice="name" class="code" data-depth="1">data.username</td>
+      <td data-ice="name" class="code" data-depth="1">data.grp_name</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>user&apos;s  username</p>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>group name</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="1">
+      <td data-ice="name" class="code" data-depth="1">data.permission</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>permission, can be &apos;r&apos; or &apos;w&apos;</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">

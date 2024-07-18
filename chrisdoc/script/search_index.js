@@ -252,6 +252,30 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~linkfilegrouppermission",
+    "class/src/filebrowser.js~LinkFileGroupPermission.html",
+    "<span>LinkFileGroupPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~linkfilegrouppermissionlist",
+    "class/src/filebrowser.js~LinkFileGroupPermissionList.html",
+    "<span>LinkFileGroupPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~linkfileuserpermission",
+    "class/src/filebrowser.js~LinkFileUserPermission.html",
+    "<span>LinkFileUserPermission</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~linkfileuserpermissionlist",
+    "class/src/filebrowser.js~LinkFileUserPermissionList.html",
+    "<span>LinkFileUserPermissionList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~listresource",
     "class/src/resource.js~ListResource.html",
     "<span>ListResource</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -1590,9 +1614,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/feed.js~feed#addtag",
-    "class/src/feed.js~Feed.html#instance-method-addTag",
-    "src/feed.js~Feed#addTag",
+    "src/feed.js~feed#addtagging",
+    "class/src/feed.js~Feed.html#instance-method-addTagging",
+    "src/feed.js~Feed#addTagging",
     "method"
   ],
   [
@@ -2004,6 +2028,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/filebrowser.js~filebrowserfolderchildlist#getfolder",
+    "class/src/filebrowser.js~FileBrowserFolderChildList.html#instance-method-getFolder",
+    "src/filebrowser.js~FileBrowserFolderChildList#getFolder",
+    "method"
+  ],
+  [
     "src/filebrowser.js~filebrowserfolderchildlist#itemclass",
     "class/src/filebrowser.js~FileBrowserFolderChildList.html#instance-member-itemClass",
     "src/filebrowser.js~FileBrowserFolderChildList#itemClass",
@@ -2088,15 +2118,51 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/filebrowser.js~filebrowserfolderfilelist#getfolder",
+    "class/src/filebrowser.js~FileBrowserFolderFileList.html#instance-method-getFolder",
+    "src/filebrowser.js~FileBrowserFolderFileList#getFolder",
+    "method"
+  ],
+  [
     "src/filebrowser.js~filebrowserfolderfilelist#itemclass",
     "class/src/filebrowser.js~FileBrowserFolderFileList.html#instance-member-itemClass",
     "src/filebrowser.js~FileBrowserFolderFileList#itemClass",
     "member"
   ],
   [
+    "src/filebrowser.js~filebrowserfolderlinkfile#addgrouppermission",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-addGroupPermission",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#addGroupPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#adduserpermission",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-addUserPermission",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#addUserPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#delete",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-delete",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#delete",
+    "method"
+  ],
+  [
     "src/filebrowser.js~filebrowserfolderlinkfile#getfileblob",
     "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getFileBlob",
     "src/filebrowser.js~FileBrowserFolderLinkFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#getgrouppermission",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getGroupPermission",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#getGroupPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#getgrouppermissions",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getGroupPermissions",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#getGroupPermissions",
     "method"
   ],
   [
@@ -2112,9 +2178,45 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/filebrowser.js~filebrowserfolderlinkfile#getuserpermission",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getUserPermission",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#getUserPermission",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#getuserpermissions",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-getUserPermissions",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#getUserPermissions",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#makepublic",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-makePublic",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#makePublic",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#makeunpublic",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-makeUnpublic",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#makeUnpublic",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfile#put",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFile.html#instance-method-put",
+    "src/filebrowser.js~FileBrowserFolderLinkFile#put",
+    "method"
+  ],
+  [
     "src/filebrowser.js~filebrowserfolderlinkfilelist#constructor",
     "class/src/filebrowser.js~FileBrowserFolderLinkFileList.html#instance-constructor-constructor",
     "src/filebrowser.js~FileBrowserFolderLinkFileList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~filebrowserfolderlinkfilelist#getfolder",
+    "class/src/filebrowser.js~FileBrowserFolderLinkFileList.html#instance-method-getFolder",
+    "src/filebrowser.js~FileBrowserFolderLinkFileList#getFolder",
     "method"
   ],
   [
@@ -2355,6 +2457,114 @@ window.esdocSearchIndex = [
     "src/filebrowser.js~folderuserpermissionlist#post",
     "class/src/filebrowser.js~FolderUserPermissionList.html#instance-method-post",
     "src/filebrowser.js~FolderUserPermissionList#post",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermission#constructor",
+    "class/src/filebrowser.js~LinkFileGroupPermission.html#instance-constructor-constructor",
+    "src/filebrowser.js~LinkFileGroupPermission#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermission#delete",
+    "class/src/filebrowser.js~LinkFileGroupPermission.html#instance-method-delete",
+    "src/filebrowser.js~LinkFileGroupPermission#delete",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermission#getgroup",
+    "class/src/filebrowser.js~LinkFileGroupPermission.html#instance-method-getGroup",
+    "src/filebrowser.js~LinkFileGroupPermission#getGroup",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermission#getlinkfile",
+    "class/src/filebrowser.js~LinkFileGroupPermission.html#instance-method-getLinkFile",
+    "src/filebrowser.js~LinkFileGroupPermission#getLinkFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermission#put",
+    "class/src/filebrowser.js~LinkFileGroupPermission.html#instance-method-put",
+    "src/filebrowser.js~LinkFileGroupPermission#put",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermissionlist#constructor",
+    "class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-constructor-constructor",
+    "src/filebrowser.js~LinkFileGroupPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermissionlist#getlinkfile",
+    "class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-method-getLinkFile",
+    "src/filebrowser.js~LinkFileGroupPermissionList#getLinkFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermissionlist#itemclass",
+    "class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-member-itemClass",
+    "src/filebrowser.js~LinkFileGroupPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~linkfilegrouppermissionlist#post",
+    "class/src/filebrowser.js~LinkFileGroupPermissionList.html#instance-method-post",
+    "src/filebrowser.js~LinkFileGroupPermissionList#post",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermission#constructor",
+    "class/src/filebrowser.js~LinkFileUserPermission.html#instance-constructor-constructor",
+    "src/filebrowser.js~LinkFileUserPermission#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermission#delete",
+    "class/src/filebrowser.js~LinkFileUserPermission.html#instance-method-delete",
+    "src/filebrowser.js~LinkFileUserPermission#delete",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermission#getlinkfile",
+    "class/src/filebrowser.js~LinkFileUserPermission.html#instance-method-getLinkFile",
+    "src/filebrowser.js~LinkFileUserPermission#getLinkFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermission#getuser",
+    "class/src/filebrowser.js~LinkFileUserPermission.html#instance-method-getUser",
+    "src/filebrowser.js~LinkFileUserPermission#getUser",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermission#put",
+    "class/src/filebrowser.js~LinkFileUserPermission.html#instance-method-put",
+    "src/filebrowser.js~LinkFileUserPermission#put",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermissionlist#constructor",
+    "class/src/filebrowser.js~LinkFileUserPermissionList.html#instance-constructor-constructor",
+    "src/filebrowser.js~LinkFileUserPermissionList#constructor",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermissionlist#getlinkfile",
+    "class/src/filebrowser.js~LinkFileUserPermissionList.html#instance-method-getLinkFile",
+    "src/filebrowser.js~LinkFileUserPermissionList#getLinkFile",
+    "method"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermissionlist#itemclass",
+    "class/src/filebrowser.js~LinkFileUserPermissionList.html#instance-member-itemClass",
+    "src/filebrowser.js~LinkFileUserPermissionList#itemClass",
+    "member"
+  ],
+  [
+    "src/filebrowser.js~linkfileuserpermissionlist#post",
+    "class/src/filebrowser.js~LinkFileUserPermissionList.html#instance-method-post",
+    "src/filebrowser.js~LinkFileUserPermissionList#post",
     "method"
   ],
   [
