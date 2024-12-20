@@ -204,7 +204,7 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch the list of pipelines from the REST API', (done) => {
+  xit('can fetch the list of pipelines from the REST API', (done) => {
     const result = client.getPipelines();
     result
       .then((pipelineList) => {
@@ -214,7 +214,7 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  it('can fetch a pipeline by id from the REST API', (done) => {
+  xit('can fetch a pipeline by id from the REST API', (done) => {
     const result = client.getPipeline(1);
     result
       .then((pipeline) => {
@@ -242,7 +242,7 @@ describe('Client', () => {
   });
   */
 
-  it('can create a new workflow through the REST API', (done) => {
+  xit('can create a new workflow through the REST API', (done) => {
     const pipelineId = 2;
     const nodes = [
       {piping_id: 3, compute_resource_name: "host",

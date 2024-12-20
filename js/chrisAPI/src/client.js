@@ -18,7 +18,18 @@ import { AllWorkflowList, WorkflowList, Workflow } from './workflow';
 import { PipelineList, Pipeline, PipelineSourceFileList, PipelineSourceFile } from './pipeline';
 import { TagList, Tag, Tagging } from './tag';
 import { UserFileList, UserFile } from './userfile';
-import { PACSFileList, PACSSeriesList, PACSFile , PACSSeries } from './pacsfile';
+import { 
+  PACSFileList, 
+  PACSList, 
+  PACSQueryList,
+  AllPACSQueryList, 
+  PACSRetrieveList, 
+  PACSSeriesList, 
+  PACSFile, 
+  PACS, 
+  PACSQuery, 
+  PACSRetrieve, 
+  PACSSeries } from './pacsfile';
 import { FileBrowserFolderList, FileBrowserFolder } from './filebrowser';
 import { DownloadTokenList, DownloadToken } from './downloadtoken';
 import { GroupList, Group } from './group';
@@ -56,6 +67,8 @@ export default class Client {
     this.pipelineSourceFilesUrl = '';
     this.userFilesUrl = '';
     this.pacsFilesUrl = '';
+    this.pacsUrl = '';
+    this.pacsQueriesUrl = '';
     this.pacsSeriesUrl = '';
     this.fileBrowserUrl = '';
     this.downloadTokensUrl = '';
@@ -126,6 +139,8 @@ export default class Client {
       this.pipelineSourceFilesUrl = this.pipelineSourceFilesUrl || getUrl(coll, 'pipelinesourcefiles')[0];
       this.userFilesUrl = this.userFilesUrl || getUrl(coll, 'userfiles')[0];
       this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];
+      this.pacsUrl = this.pacsUrl || getUrl(coll, 'pacs')[0];
+      this.pacsQueriesUrl = this.pacsQueriesUrl || getUrl(coll, 'pacsqueries')[0];
       this.pacsSeriesUrl = this.pacsSeriesUrl || getUrl(coll, 'pacsseries')[0];
       this.fileBrowserUrl = this.fileBrowserUrl || getUrl(coll, 'filebrowser')[0];
 
@@ -638,6 +653,8 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's path containing this string
+   * @param {number} [searchParams.pipeline_id] - match file's pipeline id exactly with this number
+   * @param {string} [searchParams.pipeline_name] - match file's pipeline name exactly with this string
    * @param {string} [searchParams.uploader_username] - match file's uploader username exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
@@ -774,6 +791,113 @@ export default class Client {
     return this.getPACSFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
   }
 
+  /**
+   * Get a paginated PACS list from the REST API given query search parameters.
+   * If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match PACS id exactly with this number
+   * @param {string} [searchParams.identifier] - match PACS identifier exactly with this string
+   * @param {boolean} [searchParams.active] - match PACS active status with this boolean
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PACSList>} - JS Promise, resolves to a ``PACSList`` object
+   */
+  getPACSList(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pacsUrl', PACSList, searchParams, timeout);
+  }
+
+  /**
+   * Get a PACS resource object given its id.
+   *
+   * @param {number} id - PACS id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PACS|null>} - JS Promise, resolves to a ``PACS`` object or ``null``
+   */
+  getPACS(id, timeout = 30000) {
+    return this.getPACSList({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Get a paginated list of PACS queries from the REST API given query search
+   * parameters. If no search parameters then get the default first page.
+   *
+   * @param {Object} [searchParams=null] - search parameters object
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [searchParams.id] - match PACS query id exactly with this number
+   * @param {string} [searchParams.min_creation_date] - match PACS query's creation date gte this date
+   * @param {string} [searchParams.max_creation_date] - match PACS query's creation date lte this date
+   * @param {string} [searchParams.title] - match PACS query title containing this string
+   * @param {string} [searchParams.title_exact] - match PACS query title exactly this string
+   * @param {string} [searchParams.status] - match PACS query execution status exactly with this string
+   * @param {string} [searchParams.description] - match PACS query description containing this string
+   * @param {number} [searchParams.pacs_id] - match related PACS's id exactly with this number
+   * @param {string} [searchParams.pacs_identifier] - match related PACS's identifier exactly with this string
+   * @param {string} [searchParams.owner_username] - match PACS query's owner username exactly with this string
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<AllPACSQueryList>} - JS Promise, resolves to ``AllPACSQueryList`` object
+   */
+  getPACSQueries(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pacsQueriesUrl', AllPACSQueryList, searchParams, timeout);
+  }
+
+  /**
+   * Get a PACS query resource object given its id.
+   *
+   * @param {number} id - PACS query id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PACSQuery|null>} - JS Promise, resolves to a ``PACSQuery`` object or ``null``
+   */
+  getPACSQuery(id, timeout = 30000) {
+    return this.getPACSQueries({ id: id }, timeout).then(listRes => listRes.getItem(id));
+  }
+
+  /**
+   * Create a new PACS query resource through the REST API.
+   *
+   * @param {number} pacsId - PACS id
+   * @param {Object} data - request data object
+   * @param {string} data.title - PACS query title
+   * @param {string} data.query - PACS query JSON string representing a query
+   * @param {string} [data.description] - PACS query description
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PACSQuery>} - JS Promise, resolves to a ``PACSQuery`` object
+   */
+  createPACSQuery(pacsId, data, timeout = 30000) {
+    return this.getPACS(pacsId, timeout)
+      .then(pacs => {
+        const queriesUrl = Collection.getLinkRelationUrls(pacs.collection.items[0], 'query_list');
+        const queryList = new PACSQueryList(queriesUrl[0], this.auth);
+        return queryList.post(data, timeout);
+      })
+      .then(queryList => queryList.getItems()[0]);
+  } 
+
+  /**
+   * Create a new PACS retrieve resource through the REST API.
+   *
+   * @param {number} pacsQueryId - PACS query id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PACSRetrieve>} - JS Promise, resolves to a ``PACSRetrieve`` object
+   */
+  createPACSretrieve(pacsQueryId, timeout = 30000) {
+    return this.getPACSQuery(pacsQueryId, timeout)
+      .then(pacsQuery => {
+        const retrievesUrl = Collection.getLinkRelationUrls(pacsQuery.collection.items[0], 'retrieve_list');
+        const retrieveList = new PACSRetrieveList(retrievesUrl[0], this.auth);
+        return retrieveList.post(timeout);
+      })
+      .then(retrieveList => retrieveList.getItems()[0]);
+  } 
+  
   /**
    * Get a paginated list of PACS series from the REST API given query search
    * parameters. If no search parameters then get the default first page.

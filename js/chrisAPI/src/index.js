@@ -40,7 +40,18 @@ import Note from './note';
 import User from './user';
 import { CommentList, Comment } from './comment';
 import { UserFileList, UserFile } from './userfile';
-import { PACSFileList, PACSSeriesList, PACSFile , PACSSeries } from './pacsfile';
+import {   
+  PACSFileList, 
+  PACSList, 
+  PACSQueryList,
+  AllPACSQueryList, 
+  PACSRetrieveList, 
+  PACSSeriesList, 
+  PACSFile, 
+  PACS, 
+  PACSQuery, 
+  PACSRetrieve, 
+  PACSSeries } from './pacsfile';
 import {
   FileBrowserFolderList, 
   FileBrowserFolderChildList, 
@@ -95,7 +106,18 @@ export { Note };
 export { User };
 export { CommentList, Comment };
 export { UserFileList, UserFile };
-export { PACSFileList, PACSSeriesList, PACSFile , PACSSeries };
+export {   
+  PACSFileList, 
+  PACSList, 
+  PACSQueryList,
+  AllPACSQueryList, 
+  PACSRetrieveList, 
+  PACSSeriesList, 
+  PACSFile, 
+  PACS, 
+  PACSQuery, 
+  PACSRetrieve, 
+  PACSSeries };
 export { 
   FileBrowserFolderList, 
   FileBrowserFolderChildList, 

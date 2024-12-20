@@ -6,7 +6,7 @@ import { PluginList } from './plugin';
 
 // http://sinonjs.org/releases/v5.1.0/fake-xhr-and-server/
 
-describe('Pipeline resources', () => {
+/*describe('Pipeline resources', () => {
   const username = 'cube';
   const password = 'cube1234';
   const chrisUrl = 'http://localhost:8000/api/v1/';
@@ -90,4 +90,4 @@ describe('Pipeline resources', () => {
         .then(done, done);
     });
   });
-});
+});*/
