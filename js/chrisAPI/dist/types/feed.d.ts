@@ -418,6 +418,38 @@ export class FeedList extends ListResource {
         offset?: number;
     }, timeout?: number): Promise<PACSSeriesList>;
     /**
+     * Fetch a list of PACS from the REST API.
+     *
+     * @param {Object} [searchParams=null] - search parameters object which is
+     * resource-specific, the ``PACSList.getSearchParameters`` method can
+     * be used to get a list of possible search parameters
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSList>} - JS Promise, resolves to a ``PACSList`` object
+     */
+    getPACSList(searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PACSList>;
+    /**
+     * Fetch a list of PACS queries from the REST API.
+     *
+     * @param {Object} [searchParams=null] - search parameters object which is
+     * resource-specific, the ``PACSQueryList.getSearchParameters`` method can
+     * be used to get a list of possible search parameters
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSQueryList>} - JS Promise, resolves to a ``PACSQueryList`` object
+     */
+    getPACSQueryList(searchParams?: {
+        limit?: number;
+        offset?: number;
+    }, timeout?: number): Promise<PACSQueryList>;
+    /**
      * Fetch a list of file browser folders (the returned list only has at most one element) from the REST API.
      *
      * @param {Object} [searchParams=null] - search parameters object which is
@@ -634,6 +666,8 @@ import { PipelineSourceFileList } from "./pipeline";
 import { UserFileList } from "./userfile";
 import { PACSFileList } from "./pacsfile";
 import { PACSSeriesList } from "./pacsfile";
+import { PACSList } from "./pacsfile";
+import { PACSQueryList } from "./pacsfile";
 import { FileBrowserFolderList } from "./filebrowser";
 import { GroupList } from "./group";
 import { Group } from "./group";

@@ -57,6 +57,8 @@ export default class Client {
     pipelineSourceFilesUrl: string;
     userFilesUrl: string;
     pacsFilesUrl: string;
+    pacsUrl: string;
+    pacsQueriesUrl: string;
     pacsSeriesUrl: string;
     fileBrowserUrl: string;
     downloadTokensUrl: string;
@@ -585,6 +587,8 @@ export default class Client {
    * @param {string} [searchParams.fname] - match file's path starting with this string
    * @param {string} [searchParams.fname_exact] - match file's path exactly with this string
    * @param {string} [searchParams.fname_icontains] - match file's path containing this string
+   * @param {number} [searchParams.pipeline_id] - match file's pipeline id exactly with this number
+   * @param {string} [searchParams.pipeline_name] - match file's pipeline name exactly with this string
    * @param {string} [searchParams.uploader_username] - match file's uploader username exactly with this string
    * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
    * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
@@ -599,6 +603,8 @@ export default class Client {
         fname?: string;
         fname_exact?: string;
         fname_icontains?: string;
+        pipeline_id?: number;
+        pipeline_name?: string;
         uploader_username?: string;
         min_creation_date?: string;
         max_creation_date?: string;
@@ -728,6 +734,106 @@ export default class Client {
      * @return {Promise<PACSFile|null>} - JS Promise, resolves to a ``PACSFile`` object or ``null`
      */
     getPACSFile(id: number, timeout?: number): Promise<PACSFile | null>;
+    /**
+     * Get a paginated PACS list from the REST API given query search parameters.
+     * If no search parameters then get the default first page.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match PACS id exactly with this number
+     * @param {string} [searchParams.identifier] - match PACS identifier exactly with this string
+     * @param {boolean} [searchParams.active] - match PACS active status with this boolean
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSList>} - JS Promise, resolves to a ``PACSList`` object
+     */
+    getPACSList(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+        identifier?: string;
+        active?: boolean;
+    }, timeout?: number): Promise<PACSList>;
+    /**
+     * Get a PACS resource object given its id.
+     *
+     * @param {number} id - PACS id
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACS|null>} - JS Promise, resolves to a ``PACS`` object or ``null``
+     */
+    getPACS(id: number, timeout?: number): Promise<PACS | null>;
+    /**
+     * Get a paginated list of PACS queries from the REST API given query search
+     * parameters. If no search parameters then get the default first page.
+     *
+     * @param {Object} [searchParams=null] - search parameters object
+     * @param {number} [searchParams.limit] - page limit
+     * @param {number} [searchParams.offset] - page offset
+     * @param {number} [searchParams.id] - match PACS query id exactly with this number
+     * @param {string} [searchParams.min_creation_date] - match PACS query's creation date gte this date
+     * @param {string} [searchParams.max_creation_date] - match PACS query's creation date lte this date
+     * @param {string} [searchParams.title] - match PACS query title containing this string
+     * @param {string} [searchParams.title_exact] - match PACS query title exactly this string
+     * @param {string} [searchParams.status] - match PACS query execution status exactly with this string
+     * @param {string} [searchParams.description] - match PACS query description containing this string
+     * @param {number} [searchParams.pacs_id] - match related PACS's id exactly with this number
+     * @param {string} [searchParams.pacs_identifier] - match related PACS's identifier exactly with this string
+     * @param {string} [searchParams.owner_username] - match PACS query's owner username exactly with this string
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<AllPACSQueryList>} - JS Promise, resolves to ``AllPACSQueryList`` object
+     */
+    getPACSQueries(searchParams?: {
+        limit?: number;
+        offset?: number;
+        id?: number;
+        min_creation_date?: string;
+        max_creation_date?: string;
+        title?: string;
+        title_exact?: string;
+        status?: string;
+        description?: string;
+        pacs_id?: number;
+        pacs_identifier?: string;
+        owner_username?: string;
+    }, timeout?: number): Promise<AllPACSQueryList>;
+    /**
+     * Get a PACS query resource object given its id.
+     *
+     * @param {number} id - PACS query id
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSQuery|null>} - JS Promise, resolves to a ``PACSQuery`` object or ``null``
+     */
+    getPACSQuery(id: number, timeout?: number): Promise<PACSQuery | null>;
+    /**
+     * Create a new PACS query resource through the REST API.
+     *
+     * @param {number} pacsId - PACS id
+     * @param {Object} data - request data object
+     * @param {string} data.title - PACS query title
+     * @param {string} data.query - PACS query JSON string representing a query
+     * @param {string} [data.description] - PACS query description
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSQuery>} - JS Promise, resolves to a ``PACSQuery`` object
+     */
+    createPACSQuery(pacsId: number, data: {
+        title: string;
+        query: string;
+        description?: string;
+    }, timeout?: number): Promise<PACSQuery>;
+    /**
+     * Create a new PACS retrieve resource through the REST API.
+     *
+     * @param {number} pacsQueryId - PACS query id
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<PACSRetrieve>} - JS Promise, resolves to a ``PACSRetrieve`` object
+     */
+    createPACSRetrieve(pacsQueryId: number, timeout?: number): Promise<PACSRetrieve>;
     /**
      * Get a paginated list of PACS series from the REST API given query search
      * parameters. If no search parameters then get the default first page.
@@ -959,6 +1065,11 @@ import { UserFileList } from "./userfile";
 import { UserFile } from "./userfile";
 import { PACSFileList } from "./pacsfile";
 import { PACSFile } from "./pacsfile";
+import { PACSList } from "./pacsfile";
+import { PACS } from "./pacsfile";
+import { AllPACSQueryList } from "./pacsfile";
+import { PACSQuery } from "./pacsfile";
+import { PACSRetrieve } from "./pacsfile";
 import { PACSSeriesList } from "./pacsfile";
 import { PACSSeries } from "./pacsfile";
 import { FileBrowserFolderList } from "./filebrowser";
