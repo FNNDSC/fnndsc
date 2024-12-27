@@ -32,6 +32,10 @@ Currently tested platforms:
 
 #### On a Linux machine make sure to add your computer user to the ``docker group``
 
+
+#### Install latest [`just`](https://just.systems) command runner.
+
+
 #### Fire up the full set of ChRIS services:
 
 Open a terminal and run the following commands in any working directory:
@@ -39,7 +43,7 @@ Open a terminal and run the following commands in any working directory:
 ``` bash
 $> git clone https://github.com/FNNDSC/ChRIS_ultron_backEnd.git
 $> cd ChRIS_ultron_backEnd
-$> ./make.sh -U -I -i
+$> just
 ```
 
 Check that all the services are up:
@@ -48,35 +52,14 @@ Check that all the services are up:
 $> docker ps -a
 ```
 
-#### Create a test feed by making the following POST request:
+#### Create a test feed and two pipelines:
 
-Using curl:
-
-```bash
-curl -u cube:cube1234 -XPOST -H 'Content-Type: application/vnd.collection+json' -H 'Accept: application/vnd.collection+json' -d '{"template":{"data":[{"name":"dir", "value":"home/cube/uploads"}]}}' 'http://localhost:8000/api/v1/plugins/2/instances/'
-```
-
-Using [HTTPie](https://httpie.org/) REST API client:
+Run the following shell script on the directory of this README file.
+NOTE: The script depends on the popular `curl` and `jq` command line tools.
 
 ```bash
-http -a cube:cube1234 POST http://localhost:8000/api/v1/plugins/2/instances/ template:='{"data":[{"name":"dir", "value":"home/cube/uploads"}]}' Content-Type:application/vnd.collection+json Accept:application/vnd.collection+json
+$> ./pre_test.sh
 ```
-
-#### Update the feed's files by making the following GET request:
-
-Using curl:
-
-```bash
-curl -u cube:cube1234 http://localhost:8000/api/v1/plugins/instances/1/
-```
-
-Using [HTTPie](https://httpie.org/) REST API client:
-
-```bash
-http -a cube:cube1234 http://localhost:8000/api/v1/plugins/instances/1/
-```
-
-Keep making this GET request until the ``"status"`` descriptor in the response becomes ``"finishedSuccessfully"``
 
 #### Tear down the full set of ChRIS services:
 
@@ -84,7 +67,7 @@ You can later remove all the backend containers and release storage volumes with
 
 ```bash
 $ cd ChRIS_ultron_backEnd
-$ ./unmake.sh
+$ just nuke
 ```
 
 ### JavaScript package manager prerequisite

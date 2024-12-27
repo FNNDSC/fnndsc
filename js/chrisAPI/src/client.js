@@ -888,7 +888,7 @@ export default class Client {
    *
    * @return {Promise<PACSRetrieve>} - JS Promise, resolves to a ``PACSRetrieve`` object
    */
-  createPACSretrieve(pacsQueryId, timeout = 30000) {
+  createPACSRetrieve(pacsQueryId, timeout = 30000) {
     return this.getPACSQuery(pacsQueryId, timeout)
       .then(pacsQuery => {
         const retrievesUrl = Collection.getLinkRelationUrls(pacsQuery.collection.items[0], 'retrieve_list');

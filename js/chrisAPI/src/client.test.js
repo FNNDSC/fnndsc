@@ -9,6 +9,7 @@ import { PipelineList, Pipeline } from './pipeline';
 import { Workflow } from './workflow';
 import { Tag, Tagging } from './tag';
 import { UserFile } from './userfile';
+import { PACSList, PACS, AllPACSQueryList, PACSQuery, PACSRetrieve } from './pacsfile';
 import { FileBrowserFolder } from './filebrowser';
 import { DownloadToken } from './downloadtoken';
 import { GroupList, Group } from './group';
@@ -204,7 +205,7 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  xit('can fetch the list of pipelines from the REST API', (done) => {
+  it('can fetch the list of pipelines from the REST API', (done) => {
     const result = client.getPipelines();
     result
       .then((pipelineList) => {
@@ -214,7 +215,7 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  xit('can fetch a pipeline by id from the REST API', (done) => {
+  it('can fetch a pipeline by id from the REST API', (done) => {
     const result = client.getPipeline(1);
     result
       .then((pipeline) => {
@@ -242,7 +243,7 @@ describe('Client', () => {
   });
   */
 
-  xit('can create a new workflow through the REST API', (done) => {
+  it('can create a new workflow through the REST API', (done) => {
     const pipelineId = 2;
     const nodes = [
       {piping_id: 3, compute_resource_name: "host",
@@ -393,6 +394,74 @@ describe('Client', () => {
       .then((group) => {
         expect(group).to.be.an.instanceof(Group);
         expect(group.data.name).to.equal(data.name);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of PACS from the REST API', (done) => {
+    const result = client.getPACSList();
+    result
+      .then((pacsList) => {
+        expect(pacsList).to.be.an.instanceof(PACSList);
+        expect(pacsList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a PACS by id from the REST API', (done) => {
+    const result = client.getPACS(1);
+    result
+      .then((pacs) => {
+        expect(pacs).to.be.an.instanceof(PACS);
+        expect(pacs.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of pacs queries from the REST API', (done) => {
+    const result = client.getPACSQueries();
+    result
+      .then(pacsQueryList => {
+        expect(pacsQueryList).to.be.an.instanceof(AllPACSQueryList);
+        expect(pacsQueryList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a PACS query by id from the REST API', (done) => {
+    const result = client.getPACSQuery(1);
+    result
+      .then(pacsQuery => {
+        expect(pacsQuery).to.be.an.instanceof(PACSQuery);
+        expect(pacsQuery.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can create a new PACS query through the REST API', (done) => {
+    const pacsId = 1;
+    const data = {
+      title: 'Query' + Date.now(),
+      query: JSON.stringify({SeriesInstanceUID: "1.3.12"})
+    };
+
+    const result = client.createPACSQuery(pacsId, data);
+    result
+      .then(pacsQuery => {
+        expect(pacsQuery).to.be.an.instanceof(PACSQuery);
+        expect(pacsQuery.data.title).to.equal(data.title);
+      })
+      .then(done, done);
+  });
+
+  it('can create a new PACS retrieve through the REST API', (done) => {
+    const pacsQueryId = 1;
+
+    const result = client.createPACSRetrieve(pacsQueryId);
+    result
+      .then(pacsRetrieve => {
+        expect(pacsRetrieve).to.be.an.instanceof(PACSRetrieve);
+        expect(pacsRetrieve.data.pacs_query_id).to.equal(pacsQueryId);
       })
       .then(done, done);
   });
