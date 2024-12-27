@@ -1,7 +1,7 @@
 {
-  "coverage": "96.21%",
-  "expectCount": 581,
-  "actualCount": 559,
+  "coverage": "96.15%",
+  "expectCount": 624,
+  "actualCount": 600,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -19,20 +19,9 @@
       "undocumentLines": []
     },
     "src/client.js": {
-      "expectCount": 74,
-      "actualCount": 55,
+      "expectCount": 82,
+      "actualCount": 61,
       "undocumentLines": [
-        46,
-        47,
-        48,
-        49,
-        50,
-        51,
-        52,
-        53,
-        54,
-        55,
-        56,
         57,
         58,
         59,
@@ -40,7 +29,20 @@
         61,
         62,
         63,
-        64
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77
       ]
     },
     "src/comment.js": {
@@ -66,8 +68,8 @@
       ]
     },
     "src/feed.js": {
-      "expectCount": 62,
-      "actualCount": 62,
+      "expectCount": 64,
+      "actualCount": 64,
       "undocumentLines": []
     },
     "src/filebrowser.js": {
@@ -86,8 +88,8 @@
       "undocumentLines": []
     },
     "src/pacsfile.js": {
-      "expectCount": 13,
-      "actualCount": 13,
+      "expectCount": 46,
+      "actualCount": 46,
       "undocumentLines": []
     },
     "src/pipeline.js": {

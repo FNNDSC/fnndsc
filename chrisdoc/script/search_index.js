@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "@fnndsc/chrisapi~allpacsquerylist",
+    "class/src/pacsfile.js~AllPACSQueryList.html",
+    "<span>AllPACSQueryList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~allplugininstancelist",
     "class/src/plugininstance.js~AllPluginInstanceList.html",
     "<span>AllPluginInstanceList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -288,6 +294,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~pacs",
+    "class/src/pacsfile.js~PACS.html",
+    "<span>PACS</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~pacsfile",
     "class/src/pacsfile.js~PACSFile.html",
     "<span>PACSFile</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -300,6 +312,36 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@fnndsc/chrisapi~pacslist",
+    "class/src/pacsfile.js~PACSList.html",
+    "<span>PACSList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pacsquery",
+    "class/src/pacsfile.js~PACSQuery.html",
+    "<span>PACSQuery</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pacsquerylist",
+    "class/src/pacsfile.js~PACSQueryList.html",
+    "<span>PACSQueryList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pacsretrieve",
+    "class/src/pacsfile.js~PACSRetrieve.html",
+    "<span>PACSRetrieve</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pacsretrievelist",
+    "class/src/pacsfile.js~PACSRetrieveList.html",
+    "<span>PACSRetrieveList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
     "@fnndsc/chrisapi~pacsseries",
     "class/src/pacsfile.js~PACSSeries.html",
     "<span>PACSSeries</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
@@ -309,6 +351,12 @@ window.esdocSearchIndex = [
     "@fnndsc/chrisapi~pacsserieslist",
     "class/src/pacsfile.js~PACSSeriesList.html",
     "<span>PACSSeriesList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
+    "class"
+  ],
+  [
+    "@fnndsc/chrisapi~pacsspecificserieslist",
+    "class/src/pacsfile.js~PACSSpecificSeriesList.html",
+    "<span>PACSSpecificSeriesList</span> <span class=\"search-result-import-path\">@fnndsc/chrisapi</span>",
     "class"
   ],
   [
@@ -1062,6 +1110,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#createpacsquery",
+    "class/src/client.js~Client.html#instance-method-createPACSQuery",
+    "src/client.js~Client#createPACSQuery",
+    "method"
+  ],
+  [
+    "src/client.js~client#createpacsretrieve",
+    "class/src/client.js~Client.html#instance-method-createPACSRetrieve",
+    "src/client.js~Client#createPACSRetrieve",
+    "method"
+  ],
+  [
     "src/client.js~client#createpipeline",
     "class/src/client.js~Client.html#instance-method-createPipeline",
     "src/client.js~Client#createPipeline",
@@ -1182,6 +1242,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/client.js~client#getpacs",
+    "class/src/client.js~Client.html#instance-method-getPACS",
+    "src/client.js~Client#getPACS",
+    "method"
+  ],
+  [
     "src/client.js~client#getpacsfile",
     "class/src/client.js~Client.html#instance-method-getPACSFile",
     "src/client.js~Client#getPACSFile",
@@ -1191,6 +1257,24 @@ window.esdocSearchIndex = [
     "src/client.js~client#getpacsfiles",
     "class/src/client.js~Client.html#instance-method-getPACSFiles",
     "src/client.js~Client#getPACSFiles",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpacslist",
+    "class/src/client.js~Client.html#instance-method-getPACSList",
+    "src/client.js~Client#getPACSList",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpacsqueries",
+    "class/src/client.js~Client.html#instance-method-getPACSQueries",
+    "src/client.js~Client#getPACSQueries",
+    "method"
+  ],
+  [
+    "src/client.js~client#getpacsquery",
+    "class/src/client.js~Client.html#instance-method-getPACSQuery",
+    "src/client.js~Client#getPACSQuery",
     "method"
   ],
   [
@@ -1326,9 +1410,21 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/client.js~client#pacsqueriesurl",
+    "class/src/client.js~Client.html#instance-member-pacsQueriesUrl",
+    "src/client.js~Client#pacsQueriesUrl",
+    "member"
+  ],
+  [
     "src/client.js~client#pacsseriesurl",
     "class/src/client.js~Client.html#instance-member-pacsSeriesUrl",
     "src/client.js~Client#pacsSeriesUrl",
+    "member"
+  ],
+  [
+    "src/client.js~client#pacsurl",
+    "class/src/client.js~Client.html#instance-member-pacsUrl",
+    "src/client.js~Client#pacsUrl",
     "member"
   ],
   [
@@ -1797,6 +1893,18 @@ window.esdocSearchIndex = [
     "src/feed.js~feedlist#getpacsfiles",
     "class/src/feed.js~FeedList.html#instance-method-getPACSFiles",
     "src/feed.js~FeedList#getPACSFiles",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getpacslist",
+    "class/src/feed.js~FeedList.html#instance-method-getPACSList",
+    "src/feed.js~FeedList#getPACSList",
+    "method"
+  ],
+  [
+    "src/feed.js~feedlist#getpacsquerylist",
+    "class/src/feed.js~FeedList.html#instance-method-getPACSQueryList",
+    "src/feed.js~FeedList#getPACSQueryList",
     "method"
   ],
   [
@@ -2712,6 +2820,42 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/pacsfile.js~allpacsquerylist#constructor",
+    "class/src/pacsfile.js~AllPACSQueryList.html#instance-constructor-constructor",
+    "src/pacsfile.js~AllPACSQueryList#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~allpacsquerylist#itemclass",
+    "class/src/pacsfile.js~AllPACSQueryList.html#instance-member-itemClass",
+    "src/pacsfile.js~AllPACSQueryList#itemClass",
+    "member"
+  ],
+  [
+    "src/pacsfile.js~pacs#constructor",
+    "class/src/pacsfile.js~PACS.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACS#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacs#getfolder",
+    "class/src/pacsfile.js~PACS.html#instance-method-getFolder",
+    "src/pacsfile.js~PACS#getFolder",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacs#getqueries",
+    "class/src/pacsfile.js~PACS.html#instance-method-getQueries",
+    "src/pacsfile.js~PACS#getQueries",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacs#getserieslist",
+    "class/src/pacsfile.js~PACS.html#instance-method-getSeriesList",
+    "src/pacsfile.js~PACS#getSeriesList",
+    "method"
+  ],
+  [
     "src/pacsfile.js~pacsfile#constructor",
     "class/src/pacsfile.js~PACSFile.html#instance-constructor-constructor",
     "src/pacsfile.js~PACSFile#constructor",
@@ -2742,6 +2886,108 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/pacsfile.js~pacslist#constructor",
+    "class/src/pacsfile.js~PACSList.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSList#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacslist#itemclass",
+    "class/src/pacsfile.js~PACSList.html#instance-member-itemClass",
+    "src/pacsfile.js~PACSList#itemClass",
+    "member"
+  ],
+  [
+    "src/pacsfile.js~pacsquery#constructor",
+    "class/src/pacsfile.js~PACSQuery.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSQuery#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsquery#delete",
+    "class/src/pacsfile.js~PACSQuery.html#instance-method-delete",
+    "src/pacsfile.js~PACSQuery#delete",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsquery#getretrieves",
+    "class/src/pacsfile.js~PACSQuery.html#instance-method-getRetrieves",
+    "src/pacsfile.js~PACSQuery#getRetrieves",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsquery#put",
+    "class/src/pacsfile.js~PACSQuery.html#instance-method-put",
+    "src/pacsfile.js~PACSQuery#put",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsquerylist#constructor",
+    "class/src/pacsfile.js~PACSQueryList.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSQueryList#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsquerylist#getpacs",
+    "class/src/pacsfile.js~PACSQueryList.html#instance-method-getPACS",
+    "src/pacsfile.js~PACSQueryList#getPACS",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsquerylist#itemclass",
+    "class/src/pacsfile.js~PACSQueryList.html#instance-member-itemClass",
+    "src/pacsfile.js~PACSQueryList#itemClass",
+    "member"
+  ],
+  [
+    "src/pacsfile.js~pacsquerylist#post",
+    "class/src/pacsfile.js~PACSQueryList.html#instance-method-post",
+    "src/pacsfile.js~PACSQueryList#post",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsretrieve#constructor",
+    "class/src/pacsfile.js~PACSRetrieve.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSRetrieve#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsretrieve#delete",
+    "class/src/pacsfile.js~PACSRetrieve.html#instance-method-delete",
+    "src/pacsfile.js~PACSRetrieve#delete",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsretrieve#getquery",
+    "class/src/pacsfile.js~PACSRetrieve.html#instance-method-getQuery",
+    "src/pacsfile.js~PACSRetrieve#getQuery",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsretrievelist#constructor",
+    "class/src/pacsfile.js~PACSRetrieveList.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSRetrieveList#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsretrievelist#getquery",
+    "class/src/pacsfile.js~PACSRetrieveList.html#instance-method-getQuery",
+    "src/pacsfile.js~PACSRetrieveList#getQuery",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsretrievelist#itemclass",
+    "class/src/pacsfile.js~PACSRetrieveList.html#instance-member-itemClass",
+    "src/pacsfile.js~PACSRetrieveList#itemClass",
+    "member"
+  ],
+  [
+    "src/pacsfile.js~pacsretrievelist#post",
+    "class/src/pacsfile.js~PACSRetrieveList.html#instance-method-post",
+    "src/pacsfile.js~PACSRetrieveList#post",
+    "method"
+  ],
+  [
     "src/pacsfile.js~pacsseries#constructor",
     "class/src/pacsfile.js~PACSSeries.html#instance-constructor-constructor",
     "src/pacsfile.js~PACSSeries#constructor",
@@ -2763,6 +3009,18 @@ window.esdocSearchIndex = [
     "src/pacsfile.js~pacsserieslist#itemclass",
     "class/src/pacsfile.js~PACSSeriesList.html#instance-member-itemClass",
     "src/pacsfile.js~PACSSeriesList#itemClass",
+    "member"
+  ],
+  [
+    "src/pacsfile.js~pacsspecificserieslist#constructor",
+    "class/src/pacsfile.js~PACSSpecificSeriesList.html#instance-constructor-constructor",
+    "src/pacsfile.js~PACSSpecificSeriesList#constructor",
+    "method"
+  ],
+  [
+    "src/pacsfile.js~pacsspecificserieslist#itemclass",
+    "class/src/pacsfile.js~PACSSpecificSeriesList.html#instance-member-itemClass",
+    "src/pacsfile.js~PACSSpecificSeriesList#itemClass",
     "member"
   ],
   [

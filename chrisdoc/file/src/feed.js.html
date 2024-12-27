@@ -76,10 +76,18 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/group.js~GroupUserList.html">GroupUserList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/group.js~UserGroupList.html">UserGroupList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/note.js~Note.html">Note</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~AllPACSQueryList.html">AllPACSQueryList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACS.html">PACS</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFile.html">PACSFile</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSFileList.html">PACSFileList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSList.html">PACSList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSQuery.html">PACSQuery</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSQueryList.html">PACSQueryList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSRetrieve.html">PACSRetrieve</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSRetrieveList.html">PACSRetrieveList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSSeries.html">PACSSeries</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSSeriesList.html">PACSSeriesList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pacsfile.js~PACSSpecificSeriesList.html">PACSSpecificSeriesList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~Pipeline.html">Pipeline</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelineList.html">PipelineList</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/pipeline.js~PipelinePipingDefaultParameterList.html">PipelinePipingDefaultParameterList</a></span></span></li>
@@ -138,7 +146,7 @@ import { PluginMetaList } from &apos;./pluginmeta&apos;;
 import { PluginAdminList } from &apos;./admin&apos;;
 import { PipelineList, PipelineSourceFileList } from &apos;./pipeline&apos;;
 import { UserFileList } from &apos;./userfile&apos;;
-import { PACSFileList, PACSSeriesList } from &apos;./pacsfile&apos;;
+import { PACSFileList, PACSSeriesList, PACSList, PACSQueryList } from &apos;./pacsfile&apos;;
 import Note from &apos;./note&apos;;
 import { FeedTagList, FeedTaggingList, TagList } from &apos;./tag&apos;;
 import { CommentList, Comment } from &apos;./comment&apos;;
@@ -686,6 +694,44 @@ export class FeedList extends ListResource {
   getPACSSeriesList(searchParams = null, timeout = 30000) {
     const linkRelation = &apos;pacsseries&apos;;
     const resourceClass = PACSSeriesList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+  
+  /**
+   * Fetch a list of PACS from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PACSList.getSearchParameters`` method can
+   * be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;PACSList&gt;} - JS Promise, resolves to a ``PACSList`` object
+   */
+  getPACSList(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;pacs&apos;;
+    const resourceClass = PACSList;
+
+    return this._getResource(linkRelation, resourceClass, searchParams, timeout);
+  }
+
+  /**
+   * Fetch a list of PACS queries from the REST API.
+   *
+   * @param {Object} [searchParams=null] - search parameters object which is
+   * resource-specific, the ``PACSQueryList.getSearchParameters`` method can
+   * be used to get a list of possible search parameters
+   * @param {number} [searchParams.limit] - page limit
+   * @param {number} [searchParams.offset] - page offset
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;PACSQueryList&gt;} - JS Promise, resolves to a ``PACSQueryList`` object
+   */
+  getPACSQueryList(searchParams = null, timeout = 30000) {
+    const linkRelation = &apos;pacsqueries&apos;;
+    const resourceClass = PACSQueryList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
   }
