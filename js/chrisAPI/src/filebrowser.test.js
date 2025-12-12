@@ -127,16 +127,16 @@ describe('File browser resources', function () {
 
     it('can grant a group permission through the REST API', done => {
       let permission;
-      const result = folder.addGroupPermission('all_users', 'r');
+      const result = folder.addGroupPermission('pacs_users', 'r');
       result
         .then(grp_permission => {
           expect(grp_permission).to.be.an.instanceof(FolderGroupPermission);
-          expect(grp_permission.data.group_name).to.equal('all_users');
+          expect(grp_permission.data.group_name).to.equal('pacs_users');
         })
-        .then( () => folder.getGroupPermission('all_users') )
+        .then( () => folder.getGroupPermission('pacs_users') )
         .then(grp_permission => {
           expect(grp_permission).to.be.an.instanceof(FolderGroupPermission);
-          expect(grp_permission.data.group_name).to.equal('all_users');
+          expect(grp_permission.data.group_name).to.equal('pacs_users');
         })
         .then(done, done);
     });

@@ -23,12 +23,10 @@ For more information visit the [API documentation](https://fnndsc.github.io/fnnd
 These preconditions are only necessary to be able to test the client against an actual
 instance of a ChRIS server both during development and for the automated tests.
 
-#### Install latest Docker and Docker Compose.
+#### Install latest Docker
 
 Currently tested platforms:
-* ``Docker 18.06.0+``
-* ``Docker Compose 1.27.0+``
-* ``Ubuntu 18.04+ and MAC OS X 10.14+``
+* ``Docker Engine v25.0.0+``
 
 #### On a Linux machine make sure to add your computer user to the ``docker group``
 
@@ -52,7 +50,7 @@ Check that all the services are up:
 $> docker ps -a
 ```
 
-#### Create a test feed and two pipelines:
+#### Create test data:
 
 Run the following shell script on the directory of this README file.
 NOTE: The script depends on the popular `curl` and `jq` command line tools.

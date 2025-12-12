@@ -146,7 +146,9 @@ export default class Request {
     }
 
     if (this.contentType === 'application/octet-stream') {
-      config.responseType = 'blob';
+      // Use 'arraybuffer' for Node.js, 'blob' for browser
+      // Node.js axios doesn't support 'blob', only 'arraybuffer', 'stream', 'json', 'text', 'document'
+      config.responseType = typeof window === 'undefined' ? 'arraybuffer' : 'blob';
     }
 
     return config;

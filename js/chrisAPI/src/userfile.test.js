@@ -94,31 +94,31 @@ describe('User file resources', () => {
     });   
 
     it('can grant a group permission through the REST API', done => {
-      const result = userFile.addGroupPermission('all_users', 'r');
+      const result = userFile.addGroupPermission('pacs_users', 'r');
       result
         .then(grp_permission => {
           expect(grp_permission).to.be.an.instanceof(FileGroupPermission);
-          expect(grp_permission.data.group_name).to.equal('all_users');
+          expect(grp_permission.data.group_name).to.equal('pacs_users');
         })
-        .then( () => userFile.getGroupPermission('all_users') )
+        .then( () => userFile.getGroupPermission('pacs_users') )
         .then(grp_permission => {
           expect(grp_permission).to.be.an.instanceof(FileGroupPermission);
-          expect(grp_permission.data.group_name).to.equal('all_users');
+          expect(grp_permission.data.group_name).to.equal('pacs_users');
         })
         .then(done, done);
     });
 
     it('can grant a user permission through the REST API', done => {
-      const result = userFile.addUserPermission('chris', 'r');
+      const result = userFile.addUserPermission('other', 'r');
       result
         .then(user_permission => {
           expect(user_permission).to.be.an.instanceof(FileUserPermission);
-          expect(user_permission.data.user_username).to.equal('chris');
+          expect(user_permission.data.user_username).to.equal('other');
         })
-        .then( () => userFile.getUserPermission('chris') )
+        .then( () => userFile.getUserPermission('other') )
         .then(user_permission => {
           expect(user_permission).to.be.an.instanceof(FileUserPermission);
-          expect(user_permission.data.user_username).to.equal('chris');
+          expect(user_permission.data.user_username).to.equal('other');
         })
         .then(done, done);
     }); 

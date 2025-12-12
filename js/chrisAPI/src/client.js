@@ -357,6 +357,7 @@ export default class Client {
    * @param {number} [searchParams.plugin_name] - match associated plugin's name containing this string
    * @param {number} [searchParams.plugin_name_exact] - match associated plugin's name exact with this string
    * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string
+   * @param {string} [searchParams.plugin_type] - match plugin type exactly with this string
    * @param {string} [searchParams.min_start_date] - match plugin instance's start date gte this date
    * @param {string} [searchParams.max_start_date] - match plugin instance's start date lte this date
    * @param {string} [searchParams.min_end_date] - match plugin instance's end date gte this date
@@ -438,14 +439,15 @@ export default class Client {
    * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
-   * @param {number} [searchParams.id] - match plugin id exactly with this number
-   * @param {string} [searchParams.name] - match plugin name containing this string
+   * @param {number} [searchParams.id] - match pipeline id exactly with this number
+   * @param {string} [searchParams.name] - match pipeline name containing this string
+   * @param {string} [searchParams.name_exact] - match pipeline name exactly with this string
    * @param {string} [searchParams.owner_username] - match pipeline's owner username exactly with this string
-   * @param {string} [searchParams.category] - match plugin category containing this string
-   * @param {string} [searchParams.description] - match plugin description containing this string
-   * @param {string} [searchParams.authors] - match plugin authors containing this string
-   * @param {string} [searchParams.min_creation_date] - match plugin creation date gte this date
-   * @param {string} [searchParams.max_creation_date] - match plugin creation date lte this date
+   * @param {string} [searchParams.category] - match pipeline category containing this string
+   * @param {string} [searchParams.description] - match pipeline description containing this string
+   * @param {string} [searchParams.authors] - match pipeline authors containing this string
+   * @param {string} [searchParams.min_creation_date] - match pipeline creation date gte this date
+   * @param {string} [searchParams.max_creation_date] - match pipeline creation date lte this date
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<PipelineList>} - JS Promise, resolves to a ``PipelineList`` object
