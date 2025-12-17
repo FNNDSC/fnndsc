@@ -21,6 +21,14 @@ export class UserFile extends ItemResource {
      */
     getFileBlob(timeout?: number): Promise<Blob>;
     /**
+     * Fetch the file as a stream (Node) or blob (browser) from the REST API.
+     *
+     * @param {number} [timeout=30000] - request timeout
+     *
+     * @return {Promise<AxiosResponse>} - JS Promise, resolves to the axios response with streaming/blob data
+     */
+    getFileStream(timeout?: number): Promise<AxiosResponse>;
+    /**
      * Fetch the parent folder of this file from the REST API.
      *
      * @param {number} [timeout=30000] - request timeout
