@@ -350,13 +350,14 @@ export default class Client {
    * @param {number} [searchParams.previous_id] - match previous plugin instance's id exactly with this number
    * @param {string} [searchParams.title] - match plugin instance title containing this string
    * @param {string} [searchParams.status] - match plugin instance execution status exactly with this string
+   * @param {boolean} [searchParams.active] - match plugin instance active status exactly with this boolean
    * @param {string} [searchParams.owner_username] - match plugin instances's owner username exactly with this string
    * @param {number} [searchParams.feed_id] - match associated feed's id exactly with this number
    * @param {number} [searchParams.workflow_id] - match associated workflows's id exactly with this number
    * @param {number} [searchParams.plugin_id] - match associated plugin's id exactly with this number
    * @param {number} [searchParams.plugin_name] - match associated plugin's name containing this string
    * @param {number} [searchParams.plugin_name_exact] - match associated plugin's name exact with this string
-   * @param {number} [searchParams.plugin_version] - match associated plugin's verion exactly with this string
+   * @param {number} [searchParams.plugin_version] - match associated plugin's version exactly with this string
    * @param {string} [searchParams.plugin_type] - match plugin type exactly with this string
    * @param {string} [searchParams.min_start_date] - match plugin instance's start date gte this date
    * @param {string} [searchParams.max_start_date] - match plugin instance's start date lte this date
@@ -525,7 +526,7 @@ export default class Client {
   /**
    * Helper method to create the ``nodes_info`` field required by ``createWorkflow`` method's
    * ``data`` argument to create a workflow from a pipeline's default parameters data array
-   * tipically returned by ``Pipeline.getDefaultParameters().data``.
+   * typically returned by ``Pipeline.getDefaultParameters().data``.
    *
    * @param {Object[]} pipelineDefaultParameters - array of objects with the default parameters
    * as returned by ``Pipeline.getDefaultParameters().data``
@@ -546,6 +547,10 @@ export default class Client {
            previous_piping_id: defaultParam.previous_plugin_piping_id,
            compute_resource_name: 'host',
            title: defaultParam.plugin_piping_title,
+           cpu_limit: defaultParam.plugin_piping_cpu_limit,
+           memory_limit: defaultParam.plugin_piping_memory_limit,
+           gpu_limit: defaultParam.plugin_piping_gpu_limit,
+           number_of_workers: defaultParam.plugin_piping_number_of_workers,
            plugin_parameter_defaults: []
          };
        }
@@ -576,8 +581,9 @@ export default class Client {
    * @param {number} data.previous_plugin_inst_id - previous plugin instance id
    * @param {string} data.nodes_info - pipeline-specific JSON string encoding a list of objects.
    * Each object is a workflow node containing a ``piping_id``, ``compute_resource_name``,
-   * ``title`` and a list of objects called ``plugin_parameter_defaults``. Each object in
-   * this list has ``name`` and ``default`` properties.
+   * ``title``, ``cpu_limit``, ``memory_limit``, ``gpu_limit``, ``number_of_workers``
+   * and a list of objects called ``plugin_parameter_defaults``. Each object in this
+   * list has ``name`` and ``default`` properties.
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<Workflow>} - JS Promise, resolves to a ``Workflow`` object
@@ -868,6 +874,7 @@ export default class Client {
    * @param {string} data.title - PACS query title
    * @param {string} data.query - PACS query JSON string representing a query
    * @param {string} [data.description] - PACS query description
+   * @param {boolean} [data.execute=true] - whether to execute the query upon creation
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<PACSQuery>} - JS Promise, resolves to a ``PACSQuery`` object
@@ -907,24 +914,24 @@ export default class Client {
    * @param {Object} [searchParams=null] - search parameters object
    * @param {number} [searchParams.limit] - page limit
    * @param {number} [searchParams.offset] - page offset
-   * @param {number} [searchParams.id] - match file id exactly with this number
-   * @param {string} [searchParams.PatientID] - match file's PatientID exactly with this string
-   * @param {string} [searchParams.PatientName] - match file's PatientName containing this string
-   * @param {string} [searchParams.PatientSex] - match file's PatientSex exactly with this string
-   * @param {number} [searchParams.PatientAge] - match file's PatientAge exactly with this number
-   * @param {number} [searchParams.min_PatientAge] - match file's PatientAge greater than this number
-   * @param {number} [searchParams.max_PatientAge] - match file's PatientAge lesser than this number
-   * @param {string} [searchParams.PatientBirthDate] - match file's PatientBirthDate exactly with this date string
-   * @param {string} [searchParams.StudyDate] - match file's StudyDate exactly with this date string
-   * @param {string} [searchParams.AccessionNumber] - match file's AccessionNumber exactly with this string
-   * @param {string} [searchParams.ProtocolName] - match file's ProtocolName exactly with this string
-   * @param {string} [searchParams.StudyInstanceUID] - match file's StudyInstanceUID exactly with this string
-   * @param {string} [searchParams.StudyDescription] - match file's StudyDescription containing this string
-   * @param {string} [searchParams.SeriesInstanceUID] - match file's SeriesInstanceUID exactly with this string
-   * @param {string} [searchParams.SeriesDescription] - match file's SeriesDescription containing this string
-   * @param {string} [searchParams.min_creation_date] - match file's creation_date greater than this date string
-   * @param {string} [searchParams.max_creation_date] - match file's creation_date lesser than this date string
-   * @param {string} [searchParams.pacs_identifier] - match file's PACS exactly with this string
+   * @param {number} [searchParams.id] - match PACS series' id exactly with this number
+   * @param {string} [searchParams.PatientID] - match PACS series' PatientID exactly with this string
+   * @param {string} [searchParams.PatientName] - match PACS series' PatientName containing this string
+   * @param {string} [searchParams.PatientSex] - match PACS series' PatientSex exactly with this string
+   * @param {number} [searchParams.PatientAge] - match PACS series' PatientAge exactly with this number
+   * @param {number} [searchParams.min_PatientAge] - match PACS series' PatientAge greater than this number
+   * @param {number} [searchParams.max_PatientAge] - match PACS series' PatientAge lesser than this number
+   * @param {string} [searchParams.PatientBirthDate] - match PACS series' PatientBirthDate exactly with this date string
+   * @param {string} [searchParams.StudyDate] - match PACS series' StudyDate exactly with this date string
+   * @param {string} [searchParams.AccessionNumber] - match PACS series' AccessionNumber exactly with this string
+   * @param {string} [searchParams.ProtocolName] - match PACS series' ProtocolName exactly with this string
+   * @param {string} [searchParams.StudyInstanceUID] - match PACS series' StudyInstanceUID exactly with this string
+   * @param {string} [searchParams.StudyDescription] - match PACS series' StudyDescription containing this string
+   * @param {string} [searchParams.SeriesInstanceUID] - match PACS series' SeriesInstanceUID exactly with this string
+   * @param {string} [searchParams.SeriesDescription] - match PACS series' SeriesDescription containing this string
+   * @param {string} [searchParams.min_creation_date] - match PACS series' creation_date greater than this date string
+   * @param {string} [searchParams.max_creation_date] - match PACS series' creation_date lesser than this date string
+   * @param {string} [searchParams.pacs_identifier] - match PACS series' PACS exactly with this string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<PACSSeriesList>} - JS Promise, resolves to a ``PACSSeriesList`` object

@@ -142,19 +142,22 @@ describe('File browser resources', function () {
     });
 
     it('can grant a user permission through the REST API', done => {
-      const result = folder.addUserPermission('chris', 'r');
+      // The CUBE backend auto-grants user 'chris' (admin) write access to every folder
+      // newly created under home/cube/, so addUserPermission('chris', ...) would always
+      // conflict. ``other`` is created by pre_test.sh and has no implicit access.
+      const result = folder.addUserPermission('other', 'r');
       result
         .then(user_permission => {
           expect(user_permission).to.be.an.instanceof(FolderUserPermission);
-          expect(user_permission.data.user_username).to.equal('chris');
+          expect(user_permission.data.user_username).to.equal('other');
         })
-        .then( () => folder.getUserPermission('chris') )
+        .then( () => folder.getUserPermission('other') )
         .then(user_permission => {
           expect(user_permission).to.be.an.instanceof(FolderUserPermission);
-          expect(user_permission.data.user_username).to.equal('chris');
+          expect(user_permission.data.user_username).to.equal('other');
         })
         .then(done, done);
-    });  
+    });
 
   });
 

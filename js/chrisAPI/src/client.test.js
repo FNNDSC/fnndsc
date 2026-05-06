@@ -5,8 +5,8 @@ import { FeedList, Feed } from './feed';
 import { PluginList, Plugin } from './plugin';
 import { PluginMetaList, PluginMeta } from './pluginmeta';
 import { AllPluginInstanceList, PluginInstance, PluginInstanceSplit } from './plugininstance';
-import { PipelineList, Pipeline } from './pipeline';
-import { Workflow } from './workflow';
+import { PipelineList, Pipeline, PipelineSourceFileList, PipelineSourceFile } from './pipeline';
+import { AllWorkflowList, Workflow } from './workflow';
 import { Tag, Tagging } from './tag';
 import { UserFile } from './userfile';
 import { PACSList, PACS, AllPACSQueryList, PACSQuery, PACSRetrieve } from './pacsfile';
@@ -178,14 +178,17 @@ describe('Client', () => {
   });
 
   it('can create a new plugin instance through the REST API', (done) => {
-    const pluginId = 2;
-    const data = {
-      title: 'Test plugin instance',
-      dir: 'home/' + username + '/uploads',
-    };
-
-    const result = client.createPluginInstance(pluginId, data);
-    result
+    // Look up pl-dircopy dynamically
+    client.getPlugins({ name_exact: 'pl-dircopy', limit: 1 })
+      .then((pluginList) => {
+        const plg = pluginList.getItems()[0];
+        expect(plg, 'pl-dircopy not registered on the test backend').to.exist;
+        const data = {
+          title: 'Test plugin instance',
+          dir: 'home/' + username + '/uploads',
+        };
+        return client.createPluginInstance(plg.data.id, data);
+      })
       .then((plgInstance) => {
         expect(plgInstance).to.be.an.instanceof(PluginInstance);
         expect(plgInstance.data.title).to.equal('Test plugin instance');
@@ -225,23 +228,96 @@ describe('Client', () => {
       .then(done, done);
   });
 
-  /*
-  it('can fetch a pipeline by id from the REST API', (done) => {
-    const result = client.getPipeline(3);
-    result
-      .then((pipeline) => {
-        expect(pipeline).to.be.an.instanceof(Pipeline);
-        expect(pipeline.isEmpty).to.be.false;
-
-        const resp = pipeline.getDefaultParameters();
-        return resp.then(defaultParams => {
-          const nodes = client.computeWorkflowNodesInfo(defaultParams.data);
-          console.log('workflow nodes:', nodes[0].plugin_parameter_defaults);
-        });
+  it('returns default parameter data with all fields needed by computeWorkflowNodesInfo', (done) => {
+    client.getPipeline(1)
+      .then(pipeline => pipeline.getDefaultParameters({ limit: 50 }))
+      .then(defaultParams => {
+        expect(defaultParams.data).to.have.lengthOf.at.least(1);
+        const first = defaultParams.data[0];
+        // Every field consumed by Client.computeWorkflowNodesInfo must be present
+        // on the descriptor object returned by Pipeline.getDefaultParameters().data 
+        expect(first).to.include.all.keys(
+          'plugin_piping_id',
+          'plugin_piping_title',
+          'plugin_piping_cpu_limit',
+          'plugin_piping_memory_limit',
+          'plugin_piping_gpu_limit',
+          'plugin_piping_number_of_workers',
+          'param_name',
+          'value'
+        );
+        expect(first.plugin_piping_id).to.be.a('number');
+        expect(first.param_name).to.be.a('string');
+        // previous_plugin_piping_id is omitted from the descriptor for root pipings,
+        // so it may be undefined here — ``computeWorkflowNodesInfo`` reads it as the
+        // node's previous_piping_id, which should be null/undefined for root nodes.
       })
       .then(done, done);
   });
-  */
+
+  it('computes workflow nodes info from a pipeline\'s default parameters', (done) => {
+    client.getPipeline(1)
+      .then(pipeline => pipeline.getDefaultParameters({ limit: 50 }))
+      .then(defaultParams => {
+        const nodes = client.computeWorkflowNodesInfo(defaultParams.data);
+        expect(nodes).to.be.an('array').with.lengthOf.at.least(1);
+
+        const root = nodes.find(n => n.previous_piping_id == null);
+        expect(root, 'expected exactly one root node with no previous_piping_id').to.exist;
+
+        nodes.forEach(node => {
+          expect(node).to.include.keys(
+            'piping_id',
+            'previous_piping_id',
+            'compute_resource_name',
+            'title',
+            'cpu_limit',
+            'memory_limit',
+            'gpu_limit',
+            'number_of_workers'
+          );
+          expect(node.compute_resource_name).to.equal('host');
+        });
+
+        // includeAllDefaults=true must include at least as many parameter defaults as the
+        // default (false) call — defaults whose value is non-null are only retained when
+        // the flag is set.
+        const countParams = arr => arr.reduce(
+          (sum, n) => sum + (n.plugin_parameter_defaults ? n.plugin_parameter_defaults.length : 0),
+          0
+        );
+        const lean = client.computeWorkflowNodesInfo(defaultParams.data, false);
+        const full = client.computeWorkflowNodesInfo(defaultParams.data, true);
+        expect(countParams(full)).to.be.at.least(countParams(lean));
+      })
+      .then(done, done);
+  });
+
+  it('can create a new pipeline through the REST API', (done) => {
+    // Look up pl-simpledsapp dynamically — its plugin id is not stable across deployments.
+    client.getPlugins({ name_exact: 'pl-simpledsapp', limit: 1 })
+      .then(pluginList => {
+        const plg = pluginList.getItems()[0];
+        expect(plg, 'pl-simpledsapp not registered on the test backend').to.exist;
+        const pluginId = plg.data.id;
+        const data = {
+          name: 'CreatePipelineTest-' + Date.now(),
+          authors: 'tester',
+          category: 'test',
+          locked: false,
+          plugin_tree: JSON.stringify([
+            { plugin_id: pluginId, title: 'Plugin1', previous: null },
+            { plugin_id: pluginId, title: 'Plugin2', previous: 'Plugin1' },
+          ]),
+        };
+        return client.createPipeline(data);
+      })
+      .then(pipeline => {
+        expect(pipeline).to.be.an.instanceof(Pipeline);
+        expect(pipeline.data.name).to.match(/^CreatePipelineTest-/);
+      })
+      .then(done, done);
+  });
 
   it('can create a new workflow through the REST API', (done) => {
     const pipelineId = 2;
@@ -272,6 +348,83 @@ describe('Client', () => {
         return resp.then(work => {
           console.log('workflow title:', work.data.title);
         });*/
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of workflows from the REST API', (done) => {
+    client.getWorkflows()
+      .then(workflowList => {
+        expect(workflowList).to.be.an.instanceof(AllWorkflowList);
+        // ``createWorkflow`` runs earlier in this describe block, so at least one workflow
+        // is expected to exist by the time this test runs.
+        expect(workflowList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a workflow by id from the REST API', (done) => {
+    client.getWorkflow(1)
+      .then(workflow => {
+        expect(workflow).to.be.an.instanceof(Workflow);
+        expect(workflow.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can fetch the list of pipeline source files from the REST API', (done) => {
+    client.getPipelineSourceFiles()
+      .then(sourceFileList => {
+        expect(sourceFileList).to.be.an.instanceof(PipelineSourceFileList);
+        expect(sourceFileList.data).to.have.lengthOf.at.least(1);
+      })
+      .then(done, done);
+  });
+
+  it('can fetch a pipeline source file by id from the REST API', (done) => {
+    // pre_test.sh seeds one source file but its id is not stable (it depends on the order in
+    // which CUBE has handed out pipeline ids). Fetch the list first and pick the first id.
+    client.getPipelineSourceFiles({ limit: 1 })
+      .then(sourceFileList => {
+        const items = sourceFileList.getItems();
+        expect(items, 'no pipeline source files seeded — re-run pre_test.sh').to.have.lengthOf.at.least(1);
+        return client.getPipelineSourceFile(items[0].data.id);
+      })
+      .then(sourceFile => {
+        expect(sourceFile).to.be.an.instanceof(PipelineSourceFile);
+        expect(sourceFile.isEmpty).to.be.false;
+      })
+      .then(done, done);
+  });
+
+  it('can upload a pipeline source file through the REST API', (done) => {
+    client.getPlugins({ name_exact: 'pl-simpledsapp', limit: 1 })
+      .then(pluginList => {
+        const plg = pluginList.getItems()[0];
+        expect(plg, 'pl-simpledsapp not registered on the test backend').to.exist;
+        const pluginId = plg.data.id;
+        const sourceJSON = {
+          name: 'UploadedSourcePipeline-' + Date.now(),
+          authors: 'tester',
+          description: 'Uploaded via uploadPipelineSourceFile test',
+          category: 'test',
+          locked: false,
+          plugin_tree: [
+            { plugin_id: pluginId, title: 'P1', previous: null },
+            { plugin_id: pluginId, title: 'P2', previous: 'P1' },
+          ],
+        };
+        const blob = new Blob([JSON.stringify(sourceJSON)], { type: 'application/json' });
+        // The CUBE backend rejects ``type=JSON`` (uppercase) with "Invalid data. Expected a
+        // dictionary, but got str." — only ``json`` / ``yaml`` (lowercase) are accepted.
+        const data = { type: 'json' };
+        const uploadFileObj = { fname: blob };
+        return client.uploadPipelineSourceFile(data, uploadFileObj);
+      })
+      .then(sourceFile => {
+        expect(sourceFile).to.be.an.instanceof(PipelineSourceFile);
+        expect(sourceFile.data.ftype).to.equal('json');
+        expect(sourceFile.data.pipeline_name).to.match(/^UploadedSourcePipeline-/);
       })
       .then(done, done);
   });

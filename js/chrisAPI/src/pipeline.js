@@ -219,6 +219,22 @@ export class PluginPiping extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Make a PUT request to modify this plugin piping item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {number} [data.cpu_limit] - CPU limit for the plugin piping
+   * @param {number} [data.memory_limit] - memory limit for the plugin piping
+   * @param {number} [data.gpu_limit] - GPU limit for the plugin piping
+   * @param {number} [data.number_of_workers] - number of workers for the plugin piping
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<this>} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
 }
 
 /**

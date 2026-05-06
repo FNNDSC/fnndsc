@@ -21,6 +21,26 @@ echo "\n"
 curl -u cube:cube1234 -X POST -H "Content-Type: application/vnd.collection+json" -d '{"template":{"data":[{"name":"title", "value":"Query1"},{"name":"query", "value":"{\"SeriesInstanceUID\": \"1.3.12\"}" }]}}' 'http://localhost:8000/api/v1/pacs/1/queries/'
 echo "\n"
 
+echo "Upload test pipeline source file:\n"
+# Note: 'type' must be lowercase ('json'/'yaml'); uppercase is rejected by the backend.
+src_file=$(mktemp -t cube-pipeline-src-XXXXXX.json)
+cat > "${src_file}" <<JSON
+{
+  "name": "SourcePipelineTest",
+  "authors": "FNNDSC",
+  "description": "Pipeline created from a JSON source file for tests",
+  "category": "test",
+  "locked": false,
+  "plugin_tree": [
+    {"plugin_id": ${dsapp_id}, "title": "Plugin1", "previous": null},
+    {"plugin_id": ${dsapp_id}, "title": "Plugin2", "previous": "Plugin1"}
+  ]
+}
+JSON
+curl -u cube:cube1234 -X POST -F "type=json" -F "fname=@${src_file}" 'http://localhost:8000/api/v1/pipelines/sourcefiles/'
+rm -f "${src_file}"
+echo "\n"
+
 echo "Create a user:\n"
 curl -XPOST -H 'Content-Type: application/vnd.collection+json' -d '{"template":{"data":[{"name":"username", "value":"other"}, {"name":"password", "value":"other1234"}, {"name":"email", "value":"other@babymri.org"}]}}' 'http://localhost:8000/api/v1/users/'
 echo "\n"
