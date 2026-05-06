@@ -212,12 +212,12 @@ export class Pipeline extends ItemResource {
    *
    * @return {Promise&lt;WorkflowList&gt;} - JS Promise, resolves to a ``WorkflowList`` object
    */
-   getWorkflows(params = null, timeout = 30000) {
+  getWorkflows(params = null, timeout = 30000) {
     const linkRelation = &apos;workflows&apos;;
     const resourceClass = WorkflowList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this pipeline resource through the REST API.
@@ -357,6 +357,22 @@ export class PluginPiping extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
+
+  /**
+   * Make a PUT request to modify this plugin piping item resource through the REST API.
+   *
+   * @param {Object} data - request JSON data object
+   * @param {number} [data.cpu_limit] - CPU limit for the plugin piping
+   * @param {number} [data.memory_limit] - memory limit for the plugin piping
+   * @param {number} [data.gpu_limit] - GPU limit for the plugin piping
+   * @param {number} [data.number_of_workers] - number of workers for the plugin piping
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise&lt;this&gt;} - JS Promise, resolves to ``this`` object
+   */
+  put(data, timeout = 30000) {
+    return this._put(data, null, timeout);
+  }
 }
 
 /**
@@ -474,9 +490,9 @@ export class PipelineSourceFile extends ItemResource {
     const item = this.collection.items[0];
     const blobUrl = Collection.getLinkRelationUrls(item, &apos;file_resource&apos;)[0];
 
-    return req.get(blobUrl).then(resp =&gt; resp.data);
+    return req.get(blobUrl).then((resp) =&gt; resp.data);
   }
-  
+
   /**
    * Fetch the parent folder of this file from the REST API.
    *
@@ -484,12 +500,12 @@ export class PipelineSourceFile extends ItemResource {
    *
    * @return {Promise&lt;FileBrowserFolder&gt;} - JS Promise, resolves to a ``FileBrowserFolder`` object
    */
-   getParentFolder(timeout = 30000) {
+  getParentFolder(timeout = 30000) {
     const linkRelation = &apos;parent_folder&apos;;
     const resourceClass = FileBrowserFolder;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  }  
+  }
 }
 
 /**
@@ -511,7 +527,7 @@ export class PipelineSourceFileList extends ListResource {
   }
 
   /**
-   * Make a POST request to this pipeline source file list resource to create a new 
+   * Make a POST request to this pipeline source file list resource to create a new
    * pipeline source file item resource through the REST API.
    *
    * @param {Object} data - request JSON data object

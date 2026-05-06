@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 1272,
+  "end": 1271,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 1272,
+    "end": 1271,
     "loc": {
       "start": {
         "line": 1,
@@ -554,7 +554,7 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 553,
-        "end": 1271,
+        "end": 1270,
         "loc": {
           "start": {
             "line": 23,
@@ -570,7 +570,7 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 560,
-          "end": 1271,
+          "end": 1270,
           "loc": {
             "start": {
               "line": 23,
@@ -619,7 +619,7 @@
           "body": {
             "type": "ClassBody",
             "start": 605,
-            "end": 1271,
+            "end": 1270,
             "loc": {
               "start": {
                 "line": 23,
@@ -962,9 +962,9 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Make a POST request to this download token list resource to create a new file download token \n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+                    "value": "*\n   * Make a POST request to this download token list resource to create a new file download token\n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
                     "start": 912,
-                    "end": 1197,
+                    "end": 1196,
                     "loc": {
                       "start": {
                         "line": 38,
@@ -980,8 +980,8 @@
               },
               {
                 "type": "ClassMethod",
-                "start": 1200,
-                "end": 1269,
+                "start": 1199,
+                "end": 1268,
                 "loc": {
                   "start": {
                     "line": 46,
@@ -996,8 +996,8 @@
                 "computed": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 1200,
-                  "end": 1204,
+                  "start": 1199,
+                  "end": 1203,
                   "loc": {
                     "start": {
                       "line": 46,
@@ -1020,8 +1020,8 @@
                 "params": [
                   {
                     "type": "AssignmentPattern",
-                    "start": 1205,
-                    "end": 1220,
+                    "start": 1204,
+                    "end": 1219,
                     "loc": {
                       "start": {
                         "line": 46,
@@ -1034,8 +1034,8 @@
                     },
                     "left": {
                       "type": "Identifier",
-                      "start": 1205,
-                      "end": 1212,
+                      "start": 1204,
+                      "end": 1211,
                       "loc": {
                         "start": {
                           "line": 46,
@@ -1051,8 +1051,8 @@
                     },
                     "right": {
                       "type": "NumericLiteral",
-                      "start": 1215,
-                      "end": 1220,
+                      "start": 1214,
+                      "end": 1219,
                       "loc": {
                         "start": {
                           "line": 46,
@@ -1073,8 +1073,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1222,
-                  "end": 1269,
+                  "start": 1221,
+                  "end": 1268,
                   "loc": {
                     "start": {
                       "line": 46,
@@ -1088,8 +1088,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 1228,
-                      "end": 1265,
+                      "start": 1227,
+                      "end": 1264,
                       "loc": {
                         "start": {
                           "line": 47,
@@ -1102,8 +1102,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 1235,
-                        "end": 1264,
+                        "start": 1234,
+                        "end": 1263,
                         "loc": {
                           "start": {
                             "line": 47,
@@ -1116,8 +1116,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 1235,
-                          "end": 1245,
+                          "start": 1234,
+                          "end": 1244,
                           "loc": {
                             "start": {
                               "line": 47,
@@ -1130,8 +1130,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 1235,
-                            "end": 1239,
+                            "start": 1234,
+                            "end": 1238,
                             "loc": {
                               "start": {
                                 "line": 47,
@@ -1145,8 +1145,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 1240,
-                            "end": 1245,
+                            "start": 1239,
+                            "end": 1244,
                             "loc": {
                               "start": {
                                 "line": 47,
@@ -1165,8 +1165,8 @@
                         "arguments": [
                           {
                             "type": "ObjectExpression",
-                            "start": 1246,
-                            "end": 1248,
+                            "start": 1245,
+                            "end": 1247,
                             "loc": {
                               "start": {
                                 "line": 47,
@@ -1181,8 +1181,8 @@
                           },
                           {
                             "type": "NullLiteral",
-                            "start": 1250,
-                            "end": 1254,
+                            "start": 1249,
+                            "end": 1253,
                             "loc": {
                               "start": {
                                 "line": 47,
@@ -1196,8 +1196,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 1256,
-                            "end": 1263,
+                            "start": 1255,
+                            "end": 1262,
                             "loc": {
                               "start": {
                                 "line": 47,
@@ -1220,9 +1220,9 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Make a POST request to this download token list resource to create a new file download token \n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+                    "value": "*\n   * Make a POST request to this download token list resource to create a new file download token\n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
                     "start": 912,
-                    "end": 1197,
+                    "end": 1196,
                     "loc": {
                       "start": {
                         "line": 38,
@@ -1379,9 +1379,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Make a POST request to this download token list resource to create a new file download token \n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+      "value": "*\n   * Make a POST request to this download token list resource to create a new file download token\n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
       "start": 912,
-      "end": 1197,
+      "end": 1196,
       "loc": {
         "start": {
           "line": 38,
@@ -3006,9 +3006,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Make a POST request to this download token list resource to create a new file download token \n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
+      "value": "*\n   * Make a POST request to this download token list resource to create a new file download token\n   * item resource through the REST API.\n   *\n   * @param {number} [timeout=30000] - request timeout\n   *\n   * @return {Promise<this>} - JS Promise, resolves to ``this`` object\n   ",
       "start": 912,
-      "end": 1197,
+      "end": 1196,
       "loc": {
         "start": {
           "line": 38,
@@ -3033,8 +3033,8 @@
         "binop": null
       },
       "value": "post",
-      "start": 1200,
-      "end": 1204,
+      "start": 1199,
+      "end": 1203,
       "loc": {
         "start": {
           "line": 46,
@@ -3058,8 +3058,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1204,
-      "end": 1205,
+      "start": 1203,
+      "end": 1204,
       "loc": {
         "start": {
           "line": 46,
@@ -3084,8 +3084,8 @@
         "binop": null
       },
       "value": "timeout",
-      "start": 1205,
-      "end": 1212,
+      "start": 1204,
+      "end": 1211,
       "loc": {
         "start": {
           "line": 46,
@@ -3111,8 +3111,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 1213,
-      "end": 1214,
+      "start": 1212,
+      "end": 1213,
       "loc": {
         "start": {
           "line": 46,
@@ -3138,8 +3138,8 @@
         "updateContext": null
       },
       "value": 30000,
-      "start": 1215,
-      "end": 1220,
+      "start": 1214,
+      "end": 1219,
       "loc": {
         "start": {
           "line": 46,
@@ -3163,8 +3163,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1220,
-      "end": 1221,
+      "start": 1219,
+      "end": 1220,
       "loc": {
         "start": {
           "line": 46,
@@ -3188,8 +3188,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1222,
-      "end": 1223,
+      "start": 1221,
+      "end": 1222,
       "loc": {
         "start": {
           "line": 46,
@@ -3216,8 +3216,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 1228,
-      "end": 1234,
+      "start": 1227,
+      "end": 1233,
       "loc": {
         "start": {
           "line": 47,
@@ -3244,8 +3244,8 @@
         "updateContext": null
       },
       "value": "this",
-      "start": 1235,
-      "end": 1239,
+      "start": 1234,
+      "end": 1238,
       "loc": {
         "start": {
           "line": 47,
@@ -3270,8 +3270,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1239,
-      "end": 1240,
+      "start": 1238,
+      "end": 1239,
       "loc": {
         "start": {
           "line": 47,
@@ -3296,8 +3296,8 @@
         "binop": null
       },
       "value": "_post",
-      "start": 1240,
-      "end": 1245,
+      "start": 1239,
+      "end": 1244,
       "loc": {
         "start": {
           "line": 47,
@@ -3321,8 +3321,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1245,
-      "end": 1246,
+      "start": 1244,
+      "end": 1245,
       "loc": {
         "start": {
           "line": 47,
@@ -3346,8 +3346,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1246,
-      "end": 1247,
+      "start": 1245,
+      "end": 1246,
       "loc": {
         "start": {
           "line": 47,
@@ -3371,8 +3371,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1247,
-      "end": 1248,
+      "start": 1246,
+      "end": 1247,
       "loc": {
         "start": {
           "line": 47,
@@ -3397,8 +3397,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1248,
-      "end": 1249,
+      "start": 1247,
+      "end": 1248,
       "loc": {
         "start": {
           "line": 47,
@@ -3425,8 +3425,8 @@
         "updateContext": null
       },
       "value": "null",
-      "start": 1250,
-      "end": 1254,
+      "start": 1249,
+      "end": 1253,
       "loc": {
         "start": {
           "line": 47,
@@ -3451,8 +3451,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1254,
-      "end": 1255,
+      "start": 1253,
+      "end": 1254,
       "loc": {
         "start": {
           "line": 47,
@@ -3477,8 +3477,8 @@
         "binop": null
       },
       "value": "timeout",
-      "start": 1256,
-      "end": 1263,
+      "start": 1255,
+      "end": 1262,
       "loc": {
         "start": {
           "line": 47,
@@ -3502,8 +3502,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1263,
-      "end": 1264,
+      "start": 1262,
+      "end": 1263,
       "loc": {
         "start": {
           "line": 47,
@@ -3528,8 +3528,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1264,
-      "end": 1265,
+      "start": 1263,
+      "end": 1264,
       "loc": {
         "start": {
           "line": 47,
@@ -3553,8 +3553,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1268,
-      "end": 1269,
+      "start": 1267,
+      "end": 1268,
       "loc": {
         "start": {
           "line": 48,
@@ -3578,8 +3578,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1270,
-      "end": 1271,
+      "start": 1269,
+      "end": 1270,
       "loc": {
         "start": {
           "line": 49,
@@ -3604,8 +3604,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1272,
-      "end": 1272,
+      "start": 1271,
+      "end": 1271,
       "loc": {
         "start": {
           "line": 50,

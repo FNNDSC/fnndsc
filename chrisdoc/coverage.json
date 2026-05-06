@@ -1,7 +1,7 @@
 {
-  "coverage": "96.15%",
-  "expectCount": 624,
-  "actualCount": 600,
+  "coverage": "96.16%",
+  "expectCount": 625,
+  "actualCount": 601,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -22,7 +22,6 @@
       "expectCount": 82,
       "actualCount": 61,
       "undocumentLines": [
-        57,
         58,
         59,
         60,
@@ -42,7 +41,8 @@
         74,
         75,
         76,
-        77
+        77,
+        78
       ]
     },
     "src/comment.js": {
@@ -93,8 +93,8 @@
       "undocumentLines": []
     },
     "src/pipeline.js": {
-      "expectCount": 35,
-      "actualCount": 35,
+      "expectCount": 36,
+      "actualCount": 36,
       "undocumentLines": []
     },
     "src/plugin.js": {

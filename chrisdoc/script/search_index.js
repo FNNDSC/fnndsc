@@ -3186,6 +3186,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/pipeline.js~pluginpiping#put",
+    "class/src/pipeline.js~PluginPiping.html#instance-method-put",
+    "src/pipeline.js~PluginPiping#put",
+    "method"
+  ],
+  [
     "src/plugin.js",
     "file/src/plugin.js.html",
     "src/plugin.js",
