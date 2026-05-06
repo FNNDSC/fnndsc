@@ -10,6 +10,8 @@
     "declaration": true,
     // This compiler run should only output d.ts files
     "emitDeclarationOnly": true,
+    // Source root. TS >=6 requires this to be explicit when outDir is set.
+    "rootDir": "./src",
     // Types should go into this directory.
     // Removing this would place the .d.ts files
     // next to the .js files

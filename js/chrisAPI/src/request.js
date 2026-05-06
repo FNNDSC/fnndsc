@@ -163,10 +163,10 @@ export default class Request {
    */
   static _callAxios(config) {
     return axios(config)
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(error => {
+      .catch((error) => {
         Request._handleRequestError(error);
       });
   }
@@ -232,11 +232,11 @@ export default class Request {
       // if there's more to do (result.value and result.done are iterator's properties)
       if (!result.done) {
         result.value
-          .then(resp => {
+          .then((resp) => {
             result = task.next(resp); // send this resp value to the yield
             step();
           })
-          .catch(error => {
+          .catch((error) => {
             result = task.throw(error); // throws error within taskGenerator generator
             step();
           });

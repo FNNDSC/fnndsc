@@ -36,7 +36,7 @@ export class DownloadTokenList extends ListResource {
   }
 
   /**
-   * Make a POST request to this download token list resource to create a new file download token 
+   * Make a POST request to this download token list resource to create a new file download token
    * item resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout

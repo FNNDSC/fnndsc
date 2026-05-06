@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Collection from './cj';
-import { FeedList, Feed , FeedGroupPermission, FeedUserPermission } from './feed';
+import { FeedList, Feed, FeedGroupPermission, FeedUserPermission } from './feed';
 import Note from './note';
 import { FeedTagList, FeedTaggingList, TagList } from './tag';
 import { CommentList, Comment } from './comment';
@@ -36,127 +36,127 @@ describe('Feed resources', () => {
       feed = feed.clone();
     });
 
-    it('can fetch the associated note from the REST API', done => {
+    it('can fetch the associated note from the REST API', (done) => {
       const result = feed.getNote();
       result
-        .then(note => {
+        .then((note) => {
           expect(note).to.be.an.instanceof(Note);
           expect(note.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the associated folder from the REST API', done => {
+    it('can fetch the associated folder from the REST API', (done) => {
       const result = feed.getFolder();
       result
-        .then(folder => {
+        .then((folder) => {
           expect(folder).to.be.an.instanceof(FileBrowserFolder);
           expect(folder.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the associated tags from the REST API', done => {
+    it('can fetch the associated tags from the REST API', (done) => {
       const result = feed.getTags();
       result
-        .then(tagList => {
+        .then((tagList) => {
           expect(tagList).to.be.an.instanceof(FeedTagList);
         })
         .then(done, done);
     });
 
-    it('can fetch the associated taggings from the REST API', done => {
+    it('can fetch the associated taggings from the REST API', (done) => {
       const result = feed.getTaggings();
       result
-        .then(taggingList => {
+        .then((taggingList) => {
           expect(taggingList).to.be.an.instanceof(FeedTaggingList);
         })
         .then(done, done);
     });
 
-    it('can fetch the associated comments from the REST API', done => {
+    it('can fetch the associated comments from the REST API', (done) => {
       let comment;
       const commentsUrl = Collection.getLinkRelationUrls(feed.collection.items[0], 'comments');
       const commentList = new CommentList(commentsUrl[0], auth);
       const result = commentList
         .post({ title: 'Test Comment' })
-        .then(listRes => {
+        .then((listRes) => {
           comment = listRes.getItems()[0];
         })
         .then(() => feed.getComments());
       result
-        .then(commentList => {
+        .then((commentList) => {
           expect(commentList).to.be.an.instanceof(CommentList);
           expect(commentList.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch a comment by id from the REST API', done => {
+    it('can fetch a comment by id from the REST API', (done) => {
       let comment;
       const commentsUrl = Collection.getLinkRelationUrls(feed.collection.items[0], 'comments');
       const commentList = new CommentList(commentsUrl[0], auth);
       const result = commentList
         .post({ title: 'Test Comment' })
-        .then(listRes => {
+        .then((listRes) => {
           comment = listRes.getItems()[0];
         })
         .then(() => feed.getComment(comment.data.id));
       result
-        .then(comment => {
+        .then((comment) => {
           expect(comment).to.be.an.instanceof(Comment);
           expect(comment.data.title).to.equal('Test Comment');
         })
         .then(done, done);
     });
 
-    it('can fetch the associated plugin instances from the REST API', done => {
+    it('can fetch the associated plugin instances from the REST API', (done) => {
       const result = feed.getPluginInstances();
       result
-        .then(plgInstList => {
+        .then((plgInstList) => {
           expect(plgInstList).to.be.an.instanceof(FeedPluginInstanceList);
           expect(plgInstList.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can become public through the REST API', done => {
+    it('can become public through the REST API', (done) => {
       const result = feed.makePublic();
       result
-        .then(feed => {
+        .then((feed) => {
           expect(feed.data.public).to.be.true;
         })
         .then(done, done);
     });
 
-    it('can become unpublic through the REST API', done => {
+    it('can become unpublic through the REST API', (done) => {
       const result = feed.makeUnpublic();
       result
-        .then(feed => {
+        .then((feed) => {
           expect(feed.data.public).to.be.false;
         })
         .then(done, done);
-    }); 
+    });
 
-    it('can grant a group permission through the REST API', done => {
+    it('can grant a group permission through the REST API', (done) => {
       const result = feed.addGroupPermission('all_users');
       result
-        .then(grp_permission => {
+        .then((grp_permission) => {
           expect(grp_permission).to.be.an.instanceof(FeedGroupPermission);
           expect(grp_permission.data.group_name).to.equal('all_users');
         })
         .then(done, done);
     });
 
-    it('can grant a user permission through the REST API', done => {
+    it('can grant a user permission through the REST API', (done) => {
       const result = feed.addUserPermission('chris');
       result
-        .then(user_permission => {
+        .then((user_permission) => {
           expect(user_permission).to.be.an.instanceof(FeedUserPermission);
           expect(user_permission.data.user_username).to.equal('chris');
         })
         .then(done, done);
-    });  
+    });
   });
 
   describe('FeedList', () => {
@@ -166,59 +166,59 @@ describe('Feed resources', () => {
       feedList = feedListRes.clone();
     });
 
-    it('can fetch the authenticated user from the REST API', done => {
+    it('can fetch the authenticated user from the REST API', (done) => {
       const result = feedList.getUser();
       result
-        .then(user => {
+        .then((user) => {
           expect(user).to.be.an.instanceof(User);
           expect(user.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the list of compute resources from the REST API', done => {
+    it('can fetch the list of compute resources from the REST API', (done) => {
       const result = feedList.getComputeResources();
       result
-        .then(computeResourceList => {
+        .then((computeResourceList) => {
           expect(computeResourceList).to.be.an.instanceof(ComputeResourceList);
           expect(computeResourceList.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the list of fs plugins from the REST API', done => {
+    it('can fetch the list of fs plugins from the REST API', (done) => {
       const result = feedList.getPlugins({ type: 'fs' });
       result
-        .then(pluginList => {
+        .then((pluginList) => {
           expect(pluginList).to.be.an.instanceof(PluginList);
           expect(pluginList.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the list of plugin instances from the REST API', done => {
+    it('can fetch the list of plugin instances from the REST API', (done) => {
       const result = feedList.getPluginInstances({ id: 1 });
       result
-        .then(plgInstanceList => {
+        .then((plgInstanceList) => {
           expect(plgInstanceList).to.be.an.instanceof(AllPluginInstanceList);
           expect(plgInstanceList.data).to.have.lengthOf.at.least(1);
         })
         .then(done, done);
     });
 
-    it('can fetch the list of all tags from the REST API', done => {
+    it('can fetch the list of all tags from the REST API', (done) => {
       const result = feedList.getTags();
       result
-        .then(allTagList => {
+        .then((allTagList) => {
           expect(allTagList).to.be.an.instanceof(TagList);
         })
         .then(done, done);
     });
 
-    it('can fetch the list of all user files from the REST API', done => {
+    it('can fetch the list of all user files from the REST API', (done) => {
       const result = feedList.getUserFiles();
       result
-        .then(userFileList => {
+        .then((userFileList) => {
           expect(userFileList).to.be.an.instanceof(UserFileList);
         })
         .then(done, done);

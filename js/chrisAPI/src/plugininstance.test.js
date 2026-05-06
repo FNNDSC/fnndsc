@@ -21,14 +21,14 @@ describe('Plugin instance resources', function () {
   let pluginInstanceListRes;
 
   before(() => {
-    return new Promise(function(resolve, reject) {
-      Request.runAsyncTask(function*() {
+    return new Promise(function (resolve, reject) {
+      Request.runAsyncTask(function* () {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
           const pluginListRes = yield feedListRes.getPlugins({ limit: 20 });
           // get the plugin with name 'pl-dircopy'
-          const url = pluginListRes.collection.items.filter(item => {
+          const url = pluginListRes.collection.items.filter((item) => {
             const data = Collection.getItemDescriptors(item);
             return data.name === 'pl-dircopy';
           })[0].href;
@@ -49,7 +49,7 @@ describe('Plugin instance resources', function () {
 
     beforeEach(() => {
       // get the plugin instance with id 1
-      const url = pluginInstanceListRes.collection.items.filter(item => {
+      const url = pluginInstanceListRes.collection.items.filter((item) => {
         const data = Collection.getItemDescriptors(item);
         return data.id === 1;
       })[0].href;
@@ -57,10 +57,10 @@ describe('Plugin instance resources', function () {
       return pluginInst.get();
     });
 
-    it('can fetch the feed created by this plugin instance from the REST API', done => {
+    it('can fetch the feed created by this plugin instance from the REST API', (done) => {
       const result = pluginInst.getFeed();
       result
-        .then(feed => {
+        .then((feed) => {
           if (pluginInst.data.type === 'fs') {
             expect(feed).to.be.an.instanceof(Feed);
             expect(feed.isEmpty).to.be.false;
@@ -72,30 +72,30 @@ describe('Plugin instance resources', function () {
         .then(done, done);
     });
 
-    it('can fetch the plugin associated to the plugin instance from the REST API', done => {
+    it('can fetch the plugin associated to the plugin instance from the REST API', (done) => {
       const result = pluginInst.getPlugin();
       result
-        .then(plugin => {
+        .then((plugin) => {
           expect(plugin).to.be.an.instanceof(Plugin);
           expect(plugin.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the compute resource associated to the plugin instance from the REST API', done => {
+    it('can fetch the compute resource associated to the plugin instance from the REST API', (done) => {
       const result = pluginInst.getComputeResource();
       result
-        .then(cr => {
+        .then((cr) => {
           expect(cr).to.be.an.instanceof(ComputeResource);
           expect(cr.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the previous plugin instance from the REST API', done => {
+    it('can fetch the previous plugin instance from the REST API', (done) => {
       const result = pluginInst.getPreviousPluginInstance();
       result
-        .then(previousPlgInst => {
+        .then((previousPlgInst) => {
           if (pluginInst.data.type === 'fs') {
             expect(previousPlgInst).to.be.a('null');
           }
@@ -107,43 +107,43 @@ describe('Plugin instance resources', function () {
         .then(done, done);
     });
 
-    it('can fetch the list of plugin instances that are its descendants from the REST API', done => {
+    it('can fetch the list of plugin instances that are its descendants from the REST API', (done) => {
       const result = pluginInst.getDescendantPluginInstances();
       result
-        .then(plgInstList => {
+        .then((plgInstList) => {
           expect(plgInstList).to.be.an.instanceof(PluginInstanceDescendantList);
         })
         .then(done, done);
     });
 
-    it('can fetch the list of associated plugin instance parameters from the REST API', done => {
+    it('can fetch the list of associated plugin instance parameters from the REST API', (done) => {
       const result = pluginInst.getParameters();
       result
-        .then(plgInstParamList => {
+        .then((plgInstParamList) => {
           expect(plgInstParamList).to.be.an.instanceof(PluginInstanceParameterList);
           expect(plgInstParamList.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the output folder of the plugin instance from the REST API', done => {
+    it('can fetch the output folder of the plugin instance from the REST API', (done) => {
       const result = pluginInst.getOutputFolder();
       result
-        .then(folder => {
+        .then((folder) => {
           expect(folder).to.be.an.instanceof(FileBrowserFolder);
           expect(folder.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can modify this plugin instance resource through a REST API PUT request', done => {
+    it('can modify this plugin instance resource through a REST API PUT request', (done) => {
       const data = {
         title: 'PUT test plugin instance',
       };
 
       const result = pluginInst.put(data);
       result
-        .then(pluginInst => {
+        .then((pluginInst) => {
           expect(pluginInst.data.title).to.equal(data.title);
         })
         .then(done, done);
@@ -157,10 +157,10 @@ describe('Plugin instance resources', function () {
       pluginInstList = pluginInstanceListRes.clone();
     });
 
-    it('can fetch the plugin associated to the plugin instances from the REST API', done => {
+    it('can fetch the plugin associated to the plugin instances from the REST API', (done) => {
       const result = pluginInstList.getPlugin();
       result
-        .then(plugin => {
+        .then((plugin) => {
           expect(plugin).to.be.an.instanceof(Plugin);
           expect(plugin.isEmpty).to.be.false;
         })

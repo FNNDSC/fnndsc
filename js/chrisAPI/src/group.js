@@ -13,7 +13,7 @@ export class Group extends ItemResource {
    * @param {Object} auth - authentication object
    * @param {string} auth.token - authentication token
    */
-   constructor(url, auth) {
+  constructor(url, auth) {
     super(url, auth);
   }
 
@@ -45,12 +45,12 @@ export class Group extends ItemResource {
    * @return {Promise<GroupUser|null>} - JS Promise, resolves to a ``GroupUser`` object or ``null``
    */
   getUser(username, timeout = 30000) {
-    return this.getUsers({ username: username }, timeout).then(listRes => {
+    return this.getUsers({ username: username }, timeout).then((listRes) => {
       const items = listRes.getItems();
-      
+
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
   /**
    * Add a user to the group given the user's username.
@@ -62,8 +62,8 @@ export class Group extends ItemResource {
    */
   adminAddUser(username, timeout = 30000) {
     return this.getUsers(null, timeout)
-      .then(listRes => listRes.post({ username: username }), timeout)
-      .then(listRes => listRes.getItems()[0]);
+      .then((listRes) => listRes.post({ username: username }), timeout)
+      .then((listRes) => listRes.getItems()[0]);
   }
 
   /**
@@ -97,7 +97,7 @@ export class GroupList extends ListResource {
   }
 
   /**
-   * Make a POST request (only admins) to this group list resource to create a new group item 
+   * Make a POST request (only admins) to this group list resource to create a new group item
    * resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -199,7 +199,7 @@ export class GroupUserList extends ListResource {
   }
 
   /**
-   * Make a POST request (only admins) to this group-specific user list resource to create 
+   * Make a POST request (only admins) to this group-specific user list resource to create
    * a new group user item resource through the REST API.
    *
    * @param {Object} data - request JSON data object

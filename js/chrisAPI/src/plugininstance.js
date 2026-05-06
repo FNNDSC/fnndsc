@@ -21,7 +21,7 @@ export class PluginInstance extends ItemResource {
   getFeed(timeout = 30000) {
     const linkRelation = 'feed';
     const resourceClass = Feed;
-    
+
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
 
@@ -46,12 +46,12 @@ export class PluginInstance extends ItemResource {
    *
    * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
    */
-   getOutputFolder(timeout = 30000) {
+  getOutputFolder(timeout = 30000) {
     const linkRelation = 'output_folder';
     const resourceClass = FileBrowserFolder;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Fetch the compute resource associated to this plugin instance item from the REST API.
@@ -94,7 +94,7 @@ export class PluginInstance extends ItemResource {
    *
    * @return {Promise<Workflow|null>} - JS Promise, resolves to a ``Workflow`` object or ``null``
    */
-   getWorkflow(timeout = 30000) {
+  getWorkflow(timeout = 30000) {
     const linkRelation = 'workflow';
     const resourceClass = Workflow;
 
@@ -105,7 +105,7 @@ export class PluginInstance extends ItemResource {
     } catch (e) {
       return Promise.resolve(null);
     }
-  } 
+  }
 
   /**
    * Fetch a list of plugin instances that are descendents of this plugin instance from the

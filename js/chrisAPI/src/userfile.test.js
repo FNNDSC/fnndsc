@@ -15,8 +15,8 @@ describe('User file resources', () => {
   let userFileListRes;
 
   before(() => {
-    return new Promise(function(resolve, reject) {
-      Request.runAsyncTask(function*() {
+    return new Promise(function (resolve, reject) {
+      Request.runAsyncTask(function* () {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
@@ -50,15 +50,15 @@ describe('User file resources', () => {
       return userFile.get();
     });
 
-    it('can fetch the associated file blob from the REST API', done => {
+    it('can fetch the associated file blob from the REST API', (done) => {
       const result = userFile.getFileBlob();
       result
-        .then(fileBlob => {
-          return new Promise(function(resolve, reject) {
+        .then((fileBlob) => {
+          return new Promise(function (resolve, reject) {
             const reader = new FileReader();
 
             // fires after the blob has been read/loaded
-            reader.addEventListener('loadend', ev => {
+            reader.addEventListener('loadend', (ev) => {
               if (ev.target.error) {
                 reject(ev.target.error);
               } else {
@@ -69,59 +69,59 @@ describe('User file resources', () => {
             reader.readAsText(fileBlob);
           });
         })
-        .then(text => {
+        .then((text) => {
           expect(text).to.equal('"This is an uploaded test file"');
         })
         .then(done, done);
     });
 
-    it('can become public through the REST API', done => {
+    it('can become public through the REST API', (done) => {
       const result = userFile.makePublic();
       result
-        .then(userFile => {
+        .then((userFile) => {
           expect(userFile.data.public).to.be.true;
         })
         .then(done, done);
     });
 
-    it('can become unpublic through the REST API', done => {
+    it('can become unpublic through the REST API', (done) => {
       const result = userFile.makeUnpublic();
       result
-        .then(userFile => {
+        .then((userFile) => {
           expect(userFile.data.public).to.be.false;
         })
         .then(done, done);
-    });   
+    });
 
-    it('can grant a group permission through the REST API', done => {
+    it('can grant a group permission through the REST API', (done) => {
       const result = userFile.addGroupPermission('pacs_users', 'r');
       result
-        .then(grp_permission => {
+        .then((grp_permission) => {
           expect(grp_permission).to.be.an.instanceof(FileGroupPermission);
           expect(grp_permission.data.group_name).to.equal('pacs_users');
         })
-        .then( () => userFile.getGroupPermission('pacs_users') )
-        .then(grp_permission => {
+        .then(() => userFile.getGroupPermission('pacs_users'))
+        .then((grp_permission) => {
           expect(grp_permission).to.be.an.instanceof(FileGroupPermission);
           expect(grp_permission.data.group_name).to.equal('pacs_users');
         })
         .then(done, done);
     });
 
-    it('can grant a user permission through the REST API', done => {
+    it('can grant a user permission through the REST API', (done) => {
       const result = userFile.addUserPermission('other', 'r');
       result
-        .then(user_permission => {
+        .then((user_permission) => {
           expect(user_permission).to.be.an.instanceof(FileUserPermission);
           expect(user_permission.data.user_username).to.equal('other');
         })
-        .then( () => userFile.getUserPermission('other') )
-        .then(user_permission => {
+        .then(() => userFile.getUserPermission('other'))
+        .then((user_permission) => {
           expect(user_permission).to.be.an.instanceof(FileUserPermission);
           expect(user_permission.data.user_username).to.equal('other');
         })
         .then(done, done);
-    }); 
+    });
   });
 
   describe('UserFileList', () => {
@@ -131,7 +131,7 @@ describe('User file resources', () => {
       userFileList = userFileListRes.clone();
     });
 
-    it('can create a new user file item resource through a REST API POST request', done => {
+    it('can create a new user file item resource through a REST API POST request', (done) => {
       const data = {
         upload_path: 'home/' + username + '/uploads/test' + Date.now() + '.txt',
       };
@@ -143,7 +143,7 @@ describe('User file resources', () => {
       const result = userFileList.post(data, uploadFileObj);
 
       result
-        .then(userFileList => {
+        .then((userFileList) => {
           expect(userFileList.data[0].fname).to.equal(data.upload_path);
         })
         .then(done, done);

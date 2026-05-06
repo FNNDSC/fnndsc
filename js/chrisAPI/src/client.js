@@ -18,18 +18,19 @@ import { AllWorkflowList, WorkflowList, Workflow } from './workflow';
 import { PipelineList, Pipeline, PipelineSourceFileList, PipelineSourceFile } from './pipeline';
 import { TagList, Tag, Tagging } from './tag';
 import { UserFileList, UserFile } from './userfile';
-import { 
-  PACSFileList, 
-  PACSList, 
+import {
+  PACSFileList,
+  PACSList,
   PACSQueryList,
-  AllPACSQueryList, 
-  PACSRetrieveList, 
-  PACSSeriesList, 
-  PACSFile, 
-  PACS, 
-  PACSQuery, 
-  PACSRetrieve, 
-  PACSSeries } from './pacsfile';
+  AllPACSQueryList,
+  PACSRetrieveList,
+  PACSSeriesList,
+  PACSFile,
+  PACS,
+  PACSQuery,
+  PACSRetrieve,
+  PACSSeries,
+} from './pacsfile';
 import { FileBrowserFolderList, FileBrowserFolder } from './filebrowser';
 import { DownloadTokenList, DownloadToken } from './downloadtoken';
 import { GroupList, Group } from './group';
@@ -136,7 +137,8 @@ export default class Client {
       this.pipelinesUrl = this.pipelinesUrl || getUrl(coll, 'pipelines')[0];
       this.workflowsUrl = this.workflowsUrl || getUrl(coll, 'workflows')[0];
       this.tagsUrl = this.tagsUrl || getUrl(coll, 'tags')[0];
-      this.pipelineSourceFilesUrl = this.pipelineSourceFilesUrl || getUrl(coll, 'pipelinesourcefiles')[0];
+      this.pipelineSourceFilesUrl =
+        this.pipelineSourceFilesUrl || getUrl(coll, 'pipelinesourcefiles')[0];
       this.userFilesUrl = this.userFilesUrl || getUrl(coll, 'userfiles')[0];
       this.pacsFilesUrl = this.pacsFilesUrl || getUrl(coll, 'pacsfiles')[0];
       this.pacsUrl = this.pacsUrl || getUrl(coll, 'pacs')[0];
@@ -166,7 +168,7 @@ export default class Client {
   }
 
   /**
-   * Get a paginated list of public feeds from the REST API given query search parameters. 
+   * Get a paginated list of public feeds from the REST API given query search parameters.
    * If no search parameters then get the default first page.
    *
    * @param {Object} [searchParams=null] - search parameters object
@@ -200,7 +202,7 @@ export default class Client {
    * @return {Promise<Feed|null>} - JS Promise, resolves to a ``Feed`` object or ``null``
    */
   getFeed(id, timeout = 30000) {
-    return this.getFeeds({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getFeeds({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -233,7 +235,7 @@ export default class Client {
    * @return {Promise<ComputeResource|null>} - JS Promise, resolves to a ``ComputeResource`` object or ``null``
    */
   getComputeResource(id, timeout = 30000) {
-    return this.getComputeResources({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getComputeResources({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -273,7 +275,7 @@ export default class Client {
    * @return {Promise<PluginMeta|null>} - JS Promise, resolves to a ``PluginMeta`` object or ``null``
    */
   getPluginMeta(id, timeout = 30000) {
-    return this.getPluginMetas({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPluginMetas({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -315,7 +317,7 @@ export default class Client {
    * @return {Promise<Plugin|null>} - JS Promise, resolves to a ``Plugin`` object or ``null``
    */
   getPlugin(id, timeout = 30000) {
-    return this.getPlugins({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPlugins({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -333,7 +335,7 @@ export default class Client {
   adminUploadPlugin(data, pluginFileObj, timeout = 30000) {
     const createRes = () => {
       const res = new PluginAdminList(this.adminUrl, this.auth);
-      return res.post(data, pluginFileObj, timeout).then(res => res.getItems()[0]);
+      return res.post(data, pluginFileObj, timeout).then((res) => res.getItems()[0]);
     };
     return this.adminUrl ? createRes() : this.setUrls().then(() => createRes());
   }
@@ -380,7 +382,7 @@ export default class Client {
    * @return {Promise<PluginInstance|null>} - JS Promise, resolves to a ``PluginInstance`` object or ``null``
    */
   getPluginInstance(id, timeout = 30000) {
-    return this.getPluginInstances({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPluginInstances({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -406,7 +408,7 @@ export default class Client {
         const plgInstList = new PluginInstanceList(instancesUrl[0], this.auth);
         return plgInstList.post(data, timeout);
       })
-      .then(plgInstList => plgInstList.getItems()[0]);
+      .then((plgInstList) => plgInstList.getItems()[0]);
   }
 
   /**
@@ -430,7 +432,7 @@ export default class Client {
         }
         return plgInstSplitList.post(data, timeout);
       })
-      .then(plgInstSplitList => plgInstSplitList.getItems()[0]);
+      .then((plgInstSplitList) => plgInstSplitList.getItems()[0]);
   }
 
   /**
@@ -466,7 +468,7 @@ export default class Client {
    * @return {Promise<Pipeline|null>} - JS Promise, resolves to a ``Pipeline`` object or ``null``
    */
   getPipeline(id, timeout = 30000) {
-    return this.getPipelines({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPipelines({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -487,7 +489,7 @@ export default class Client {
   createPipeline(data, timeout = 30000) {
     const createRes = () => {
       const res = new PipelineList(this.pipelinesUrl, this.auth);
-      return res.post(data, timeout).then(res => res.getItems()[0]);
+      return res.post(data, timeout).then((res) => res.getItems()[0]);
     };
     return this.pipelinesUrl ? createRes() : this.setUrls().then(() => createRes());
   }
@@ -520,7 +522,7 @@ export default class Client {
    * @return {Promise<Workflow>|null} - JS Promise, resolves to a ``Workflow`` object or ``null``
    */
   getWorkflow(id, timeout = 30000) {
-    return this.getWorkflows({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getWorkflows({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -535,37 +537,37 @@ export default class Client {
    *
    * @return {Object[]} - array of workflow node objects
    */
-   computeWorkflowNodesInfo(pipelineDefaultParameters, includeAllDefaults=false) {
-     const pipings = {};
+  computeWorkflowNodesInfo(pipelineDefaultParameters, includeAllDefaults = false) {
+    const pipings = {};
 
-     for (let defaultParam of pipelineDefaultParameters) {
-       let pipingId = defaultParam.plugin_piping_id;
+    for (let defaultParam of pipelineDefaultParameters) {
+      let pipingId = defaultParam.plugin_piping_id;
 
-       if ( !(pipingId in pipings) ) {
-         pipings[pipingId] = {
-           piping_id: pipingId,
-           previous_piping_id: defaultParam.previous_plugin_piping_id,
-           compute_resource_name: 'host',
-           title: defaultParam.plugin_piping_title,
-           cpu_limit: defaultParam.plugin_piping_cpu_limit,
-           memory_limit: defaultParam.plugin_piping_memory_limit,
-           gpu_limit: defaultParam.plugin_piping_gpu_limit,
-           number_of_workers: defaultParam.plugin_piping_number_of_workers,
-           plugin_parameter_defaults: []
-         };
-       }
+      if (!(pipingId in pipings)) {
+        pipings[pipingId] = {
+          piping_id: pipingId,
+          previous_piping_id: defaultParam.previous_plugin_piping_id,
+          compute_resource_name: 'host',
+          title: defaultParam.plugin_piping_title,
+          cpu_limit: defaultParam.plugin_piping_cpu_limit,
+          memory_limit: defaultParam.plugin_piping_memory_limit,
+          gpu_limit: defaultParam.plugin_piping_gpu_limit,
+          number_of_workers: defaultParam.plugin_piping_number_of_workers,
+          plugin_parameter_defaults: [],
+        };
+      }
 
-       if ( includeAllDefaults || defaultParam.value === null ) {
-         pipings[pipingId].plugin_parameter_defaults.push({
-           name: defaultParam.param_name,
-           default: defaultParam.value
-         });
-       }
-     }
+      if (includeAllDefaults || defaultParam.value === null) {
+        pipings[pipingId].plugin_parameter_defaults.push({
+          name: defaultParam.param_name,
+          default: defaultParam.value,
+        });
+      }
+    }
 
     const nodesInfo = [];
     for (let pipingId in pipings) {
-      if ( pipings[pipingId].plugin_parameter_defaults.length === 0 ) {
+      if (pipings[pipingId].plugin_parameter_defaults.length === 0) {
         delete pipings[pipingId].plugin_parameter_defaults;
       }
       nodesInfo.push(pipings[pipingId]);
@@ -590,7 +592,7 @@ export default class Client {
    */
   createWorkflow(pipelineId, data, timeout = 30000) {
     return this.getPipeline(pipelineId, timeout)
-      .then(pipeline => {
+      .then((pipeline) => {
         const workflowsUrl = Collection.getLinkRelationUrls(
           pipeline.collection.items[0],
           'workflows'
@@ -598,7 +600,7 @@ export default class Client {
         const workflowList = new WorkflowList(workflowsUrl[0], this.auth);
         return workflowList.post(data, timeout);
       })
-      .then(workflowList => workflowList.getItems()[0]);
+      .then((workflowList) => workflowList.getItems()[0]);
   }
 
   /**
@@ -629,7 +631,7 @@ export default class Client {
    * @return {Promise<Tag|null>} - JS Promise, resolves to a ``Tag`` object or ``null``
    */
   getTag(id, timeout = 30000) {
-    return this.getTags({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getTags({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -645,12 +647,12 @@ export default class Client {
   createTag(data, timeout = 30000) {
     const createRes = () => {
       const res = new TagList(this.tagsUrl, this.auth);
-      return res.post(data, timeout).then(res => res.getItems()[0]);
+      return res.post(data, timeout).then((res) => res.getItems()[0]);
     };
     return this.tagsUrl ? createRes() : this.setUrls().then(() => createRes());
   }
 
-    /**
+  /**
    * Get a paginated list of pipeline source files from the REST API given query search
    * parameters. If no search parameters then get the default first page.
    *
@@ -670,42 +672,42 @@ export default class Client {
    *
    * @return {Promise<PipelineSourceFileList>} - JS Promise, resolves to a ``PipelineSourceFileList`` object
    */
-    getPipelineSourceFiles(searchParams = null, timeout = 30000) {
-      return this._fetchRes('pipelineSourceFilesUrl', PipelineSourceFileList, searchParams, timeout);
-    }
-  
-    /**
-     * Get a pipeline source file resource object given its id.
-     *
-     * @param {number} id - pipeline source file id
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<PipelineSourceFile|null>} - JS Promise, resolves to a ``PipelineSourceFile`` object or ``null`
-     */
-    getPipelineSourceFile(id, timeout = 30000) {
-      return this.getPipelineSourceFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
-    }
-  
-    /**
-     * Upload a pipeline source file and create a new pipeline source file resource through the REST API.
-     * In addition, this creates a new pipeline resource based on the source of the uploaded file.
-     *
-     * @param {Object} data - request data object
-     * @param {string} data.type - pipeline source file type
-     * @param {Object} uploadFileObj - custom file object
-     * @param {Object} uploadFileObj.fname - file blob
-     * @param {number} [timeout=30000] - request timeout
-     *
-     * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
-     */
-    uploadPipelineSourceFile(data, uploadFileObj, timeout = 30000) {
-      const createRes = () => {
-        const res = new PipelineSourceFileList(this.pipelineSourceFilesUrl, this.auth);
-        return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
-      };
-      return this.pipelineSourceFilesUrl ? createRes() : this.setUrls().then(() => createRes());
-    }
-  
+  getPipelineSourceFiles(searchParams = null, timeout = 30000) {
+    return this._fetchRes('pipelineSourceFilesUrl', PipelineSourceFileList, searchParams, timeout);
+  }
+
+  /**
+   * Get a pipeline source file resource object given its id.
+   *
+   * @param {number} id - pipeline source file id
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PipelineSourceFile|null>} - JS Promise, resolves to a ``PipelineSourceFile`` object or ``null`
+   */
+  getPipelineSourceFile(id, timeout = 30000) {
+    return this.getPipelineSourceFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
+  }
+
+  /**
+   * Upload a pipeline source file and create a new pipeline source file resource through the REST API.
+   * In addition, this creates a new pipeline resource based on the source of the uploaded file.
+   *
+   * @param {Object} data - request data object
+   * @param {string} data.type - pipeline source file type
+   * @param {Object} uploadFileObj - custom file object
+   * @param {Object} uploadFileObj.fname - file blob
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<PipelineSourceFile>} - JS Promise, resolves to a ``PipelineSourceFile`` object
+   */
+  uploadPipelineSourceFile(data, uploadFileObj, timeout = 30000) {
+    const createRes = () => {
+      const res = new PipelineSourceFileList(this.pipelineSourceFilesUrl, this.auth);
+      return res.post(data, uploadFileObj, timeout).then((res) => res.getItems()[0]);
+    };
+    return this.pipelineSourceFilesUrl ? createRes() : this.setUrls().then(() => createRes());
+  }
+
   /**
    * Get a paginated list of user files from the REST API given query search
    * parameters. If no search parameters then get the default first page.
@@ -738,7 +740,7 @@ export default class Client {
    * @return {Promise<UserFile|null>} - JS Promise, resolves to a ``UserFile`` object or ``null``
    */
   getUserFile(id, timeout = 30000) {
-    return this.getUserFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getUserFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -756,7 +758,7 @@ export default class Client {
   uploadFile(data, uploadFileObj, timeout = 30000) {
     const createRes = () => {
       const res = new UserFileList(this.userFilesUrl, this.auth);
-      return res.post(data, uploadFileObj, timeout).then(res => res.getItems()[0]);
+      return res.post(data, uploadFileObj, timeout).then((res) => res.getItems()[0]);
     };
     return this.userFilesUrl ? createRes() : this.setUrls().then(() => createRes());
   }
@@ -796,7 +798,7 @@ export default class Client {
    * @return {Promise<PACSFile|null>} - JS Promise, resolves to a ``PACSFile`` object or ``null`
    */
   getPACSFile(id, timeout = 30000) {
-    return this.getPACSFiles({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPACSFiles({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -826,7 +828,7 @@ export default class Client {
    * @return {Promise<PACS|null>} - JS Promise, resolves to a ``PACS`` object or ``null``
    */
   getPACS(id, timeout = 30000) {
-    return this.getPACSList({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPACSList({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -863,7 +865,7 @@ export default class Client {
    * @return {Promise<PACSQuery|null>} - JS Promise, resolves to a ``PACSQuery`` object or ``null``
    */
   getPACSQuery(id, timeout = 30000) {
-    return this.getPACSQueries({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getPACSQueries({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -881,13 +883,13 @@ export default class Client {
    */
   createPACSQuery(pacsId, data, timeout = 30000) {
     return this.getPACS(pacsId, timeout)
-      .then(pacs => {
+      .then((pacs) => {
         const queriesUrl = Collection.getLinkRelationUrls(pacs.collection.items[0], 'query_list');
         const queryList = new PACSQueryList(queriesUrl[0], this.auth);
         return queryList.post(data, timeout);
       })
-      .then(queryList => queryList.getItems()[0]);
-  } 
+      .then((queryList) => queryList.getItems()[0]);
+  }
 
   /**
    * Create a new PACS retrieve resource through the REST API.
@@ -899,14 +901,17 @@ export default class Client {
    */
   createPACSRetrieve(pacsQueryId, timeout = 30000) {
     return this.getPACSQuery(pacsQueryId, timeout)
-      .then(pacsQuery => {
-        const retrievesUrl = Collection.getLinkRelationUrls(pacsQuery.collection.items[0], 'retrieve_list');
+      .then((pacsQuery) => {
+        const retrievesUrl = Collection.getLinkRelationUrls(
+          pacsQuery.collection.items[0],
+          'retrieve_list'
+        );
         const retrieveList = new PACSRetrieveList(retrievesUrl[0], this.auth);
         return retrieveList.post(timeout);
       })
-      .then(retrieveList => retrieveList.getItems()[0]);
-  } 
-  
+      .then((retrieveList) => retrieveList.getItems()[0]);
+  }
+
   /**
    * Get a paginated list of PACS series from the REST API given query search
    * parameters. If no search parameters then get the default first page.
@@ -949,12 +954,12 @@ export default class Client {
    * @return {Promise<PACSSeries|null>} - JS Promise, resolves to a ``PACSSeries`` object or ``null``
    */
   getPACSSeries(id, timeout = 30000) {
-    return this.getPACSSeriesList({ id: id }, timeout).then(listRes => listRes.getItem(id));
-  }  
+    return this.getPACSSeriesList({ id: id }, timeout).then((listRes) => listRes.getItem(id));
+  }
 
   /**
-   * Get a list with the matching file browser folder (the returned list only has at most one element) 
-   * from the REST API given query search parameters. If no search parameters then get a list with the 
+   * Get a list with the matching file browser folder (the returned list only has at most one element)
+   * from the REST API given query search parameters. If no search parameters then get a list with the
    * default root folder.
    *
    * @param {Object} [searchParams=null] - search parameters object
@@ -979,7 +984,7 @@ export default class Client {
    * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
    */
   getFileBrowserFolder(id, timeout = 30000) {
-    return this.getFileBrowserFolders({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getFileBrowserFolders({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -990,12 +995,12 @@ export default class Client {
    *
    * @return {Promise<FileBrowserFolder|null>} - JS Promise, resolves to a ``FileBrowserFolder`` object or ``null``
    */
-   getFileBrowserFolderByPath(path = '', timeout = 30000) {
-    return this.getFileBrowserFolders({ path: path }, timeout).then(listRes => {
+  getFileBrowserFolderByPath(path = '', timeout = 30000) {
+    return this.getFileBrowserFolders({ path: path }, timeout).then((listRes) => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
   /**
    * Create a new file browser folder resource through the REST API.
@@ -1009,13 +1014,13 @@ export default class Client {
   createFileBrowserFolder(data, timeout = 30000) {
     const createRes = () => {
       const res = new FileBrowserFolderList(this.fileBrowserUrl, this.auth);
-      return res.post(data, timeout).then(res => res.getItems()[0]);
+      return res.post(data, timeout).then((res) => res.getItems()[0]);
     };
     return this.fileBrowserUrl ? createRes() : this.setUrls().then(() => createRes());
   }
 
   /**
-   * Get a paginated list of file download tokens for the authenticated user from the REST API 
+   * Get a paginated list of file download tokens for the authenticated user from the REST API
    * given query search parameters. If no search parameters then get the default first page.
    *
    * @param {Object} [searchParams=null] - search parameters object
@@ -1039,7 +1044,7 @@ export default class Client {
    * @return {Promise<DownloadToken|null>} - JS Promise, resolves to a ``DownloadToken`` object or ``null``
    */
   getDownloadToken(id, timeout = 30000) {
-    return this.getDownloadTokens({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getDownloadTokens({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -1052,10 +1057,10 @@ export default class Client {
   createDownloadToken(timeout = 30000) {
     const createRes = () => {
       const res = new DownloadTokenList(this.downloadTokensUrl, this.auth);
-      return res.post(timeout).then(res => res.getItems()[0]);
+      return res.post(timeout).then((res) => res.getItems()[0]);
     };
     return this.downloadTokensUrl ? createRes() : this.setUrls().then(() => createRes());
-  }  
+  }
 
   /**
    * Get a paginated list of groups from the REST API given query search
@@ -1066,12 +1071,12 @@ export default class Client {
    * @param {number} [searchParams.offset] - page offset
    * @param {number} [searchParams.id] - match group id exactly with this number
    * @param {string} [searchParams.name] - match group name exactly with this string
-   * @param {string} [searchParams.name_icontains] - match group name containing this string 
+   * @param {string} [searchParams.name_icontains] - match group name containing this string
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<GroupList>} - JS Promise, resolves to a ``GroupList`` object
    */
-   getGroups(searchParams = null, timeout = 30000) {
+  getGroups(searchParams = null, timeout = 30000) {
     return this._fetchRes('groupsUrl', GroupList, searchParams, timeout);
   }
 
@@ -1084,7 +1089,7 @@ export default class Client {
    * @return {Promise<Group|null>} - JS Promise, resolves to a ``Group`` object or ``null``
    */
   getGroup(id, timeout = 30000) {
-    return this.getGroups({ id: id }, timeout).then(listRes => listRes.getItem(id));
+    return this.getGroups({ id: id }, timeout).then((listRes) => listRes.getItem(id));
   }
 
   /**
@@ -1099,7 +1104,7 @@ export default class Client {
   adminCreateGroup(data, timeout = 30000) {
     const createRes = () => {
       const res = new GroupList(this.groupsUrl, this.auth);
-      return res.post(data, timeout).then(res => res.getItems()[0]);
+      return res.post(data, timeout).then((res) => res.getItems()[0]);
     };
     return this.groupsUrl ? createRes() : this.setUrls().then(() => createRes());
   }
@@ -1136,7 +1141,7 @@ export default class Client {
         ],
       },
     };
-    return req.post(usersUrl, userData).then(resp => {
+    return req.post(usersUrl, userData).then((resp) => {
       const coll = resp.data.collection;
       const userUrl = coll.items[0].href;
       const auth = { username: username, password: password };
@@ -1161,7 +1166,7 @@ export default class Client {
       username: username,
       password: password,
     };
-    return req.post(authUrl, authData).then(resp => resp.data.token);
+    return req.post(authUrl, authData).then((resp) => resp.data.token);
   }
 
   /**

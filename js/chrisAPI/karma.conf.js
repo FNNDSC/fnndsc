@@ -1,9 +1,9 @@
 var webpackConfig = require('./webpack.config');
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['mocha', 'chai', 'sinon'],
+    frameworks: ['mocha', 'chai'],
     files: ['src/**/*.test.js'],
     exclude: [],
     preprocessors: {

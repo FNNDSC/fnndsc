@@ -17,12 +17,12 @@ describe('Comment resources', function () {
   let commentListRes;
 
   before(() => {
-    return new Promise(function(resolve, reject) {
-      Request.runAsyncTask(function*() {
+    return new Promise(function (resolve, reject) {
+      Request.runAsyncTask(function* () {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
-          const feedItemURl = feedListRes.collection.items.filter(item => {
+          const feedItemURl = feedListRes.collection.items.filter((item) => {
             const data = Collection.getItemDescriptors(item);
             return data.id === 1;
           })[0].href;
@@ -54,7 +54,7 @@ describe('Comment resources', function () {
       return commentItem.get();
     });
 
-    it('can modify this comment item resource through a REST API PUT request', done => {
+    it('can modify this comment item resource through a REST API PUT request', (done) => {
       const data = {
         title: 'PUT test comment',
         content: 'PUT test comment content',
@@ -63,7 +63,7 @@ describe('Comment resources', function () {
       const result = commentItem.put(data);
 
       result
-        .then(commentItem => {
+        .then((commentItem) => {
           expect(commentItem.data.title).to.equal(data.title);
           expect(commentItem.data.content).to.equal(data.content);
         })
@@ -89,7 +89,7 @@ describe('Comment resources', function () {
       commentList = commentListRes.clone();
     });
 
-    it('can create a new comment item resource through a REST API POST request', done => {
+    it('can create a new comment item resource through a REST API POST request', (done) => {
       const data = {
         title: 'POST test comment',
         content: 'POST test comment content',
@@ -98,9 +98,9 @@ describe('Comment resources', function () {
       const result = commentList.post(data);
 
       result
-        .then(commentList => {
+        .then((commentList) => {
           const commentItemData = commentList.data.filter(
-            itemData => itemData.title === data.title
+            (itemData) => itemData.title === data.title
           )[0];
           expect(commentItemData.content).to.equal(data.content);
         })

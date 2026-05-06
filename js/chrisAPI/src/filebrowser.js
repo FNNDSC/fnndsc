@@ -54,7 +54,7 @@ export class FileBrowserFolder extends ItemResource {
     const resourceClass = FileBrowserFolderFileList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  }  
+  }
 
   /**
    * Fetch a list of link files directly under this folder from the REST API.
@@ -66,14 +66,14 @@ export class FileBrowserFolder extends ItemResource {
    *
    * @return {Promise<FileBrowserFolderLinkFileList>} - JS Promise, resolves to a ``FileBrowserFolderLinkFileList`` object
    */
-   getLinkFiles(params = null, timeout = 30000) {
+  getLinkFiles(params = null, timeout = 30000) {
     const linkRelation = 'link_files';
     const resourceClass = FileBrowserFolderLinkFileList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  } 
+  }
 
-   /**
+  /**
    * Fetch a list of group permissions associated to this folder from the REST API.
    *
    * @param {Object} [searchParams=null] - search parameters object
@@ -85,12 +85,12 @@ export class FileBrowserFolder extends ItemResource {
    *
    * @return {Promise<FolderGroupPermissionList>} - JS Promise, resolves to a ``FolderGroupPermissionList`` object
    */
-   getGroupPermissions(searchParams = null, timeout = 30000) {
+  getGroupPermissions(searchParams = null, timeout = 30000) {
     const linkRelation = 'group_permissions';
     const resourceClass = FolderGroupPermissionList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  } 
+  }
 
   /**
    * Get a folder group permission given the name of the group.
@@ -101,11 +101,11 @@ export class FileBrowserFolder extends ItemResource {
    * @return {Promise<FolderGroupPermission|null>} - JS Promise, resolves to a ``FolderGroupPermission`` object or ``null``
    */
   getGroupPermission(group_name, timeout = 30000) {
-    return this.getGroupPermissions({ group_name: group_name }, timeout).then(listRes => {
+    return this.getGroupPermissions({ group_name: group_name }, timeout).then((listRes) => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
   /**
    * Fetch a list of user permissions associated to this folder from the REST API.
@@ -119,12 +119,12 @@ export class FileBrowserFolder extends ItemResource {
    *
    * @return {Promise<FolderUserPermissionList>} - JS Promise, resolves to a ``FolderUserPermissionList`` object
    */
-   getUserPermissions(searchParams = null, timeout = 30000) {
+  getUserPermissions(searchParams = null, timeout = 30000) {
     const linkRelation = 'user_permissions';
     const resourceClass = FolderUserPermissionList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  } 
+  }
 
   /**
    * Get a folder user permission given the username of the user.
@@ -134,23 +134,23 @@ export class FileBrowserFolder extends ItemResource {
    *
    * @return {Promise<FolderUserPermission|null>} - JS Promise, resolves to a ``FolderUserPermission`` object or ``null``
    */
-   getUserPermission(username, timeout = 30000) {
-    return this.getUserPermissions({ username: username }, timeout).then(listRes => {
+  getUserPermission(username, timeout = 30000) {
+    return this.getUserPermissions({ username: username }, timeout).then((listRes) => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
-   /**
+  /**
    * Make the folder public.
    *
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   makePublic(timeout = 30000) {
+  makePublic(timeout = 30000) {
     return this.put({ public: true }, timeout);
-  } 
+  }
 
   /**
    * Make the folder unpublic.
@@ -159,10 +159,10 @@ export class FileBrowserFolder extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   makeUnpublic(timeout = 30000) {
+  makeUnpublic(timeout = 30000) {
     return this.put({ public: false }, timeout);
-  } 
-  
+  }
+
   /**
    * Add a group permission to access the folder.
    *
@@ -172,11 +172,11 @@ export class FileBrowserFolder extends ItemResource {
    *
    * @return {Promise<FolderGroupPermission>} - JS Promise, resolves to a ``FolderGroupPermission`` object
    */
-   addGroupPermission(group_name, permission, timeout = 30000) {
+  addGroupPermission(group_name, permission, timeout = 30000) {
     return this.getGroupPermissions(null, timeout)
-      .then(listRes => listRes.post({ grp_name: group_name, permission: permission }), timeout)
-      .then(listRes => listRes.getItems()[0]);
-  } 
+      .then((listRes) => listRes.post({ grp_name: group_name, permission: permission }), timeout)
+      .then((listRes) => listRes.getItems()[0]);
+  }
 
   /**
    * Add a user permission to access the folder.
@@ -187,11 +187,11 @@ export class FileBrowserFolder extends ItemResource {
    *
    * @return {Promise<FolderUserPermission>} - JS Promise, resolves to a ``FolderUserPermission`` object
    */
-   addUserPermission(username, permission, timeout = 30000) {
+  addUserPermission(username, permission, timeout = 30000) {
     return this.getUserPermissions(null, timeout)
-      .then(listRes => listRes.post({ username: username, permission: permission }), timeout)
-      .then(listRes => listRes.getItems()[0]);
-  } 
+      .then((listRes) => listRes.post({ username: username, permission: permission }), timeout)
+      .then((listRes) => listRes.getItems()[0]);
+  }
 
   /**
    * Make a PUT request to modify this folder item resource through the REST API.
@@ -204,7 +204,7 @@ export class FileBrowserFolder extends ItemResource {
    */
   put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this file browser folder item resource through the REST API.
@@ -237,7 +237,7 @@ export class FileBrowserFolderList extends ListResource {
   }
 
   /**
-   * Make a POST request to this file browser folder list resource to create a new file browser 
+   * Make a POST request to this file browser folder list resource to create a new file browser
    * folder item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -248,9 +248,8 @@ export class FileBrowserFolderList extends ListResource {
    */
   post(data, timeout = 30000) {
     return this._post(data, null, timeout);
-  }  
+  }
 }
-
 
 /**
  * File browser folder child list resource object representing a list of all
@@ -305,7 +304,7 @@ export class FileBrowserFolderFile extends ItemResource {
     const item = this.collection.items[0];
     const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];
 
-    return req.get(blobUrl).then(resp => resp.data);
+    return req.get(blobUrl).then((resp) => resp.data);
   }
 
   /**
@@ -334,12 +333,12 @@ export class FileBrowserFolderFile extends ItemResource {
    *
    * @return {Promise<FileGroupPermissionList>} - JS Promise, resolves to a ``FileGroupPermissionList`` object
    */
-   getGroupPermissions(searchParams = null, timeout = 30000) {
+  getGroupPermissions(searchParams = null, timeout = 30000) {
     const linkRelation = 'group_permissions';
     const resourceClass = FileGroupPermissionList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  } 
+  }
 
   /**
    * Get a file group permission given the name of the group.
@@ -350,11 +349,11 @@ export class FileBrowserFolderFile extends ItemResource {
    * @return {Promise<FileGroupPermission|null>} - JS Promise, resolves to a ``FileGroupPermission`` object or ``null``
    */
   getGroupPermission(group_name, timeout = 30000) {
-    return this.getGroupPermissions({ group_name: group_name }, timeout).then(listRes => {
+    return this.getGroupPermissions({ group_name: group_name }, timeout).then((listRes) => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
   /**
    * Fetch a list of user permissions associated to this file from the REST API.
@@ -368,12 +367,12 @@ export class FileBrowserFolderFile extends ItemResource {
    *
    * @return {Promise<FileUserPermissionList>} - JS Promise, resolves to a ``FileUserPermissionList`` object
    */
-   getUserPermissions(searchParams = null, timeout = 30000) {
+  getUserPermissions(searchParams = null, timeout = 30000) {
     const linkRelation = 'user_permissions';
     const resourceClass = FileUserPermissionList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  } 
+  }
 
   /**
    * Get a file user permission given the username of the user.
@@ -383,23 +382,23 @@ export class FileBrowserFolderFile extends ItemResource {
    *
    * @return {Promise<FileUserPermission|null>} - JS Promise, resolves to a ``FileUserPermission`` object or ``null``
    */
-   getUserPermission(username, timeout = 30000) {
-    return this.getUserPermissions({ username: username }, timeout).then(listRes => {
+  getUserPermission(username, timeout = 30000) {
+    return this.getUserPermissions({ username: username }, timeout).then((listRes) => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
-   /**
+  /**
    * Make the file public.
    *
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   makePublic(timeout = 30000) {
+  makePublic(timeout = 30000) {
     return this.put({ public: true }, timeout);
-  } 
+  }
 
   /**
    * Make the file unpublic.
@@ -408,10 +407,10 @@ export class FileBrowserFolderFile extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   makeUnpublic(timeout = 30000) {
+  makeUnpublic(timeout = 30000) {
     return this.put({ public: false }, timeout);
-  } 
-  
+  }
+
   /**
    * Add a group permission to access the file.
    *
@@ -421,11 +420,11 @@ export class FileBrowserFolderFile extends ItemResource {
    *
    * @return {Promise<FileGroupPermission>} - JS Promise, resolves to a ``FileGroupPermission`` object
    */
-   addGroupPermission(group_name, permission, timeout = 30000) {
+  addGroupPermission(group_name, permission, timeout = 30000) {
     return this.getGroupPermissions(null, timeout)
-      .then(listRes => listRes.post({ grp_name: group_name, permission: permission }), timeout)
-      .then(listRes => listRes.getItems()[0]);
-  } 
+      .then((listRes) => listRes.post({ grp_name: group_name, permission: permission }), timeout)
+      .then((listRes) => listRes.getItems()[0]);
+  }
 
   /**
    * Add a user permission to access the file.
@@ -436,12 +435,12 @@ export class FileBrowserFolderFile extends ItemResource {
    *
    * @return {Promise<FileUserPermission>} - JS Promise, resolves to a ``FileUserPermission`` object
    */
-   addUserPermission(username, permission, timeout = 30000) {
+  addUserPermission(username, permission, timeout = 30000) {
     return this.getUserPermissions(null, timeout)
-      .then(listRes => listRes.post({ username: username, permission: permission }), timeout)
-      .then(listRes => listRes.getItems()[0]);
-  }   
-  
+      .then((listRes) => listRes.post({ username: username, permission: permission }), timeout)
+      .then((listRes) => listRes.getItems()[0]);
+  }
+
   /**
    * Make a PUT request to modify this file item resource through the REST API.
    *
@@ -453,9 +452,9 @@ export class FileBrowserFolderFile extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this file item resource through the REST API.
@@ -467,7 +466,6 @@ export class FileBrowserFolderFile extends ItemResource {
   delete(timeout = 30000) {
     return this._delete(timeout);
   }
-
 }
 
 /**
@@ -502,7 +500,6 @@ export class FileBrowserFolderFileList extends ListResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
-
 }
 
 /**
@@ -524,7 +521,7 @@ export class FileBrowserFolderLinkFile extends ItemResource {
     const item = this.collection.items[0];
     const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];
 
-    return req.get(blobUrl).then(resp => resp.data);
+    return req.get(blobUrl).then((resp) => resp.data);
   }
 
   /**
@@ -546,7 +543,7 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    *
    * @param {number} [timeout=30000] - request timeout
    *
-   * @return {Promise<FileBrowserFolder|FileBrowserFolderFile|null>} - JS Promise, resolves to either a 
+   * @return {Promise<FileBrowserFolder|FileBrowserFolderFile|null>} - JS Promise, resolves to either a
    * ``FileBrowserFolder`` object or a ``FileBrowserFolderFileobject`` or ``null`` if the link is broken.
    */
   getLinkedResource(timeout = 30000) {
@@ -586,7 +583,7 @@ export class FileBrowserFolderLinkFile extends ItemResource {
     const resourceClass = LinkFileGroupPermissionList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  } 
+  }
 
   /**
    * Get a link file group permission given the name of the group.
@@ -597,11 +594,11 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    * @return {Promise<LinkFileGroupPermission|null>} - JS Promise, resolves to a ``LinkFileGroupPermission`` object or ``null``
    */
   getGroupPermission(group_name, timeout = 30000) {
-    return this.getGroupPermissions({ group_name: group_name }, timeout).then(listRes => {
+    return this.getGroupPermissions({ group_name: group_name }, timeout).then((listRes) => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
   /**
    * Fetch a list of user permissions associated to this link file from the REST API.
@@ -615,12 +612,12 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    *
    * @return {Promise<LinkFileUserPermissionList>} - JS Promise, resolves to a ``LinkFileUserPermissionList`` object
    */
-   getUserPermissions(searchParams = null, timeout = 30000) {
+  getUserPermissions(searchParams = null, timeout = 30000) {
     const linkRelation = 'user_permissions';
     const resourceClass = LinkFileUserPermissionList;
 
     return this._getResource(linkRelation, resourceClass, searchParams, timeout);
-  } 
+  }
 
   /**
    * Get a link file user permission given the username of the user.
@@ -630,23 +627,23 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    *
    * @return {Promise<LinkFileUserPermission|null>} - JS Promise, resolves to a ``LinkFileUserPermission`` object or ``null``
    */
-   getUserPermission(username, timeout = 30000) {
-    return this.getUserPermissions({ username: username }, timeout).then(listRes => {
+  getUserPermission(username, timeout = 30000) {
+    return this.getUserPermissions({ username: username }, timeout).then((listRes) => {
       const items = listRes.getItems();
       return items.length ? items[0] : null;
     });
-  } 
+  }
 
-   /**
+  /**
    * Make the link file public.
    *
    * @param {number} [timeout=30000] - request timeout
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   makePublic(timeout = 30000) {
+  makePublic(timeout = 30000) {
     return this.put({ public: true }, timeout);
-  } 
+  }
 
   /**
    * Make the link file unpublic.
@@ -655,10 +652,10 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   makeUnpublic(timeout = 30000) {
+  makeUnpublic(timeout = 30000) {
     return this.put({ public: false }, timeout);
-  } 
-  
+  }
+
   /**
    * Add a group permission to access the link file.
    *
@@ -668,11 +665,11 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    *
    * @return {Promise<LinkFileGroupPermission>} - JS Promise, resolves to a ``LinkFileGroupPermission`` object
    */
-   addGroupPermission(group_name, permission, timeout = 30000) {
+  addGroupPermission(group_name, permission, timeout = 30000) {
     return this.getGroupPermissions(null, timeout)
-      .then(listRes => listRes.post({ grp_name: group_name, permission: permission }), timeout)
-      .then(listRes => listRes.getItems()[0]);
-  } 
+      .then((listRes) => listRes.post({ grp_name: group_name, permission: permission }), timeout)
+      .then((listRes) => listRes.getItems()[0]);
+  }
 
   /**
    * Add a user permission to access the link file.
@@ -683,12 +680,12 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    *
    * @return {Promise<LinkFileUserPermission>} - JS Promise, resolves to a ``LinkFileUserPermission`` object
    */
-   addUserPermission(username, permission, timeout = 30000) {
+  addUserPermission(username, permission, timeout = 30000) {
     return this.getUserPermissions(null, timeout)
-      .then(listRes => listRes.post({ username: username, permission: permission }), timeout)
-      .then(listRes => listRes.getItems()[0]);
-  }   
-  
+      .then((listRes) => listRes.post({ username: username, permission: permission }), timeout)
+      .then((listRes) => listRes.getItems()[0]);
+  }
+
   /**
    * Make a PUT request to modify this link file item resource through the REST API.
    *
@@ -700,9 +697,9 @@ export class FileBrowserFolderLinkFile extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this link file item resource through the REST API.
@@ -714,7 +711,6 @@ export class FileBrowserFolderLinkFile extends ItemResource {
   delete(timeout = 30000) {
     return this._delete(timeout);
   }
-
 }
 
 /**
@@ -749,7 +745,6 @@ export class FileBrowserFolderLinkFileList extends ListResource {
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
   }
-
 }
 
 /**
@@ -788,12 +783,12 @@ export class FolderGroupPermission extends ItemResource {
    *
    * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
    */
-   getGroup(timeout = 30000) {
+  getGroup(timeout = 30000) {
     const linkRelation = 'group';
     const resourceClass = Group;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this folder group permission item resource through the REST API.
@@ -804,9 +799,9 @@ export class FolderGroupPermission extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this folder group permission item resource through the REST API.
@@ -853,7 +848,7 @@ export class FolderGroupPermissionList extends ListResource {
   }
 
   /**
-   * Make a POST request to this folder group permission list resource to create a new 
+   * Make a POST request to this folder group permission list resource to create a new
    * folder group permission item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -904,12 +899,12 @@ export class FolderUserPermission extends ItemResource {
    *
    * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
    */
-   getUser(timeout = 30000) {
+  getUser(timeout = 30000) {
     const linkRelation = 'user';
     const resourceClass = User;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this folder user permission item resource through the REST API.
@@ -920,9 +915,9 @@ export class FolderUserPermission extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this folder user permission item resource through the REST API.
@@ -969,7 +964,7 @@ export class FolderUserPermissionList extends ListResource {
   }
 
   /**
-   * Make a POST request to this folder user permission list resource to create a new 
+   * Make a POST request to this folder user permission list resource to create a new
    * folder user permission item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -1020,12 +1015,12 @@ export class FileGroupPermission extends ItemResource {
    *
    * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
    */
-   getGroup(timeout = 30000) {
+  getGroup(timeout = 30000) {
     const linkRelation = 'group';
     const resourceClass = Group;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this file group permission item resource through the REST API.
@@ -1036,9 +1031,9 @@ export class FileGroupPermission extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this file group permission item resource through the REST API.
@@ -1085,7 +1080,7 @@ export class FileGroupPermissionList extends ListResource {
   }
 
   /**
-   * Make a POST request to this file group permission list resource to create a new 
+   * Make a POST request to this file group permission list resource to create a new
    * file group permission item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -1136,12 +1131,12 @@ export class FileUserPermission extends ItemResource {
    *
    * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
    */
-   getUser(timeout = 30000) {
+  getUser(timeout = 30000) {
     const linkRelation = 'user';
     const resourceClass = User;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this file user permission item resource through the REST API.
@@ -1152,9 +1147,9 @@ export class FileUserPermission extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this file user permission item resource through the REST API.
@@ -1201,7 +1196,7 @@ export class FileUserPermissionList extends ListResource {
   }
 
   /**
-   * Make a POST request to this file user permission list resource to create a new 
+   * Make a POST request to this file user permission list resource to create a new
    * file user permission item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -1215,7 +1210,6 @@ export class FileUserPermissionList extends ListResource {
     return this._post(data, null, timeout);
   }
 }
-
 
 /**
  * Link file group permission item resource object representing a link file group permission.
@@ -1253,12 +1247,12 @@ export class LinkFileGroupPermission extends ItemResource {
    *
    * @return {Promise<Group>} - JS Promise, resolves to a ``Group`` object
    */
-   getGroup(timeout = 30000) {
+  getGroup(timeout = 30000) {
     const linkRelation = 'group';
     const resourceClass = Group;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this link file group permission item resource through the REST API.
@@ -1269,9 +1263,9 @@ export class LinkFileGroupPermission extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this link file group permission item resource through the REST API.
@@ -1318,7 +1312,7 @@ export class LinkFileGroupPermissionList extends ListResource {
   }
 
   /**
-   * Make a POST request to this link file group permission list resource to create a new 
+   * Make a POST request to this link file group permission list resource to create a new
    * link file group permission item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -1369,12 +1363,12 @@ export class LinkFileUserPermission extends ItemResource {
    *
    * @return {Promise<User>} - JS Promise, resolves to a ``User`` object
    */
-   getUser(timeout = 30000) {
+  getUser(timeout = 30000) {
     const linkRelation = 'user';
     const resourceClass = User;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this link file user permission item resource through the REST API.
@@ -1385,9 +1379,9 @@ export class LinkFileUserPermission extends ItemResource {
    *
    * @return {Promise<this>} - JS Promise, resolves to ``this`` object
    */
-   put(data, timeout = 30000) {
+  put(data, timeout = 30000) {
     return this._put(data, null, timeout);
-  } 
+  }
 
   /**
    * Make a DELETE request to delete this link file user permission item resource through the REST API.
@@ -1434,7 +1428,7 @@ export class LinkFileUserPermissionList extends ListResource {
   }
 
   /**
-   * Make a POST request to this link file user permission list resource to create a new 
+   * Make a POST request to this link file user permission list resource to create a new
    * link file user permission item resource through the REST API.
    *
    * @param {Object} data - request JSON data object

@@ -14,13 +14,13 @@ describe('Group resources', () => {
   let groupListRes;
 
   before(() => {
-    return new Promise(function(resolve, reject) {
-      Request.runAsyncTask(function*() {
+    return new Promise(function (resolve, reject) {
+      Request.runAsyncTask(function* () {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
           groupListRes = yield feedListRes.getGroups();
-          groupListRes = yield groupListRes.post({ name: 'group' + Date.now()});
+          groupListRes = yield groupListRes.post({ name: 'group' + Date.now() });
         } catch (ex) {
           reject(ex);
           return;
@@ -39,15 +39,14 @@ describe('Group resources', () => {
       return group.get();
     });
 
-    it('can add a new user through the REST API', done => {
-      const result =  group.adminAddUser('cube');
+    it('can add a new user through the REST API', (done) => {
+      const result = group.adminAddUser('cube');
       result
-        .then(grp_user => {
+        .then((grp_user) => {
           // window.console.log('grp_user.data', grp_user.data);
           expect(grp_user).to.be.an.instanceof(GroupUser);
         })
         .then(done, done);
     });
   });
-
 });

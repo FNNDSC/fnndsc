@@ -1,103 +1,204 @@
 export default Client;
-import Client from "./client";
-import Request from "./request";
-import Collection from "./cj";
-import RequestException from "./exception";
-import { ListResource } from "./resource";
-import { ItemResource } from "./resource";
-import { Resource } from "./resource";
-import ChrisInstance from "./chrisinstance";
-import { FeedList } from "./feed";
-import { PublicFeedList } from "./feed";
-import { Feed } from "./feed";
-import { FeedGroupPermissionList } from "./feed";
-import { FeedUserPermissionList } from "./feed";
-import { FeedGroupPermission } from "./feed";
-import { FeedUserPermission } from "./feed";
-import { ComputeResourceAdminList } from "./admin";
-import { ComputeResourceAdmin } from "./admin";
-import { PluginAdminList } from "./admin";
-import { PluginAdmin } from "./admin";
-import { PluginList } from "./plugin";
-import { PluginMetaPluginList } from "./plugin";
-import { Plugin } from "./plugin";
-import { PluginMetaList } from "./pluginmeta";
-import { PluginMeta } from "./pluginmeta";
-import { PluginParameterList } from "./pluginparameter";
-import { PluginParameter } from "./pluginparameter";
-import { PluginComputeResourceList } from "./computeresource";
-import { ComputeResourceList } from "./computeresource";
-import { ComputeResource } from "./computeresource";
-import { PluginInstanceDescendantList } from "./plugininstance";
-import { PluginInstanceList } from "./plugininstance";
-import { PluginInstance } from "./plugininstance";
-import { AllPluginInstanceList } from "./plugininstance";
-import { PluginInstanceSplitList } from "./plugininstance";
-import { PluginInstanceSplit } from "./plugininstance";
-import { PluginInstanceParameterList } from "./plugininstance";
-import { PluginInstanceParameter } from "./plugininstance";
-import { FeedPluginInstanceList } from "./plugininstance";
-import { WorkflowPluginInstanceList } from "./plugininstance";
-import { PipelineList } from "./pipeline";
-import { PipelinePluginList } from "./pipeline";
-import { PipelinePluginPipingList } from "./pipeline";
-import { Pipeline } from "./pipeline";
-import { PipelinePipingDefaultParameterList } from "./pipeline";
-import { PluginPiping } from "./pipeline";
-import { PipingDefaultParameter } from "./pipeline";
-import { PipelineSourceFileList } from "./pipeline";
-import { PipelineSourceFile } from "./pipeline";
-import { AllWorkflowList } from "./workflow";
-import { WorkflowList } from "./workflow";
-import { Workflow } from "./workflow";
-import { TagList } from "./tag";
-import { Tag } from "./tag";
-import { TagTaggingList } from "./tag";
-import { FeedTaggingList } from "./tag";
-import { Tagging } from "./tag";
-import { TagFeedList } from "./tag";
-import { FeedTagList } from "./tag";
-import Note from "./note";
-import User from "./user";
-import { CommentList } from "./comment";
-import { Comment } from "./comment";
-import { UserFileList } from "./userfile";
-import { UserFile } from "./userfile";
-import { PACSFileList } from "./pacsfile";
-import { PACSList } from "./pacsfile";
-import { PACSQueryList } from "./pacsfile";
-import { AllPACSQueryList } from "./pacsfile";
-import { PACSRetrieveList } from "./pacsfile";
-import { PACSSeriesList } from "./pacsfile";
-import { PACSFile } from "./pacsfile";
-import { PACS } from "./pacsfile";
-import { PACSQuery } from "./pacsfile";
-import { PACSRetrieve } from "./pacsfile";
-import { PACSSeries } from "./pacsfile";
-import { FileBrowserFolderList } from "./filebrowser";
-import { FileBrowserFolderChildList } from "./filebrowser";
-import { FileBrowserFolder } from "./filebrowser";
-import { FolderGroupPermissionList } from "./filebrowser";
-import { FolderUserPermissionList } from "./filebrowser";
-import { FolderGroupPermission } from "./filebrowser";
-import { FolderUserPermission } from "./filebrowser";
-import { FileBrowserFolderFileList } from "./filebrowser";
-import { FileBrowserFolderFile } from "./filebrowser";
-import { FileGroupPermissionList } from "./filebrowser";
-import { FileUserPermissionList } from "./filebrowser";
-import { FileGroupPermission } from "./filebrowser";
-import { FileUserPermission } from "./filebrowser";
-import { FileBrowserFolderLinkFileList } from "./filebrowser";
-import { FileBrowserFolderLinkFile } from "./filebrowser";
-import { LinkFileGroupPermissionList } from "./filebrowser";
-import { LinkFileUserPermissionList } from "./filebrowser";
-import { LinkFileGroupPermission } from "./filebrowser";
-import { LinkFileUserPermission } from "./filebrowser";
-import { DownloadTokenList } from "./downloadtoken";
-import { DownloadToken } from "./downloadtoken";
-import { GroupList } from "./group";
-import { Group } from "./group";
-import { GroupUserList } from "./group";
-import { GroupUser } from "./group";
-import { UserGroupList } from "./group";
-export { Request, Collection, RequestException, ListResource, ItemResource, Resource, ChrisInstance, FeedList, PublicFeedList, Feed, FeedGroupPermissionList, FeedUserPermissionList, FeedGroupPermission, FeedUserPermission, ComputeResourceAdminList, ComputeResourceAdmin, PluginAdminList, PluginAdmin, PluginList, PluginMetaPluginList, Plugin, PluginMetaList, PluginMeta, PluginParameterList, PluginParameter, PluginComputeResourceList, ComputeResourceList, ComputeResource, PluginInstanceDescendantList, PluginInstanceList, PluginInstance, AllPluginInstanceList, PluginInstanceSplitList, PluginInstanceSplit, PluginInstanceParameterList, PluginInstanceParameter, FeedPluginInstanceList, WorkflowPluginInstanceList, PipelineList, PipelinePluginList, PipelinePluginPipingList, Pipeline, PipelinePipingDefaultParameterList, PluginPiping, PipingDefaultParameter, PipelineSourceFileList, PipelineSourceFile, AllWorkflowList, WorkflowList, Workflow, TagList, Tag, TagTaggingList, FeedTaggingList, Tagging, TagFeedList, FeedTagList, Note, User, CommentList, Comment, UserFileList, UserFile, PACSFileList, PACSList, PACSQueryList, AllPACSQueryList, PACSRetrieveList, PACSSeriesList, PACSFile, PACS, PACSQuery, PACSRetrieve, PACSSeries, FileBrowserFolderList, FileBrowserFolderChildList, FileBrowserFolder, FolderGroupPermissionList, FolderUserPermissionList, FolderGroupPermission, FolderUserPermission, FileBrowserFolderFileList, FileBrowserFolderFile, FileGroupPermissionList, FileUserPermissionList, FileGroupPermission, FileUserPermission, FileBrowserFolderLinkFileList, FileBrowserFolderLinkFile, LinkFileGroupPermissionList, LinkFileUserPermissionList, LinkFileGroupPermission, LinkFileUserPermission, DownloadTokenList, DownloadToken, GroupList, Group, GroupUserList, GroupUser, UserGroupList };
+import Client from './client';
+import Request from './request';
+import Collection from './cj';
+import RequestException from './exception';
+import { ListResource } from './resource';
+import { ItemResource } from './resource';
+import { Resource } from './resource';
+import ChrisInstance from './chrisinstance';
+import { FeedList } from './feed';
+import { PublicFeedList } from './feed';
+import { Feed } from './feed';
+import { FeedGroupPermissionList } from './feed';
+import { FeedUserPermissionList } from './feed';
+import { FeedGroupPermission } from './feed';
+import { FeedUserPermission } from './feed';
+import { ComputeResourceAdminList } from './admin';
+import { ComputeResourceAdmin } from './admin';
+import { PluginAdminList } from './admin';
+import { PluginAdmin } from './admin';
+import { PluginList } from './plugin';
+import { PluginMetaPluginList } from './plugin';
+import { Plugin } from './plugin';
+import { PluginMetaList } from './pluginmeta';
+import { PluginMeta } from './pluginmeta';
+import { PluginParameterList } from './pluginparameter';
+import { PluginParameter } from './pluginparameter';
+import { PluginComputeResourceList } from './computeresource';
+import { ComputeResourceList } from './computeresource';
+import { ComputeResource } from './computeresource';
+import { PluginInstanceDescendantList } from './plugininstance';
+import { PluginInstanceList } from './plugininstance';
+import { PluginInstance } from './plugininstance';
+import { AllPluginInstanceList } from './plugininstance';
+import { PluginInstanceSplitList } from './plugininstance';
+import { PluginInstanceSplit } from './plugininstance';
+import { PluginInstanceParameterList } from './plugininstance';
+import { PluginInstanceParameter } from './plugininstance';
+import { FeedPluginInstanceList } from './plugininstance';
+import { WorkflowPluginInstanceList } from './plugininstance';
+import { PipelineList } from './pipeline';
+import { PipelinePluginList } from './pipeline';
+import { PipelinePluginPipingList } from './pipeline';
+import { Pipeline } from './pipeline';
+import { PipelinePipingDefaultParameterList } from './pipeline';
+import { PluginPiping } from './pipeline';
+import { PipingDefaultParameter } from './pipeline';
+import { PipelineSourceFileList } from './pipeline';
+import { PipelineSourceFile } from './pipeline';
+import { AllWorkflowList } from './workflow';
+import { WorkflowList } from './workflow';
+import { Workflow } from './workflow';
+import { TagList } from './tag';
+import { Tag } from './tag';
+import { TagTaggingList } from './tag';
+import { FeedTaggingList } from './tag';
+import { Tagging } from './tag';
+import { TagFeedList } from './tag';
+import { FeedTagList } from './tag';
+import Note from './note';
+import User from './user';
+import { CommentList } from './comment';
+import { Comment } from './comment';
+import { UserFileList } from './userfile';
+import { UserFile } from './userfile';
+import { PACSFileList } from './pacsfile';
+import { PACSList } from './pacsfile';
+import { PACSQueryList } from './pacsfile';
+import { AllPACSQueryList } from './pacsfile';
+import { PACSRetrieveList } from './pacsfile';
+import { PACSSeriesList } from './pacsfile';
+import { PACSFile } from './pacsfile';
+import { PACS } from './pacsfile';
+import { PACSQuery } from './pacsfile';
+import { PACSRetrieve } from './pacsfile';
+import { PACSSeries } from './pacsfile';
+import { FileBrowserFolderList } from './filebrowser';
+import { FileBrowserFolderChildList } from './filebrowser';
+import { FileBrowserFolder } from './filebrowser';
+import { FolderGroupPermissionList } from './filebrowser';
+import { FolderUserPermissionList } from './filebrowser';
+import { FolderGroupPermission } from './filebrowser';
+import { FolderUserPermission } from './filebrowser';
+import { FileBrowserFolderFileList } from './filebrowser';
+import { FileBrowserFolderFile } from './filebrowser';
+import { FileGroupPermissionList } from './filebrowser';
+import { FileUserPermissionList } from './filebrowser';
+import { FileGroupPermission } from './filebrowser';
+import { FileUserPermission } from './filebrowser';
+import { FileBrowserFolderLinkFileList } from './filebrowser';
+import { FileBrowserFolderLinkFile } from './filebrowser';
+import { LinkFileGroupPermissionList } from './filebrowser';
+import { LinkFileUserPermissionList } from './filebrowser';
+import { LinkFileGroupPermission } from './filebrowser';
+import { LinkFileUserPermission } from './filebrowser';
+import { DownloadTokenList } from './downloadtoken';
+import { DownloadToken } from './downloadtoken';
+import { GroupList } from './group';
+import { Group } from './group';
+import { GroupUserList } from './group';
+import { GroupUser } from './group';
+import { UserGroupList } from './group';
+export {
+  Request,
+  Collection,
+  RequestException,
+  ListResource,
+  ItemResource,
+  Resource,
+  ChrisInstance,
+  FeedList,
+  PublicFeedList,
+  Feed,
+  FeedGroupPermissionList,
+  FeedUserPermissionList,
+  FeedGroupPermission,
+  FeedUserPermission,
+  ComputeResourceAdminList,
+  ComputeResourceAdmin,
+  PluginAdminList,
+  PluginAdmin,
+  PluginList,
+  PluginMetaPluginList,
+  Plugin,
+  PluginMetaList,
+  PluginMeta,
+  PluginParameterList,
+  PluginParameter,
+  PluginComputeResourceList,
+  ComputeResourceList,
+  ComputeResource,
+  PluginInstanceDescendantList,
+  PluginInstanceList,
+  PluginInstance,
+  AllPluginInstanceList,
+  PluginInstanceSplitList,
+  PluginInstanceSplit,
+  PluginInstanceParameterList,
+  PluginInstanceParameter,
+  FeedPluginInstanceList,
+  WorkflowPluginInstanceList,
+  PipelineList,
+  PipelinePluginList,
+  PipelinePluginPipingList,
+  Pipeline,
+  PipelinePipingDefaultParameterList,
+  PluginPiping,
+  PipingDefaultParameter,
+  PipelineSourceFileList,
+  PipelineSourceFile,
+  AllWorkflowList,
+  WorkflowList,
+  Workflow,
+  TagList,
+  Tag,
+  TagTaggingList,
+  FeedTaggingList,
+  Tagging,
+  TagFeedList,
+  FeedTagList,
+  Note,
+  User,
+  CommentList,
+  Comment,
+  UserFileList,
+  UserFile,
+  PACSFileList,
+  PACSList,
+  PACSQueryList,
+  AllPACSQueryList,
+  PACSRetrieveList,
+  PACSSeriesList,
+  PACSFile,
+  PACS,
+  PACSQuery,
+  PACSRetrieve,
+  PACSSeries,
+  FileBrowserFolderList,
+  FileBrowserFolderChildList,
+  FileBrowserFolder,
+  FolderGroupPermissionList,
+  FolderUserPermissionList,
+  FolderGroupPermission,
+  FolderUserPermission,
+  FileBrowserFolderFileList,
+  FileBrowserFolderFile,
+  FileGroupPermissionList,
+  FileUserPermissionList,
+  FileGroupPermission,
+  FileUserPermission,
+  FileBrowserFolderLinkFileList,
+  FileBrowserFolderLinkFile,
+  LinkFileGroupPermissionList,
+  LinkFileUserPermissionList,
+  LinkFileGroupPermission,
+  LinkFileUserPermission,
+  DownloadTokenList,
+  DownloadToken,
+  GroupList,
+  Group,
+  GroupUserList,
+  GroupUser,
+  UserGroupList,
+};

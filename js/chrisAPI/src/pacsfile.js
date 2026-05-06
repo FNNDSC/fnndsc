@@ -27,12 +27,12 @@ export class PACSSeries extends ItemResource {
    *
    * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
    */
-   getFolder(timeout = 30000) {
+  getFolder(timeout = 30000) {
     const linkRelation = 'folder';
     const resourceClass = FileBrowserFolder;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 }
 
 /**
@@ -53,7 +53,6 @@ export class PACSSeriesList extends ListResource {
     this.itemClass = PACSSeries;
   }
 }
-
 
 /**
  * PACS file item resource object representing a PACS file.
@@ -85,7 +84,7 @@ export class PACSFile extends ItemResource {
     const item = this.collection.items[0];
     const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];
 
-    return req.get(blobUrl).then(resp => resp.data);
+    return req.get(blobUrl).then((resp) => resp.data);
   }
 
   /**
@@ -95,12 +94,12 @@ export class PACSFile extends ItemResource {
    *
    * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
    */
-   getParentFolder(timeout = 30000) {
+  getParentFolder(timeout = 30000) {
     const linkRelation = 'parent_folder';
     const resourceClass = FileBrowserFolder;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 }
 
 /**
@@ -122,7 +121,6 @@ export class PACSFileList extends ListResource {
   }
 }
 
-
 /**
  * PACS query item resource object representing a PACS query.
  */
@@ -139,7 +137,7 @@ export class PACSQuery extends ItemResource {
   }
 
   /**
-   * Fetch a paginated list of PACS retrieves associated to this PACS query from the REST API 
+   * Fetch a paginated list of PACS retrieves associated to this PACS query from the REST API
    * given query search parameters. If no search parameters then get the default first page.
    *
    * @param {Object} [params=null] - page parameters
@@ -220,7 +218,7 @@ export class PACSQueryList extends ListResource {
   }
 
   /**
-   * Make a POST request to this PACS query list resource to create a new PACS query 
+   * Make a POST request to this PACS query list resource to create a new PACS query
    * item resource through the REST API.
    *
    * @param {Object} data - request JSON data object
@@ -329,7 +327,7 @@ export class PACSRetrieveList extends ListResource {
   }
 
   /**
-   * Make a POST request to this PACS retrieve list resource to create a new PACS retrieve 
+   * Make a POST request to this PACS retrieve list resource to create a new PACS retrieve
    * item resource through the REST API.
    *
    * @param {number} [timeout=30000] - request timeout
@@ -363,7 +361,7 @@ export class PACS extends ItemResource {
    *
    * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
    */
-   getFolder(timeout = 30000) {
+  getFolder(timeout = 30000) {
     const linkRelation = 'folder';
     const resourceClass = FileBrowserFolder;
 
@@ -386,7 +384,7 @@ export class PACS extends ItemResource {
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
   }
-  
+
   /**
    * Fetch a list of PACS series associated to this PACS from the REST API.
    *
@@ -402,7 +400,7 @@ export class PACS extends ItemResource {
     const resourceClass = PACSSpecificSeriesList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  }   
+  }
 }
 
 /**

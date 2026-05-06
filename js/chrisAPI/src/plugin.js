@@ -17,12 +17,12 @@ export class Plugin extends ItemResource {
    *
    * @return {Promise<PluginMeta>} - JS Promise, resolves to a ``PluginMeta`` object
    */
-   getPluginMeta(timeout = 30000) {
+  getPluginMeta(timeout = 30000) {
     const linkRelation = 'meta';
     const resourceClass = PluginMeta;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  } 
+  }
 
   /**
    * Fetch a list of plugin parameters associated to this plugin from the REST API.

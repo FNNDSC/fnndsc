@@ -47,10 +47,10 @@ describe('Resource', () => {
       expect(itemRes.getPUTParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
     });
 
-    it('can fetch an Item Resource from the REST API', done => {
+    it('can fetch an Item Resource from the REST API', (done) => {
       const result = itemRes.get();
       result
-        .then(itemResObj => {
+        .then((itemResObj) => {
           expect(itemResObj).to.be.an.instanceof(ItemResource);
           expect(itemResObj.data).to.have.property('id');
         })
@@ -106,17 +106,17 @@ describe('Resource', () => {
       expect(listRes.getPOSTParameters()).to.deep.equal(['descriptor1', 'descriptor2']);
     });
 
-    it('can fetch a List Resource from the REST API', done => {
+    it('can fetch a List Resource from the REST API', (done) => {
       const result = listRes.get();
       result
-        .then(listResObj => {
+        .then((listResObj) => {
           expect(listResObj).to.be.an.instanceof(ListResource);
           expect(listResObj.data).to.have.lengthOf.at.least(1);
         })
         .then(done, done);
     });
 
-    it('can fetch a List Resource from the REST API based on search parameters', done => {
+    it('can fetch a List Resource from the REST API based on search parameters', (done) => {
       const result = listRes.get(); // fetch the queryUrl as part of the response
       result
         .then(() => {
@@ -124,7 +124,7 @@ describe('Resource', () => {
           const searchResult = listRes.get(searchParams);
 
           return searchResult
-            .then(listResObj => {
+            .then((listResObj) => {
               expect(listResObj).to.be.an.instanceof(ListResource);
               expect(listResObj.data).to.have.lengthOf.at.least(1);
               expect(listResObj.searchParams).to.deep.equal(searchParams);

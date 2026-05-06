@@ -18,7 +18,7 @@ export default class User extends ItemResource {
     super(url, auth);
   }
 
-   /**
+  /**
    * Fetch the list of user's groups from the REST API.
    *
    * @param {Object} [params=null] - page parameters object
@@ -28,12 +28,12 @@ export default class User extends ItemResource {
    *
    * @return {Promise<UserGroupList>} - JS Promise, resolves to a ``UserGroupList`` object
    */
-   getGroups(params = null, timeout = 30000) {
+  getGroups(params = null, timeout = 30000) {
     const linkRelation = 'groups';
     const resourceClass = UserGroupList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this user item resource through the REST API.

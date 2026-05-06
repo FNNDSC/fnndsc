@@ -74,12 +74,12 @@ export class Pipeline extends ItemResource {
    *
    * @return {Promise<WorkflowList>} - JS Promise, resolves to a ``WorkflowList`` object
    */
-   getWorkflows(params = null, timeout = 30000) {
+  getWorkflows(params = null, timeout = 30000) {
     const linkRelation = 'workflows';
     const resourceClass = WorkflowList;
 
     return this._getResource(linkRelation, resourceClass, params, timeout);
-  } 
+  }
 
   /**
    * Make a PUT request to modify this pipeline resource through the REST API.
@@ -352,9 +352,9 @@ export class PipelineSourceFile extends ItemResource {
     const item = this.collection.items[0];
     const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];
 
-    return req.get(blobUrl).then(resp => resp.data);
+    return req.get(blobUrl).then((resp) => resp.data);
   }
-  
+
   /**
    * Fetch the parent folder of this file from the REST API.
    *
@@ -362,12 +362,12 @@ export class PipelineSourceFile extends ItemResource {
    *
    * @return {Promise<FileBrowserFolder>} - JS Promise, resolves to a ``FileBrowserFolder`` object
    */
-   getParentFolder(timeout = 30000) {
+  getParentFolder(timeout = 30000) {
     const linkRelation = 'parent_folder';
     const resourceClass = FileBrowserFolder;
 
     return this._getResource(linkRelation, resourceClass, null, timeout);
-  }  
+  }
 }
 
 /**
@@ -389,7 +389,7 @@ export class PipelineSourceFileList extends ListResource {
   }
 
   /**
-   * Make a POST request to this pipeline source file list resource to create a new 
+   * Make a POST request to this pipeline source file list resource to create a new
    * pipeline source file item resource through the REST API.
    *
    * @param {Object} data - request JSON data object

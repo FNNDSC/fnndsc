@@ -17,33 +17,33 @@ describe('Request', () => {
     req = new Request(auth, contentType);
   });
 
-  it('can make successfull authenticated GET request', done => {
+  it('can make successfull authenticated GET request', (done) => {
     const result = req.get(chrisUrl);
 
     result
-      .then(response => {
+      .then((response) => {
         expect(response.data.collection.links).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
 
-  it('can make successfull unauthenticated GET request', done => {
+  it('can make successfull unauthenticated GET request', (done) => {
     const req = new Request(null, contentType);
     const result = req.get(chrisUrl);
 
     result
-      .then(response => {
+      .then((response) => {
         expect(response.data.collection.links).to.have.lengthOf.at.least(1);
       })
       .then(done, done);
   });
 
-  it('can report unsuccessfull authenticated GET request', done => {
+  it('can report unsuccessfull authenticated GET request', (done) => {
     const badUrl = chrisUrl + '1test/';
     const result = req.get(badUrl);
 
     result
-      .catch(error => {
+      .catch((error) => {
         expect(error.response.status).to.equal(404);
         expect(error.message).to.be.a('string');
         expect(error.request).to.be.an.instanceof(XMLHttpRequest);
@@ -52,12 +52,12 @@ describe('Request', () => {
       .then(done, done);
   });
 
-  it('can report unsuccessfull unauthenticated GET request', done => {
+  it('can report unsuccessfull unauthenticated GET request', (done) => {
     const req = new Request(null, contentType);
     const result = req.get(chrisUrl + 'groups/');
 
     result
-      .catch(error => {
+      .catch((error) => {
         expect(error).to.be.an.instanceof(RequestException);
         expect(error.message).to.be.a('string');
         expect(error.request).to.be.an.instanceof(XMLHttpRequest);
@@ -67,7 +67,7 @@ describe('Request', () => {
       .then(done, done);
   });
 
-  it('can make authenticated multipart POST request and DELETE request', done => {
+  it('can make authenticated multipart POST request and DELETE request', (done) => {
     const url = chrisUrl + 'userfiles/';
     const data = {
       upload_path: 'home/' + auth.username + '/uploads/test' + Date.now() + '.txt',
@@ -80,8 +80,8 @@ describe('Request', () => {
     const result = req.post(url, data, uploadFileObj);
 
     result
-      .then(response => {
-        const path = response.data.collection.items[0].data.filter(descriptor => {
+      .then((response) => {
+        const path = response.data.collection.items[0].data.filter((descriptor) => {
           return descriptor.name === 'fname';
         })[0].value;
 

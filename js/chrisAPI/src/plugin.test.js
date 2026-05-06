@@ -17,8 +17,8 @@ describe('Plugin resources', () => {
   let pluginListRes;
 
   before(() => {
-    return new Promise(function(resolve, reject) {
-      Request.runAsyncTask(function*() {
+    return new Promise(function (resolve, reject) {
+      Request.runAsyncTask(function* () {
         let feedListRes = new FeedList(chrisUrl, auth);
         try {
           feedListRes = yield feedListRes.get();
@@ -41,30 +41,30 @@ describe('Plugin resources', () => {
       return plugin.get();
     });
 
-    it('can fetch the associated plugin parameters from the REST API', done => {
+    it('can fetch the associated plugin parameters from the REST API', (done) => {
       const result = plugin.getPluginParameters();
       result
-        .then(plgParams => {
+        .then((plgParams) => {
           expect(plgParams).to.be.an.instanceof(PluginParameterList);
           expect(plgParams.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the associated compute resources from the REST API', done => {
+    it('can fetch the associated compute resources from the REST API', (done) => {
       const result = plugin.getPluginComputeResources();
       result
-        .then(computeResources => {
+        .then((computeResources) => {
           expect(computeResources).to.be.an.instanceof(PluginComputeResourceList);
           expect(computeResources.isEmpty).to.be.false;
         })
         .then(done, done);
     });
 
-    it('can fetch the associated plugin instances from the REST API', done => {
+    it('can fetch the associated plugin instances from the REST API', (done) => {
       const result = plugin.getPluginInstances();
       result
-        .then(plgInstances => {
+        .then((plgInstances) => {
           expect(plgInstances).to.be.an.instanceof(PluginInstanceList);
         })
         .then(done, done);
@@ -78,10 +78,10 @@ describe('Plugin resources', () => {
       pluginList = pluginListRes.clone();
     });
 
-    it('can fetch the list of feeds from the REST API', done => {
+    it('can fetch the list of feeds from the REST API', (done) => {
       const result = pluginList.getFeeds();
       result
-        .then(feedList => {
+        .then((feedList) => {
           expect(feedList).to.be.an.instanceof(FeedList);
           expect(feedList.isEmpty).to.be.false;
         })
