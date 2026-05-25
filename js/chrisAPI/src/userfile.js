@@ -45,6 +45,24 @@ export class UserFile extends ItemResource {
   }
 
   /**
+   * Fetch the file as a stream (Node) or blob (browser) from the REST API.
+   *
+   * @param {number} [timeout=30000] - request timeout
+   *
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to the axios response with streaming/blob data
+   */
+  getFileStream(timeout = 30000) {
+    if (this.isEmpty) {
+      throw new RequestException('Item object has not been set!');
+    }
+    const req = new Request(this.auth, 'application/octet-stream', timeout);
+    const item = this.collection.items[0];
+    const blobUrl = Collection.getLinkRelationUrls(item, 'file_resource')[0];
+
+    return req.getStream(blobUrl);
+  }
+
+  /**
    * Fetch the parent folder of this file from the REST API.
    *
    * @param {number} [timeout=30000] - request timeout

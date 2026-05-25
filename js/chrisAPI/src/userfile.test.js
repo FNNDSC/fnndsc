@@ -75,6 +75,19 @@ describe('User file resources', () => {
         .then(done, done);
     });
 
+    it('can fetch the associated file as a streaming response', (done) => {
+      const result = userFile.getFileStream();
+      result
+        .then((response) => {
+          expect(response.data).to.be.an.instanceof(Blob);
+          return response.data.text();
+        })
+        .then((text) => {
+          expect(text).to.equal('"This is an uploaded test file"');
+        })
+        .then(done, done);
+    });
+
     it('can become public through the REST API', (done) => {
       const result = userFile.makePublic();
       result
