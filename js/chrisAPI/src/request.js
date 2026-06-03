@@ -49,11 +49,10 @@ export default class Request {
    *
    * @param {string} url - url of the resource
    * @param {?Object} params - search parameters
-   * @param {?Object} extraConfig - optional axios config overrides (e.g., headers)
    *
    * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios response`` object
    */
-  getStream(url, params = null, extraConfig = null) {
+  getStream(url, params = null) {
     const config = this._getConfig(url, 'get');
 
     if (params) {
@@ -61,10 +60,6 @@ export default class Request {
     }
 
     config.responseType = typeof window === 'undefined' ? 'stream' : 'blob';
-
-    if (extraConfig) {
-      Object.assign(config, extraConfig);
-    }
 
     return Request._callAxios(config);
   }
