@@ -55,6 +55,15 @@ export default class Request {
    */
   get(url: string, params?: Object | null): Promise<AxiosResponse>;
   /**
+   * Perform a GET request that returns a stream (Node) or blob (browser).
+   *
+   * @param {string} url - url of the resource
+   * @param {?Object} params - search parameters
+   *
+   * @return {Promise<AxiosResponse>} - JS Promise, resolves to an ``axios response`` object
+   */
+  getStream(url: string, params?: Object | null): Promise<AxiosResponse>;
+  /**
    * Perform a POST request.
    *
    * @param {string} url - url of the resource

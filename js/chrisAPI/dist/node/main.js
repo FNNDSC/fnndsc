@@ -5725,6 +5725,14 @@
             const n = this._getConfig(e, 'get');
             return (t && (n.params = t), En._callAxios(n));
           }
+          getStream(e, t = null) {
+            const n = this._getConfig(e, 'get');
+            return (
+              t && (n.params = t),
+              (n.responseType = 'undefined' == typeof window ? 'stream' : 'blob'),
+              En._callAxios(n)
+            );
+          }
           post(e, t, n = null) {
             return this._postOrPut('post', e, t, n);
           }
@@ -6891,6 +6899,13 @@
               n = this.collection.items[0],
               s = jn.getLinkRelationUrls(n, 'file_resource')[0];
             return t.get(s).then((e) => e.data);
+          }
+          getFileStream(e = 3e4) {
+            if (this.isEmpty) throw new Pn('Item object has not been set!');
+            const t = new En(this.auth, 'application/octet-stream', e),
+              n = this.collection.items[0],
+              s = jn.getLinkRelationUrls(n, 'file_resource')[0];
+            return t.getStream(s);
           }
           getParentFolder(e = 3e4) {
             const t = qn;
