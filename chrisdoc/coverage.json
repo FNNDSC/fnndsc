@@ -1,7 +1,7 @@
 {
-  "coverage": "96.16%",
-  "expectCount": 625,
-  "actualCount": 601,
+  "coverage": "96.17%",
+  "expectCount": 627,
+  "actualCount": 603,
   "files": {
     "src/admin.js": {
       "expectCount": 15,
@@ -118,8 +118,8 @@
       "undocumentLines": []
     },
     "src/request.js": {
-      "expectCount": 14,
-      "actualCount": 14,
+      "expectCount": 15,
+      "actualCount": 15,
       "undocumentLines": []
     },
     "src/resource.js": {
@@ -141,8 +141,8 @@
       "undocumentLines": []
     },
     "src/userfile.js": {
-      "expectCount": 18,
-      "actualCount": 18,
+      "expectCount": 19,
+      "actualCount": 19,
       "undocumentLines": []
     },
     "src/workflow.js": {

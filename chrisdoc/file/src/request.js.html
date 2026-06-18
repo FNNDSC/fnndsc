@@ -183,6 +183,26 @@ export default class Request {
   }
 
   /**
+   * Perform a GET request that returns a stream (Node) or blob (browser).
+   *
+   * @param {string} url - url of the resource
+   * @param {?Object} params - search parameters
+   *
+   * @return {Promise&lt;AxiosResponse&gt;} - JS Promise, resolves to an ``axios response`` object
+   */
+  getStream(url, params = null) {
+    const config = this._getConfig(url, &apos;get&apos;);
+
+    if (params) {
+      config.params = params;
+    }
+
+    config.responseType = typeof window === &apos;undefined&apos; ? &apos;stream&apos; : &apos;blob&apos;;
+
+    return Request._callAxios(config);
+  }
+
+  /**
    * Perform a POST request.
    *
    * @param {string} url - url of the resource

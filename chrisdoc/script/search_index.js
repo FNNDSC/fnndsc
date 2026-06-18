@@ -3588,6 +3588,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/request.js~request#getstream",
+    "class/src/request.js~Request.html#instance-method-getStream",
+    "src/request.js~Request#getStream",
+    "method"
+  ],
+  [
     "src/request.js~request#post",
     "class/src/request.js~Request.html#instance-method-post",
     "src/request.js~Request#post",
@@ -4035,6 +4041,12 @@ window.esdocSearchIndex = [
     "src/userfile.js~userfile#getfileblob",
     "class/src/userfile.js~UserFile.html#instance-method-getFileBlob",
     "src/userfile.js~UserFile#getFileBlob",
+    "method"
+  ],
+  [
+    "src/userfile.js~userfile#getfilestream",
+    "class/src/userfile.js~UserFile.html#instance-method-getFileStream",
+    "src/userfile.js~UserFile#getFileStream",
     "method"
   ],
   [
