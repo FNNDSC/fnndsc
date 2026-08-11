@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "license": "Apache 2.0",
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^7.5.0",
     "eslint-config-google": "^0.7.0",
     "eslint-plugin-html": "^2.0.0"
   },
